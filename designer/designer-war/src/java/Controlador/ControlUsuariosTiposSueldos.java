@@ -96,7 +96,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-     @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -117,7 +117,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
+
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listUsuariosTS = null;
@@ -166,7 +166,6 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         lovTiposSueldos = null;
         lovUsuarios = null;
     }
-
 
     public void activarAceptar() {
         aceptar = false;
@@ -480,6 +479,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
     public void agregarNuevaUsuario() {
         RequestContext context = RequestContext.getCurrentInstance();
         int pasa = 0;
+        int duplicados = 0;
         mensajeValidacion = " ";
         if (nuevoUsuarioTS.getUsuario() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
@@ -489,32 +489,44 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-        if (pasa == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
-                columnausuario.setFilterStyle("display: none; visibility: hidden;");
-                columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
-                columnats.setFilterStyle("display: none; visibility: hidden;");
-                altoTabla = "315";
-                RequestContext.getCurrentInstance().update("form:datosUsuarios");
-                bandera = 0;
-                listUsuariosTSFiltrar = null;
-                tipoLista = 0;
+
+        for (int i = 0; i < listUsuariosTS.size(); i++) {
+            if (nuevoUsuarioTS.getUsuario().equals(listUsuariosTS.get(i).getUsuario()) && nuevoUsuarioTS.getTiposueldo().equals(listUsuariosTS.get(i).getTiposueldo())) {
+                duplicados++;
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoUsuarioTS.setSecuencia(l);
-            listUsuariosTSCrear.add(nuevoUsuarioTS);
-            listUsuariosTS.add(nuevoUsuarioTS);
-            usuariotsSeleccionado = nuevoUsuarioTS;
-            contarRegistros();
-            nuevoUsuarioTS = new UsuariosTiposSueldos();
-            RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').hide()");
+        }
+        if (pasa == 0) {
+            if (duplicados == 0) {
+
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
+                    columnausuario.setFilterStyle("display: none; visibility: hidden;");
+                    columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
+                    columnats.setFilterStyle("display: none; visibility: hidden;");
+                    altoTabla = "315";
+                    RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                    bandera = 0;
+                    listUsuariosTSFiltrar = null;
+                    tipoLista = 0;
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevoUsuarioTS.setSecuencia(l);
+                listUsuariosTSCrear.add(nuevoUsuarioTS);
+                listUsuariosTS.add(nuevoUsuarioTS);
+                usuariotsSeleccionado = nuevoUsuarioTS;
+                contarRegistros();
+                nuevoUsuarioTS = new UsuariosTiposSueldos();
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').hide()");
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeRegistro");
+                RequestContext.getCurrentInstance().execute("PF('existeRegistro').show()");
+            }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuario').show()");
@@ -535,6 +547,7 @@ public class ControlUsuariosTiposSueldos implements Serializable {
 
     public void confirmarDuplicar() {
         int pasa = 0;
+        int duplicados = 0;
         k++;
         l = BigInteger.valueOf(k);
         duplicarUsuarioTS.setSecuencia(l);
@@ -547,29 +560,40 @@ public class ControlUsuariosTiposSueldos implements Serializable {
             pasa++;
         }
 
-        if (pasa == 0) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
-                columnausuario.setFilterStyle("display: none; visibility: hidden;");
-                columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
-                columnats.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosUsuarios");
-                altoTabla = "315";
-                bandera = 0;
-                listUsuariosTSFiltrar = null;
-                tipoLista = 0;
+        for (int i = 0; i < listUsuariosTS.size(); i++) {
+            if (duplicarUsuarioTS.getUsuario().equals(listUsuariosTS.get(i).getUsuario()) && duplicarUsuarioTS.getTiposueldo().equals(listUsuariosTS.get(i).getTiposueldo())) {
+                duplicados++;
             }
-            listUsuariosTS.add(duplicarUsuarioTS);
-            listUsuariosTSCrear.add(duplicarUsuarioTS);
-            usuariotsSeleccionado = duplicarUsuarioTS;
-            contarRegistros();
-            RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            duplicarUsuarioTS = new UsuariosTiposSueldos();
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').hide()");
+        }
+
+        if (pasa == 0) {
+            if (duplicados == 0) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
+                    columnausuario.setFilterStyle("display: none; visibility: hidden;");
+                    columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
+                    columnats.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                    altoTabla = "315";
+                    bandera = 0;
+                    listUsuariosTSFiltrar = null;
+                    tipoLista = 0;
+                }
+                listUsuariosTS.add(duplicarUsuarioTS);
+                listUsuariosTSCrear.add(duplicarUsuarioTS);
+                usuariotsSeleccionado = duplicarUsuarioTS;
+                contarRegistros();
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                duplicarUsuarioTS = new UsuariosTiposSueldos();
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').hide()");
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeRegistro");
+                RequestContext.getCurrentInstance().execute("PF('existeRegistro').show()");
+            }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuario').show()");

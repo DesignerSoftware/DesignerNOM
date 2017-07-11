@@ -19,7 +19,7 @@
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlUsuariosContratos.guardarCambiosUsuario()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
-                                
+
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlUsuariosContratos.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
@@ -134,6 +134,12 @@
                         <h:outputText value="#{controlUsuariosContratos.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
+                    
+                    <p:dialog id="existeRegistro" header="#{msg['error']}" widgetVar="existeRegistro"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="Existe un registro con el usuario y el contrato ingresados." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeRegistro').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                    </p:dialog>
 
                     <p:dialog id="NuevoRegistroUsuario" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroUsuario" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="380" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
@@ -204,13 +210,13 @@
                             <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosContratos.cancelarCambioUsuario()}"  process="@this"/>
                         </div>
                     </p:dialog>
-                    
-                    
-                     <p:dialog header="Contratos" widgetVar="contratosDialogo" draggable="true" resizable="false" closable="false" id="contratosDialogo"  
+
+
+                    <p:dialog header="Contratos" widgetVar="contratosDialogo" draggable="true" resizable="false" closable="false" id="contratosDialogo"  
                               showEffect="fade" hideEffect="fade" width="380" height="335" modal="true">
-                         <p:dataTable id="lovTS" style="width: 330px;" var="ts" value="#{controlUsuariosContratos.lovContratos}" rowKey="#{ts.secuencia}"
-                                      selection="#{controlUsuariosContratos.contratoSeleccionado}" selectionMode="single" widgetVar="lovTS" scrollable="true" scrollHeight="200" scrollWidth="345"
-                                      filteredValue="#{controlUsuariosContratos.lovContratosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                        <p:dataTable id="lovTS" style="width: 330px;" var="ts" value="#{controlUsuariosContratos.lovContratos}" rowKey="#{ts.secuencia}"
+                                     selection="#{controlUsuariosContratos.contratoSeleccionado}" selectionMode="single" widgetVar="lovTS" scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     filteredValue="#{controlUsuariosContratos.lovContratosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlUsuariosContratos.activarAceptar()}" update=":formularioDialogos:aceptarTS"/>
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosContratos.actualizarContratos()}" process="@this"/>
                             <p:ajax event="filter" listener="#{controlUsuariosContratos.contarRegistrosTS()}" process="@this"/>
@@ -239,7 +245,7 @@
                         </div>
                     </p:dialog>
 
-                    
+
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
@@ -306,10 +312,10 @@
                     <p:dialog id="editarContrato" header="Contrato" widgetVar="editarContrato" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlUsuariosContratos.editarUsuarioC.contrato.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                 </h:form>
-                
-                
+
+
                 <h:form id="formExportar">
                     <p:dataTable id="datosUsuariosExportar" var="exp" style="visibility: hidden; display: none;"                           
                                  value="#{controlUsuariosContratos.listUsuariosC}" widgetVar="datosUsuariosExportar"> 
@@ -325,7 +331,7 @@
 
                     </p:dataTable>
                 </h:form>
-                
+
             </ui:define>    
         </ui:composition>
     </h:body>

@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <h:form id="form">
+                <p:growl id="growl" showDetail="true"/> 
+                <p:panel  id="PanelTotal" header="Diagnóstico Categorías" styleClass="panelTotal">
+                  <f:loadBundle basename="Recursos.diagnosticoscategorias" var="msg"/>
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+<!--
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.guardarTodo()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlDiagnosticosCategorias.isActivarLov()}"  process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.limpiarExportar()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlDiagnosticosCategorias.tablaImprimir}" fileName="#{controlDiagnosticosCategorias.nombreArchivo}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoElegirTabla()}"   process="@this"/> 
+                                update=":formularioDialogos:nuevaTipoempresa"
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) ; border: none;"  actionListener="#{controlDiagnosticosCategorias.borrarCategoria()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>-->
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlDiagnosticosCategorias.revisarDialogoGuardar()}" disabled="#{controlDiagnosticosCategorias.isGuardado()}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"   />  
+                    
+                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Usuarios</strong></legend>
+                            <p:dataTable id="datosUsuarios" widgetVar="datosUsuarios" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
+                                         value="#{controlUsuariosInfoReportes.listaUsuarios}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTabla}" scrollRows="40"
+                                         scrollWidth="830"  filteredValue="#{controlUsuariosInfoReportes.listaUsuariosFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlUsuariosInfoReportes.usuarioSeleccionado}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlUsuariosInfoReportes.contarRegistrosUsuarios()}"/>
+
+                                <p:column headerText="Alias" sortBy="#{info.alias}" filterBy="#{info.alias}" filterMatchMode="contains" id="alias" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.alias}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info.alias}" maxlength="10" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;">
+                                                         <!--onselect="posicionUsuario([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}])" >--> 
+                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 0)}"/> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                                <p:column headerText="Perfil" sortBy="#{info.perfil.descripcion}" filterBy="#{info.perfil.descripcion}" filterMatchMode="contains" id="perfil" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.perfil.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info.perfil.descripcion}" maxlength="50" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                         <!--onselect="posicionUsuario([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" >--> 
+                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
+                                                         listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 1)}"/> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Nombre" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" filterMatchMode="contains" id="nombre" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.persona.nombreCompleto}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info.persona.nombreCompleto}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                         <!--onselect="posicionUsuario([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" > -->
+                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
+                                                         listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 2)}" /> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlUsuariosInfoReportes.infoRegistroUsuario}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                            <p:remoteCommand name="posicionUsuario" actionListener="#{controlUsuariosInfoReportes.posicionUsuario()}"/>
+                        </fieldset>
+                        
+                         <fieldset style="position: absolute; top: 210px; left: 10px; height: 260px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Permisos</strong></legend>
+                            <p:dataTable id="datosUsuariosIR" widgetVar="datosUsuariosIR" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
+                                         value="#{controlUsuariosInfoReportes.listaUsuariosIR}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTablaIR}" scrollRows="40"
+                                         scrollWidth="830"  filteredValue="#{controlUsuariosInfoReportes.listaUsuariosIRFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlUsuariosInfoReportes.usuarioIRSeleccionado}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlUsuariosInfoReportes.contarRegistrosUsuariosIR()}"/>
+
+                                <p:column headerText="Código" sortBy="#{info2.inforeporte.codigo}" filterBy="#{info2.inforeporte.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info2.inforeporte.codigo}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.codigo}" maxlength="10" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;">
+                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info2, 0)}"/> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column headerText="Reporte" sortBy="#{info2.inforeporte.nombre}" filterBy="#{info2.inforeporte.nombre}" filterMatchMode="contains" id="reporte" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info2.inforeporte.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.nombre}" maxlength="50" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
+                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info2, 1)}"/> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Módulo" sortBy="#{info2.inforeporte.modulo.nombre}" filterBy="#{info2.inforeporte.modulo.nombre}" filterMatchMode="contains" id="modulo" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info2.inforeporte.modulo.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.modulo.nombre}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
+                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info, 2)}" /> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                                    <p:column headerText="Tipo" sortBy="#{info2.inforeporte.tipo}" filterBy="#{info2.inforeporte.tipo}" filterMatchMode="contains" id="tipo" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info2.inforeporte.tipo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.tipo}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
+                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info, 3)}" /> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistroIR" value="#{msg['infoRegistros']} #{controlUsuariosInfoReportes.infoRegistroUsuarioIR}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
+                        </fieldset>
+                        
+                </p:panel>   
+                </h:form> 
+            </ui:define>     
+        </ui:composition>
+    </h:body>
+</html>
+

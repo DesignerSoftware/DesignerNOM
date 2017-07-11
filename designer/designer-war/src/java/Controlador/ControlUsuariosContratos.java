@@ -471,6 +471,7 @@ public class ControlUsuariosContratos implements Serializable {
     public void agregarNuevaUsuario() {
         RequestContext context = RequestContext.getCurrentInstance();
         int pasa = 0;
+        int duplicados = 0;
         mensajeValidacion = " ";
         if (nuevoUsuarioC.getUsuario() == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
@@ -480,32 +481,44 @@ public class ControlUsuariosContratos implements Serializable {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-        if (pasa == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
-                columnausuario.setFilterStyle("display: none; visibility: hidden;");
-                columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
-                columnats.setFilterStyle("display: none; visibility: hidden;");
-                altoTabla = "315";
-                RequestContext.getCurrentInstance().update("form:datosUsuarios");
-                bandera = 0;
-                listUsuariosCFiltrar = null;
-                tipoLista = 0;
+
+        for (int i = 0; i < listUsuariosC.size(); i++) {
+            if (nuevoUsuarioC.getUsuario().equals(listUsuariosC.get(i).getUsuario()) && nuevoUsuarioC.getContrato().equals(listUsuariosC.get(i).getContrato())) {
+                duplicados++;
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoUsuarioC.setSecuencia(l);
-            listUsuariosCCrear.add(nuevoUsuarioC);
-            listUsuariosC.add(nuevoUsuarioC);
-            usuarioContratoSeleccionado = nuevoUsuarioC;
-            contarRegistros();
-            nuevoUsuarioC = new UsuariosContratos();
-            RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').hide()");
+        }
+
+        if (pasa == 0) {
+            if (duplicados == 0) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
+                    columnausuario.setFilterStyle("display: none; visibility: hidden;");
+                    columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
+                    columnats.setFilterStyle("display: none; visibility: hidden;");
+                    altoTabla = "315";
+                    RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                    bandera = 0;
+                    listUsuariosCFiltrar = null;
+                    tipoLista = 0;
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevoUsuarioC.setSecuencia(l);
+                listUsuariosCCrear.add(nuevoUsuarioC);
+                listUsuariosC.add(nuevoUsuarioC);
+                usuarioContratoSeleccionado = nuevoUsuarioC;
+                contarRegistros();
+                nuevoUsuarioC = new UsuariosContratos();
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').hide()");
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeRegistro");
+                RequestContext.getCurrentInstance().execute("PF('existeRegistro').show()");
+            }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuario').show()");
@@ -526,6 +539,7 @@ public class ControlUsuariosContratos implements Serializable {
 
     public void confirmarDuplicar() {
         int pasa = 0;
+        int duplicados = 0;
         k++;
         l = BigInteger.valueOf(k);
         duplicarUsuarioC.setSecuencia(l);
@@ -538,29 +552,40 @@ public class ControlUsuariosContratos implements Serializable {
             pasa++;
         }
 
-        if (pasa == 0) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
-                columnausuario.setFilterStyle("display: none; visibility: hidden;");
-                columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
-                columnats.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosUsuarios");
-                altoTabla = "315";
-                bandera = 0;
-                listUsuariosCFiltrar = null;
-                tipoLista = 0;
+        for (int i = 0; i < listUsuariosC.size(); i++) {
+            if (duplicarUsuarioC.getUsuario().equals(listUsuariosC.get(i).getUsuario()) && duplicarUsuarioC.getContrato().equals(listUsuariosC.get(i).getContrato())) {
+                duplicados++;
             }
-            listUsuariosC.add(duplicarUsuarioC);
-            listUsuariosCCrear.add(duplicarUsuarioC);
-            usuarioContratoSeleccionado = duplicarUsuarioC;
-            contarRegistros();
-            RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            duplicarUsuarioC = new UsuariosContratos();
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').hide()");
+        }
+
+        if (pasa == 0) {
+            if (duplicados == 0) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    columnausuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnausuario");
+                    columnausuario.setFilterStyle("display: none; visibility: hidden;");
+                    columnats = (Column) c.getViewRoot().findComponent("form:datosUsuarios:columnats");
+                    columnats.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                    altoTabla = "315";
+                    bandera = 0;
+                    listUsuariosCFiltrar = null;
+                    tipoLista = 0;
+                }
+                listUsuariosC.add(duplicarUsuarioC);
+                listUsuariosCCrear.add(duplicarUsuarioC);
+                usuarioContratoSeleccionado = duplicarUsuarioC;
+                contarRegistros();
+                RequestContext.getCurrentInstance().update("form:datosUsuarios");
+                duplicarUsuarioC = new UsuariosContratos();
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').hide()");
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeRegistro");
+                RequestContext.getCurrentInstance().execute("PF('existeRegistro').show()");
+            }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuario').show()");
