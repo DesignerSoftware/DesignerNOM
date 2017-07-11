@@ -137,7 +137,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    BigDecimal valor = new BigDecimal(Integer.toString(0));
    private String infoRegistro, infoRegistroConceptos, infoRegistroPeriodicidad, infoRegistroFormulas, infoRegistroTerceros, infoRegistrosEmpleadosNovedades, infoRegistroEmpleadosLOV;
    //Controlar el cargue de muchos empleados
-   private boolean cargarTodos;
+//   private boolean cargarTodos;
    private int cantidadEmpleadosNov;
    private boolean activarLOV;
    private String paginaAnterior = "nominaf";
@@ -181,7 +181,7 @@ public class ControlNovedadesEmpleados implements Serializable {
       altoTabla = "125";
       altoTablaEmpl = "95";
       nuevaNovedad.setValortotal(valor);
-      cargarTodos = false;
+//      cargarTodos = false;
       cantidadEmpleadosNov = 0;
       CodigoConcepto = "0";
       activarLOV = true;
@@ -642,11 +642,11 @@ public class ControlNovedadesEmpleados implements Serializable {
       tipoActualizacion = tipoAct;
 
       if (cualLista == 0) {
-         if (cargarTodos) {
-            listaEmpleadosNovedad = null;
-            cargarTodosEmpleados();
-            cargarTodos = false;
-         }
+//         if (cargarTodos) {
+         listaEmpleadosNovedad = null;
+         cargarTodosEmpleados();
+//         cargarTodos = false;
+//         }
          contarRegistrosLovEmpleados();
          RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
          RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
@@ -1470,11 +1470,11 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public void mostrarTodos() {
       System.out.println("controlNovedadesEmpleados.mostrarTodos...");
-      if (cargarTodos) {
-         listaEmpleadosNovedad = null;
-         cargarTodosEmpleados();
-         cargarTodos = false;
-      }
+//      if (cargarTodos) {
+      listaEmpleadosNovedad = null;
+      cargarTodosEmpleados();
+//         cargarTodos = false;
+//      }
 
       listaEmpleadosNovedad.clear();
       if (lovEmpleados != null) {

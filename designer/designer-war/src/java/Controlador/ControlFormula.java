@@ -153,7 +153,11 @@ public class ControlFormula implements Serializable {
             obtenerFormulaSecuencia(sec);
          } else if (cargarFormula.equals("NO")) {
             formulaSeleccionada = (Formulas) mapParametros.get("formula");
-            listaFormulas.clear();
+            if (listaFormulas != null) {
+               listaFormulas.clear();
+            } else {
+               listaFormulas = new ArrayList<Formulas>();
+            }
             listaFormulas.add(formulaSeleccionada);
             llamadoPrevioPagina = 0;
             mostrarTodos = false;

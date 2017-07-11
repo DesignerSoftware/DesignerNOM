@@ -93,7 +93,8 @@
                                   filteredValue="#{controlTiposTrabajadores.filtrarTiposTrabajadores}" style="border: 1px; width: 810px;" emptyMessage="#{msg['vacio']}"
                                   editable="true" editMode="cell" selection="#{controlTiposTrabajadores.tipoTrabajadorSeleccionado}" selectionMode="single"
                                   rows="#{controlTiposTrabajadores.altoTablaReg}" paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
-                                  currentPageReportTemplate="{totalPages}" >
+                                  currentPageReportTemplate="{totalPages}">
+                        
                         <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.cambiarIndiceDefault()}"/>
                         <p:ajax event="filter" listener="#{controlTiposTrabajadores.eventoFiltrarTT()}" process="@this"/>
 
@@ -504,8 +505,8 @@
                      <p:commandButton style="position: relative; left: 650px; top: -13px;" class="cssBotonBuscar"
                                       actionListener="#{controlTiposTrabajadores.llamadoDialogoTT(0)}" id="buscarTT" value="" process="@this"/>
 
-                     <p:commandButton style="position: relative; left: 650px; top: -13px;" class="cssBotonMostrarTodos"
-                                      disabled="#{controlTiposTrabajadores.mostrartodos}" actionListener="#{controlTiposTrabajadores.mostrarTodos()}" id="mostrarTodos" value="" process="@this"/>
+                     <p:commandButton style="position: relative; left: 650px; top: -13px;" class="cssBotonMostrarTodos" disabled="#{controlTiposTrabajadores.mostrartodos}"
+                                      actionListener="#{controlTiposTrabajadores.mostrarTodos()}" id="mostrarTodos" value="" process="@this"/>
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 365px; left: 10px; height: 100px; width: 215px; border-radius: 10px; text-align: left; padding-top: 0px;">
