@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "USUARIOSINFOREPORTES")
 public class UsuariosInforeportes implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -20,10 +20,12 @@ public class UsuariosInforeportes implements Serializable {
     @Column(name = "SECUENCIA")
     private BigInteger secuencia;
     @JoinColumn(name = "USUARIO", referencedColumnName = "SECUENCIA")
+    @NotNull
     @ManyToOne(optional = false)
     private Usuarios usuario;
     @JoinColumn(name = "INFOREPORTE", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
+    @NotNull
     private Inforeportes inforeporte;
 
     public UsuariosInforeportes() {
@@ -81,5 +83,5 @@ public class UsuariosInforeportes implements Serializable {
     public String toString() {
         return "Entidades.Usuariosinforeportes[ secuencia=" + secuencia + " ]";
     }
-    
+
 }
