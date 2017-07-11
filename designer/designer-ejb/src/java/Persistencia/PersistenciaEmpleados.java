@@ -861,8 +861,8 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                  + "  WHERE E.PERSONA = P.SECUENCIA \n"
                  + "  AND EXISTS (SELECT 1 FROM VWACTUALESTIPOSTRABAJADORES VTT, TIPOSTRABAJADORES TT \n"
                  + "  WHERE VTT.TIPOTRABAJADOR = TT.SECUENCIA \n"
-                 + "  AND   VTT.EMPLEADO = E.SECUENCIA \n"
-                 + "  AND   TT.TIPO = 'ACTIVO') AND E.SECUENCIA = ? ";
+                 + "  AND VTT.EMPLEADO = E.SECUENCIA \n"
+                 + "  AND TT.TIPO = 'ACTIVO') AND E.SECUENCIA = ? ";
          Query query = em.createNativeQuery(sqlQuery, Empleados.class);
          query.setParameter(1, secuenciaEmpleado);
          List<Empleados> listaEmpleados;
