@@ -43,6 +43,11 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
    @Override
    public void crearTT(TiposTrabajadores tiposTrabajadores) {
       try {
+         if (tiposTrabajadores.getTipocotizante() != null) {
+            if (tiposTrabajadores.getTipocotizante().getSecuencia() == null) {
+               tiposTrabajadores.setTipocotizante(null);
+            }
+         }
          persistenciaTiposTrabajadores.crear(em, tiposTrabajadores);
       } catch (Exception e) {
          System.err.println("AdministrarTiposTrabajadores.crearTT ERROR: " + e);
@@ -52,6 +57,11 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
    @Override
    public void editarTT(TiposTrabajadores tiposTrabajadores) {
       try {
+         if (tiposTrabajadores.getTipocotizante() != null) {
+            if (tiposTrabajadores.getTipocotizante().getSecuencia() == null) {
+               tiposTrabajadores.setTipocotizante(null);
+            }
+         }
          persistenciaTiposTrabajadores.editar(em, tiposTrabajadores);
       } catch (Exception e) {
          System.err.println("AdministrarTiposTrabajadores.editarTT ERROR: " + e);
@@ -61,6 +71,11 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
    @Override
    public void borrarTT(TiposTrabajadores tiposTrabajadores) {
       try {
+         if (tiposTrabajadores.getTipocotizante() != null) {
+            if (tiposTrabajadores.getTipocotizante().getSecuencia() == null) {
+               tiposTrabajadores.setTipocotizante(null);
+            }
+         }
          persistenciaTiposTrabajadores.borrar(em, tiposTrabajadores);
       } catch (Exception e) {
          System.err.println("AdministrarTiposTrabajadores.borrarTT ERROR: " + e);

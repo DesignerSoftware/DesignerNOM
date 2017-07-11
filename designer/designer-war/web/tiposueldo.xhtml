@@ -81,7 +81,7 @@
                         <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                         actionListener="#{controlTipoSueldo.cancelarModificacionGeneral()}"   process="@this"/>  
+                                         actionListener="#{controlTipoSueldo.cancelarModificacionGeneral()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/> 
@@ -223,7 +223,7 @@
                                   editable="true" editMode="cell" selectionMode="single" liveScroll="true" scrollRows="12" selection="#{controlTipoSueldo.tsFormulaTablaSeleccionado}">
 
                         <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosFormulas()}"/>
-
+<!--
                         <p:column headerText="#{msg['formula']}" sortBy="#{infoTSF.formula.nombrelargo}" filterBy="#{infoTSF.formula.nombrelargo}" filterMatchMode="contains"  width="50" 
                                   id="tsFormulaFormula" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
@@ -304,7 +304,7 @@
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
-                        </p:column>
+                        </p:column>-->
                      </p:dataTable> 
                      <h:outputText id="infoRegistroTSFormulas" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTSFormulas}" style="position: relative; top: 0px; font-weight: bold;"/>
                   </fieldset> 
@@ -353,8 +353,8 @@
 
                      <p:dataTable id="datosTEFormula" var="infoTEF" rowKey="#{infoTEF.secuencia}" rowIndexVar="indiceTEF" style="width: 370px;" widgetVar="datosTEFormula"
                                   value="#{controlTipoSueldo.listaTEFormulasConceptos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTEFormulas}" scrollWidth="385"
-                                  filteredValue="#{controlTipoSueldo.filtrarListaTEFormulasConceptos}" emptyMessage="#{msg['vacio']}" selectionMode="single" liveScroll="true" scrollRows="6" selection="#{controlTipoSueldo.teFormulaTablaSeleccionado}"
-                                  editable="true" editMode="cell">
+                                  filteredValue="#{controlTipoSueldo.filtrarListaTEFormulasConceptos}" emptyMessage="#{msg['vacio']}" selectionMode="single" liveScroll="true" scrollRows="6"
+                                  selection="#{controlTipoSueldo.teFormulaTablaSeleccionado}" editable="true" editMode="cell">
 
                         <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosTipoEntidades()}"/>
 
@@ -376,27 +376,6 @@
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 120px;" id="fooTipoEntidad" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'tipoentidad')}" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('tipoentidad')}"  value=" "/>
-                           </f:facet>
-                        </p:column>
-
-                        <p:column headerText="#{msg['formula']}" sortBy="#{infoTEF.formula.nombrelargo}" filterBy="#{infoTEF.formula.nombrelargo}" filterMatchMode="contains"  
-                                  id="teFormulaFormula"  width="100" filterStyle="display: none; visibility: hidden;">  
-                           <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{infoTEF.formula.nombrelargo}">
-                                 </h:outputText>
-                              </f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoTEF.formula.nombrelargo}" onclick="select();"  id="editarFormulaTEFormula" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlTipoSueldo.modificarTEFormula(infoTEF, 'FORMULATE', infoTEF.formula.nombrelargo)}" process="@this" update="editarFormulaTEFormula"/>
-                                    <p:ajax event="select" listener="#{controlTipoSueldo.cambiarIndiceTEFormula(infoTEF,1)}" process="@this"
-                                            onstart="PF('datosTEFormula').unselectAllRows();PF('datosTEFormula').selectRow(#{indiceTEF});"/>
-                                    <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,0)}" process="@this" update="editarFormulaTEFormula"/>
-                                 </p:inputText>
-                              </f:facet>   
-                           </p:cellEditor>
-                           <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooTEFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
                            </f:facet>
                         </p:column>
 
@@ -532,33 +511,6 @@
                <p:dialog id="errorNuevoRegistroTEFormula" header="#{msg['error']}" widgetVar="errorNuevoRegistroTEFormula"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorNuevoRegistroTEFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
-                  <p:dataTable id="lovFormula" style="width: 400px;" var="formula" value="#{controlTipoSueldo.lovFormulas}" rowKey="#{formula.secuencia}"
-                               selection="#{controlTipoSueldo.formulaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
-                               filteredValue="#{controlTipoSueldo.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
-                     <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarF"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarFormula()}"  process="@this"/>
-                     <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulas()}"/>
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarF']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
-                     </f:facet>
-                     <p:column filterBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
-                        <f:facet name="header">
-                           <h:outputText value="#{msg['nombreL']}"/>
-                        </f:facet>
-                        <h:outputText value="#{formula.nombrelargo}"/>
-                     </p:column>
-                  </p:dataTable>
-
-                  <div class="cssBotonesLOV"> 
-                     <h:outputText id="infoRegistroFormula" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroFormula}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"  actionListener="#{controlTipoSueldo.actualizarFormula()}"  process="@this" icon="ui-icon-check"/>
-                     <p:commandButton id="atrasF" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormula()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/> 
-                  </div>
                </p:dialog>
 
                <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoDialogo" draggable="true" resizable="false" closable="false" id="ConceptoDialogo"  
@@ -847,20 +799,15 @@
                   <p:panel id="nuevoTSFormulaConcepto" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNTSF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,1)}" process="@this" update="nuevoTSFormulaFormula"/>
-                        <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('FORMULA', controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo, 1)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['formula']}" for="nuevoTSFormulaFormula"/>
-                     <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos"  id="btnNuevoTSFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,1)}"/>   
+                     <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos"  id="btnNuevoTSFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(0,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTSF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTSFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,1)}" process="@this" update="nuevoTSFormulaCConcepto"/>
+                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(1,1)}" process="@this" update="nuevoTSFormulaCConcepto"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('CONCEPTO', controlTipoSueldo.nuevoTSFormulaConcepto.concepto.descripcion, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['concepto']}" for="nuevoTSFormulaCConcepto"/>
-                     <p:commandButton style="left: 308px; top: 103px;" class="cssBotonLovDialogos" id="btnNuevoTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,1)}"/>   
+                     <p:commandButton style="left: 308px; top: 103px;" class="cssBotonLovDialogos" id="btnNuevoTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(1,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTSF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
@@ -883,21 +830,13 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTSF']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarTSFormulaConcepto" style="border: none;">
 
-                     <strong><h:outputText value="*#{msg['formulaNTSF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,2)}" process="@this" update="duplicarTSFormulaFormula"/>
-                        <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('FORMULA', controlTipoSueldo.duplicarTSFormulaConcepto.formula.nombrelargo, 2)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['formula']}" for="duplicarTSFormulaFormula"/>
-                     <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicarTSFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,2)}"/>   
-
                      <strong><h:outputText value="*#{msg['conceptoNTSF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarTSFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,2)}" process="@this" update="duplicarTSFormulaConcepto"/>
+                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(1,2)}" process="@this" update="duplicarTSFormulaConcepto"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('CONCEPTO', controlTipoSueldo.duplicarTSFormulaConcepto.concepto.descripcion, 2)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['concepto']}" for="duplicarTSFormulaCConcepto"/>
-                     <p:commandButton style="position: absolute; left: 334px; top: 103px;" class="cssBotonLovDialogos" id="btnDuplicarTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,1,2)}"/>   
+                     <p:commandButton style="position: absolute; left: 334px; top: 103px;" class="cssBotonLovDialogos" id="btnDuplicarTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(1,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTSF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
@@ -966,14 +905,6 @@
                      <p:watermark value="#{msg['tipoEntidad']}" for="nuevoTEFormulaTipoEntidad"/>
                      <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevoTEFormulaTipoEntidad" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,1)}"/>   
 
-                     <strong><h:outputText value="*#{msg['formulaNTEF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,1)}" process="@this" update="nuevoTEFormulaFormula"/>
-                        <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('FORMULATE', controlTipoSueldo.nuevoTEFormulaConcepto.formula.nombrelargo, 1)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['formula']}" for="nuevoTEFormulaFormula"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 100px;" class="cssBotonLovDialogos" id="btnNuevoTEFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,1)}"/>   
-
                      <strong><h:outputText value="*#{msg['conceptoNTEF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTEFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,1)}" process="@this" update="nuevoTEFormulaCConcepto"/>
@@ -1004,14 +935,6 @@
                      </p:inputText>
                      <p:watermark value="#{msg['tipoEntidad']}" for="duplicarTEFormulaTipoEntidad"/>
                      <p:commandButton style="position: absolute; left: 331px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicadoTEFormulaTipoEntidad" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,0,2)}"/>   
-
-                     <strong><h:outputText value="*#{msg['formulaNTEF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarTEFormulaFormula" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
-                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,2)}" process="@this" update="duplicarTEFormulaFormula"/>
-                        <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTEFormula('FORMULATE', controlTipoSueldo.duplicarTEFormulaConcepto.formula.nombrelargo, 2)}"/>
-                     </p:inputText>
-                     <p:watermark value="#{msg['formula']}" for="duplicarTEFormulaFormula"/>
-                     <p:commandButton style="position: absolute; left: 331px; top: 100px;" class="cssBotonLovDialogos" id="btnDuplicadoTEFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,1,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTEF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarTEFormulaCConcepto" onclick="select();" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
@@ -1045,10 +968,6 @@
 
                <!-- editar celdas tsformula concepto -->
 
-               <p:dialog id="editarFormulaTSFormulaD" header="#{msg['editarFormulaTSFormulaD']}" widgetVar="editarFormulaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
                <p:dialog id="editarConceptoTSFormulaD" header="#{msg['editarConceptoTSFormulaD']}" widgetVar="editarConceptoTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
@@ -1067,10 +986,6 @@
 
                <p:dialog id="editarFormulaTETipoEntidadD" header="#{msg['editarFormulaTETipoEntidadD']}" widgetVar="editarFormulaTETipoEntidadD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.tipoentidad.nombre}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarFormulaTEFormulaD" header="#{msg['editarFormulaTEFormulaD']}" widgetVar="editarFormulaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarConceptoTEFormulaD" header="#{msg['editarConceptoTEFormulaD']}" widgetVar="editarConceptoTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -1121,12 +1036,6 @@
                <p:dataTable id="datosTSFormulaExportar" var="expTSF" style="visibility: hidden; display: none;"                           
                             value="#{controlTipoSueldo.listaTSFormulasConceptos}"> 
 
-                  <p:column headerText="#{msg['formulaX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/> </f:facet> 
-                     <h:outputText value="#{expTSF.formula.nombrelargo}">
-                     </h:outputText>
-                  </p:column>  
-
                   <p:column headerText="#{msg['conceptoX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
                      <h:outputText value="#{expTSF.concepto.descripcion}">
@@ -1168,12 +1077,6 @@
                   <p:column headerText="#{msg['tipoEntidadXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['tipoEntidadX']}"/> </f:facet> 
                      <h:outputText value="#{expTEF.tipoentidad.nombre}">
-                     </h:outputText>
-                  </p:column>  
-
-                  <p:column headerText="#{msg['formulaX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/> </f:facet> 
-                     <h:outputText value="#{expTEF.formula.nombrelargo}">
                      </h:outputText>
                   </p:column>  
 

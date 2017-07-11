@@ -619,8 +619,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> consultarEmpleadosReingreso(EntityManager em
-   ) {
+   public List<Empleados> consultarEmpleadosReingreso(EntityManager em) {
       try {
          em.clear();
          String sql = "select e.* ,p.* from empleados e,personas p where e.persona = p.secuencia and exists (select 'x' from vigenciastipostrabajadores vt,tipostrabajadores tt where vt.empleado = e.secuencia and vt.tipotrabajador = tt.secuencia and tt.tipo = 'RETIRADO' AND   VT.FECHAVIGENCIA = (SELECT MAX(FECHAVIGENCIA) FROM VIGENCIASTIPOSTRABAJADORES VTTI WHERE FECHAVIGENCIA<= (SELECT  FECHAHASTACAUSADO  FROM VWACTUALESFECHAS) AND VTTI.EMPLEADO = VT.EMPLEADO ))";
@@ -634,8 +633,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public Date verificarFecha(EntityManager em, BigInteger secuenciaEmpleado
-   ) {
+   public Date verificarFecha(EntityManager em, BigInteger secuenciaEmpleado) {
       Date fechaRetiro;
       try {
          em.clear();
@@ -655,8 +653,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public void cambiarFechaIngreso(EntityManager em, BigInteger secuenciaEmpleado, Date fechaAntigua, Date fechaNueva
-   ) {
+   public void cambiarFechaIngreso(EntityManager em, BigInteger secuenciaEmpleado, Date fechaAntigua, Date fechaNueva) {
       EntityTransaction tx = em.getTransaction();
       try {
          em.clear();
@@ -677,8 +674,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> consultarEmpleadosCuadrillas(EntityManager em
-   ) {
+   public List<Empleados> consultarEmpleadosCuadrillas(EntityManager em) {
       try {
          em.clear();
          String sql = "SELECT E.* \n"
@@ -702,8 +698,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> buscarEmpleadosATHoraExtra(EntityManager em
-   ) {
+   public List<Empleados> buscarEmpleadosATHoraExtra(EntityManager em) {
       try {
          em.clear();
          String sql = "SELECT *\n"
@@ -735,8 +730,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> consultarEmpleadosParaAprobarHorasExtras(EntityManager em
-   ) {
+   public List<Empleados> consultarEmpleadosParaAprobarHorasExtras(EntityManager em) {
       try {
          em.clear();
          String sql = "SELECT E.*\n"
@@ -756,8 +750,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> empleadosCesantias(EntityManager em
-   ) {
+   public List<Empleados> empleadosCesantias(EntityManager em) {
       try {
          em.clear();
          String sqlQuery = "select v.SECUENCIA,v.PERSONA,v.CODIGOEMPLEADO \n"
@@ -775,8 +768,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> consultarCesantiasnoLiquidadas(EntityManager em
-   ) {
+   public List<Empleados> consultarCesantiasnoLiquidadas(EntityManager em) {
       try {
          em.clear();
          String qr = " select v.SECUENCIA,v.PERSONA,v.CODIGOEMPLEADO from empleados v where \n"
@@ -797,8 +789,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<NovedadesSistema> novedadescesantiasnoliquidadas(EntityManager em, BigInteger secuenciaEmpleado
-   ) {
+   public List<NovedadesSistema> novedadescesantiasnoliquidadas(EntityManager em, BigInteger secuenciaEmpleado) {
 
       try {
          em.clear();
@@ -821,8 +812,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> empleadosAusentismos(EntityManager em
-   ) {
+   public List<Empleados> empleadosAusentismos(EntityManager em) {
       System.out.println("entró a  empleadosAusentismos");
       try {
          System.out.println("entro al try");
@@ -844,8 +834,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> empleadosDefinitiva(EntityManager em
-   ) {
+   public List<Empleados> empleadosDefinitiva(EntityManager em) {
       try {
          em.clear();
          String sql = "SELECT * FROM EMPLEADOS E \n"
@@ -864,8 +853,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    }
 
    @Override
-   public List<Empleados> empleadosReemplazosHV(EntityManager em, BigInteger secuenciaEmpleado
-   ) {
+   public List<Empleados> empleadosReemplazosHV(EntityManager em, BigInteger secuenciaEmpleado) {
       try {
          em.clear();
          String sqlQuery = "SELECT E.* \n"

@@ -135,8 +135,8 @@ public class ControlTiposTrabajadores implements Serializable {
       tipoLista = 0;
       infoRegistroTT = "";
       infoRegistroTC = "";
-      altoTabla = "190";
-      altoTablaVD = "50";
+      altoTabla = "187";
+      altoTablaVD = "45";
       //modificar
       listTTModificar = new ArrayList<TiposTrabajadores>();
       //crear
@@ -474,7 +474,6 @@ public class ControlTiposTrabajadores implements Serializable {
    public void autocompletarNuevoyDuplicado(String column, String valor, int tipoNuevo) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (column.equalsIgnoreCase("TC")) {
          if (tipoNuevo == 1) {
             nuevoTipoT.setTipocotizante(tipoCotizanteBack);
@@ -572,43 +571,43 @@ public class ControlTiposTrabajadores implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "170";
-         altoTablaVD = "26";
+         altoTabla = "167";
+         altoTablaVD = "25";
          tTCodigo = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTCodigo");
-         tTCodigo.setFilterStyle("width: 85% !important");
+         tTCodigo.setFilterStyle("width: 75% !important");
          tTNombre = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTNombre");
          tTNombre.setFilterStyle("width: 85% !important");
          ttFactorD = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:ttFactorD");
-         ttFactorD.setFilterStyle("width: 85% !important");
+         ttFactorD.setFilterStyle("width: 75% !important");
          ttTipoCot = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:ttTipoCot");
          ttTipoCot.setFilterStyle("width: 85% !important");
          ttDiasVacNoOrd = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:ttDiasVacNoOrd");
-         ttDiasVacNoOrd.setFilterStyle("width: 85% !important");
+         ttDiasVacNoOrd.setFilterStyle("width: 75% !important");
          ttDiasVac = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:ttDiasVac");
-         ttDiasVac.setFilterStyle("width: 85% !important");
+         ttDiasVac.setFilterStyle("width: 75% !important");
          tTModalidad = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTModalidad");
          tTModalidad.setFilterStyle("width: 85% !important");
          tTTipo = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTTipo");
          tTTipo.setFilterStyle("width: 85% !important");
          tTNivel = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTNivel");
-         tTNivel.setFilterStyle("width: 85% !important");
+         tTNivel.setFilterStyle("width: 75% !important");
          tTBase = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTBase");
          tTBase.setFilterStyle("width: 85% !important");
          tTPor = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTPor");
-         tTPor.setFilterStyle("width: 85% !important");
+         tTPor.setFilterStyle("width: 75% !important");
          tTMPS = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTMPS");
-         tTMPS.setFilterStyle("width: 85% !important");
+         tTMPS.setFilterStyle("width: 75% !important");
          tTPatronPS = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTPatronPS");
-         tTPatronPS.setFilterStyle("width: 85% !important");
+         tTPatronPS.setFilterStyle("width: 75% !important");
          tTPatronPP = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTPatronPP");
-         tTPatronPP.setFilterStyle("width: 85% !important");
+         tTPatronPP.setFilterStyle("width: 75% !important");
          tTPatronPR = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTPatronPR");
-         tTPatronPR.setFilterStyle("width: 85% !important");
+         tTPatronPR.setFilterStyle("width: 75% !important");
          tTCesCC = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTCesCC");
-         tTCesCC.setFilterStyle("width: 85% !important");
+         tTCesCC.setFilterStyle("width: 75% !important");
          //Vigencias Dias TT
          VDTdias = (Column) c.getViewRoot().findComponent("form:datosVigenciasDTT:VDTdias");
-         VDTdias.setFilterStyle("width: 85% !important");
+         VDTdias.setFilterStyle("width: 80% !important");
          VDTFecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasDTT:VDTFecha");
          VDTFecha.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosTTrabajadores");
@@ -616,8 +615,8 @@ public class ControlTiposTrabajadores implements Serializable {
          bandera = 1;
       } else if (bandera == 1) {
          System.out.println("Desactivar");
-         altoTabla = "190";
-         altoTablaVD = "50";
+         altoTabla = "187";
+         altoTablaVD = "45";
          tTCodigo = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTCodigo");
          tTCodigo.setFilterStyle("display: none; visibility: hidden;");
          tTNombre = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTNombre");
@@ -665,8 +664,8 @@ public class ControlTiposTrabajadores implements Serializable {
 
    public void restaurarTablaTT() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "190";
-      altoTablaVD = "50";
+      altoTabla = "187";
+      altoTablaVD = "45";
       tTCodigo = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTCodigo");
       tTCodigo.setFilterStyle("display: none; visibility: hidden;");
       tTNombre = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTNombre");
@@ -1768,6 +1767,15 @@ public class ControlTiposTrabajadores implements Serializable {
    public List<TiposTrabajadores> getListaTiposTrabajadores() {
       if (listaTiposTrabajadores == null) {
          listaTiposTrabajadores = administrarTiposTrabajadores.buscarTiposTrabajadoresTT();
+         if (listaTiposTrabajadores != null) {
+            if (!listaTiposTrabajadores.isEmpty()) {
+               for (TiposTrabajadores recTipoT : listaTiposTrabajadores) {
+                  if (recTipoT.getTipocotizante() == null) {
+                     recTipoT.setTipocotizante(new TiposCotizantes());
+                  }
+               }
+            }
+         }
       }
       return listaTiposTrabajadores;
    }
@@ -1992,11 +2000,11 @@ public class ControlTiposTrabajadores implements Serializable {
    }
 
    public String getAltoTablaReg() {
-      if (altoTabla == "170") {
-         altoTablaReg = "" + 8;
+      if (altoTabla == "167") {
+         altoTablaReg = "" + 7;
       } else {
          bandera = 0;
-         altoTablaReg = "" + 9;
+         altoTablaReg = "" + 8;
       }
       return altoTablaReg;
    }

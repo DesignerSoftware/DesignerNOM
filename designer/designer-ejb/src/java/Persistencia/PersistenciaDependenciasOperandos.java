@@ -78,8 +78,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
    }
 
    @Override
-   public List<DependenciasOperandos> dependenciasOperandos(EntityManager em, BigInteger secuenciaOperando
-   ) {
+   public List<DependenciasOperandos> dependenciasOperandos(EntityManager em, BigInteger secuenciaOperando) {
       try {
          em.clear();
          Query query = em.createQuery("SELECT tf FROM DependenciasOperandos tf, Operandos op WHERE tf.operando.secuencia = :secuenciaOperando ORDER BY tf.codigo DESC");
@@ -95,8 +94,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
    }
 
    @Override
-   public String nombreOperandos(EntityManager em, int codigo
-   ) {
+   public String nombreOperandos(EntityManager em, int codigo) {
       try {
          em.clear();
          Query query = em.createQuery("SELECT op.nombre FROM Operandos op WHERE op.codigo = :codigo");
