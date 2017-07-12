@@ -93,7 +93,7 @@
 
                      <p:dataTable id="datosOrganigramas" widgetVar="datosOrganigramas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 805px;position: relative"                           
                                   value="#{controlEstructuraPlanta.listaOrganigramas}" scrollable="true" scrollHeight="#{controlEstructuraPlanta.altoTablaOrganigrama}"  scrollWidth="820"
-                                  filteredValue="#{controlEstructuraPlanta.filtrarListaOrganigramas}"  emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  filteredValue="#{controlEstructuraPlanta.filtrarListaOrganigramas}" emptyMessage="#{msg['vacio']}" selectionMode="single"
                                   editable="true" editMode="cell" liveScroll="true" scrollRows="3" selection="#{controlEstructuraPlanta.organigramaSeleccionado}">
 
                         <p:ajax event="filter" listener="#{controlEstructuraPlanta.eventoFiltrarO()}"/>
@@ -269,7 +269,7 @@
                               </f:facet>  
                               <f:facet name="input"> 
                                  <p:inputText autocomplete="off" value="#{infoE.cantidadCargosControlar}" onclick="select();" readonly="true" onselect="posicionEstructura([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" 
-                                               ondblclick="dispararDialogo([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" id="editarCantidadControlarEstructura" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
+                                              ondblclick="dispararDialogo([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" id="editarCantidadControlarEstructura" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                  </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
@@ -291,8 +291,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoE.cantidadCargosEmplActivos}" onclick="select();" readonly="true"
-                                               onselect="posicionEstructura([{name: 'n', value: '3'}, {name: 't', value: '#{indiceE}'}]);" 
-                                               id="editarCantidadActivosEstructura" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
+                                              onselect="posicionEstructura([{name: 'n', value: '3'}, {name: 't', value: '#{indiceE}'}]);" 
+                                              id="editarCantidadActivosEstructura" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
                                  </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
@@ -600,28 +600,28 @@
 
                      <strong><h:outputText value="*#{msg['codifoNE']}" style="position: absolute; top: 65px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.codigo}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEstructuraCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="nuevoEstructuraCodigo"/>
 
                      <strong><h:outputText value="*#{msg['estructuraNE']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.nombre}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEstructuraEstructura"/>
                      </p:inputText>
                      <p:watermark value="#{msg['estructura']}" for="nuevoEstructuraEstructura"/>
 
                      <strong><h:outputText value="#{msg['cantidadCargosControlar']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosControlar}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEstructuraCantidadCargosControlar"/>
                      </p:inputText>
                      <p:watermark value="#{msg['infoCantidadCargosControlar']}" for="nuevoEstructuraCantidadCargosControlar"/>
 
                      <strong><h:outputText value="#{msg['cantidadCargosControlarActivos']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosEmplActivos}"
-                                   style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="nuevoEstructuraCantidadCargosActivos"/>
                      </p:inputText>
                      <p:watermark value="#{msg['infoCantidadCargosActivos']}" for="nuevoEstructuraCantidadCargosActivos"/>
@@ -660,35 +660,35 @@
 
                      <strong><h:outputText value="*#{msg['codifoNE']}" style="position: absolute; top: 65px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.codigo}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 60px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEstructuraCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="duplicarEstructuraCodigo"/>
 
                      <strong><h:outputText value="*#{msg['estructuraNE']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.nombre}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 90px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEstructuraEstructura"/>
                      </p:inputText>
                      <p:watermark value="#{msg['estructura']}" for="duplicarEstructuraEstructura"/>
 
                      <strong><h:outputText value="#{msg['cantidadCargosControlar']}" style="position: absolute; top: 125px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosControlar}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEstructuraCantidadCargosControlar"/>
                      </p:inputText>
                      <p:watermark value="#{msg['infoCantidadCargosControlar']}" for="duplicarEstructuraCantidadCargosControlar"/>
 
                      <strong><h:outputText value="#{msg['cantidadCargosControlarActivos']}" style="position: absolute; top: 155px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosEmplActivos}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="duplicarEstructuraCantidadCargosActivos"/>
                      </p:inputText>
                      <p:watermark value="#{msg['infoCantidadCargosActivos']}" for="duplicarEstructuraCantidadCargosActivos"/>
 
                      <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 185px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.centrocosto.nombre}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(0,2)}" process="@this" update="duplicarEstructuraCentroCosto"/>
                         <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(2, 'CENTROCOSTO')}"/>
                         <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicadoEstructura('CENTROCOSTO', controlEstructuraPlanta.duplicarEstructura.centrocosto.nombre, 2)}"/>
@@ -699,7 +699,7 @@
 
                      <strong><h:outputText value="#{msg['estructuraPadreNE']}" style="position: absolute; top: 215px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.estructurapadre.nombre}" 
-                                   style="width: 122px; position: absolute; left: 200px; top: 210px; text-transform: uppercase;">
+                                  style="width: 122px; position: absolute; left: 200px; top: 210px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(1,2)}" process="@this" update="duplicarEstructuraCentroCosto"/>
                         <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(2, 'PADRE')}"/>
                         <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicadoEstructura('PADRE', controlEstructuraPlanta.duplicarEstructura.estructurapadre.nombre, 2)}"/>

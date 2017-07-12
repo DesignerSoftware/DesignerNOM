@@ -129,8 +129,8 @@ public class ControlTipoSueldo implements Serializable {
       paginaAnterior = "nominaf";
       altoTablaTiposSueldos = "70";
       altoTablaTSFormulas = "210";
-      altoTablaTSGrupos = "65";
-      altoTablaTEFormulas = "65";
+      altoTablaTSGrupos = "55";
+      altoTablaTEFormulas = "80";
       permitirIndexTSFormulas = true;
       permitirIndexTEFormulas = true;
       permitirIndexTSGrupos = true;
@@ -826,6 +826,7 @@ public class ControlTipoSueldo implements Serializable {
       System.out.println("ControlTipoSueldo.cargarDatos()2");
       listaTSFormulasConceptos = administrarTipoSueldo.listaTSFormulasConceptosParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
       System.out.println("ControlTipoSueldo.cargarDatos()3");
+      teFormulaTablaSeleccionado = null;
       if (listaTSGruposTiposEntidades != null) {
          if (!listaTSGruposTiposEntidades.isEmpty()) {
             listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(listaTSGruposTiposEntidades.get(0).getSecuencia());
@@ -1067,11 +1068,11 @@ public class ControlTipoSueldo implements Serializable {
       tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
       tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
 
-      altoTablaTSGrupos = "65";
+      altoTablaTSGrupos = "55";
       tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
       tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
 
-      altoTablaTEFormulas = "65";
+      altoTablaTEFormulas = "80";
       teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
       teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
       teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
@@ -1808,11 +1809,11 @@ public class ControlTipoSueldo implements Serializable {
          tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
          tsFormulaOrigen.setFilterStyle("width: 85% !important;");
 
-         altoTablaTSGrupos = "45";
+         altoTablaTSGrupos = "35";
          tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
          tsGrupoGrupo.setFilterStyle("width: 85% !important;");
 
-         altoTablaTEFormulas = "45";
+         altoTablaTEFormulas = "60";
          teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
          teFormulaConcepto.setFilterStyle("width: 85% !important;");
          teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");

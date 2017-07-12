@@ -447,7 +447,7 @@ public class ControlBarra implements Serializable {
                   liquifinalizada = true;
                   Date horaFinal = new Date();
                   horaFinalLiquidacion = formato.format(horaFinal);
-                  mensajeBarra = "Liquidacion Finalizada (" + barra + "%)";
+                  mensajeBarra = "Liquidacion Finalizada (al " + barra + "%)";
                   mensajeEstado = "Liquidacion terminada parcialmente.";
                   imagenEstado = "hand3.png";
                   botonCancelar = true;
@@ -463,8 +463,11 @@ public class ControlBarra implements Serializable {
                   RequestContext.getCurrentInstance().update("form:barra");
                   RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
                   RequestContext.getCurrentInstance().update("form:growl");
+                  liquidacionCompleta();
                } else if (barra >= 100) {
                   barra = 100;
+                  mensajeEstado = "Liquidación terminada con exito.";
+                  mensajeBarra = "Liquidación Completa (" + barra + "%)";
                   System.out.println("Esta en teoría completa...Barra: " + barra);
                   liquidacionCompleta();
                }
@@ -476,9 +479,7 @@ public class ControlBarra implements Serializable {
    }
 
    public void liquidacionCompleta() {
-      System.err.println("Liquidación Completada");
-      mensajeBarra = "Liquidación Completa (" + barra + "%)";
-      mensajeEstado = "Liquidación terminada con exito.";
+      System.out.println("Liquidación Completada");
       imagenEstado = "hand3.png";
       empezar = false;
       liquifinalizada = true;
@@ -505,7 +506,7 @@ public class ControlBarra implements Serializable {
       context.update("form:estadoLiquidacion");
 
       System.out.println("2");
-      if (totalEmpleadosLiquidados == 1) {
+      if (totalEmpleadosLiquidados == 1 || totalEmpleadosLiquidados == 0) {
          RequestContext.getCurrentInstance().execute("location.reload(true)");
       }
       System.out.println("3");

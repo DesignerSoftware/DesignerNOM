@@ -98,9 +98,9 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
       try {
          System.out.println("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() secTSGrupo: " + secTSGrupo);
          em.clear();
-         Query query = em.createNativeQuery("SELECT t FROM TEFormulasConceptos t WHERE t.tsgrupotipoentidad.secuencia =:secTSGrupo");
-         query.setParameter("secTSGrupo", secTSGrupo);
-         List<TEFormulasConceptos> tEFormulasConceptos = (List<TEFormulasConceptos>) query.getResultList();
+         Query query = em.createNativeQuery("SELECT t.* FROM TEFormulasConceptos t, EMPRESAS E  WHERE t.tsgrupotipoentidad = ? AND E.SECUENCIA = t.EMPRESA", TEFormulasConceptos.class);
+         query.setParameter(1, secTSGrupo);
+         List<TEFormulasConceptos> tEFormulasConceptos = query.getResultList();
          if (tEFormulasConceptos != null) {
             System.out.println("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : " + tEFormulasConceptos.size());
          } else {

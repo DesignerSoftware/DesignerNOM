@@ -66,6 +66,7 @@
                                          actionListener="#{controlReingresarEmpleado.cancelarModificaciones()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
+                        <p:separator style="position: relative; top: -9px;"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
                                          actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -78,16 +79,18 @@
 
                      <h:outputText value="#{msg['nombredelempleado']}" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
                      <p:inputText autocomplete="off" id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}"
-                                  style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
+                                  style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
                         <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}"/>
                         <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
+                        <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 72px; right: 296px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                      </p:inputText>
 
                      <h:outputText value="#{msg['estructura']}" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
                      <p:inputText autocomplete="off" id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}"
-                                  style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
+                                  style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
                         <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.nombre)}"/>
                         <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
+                        <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 134px; right: 296px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
                      </p:inputText>
 
                      <h:outputText  value="#{msg['fechareingreso']}" style="display: block; margin-top: 20px; left: 0px; font-weight: bold;"/>

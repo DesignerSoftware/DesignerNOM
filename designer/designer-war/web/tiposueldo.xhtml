@@ -81,7 +81,7 @@
                         <p:separator style="position: relative; top: -9px;"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                         actionListener="#{controlTipoSueldo.cancelarModificacionGeneral()}" process="@this"/>  
+                                         actionListener="#{controlTipoSueldo.cancelarModificacionGeneral()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/> 
@@ -217,14 +217,14 @@
                   <fieldset style="position: absolute; left: 10px; top: 215px; width: 415px; height: 272px; border-radius: 10px; padding-top: 0px;">
                      <legend style="color: blue;"><strong>#{msg['tsFormula']}</strong></legend>
 
-                     <p:dataTable id="datosTSFormula" var="infoTSF" rowKey="#{infoTSF.secuencia}" rowIndexVar="indiceTSF" style="width: 410px;"
+                     <p:dataTable id="datosTSFormula" var="infoTSF" rowKey="#{infoTSF.secuencia}" rowIndexVar="indiceTSF" style="width: 700px; position: absolute;"
                                   value="#{controlTipoSueldo.listaTSFormulasConceptos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTSFormulas}" scrollWidth="410"
                                   filteredValue="#{controlTipoSueldo.filtrarListaTSFormulasConceptos}" emptyMessage="#{msg['vacio']}" widgetVar="datosTSFormula"
                                   editable="true" editMode="cell" selectionMode="single" liveScroll="true" scrollRows="12" selection="#{controlTipoSueldo.tsFormulaTablaSeleccionado}">
 
                         <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosFormulas()}"/>
 
-                        <p:column headerText="#{msg['formula']}" sortBy="#{infoTSF.formula.nombrelargo}" filterBy="#{infoTSF.formula.nombrelargo}" filterMatchMode="contains"  width="50" 
+                        <p:column headerText="#{msg['formula']}" sortBy="#{infoTSF.formula.nombrelargo}" filterBy="#{infoTSF.formula.nombrelargo}" filterMatchMode="contains"
                                   id="tsFormulaFormula" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -240,11 +240,11 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
+                              <p:commandButton style="width: 110%;" id="fooFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['concepto']}" sortBy="#{infoTSF.concepto.descripcion}" filterBy="#{infoTSF.concepto.descripcion}" filterMatchMode="contains"  width="50" 
+                        <p:column headerText="#{msg['concepto']}" sortBy="#{infoTSF.concepto.descripcion}" filterBy="#{infoTSF.concepto.descripcion}" filterMatchMode="contains"
                                   id="tsFormulaConcepto" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -260,11 +260,11 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooFormulaConcepto" value="" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('tiposueldo')}"/>
+                              <p:commandButton style="width: 110%;" id="fooFormulaConcepto" value="" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('tiposueldo')}"/>
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTSF.concepto.empresa.nombre}" filterBy="#{infoTSF.concepto.empresa.nombre}" filterMatchMode="contains"  width="80" 
+                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTSF.concepto.empresa.nombre}" filterBy="#{infoTSF.concepto.empresa.nombre}" filterMatchMode="contains"
                                   id="tsFormulaEmpresa" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -282,8 +282,8 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column style="padding: 0px;" headerText="#{msg['origen']}" sortBy="#{infoTSF.origen}" filterBy="#{infoTSF.origen}" filterMatchMode="contains" 
-                                  id="tsFormulaOrigen" width="60" filterStyle="display: none; visibility: hidden;">                                  
+                        <p:column headerText="#{msg['origen']}" sortBy="#{infoTSF.origen}" filterBy="#{infoTSF.origen}" filterMatchMode="contains" 
+                                  id="tsFormulaOrigen" width="90" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>
                               <f:facet name="output">
                                  <h:outputText value="#{infoTSF.origen}"/>   
@@ -303,12 +303,12 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable> 
-                     <h:outputText id="infoRegistroTSFormulas" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTSFormulas}" style="position: relative; top: 0px; font-weight: bold;"/>
+                     <h:outputText id="infoRegistroTSFormulas" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTSFormulas}" style="position: relative; top: 243px; font-weight: bold;"/>
                   </fieldset> 
 
                   <p:remoteCommand name="posicionTSFormula" actionListener="#{controlTipoSueldo.posicionTSFormula()}"/>
 
-                  <fieldset style="position: absolute; left: 450px; top: 215px; width: 392px; height: 125px; border-radius: 10px; padding-top: 0px;">
+                  <fieldset style="position: absolute; left: 450px; top: 215px; width: 392px; height: 115px; border-radius: 10px; padding-top: 0px;">
                      <legend style="color: blue;"><strong>#{msg['tsGrupo']}</strong></legend>
 
                      <p:dataTable id="datosTSGrupo" var="infoTSG" rowKey="#{infoTSG.secuencia}" rowIndexVar="indiceTSG" style="width: 370px;"
@@ -345,18 +345,18 @@
 
                   <p:remoteCommand name="posicionTEFormula" actionListener="#{controlTipoSueldo.posicionTEFormula()}"/>
 
-                  <fieldset style="position: absolute; left: 450px; top: 357px; width: 392px; height: 128px; border-radius: 10px; padding-top: 0px;">
+                  <fieldset style="position: absolute; left: 450px; top: 345px; width: 392px; height: 140px; border-radius: 10px; padding-top: 0px;">
                      <legend style="color: blue;"><strong>#{msg['teFormula']}</strong></legend>
 
-                     <p:dataTable id="datosTEFormula" var="infoTEF" rowKey="#{infoTEF.secuencia}" rowIndexVar="indiceTEF" style="width: 370px;" widgetVar="datosTEFormula"
-                                  value="#{controlTipoSueldo.listaTEFormulasConceptos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTEFormulas}" scrollWidth="385"
+                     <p:dataTable id="datosTEFormula" var="infoTEF" rowKey="#{infoTEF.secuencia}" rowIndexVar="indiceTEF" style="width: 680px; position: absolute;" widgetVar="datosTEFormula"
+                                  value="#{controlTipoSueldo.listaTEFormulasConceptos}" scrollable="true" scrollHeight="#{controlTipoSueldo.altoTablaTEFormulas}" scrollWidth="390"
                                   filteredValue="#{controlTipoSueldo.filtrarListaTEFormulasConceptos}" emptyMessage="#{msg['vacio']}" selectionMode="single" liveScroll="true" scrollRows="6"
                                   selection="#{controlTipoSueldo.teFormulaTablaSeleccionado}" editable="true" editMode="cell">
 
                         <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosTipoEntidades()}"/>
 
                         <p:column headerText="#{msg['tipoEntidad']}" sortBy="#{infoTEF.tipoentidad.nombre}" filterBy="#{infoTEF.tipoentidad.nombre}" filterMatchMode="contains"  
-                                  id="teFormulaTipoEntidad" width="100" filterStyle="display: none; visibility: hidden;">  
+                                  id="teFormulaTipoEntidad" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoTEF.tipoentidad.nombre}">
@@ -372,12 +372,12 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooTipoEntidad" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'tipoentidad')}" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('tipoentidad')}"  value=" "/>
+                              <p:commandButton style="width: 110%;" id="fooTipoEntidad" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'tipoentidad')}" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('tipoentidad')}"  value=" "/>
                            </f:facet>
                         </p:column>
 
                         <p:column headerText="#{msg['formula']}" sortBy="#{infoTEF.formula.nombrelargo}" filterBy="#{infoTEF.formula.nombrelargo}" filterMatchMode="contains"  
-                                  id="teFormulaFormula"  width="100" filterStyle="display: none; visibility: hidden;">  
+                                  id="teFormulaFormula" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoTEF.formula.nombrelargo}">
@@ -392,12 +392,12 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooTEFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
+                              <p:commandButton style="width: 110%;" id="fooTEFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
                            </f:facet>
                         </p:column>
 
                         <p:column headerText="#{msg['concepto']}" sortBy="#{infoTEF.concepto.descripcion}" filterBy="#{infoTEF.concepto.descripcion}" filterMatchMode="contains" 
-                                  id="teFormulaConcepto"  width="100" filterStyle="display: none; visibility: hidden;">  
+                                  id="teFormulaConcepto"  filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoTEF.concepto.descripcion}">
@@ -413,12 +413,12 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooTEFormulaConcepto" value="" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('concepto')}"/>
+                              <p:commandButton style="width: 110%;" id="fooTEFormulaConcepto" value="" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('concepto')}"/>
                            </f:facet>
                         </p:column>
 
                         <p:column headerText="#{msg['empresa']}" sortBy="#{infoTEF.concepto.empresa.nombre}" filterBy="#{infoTEF.concepto.empresa.nombre}" filterMatchMode="contains" 
-                                  id="teFormulaEmpresa"  width="100" filterStyle="display: none; visibility: hidden;">  
+                                  id="teFormulaEmpresa" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{infoTEF.concepto.empresa.nombre}">
@@ -437,12 +437,27 @@
                         </p:column>
 
                      </p:dataTable>  
-                     <h:outputText id="infoRegistroTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTE}" style="position: relative; top: 0px; font-weight: bold;"/>
+                     <h:outputText id="infoRegistroTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTE}" style="position: relative; top: 113px; font-weight: bold;"/>
                   </fieldset> 
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlTipoSueldo.cambiosPagina}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTipoSueldo.salir()}"  process="@this"/>
                </p:panel>
+
+               <style>
+                  .ui-datatable-scrollable .ui-cell-editor
+                  {
+                     height: 17px !important;
+                     margin-top: 0px !important;
+                     padding-top: 0px !important;
+                  }
+
+                  .ui-datatable-scrollable .ui-cell-editor-input .ui-inputfield{
+                     height: 14px !important;
+                     margin-top: 0px !important;
+                     padding-top: 0px !important;
+                  }
+               </style>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
@@ -457,15 +472,19 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlTipoSueldo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
-                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}"
+                                   style="position: absolute; top: 66px; left: 185px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}"
+                                   style="position: absolute; top: 66px; left: 250px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlTipoSueldo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'tiposueldo')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'tiposueldo')}"
+                                   style="position: absolute; top: 66px; left: 185px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}"
+                                   style="position: absolute; top: 66px; left: 250px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
@@ -480,9 +499,11 @@
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 70px; left: 230px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}"
+                                   style="position: absolute; top: 70px; left: 210px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
@@ -535,14 +556,23 @@
                   <p:dataTable id="lovFormula" style="width: 400px;" var="formula" value="#{controlTipoSueldo.lovFormulas}" rowKey="#{formula.secuencia}"
                                selection="#{controlTipoSueldo.formulaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
+
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarF"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarFormula()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulas()}"/>
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
+
+                     <p:column filterBy="#{formula.nombrecorto}" sortBy="#{formula.nombrecorto}" filterMatchMode="contains" width="90" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{formula.nombrecorto}"/>
+                     </p:column>
+                     <p:column filterBy="#{formula.nombrelargo}" sortBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreL']}"/>
                         </f:facet>
@@ -558,30 +588,33 @@
                </p:dialog>
 
                <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoDialogo" draggable="true" resizable="false" closable="false" id="ConceptoDialogo"  
-                         showEffect="fade" hideEffect="fade" width="531" modal="true">
-                  <p:dataTable id="lovConcepto" style="width: 500px;" var="concept" value="#{controlTipoSueldo.lovConceptos}" rowKey="#{concept.secuencia}"
-                               selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="515" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollHeight="250" 
+                         showEffect="fade" hideEffect="fade" width="730" modal="true">
+                  <p:dataTable id="lovConcepto" style="width: 710px;" var="concept" value="#{controlTipoSueldo.lovConceptos}" rowKey="#{concept.secuencia}"
+                               selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="710" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
+
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarC"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarConcepto()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulasConceptos()}"/>
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovConcepto').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{concept.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
+
+                     <p:column filterBy="#{concept.codigo}" sortBy="#{concept.codigo}" width="80" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigo']}"/>
                         </f:facet>
                         <h:outputText value="#{concept.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{concept.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{concept.descripcion}" sortBy="#{concept.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['descripcion']}"/>
                         </f:facet>
                         <h:outputText value="#{concept.descripcion}"/>
                      </p:column>
-                     <p:column filterBy="#{concept.empresa.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{concept.empresa.nombre}" sortBy="#{concept.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresa']}"/>
                         </f:facet>
@@ -601,20 +634,22 @@
                   <p:dataTable id="lovGrupo" style="width: 400px;" var="grupo" value="#{controlTipoSueldo.lovGruposTiposEntidades}" rowKey="#{grupo.secuencia}"
                                selection="#{controlTipoSueldo.grupoTipoEntidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovGrupo" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovGruposTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
+
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarG"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarGrupo()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovGrupos()}"/>
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarG']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGrupo').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{grupo.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{grupo.codigo}" sortBy="#{grupo.codigo}" width="54" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoG']}"/>
                         </f:facet>
                         <h:outputText value="#{grupo.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{grupo.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{grupo.nombre}" sortBy="#{grupo.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreG']}"/>
                         </f:facet>
@@ -634,20 +669,23 @@
                   <p:dataTable id="lovTipoEntidad" style="width: 400px;" var="tipoE" value="#{controlTipoSueldo.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                selection="#{controlTipoSueldo.tipoEntidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
+
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarTE"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarTipoEntidad()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovTipoEntidad()}"/>
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTE']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{tipoE.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
+
+                     <p:column filterBy="#{tipoE.codigo}" sortBy="#{tipoE.codigo}" width="80" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoTE']}"/>
                         </f:facet>
                         <h:outputText value="#{tipoE.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{tipoE.nombre}" sortBy="#{tipoE.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreTE']}"/>
                         </f:facet>
@@ -667,21 +705,29 @@
                   <p:dataTable id="lovFormulaTE" style="width: 400px;" var="formulaTE" value="#{controlTipoSueldo.lovFormulas}" rowKey="#{formulaTE.secuencia}"
                                selection="#{controlTipoSueldo.formulaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovFormulaTE" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
+
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarFTE"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarFormulaTE()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovFormulasTE()}"/>
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{formulaTE.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
+
+                     <p:column filterBy="#{formulaTE.nombrecorto}" sortBy="#{formulaTE.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreC']}"/>
+                        </f:facet>
+                        <h:outputText value="#{formulaTE.nombrecorto}"/>
+                     </p:column>
+                     <p:column filterBy="#{formulaTE.nombrelargo}" sortBy="#{formulaTE.nombrelargo}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreL']}"/>
                         </f:facet>
                         <h:outputText value="#{formulaTE.nombrelargo}"/>
                      </p:column>
                   </p:dataTable>
-
                   <div class="cssBotonesLOV"> 
                      <h:outputText id="infoRegistroFormulaTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroFormulaTE}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarFTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"  actionListener="#{controlTipoSueldo.actualizarFormulaTE()}" process="@this" icon="ui-icon-check"/>
@@ -690,30 +736,33 @@
                </p:dialog>
 
                <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoTEDialogo" draggable="true" resizable="false" closable="false" id="ConceptoTEDialogo"  
-                         showEffect="fade" hideEffect="fade" width="531" modal="true">
-                  <p:dataTable id="lovConceptoTE" style="width: 500px;" var="conceptTE" value="#{controlTipoSueldo.lovConceptos}" rowKey="#{conceptTE.secuencia}"
-                               selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="515" selectionMode="single" widgetVar="lovConceptoTE" scrollable="true" scrollHeight="250" 
+                         showEffect="fade" hideEffect="fade" width="730" modal="true">
+                  <p:dataTable id="lovConceptoTE" style="width: 710px;" var="conceptTE" value="#{controlTipoSueldo.lovConceptos}" rowKey="#{conceptTE.secuencia}"
+                               selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="710" selectionMode="single" widgetVar="lovConceptoTE" scrollable="true" scrollHeight="250" 
                                filteredValue="#{controlTipoSueldo.filtrarLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
+
                      <p:ajax event="rowSelect" listener="#{controlTipoSueldo.activarAceptar()}" update=":form:aceptarCTE"/>
                      <p:ajax event="rowDblselect" listener="#{controlTipoSueldo.actualizarConceptoTE()}"  process="@this"/>
                      <p:ajax event="filter" listener="#{controlTipoSueldo.contarRegistrosLovTEConceptos()}"/>
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovConceptoTE').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{conceptTE.codigo}" width="100" filterStyle="width: 80% !important" filterMatchMode="contains">
+
+                     <p:column filterBy="#{conceptTE.codigo}" sortBy="#{conceptTE.codigo}" width="80" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigo']}"/>
                         </f:facet>
                         <h:outputText value="#{conceptTE.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{conceptTE.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{conceptTE.descripcion}" sortBy="#{conceptTE.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['descripcion']}"/>
                         </f:facet>
                         <h:outputText value="#{conceptTE.descripcion}"/>
                      </p:column>
-                     <p:column filterBy="#{conceptTE.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{conceptTE.empresa.nombre}" sortBy="#{conceptTE.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresa']}"/>
                         </f:facet>
@@ -742,15 +791,20 @@
                   <h:outputText value="#{msg['errorBorrarRegistroTSGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="160" width="300">
-                  <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue; font-weight: bold;"/>
-                  <p:commandButton value="#{msg['tipoSueldo']}" id="nrTipoSueldo" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroTipoSueldo').show()" update=":formularioDialogos:nuevoTipoSueldo"  process="@this"/>
-                  <p:commandButton value="#{msg['tsFormula']}" id="nrFormula" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 70px;" oncomplete="PF('NuevoRegistroTSFormula').show()" update=":formularioDialogos:nuevoTSFormulaConcepto" disabled="#{controlTipoSueldo.activoFormulaConcepto}" process="@this"/>
-                  <p:commandButton value="#{msg['tsGrupo']}" id="nrGrupo" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 90px;" oncomplete="PF('NuevoRegistroTSGrupo').show()" update=":formularioDialogos:nuevoTSGrupoTipoEntidad" disabled="#{controlTipoSueldo.activoGrupoDistribucion}" process="@this"/>
-                  <p:commandButton value="#{msg['teFormula']}" id="nrteFormula" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 110px;" oncomplete="PF('NuevoRegistroTEFormula').show()" update=":formularioDialogos:nuevoTEFormulaConcepto" disabled="#{controlTipoSueldo.activoTipoEntidad}" process="@this"/>
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" style="text-align: center;" header="#{msg['nuevoregistropagina']}"
+                         resizable="false" draggable="true" modal="true" height="180" width="340">
+                  <h:outputText value="#{msg['verificarNuevoRegistro']}" style="display: block; margin-top: 10px; color: blue; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['tipoSueldo']}" id="nrTipoSueldo" onclick="PF('verificarNuevoRegistro').hide();"
+                                   style="display: block; margin: auto; margin-top: 14px; height: 26px; width: 200px;" oncomplete="PF('NuevoRegistroTipoSueldo').show()" update=":formularioDialogos:nuevoTipoSueldo"  process="@this"/>
+                  <p:commandButton value="#{msg['tsFormula']}" id="nrFormula" onclick="PF('verificarNuevoRegistro').hide();"
+                                   style="display: block; margin: auto; margin-top: 4px; height: 26px; width: 200px;" oncomplete="PF('NuevoRegistroTSFormula').show()" update=":formularioDialogos:nuevoTSFormulaConcepto" disabled="#{controlTipoSueldo.activoFormulaConcepto}" process="@this"/>
+                  <p:commandButton value="#{msg['tsGrupo']}" id="nrGrupo" onclick="PF('verificarNuevoRegistro').hide();"
+                                   style="display: block; margin: auto; margin-top: 4px; height: 26px; width: 200px;" oncomplete="PF('NuevoRegistroTSGrupo').show()" update=":formularioDialogos:nuevoTSGrupoTipoEntidad" disabled="#{controlTipoSueldo.activoGrupoDistribucion}" process="@this"/>
+                  <p:commandButton value="#{msg['teFormula']}" id="nrteFormula" onclick="PF('verificarNuevoRegistro').hide();"
+                                   style="display: block; margin: auto; margin-top: 4px; height: 26px; width: 200px;" oncomplete="PF('NuevoRegistroTEFormula').show()" update=":formularioDialogos:nuevoTEFormulaConcepto" disabled="#{controlTipoSueldo.activoTipoEntidad}" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="NuevoRegistroTipoSueldo" header="#{msg['nuevoregistroTS']}" widgetVar="NuevoRegistroTipoSueldo" closable="false" resizable="false"  draggable="true" modal="true" height="260" width="400" style="padding: 0px">  
+               <p:dialog id="NuevoRegistroTipoSueldo" header="#{msg['nuevoregistroTS']}" widgetVar="NuevoRegistroTipoSueldo" closable="false" resizable="false" draggable="true" modal="true" height="280" width="410" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTS']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevoTipoSueldo" style="border: none;">
 
@@ -787,13 +841,13 @@
                         <p:ajax event="change" update="nuevoTipoSueldoADI"/>
                      </p:selectOneMenu>
 
-                     <p:commandButton id="limpiarNTS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarNuevaTipoSueldo()}" update="nuevoTipoSueldo" process="@this"/>
-                     <p:commandButton id="aceptarNTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 225px;"  actionListener="#{controlTipoSueldo.agregarNuevoTipoSueldo()}" process="@this"/>
-                     <p:commandButton id="cancelarNTS" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarNuevaTipoSueldo()}" update="nuevoTipoSueldo" onclick="PF('NuevoRegistroTipoSueldo').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarNTS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 245px;" actionListener="#{controlTipoSueldo.limpiarNuevaTipoSueldo()}" update="nuevoTipoSueldo" process="@this"/>
+                     <p:commandButton id="aceptarNTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 245px;"  actionListener="#{controlTipoSueldo.agregarNuevoTipoSueldo()}" process="@this"/>
+                     <p:commandButton id="cancelarNTS" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 245px;" actionListener="#{controlTipoSueldo.limpiarNuevaTipoSueldo()}" update="nuevoTipoSueldo" onclick="PF('NuevoRegistroTipoSueldo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroTipoSueldo" header="#{msg['duplicarregistroTS']}" widgetVar="DuplicarRegistroTipoSueldo" closable="false" resizable="false"  draggable="true" modal="true" height="260" width="400" style="padding: 0px">  
+               <p:dialog id="DuplicarRegistroTipoSueldo" header="#{msg['duplicarregistroTS']}" widgetVar="DuplicarRegistroTipoSueldo" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="410">  
 
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTS']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
 
@@ -832,17 +886,22 @@
                         <p:ajax event="change" update="duplicarTipoSueldoADI"/>
                      </p:selectOneMenu>
 
-                     <p:commandButton id="limpiarDTS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTipoSueldo()}" update="duplicarTipoSueldo" process="@this"/>
-                     <p:commandButton id="agregarDTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 225px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTipoSueldo()}" process="@this"/>
-                     <p:commandButton id="cancelarDTS" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 225px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTipoSueldo()}" update="duplicarTipoSueldo" onclick="PF('DuplicarRegistroTipoSueldo').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarDTS" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 245px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTipoSueldo()}" update="duplicarTipoSueldo" process="@this"/>
+                     <p:commandButton id="agregarDTS" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 245px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTipoSueldo()}" process="@this"/>
+                     <p:commandButton id="cancelarDTS" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 245px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTipoSueldo()}" update="duplicarTipoSueldo" onclick="PF('DuplicarRegistroTipoSueldo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="NuevoRegistroTSFormula" header="#{msg['nuevoregistroTSF']}" widgetVar="NuevoRegistroTSFormula" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
+               <p:dialog id="NuevoRegistroTSFormula" header="#{msg['nuevoregistroTSF']}" widgetVar="NuevoRegistroTSFormula" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="400">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTSF']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevoTSFormulaConcepto" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNTSF']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoTSFormulaFormula" onclick="select();" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                        <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsFormulas(infoTSF,0,1)}" process="@this" update="nuevoTSFormulaFormula"/>
+                        <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSFormula('FORMULA', controlTipoSueldo.nuevoTSFormulaConcepto.formula.nombrelargo, 1)}"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['formula']}" for="nuevoTSFormulaFormula"/>
                      <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos"  id="btnNuevoTSFormulaFormula" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(0,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['conceptoNTSF']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
@@ -864,13 +923,13 @@
                         <p:ajax event="change" update="nuevoTSFormulaOrigen"/>
                      </p:selectOneMenu>
 
-                     <p:commandButton id="limpiarNTSF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSFormula()}" update="nuevoTSFormulaConcepto" process="@this"/>
-                     <p:commandButton id="aceptarNTSF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSFormula()}" process="@this"/>
-                     <p:commandButton id="cancelarNTSF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSFormula()}" update="nuevoTSFormulaConcepto" onclick="PF('NuevoRegistroTSFormula').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarNTSF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSFormula()}" update="nuevoTSFormulaConcepto" process="@this"/>
+                     <p:commandButton id="aceptarNTSF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 215px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSFormula()}" process="@this"/>
+                     <p:commandButton id="cancelarNTSF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSFormula()}" update="nuevoTSFormulaConcepto" onclick="PF('NuevoRegistroTSFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroTSFormula" header="#{msg['duplicarregistroTSF']}" widgetVar="DuplicarRegistroTSFormula" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
+               <p:dialog id="DuplicarRegistroTSFormula" header="#{msg['duplicarregistroTSF']}" widgetVar="DuplicarRegistroTSFormula" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="400">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTSF']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarTSFormulaConcepto" style="border: none;">
 
@@ -901,9 +960,9 @@
                         <p:ajax event="change" update="duplicarTSFormulaOrigen"/>
                      </p:selectOneMenu>
 
-                     <p:commandButton id="limpiarDTSF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTSFormula()}" update="duplicarTSFormulaConcepto" process="@this"/>
-                     <p:commandButton id="aceptarDTSF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTSFormula()}" process="@this"/>
-                     <p:commandButton id="cancelarDTSF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTSFormula()}" update="duplicarTSFormulaConcepto" onclick="PF('DuplicarRegistroTSFormula').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarDTSF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTSFormula()}" update="duplicarTSFormulaConcepto" process="@this"/>
+                     <p:commandButton id="aceptarDTSF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 215px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTSFormula()}" process="@this"/>
+                     <p:commandButton id="cancelarDTSF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTSFormula()}" update="duplicarTSFormulaConcepto" onclick="PF('DuplicarRegistroTSFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -912,13 +971,15 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTSG']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevoTSGrupoTipoEntidad" style="border: none;">
 
-                     <strong><h:outputText value="*#{msg['grupoNTSG']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.nuevoTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                     <strong><h:outputText value="*#{msg['grupoNTSG']}" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.nuevoTSGrupoTipoEntidad.grupotipoentidad.nombre}"
+                                  style="width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,1)}" process="@this" update="nuevoTSGrupoGrupo"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSGrupo('GRUPO', controlTipoSueldo.nuevoTSGrupoTipoEntidad.grupotipoentidad.nombre, 1)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['grupo']}" for="nuevoTSGrupoGrupo"/>
-                     <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevoTSGrupoGrupo" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,1)}"/>   
+                     <p:commandButton style="position: absolute; left: 334px; top: 52px;" class="cssBotonLovDialogos" id="btnNuevoTSGrupoGrupo" value="" process="@this"
+                                      actionListener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,1)}"/>   
 
                      <p:commandButton id="limpiarNTSG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 105px;" actionListener="#{controlTipoSueldo.limpiarNuevaTSGrupo()}" update="nuevoTSGrupoTipoEntidad" process="@this"/>
                      <p:commandButton id="aceptarNTSG" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 105px;"  actionListener="#{controlTipoSueldo.agregarNuevoTSGrupo()}" process="@this"/>
@@ -930,13 +991,14 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTSG']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarTSGrupoTipoEntidad" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['grupoNTSG']}" style="position: absolute; top: 75px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.duplicarTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                     <strong><h:outputText value="#{msg['grupoNTSG']}" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                     <p:inputText autocomplete="off" id="duplicarTSGrupoGrupo" onclick="select();" value="#{controlTipoSueldo.duplicarTSGrupoTipoEntidad.grupotipoentidad.nombre}"
+                                  style="width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,2)}" process="@this" update="nuevoTSGrupoGrupo"/>
                         <p:ajax event="change" listener="#{controlTipoSueldo.autocompletarNuevoyDuplicadoTSGrupo('GRUPO', controlTipoSueldo.duplicarTSGrupoTipoEntidad.grupotipoentidad.nombre, 2)}"/>
                      </p:inputText>
                      <p:watermark value="#{msg['grupo']}" for="duplicarTSGrupoGrupo"/>
-                     <p:commandButton style="position: absolute; left: 334px; top: 70px;" class="cssBotonLovDialogos" id="btnDuplicarTSGrupoGrupo" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,2)}"/>   
+                     <p:commandButton style="position: absolute; left: 334px; top: 52px;" class="cssBotonLovDialogos" id="btnDuplicarTSGrupoGrupo" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsGrupos(infoTSF,0,2)}"/>   
 
 
                      <p:commandButton id="limpiarDTSG" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 105px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTSGrupo()}" update="duplicarTSGrupoTipoEntidad" process="@this"/>
@@ -945,7 +1007,7 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="NuevoRegistroTEFormula" header="#{msg['nuevoregistroTEF']}" widgetVar="NuevoRegistroTEFormula" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
+               <p:dialog id="NuevoRegistroTEFormula" header="#{msg['nuevoregistroTEF']}" widgetVar="NuevoRegistroTEFormula" closable="false" resizable="false" draggable="true" modal="true" height="250" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTEF']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="nuevoTEFormulaConcepto" style="border: none;">
 
@@ -977,14 +1039,13 @@
                      <p:inputText autocomplete="off" id="nuevoTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="nuevoTEFormulaEmpresa"/>
 
-
-                     <p:commandButton id="limpiarNTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" process="@this"/>
-                     <p:commandButton id="aceptarNTEF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 195px;"  actionListener="#{controlTipoSueldo.agregarNuevoTEFormula()}" process="@this"/>
-                     <p:commandButton id="cancelarNTEF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 195px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" onclick="PF('NuevoRegistroTEFormula').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarNTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" process="@this"/>
+                     <p:commandButton id="aceptarNTEF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 215px;"  actionListener="#{controlTipoSueldo.agregarNuevoTEFormula()}" process="@this"/>
+                     <p:commandButton id="cancelarNTEF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" onclick="PF('NuevoRegistroTEFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroTEFormula" header="#{msg['duplicarregistroTEF']}" widgetVar="DuplicarRegistroTEFormula" closable="false" resizable="false"  draggable="true" modal="true" height="270" width="400" style="padding: 0px">  
+               <p:dialog id="DuplicarRegistroTEFormula" header="#{msg['duplicarregistroTEF']}" widgetVar="DuplicarRegistroTEFormula" closable="false" resizable="false" draggable="true" modal="true" height="260" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTEF']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
                   <p:panel id="duplicarTEFormulaConcepto" style="border: none;">
 
@@ -1016,11 +1077,9 @@
                      <p:inputText autocomplete="off" id="duplicarTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="duplicarTEFormulaEmpresa"/>
 
-
-
-                     <p:commandButton id="limpiarDTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 230px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTEFormula()}" update="duplicarTEFormulaConcepto" process="@this"/>
-                     <p:commandButton id="aceptarDTEF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 230px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTEFormula()}" process="@this"/>
-                     <p:commandButton id="cancelarDTEF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 230px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTEFormula()}" update="duplicarTEFormulaConcepto" onclick="PF('DuplicarRegistroTEFormula').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarDTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTEFormula()}" update="duplicarTEFormulaConcepto" process="@this"/>
+                     <p:commandButton id="aceptarDTEF" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 215px;"  actionListener="#{controlTipoSueldo.confirmarDuplicarTEFormula()}" process="@this"/>
+                     <p:commandButton id="cancelarDTEF" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTEFormula()}" update="duplicarTEFormulaConcepto" onclick="PF('DuplicarRegistroTEFormula').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -1104,7 +1163,6 @@
                      <h:outputText value="#{expTS.strAdicional}">
                      </h:outputText>
                   </p:column> 
-
                </p:dataTable>
             </h:form>
 

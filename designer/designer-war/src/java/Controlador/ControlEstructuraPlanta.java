@@ -759,7 +759,6 @@ public class ControlEstructuraPlanta implements Serializable {
          listEstructurasModificar.clear();
       }
       listaEstructuras = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosEstructura");
       guardadoEstructura = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");

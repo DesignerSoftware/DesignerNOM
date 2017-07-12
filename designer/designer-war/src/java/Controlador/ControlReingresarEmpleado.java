@@ -135,7 +135,6 @@ public class ControlReingresarEmpleado implements Serializable {
 
    public void salir() {
       limpiarListasValor();
-      RequestContext context = RequestContext.getCurrentInstance();
       empleado = new Empleados();
       empleado.setPersona(new Personas());
       estructura = new Estructuras();
@@ -151,18 +150,18 @@ public class ControlReingresarEmpleado implements Serializable {
    public void modificarReingreso(String confirmarCambio, String valorConfirmar) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("EMPLEADO")) {
          for (int i = 0; i < lovEmpleados.size(); i++) {
-            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())
+                    || lovEmpleados.get(i).getCodigoempleado().toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
          }
          if (coincidencias == 1) {
             setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-            lovEmpleados.clear();
-            getLovEmpleados();
+//            lovEmpleados.clear();
+//            getLovEmpleados();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
@@ -176,20 +175,17 @@ public class ControlReingresarEmpleado implements Serializable {
          }
          if (coincidencias == 1) {
             setEstructura(lovEstructuras.get(indiceUnicoElemento));
-            lovEstructuras.clear();
-            getLovEstructuras();
+//            lovEstructuras.clear();
+//            getLovEstructuras();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
             RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
          }
       }
-
    }
 
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
    public void asignarIndex(int dlg) {
-
-      RequestContext context = RequestContext.getCurrentInstance();
       if (dlg == 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
          RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
@@ -197,7 +193,6 @@ public class ControlReingresarEmpleado implements Serializable {
          RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
          RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
       }
-
    }
 
    public void actualizarEmpleados() {
@@ -233,7 +228,6 @@ public class ControlReingresarEmpleado implements Serializable {
    }
 
    public void verificarFecha() {
-      RequestContext context = RequestContext.getCurrentInstance();
       formato = new SimpleDateFormat("dd/MM/yyyy");
       if (empleado.getPersona() == null) {
          RequestContext.getCurrentInstance().update("formularioDialogos:seleccioneEmpleado");
@@ -273,11 +267,6 @@ public class ControlReingresarEmpleado implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Estructura\n";
          pasa++;
       }
-
-//      if (fechaFinContrato == null) {
-//         mensajeValidacion = mensajeValidacion + "* Fecha Fin Contrato";
-//         pasa++;
-//      }
       if (fechaReingreso == null) {
          mensajeValidacion = mensajeValidacion + "* Fecha Reingreso";
          pasa++;

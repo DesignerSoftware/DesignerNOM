@@ -278,7 +278,6 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
       }
    }
    ////TSGruposTiposEntidades
-
    ////TEFormulasConceptos
    @Override
    public List<TEFormulasConceptos> listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(BigInteger secTSGrupo) {
