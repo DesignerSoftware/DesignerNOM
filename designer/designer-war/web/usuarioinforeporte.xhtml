@@ -11,68 +11,68 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">
                 <h:form id="form">
-                <p:growl id="growl" showDetail="true"/> 
-                <p:panel  id="PanelTotal" header="Diagnóstico Categorías" styleClass="panelTotal">
-                  <f:loadBundle basename="Recursos.diagnosticoscategorias" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Diagnóstico Categorías" styleClass="panelTotal">
+                        <f:loadBundle basename="Recursos.diagnosticoscategorias" var="msg"/>
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
-<!--
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.guardarTodo()}" process="@this"/>
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.guardarUsuariosIR()}" process="@this"/>
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.editarCelda()}"  process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlDiagnosticosCategorias.isActivarLov()}"  process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlUsuariosInfoReportes.isActivarLov()}" 
+                                                 actionListener="#{controlUsuariosInfoReportes.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.activarCtrlF11()}"  process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportXLS()}"  ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.limpiarExportar()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target="#{controlDiagnosticosCategorias.tablaImprimir}" fileName="#{controlDiagnosticosCategorias.nombreArchivo}" encoding="UTF-8"/> 
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.limpiarNuevoUsuarioI()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target="formExportar:datosUsuariosIRExportar" fileName="UsuariosInfoReportes" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.mostrarDialogoElegirTabla()}"   process="@this"/> 
-                                update=":formularioDialogos:nuevaTipoempresa"
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;"  oncomplete="PF('nuevoRegistroUsuarioIR').show()"  update=":formularioDialogos:nuevoUsuarioIR"   process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) ; border: none;"  actionListener="#{controlDiagnosticosCategorias.borrarCategoria()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) ; border: none;"  actionListener="#{controlUsuariosInfoReportes.borrarUsuarioInfoReportes()}" process="@this"/>  
                                 <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.duplicarDiagnosticoCategoria()}" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.duplicandoUsuariosIR()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"  process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>-->
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlUsuariosInfoReportes.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlDiagnosticosCategorias.revisarDialogoGuardar()}" disabled="#{controlDiagnosticosCategorias.isGuardado()}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"   />  
-                    
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlUsuariosInfoReportes.revisarDialogoGuardar()}" disabled="#{controlUsuariosInfoReportes.isGuardado()}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlUsuariosInfoReportes.salir()}"   />  
+
                         <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 13px; color: blue;"><strong>Usuarios</strong></legend>
                             <p:dataTable id="datosUsuarios" widgetVar="datosUsuarios" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
@@ -85,10 +85,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.alias}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info.alias}" maxlength="10" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;">
+                                            <p:inputText autocomplete="off" value="#{info.alias}" maxlength="10" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;">
                                                          <!--onselect="posicionUsuario([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}])" >--> 
-                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
-                                                        listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 0)}"/> 
+                                                <p:ajax event="select"  onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 0)}" process="@this"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -101,10 +101,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.perfil.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info.perfil.descripcion}" maxlength="50" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                            <p:inputText autocomplete="off"  value="#{info.perfil.descripcion}" maxlength="50" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
                                                          <!--onselect="posicionUsuario([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" >--> 
-                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
-                                                         listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 1)}"/> 
+                                                <p:ajax event="select" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 1)}" process="@this"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -116,10 +116,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.persona.nombreCompleto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info.persona.nombreCompleto}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                            <p:inputText autocomplete="off" value="#{info.persona.nombreCompleto}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
                                                          <!--onselect="posicionUsuario([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" > -->
-                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
-                                                         listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 2)}" /> 
+                                                <p:ajax event="select" onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndice(info, 2)}" process="@this" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -131,10 +131,10 @@
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlUsuariosInfoReportes.infoRegistroUsuario}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
                             <p:remoteCommand name="posicionUsuario" actionListener="#{controlUsuariosInfoReportes.posicionUsuario()}"/>
                         </fieldset>
-                        
-                         <fieldset style="position: absolute; top: 210px; left: 10px; height: 260px; width: 830px; border-radius: 10px; text-align: left;">
+
+                        <fieldset style="position: absolute; top: 210px; left: 10px; height: 260px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 13px; color: blue;"><strong>Permisos</strong></legend>
-                            <p:dataTable id="datosUsuariosIR" widgetVar="datosUsuariosIR" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
+                            <p:dataTable id="datosUsuariosIR" widgetVar="datosUsuariosIR" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indice2" style="width: 810px; border: none; "                           
                                          value="#{controlUsuariosInfoReportes.listaUsuariosIR}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTablaIR}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlUsuariosInfoReportes.listaUsuariosIRFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlUsuariosInfoReportes.usuarioIRSeleccionado}" selectionMode="single">
@@ -144,9 +144,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info2.inforeporte.codigo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.codigo}" maxlength="10" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;">
-                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
+                                            <p:inputText autocomplete="off" value="#{info2.inforeporte.codigo}" maxlength="10" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;">
+                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice2});"
                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info2, 0)}"/> 
+                                                <p:ajax event="dblclick" listener="#{controlUsuariosInfoReportes.asignarIndex(info2, 0, 0)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -154,14 +155,14 @@
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-                                
+
                                 <p:column headerText="Reporte" sortBy="#{info2.inforeporte.nombre}" filterBy="#{info2.inforeporte.nombre}" filterMatchMode="contains" id="reporte" width="120" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info2.inforeporte.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.nombre}" maxlength="50" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
-                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
-                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info2, 1)}"/> 
+                                            <p:inputText autocomplete="off" value="#{info2.inforeporte.nombre}" maxlength="50" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice2});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info2, 1)}"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -173,9 +174,9 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info2.inforeporte.modulo.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.modulo.nombre}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
-                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
-                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info, 2)}" /> 
+                                            <p:inputText autocomplete="off" value="#{info2.inforeporte.modulo.nombre}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice2});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info, 2)}" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -183,13 +184,13 @@
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-                                    <p:column headerText="Tipo" sortBy="#{info2.inforeporte.tipo}" filterBy="#{info2.inforeporte.tipo}" filterMatchMode="contains" id="tipo" width="200" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="Tipo" sortBy="#{info2.inforeporte.tipo}" filterBy="#{info2.inforeporte.tipo}" filterMatchMode="contains" id="tipo" width="200" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info2.inforeporte.tipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" disabled="true" value="#{info2.inforeporte.tipo}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
-                                                 <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice});"
-                                                         listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info, 3)}" /> 
+                                            <p:inputText autocomplete="off" value="#{info2.inforeporte.tipo}" maxlength="200"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;">
+                                                <p:ajax event="select" process="@this" onstart="PF('datosUsuariosIR').unselectAllRows();PF('datosUsuariosIR').selectRow(#{indice2});"
+                                                        listener="#{controlUsuariosInfoReportes.cambiarIndiceIR(info, 3)}" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -200,9 +201,225 @@
                             </p:dataTable>
                             <h:outputText id="informacionRegistroIR" value="#{msg['infoRegistros']} #{controlUsuariosInfoReportes.infoRegistroUsuarioIR}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
                         </fieldset>
-                        
-                </p:panel>   
+
+                    </p:panel>   
                 </h:form> 
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="nuevoRegistroUsuarioIR" header="Nuevo Registro" widgetVar="nuevoRegistroUsuarioIR" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="380" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Usuario Inforeporte" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
+                        <p:panel id="nuevoUsuarioIR" style="border: none;">                           
+                            <strong><h:outputText value="*Código" style=" position: absolute; top: 65px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlUsuariosInfoReportes.nuevoUsuarioIR.inforeporte.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosInfoReportes.asignarIndex(info2, 0, 1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosInfoReportes.asignarIndex(info2, 0, 1)}"/>
+
+                            <strong><h:outputText value="Reporte" style=" position: absolute; top: 95px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" disabled="true" value="#{controlUsuariosInfoReportes.nuevoUsuarioIR.inforeporte.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                            </p:inputText>
+
+                            <strong><h:outputText value="Módulo" style=" position: absolute; top: 125px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" disabled="true"  value="#{controlUsuariosInfoReportes.nuevoUsuarioIR.inforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
+                            </p:inputText>
+
+                            <strong><h:outputText value="Tipo" style=" position: absolute; top: 155px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" disabled="true"  value="#{controlUsuariosInfoReportes.nuevoUsuarioIR.inforeporte.tipo}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
+                            </p:inputText>
+
+                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlUsuariosInfoReportes.limpiarNuevoUsuarioI()}" update="nuevoUsuarioIR" process="@this"/>
+                            <p:commandButton id="agregarU" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 200px;"  actionListener="#{controlUsuariosInfoReportes.agregarNuevoUsuarioIR()}" process="@this"/>
+                            <p:commandButton id="cancelarU" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" actionListener="#{controlUsuariosInfoReportes.limpiarNuevoUsuarioI()}" update="nuevoUsuarioIR" onclick="PF('nuevoRegistroUsuarioIR').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroUsuarioIR" header="Nuevo Registro" widgetVar="duplicarRegistroUsuarioIR" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="380" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Usuario Inforeporte" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
+                        <p:panel id="duplicarUsuarioIR" style="border: none;">                           
+                            <strong><h:outputText value="*Código" style=" position: absolute; top: 65px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlUsuariosInfoReportes.duplicarUsuarioIR.inforeporte.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase;" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlUsuariosInfoReportes.asignarIndex(info2, 0, 2)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 317px; top: 60px;" class="cssBotonLovDialogos"  value="" process="@this"  actionListener="#{controlUsuariosInfoReportes.asignarIndex(info2, 0, 2)}"/>
+
+                            <strong><h:outputText value="Reporte" style=" position: absolute; top: 95px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" disabled="true" value="#{controlUsuariosInfoReportes.duplicarUsuarioIR.inforeporte.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase;" onclick="select();">
+                            </p:inputText>
+
+                            <strong><h:outputText value="Módulo" style=" position: absolute; top: 125px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" disabled="true"  value="#{controlUsuariosInfoReportes.duplicarUsuarioIR.inforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase;" onclick="select();">
+                            </p:inputText>
+
+                            <strong><h:outputText value="Tipo" style=" position: absolute; top: 155px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" disabled="true"  value="#{controlUsuariosInfoReportes.duplicarUsuarioIR.inforeporte.tipo}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase;" onclick="select();">
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarUR" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlUsuariosInfoReportes.limpiarDuplicarUsuariosIR()}" update="duplicarUsuarioIR" process="@this"/>
+                            <p:commandButton id="duplicarUR" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 160px; top: 200px;"  actionListener="#{controlUsuariosInfoReportes.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="cancelaruR" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 260px; top: 200px;" actionListener="#{controlUsuariosInfoReportes.limpiarDuplicarUsuariosIR()}" update="duplicarUsuarioIR" onclick="PF('duplicarRegistroUsuarioIR').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog header="Reportes" widgetVar="reportesDialogo" draggable="true" resizable="false" closable="false" id="reportesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="620" height="480" modal="true">
+                        <p:dataTable id="lovReportes" style="width: 330px;" var="ir" value="#{controlUsuariosInfoReportes.lovIR}" rowKey="#{ir.secuencia}"
+                                     selection="#{controlUsuariosInfoReportes.IRLovSeleccionado}" selectionMode="single" widgetVar="lovReportes" scrollable="true" scrollHeight="330" scrollWidth="600"
+                                     filteredValue="#{controlUsuariosInfoReportes.lovIRFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlUsuariosInfoReportes.activarAceptar()}" update=":formularioDialogos:aceptarU"/>
+                            <p:ajax event="rowDblselect" listener="#{controlUsuariosInfoReportes.actualizarReportes()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlUsuariosInfoReportes.contarRegistrosLovIR()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Reporte: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovReportes').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{ir.codigo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{ir.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{ir.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{ir.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{ir.modulo.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Módulo"/>
+                                </f:facet>
+                                <h:outputText value="#{ir.modulo.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{ir.tipo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{ir.tipo}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroIR" value="#{msg['infoRegistro']} #{controlUsuariosInfoReportes.infoRegistroLovIR}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarU" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosInfoReportes.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosInfoReportes.actualizarReportes()}"  process="@this"/>
+                            <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosInfoReportes.cancelarCambioReporte()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+                    
+                    
+                    <p:dialog header="UsuariosInfoReportes" widgetVar="usuariosIRDialogo" draggable="true" resizable="false" closable="false" id="usuariosIRDialogo"  
+                              showEffect="fade" hideEffect="fade" width="620" height="480" modal="true">
+                        <p:dataTable id="lovUsuariosIR" style="width: 330px;" var="uir" value="#{controlUsuariosInfoReportes.lovUsuariosIR}" rowKey="#{uir.secuencia}"
+                                     selection="#{controlUsuariosInfoReportes.usuarioIRLovSeleccionado}" selectionMode="single" widgetVar="lovUsuariosIR" scrollable="true" scrollHeight="330" scrollWidth="600"
+                                     filteredValue="#{controlUsuariosInfoReportes.lovUsuariosIRFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+                            <p:ajax event="rowSelect" listener="#{controlUsuariosInfoReportes.activarAceptar()}" update=":formularioDialogos:aceptarU"/>
+                            <p:ajax event="rowDblselect" listener="#{controlUsuariosInfoReportes.actualizarReportes()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlUsuariosInfoReportes.contarRegistrosLovUsuariosIR()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Usuarios: "/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUsuariosIR').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>                            
+                            <p:column filterBy="#{uir.usuario.alias}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Alias"/>
+                                </f:facet>
+                                <h:outputText value="#{uir.usuario.alias}"/>
+                            </p:column>
+                            <p:column filterBy="#{uir.inforeporte.codigo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{uir.inforeporte.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{uir.inforeporte.nombre}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{uir.inforeporte.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{uir.inforeporte.tipo}"  filterStyle="width: 80% !important"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{uir.inforeporte.tipo}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="informacionRegistroIR" value="#{msg['infoRegistro']} #{controlUsuariosInfoReportes.infoRegistroLovUsuariosIR}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarU" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuariosInfoReportes.aceptar}" class="cssAceptarLOV" actionListener="#{controlUsuariosInfoReportes.actualizarReportes()}"  process="@this"/>
+                            <p:commandButton id="cancelarAU" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuariosInfoReportes.cancelarCambioReporte()}"  process="@this"/>
+                        </div>
+                    </p:dialog>
+                    
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"
+                                         actionListener="#{controlUsuariosInfoReportes.guardarYSalir()}"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"
+                                         actionListener="#{controlUsuariosInfoReportes.salir()}"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosInfoReportes.usuariotsSeleccionado.secuencia, 'UsuariosTiposSueldos', 'usuariotiposueldo')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuariotiposueldo', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuariosInfoReportes.usuariotsSeleccionado.secuencia, 'UsuariosTiposSueldos', 'usuariotiposueldo')}" 
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>                    
+
+                    <p:dialog id="editarUsuario" header="Usuario" widgetVar="editarUsuario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlUsuariosInfoReportes.editarUsuarioTS.usuario.alias}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTS" header="Tipo Sueldo" widgetVar="editarTS" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlUsuariosInfoReportes.editarUsuarioTS.tiposueldo.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>     
         </ui:composition>
     </h:body>

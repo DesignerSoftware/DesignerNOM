@@ -246,6 +246,44 @@ public class ControlCambioCodigoEmpl implements Serializable {
             }
         }
     }
+    
+       public void autocompletar(String confirmarCambio, String valorConfirmar) {
+      int coincidencias = 0;
+      int indiceUnicoElemento = 0;
+      if (confirmarCambio.equalsIgnoreCase("EMPLEADO")) {
+         for (int i = 0; i < lovEmpleados.size(); i++) {
+            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())
+                    || lovEmpleados.get(i).getCodigoempleado().toString().startsWith(valorConfirmar.toUpperCase())) {
+               indiceUnicoElemento = i;
+               coincidencias++;
+            }
+         }
+         if (coincidencias == 1) {
+            setEmpleado(lovEmpleados.get(indiceUnicoElemento));
+//            lovEmpleados.clear();
+//            getLovEmpleados();
+         } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
+            RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
+         }
+      } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
+         for (int i = 0; i < lovEmpresas.size(); i++) {
+            if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               indiceUnicoElemento = i;
+               coincidencias++;
+            }
+         }
+         if (coincidencias == 1) {
+            setEmpresa(lovEmpresas.get(indiceUnicoElemento));
+//            lovEstructuras.clear();
+//            getLovEstructuras();
+         } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:empresasDialogo");
+            RequestContext.getCurrentInstance().execute("PF('empresasDialogo').show()");
+         }
+      }
+   }
+    
     /////get y set
     public List<Empleados> getLovEmpleados() {
         if (lovEmpleados == null) {

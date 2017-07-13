@@ -79,13 +79,19 @@
                             <p:inputText autocomplete="off" id="empresa" value="#{controlCambioCodigoEmpl.empresa.nombre}"
                                          style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCambioCodigoEmpl.asignarIndex(1)}"/>
+                                <p:ajax event="change" listener="#{controlCambioCodigoEmpl.autocompletar('EMPRESA', controlCambioCodigoEmpl.empresa.nombre)}"/>
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 495px; top: 70px;"  class="cssBotonLovDialogos"  value="" 
+                                             process="@this" actionListener="#{controlCambioCodigoEmpl.asignarIndex(1)}"/>   
 
                             <h:outputText value="Código Actual" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
                             <p:inputText autocomplete="off" id="codEmpleadoActual" value="#{controlCambioCodigoEmpl.empleado.codigoempleado}"
                                          style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCambioCodigoEmpl.asignarIndex(0)}"/>
+                                <p:ajax event="change" listener="#{controlCambioCodigoEmpl.autocompletar('EMPLEADO', controlCambioCodigoEmpl.empleado.persona.nombreCompleto)}"/>
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 495px; top: 130px;"  class="cssBotonLovDialogos"  value="" 
+                                             process="@this" actionListener="#{controlCambioCodigoEmpl.asignarIndex(0)}"/>   
 
                             <h:outputText value="Código Nuevo" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
                             <p:inputText autocomplete="off" id="codEmpleadoNuevo" value="#{controlCambioCodigoEmpl.codEmplNuevo}"

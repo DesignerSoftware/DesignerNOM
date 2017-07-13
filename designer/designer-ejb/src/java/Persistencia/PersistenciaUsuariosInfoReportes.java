@@ -91,7 +91,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
     public List<Inforeportes> lovIR(EntityManager em) {
         try {
             em.clear();
-            String sql = "SELECT * FROM INFOREPORTES";
+            String sql = "SELECT * FROM INFOREPORTES ORDER BY CODIGO";
             Query query = em.createNativeQuery(sql, Inforeportes.class);
             List<Inforeportes> lista = query.getResultList();
             return lista;
