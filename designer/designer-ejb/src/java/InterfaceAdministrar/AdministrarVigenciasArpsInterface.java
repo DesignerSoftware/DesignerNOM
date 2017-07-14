@@ -28,9 +28,11 @@ public interface AdministrarVigenciasArpsInterface {
 
    public String buscarPorcentaje(BigInteger estructura, BigInteger cargo, Date fecha);
 
+   public int contarVigenciasARPsPorEstructuraYCargo(BigInteger estructura, BigInteger cargo);
+
    public List<VigenciasArps> consultarVigenciasArps();
-   
+
    public List<Estructuras> consultarTodoEstructuras();
-   
+
    public List<Cargos> consultarTodoCargos();
 }

@@ -179,7 +179,7 @@
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'MOTIVOC', info.motivocambiocargo.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 2)}"
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
-                                    <p:ajax event="dblclick"  listener="#{controlVigenciasCargos.asignarIndex(info, 0,0)}"/>
+                                    <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 0,0)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -832,7 +832,6 @@
                   </p:panel> 
                </p:dialog>  
 
-
                <p:dialog id="adicionarPorcentaje" header="#{msg['nuevoregistro']}" widgetVar="adicionarPorcentaje" closable="false" resizable="false"  draggable="true" modal="true" height="300" width="328" style=" padding: 0px;">  
 
                   <p:panel id="nuevoRiesgo" style="border: none; margin-left: 15px;">
@@ -856,8 +855,10 @@
                      </p:calendar>
 
                      <strong><h:outputText value="*Porcentaje : " style=" position: absolute; top: 230px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoPorcentajeR" value="#{controlVigenciasCargos.nuevaVigArp.porcentaje}" style=" width: 122px; position: absolute; left: 130px; top: 225px; text-transform: uppercase;" onclick="select();">
-                     </p:inputText>
+                     <p:inputNumber autocomplete="off" id="nuevoPorcentajeR" value="#{controlVigenciasCargos.nuevaVigArp.porcentaje}"
+                                    style=" width: 122px; position: absolute; left: 130px; top: 225px; text-transform: uppercase;" onclick="select();">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputNumber>
                      <p:watermark for="nuevoPorcentajeR" value="Clase Riesgo"/>
 
                      <p:commandButton id="agregarR" value="#{msg['agregar']}" style="position: absolute; left: 115px; top: 270px;" actionListener="#{controlVigenciasCargos.agregarPorcentajeARP()}"  process="@this"  icon="ui-icon-circle-check"/>
@@ -869,6 +870,16 @@
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="Los campos marcados con asterisco son obligatorios" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('camposVacios').hide()"   style="position: relative; top: 70px; left: 185px"   process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="camposVacios2" header="#{msg['error']}" widgetVar="camposVacios2"  resizable="false" draggable="true" modal="true" height="70" width="350" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Debe ingresar un porcentaje." style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+               </p:dialog>
+
+               <p:dialog id="ERRORRIESGO" header="#{msg['error']}" widgetVar="ERRORRIESGO"  resizable="false" draggable="true" modal="true" height="70" width="350" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Ha ocurrido un problema al tratar de crear la vigencia ARL." style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
                <p:dialog id="existePorcentaje" header="#{msg['error']}" widgetVar="existePorcentaje"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
@@ -897,7 +908,7 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['paso1']}" style="position: absolute; left: 110px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('paso1').hide();" style="position: absolute; top: 60px; left: 170px;"  process="@this"/>
-                  <p:commandButton icon="ui-icon-check" value="Siguiente" onclick="PF('paso2').show();" style="position: absolute; top: 60px; left: 240px;"  process="@this"/>
+                  <p:commandButton icon="ui-icon-check" value="Siguiente" onclick="PF('paso1').hide(); PF('paso2').show();" style="position: absolute; top: 60px; left: 274px;"  process="@this"/>
                </p:dialog>
 
                <p:dialog id="paso2" header="#{msg['atencion']}" widgetVar="paso2"  resizable="false" draggable="true" modal="true" height="95" width="440"  closable="true">  
@@ -905,20 +916,20 @@
                   <h:outputText value="#{msg['paso2']} #{controlVigenciasCargos.nuevaVigArp.nombreEstructura} #{msg['paso2otro']} #{controlVigenciasCargos.nuevaVigArp.nombreCargo} " 
                                 style="position: absolute; left: 110px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('paso2').hide();" style="position: absolute; top: 60px; left: 170px;"  process="@this"/>
-                  <p:commandButton icon="ui-icon-check" value="Siguiente" onclick="PF('paso3').show();" style="position: absolute; top: 60px; left: 240px;"  process="@this"/>
+                  <p:commandButton icon="ui-icon-check" value="Siguiente" onclick="PF('paso2').hide(); PF('paso3').show();" style="position: absolute; top: 60px; left: 274px;"  process="@this"/>
                </p:dialog>
 
                <p:dialog id="paso3" header="#{msg['atencion']}" widgetVar="paso3"  resizable="false" draggable="true" modal="true" height="95" width="440"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['paso3']} #{controlVigenciasCargos.nuevaVigArp.porcentaje} #{msg['paso3otro']}" style="position: absolute; left: 110px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('paso3').hide();" style="position: absolute; top: 60px; left: 170px;"  process="@this"/>
-                  <p:commandButton icon="ui-icon-check" value="Siguiente" onclick="PF('paso3').show();" style="position: absolute; top: 60px; left: 240px;"  process="@this"/>
+                  <p:commandButton icon="ui-icon-check" value="Siguiente" actionListener="#{controlVigenciasCargos.crearVRiesgo()}" style="position: absolute; top: 60px; left: 274px;"  process="@this"/>
                </p:dialog>
 
                <p:dialog id="exito" header="#{msg['atencion']}" widgetVar="exito"  resizable="false" draggable="true" modal="true" height="95" width="440"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"/>
                   <h:outputText value="#{msg['exito']}" style="position: absolute; left: 110px; top: 20px; width: 300px;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('exito').hide();" style="position: absolute; top: 60px; left: 170px;"  process="@this"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('exito').hide(); PF('adicionarPorcentaje').hide();" style="position: absolute; top: 60px; left: 170px;"  process="@this"/>
                </p:dialog>
 
 

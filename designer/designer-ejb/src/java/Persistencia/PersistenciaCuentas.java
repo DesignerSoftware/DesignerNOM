@@ -3,9 +3,12 @@
  */
 package Persistencia;
 
+import Entidades.CentrosCostos;
 import Entidades.Cuentas;
 import InterfacePersistencia.PersistenciaCuentasInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -117,6 +120,90 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          System.out.println("Error buscarCuentasSecuenciaEmpresa PersistenciaCuentas : " + e.toString());
          List<Cuentas> cuentas = null;
          return cuentas;
+      }
+   }
+
+   public int contarVigCuentasPorTipoccConceptoYCuentac(EntityManager em, BigInteger tipoCC, BigInteger cuentaC, BigInteger concepto, Date fechaIni) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT COUNT(*) FROM VIGENCIASCUENTAS V WHERE FECHAINICIAL = ? \n"
+                 + " AND TIPOCC = ? AND CUENTAC = ? AND CONCEPTO = ?");
+         query.setParameter(1, fechaIni);
+         query.setParameter(2, tipoCC);
+         query.setParameter(3, cuentaC);
+         query.setParameter(4, concepto);
+         BigDecimal variable = (BigDecimal) query.getSingleResult();
+         if (variable != null) {
+            return variable.intValue();
+         } else {
+            return 0;
+         }
+      } catch (Exception e) {
+         System.out.println("Error contarVigCuentasPorTipoccConceptoYCuentac PersistenciaCuentas : " + e.toString());
+         return 0;
+      }
+   }
+
+   public int contarVigCuentasPorTipoccConceptoYCuentad(EntityManager em, BigInteger tipoCC, BigInteger cuentaD, BigInteger concepto, Date fechaIni) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT COUNT(*) FROM VIGENCIASCUENTAS V WHERE FECHAINICIAL = ? \n"
+                 + " AND TIPOCC = ? AND CUENTAD = ? AND CONCEPTO = ?");
+         query.setParameter(1, fechaIni);
+         query.setParameter(2, tipoCC);
+         query.setParameter(3, cuentaD);
+         query.setParameter(4, concepto);
+         BigDecimal variable = (BigDecimal) query.getSingleResult();
+         if (variable != null) {
+            return variable.intValue();
+         } else {
+            return 0;
+         }
+      } catch (Exception e) {
+         System.out.println("Error contarVigCuentasPorTipoccConceptoYCuentad PersistenciaCuentas : " + e.toString());
+         return 0;
+      }
+   }
+
+   public CentrosCostos centroCostoLocalizacionTrabajador(EntityManager em, BigInteger secEmpresa) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT CC.* FROM centroscostos CC\n"
+                 + " WHERE cc.empresa = ? AND cc.nombre LIKE '%LOCALIZACION%TRABAJADOR%'", CentrosCostos.class);
+         query.setParameter(1, secEmpresa);
+         CentrosCostos cc = (CentrosCostos) query.getSingleResult();
+         return cc;
+      } catch (Exception e) {
+         System.out.println("Error centroCostoLocalizacionTrabajador PersistenciaCuentas : " + e.toString());
+         return null;
+      }
+   }
+
+   public CentrosCostos centroCostoContabilidad(EntityManager em, BigInteger secEmpresa) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT CC.* FROM centroscostos CC\n"
+                 + " WHERE cc.empresa = ? AND cc.nombre LIKE '%CONTABILIDAD%'", CentrosCostos.class);
+         query.setParameter(1, secEmpresa);
+         CentrosCostos cc = (CentrosCostos) query.getSingleResult();
+         return cc;
+      } catch (Exception e) {
+         System.out.println("Error centroCostoContabilidad PersistenciaCuentas : " + e.toString());
+         return null;
+      }
+   }
+
+   public List<Cuentas> cuenta2505(EntityManager em, BigInteger secEmpresa) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT CC.* FROM cuentas CC\n"
+                 + " WHERE cc.empresa = ? AND cc.codigo LIKE '2505%'", Cuentas.class);
+         query.setParameter(1, secEmpresa);
+         List<Cuentas> cc = query.getResultList();
+         return cc;
+      } catch (Exception e) {
+         System.out.println("Error cuenta2505 PersistenciaCuentas : " + e.toString());
+         return null;
       }
    }
 }

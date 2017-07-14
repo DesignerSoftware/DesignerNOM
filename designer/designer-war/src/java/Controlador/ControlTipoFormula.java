@@ -95,7 +95,8 @@ public class ControlTipoFormula implements Serializable {
    public ControlTipoFormula() {
       cambiosPagina = true;
       nuevoTipoFormula = new TiposFormulas();
-      nuevoTipoFormula.setFechainicial(new Date());
+      nuevoTipoFormula.setFechainicial(new Date(20, 0, 1));
+      nuevoTipoFormula.setFechafinal(new Date(9999 - 1900, 11, 31));
       lovFormulas = null;
       aceptar = true;
       tipoFormulaSeleccionada = null;
@@ -460,6 +461,8 @@ public class ControlTipoFormula implements Serializable {
    //LIMPIAR NUEVO REGISTRO CIUDAD
    public void limpiarNuevoTiposFormulas() {
       nuevoTipoFormula = new TiposFormulas();
+      nuevoTipoFormula.setFechainicial(new Date(20, 0, 1));
+      nuevoTipoFormula.setFechafinal(new Date(9999 - 1900, 11, 31));
    }
 
    public void limpiarduplicarTiposFormulas() {
@@ -668,6 +671,8 @@ public class ControlTipoFormula implements Serializable {
             listaTiposFormulas.add(nuevoTipoFormula);
             tipoFormulaSeleccionada = listaTiposFormulas.get(listaTiposFormulas.indexOf(nuevoTipoFormula));
             nuevoTipoFormula = new TiposFormulas();
+            nuevoTipoFormula.setFechainicial(new Date(20, 0, 1));
+            nuevoTipoFormula.setFechafinal(new Date(9999 - 1900, 11, 31));
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             contarRegistros();
             if (guardado == true) {

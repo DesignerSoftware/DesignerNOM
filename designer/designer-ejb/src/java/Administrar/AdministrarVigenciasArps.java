@@ -70,6 +70,10 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
          return null;
       }
    }
+   
+   public int contarVigenciasARPsPorEstructuraYCargo(BigInteger estructura, BigInteger cargo){
+      return persistenciaVigenciasArp.contarVigenciasARPsPorEstructuraYCargo(em, estructura, cargo);
+   }
 
    public List<VigenciasArps> consultarVigenciasArps() {
       return persistenciaVigenciasArp.consultarVigenciasArps(em);

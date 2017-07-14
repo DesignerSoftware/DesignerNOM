@@ -87,22 +87,23 @@
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
                                          id="salir" value="" actionListener="#{controlConcepto.cancelarSalir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                        <p:selectOneRadio  id="opciones" value="#{controlConcepto.estadoConceptoEmpresa}" styleClass="ui-radiobutton" 
-                                           style="font-weight: bold; position: absolute; left: 590px; top: 5px; width: 100%; border-collapse: collapse; background-color: transparent; color: #000000;">  
-                           <f:selectItem itemLabel="#{msg['activo']}" itemValue="S"/>
-                           <f:selectItem itemLabel="#{msg['inactivo']}" itemValue="N"/>  
-                           <f:selectItem itemLabel="#{msg['todos']}" itemValue="TODOS"/>
-                           <p:ajax listener="#{controlConcepto.cambiarEstado()}" update="@this, :form:informacionRegistro"/>
-                        </p:selectOneRadio>
                      </p:toolbarGroup>  
                   </p:toolbar>
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
-                     <h:outputText value="#{msg['empresa']}: " style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 10px;"/>
-                     <h:outputText id="nombreEmpresa" value="#{controlConcepto.empresaActual.nombre}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 20px; top: 1px;"/>
-                     <h:outputText value="#{msg['nit']}: " style="font-weight: bold; color: #14388B; position: relative; left: 130px; top: 1px;"/>
-                     <h:outputText id="nitEmpresa" value="#{controlConcepto.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 140px; top: 1px;"/>
+                     <h:outputText value="#{msg['empresa']}: " style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 0px;"/>
+                     <h:inputText id="nombreEmpresa" value="#{controlConcepto.empresaActual.nombre}"
+                                  style="font-weight: bold; color: #BF1A1A; position: relative; left: 6px; top: 1px; border: none; width: 300px;"/>
+                     <h:outputText value="#{msg['nit']}: " style="font-weight: bold; color: #14388B; position: relative; left: 42px; top: 1px;"/>
+                     <h:outputText id="nitEmpresa" value="#{controlConcepto.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 48px; top: 1px;"/>
+
+                     <p:selectOneRadio  id="opciones" value="#{controlConcepto.estadoConceptoEmpresa}" styleClass="ui-radiobutton" 
+                                        style="font-weight: bold; position: absolute; left: 606px; top: 5px; width: 100%; border-collapse: collapse; background-color: transparent; color: #000000; font-size: 11px;">  
+                        <f:selectItem itemLabel="#{msg['activo']}" itemValue="S"/>
+                        <f:selectItem itemLabel="#{msg['inactivo']}" itemValue="N"/>  
+                        <f:selectItem itemLabel="#{msg['todos']}" itemValue="TODOS"/>
+                        <p:ajax listener="#{controlConcepto.cambiarEstado()}" update="@this, :form:informacionRegistro"/>
+                     </p:selectOneRadio>
                   </fieldset>   
 
                   <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 274px; border-radius: 10px; padding-top: 0px;">

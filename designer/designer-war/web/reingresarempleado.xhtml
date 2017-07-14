@@ -62,7 +62,7 @@
 
                         <p:separator style="position: relative; top: -9px;"/> 
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()"
                                          actionListener="#{controlReingresarEmpleado.cancelarModificaciones()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
@@ -77,23 +77,39 @@
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 374px; width: 830px; border-radius: 10px; text-align: center; padding-top: 30px;">
                      <legend style="font-size: 13px; color: blue; position: absolute; z-index: 9; margin-top: -40px; background-color: white;"><strong>Reingresar un Empleado</strong></legend>
 
-                     <h:outputText value="#{msg['nombredelempleado']}" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}"
-                                  style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
-                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}"/>
+                     <div style="display: block; left: 0px; margin-top: 20px; font-weight: bold;">
+                        <h:outputText value="#{msg['codigoEM']}" style="display: inline-block; margin-right: 70px;"/>
+                        <h:outputText value="#{msg['nombredelempleado']}" style="display: inline-block;"/>
+                     </div>
+                     <p:inputText autocomplete="off" id="nombreEmpleadoC" widgetVar="nombreEmpleadoC" value="#{controlReingresarEmpleado.empleado.codigoempleado}"
+                                  style="display: inline-block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 80px; margin-right: 15px;" onclick="select();">
+                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.codigoempleado)}" update=":form:nombreEmpleado, :form:nombreEmpleadoC"/>
                         <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
-                        <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 72px; right: 296px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
+                     </p:inputText>
+                     <p:inputText autocomplete="off" id="nombreEmpleado" widgetVar="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}"
+                                  style="display: inline-block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
+                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}" update=":form:nombreEmpleado, :form:nombreEmpleadoC"/>
+                        <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
+                        <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 72px; right: 244px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                      </p:inputText>
 
-                     <h:outputText value="#{msg['estructura']}" style="display: block; left: 0px; margin-top: 20px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}"
-                                  style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
-                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.nombre)}"/>
+                     <div style="display: block; left: 0px; margin-top: 20px; font-weight: bold;">
+                        <h:outputText value="#{msg['codigoEM']}" style="display: inline-block; margin-right: 100px; margin-left: -40px;"/>
+                        <h:outputText value="#{msg['estructura']}" style="display: inline-block;"/>
+                     </div>
+                     <p:inputText autocomplete="off" id="estructuraC" widgetVar="estructuraC" value="#{controlReingresarEmpleado.estructura.codigo}"
+                                  style="display: inline-block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 80px; margin-right: 15px;" onclick="select();">
+                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.codigo)}" update=":form:estructura, :form:estructuraC"/>
                         <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
-                        <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 134px; right: 296px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
+                     </p:inputText>
+                     <p:inputText autocomplete="off" id="estructura" widgetVar="estructura" value="#{controlReingresarEmpleado.estructura.nombre}"
+                                  style="display: inline-block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
+                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.nombre)}" update=":form:estructura, :form:estructuraC"/>
+                        <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
+                        <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 134px; right: 244px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
                      </p:inputText>
 
-                     <h:outputText  value="#{msg['fechareingreso']}" style="display: block; margin-top: 20px; left: 0px; font-weight: bold;"/>
+                     <h:outputText  value="#{msg['fechareingreso']}" style="display: block; margin-top: 30px; left: 0px; font-weight: bold;"/>
                      <div id="divFechaReingreso" style="display: block; margin-top: 3px; left: 0px;">
                         <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaReingreso" widgetVar="fechaReingreso" value="#{controlReingresarEmpleado.fechaReingreso}">
                            <p:ajax event="dateSelect" update="fechaReingreso" process="@this"/>
@@ -118,22 +134,22 @@
             </h:form>
             <h:form id="formularioDialogos">
 
-               <p:dialog id="seleccioneEmpleado" header="#{msg['atencion']}" widgetVar="seleccioneEmpleado"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="Por favor, primero escoja el empleado que va a reingresar" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('seleccioneEmpleado').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this"/>
+               <p:dialog id="seleccioneEmpleado" header="#{msg['atencion']}" widgetVar="seleccioneEmpleado" resizable="false" draggable="true" modal="true" height="90" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Por favor, primero escoja el empleado que va a reingresar" style="position: absolute; left: 100px; top: 20px; width: 280px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('seleccioneEmpleado').hide();" icon="ui-icon-check" style="position: absolute; top: 62px; left: 270px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorFechas']} #{controlReingresarEmpleado.mostrarFechaRetiro}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this"/>
+               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas" resizable="false" draggable="true" modal="true" height="90" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechas']} #{controlReingresarEmpleado.mostrarFechaRetiro}" style="position: absolute; left: 100px; top: 20px; width: 280px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" icon="ui-icon-check" style="position: absolute; top: 62px; left: 280px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="validacionReingreso" header="#{msg['atencion']}" widgetVar="validacionReingreso"  resizable="false" draggable="true" modal="true" height="105" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="#{msg['validacionReingreso']} #{controlReingresarEmpleado.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionReingreso').hide();" style="position: absolute; top: 68px; left: 300px;" process="@this"/>
+               <p:dialog id="validacionReingreso" header="#{msg['atencion']}" widgetVar="validacionReingreso"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="66" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['validacionReingreso']} #{controlReingresarEmpleado.mensajeValidacion}" style="position: absolute; left: 94px; top: 20px; width: 300px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionReingreso').hide();" style="position: absolute; top: 68px; left: 280px;" process="@this"/>
                </p:dialog>
 
                <!--DIALOGO EMPLEADOS-->    
@@ -175,10 +191,10 @@
                </p:dialog>
                <!--DIALOGO ESTRUCTURAS-->    
                <p:dialog header="#{msg['estructurasE']}" widgetVar="estructurasDialogo" draggable="true" resizable="false" id="estructurasDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="700">
+                         showEffect="fade" hideEffect="fade" modal="true" width="800">
 
                   <p:dataTable  id="LOVEstructuras" var="es" value="#{controlReingresarEmpleado.lovEstructuras}"
-                                scrollable="true" scrollHeight="350" scrollWidth="678" widgetVar="LOVEstructuras" 
+                                scrollable="true" scrollHeight="350" scrollWidth="778" widgetVar="LOVEstructuras" 
                                 filteredValue="#{controlReingresarEmpleado.filtradoLovEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{es.secuencia}" selection="#{controlReingresarEmpleado.estructuraSeleccionada}" selectionMode="single">
 
@@ -190,7 +206,7 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" class="cssFiltroLOV"/>
                      </f:facet>
 
-                     <p:column filterBy="#{es.codigo}" sortBy="#{es.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                     <p:column filterBy="#{es.codigo}" sortBy="#{es.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 75% !important;"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoE']}"/>
                         </f:facet>
@@ -211,14 +227,14 @@
                         <h:outputText value="#{es.centrocosto.nombre}"/>  
                      </p:column>
 
-                     <p:column filterBy="#{es.centrocosto.empresa.nombre}" sortBy="#{es.centrocosto.empresa.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                     <p:column filterBy="#{es.centrocosto.empresa.nombre}" sortBy="#{es.centrocosto.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresaE']}"/>
                         </f:facet>
                         <h:outputText value="#{es.centrocosto.empresa.nombre}"/>  
                      </p:column>
 
-                     <p:column filterBy="#{es.centrocosto.empresa.codigo}" sortBy="#{es.centrocosto.empresa.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                     <p:column filterBy="#{es.centrocosto.empresa.codigo}" sortBy="#{es.centrocosto.empresa.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 75% !important;"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoeE']}"/>
                         </f:facet>

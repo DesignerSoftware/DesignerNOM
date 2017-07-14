@@ -144,7 +144,6 @@ public class ControlVigenciasCargos implements Serializable {
    //INFORMACION DEL REGISTRO QUE TIENE EL FOCO
    private String altoTabla, infoRegistro, infoRegistroJefe, infoRegistroEstructuras, infoRegistroMotivos, infoRegistroCargos, infoRegistroClaseR, infoRegistroPapel;
    //variables del dialogo vigencias arp
-   private String porcentaje;
    private VigenciasArps nuevaVigArp;
    //
    private boolean activarLOV;
@@ -558,7 +557,6 @@ public class ControlVigenciasCargos implements Serializable {
    public void asignarIndex(VigenciasCargos vCargos, int dlg, int tipo) {
       vigenciaSeleccionada = vCargos;
       tipoActualizacion = tipo;
-      RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = false;
       if (dlg == 0) {
          lovMotivosCambiosCargos = null;
@@ -1650,12 +1648,15 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public void mostrarDialogoAdicionarPorcentaje() {
-      nuevaVigArp.setFechainicial(new Date());
-      nuevaVigArp.setFechafinal(new Date());
+      nuevaVigArp.setFechainicial(new Date(100, 0, 1));
+      nuevaVigArp.setFechafinal(new Date(9999 - 1900, 11, 31));
       nuevaVigArp.setEstructura(vigenciaSeleccionada.getEstructura().getSecuencia());
+      nuevaVigArp.setNombreEstructura(vigenciaSeleccionada.getEstructura().getNombre());
       nuevaVigArp.setCargo(vigenciaSeleccionada.getCargo().getSecuencia());
+      nuevaVigArp.setNombreCargo(vigenciaSeleccionada.getCargo().getNombre());
       nuevaVigArp.setPorcentaje(BigDecimal.ZERO);
       RequestContext.getCurrentInstance().update("formularioDialogos:adicionarPorcentaje");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRiesgo");
       RequestContext.getCurrentInstance().execute("PF('adicionarPorcentaje').show()");
    }
 
@@ -1665,20 +1666,41 @@ public class ControlVigenciasCargos implements Serializable {
          contador++;
       }
       if (contador == 0) {
-         porcentaje = administrarVigArp.buscarPorcentaje(nuevaVigArp.getEstructura(), nuevaVigArp.getCargo(), new Date());
-         if (porcentaje != null) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:existePorcentaje");
-            RequestContext.getCurrentInstance().execute("PF('existePorcentaje').show()");
+         if (nuevaVigArp.getPorcentaje() != null) {
+            if (nuevaVigArp.getPorcentaje().equals(new BigDecimal("0"))) {
+               contador++;
+            }
          } else {
-            nuevaVigArp.setPorcentaje(nuevaVigArp.getPorcentaje());
-            RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
-            RequestContext.getCurrentInstance().execute("PF('paso1').show()");
-            administrarVigArp.crearVArp(nuevaVigArp);
-            RequestContext.getCurrentInstance().update("formularioDialogos:exito");
-            RequestContext.getCurrentInstance().execute("PF('exito').show()");
+            contador++;
+         }
+         if (contador == 0) {
+            int cont = administrarVigArp.contarVigenciasARPsPorEstructuraYCargo(nuevaVigArp.getEstructura(), nuevaVigArp.getCargo());
+            if (cont > 0) {
+               RequestContext.getCurrentInstance().update("formularioDialogos:existePorcentaje");
+               RequestContext.getCurrentInstance().execute("PF('existePorcentaje').show()");
+            } else {
+               nuevaVigArp.setPorcentaje(nuevaVigArp.getPorcentaje());
+               RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
+               RequestContext.getCurrentInstance().execute("PF('paso1').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('camposVacios2').show()");
          }
       } else {
          RequestContext.getCurrentInstance().execute("PF('camposVacios').show()");
+      }
+   }
+
+   public void crearVRiesgo() {
+      try {
+         administrarVigArp.crearVArp(nuevaVigArp);
+         RequestContext.getCurrentInstance().update("formularioDialogos:exito");
+         RequestContext.getCurrentInstance().execute("PF('paso3').hide();");
+         RequestContext.getCurrentInstance().execute("PF('exito').show()");
+      } catch (Exception e) {
+         System.out.println("ControlVigenciasCargos.crearVRiesgo() ERROR : " + e);
+         RequestContext.getCurrentInstance().execute("PF('paso3').hide();");
+         RequestContext.getCurrentInstance().execute("PF('ERRORRIESGO').show()");
       }
    }
 
@@ -1994,6 +2016,14 @@ public class ControlVigenciasCargos implements Serializable {
    public List<VwTiposEmpleados> getLovActualesTiposTrabajadores() {
       if (lovActualesTiposTrabajadores == null) {
          lovActualesTiposTrabajadores = administrarVigenciasCargos.FiltrarTipoTrabajador();
+         if (lovActualesTiposTrabajadores != null) {
+            for (VwTiposEmpleados recEmpleado : lovActualesTiposTrabajadores) {
+               if (empleado.getCodigoempleado().equals(recEmpleado.getCodigoEmpleado())) {
+                  lovActualesTiposTrabajadores.remove(recEmpleado);
+                  break;
+               }
+            }
+         }
       }
       return lovActualesTiposTrabajadores;
    }

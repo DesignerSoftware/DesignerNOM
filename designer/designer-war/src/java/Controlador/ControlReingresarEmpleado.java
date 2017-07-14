@@ -168,7 +168,8 @@ public class ControlReingresarEmpleado implements Serializable {
          }
       } else if (confirmarCambio.equalsIgnoreCase("ESTRUCTURA")) {
          for (int i = 0; i < lovEstructuras.size(); i++) {
-            if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())
+                    || lovEstructuras.get(i).getCodigo().toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -205,6 +206,7 @@ public class ControlReingresarEmpleado implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
       RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
       RequestContext.getCurrentInstance().update("form:nombreEmpleado");
+      RequestContext.getCurrentInstance().update("form:nombreEmpleadoC");
    }
 
    public void actualizarEstructuras() {
@@ -217,6 +219,7 @@ public class ControlReingresarEmpleado implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').hide()");
       RequestContext.getCurrentInstance().update("formularioDialogos:LOVEstructuras");
       RequestContext.getCurrentInstance().update("form:estructura");
+      RequestContext.getCurrentInstance().update("form:estructuraC");
    }
 
    public void validarFechaNull() {

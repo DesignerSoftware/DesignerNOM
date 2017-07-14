@@ -40,8 +40,9 @@ and open the template in the editor.
 
 .ui-widget-header {
    border: 1px solid #ffffff;
-   background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
-   color: #FFFFFF;
+   /*background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;*/
+   background: #6DAED9 url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
+   color: #3B3A42;
    font-weight: bold;
    text-shadow: none;
 }

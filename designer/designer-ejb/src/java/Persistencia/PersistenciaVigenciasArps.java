@@ -3,6 +3,7 @@ package Persistencia;
 import Entidades.VigenciasArps;
 import Entidades.VigenciasArpsAux;
 import InterfacePersistencia.PersistenciaVigenciasArpsInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +37,24 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             tx.rollback();
          }
          return null;
+      }
+   }
+
+   public int contarVigenciasARPsPorEstructuraYCargo(EntityManager em, BigInteger estructura, BigInteger cargo) {
+      try {
+         em.clear();
+         Query query = em.createNativeQuery("SELECT Count(*) FROM VIGENCIASARPS VA WHERE VA.ESTRUCTURA = ? AND VA.CARGO = ?");
+         query.setParameter(1, estructura);
+         query.setParameter(2, cargo);
+         BigDecimal variable = (BigDecimal) query.getSingleResult();
+         if (variable != null) {
+            return variable.intValue();
+         } else {
+            return 0;
+         }
+      } catch (Exception e) {
+         System.out.println("Error contarVigenciasARPsPorEstructuraYCargo PersistenciaVigenciasArps : " + e.toString());
+         return 0;
       }
    }
 

@@ -102,7 +102,8 @@ public class ControlTipoConstante implements Serializable {
    public ControlTipoConstante() {
       cambiosPagina = true;
       nuevoTipoConstante = new TiposConstantes();
-      nuevoTipoConstante.setFechainicial(new Date());
+      nuevoTipoConstante.setFechainicial(new Date(20, 0, 1));
+      nuevoTipoConstante.setFechafinal(new Date(9999 - 1900, 11, 31));
       aceptar = true;
       tipoConstanteSeleccionada = null;
       guardado = true;
@@ -112,7 +113,6 @@ public class ControlTipoConstante implements Serializable {
       listaTiposConstantesModificar = new ArrayList<TiposConstantes>();
       altoTabla = "286";
       duplicarTipoConstante = new TiposConstantes();
-      nuevoTipoConstante.setFechainicial(new Date());
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -633,6 +633,8 @@ public class ControlTipoConstante implements Serializable {
                listaTiposConstantes.add(nuevoTipoConstante);
                tipoConstanteSeleccionada = listaTiposConstantes.get(listaTiposConstantes.indexOf(nuevoTipoConstante));
                nuevoTipoConstante = new TiposConstantes();
+               nuevoTipoConstante.setFechainicial(new Date(20, 0, 1));
+               nuevoTipoConstante.setFechafinal(new Date(9999 - 1900, 11, 31));
                RequestContext.getCurrentInstance().update("form:datosTiposConstantes");
                contarRegistros();
                if (guardado == true) {
@@ -748,6 +750,8 @@ public class ControlTipoConstante implements Serializable {
    //LIMPIAR NUEVO REGISTRO CIUDAD
    public void limpiarNuevoTiposConstantes() {
       nuevoTipoConstante = new TiposConstantes();
+      nuevoTipoConstante.setFechainicial(new Date(20, 0, 1));
+      nuevoTipoConstante.setFechafinal(new Date(9999 - 1900, 11, 31));
    }
 
    //LIMPIAR Duplicar REGISTRO CIUDAD

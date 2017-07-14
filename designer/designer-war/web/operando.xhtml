@@ -366,12 +366,12 @@
 
                   <p:panel id="nuevoOperando" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
+                     <strong><h:outputText value="*#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoNombre" value="#{controlOperando.nuevoOperando.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 125px;"/></strong>
+                     <strong><h:outputText value="*#{msg['tipoN']}" style=" position: absolute; top: 125px;"/></strong>
                      <p:selectOneMenu  id="nuevoTipo" value="#{controlOperando.nuevoOperando.estadoTipo}" style="position: absolute; top:120px; left: 180px; width: 100px;">  
                         <f:selectItem itemLabel="#{msg['formula']}" itemValue="FORMULA"/>  
                         <f:selectItem itemLabel="#{msg['bloque']}" itemValue="BLOQUE PL/SQL"/>  
@@ -396,9 +396,9 @@
                         <p:ajax update="@this"/>
                      </p:selectBooleanCheckbox>
 
-                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 280px;" actionListener="#{controlOperando.limpiarNuevoOperando()}" update="nuevoOperando" process="@this"/>
-                     <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 280px;"  actionListener="#{controlOperando.agregarNuevoOperando()}" process="@this"/>
-                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 280px;" actionListener="#{controlOperando.limpiarNuevoOperando()}" update="nuevoOperando" onclick="PF('NuevoOperando').hide();"  process="@this"/>
+                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 290px;" actionListener="#{controlOperando.limpiarNuevoOperando()}" update="nuevoOperando" process="@this"/>
+                     <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 290px;"  actionListener="#{controlOperando.agregarNuevoOperando()}" process="@this"/>
+                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 290px;" actionListener="#{controlOperando.limpiarNuevoOperando()}" update="nuevoOperando" onclick="PF('NuevoOperando').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
@@ -410,12 +410,12 @@
 
                   <p:panel id="duplicarOperando" style="border: none;">
 
-                     <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 85px;"/></strong>
+                     <strong><h:outputText value="*#{msg['nombreN']}" style="position: absolute; top: 85px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarNombre" value="#{controlOperando.duplicarOperando.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
-                     <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 125px;"/></strong>
+                     <strong><h:outputText value="*#{msg['tipoN']}" style="position: absolute; top: 125px;"/></strong>
                      <p:selectOneMenu  id="duplicarTipo" value="#{controlOperando.duplicarOperando.estadoTipo}" style="position: absolute; top: 120px; left: 180px; width: 100px;">  
                         <f:selectItem itemLabel="#{msg['formula']}" itemValue="FORMULA"/>  
                         <f:selectItem itemLabel="#{msg['bloque']}" itemValue="BLOQUE PL/SQL"/>  
@@ -440,9 +440,9 @@
                         <p:ajax update="@this"/>
                      </p:selectBooleanCheckbox>
 
-                     <p:commandButton id="limpiarDO" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 280px;" actionListener="#{controlOperando.limpiarduplicarOperandos()}" update="duplicarOperando" process="@this"/>
-                     <p:commandButton id="agregarDO" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 280px;"  actionListener="#{controlOperando.confirmarDuplicar()}" process="@this"/>
-                     <p:commandButton id="cancelarDO" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 280px;" actionListener="#{controlOperando.limpiarduplicarOperandos()}" update="duplicarOperando" onclick="PF('DuplicarOperando').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarDO" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 290px;" actionListener="#{controlOperando.limpiarduplicarOperandos()}" update="duplicarOperando" process="@this"/>
+                     <p:commandButton id="agregarDO" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 290px;"  actionListener="#{controlOperando.confirmarDuplicar()}" process="@this"/>
+                     <p:commandButton id="cancelarDO" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 290px;" actionListener="#{controlOperando.limpiarduplicarOperandos()}" update="duplicarOperando" onclick="PF('DuplicarOperando').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 

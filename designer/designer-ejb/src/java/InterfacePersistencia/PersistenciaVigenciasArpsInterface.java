@@ -25,5 +25,7 @@ public interface PersistenciaVigenciasArpsInterface {
 
    public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta);
 
+   public int contarVigenciasARPsPorEstructuraYCargo(EntityManager em, BigInteger estructura, BigInteger cargo);
+
    public List<VigenciasArps> consultarVigenciasArps(EntityManager em);
 }

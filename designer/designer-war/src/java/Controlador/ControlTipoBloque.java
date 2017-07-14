@@ -106,7 +106,8 @@ public class ControlTipoBloque implements Serializable {
       listaTiposBloques = null;
       cambiosPagina = true;
       nuevoTipoBloque = new TiposBloques();
-      nuevoTipoBloque.setFechainicial(new Date());
+      nuevoTipoBloque.setFechainicial(new Date(20, 0, 1));
+      nuevoTipoBloque.setFechafinal(new Date(9999 - 1900, 11, 31));
       aceptar = true;
       tipoBloqueSeleccionado = null;
       guardado = true;
@@ -116,7 +117,6 @@ public class ControlTipoBloque implements Serializable {
       listaTiposBloquesModificar = new ArrayList<TiposBloques>();
       altoTabla = "280";
       duplicarTipoBloque = new TiposBloques();
-      nuevoTipoBloque.setFechainicial(new Date());
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -570,6 +570,8 @@ public class ControlTipoBloque implements Serializable {
             listaTiposBloques.add(nuevoTipoBloque);
             tipoBloqueSeleccionado = listaTiposBloques.get(listaTiposBloques.indexOf(nuevoTipoBloque));
             nuevoTipoBloque = new TiposBloques();
+            nuevoTipoBloque.setFechainicial(new Date(20, 0, 1));
+            nuevoTipoBloque.setFechafinal(new Date(9999 - 1900, 11, 31));
             RequestContext.getCurrentInstance().update("form:datosTiposBloques");
             contarRegistros();
             if (guardado == true) {
@@ -642,6 +644,8 @@ public class ControlTipoBloque implements Serializable {
    //LIMPIAR NUEVO REGISTRO CIUDAD
    public void limpiarNuevoTiposBloques() {
       nuevoTipoBloque = new TiposBloques();
+      nuevoTipoBloque.setFechainicial(new Date(20, 0, 1));
+      nuevoTipoBloque.setFechafinal(new Date(9999 - 1900, 11, 31));
    }
 
    //LIMPIAR Duplicar REGISTRO CIUDAD

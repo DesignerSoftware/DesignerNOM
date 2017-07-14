@@ -156,13 +156,13 @@
                                             onstart="PF('datosTiposFormulas').unselectAllRows();PF('datosTiposFormulas').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(tf, 0, 0)}"/>
                                  </p:inputText>
-                                 <p:commandButton style="width: 18px; height: 18px; margin: 0px !important; display: ruby;" class="cssBotonLovDialogos"
+                                 <p:commandButton style="width: 18px; height: 18px; margin: 0px !important; display: ruby; background-image: url(Imagenes/Iconos/editar.png) !important;" class="cssBotonLovDialogos"
                                                   id="FORMULAS" value="" process="@this" actionListener="#{controlTipoFormula.guardarVariables(controlTipoFormula.tipoFormulaSeleccionada.secuencia)}"/>
                                  <p:tooltip for="FORMULAS" value="#{msg['dirigirFormula']}"/>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110%;" value=""/>
+                              <p:commandButton style="width: 110%;" action="#{controlListaNavegacion.guardarNavegacion('tipoformula', 'formula')}" value=""/>
                            </f:facet>
                         </p:column>
 
