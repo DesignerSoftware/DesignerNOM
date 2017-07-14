@@ -76,7 +76,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
     public List<UsuariosInforeportes> listaUsuariosIR(EntityManager em, BigInteger secUsuario) {
         try {
             em.clear();
-            String sql = "SELECT * FROM USUARIOSINFOREPORTES WHERE USUARIO = ?";
+            String sql = "SELECT * FROM USUARIOSINFOREPORTES WHERE USUARIO = ? ORDER BY INFOREPORTE";
             Query query = em.createNativeQuery(sql, UsuariosInforeportes.class);
             query.setParameter(1, secUsuario);
             List<UsuariosInforeportes> lista = query.getResultList();
@@ -105,7 +105,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
     public List<Usuarios> listaUsuarios(EntityManager em) {
         try {
             em.clear();
-            String sql = "SELECT * FROM USUARIOS WHERE PERFIL IS NOT NULL";
+            String sql = "SELECT * FROM USUARIOS WHERE PERFIL IS NOT NULL ORDER BY ALIAS";
             Query query = em.createNativeQuery(sql, Usuarios.class);
             List<Usuarios> lista = query.getResultList();
             return lista;

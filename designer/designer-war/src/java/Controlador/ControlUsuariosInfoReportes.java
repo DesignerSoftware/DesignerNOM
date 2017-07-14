@@ -50,6 +50,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
     private List<Usuarios> listaUsuariosFiltrar;
     private Usuarios usuarioSeleccionado;
     private Usuarios editarUsuario;
+    private Usuarios usuarioAux;
 //tabla de abajo
     private List<UsuariosInforeportes> listaUsuariosIR;
     private List<UsuariosInforeportes> listaUsuariosIRFiltrar;
@@ -77,10 +78,11 @@ public class ControlUsuariosInfoReportes implements Serializable {
     private BigInteger l;
     private boolean aceptar, guardado;
     private String mensajeValidacion, altoTabla, altoTablaIR;
-    private boolean activarLov;
+    private boolean activarLov, mostrarTodos, buscar;
     private int cualTabla;
     private String infoRegistroUsuario, infoRegistroUsuarioIR, infoRegistroLovIR, infoRegistroLovUsuariosIR;
     private String paginaAnterior = "nominaf";
+    private String tablaImprimir, nombreArchivo;
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlUsuariosInfoReportes() {
@@ -94,6 +96,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
         editarUsuarioIR = new UsuariosInforeportes();
         nuevoUsuarioIR = new UsuariosInforeportes();
         nuevoUsuarioIR.setInforeporte(new Inforeportes());
+        nuevoUsuarioIR.getInforeporte().setCodigo(null);
         nuevoUsuarioIR.setUsuario(new Usuarios());
         duplicarUsuarioIR = new UsuariosInforeportes();
         guardado = true;
@@ -106,7 +109,11 @@ public class ControlUsuariosInfoReportes implements Serializable {
         usuarioIRSeleccionado = null;
         activarLov = true;
         mapParametros.put("paginaAnterior", paginaAnterior);
-
+        mostrarTodos = true;
+        buscar = false;
+        usuarioAux = new Usuarios();
+        tablaImprimir = "";
+        nombreArchivo = "";
     }
 
     public void limpiarListasValor() {
@@ -189,13 +196,15 @@ public class ControlUsuariosInfoReportes implements Serializable {
         listaUsuariosIR = administrarUsuariosIR.listaUsuariosIR(usuarioSeleccionado.getSecuencia());
         RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
         contarRegistrosUsuariosIR();
+        buscar = false;
+        RequestContext.getCurrentInstance().update("form:buscar");
     }
 
     public void cambiarIndiceIR(UsuariosInforeportes usu, int celda) {
         usuarioIRSeleccionado = usu;
         cualCeldaIR = celda;
         usuarioIRSeleccionado.getSecuencia();
-        cualTabla = 1;
+        cualTabla = 2;
         if (cualCeldaIR == 0) {
             habilitarBotonLov();
             usuarioIRSeleccionado.getInforeporte().getCodigo();
@@ -295,6 +304,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
         listaUsuariosIRCrear.clear();
         listaUsuariosIRModificar.clear();
         usuarioIRSeleccionado = null;
+        usuarioSeleccionado = null;
         k = 0;
         listaUsuariosIR = null;
         guardado = true;
@@ -312,7 +322,6 @@ public class ControlUsuariosInfoReportes implements Serializable {
             perfil.setFilterStyle("width: 85% !important;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosUsuarios:nombre");
             nombre.setFilterStyle("width: 85% !important;");
-
             codigo = (Column) c.getViewRoot().findComponent("form:datosUsuariosIR:codigo");
             codigo.setFilterStyle("width: 85% !important;");
             reporte = (Column) c.getViewRoot().findComponent("form:datosUsuariosIR:reporte");
@@ -325,7 +334,6 @@ public class ControlUsuariosInfoReportes implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
             altoTabla = "60";
             altoTablaIR = "190";
             alias = (Column) c.getViewRoot().findComponent("form:datosUsuarios:alias");
@@ -347,6 +355,8 @@ public class ControlUsuariosInfoReportes implements Serializable {
             bandera = 0;
             listaUsuariosFiltrar = null;
             tipoLista = 0;
+            RequestContext.getCurrentInstance().execute("PF('datosUsuarios').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('datosUsuariosIR').clearFilters()");
         }
     }
 
@@ -373,7 +383,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
     }
 
     public void contarRegistrosLovUsuariosIR() {
-        RequestContext.getCurrentInstance().update("form:informacionRegistroIR");
+        RequestContext.getCurrentInstance().update("formularioDialogos:informacionRegistroIR");
     }
 
     public void contarRegistrosLovIR() {
@@ -475,7 +485,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
-            contarRegistrosUsuarios();
+            contarRegistrosUsuariosIR();
             usuarioIRSeleccionado = null;
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -515,7 +525,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
-                contarRegistrosUsuarios();
+                contarRegistrosUsuariosIR();
                 usuarioIRSeleccionado = null;
             }
             guardado = true;
@@ -540,7 +550,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
-        if (nuevoUsuarioIR.getUsuario() == null) {
+        if (usuarioSeleccionado == null) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
@@ -579,11 +589,11 @@ public class ControlUsuariosInfoReportes implements Serializable {
                 listaUsuariosIR.add(nuevoUsuarioIR);
                 contarRegistrosUsuariosIR();
                 usuarioIRSeleccionado = nuevoUsuarioIR;
-                usuarioIRSeleccionado = new UsuariosInforeportes();
                 RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().execute("PF('nuevoRegistroUsuarioIR').hide()");
+                usuarioIRSeleccionado = new UsuariosInforeportes();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeUsuarioIR");
                 RequestContext.getCurrentInstance().execute("PF('existeUsuarioIR').show()");
@@ -598,9 +608,26 @@ public class ControlUsuariosInfoReportes implements Serializable {
         nuevoUsuarioIR = new UsuariosInforeportes();
     }
 
+    public void limpiarUsuarioAux() {
+        usuarioAux = new Usuarios();
+    }
+
+    public void exportXML() {
+        if (cualTabla == 1) {
+            nombreArchivo = "Usuarios";
+            tablaImprimir = "formExportar:datosUsuariosExportar";
+            limpiarUsuarioAux();
+        } else if (cualTabla == 2) {
+            nombreArchivo = "UsuariosInfoRetencion";
+            tablaImprimir = "formExportar:datosUsuariosIRExportar";
+            limpiarNuevoUsuarioI();
+        }
+    }
+
     public void duplicandoUsuariosIR() {
         if (usuarioIRSeleccionado != null) {
             duplicarUsuarioIR = new UsuariosInforeportes();
+            duplicarUsuarioIR.setInforeporte(new Inforeportes());
             k++;
             l = BigInteger.valueOf(k);
 
@@ -642,7 +669,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
                 listaUsuariosIR.add(duplicarUsuarioIR);
                 listaUsuariosIRCrear.add(duplicarUsuarioIR);
                 usuarioIRSeleccionado = duplicarUsuarioIR;
-                contarRegistrosUsuarios();
+                contarRegistrosUsuariosIR();
                 RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
                 if (guardado == true) {
                     guardado = false;
@@ -701,14 +728,6 @@ public class ControlUsuariosInfoReportes implements Serializable {
         }
     }
 
-    public void mostrarDialogoBuscar() {
-
-    }
-
-    public void mostrarTodosReportes() {
-
-    }
-
     public void actualizarReportes() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
@@ -759,119 +778,109 @@ public class ControlUsuariosInfoReportes implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('reportesDialogo').hide()");
     }
 
-//     public void actualizarSeleccionInforeporte() {
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        if (tipoActualizacion == 0) {
-//            usuarioIRSeleccionado = usuarioIRLovSeleccionado;
-//            RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
-//        } 
-//        lovUsuariosIRFiltrar = null;
-//        usuarioIRLovSeleccionado = null;
-//        aceptar = true;
-//        tipoActualizacion = -1;
-//        cualCeldaIR = -1;
-//
-//        RequestContext.getCurrentInstance().update("formularioDialogos:reportesDialogo");
-//        RequestContext.getCurrentInstance().update("formularioDialogos:lovReportes");
-//        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarU");
-//        context.reset("formularioDialogos:lovReportes:globalFilter");
-//        RequestContext.getCurrentInstance().execute("PF('lovReportes').clearFilters()");
-//        RequestContext.getCurrentInstance().execute("PF('reportesDialogo').hide()");   
-//         
-//    }
-//
-//    public void cancelarSeleccionInforeporte() {
-//        filtrarListInforeportesUsuario = null;
-//        reporteSeleccionadoLOV = null;
-//        aceptar = true;
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        context.reset("formDialogos:lovReportesDialogo:globalFilter");
-//        RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
-//        RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
-//    }
-
-    /*
-     public void mostrarTodosAporteEntidad() {
-        RequestContext.getCurrentInstance().update("form:mostrarTodos");
-        //index = indexAUX;
-        aporteTablaSeleccionado = null;
-        if (banderaAporte == 1) {
-            desactivarFiltradoAporteEntidad();
-            banderaAporte = 0;
-            filtrarListaAportesEntidades = null;
-            tipoListaAporte = 0;
-        }
-        activoBtnsPaginas = false;
-        cargarDatosNuevos();
+    public void mostrarDialogoBuscar() {
+        lovUsuariosIR = null;
+        lovUsuariosIR = administrarUsuariosIR.listaUsuariosIR(usuarioSeleccionado.getSecuencia());
+        contarRegistrosLovUsuariosIR();
+        RequestContext.getCurrentInstance().update("formularioDialogos:usuariosIRDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovUsuariosIR");
+        RequestContext.getCurrentInstance().execute("PF('usuariosIRDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+        buscar = true;
+        RequestContext.getCurrentInstance().update("form:buscar");
     }
-    
-    
-    
-        public void actualizarAporteEntidad() {
+
+    public void actualizarUsuarioIR() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (banderaAporte == 1) {
-            desactivarFiltradoAporteEntidad();
-            banderaAporte = 0;
-            filtrarListaAportesEntidades = null;
-            tipoListaAporte = 0;
+        if (!listaUsuariosIR.isEmpty()) {
+            listaUsuariosIR.clear();
+            listaUsuariosIR.add(usuarioIRLovSeleccionado);
+            usuarioIRSeleccionado = listaUsuariosIR.get(0);
         }
-//        listaAportesEntidades = null;
-        listaAportesEntidades.clear();
-//        listaAportesEntidades.add(aporteEntidadSeleccionado);
-        System.out.println("ControlParametroAutoliq.actualizarAporteEntidad()");
-        listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorEmpleado(aporteEntidadSeleccionado.getEmpleado().getSecuencia(), aporteEntidadSeleccionado.getMes(), aporteEntidadSeleccionado.getAno());
-//        getListaAportesEntidades();
-        if (listaAportesEntidades != null) {
-            if (!listaAportesEntidades.isEmpty()) {
-                aporteTablaSeleccionado = listaAportesEntidades.get(0);
-            }
-        }
-        filtrarLovAportesEntidades = null;
-        aporteEntidadSeleccionado = null;
-        aceptar = true;
-        activoBtnsPaginas = true;
-        RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:eliminarToda");
-        RequestContext.getCurrentInstance().update("form:procesoLiq");
-//      RequestContext.getCurrentInstance().update("form:acumDif");
-        tipoActualizacion = -1;
-        visibilidadMostrarTodos = "visible";
-        RequestContext.getCurrentInstance().update("form:mostrarTodos");
-        contarRegistrosParametros();
-        contarRegistrosAporte();
-        RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
 
-        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
-        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:lovBuscarAporte");
-        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:aceptarBA");
-        context.reset("formularioLovAporteEntidad:lovBuscarAporte:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovBuscarAporte').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('BuscarAporteDialogo').hide()");
+        contarRegistrosUsuariosIR();
+        RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
+        lovUsuariosIRFiltrar = null;
+        usuarioIRLovSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCeldaIR = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:usuariosIRDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovUsuariosIR");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarUIR");
+        context.reset("formularioDialogos:lovUsuariosIR:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovUsuariosIR').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('usuariosIRDialogo').hide()");
+        mostrarTodos = false;
+        RequestContext.getCurrentInstance().update("form:mostrarTodos");
+
     }
-    
-    */
-    
-    
+
+    public void cancelarCambioUsuarioIR() {
+        lovUsuariosIRFiltrar = null;
+        usuarioIRLovSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCeldaIR = -1;
+        buscar = false;
+        RequestContext.getCurrentInstance().update("form:buscar");
+        RequestContext.getCurrentInstance().update("formularioDialogos:usuariosIRDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovUsuariosIR");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarUIR");
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovUsuariosIR:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovUsuariosIR').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('usuariosIRDialogo').hide()");
+    }
+
+    public void mostrarTodosUsuariosIR() {
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+        listaUsuariosIR = null;
+        listaUsuariosIR = administrarUsuariosIR.listaUsuariosIR(usuarioSeleccionado.getSecuencia());
+        RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
+        contarRegistrosUsuariosIR();
+        buscar = false;
+        RequestContext.getCurrentInstance().update("form:buscar");
+        mostrarTodos = true;
+        RequestContext.getCurrentInstance().update("form:mostrarTodos");
+
+    }
+
     public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosIRExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "UsuariosInfoReportes", false, false, "UTF-8", null, null);
-        context.responseComplete();
+        if (cualTabla == 1) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "Usuarios", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualTabla == 2) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosIRExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "UsuariosInfoReportes", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        }
     }
 
     public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosIRExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "UsuariosInfoReportes", false, false, "UTF-8", null, null);
-        context.responseComplete();
+        if (cualTabla == 1) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "Usuarios", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualTabla == 2) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosIRExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "UsuariosInfoReportes", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        }
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (usuarioIRSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(usuarioIRSeleccionado.getSecuencia(), "UsuariosInfoReportes"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            int resultado = administrarRastros.obtenerTabla(usuarioIRSeleccionado.getSecuencia(), "UsuariosInfoReportes");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
@@ -889,6 +898,11 @@ public class ControlUsuariosInfoReportes implements Serializable {
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
+    }
+
+    public void guardarySalir() {
+        guardarUsuariosIR();
+        salir();
     }
 
     ///////GETS Y SETS//////
@@ -1119,11 +1133,46 @@ public class ControlUsuariosInfoReportes implements Serializable {
     }
 
     public String getInfoRegistroLovUsuariosIR() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovUsuariosIR");
+        infoRegistroLovUsuariosIR = String.valueOf(tabla.getRowCount());
         return infoRegistroLovUsuariosIR;
     }
 
     public void setInfoRegistroLovUsuariosIR(String infoRegistroLovUsuariosIR) {
         this.infoRegistroLovUsuariosIR = infoRegistroLovUsuariosIR;
+    }
+
+    public boolean isMostrarTodos() {
+        return mostrarTodos;
+    }
+
+    public void setMostrarTodos(boolean mostrarTodos) {
+        this.mostrarTodos = mostrarTodos;
+    }
+
+    public boolean isBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(boolean buscar) {
+        this.buscar = buscar;
+    }
+
+    public String getTablaImprimir() {
+        return tablaImprimir;
+    }
+
+    public void setTablaImprimir(String tablaImprimir) {
+        this.tablaImprimir = tablaImprimir;
+    }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
     }
 
 }

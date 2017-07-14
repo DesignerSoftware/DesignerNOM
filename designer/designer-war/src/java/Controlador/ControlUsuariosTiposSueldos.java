@@ -85,7 +85,9 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         listUsuariosTSModificar = new ArrayList<UsuariosTiposSueldos>();
         nuevoUsuarioTS = new UsuariosTiposSueldos();
         nuevoUsuarioTS.setUsuario(new Usuarios());
+        nuevoUsuarioTS.getUsuario().setAlias(null);
         nuevoUsuarioTS.setTiposueldo(new TiposSueldos());
+        nuevoUsuarioTS.getTiposueldo().setDescripcion(null);
         duplicarUsuarioTS = new UsuariosTiposSueldos();
         editarUsuarioTS = new UsuariosTiposSueldos();
         guardado = true;
@@ -672,6 +674,14 @@ public class ControlUsuariosTiposSueldos implements Serializable {
         navegar("atras");
     }
 
+    public void revisarDialogoGuardar() {
+        if (!listUsuariosTSBorrar.isEmpty() || !listUsuariosTSCrear.isEmpty() || !listUsuariosTSModificar.isEmpty()) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        }
+    }
+    
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }

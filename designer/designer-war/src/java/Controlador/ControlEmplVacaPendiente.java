@@ -113,8 +113,8 @@ public class ControlEmplVacaPendiente implements Serializable {
         nombreXML = "VacacionesPendientesXML";
         totalDiasPendientes = BigInteger.valueOf(0);
         diasProvisionados = BigDecimal.valueOf(0);
-        altoTabla1 = "275";
-        altoTabla2 = "275";
+        altoTabla1 = "245";
+        altoTabla2 = "245";
         regVacaAuxiliar = null;
         tipoActualizacion = -1;
         fechaAño1900 = new Date();
@@ -436,7 +436,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                     vacacionesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
                     vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
                     vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-                    altoTabla1 = "275";
+                    altoTabla1 = "245";
                     RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     banderaPendientes = 0;
                     filtrarListVacaPendientes = null;
@@ -518,7 +518,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                     vacacionesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
                     vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
                     vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-                    altoTabla1 = "275";
+                    altoTabla1 = "245";
                     RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                     banderaPendientes = 0;
                     filtrarListVacaPendientes = null;
@@ -621,7 +621,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicialD.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "275";
+            altoTabla2 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
@@ -634,7 +634,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "275";
+            altoTabla1 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
@@ -656,6 +656,8 @@ public class ControlEmplVacaPendiente implements Serializable {
         regVacaAuxiliar = null;
         tipoActualizacion = -1;
         guardado = true;
+        activarActuales = true;
+        activarAnteriores = false;
 
         recargarListas();
         contarRegistrosD();
@@ -668,6 +670,8 @@ public class ControlEmplVacaPendiente implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
         RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
         RequestContext.getCurrentInstance().update("form:totalDiasP");
+        RequestContext.getCurrentInstance().update("form:AnterioresC");
+        RequestContext.getCurrentInstance().update("form:ActualC");
 
     }
 
@@ -689,7 +693,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinal.setFilterStyle("width: 85% !important");
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("width: 85% !important");
-            altoTabla1 = "255";
+            altoTabla1 = "225";
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 1;
         } else if (banderaPendientes == 1) {
@@ -699,7 +703,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "275";
+            altoTabla1 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
@@ -716,7 +720,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicialD.setFilterStyle("width: 85% !important");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("width: 85% !important");
-            altoTabla2 = "255";
+            altoTabla2 = "225";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 1;
         } else if (banderaDisfrutadas == 1) {
@@ -726,7 +730,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicialD.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "275";
+            altoTabla2 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
@@ -751,7 +755,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                 vacacionesFechaInicialD.setFilterStyle("display: none; visibility: hidden;");
                 vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
                 vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
-                altoTabla2 = "275";
+                altoTabla2 = "245";
                 RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
                 banderaDisfrutadas = 0;
                 filtrarListVacaDisfrutadas = null;
@@ -774,7 +778,7 @@ public class ControlEmplVacaPendiente implements Serializable {
                 vacacionesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
                 vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
                 vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-                altoTabla1 = "275";
+                altoTabla1 = "245";
                 RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
                 banderaPendientes = 0;
                 filtrarListVacaPendientes = null;
@@ -801,7 +805,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicialD.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "275";
+            altoTabla1 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
@@ -814,7 +818,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicialD.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "275";
+            altoTabla2 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
@@ -910,7 +914,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaInicialD.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaFinalD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesFechaFinalD");
             vacacionesFechaFinalD.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "275";
+            altoTabla2 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
             banderaDisfrutadas = 0;
             filtrarListVacaDisfrutadas = null;
@@ -923,7 +927,7 @@ public class ControlEmplVacaPendiente implements Serializable {
             vacacionesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
             vacacionesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado:vacacionesFechaInicial");
             vacacionesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "275";
+            altoTabla1 = "245";
             RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
             banderaPendientes = 0;
             filtrarListVacaPendientes = null;
@@ -962,6 +966,8 @@ public class ControlEmplVacaPendiente implements Serializable {
         tipoActualizacion = -1;
         totalDiasPendientes = BigInteger.valueOf(0);
         diasProvisionados = BigDecimal.valueOf(0);
+        activarActuales = true;
+        activarAnteriores = false;
         navegar("atras");
     }
 
@@ -1326,8 +1332,8 @@ public class ControlEmplVacaPendiente implements Serializable {
     public BigDecimal getDiasProvisionados() {
         try {
             if (empleado != null) {
-                diasProvisionados = administrarVWVacaPendientesEmpleados.diasProvisionadosEmpleado(empleado,fechaContratacionaux);
-                if(diasProvisionados == null){
+                diasProvisionados = administrarVWVacaPendientesEmpleados.diasProvisionadosEmpleado(empleado, fechaContratacionaux);
+                if (diasProvisionados == null) {
                     diasProvisionados = new BigDecimal(0);
                 }
             }

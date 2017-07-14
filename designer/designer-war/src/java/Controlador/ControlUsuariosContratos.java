@@ -592,6 +592,14 @@ public class ControlUsuariosContratos implements Serializable {
         }
     }
 
+     public void revisarDialogoGuardar() {
+        if (!listUsuariosCBorrar.isEmpty() || !listUsuariosCCrear.isEmpty() || !listUsuariosCModificar.isEmpty()) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        }
+    }
+    
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (usuarioContratoSeleccionado != null) {

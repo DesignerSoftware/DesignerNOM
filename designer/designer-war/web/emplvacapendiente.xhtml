@@ -81,12 +81,6 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <h:outputText id="DPro" style="position: absolute; top: 52px; left: 530px; text-align: left; font-weight: bold; width: 180px;"
-                                value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
-                  <h:outputText id="DFC" style="position: absolute; top: 52px; left: 730px; text-align: right; font-weight: bold; width: 110px;"
-                                value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
-                  <p:tooltip for="DPro" value="#{msg['DPro']}"/>
-                  <p:tooltip for="DFC" value="#{msg['DFC']}" style="position: fixed; margin: 0px;"/>
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
@@ -97,8 +91,15 @@
                      <h:outputText id="docEmpleado" value="#{controlEmplVacaPendiente.empleado.codigoempleado}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
+                  
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
+                  <h:outputText id="DPro" style="position: absolute; top: 7px; left: 10px; text-align: left; font-weight: bold; width: 180px;"
+                                value="Días Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
+                  <h:outputText id="DFC" style="position: absolute; top: 7px; left: 445px; text-align: right; font-weight: bold; width: 200px;"
+                                value="Fecha Contratación: #{controlEmplVacaPendiente.fechaContratacionText}"/>
+                  </fieldset>
 
-                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 360px; width: 400px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 160px; left: 10px; height: 305px; width: 400px; border-radius: 10px; text-align: left;">
                      <legend style=" color: blue;"><strong>#{msg['pendientes']}</strong></legend>
                      <!-- TABLA EMPLVACACIONESEMPLEADO -->
                      <p:dataTable id="datosVacacionesPEmpleado" widgetVar="datosVacacionesPEmpleado" rowIndexVar="indice" style=" position: relative; border: 1px; text-align: center; width: 390px;"                           
@@ -178,14 +179,14 @@
                         </p:column>
                      </p:dataTable>  
 
-                     <h:outputText id="informacionRegistroP" value="#{msg['infoRegistro']} #{controlEmplVacaPendiente.infoRegistroP}" style="position: relative; left: 15px; top: 5px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistroP" value="#{msg['infoRegistro']} #{controlEmplVacaPendiente.infoRegistroP}" style="position: relative; left: 5px; top: 5px; font-weight: bold;"/>
                      <h:outputText id="totalDias" value="Total DP:" style="position: relative; top: 5px; left: 160px; font-weight: bold;"/>  
                      <p:tooltip  for="totalDias" value="#{msg['total']}"/>
                      <h:outputText id="totalDiasP" value="#{controlEmplVacaPendiente.totalDiasPendientes}" style="position: relative; top: 5px; left: 180px;"/>  
 
                   </fieldset> 
 
-                  <fieldset style="position: absolute; top: 110px; left: 440px; height: 360px; width: 400px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 160px; left: 440px; height: 305px; width: 400px; border-radius: 10px; text-align: left;">
                      <legend style=" color: blue;"><strong>#{msg['disfrutadas']}</strong></legend>
                      <!-- TABLA EMPLVACACIONESEMPLEADO -->
 
@@ -264,7 +265,7 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>  
-                     <h:outputText id="informacionRegistroD" value="#{msg['infoRegistro']} #{controlEmplVacaPendiente.infoRegistroD}" style="position: relative; left: 15px; top: 5px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistroD" value="#{msg['infoRegistro']} #{controlEmplVacaPendiente.infoRegistroD}" style="position: relative; left: 5px; top: 5px; font-weight: bold;"/>
                   </fieldset> 
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show()" process="@this" disabled="#{controlEmplVacaPendiente.guardado}"/>
