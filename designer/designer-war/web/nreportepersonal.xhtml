@@ -94,20 +94,30 @@
                                     <h:outputText value="#{info.nombre}"/>
                                 </p:column>
 
-                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="66" style="padding: 0px;"> 
+                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="66" style="padding: 0px;" sortBy="#{info.estadoTipo}" filterBy="#{info.estadoTipo}" footerText="" filterMatchMode="in" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="filter">
+                                        <p:selectCheckboxMenu label="#{msg['tipo']}" id="tipo" rendered="false" onchange="PF('reportesPersonal').filter()">
+                                            <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>
+                                            <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>
+                                            <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>
+                                            <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>
+                                            <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
+                                            <f:selectItem itemLabel="RTF" itemValue="RTF"/>
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.estadoTipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{info.tipo}" style="width: 42px; font-weight: bold;"
-                                                onblur="PF('reportesPersonal').unselectAllRows(); PF('reportesPersonal').selectRow(#{indice});"
-                                                onfocus="PF('reportesPersonal').unselectAllRows(); PF('reportesPersonal').selectRow(#{indice});">  
+                                            <p:selectOneMenu value="#{info.estadoTipo}" style="width: 42px; font-weight: bold;"
+                                                             onblur="PF('reportesPersonal').unselectAllRows(); PF('reportesPersonal').selectRow(#{indice});"
+                                                             onfocus="PF('reportesPersonal').unselectAllRows(); PF('reportesPersonal').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>
                                                 <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>
                                                 <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>
                                                 <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
                                                 <f:selectItem itemLabel="RTF" itemValue="RTF"/>
-                                                <p:ajax event="change" listener="#{controlNReportePersonal.modificacionTipoReporte(info, info.tipo)}"/>
+                                                <p:ajax event="change" listener="#{controlNReportePersonal.modificacionTipoReporte(info, info.estadoTipo)}"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>

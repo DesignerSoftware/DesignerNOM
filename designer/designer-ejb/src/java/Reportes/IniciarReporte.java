@@ -170,7 +170,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             //handle = null;
             //cerrarConexion();
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error ejecutarReportinho IniciarReporte.ejecutarReporte: " + e);
             if (e.getCause() != null) {
                 return "Error: " + e.toString() + "\n" + e.getCause().toString();
@@ -232,7 +232,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, imprimir);
                 exporter.exportReport();
                 return outFileName;
-            } catch (JRException e) {
+            } catch (Exception e) {
                 System.out.println("Error crear archivo reporte \n" + e);
                 if (e.getCause() != null) {
                     return "Error: " + e.toString() + "\n" + e.getCause().toString();
@@ -297,12 +297,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             }
             System.out.println("fin. " + outFileName);
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -341,12 +341,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             }
             System.out.println("fin. " + outFileName);
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -386,12 +386,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             }
             System.out.println("fin. " + outFileName);
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -428,18 +428,18 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.exportReport();
             }
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
             System.out.println("************************************");
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
 
-    @Override
+     @Override
     public String ejecutarReporteHojaVida(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
         try {
             System.out.println("INICIARREPORTE NombreReporte: " + nombreReporte);
@@ -447,13 +447,13 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             System.out.println("INICIARREPORTE rutaGenerado: " + rutaGenerado);
             System.out.println("INICIARREPORTE nombreArchivo: " + nombreArchivo);
             System.out.println("INICIARREPORTE tipoReporte: " + tipoReporte);
-            System.out.println("INICIARREPORTE Parametros : " + param);
+            System.out.println("INICIARREPORTE ejecutarReporteHojaVida param : " + param);
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
             System.out.println("INICIARREPORTE creo master ");
             Map parametros = new HashMap();
-            parametros.put("RutaReportes", rutaReporte);
+//            parametros.put("RutaReportes", rutaReporte);
             if (param != null && !param.isEmpty()) {
                 parametros.put("secEmpleado", param.get("secEmpleado"));
             }
@@ -470,14 +470,14 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
+            System.out.println("fin. " + outFileName);
             return outFileName;
-        } catch (JRException e) {
-            System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
-            System.out.println("************************************");
+        } catch (Exception e) {
+            System.out.println("Error IniciarReporte.ejecutarReporteHojaVida: " + e);
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -508,13 +508,13 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.exportReport();
             }
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReportePlanta1: " + e);
             System.out.println("************************************");
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -547,13 +547,13 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.exportReport();
             }
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporteSegUsuarios: " + e);
             System.out.println("************************************");
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -590,13 +590,13 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             }
             System.out.println("fin. " + outFileName);
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
             System.out.println("************************************");
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -629,13 +629,13 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.exportReport();
             }
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReportePantallas: " + e);
             System.out.println("************************************");
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }
@@ -668,13 +668,13 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.exportReport();
             }
             return outFileName;
-        } catch (JRException e) {
+        } catch (Exception e) {
             System.out.println("Error IniciarReporte.ejecutarReporteObjetos: " + e);
             System.out.println("************************************");
             if (e.getCause() != null) {
-                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+                return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                return "INICIARREPORTE Error: " + e.toString();
+                return "Error: " + e.toString();
             }
         }
     }

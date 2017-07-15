@@ -613,7 +613,10 @@ public class ControlReportesBancos implements Serializable {
         }
     }
 
-    public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+     public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+        if (empldesde.equals("") || empldesde == null) {
+             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+        }
         if (empldesde.equals(BigDecimal.valueOf(0))) {
             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
         }
@@ -624,6 +627,9 @@ public class ControlReportesBancos implements Serializable {
     public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
         String h = "99999999999999999999999999";
         BigDecimal b = new BigDecimal(h);
+         if (emplHasta.equals("") || emplHasta == null) {
+             parametroDeReporte.setCodigoempleadodesde(b);
+        }
         if (emphasta.equals(b)) {
             parametroDeReporte.setCodigoempleadodesde(b);
         }

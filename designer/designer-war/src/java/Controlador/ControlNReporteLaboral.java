@@ -24,6 +24,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -37,6 +38,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectcheckboxmenu.SelectCheckboxMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -69,7 +71,8 @@ public class ControlNReporteLaboral implements Serializable {
     private Inforeportes lovReporteSeleccionado;
     private int bandera;
     private boolean aceptar;
-    private Column codigoIR, reporteIR, tipoIR;
+    private Column codigoIR, reporteIR;
+    private SelectCheckboxMenu tipoIR;
     private int casilla;
     private ParametrosReportes parametroModificacion;
     private int tipoLista;
@@ -120,6 +123,7 @@ public class ControlNReporteLaboral implements Serializable {
     private ExternalContext externalContext;
     private String userAgent;
     private boolean activarLov;
+    private Map<BigInteger, Object> mapTipos = new LinkedHashMap<>();
 
     public ControlNReporteLaboral() {
         activoMostrarTodos = true;
@@ -330,6 +334,9 @@ public class ControlNReporteLaboral implements Serializable {
                 }
 
                 if (!listaInfoReportesModificados.isEmpty()) {
+                    if (!mapTipos.isEmpty()) {
+                        listaInfoReportesModificados.get(0).setTipo((String) mapTipos.get(listaInfoReportesModificados.get(0).getSecuencia()));
+                    }
                     administrarNReporteLaboral.guardarCambiosInfoReportes(listaInfoReportesModificados);
                     listaInfoReportesModificados.clear();
                 }
@@ -596,18 +603,16 @@ public class ControlNReporteLaboral implements Serializable {
         RequestContext.getCurrentInstance().update("form:reportesLaboral");
     }
 
-    public void modificacionTipoReporte(Inforeportes reporte) {
+    public void modificacionTipoReporte(Inforeportes reporte, String tipo) {
         inforreporteSeleccionado = reporte;
+        inforreporteSeleccionado.setTipo(tipo);
         cambiosReporte = false;
-        if (listaInfoReportesModificados.isEmpty()) {
+        if (listaInfoReportesModificados.isEmpty() || !listaInfoReportesModificados.contains(inforreporteSeleccionado)) {
             listaInfoReportesModificados.add(inforreporteSeleccionado);
-        } else if (!listaInfoReportesModificados.contains(inforreporteSeleccionado)) {
-            listaInfoReportesModificados.add(inforreporteSeleccionado);
-        } else {
-            int posicion = listaInfoReportesModificados.indexOf(inforreporteSeleccionado);
-            listaInfoReportesModificados.set(posicion, inforreporteSeleccionado);
+            mapTipos.put(inforreporteSeleccionado.getSecuencia(), inforreporteSeleccionado.getTipo());
         }
-        RequestContext context = RequestContext.getCurrentInstance();
+        int n = listaInfoReportesModificados.indexOf(inforreporteSeleccionado);
+        listaInfoReportesModificados.get(n).setTipo(tipo);
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -930,8 +935,10 @@ public class ControlNReporteLaboral implements Serializable {
             }
         }
     }
-
     public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+        if (empldesde.equals("") || empldesde == null) {
+             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+        }
         if (empldesde.equals(BigDecimal.valueOf(0))) {
             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
         }
@@ -942,6 +949,9 @@ public class ControlNReporteLaboral implements Serializable {
     public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
         String h = "99999999999999999999999999";
         BigDecimal b = new BigDecimal(h);
+         if (emplHasta.equals("") || emplHasta == null) {
+             parametroDeReporte.setCodigoempleadodesde(b);
+        }
         if (emphasta.equals(b)) {
             parametroDeReporte.setCodigoempleadodesde(b);
         }
@@ -981,8 +991,9 @@ public class ControlNReporteLaboral implements Serializable {
             codigoIR.setFilterStyle("width: 85% !important;");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:reporteIR");
             reporteIR.setFilterStyle("width: 85% !important;");
-            tipoIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:tipoIR");
-            tipoIR.setFilterStyle("width: 85% !important;");
+            tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesLaboral:tipo");
+            tipoIR.setRendered(true);
+            RequestContext.getCurrentInstance().update("form:reportesLaboral:tipo");
             RequestContext.getCurrentInstance().update("form:reportesLaboral");
             tipoLista = 1;
             bandera = 1;
@@ -1000,12 +1011,15 @@ public class ControlNReporteLaboral implements Serializable {
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
         reporteIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:reporteIR");
         reporteIR.setFilterStyle("display: none; visibility: hidden;");
-        tipoIR = (Column) c.getViewRoot().findComponent("form:reportesLaboral:tipoIR");
-        tipoIR.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:reportesLaboral");
+        tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesLaboral:tipo");
+        tipoIR.setRendered(false);
+        tipoIR.setSelectedValues(null);
+        tipoIR.resetValue();
+        RequestContext.getCurrentInstance().update("form:reportesLaboral:tipo");
         bandera = 0;
         filtrarListInforeportesUsuario = null;
         tipoLista = 0;
+        RequestContext.getCurrentInstance().update("form:reportesLaboral");
     }
 
     public void defaultPropiedadesParametrosReporte() {

@@ -425,17 +425,19 @@ public class Inforeportes implements Serializable {
                 if (tipo.equalsIgnoreCase("PDF")) {
                     estadoTipo = "PDF";
                 } else if (tipo.equalsIgnoreCase("HTML")) {
-                    estadoTipo = "XHTML";
+                    estadoTipo = "HTML";
                 } else if (tipo.equalsIgnoreCase("XLS")) {
                     estadoTipo = "XLS";
                 } else if (tipo.equalsIgnoreCase("DELIMITED")) {
-                    estadoTipo = " ";
+                    estadoTipo = "PLANO";
                 } else if (tipo.equalsIgnoreCase("XML")) {
-                    estadoTipo = " ";
+                    estadoTipo = "XML";
                 } else if (tipo.equalsIgnoreCase("SPREADSHEET")) {
-                    estadoTipo = " ";
-                } else if (tipo.equalsIgnoreCase("")) {
+                    estadoTipo = "CSV";
+                } else if (tipo.equalsIgnoreCase("XHTML")) {
                     estadoTipo = "XHTML";
+                } else if (tipo.equalsIgnoreCase("RTF")) {
+                    estadoTipo = "RTF";
                 }
             }
         }

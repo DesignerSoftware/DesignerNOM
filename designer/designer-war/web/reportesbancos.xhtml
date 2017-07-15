@@ -116,12 +116,12 @@
                             </p:dataTable>
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistro}" style="position: absolute; left: 10px; top: 230px; font-weight: bold;"/>
 
-                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 572px; top: 4px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 665px; top: 4px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlReportesBancos.mostrarDialogoBuscarReporte()}" disabled="#{controlReportesBancos.activoBuscarReporte}"
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             <p:tooltip  for="BUSCARREPORTE" value="Buscar Reportes"/>
 
-                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 574px; top: 4px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 665px; top: 4px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlReportesBancos.mostrarTodos()}" disabled="#{controlReportesBancos.activoMostrarTodos}"/>
                             <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}"/>
                         </fieldset>

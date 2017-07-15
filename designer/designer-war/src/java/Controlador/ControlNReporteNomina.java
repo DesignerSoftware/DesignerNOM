@@ -26,6 +26,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -41,6 +42,7 @@ import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectcheckboxmenu.SelectCheckboxMenu;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
@@ -114,6 +116,7 @@ public class ControlNReporteNomina implements Serializable {
     private List<Estructuras> lovEstructurasFiltrar;
     //COLUMNS
     private Column codigoIR, reporteIR;
+    private SelectCheckboxMenu tipoIR;
     //GENERAR    
     private String reporteGenerar;
     //OTROS
@@ -161,6 +164,7 @@ public class ControlNReporteNomina implements Serializable {
     private ExternalContext externalContext;
     private String userAgent;
     private boolean activarLov;
+    private Map<BigInteger, Object> mapTipos = new LinkedHashMap<>();
 
     public ControlNReporteNomina() {
         activoMostrarTodos = true;
@@ -337,7 +341,11 @@ public class ControlNReporteNomina implements Serializable {
                     }
                     administrarNReportesNomina.modificarParametrosReportes(parametroDeReporte);
                 }
+                System.out.println("listaInfoReportesModificados: " + listaInfoReportesModificados);
                 if (!listaInfoReportesModificados.isEmpty()) {
+                    if (!mapTipos.isEmpty()) {
+                        listaInfoReportesModificados.get(0).setTipo((String) mapTipos.get(listaInfoReportesModificados.get(0).getSecuencia()));
+                    }
                     administrarNReportesNomina.guardarCambiosInfoReportes(listaInfoReportesModificados);
                     listaInfoReportesModificados.clear();
                 }
@@ -528,6 +536,9 @@ public class ControlNReporteNomina implements Serializable {
             codigoIR.setFilterStyle("width: 85% !important");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:reporteIR");
             reporteIR.setFilterStyle("width: 85% !important");
+            tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesNomina:tipo");
+            tipoIR.setRendered(true);
+            RequestContext.getCurrentInstance().update("form:reportesNomina:tipo");
             RequestContext.getCurrentInstance().update("form:reportesNomina");
             bandera = 1;
         } else if (bandera == 1) {
@@ -543,6 +554,11 @@ public class ControlNReporteNomina implements Serializable {
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
         reporteIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:reporteIR");
         reporteIR.setFilterStyle("display: none; visibility: hidden;");
+        tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesNomina:tipo");
+        tipoIR.setRendered(false);
+        tipoIR.setSelectedValues(null);
+        tipoIR.resetValue();
+        RequestContext.getCurrentInstance().update("form:reportesNomina:tipo");
         RequestContext.getCurrentInstance().update("form:reportesNomina");
         bandera = 0;
         tipoLista = 0;
@@ -652,7 +668,7 @@ public class ControlNReporteNomina implements Serializable {
                     empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
                 }
             } else {
-                    empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
+                empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
                 try {
                     if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
                         empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
@@ -734,18 +750,16 @@ public class ControlNReporteNomina implements Serializable {
         }
     }
 
-    public void modificacionTipoReporte(Inforeportes reporte) {
+    public void modificacionTipoReporte(Inforeportes reporte, String tipo) {
         reporteSeleccionado = reporte;
+        reporteSeleccionado.setTipo(tipo);
         cambiosReporte = false;
-        if (listaInfoReportesModificados.isEmpty()) {
+        if (listaInfoReportesModificados.isEmpty() || !listaInfoReportesModificados.contains(reporteSeleccionado)) {
             listaInfoReportesModificados.add(reporteSeleccionado);
-        } else if (!listaInfoReportesModificados.contains(reporteSeleccionado)) {
-            listaInfoReportesModificados.add(reporteSeleccionado);
-        } else {
-            int posicion = listaInfoReportesModificados.indexOf(reporteSeleccionado);
-            listaInfoReportesModificados.set(posicion, reporteSeleccionado);
+            mapTipos.put(reporteSeleccionado.getSecuencia(), reporteSeleccionado.getTipo());
         }
-        RequestContext context = RequestContext.getCurrentInstance();
+        int n = listaInfoReportesModificados.indexOf(reporteSeleccionado);
+        listaInfoReportesModificados.get(n).setTipo(tipo);
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -1615,6 +1629,9 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+        if (empldesde.equals("") || empldesde == null) {
+            parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+        }
         if (empldesde.equals(BigDecimal.valueOf(0))) {
             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
         }
@@ -1625,6 +1642,9 @@ public class ControlNReporteNomina implements Serializable {
     public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
         String h = "99999999999999999999999999";
         BigDecimal b = new BigDecimal(h);
+        if (emplHasta.equals("") || emplHasta == null) {
+            parametroDeReporte.setCodigoempleadodesde(b);
+        }
         if (emphasta.equals(b)) {
             parametroDeReporte.setCodigoempleadodesde(b);
         }

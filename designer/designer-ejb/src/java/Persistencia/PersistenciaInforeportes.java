@@ -71,10 +71,10 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             em.remove(em.merge(inforeportes));
             tx.commit();
         } catch (Exception e) {
-        System.out.println("Error PersistenciaInforeportes.borrar: " + e.getMessage());
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
+            System.out.println("Error PersistenciaInforeportes.borrar: " + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 
@@ -190,7 +190,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
 
     @Override
     public List<Inforeportes> buscarInforeportesUsuarioCapacitacion(EntityManager em) {
-         try {
+        try {
             em.clear();
             Query query = em.createQuery("SELECT DISTINCT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'CAP' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -201,10 +201,10 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             return null;
         }
     }
-    
+
     @Override
     public List<Inforeportes> buscarInforeportesUsuarioEvaluacionCompetencias(EntityManager em) {
-         try {
+        try {
             em.clear();
             Query query = em.createQuery("SELECT DISTINCT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'ECO' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");

@@ -3,8 +3,6 @@
  */
 package Administrar;
 
-import ClasesAyuda.EnvioCorreo;
-import Entidades.ConfiguracionCorreo;
 import Entidades.Generales;
 import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
@@ -13,8 +11,6 @@ import InterfacePersistencia.PersistenciaConfiguracionCorreoInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaGeneralesInterface;
 import Reportes.IniciarReporteInterface;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -229,6 +225,7 @@ public class AdministarReportes implements AdministarReportesInterface {
         return pathReporteGenerado;
     }
 
+    @Override
     public void cancelarReporte() {
         reporte.cancelarReporte();
     }

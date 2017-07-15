@@ -105,11 +105,21 @@
                                     <h:outputText value="#{info.nombre}"/>
                                 </p:column>
 
-                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="60" style="padding: 0px;" sortBy="#{info.tipo}" filterBy="#{info.tipo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"> 
+                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="60" style="padding: 0px;" sortBy="#{info.estadoTipo}" filterBy="#{info.estadoTipo}" footerText="" filterMatchMode="in" filterStyle="display: none; visibility: hidden;"> 
+                                    <f:facet name="filter">
+                                        <p:selectCheckboxMenu label="#{msg['tipo']}" id="tipo" rendered="false" onchange="PF('reportesSeguridad').filter()">
+                                           <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
+                                                <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>  
+                                                <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
+                                                <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>  
+                                                <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
+                                                <f:selectItem itemLabel="#{msg['plano']}" itemValue="PLANO"/>
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.estadoTipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{info.tipo}"  style="width: 98%; font-weight: bold; "
+                                            <p:selectOneMenu value="#{info.estadoTipo}"  style="width: 98%; font-weight: bold;"
                                                              onblur="PF('reportesSeguridad').unselectAllRows(); PF('reportesSeguridad').selectRow(#{indice});"
                                                              onfocus="PF('reportesSeguridad').unselectAllRows(); PF('reportesSeguridad').selectRow(#{indice});" >  
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
@@ -117,7 +127,7 @@
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
                                                 <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>  
                                                 <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
-                                                <f:selectItem itemLabel="#{msg['plano']}" itemValue="DELIMITED"/>
+                                                <f:selectItem itemLabel="#{msg['plano']}" itemValue="PLANO"/>
                                                 <p:ajax listener="#{controlNReportesSeguridad.modificacionTipoReporte(info)}" update=":form:reportesSeguridad" event="change"/>
                                             </p:selectOneMenu>
                                         </f:facet>
@@ -233,7 +243,7 @@
                                             <p:inputText autocomplete="off" id="empresaParametro" value="#{controlNReportesSeguridad.parametroDeReporte.empresa.nombre}"  
                                                          style="position: absolute; left: 85px; width: 100px; top: 48px;" onclick="select();">
                                                 <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(6)}" process="@this"/> 
-                                                 <p:ajax event="change" listener="#{controlNReportesSeguridad.autocompletarGeneral('EMPRESA', controlNReportesSeguridad.parametroDeReporte.empresa.nombre)}" 
+                                                <p:ajax event="change" listener="#{controlNReportesSeguridad.autocompletarGeneral('EMPRESA', controlNReportesSeguridad.parametroDeReporte.empresa.nombre)}" 
                                                         update="empresaParametro" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNReportesSeguridad.dialogosParametros(6)}" process="@this"/>
                                             </p:inputText>

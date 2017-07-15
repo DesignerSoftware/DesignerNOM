@@ -44,6 +44,7 @@ import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectcheckboxmenu.SelectCheckboxMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -125,7 +126,8 @@ public class ControlNReportePersonal implements Serializable {
     private String reporteGenerar;
     private int bandera;
     private boolean aceptar;
-    private Column codigoIR, reporteIR, tipoIR;
+    private Column codigoIR, reporteIR;
+    private SelectCheckboxMenu tipoIR;
     //INFOREGISTRO
     private String infoRegistroEmpleadoDesde, infoRegistroEmpleadoHasta, infoRegistroEmpresa, infoRegistroEstructura;
     private String infoRegistroReportes, infoRegistroTipoTrabajador, infoRegistroEstadoCivil, infoRegistroTipoTelefono;
@@ -257,17 +259,17 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void limpiarListasValor() {
-    lovAficiones = null;
-    lovCiudades = null;
-    lovDeportes = null;
-    lovEmpleados = null;
-    lovEmpresas = null;
-    lovEstadosCiviles = null;
-    lovEstructuras = null;
-    lovIdiomas = null;
-    lovInforeportes = null;
-    lovTiposTelefonos = null;
-    lovTiposTrabajadores = null;
+        lovAficiones = null;
+        lovCiudades = null;
+        lovDeportes = null;
+        lovEmpleados = null;
+        lovEmpresas = null;
+        lovEstadosCiviles = null;
+        lovEstructuras = null;
+        lovIdiomas = null;
+        lovInforeportes = null;
+        lovTiposTelefonos = null;
+        lovTiposTrabajadores = null;
     }
 
     @PostConstruct
@@ -578,6 +580,9 @@ public class ControlNReportePersonal implements Serializable {
             codigoIR.setFilterStyle("width: 85% !important");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:reporteIR");
             reporteIR.setFilterStyle("width: 85% !important");
+            tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesPersonal:tipo");
+            tipoIR.setRendered(true);
+            RequestContext.getCurrentInstance().update("form:reportesPersonal:tipo");
             RequestContext.getCurrentInstance().update("form:reportesPersonal");
             bandera = 1;
         } else if (bandera == 1) {
@@ -593,6 +598,11 @@ public class ControlNReportePersonal implements Serializable {
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
         reporteIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:reporteIR");
         reporteIR.setFilterStyle("display: none; visibility: hidden;");
+        tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesPersonal:tipo");
+        tipoIR.setRendered(false);
+        tipoIR.setSelectedValues(null);
+        tipoIR.resetValue();
+        RequestContext.getCurrentInstance().update("form:reportesPersonal:tipo");
         RequestContext.getCurrentInstance().update("form:reportesPersonal");
         bandera = 0;
         tipoLista = 0;
@@ -1226,7 +1236,10 @@ public class ControlNReportePersonal implements Serializable {
         }
     }
 
-    public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+       public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+        if (empldesde.equals("") || empldesde == null) {
+             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+        }
         if (empldesde.equals(BigDecimal.valueOf(0))) {
             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
         }
@@ -1237,6 +1250,9 @@ public class ControlNReportePersonal implements Serializable {
     public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
         String h = "99999999999999999999999999";
         BigDecimal b = new BigDecimal(h);
+         if (emplHasta.equals("") || emplHasta == null) {
+             parametroDeReporte.setCodigoempleadodesde(b);
+        }
         if (emphasta.equals(b)) {
             parametroDeReporte.setCodigoempleadodesde(b);
         }

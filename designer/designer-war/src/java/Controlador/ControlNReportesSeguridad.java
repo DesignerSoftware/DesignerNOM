@@ -45,6 +45,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.component.selectcheckboxmenu.SelectCheckboxMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -66,11 +67,13 @@ public class ControlNReportesSeguridad implements Serializable {
     private ParametrosReportes parametroFecha;
     private List<Inforeportes> listaIR;
     private Inforeportes reporteSeleccionado;
+    private Inforeportes reportetipo;
     private List<Inforeportes> filtrarListIRU;
     private String reporteGenerar;
     private int bandera;
     private boolean aceptar;
     private Column codigoIR, reporteIR;
+    private SelectCheckboxMenu tipoIR;
     private int casilla;
     private ParametrosReportes parametroModificacion;
     private int posicionReporte;
@@ -82,6 +85,7 @@ public class ControlNReportesSeguridad implements Serializable {
     private Inforeportes reporteSeleccionadoLOV;
     private List<Inforeportes> filtrarLovInforeportes;
     private List<Inforeportes> filtrarReportes;
+    private List<Inforeportes> ListaTipos;
     private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
     private List<Empleados> filtrarLovEmpleados;
@@ -598,7 +602,10 @@ public class ControlNReportesSeguridad implements Serializable {
         }
     }
 
-    public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+     public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+        if (empldesde.equals("") || empldesde == null) {
+             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+        }
         if (empldesde.equals(BigDecimal.valueOf(0))) {
             parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
         }
@@ -609,6 +616,9 @@ public class ControlNReportesSeguridad implements Serializable {
     public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
         String h = "99999999999999999999999999";
         BigDecimal b = new BigDecimal(h);
+         if (emplHasta.equals("") || emplHasta == null) {
+             parametroDeReporte.setCodigoempleadodesde(b);
+        }
         if (emphasta.equals(b)) {
             parametroDeReporte.setCodigoempleadodesde(b);
         }
@@ -1006,6 +1016,9 @@ public class ControlNReportesSeguridad implements Serializable {
             codigoIR.setFilterStyle("width: 85% !important");
             reporteIR = (Column) c.getViewRoot().findComponent("form:reportesSeguridad:reporteIR");
             reporteIR.setFilterStyle("width: 85% !important");
+            tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesSeguridad:tipo");
+            tipoIR.setRendered(true);
+            RequestContext.getCurrentInstance().update("form:reportesSeguridad:tipo");
             RequestContext.getCurrentInstance().update("form:reportesSeguridad");
             bandera = 1;
         } else if (bandera == 1) {
@@ -1021,21 +1034,32 @@ public class ControlNReportesSeguridad implements Serializable {
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
         reporteIR = (Column) c.getViewRoot().findComponent("form:reportesSeguridad:reporteIR");
         reporteIR.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:reportesSeguridad");
+        tipoIR = (SelectCheckboxMenu) c.getViewRoot().findComponent("form:reportesSeguridad:tipo");
+        tipoIR.setRendered(false);
+        tipoIR.setSelectedValues(null);
+        tipoIR.resetValue();
+        RequestContext.getCurrentInstance().update("form:reportesSeguridad:tipo");
         bandera = 0;
         tipoLista = 0;
         filtrarListIRU = null;
+        RequestContext.getCurrentInstance().update("form:reportesSeguridad");        
     }
 
     public void modificacionTipoReporte(Inforeportes reporte) {
+        System.out.println("Controlador.ControlNReportesSeguridad.modificacionTipoReporte()");
         reporteSeleccionado = reporte;
         cambiosReporte = false;
+        if (reporteSeleccionado.getEstadoTipo().equals("PLANO")) {
+            reporteSeleccionado.setEstadoTipo("DELIMITED");
+            tipoReporte = reporteSeleccionado.getEstadoTipo();
+        }
         if (listaInfoReportesModificados.isEmpty()) {
             listaInfoReportesModificados.add(reporteSeleccionado);
         } else if (!listaInfoReportesModificados.contains(reporteSeleccionado)) {
             listaInfoReportesModificados.add(reporteSeleccionado);
         } else {
             int posicion = listaInfoReportesModificados.indexOf(reporteSeleccionado);
+            listaInfoReportesModificados.add(reporteSeleccionado);
             listaInfoReportesModificados.set(posicion, reporteSeleccionado);
         }
         RequestContext context = RequestContext.getCurrentInstance();
@@ -1053,8 +1077,15 @@ public class ControlNReportesSeguridad implements Serializable {
     public void generarDocumentoReporte() {
         try {
             if (reporteSeleccionado != null) {
+                System.out.println("reporteSeleccionado.getEstadoTipo(): " + reporteSeleccionado.getEstadoTipo());
                 nombreReporte = reporteSeleccionado.getNombrereporte();
-                tipoReporte = reporteSeleccionado.getTipo();
+                if (reporteSeleccionado.getEstadoTipo().equals("PLANO")) {
+                    reporteSeleccionado.setEstadoTipo("DELIMITED");
+                    tipoReporte = reporteSeleccionado.getEstadoTipo();
+                } else {
+                    tipoReporte = reporteSeleccionado.getEstadoTipo();
+                }
+                System.out.println("reporteSeleccionado.getEstadoTipo(): " + reporteSeleccionado.getEstadoTipo());
                 if (nombreReporte != null && tipoReporte != null) {
                     pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
                 }
@@ -1821,5 +1852,4 @@ public class ControlNReportesSeguridad implements Serializable {
     public void setParametroFecha(ParametrosReportes parametroFecha) {
         this.parametroFecha = parametroFecha;
     }
-
 }
