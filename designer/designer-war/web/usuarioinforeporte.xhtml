@@ -75,7 +75,7 @@
 
                         <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 13px; color: blue;"><strong>Usuarios</strong></legend>
-                            <p:dataTable id="datosUsuarios" widgetVar="datosUsuarios" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
+                            <p:dataTable lazy="true" id="datosUsuarios" widgetVar="datosUsuarios" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
                                          value="#{controlUsuariosInfoReportes.listaUsuarios}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlUsuariosInfoReportes.listaUsuariosFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlUsuariosInfoReportes.usuarioSeleccionado}" selectionMode="single">
