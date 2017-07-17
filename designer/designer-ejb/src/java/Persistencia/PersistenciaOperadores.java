@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
@@ -29,9 +30,10 @@ public class PersistenciaOperadores implements PersistenciaOperadoresInterface{
     public List<Operadores> buscarOperadores(EntityManager em){
         try {
             em.clear();
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Operadores.class));
-            return em.createQuery(cq).getResultList();
+            String sql="SELECT * FROM OPERADORES";
+            Query query= em.createNativeQuery(sql, Operadores.class);
+            List<Operadores> lista = query.getResultList();
+            return lista;
         } catch (Exception e) {
             System.out.println("Error buscarOperadores PersistenciaOperadores : "+e.toString());
             return null;

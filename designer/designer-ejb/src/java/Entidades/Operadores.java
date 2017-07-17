@@ -1,7 +1,8 @@
 package Entidades;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.BigInteger;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,7 +20,7 @@ public class Operadores implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SECUENCIA")
-    private BigDecimal secuencia;
+    private BigInteger secuencia;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -32,20 +33,20 @@ public class Operadores implements Serializable {
     public Operadores() {
     }
 
-    public Operadores(BigDecimal secuencia) {
+    public Operadores(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
-    public Operadores(BigDecimal secuencia, String descripcion) {
+    public Operadores(BigInteger secuencia, String descripcion) {
         this.secuencia = secuencia;
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getSecuencia() {
+    public BigInteger getSecuencia() {
         return secuencia;
     }
 
-    public void setSecuencia(BigDecimal secuencia) {
+    public void setSecuencia(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
