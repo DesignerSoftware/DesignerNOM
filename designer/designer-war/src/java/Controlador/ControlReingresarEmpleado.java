@@ -160,8 +160,6 @@ public class ControlReingresarEmpleado implements Serializable {
          }
          if (coincidencias == 1) {
             setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-//            lovEmpleados.clear();
-//            getLovEmpleados();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
@@ -176,8 +174,6 @@ public class ControlReingresarEmpleado implements Serializable {
          }
          if (coincidencias == 1) {
             setEstructura(lovEstructuras.get(indiceUnicoElemento));
-//            lovEstructuras.clear();
-//            getLovEstructuras();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
             RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
@@ -242,7 +238,6 @@ public class ControlReingresarEmpleado implements Serializable {
          System.out.println("formato: " + formato);
          System.out.println("fechaRetiro: " + fechaRetiro);
          mostrarFechaRetiro = formato.format(fechaRetiro);
-
          System.out.println("mostrarFechaRetiro: " + mostrarFechaRetiro);
          if (fechaReingreso.before(fechaRetiro)) {
             RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
@@ -265,7 +260,6 @@ public class ControlReingresarEmpleado implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
          pasa++;
       }
-
       if (estructura.getNombre() == null || estructura.getNombre().equals(" ")) {
          mensajeValidacion = mensajeValidacion + " * Estructura\n";
          pasa++;
@@ -278,7 +272,6 @@ public class ControlReingresarEmpleado implements Serializable {
       if (pasa == 0) {
          fechaRetiro = administrarReingresarEmpleado.obtenerFechaRetiro(empleado.getSecuencia());
          mostrarFechaRetiro = formato.format(fechaRetiro);
-
          if (fechaReingreso.before(fechaRetiro)) {
             RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
             RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
