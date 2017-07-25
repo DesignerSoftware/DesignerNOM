@@ -38,6 +38,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -50,6 +51,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadEmbargo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadEmbargo.class);
 
     @EJB
     AdministrarNovedadesEmbargosInterface administrarNovedadesEmbargos;
@@ -260,8 +263,8 @@ public class ControlNovedadEmbargo implements Serializable {
             administrarNovedadesEmbargos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -452,7 +455,7 @@ public class ControlNovedadEmbargo implements Serializable {
                 int CIndex = listaEmbargos.indexOf(filtradoListaEmbargos.get(index));
                 listaEmbargos.remove(CIndex);
                 filtradoListaEmbargos.remove(index);
-                System.out.println("Realizado");
+                log.info("Realizado");
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
@@ -495,7 +498,7 @@ public class ControlNovedadEmbargo implements Serializable {
                 int CIndex = listaDetallesEmbargos.indexOf(filtradoListaDetallesEmbargos.get(indexD));
                 listaDetallesEmbargos.remove(CIndex);
                 filtradoListaDetallesEmbargos.remove(indexD);
-                System.out.println("Realizado");
+                log.info("Realizado");
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
@@ -512,10 +515,10 @@ public class ControlNovedadEmbargo implements Serializable {
 
     public void guardarTodo() {
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Embargos");
+            log.info("Realizando Operaciones Embargos");
             if (!listaEmbargosBorrar.isEmpty()) {
                 for (int i = 0; i < listaEmbargosBorrar.size(); i++) {
-                    System.out.println("Borrando...");
+                    log.info("Borrando...");
                     if (listaEmbargosBorrar.get(i).getTipoembargo() == null) {
                         listaEmbargosBorrar.get(i).setTipoembargo(null);
                     }
@@ -537,14 +540,14 @@ public class ControlNovedadEmbargo implements Serializable {
 
                     administrarNovedadesEmbargos.borrarEmbargo(listaEmbargosBorrar.get(i));
 
-                    System.out.println("Entra");
+                    log.info("Entra");
                     listaEmbargosBorrar.clear();
                 }
             }
             if (!listaEmbargosCrear.isEmpty()) {
                 for (int i = 0; i < listaEmbargosCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaEmbargosCrear.size());
+                    log.info("Creando...");
+                    log.info(listaEmbargosCrear.size());
                     if (listaEmbargosCrear.get(i).getTipoembargo() == null) {
                         listaEmbargosCrear.get(i).setTipoembargo(null);
                     }
@@ -563,12 +566,12 @@ public class ControlNovedadEmbargo implements Serializable {
                     if (listaEmbargosCrear.get(i).getNumeroproceso() == null) {
                         listaEmbargosCrear.get(i).setNumeroproceso(null);
                     }
-                    System.out.println("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNombre());
-                    System.out.println("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNit());
+                    log.info("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNombre());
+                    log.info("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNit());
                     administrarNovedadesEmbargos.crearEmbargo(listaEmbargosCrear.get(i));
                 }
 
-                System.out.println("LimpiaLista");
+                log.info("LimpiaLista");
                 listaEmbargosCrear.clear();
             }
             if (!listaEmbargosModificar.isEmpty()) {
@@ -576,7 +579,7 @@ public class ControlNovedadEmbargo implements Serializable {
                 listaEmbargosModificar.clear();
             }
 
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaEmbargos = null;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosEmbargos");
@@ -586,15 +589,15 @@ public class ControlNovedadEmbargo implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         index = -1;
         secRegistro = null;
 
         if (guardado == false) {
-            System.out.println("Realizando Operaciones VigenciasNoFormales");
+            log.info("Realizando Operaciones VigenciasNoFormales");
             if (!listaDetallesEmbargosBorrar.isEmpty()) {
                 for (int i = 0; i < listaDetallesEmbargosBorrar.size(); i++) {
-                    System.out.println("Borrando...");
+                    log.info("Borrando...");
                     if (listaDetallesEmbargosBorrar.get(i).getValor() == null) {
                         listaDetallesEmbargosBorrar.get(i).setValor(null);
                     }
@@ -609,14 +612,14 @@ public class ControlNovedadEmbargo implements Serializable {
                     administrarNovedadesEmbargos.borrarDetalleEmbargo(listaDetallesEmbargosBorrar.get(i));
                 }
 
-                System.out.println("Entra");
+                log.info("Entra");
                 listaDetallesEmbargosBorrar.clear();
             }
         }
         if (!listaDetallesEmbargosCrear.isEmpty()) {
             for (int i = 0; i < listaDetallesEmbargosCrear.size(); i++) {
-                System.out.println("Creando...");
-                System.out.println(listaDetallesEmbargosCrear.size());
+                log.info("Creando...");
+                log.info(listaDetallesEmbargosCrear.size());
                 if (listaDetallesEmbargosCrear.get(i).getValor() == null) {
                     listaDetallesEmbargosCrear.get(i).setValor(null);
                 }
@@ -627,24 +630,24 @@ public class ControlNovedadEmbargo implements Serializable {
                 if (listaDetallesEmbargosCrear.get(i).getSaldoinicial() == null) {
                     listaDetallesEmbargosCrear.get(i).setSaldoinicial(null);
                 }
-                System.out.println("Guardar nuevoDetalleEmbargo VALOR: " + listaDetallesEmbargosCrear.get(i).getValor());
-                System.out.println("Guardar nuevoDetalleEmbargo PORCENTAJE: " + listaDetallesEmbargosCrear.get(i).getPorcentaje());
+                log.info("Guardar nuevoDetalleEmbargo VALOR: " + listaDetallesEmbargosCrear.get(i).getValor());
+                log.info("Guardar nuevoDetalleEmbargo PORCENTAJE: " + listaDetallesEmbargosCrear.get(i).getPorcentaje());
 
                 administrarNovedadesEmbargos.crearDetalleEmbargo(listaDetallesEmbargosCrear.get(i));
 
             }
 
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaDetallesEmbargosCrear.clear();
         }
         if (!listaDetallesEmbargosModificar.isEmpty()) {
-            System.out.println("Lista Vigencias No Formales: " + listaDetallesEmbargosModificar.size());
+            log.info("Lista Vigencias No Formales: " + listaDetallesEmbargosModificar.size());
             administrarNovedadesEmbargos.modificarDetalleEmbargo(listaDetallesEmbargosModificar);
 
             listaDetallesEmbargosModificar.clear();
         }
 
-        System.out.println("Se guardaron los datos con exito");
+        log.info("Se guardaron los datos con exito");
         listaDetallesEmbargos = null;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosEmbargosDetalles");
@@ -656,7 +659,7 @@ public class ControlNovedadEmbargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         //  k = 0;
 
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         indexD = -1;
         cambiosPagina = true;
         secRegistro = null;
@@ -706,7 +709,7 @@ public class ControlNovedadEmbargo implements Serializable {
 
         if (bandera == 1) {
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 2");
+            log.info("Desactiva 2");
             detallesPagos = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesPagos");
             detallesPagos.setFilterStyle("display: none; visibility: hidden;");
             detallesIka = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesIka");
@@ -801,7 +804,7 @@ public class ControlNovedadEmbargo implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
 
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 2");
+            log.info("Desactiva 2");
             detallesPagos = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesPagos");
             detallesPagos.setFilterStyle("display: none; visibility: hidden;");
             detallesIka = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesIka");
@@ -853,12 +856,12 @@ public class ControlNovedadEmbargo implements Serializable {
     //GUARDAR
     public void guardarCambiosEmbargos() {
         if (cualTabla == 0) {
-            System.out.println("Guardado: " + guardado);
+            log.info("Guardado: " + guardado);
             if (guardado == false) {
-                System.out.println("Realizando Operaciones Embargos");
+                log.info("Realizando Operaciones Embargos");
                 if (!listaEmbargosBorrar.isEmpty()) {
                     for (int i = 0; i < listaEmbargosBorrar.size(); i++) {
-                        System.out.println("Borrando...");
+                        log.info("Borrando...");
                         if (listaEmbargosBorrar.get(i).getTipoembargo() == null) {
                             listaEmbargosBorrar.get(i).setTipoembargo(null);
                         }
@@ -880,14 +883,14 @@ public class ControlNovedadEmbargo implements Serializable {
 
                         administrarNovedadesEmbargos.borrarEmbargo(listaEmbargosBorrar.get(i));
 
-                        System.out.println("Entra");
+                        log.info("Entra");
                         listaEmbargosBorrar.clear();
                     }
                 }
                 if (!listaEmbargosCrear.isEmpty()) {
                     for (int i = 0; i < listaEmbargosCrear.size(); i++) {
-                        System.out.println("Creando...");
-                        System.out.println(listaEmbargosCrear.size());
+                        log.info("Creando...");
+                        log.info(listaEmbargosCrear.size());
                         if (listaEmbargosCrear.get(i).getTipoembargo() == null) {
                             listaEmbargosCrear.get(i).setTipoembargo(null);
                         }
@@ -906,12 +909,12 @@ public class ControlNovedadEmbargo implements Serializable {
                         if (listaEmbargosCrear.get(i).getNumeroproceso() == null) {
                             listaEmbargosCrear.get(i).setNumeroproceso(null);
                         }
-                        System.out.println("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNombre());
-                        System.out.println("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNit());
+                        log.info("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNombre());
+                        log.info("Guardar nuevoEmbargo : " + listaEmbargosCrear.get(i).getTercero().getNit());
                         administrarNovedadesEmbargos.crearEmbargo(listaEmbargosCrear.get(i));
                     }
 
-                    System.out.println("LimpiaLista");
+                    log.info("LimpiaLista");
                     listaEmbargosCrear.clear();
                 }
                 if (!listaEmbargosModificar.isEmpty()) {
@@ -919,7 +922,7 @@ public class ControlNovedadEmbargo implements Serializable {
                     listaEmbargosModificar.clear();
                 }
 
-                System.out.println("Se guardaron los datos con exito");
+                log.info("Se guardaron los datos con exito");
                 listaEmbargos = null;
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosEmbargos");
@@ -928,20 +931,20 @@ public class ControlNovedadEmbargo implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 //  k = 0;
             }
-            System.out.println("Tamaño lista: " + listaEmbargosCrear.size());
-            System.out.println("Valor k: " + k);
+            log.info("Tamaño lista: " + listaEmbargosCrear.size());
+            log.info("Valor k: " + k);
             index = -1;
             secRegistro = null;
 
         } else {
 
-            System.out.println("Está en la Tabla de Abajo");
+            log.info("Está en la Tabla de Abajo");
 
             if (guardado == false) {
-                System.out.println("Realizando Operaciones VigenciasNoFormales");
+                log.info("Realizando Operaciones VigenciasNoFormales");
                 if (!listaDetallesEmbargosBorrar.isEmpty()) {
                     for (int i = 0; i < listaDetallesEmbargosBorrar.size(); i++) {
-                        System.out.println("Borrando...");
+                        log.info("Borrando...");
                         if (listaDetallesEmbargosBorrar.get(i).getValor() == null) {
                             listaDetallesEmbargosBorrar.get(i).setValor(null);
                         }
@@ -956,14 +959,14 @@ public class ControlNovedadEmbargo implements Serializable {
                         administrarNovedadesEmbargos.borrarDetalleEmbargo(listaDetallesEmbargosBorrar.get(i));
                     }
 
-                    System.out.println("Entra");
+                    log.info("Entra");
                     listaDetallesEmbargosBorrar.clear();
                 }
             }
             if (!listaDetallesEmbargosCrear.isEmpty()) {
                 for (int i = 0; i < listaDetallesEmbargosCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaDetallesEmbargosCrear.size());
+                    log.info("Creando...");
+                    log.info(listaDetallesEmbargosCrear.size());
                     if (listaDetallesEmbargosCrear.get(i).getValor() == null) {
                         listaDetallesEmbargosCrear.get(i).setValor(null);
                     }
@@ -974,24 +977,24 @@ public class ControlNovedadEmbargo implements Serializable {
                     if (listaDetallesEmbargosCrear.get(i).getSaldoinicial() == null) {
                         listaDetallesEmbargosCrear.get(i).setSaldoinicial(null);
                     }
-                    System.out.println("Guardar nuevoDetalleEmbargo VALOR: " + listaDetallesEmbargosCrear.get(i).getValor());
-                    System.out.println("Guardar nuevoDetalleEmbargo PORCENTAJE: " + listaDetallesEmbargosCrear.get(i).getPorcentaje());
+                    log.info("Guardar nuevoDetalleEmbargo VALOR: " + listaDetallesEmbargosCrear.get(i).getValor());
+                    log.info("Guardar nuevoDetalleEmbargo PORCENTAJE: " + listaDetallesEmbargosCrear.get(i).getPorcentaje());
 
                     administrarNovedadesEmbargos.crearDetalleEmbargo(listaDetallesEmbargosCrear.get(i));
 
                 }
 
-                System.out.println("LimpiaLista");
+                log.info("LimpiaLista");
                 listaDetallesEmbargosCrear.clear();
             }
             if (!listaDetallesEmbargosModificar.isEmpty()) {
-                System.out.println("Lista Vigencias No Formales: " + listaDetallesEmbargosModificar.size());
+                log.info("Lista Vigencias No Formales: " + listaDetallesEmbargosModificar.size());
                 administrarNovedadesEmbargos.modificarDetalleEmbargo(listaDetallesEmbargosModificar);
 
                 listaDetallesEmbargosModificar.clear();
             }
 
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaDetallesEmbargos = null;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosEmbargosDetalles");
@@ -1000,7 +1003,7 @@ public class ControlNovedadEmbargo implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         indexD = -1;
         secRegistro = null;
 
@@ -1073,7 +1076,7 @@ public class ControlNovedadEmbargo implements Serializable {
         if (pasa == 0 && pasar == 0) {
             if (bandera == 1) {
                 //SOLUCIONES NODOS EMPLEADO
-                System.out.println("Desactiva 2");
+                log.info("Desactiva 2");
                 FacesContext c = FacesContext.getCurrentInstance();
                 detallesPagos = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesPagos");
                 detallesPagos.setFilterStyle("display: none; visibility: hidden;");
@@ -1274,7 +1277,7 @@ public class ControlNovedadEmbargo implements Serializable {
             index = -1;
             secRegistro = null;
         } else if (indexD >= 0 && cualTabla == 1) {
-            System.out.println("Entra Duplicar Detalle Embargo");
+            log.info("Entra Duplicar Detalle Embargo");
 
             duplicarEmbargoDetalle = new EersPrestamosDtos();
             m++;
@@ -1321,7 +1324,7 @@ public class ControlNovedadEmbargo implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEmbargoE");
                 RequestContext.getCurrentInstance().execute("PF('editarTipoEmbargoE').show()");
@@ -1392,8 +1395,8 @@ public class ControlNovedadEmbargo implements Serializable {
                 editarDetallesEmbargos = filtradoListaDetallesEmbargos.get(indexD);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCeldaD);
-            System.out.println("Cual Tabla: " + cualTabla);
+            log.info("Entro a editar... valor celda: " + cualCeldaD);
+            log.info("Cual Tabla: " + cualTabla);
             if (cualCeldaD == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPagosD");
                 RequestContext.getCurrentInstance().execute("PF('editarPagosD').show()");
@@ -1442,11 +1445,11 @@ public class ControlNovedadEmbargo implements Serializable {
 
     //CTRL + F11 ACTIVAR/DESACTIVAR
     public void activarCtrlF11() {
-        System.out.println("cualTabla= " + cualTabla);
+        log.info("cualTabla= " + cualTabla);
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0 && cualTabla == 0) {
-            System.out.println("Activa 1");
+            log.info("Activa 1");
             //SOLUCIONES NODOS EMPLEADO
             embargosTipoEmbargo = (Column) c.getViewRoot().findComponent("form:datosEmbargos:embargosTipoEmbargo");
             embargosTipoEmbargo.setFilterStyle("width: 85% !important;");
@@ -1483,7 +1486,7 @@ public class ControlNovedadEmbargo implements Serializable {
             bandera = 1;
 
         } else if (bandera == 1 && cualTabla == 0) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             embargosTipoEmbargo = (Column) c.getViewRoot().findComponent("form:datosEmbargos:embargosTipoEmbargo");
             embargosTipoEmbargo.setFilterStyle("display: none; visibility: hidden;");
             embargosDocumento = (Column) c.getViewRoot().findComponent("form:datosEmbargos:embargosDocumento");
@@ -1520,7 +1523,7 @@ public class ControlNovedadEmbargo implements Serializable {
             filtradoListaEmbargos = null;
 
         } else if (bandera == 0 && cualTabla == 1) {
-            System.out.println("Activa 2");
+            log.info("Activa 2");
 
             detallesPagos = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesPagos");
             detallesPagos.setFilterStyle("width: 85% !important;");
@@ -1551,7 +1554,7 @@ public class ControlNovedadEmbargo implements Serializable {
 
         } else if (bandera == 1 && cualTabla == 1) {
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 2");
+            log.info("Desactiva 2");
             detallesPagos = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesPagos");
             detallesPagos.setFilterStyle("display: none; visibility: hidden;");
             detallesIka = (Column) c.getViewRoot().findComponent("form:datosEmbargosDetalles:detallesIka");
@@ -1607,7 +1610,7 @@ public class ControlNovedadEmbargo implements Serializable {
         if (registroActual > 0) {
             registroActual--;
             empleadoActual = listaEmpleados.get(registroActual);
-            System.out.println("Empleado Actual: " + empleadoActual.getSecuencia() + empleadoActual.getPersona().getNombreCompleto());
+            log.info("Empleado Actual: " + empleadoActual.getSecuencia() + empleadoActual.getPersona().getNombreCompleto());
             listaEmbargos = null;
             getListaEmbargos();
             if (!listaEmbargos.isEmpty()) {
@@ -1628,7 +1631,7 @@ public class ControlNovedadEmbargo implements Serializable {
         if (registroActual < (listaEmpleados.size() - 1)) {
             registroActual++;
             empleadoActual = listaEmpleados.get(registroActual);
-            System.out.println("Empleado Actual: " + empleadoActual.getSecuencia() + empleadoActual.getPersona().getNombreCompleto());
+            log.info("Empleado Actual: " + empleadoActual.getSecuencia() + empleadoActual.getPersona().getNombreCompleto());
             listaEmbargos = null;
             getListaEmbargos();
             if (!listaEmbargos.isEmpty()) {
@@ -2066,8 +2069,8 @@ public class ControlNovedadEmbargo implements Serializable {
         } else if (tipoActualizacion == 1) {
             nuevoEmbargo.setTercero(tercerosSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoEmbargo");
-            System.out.println("nuevoEmbargo : " + nuevoEmbargo.getTercero().getNombre());
-            System.out.println("nuevoEmbargo : " + nuevoEmbargo.getTercero().getNit());
+            log.info("nuevoEmbargo : " + nuevoEmbargo.getTercero().getNombre());
+            log.info("nuevoEmbargo : " + nuevoEmbargo.getTercero().getNit());
         } else if (tipoActualizacion == 2) {
             duplicarEmbargo.setTercero(tercerosSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmbargo");
@@ -2527,7 +2530,7 @@ public class ControlNovedadEmbargo implements Serializable {
             cualTabla = 0;
             tablaImprimir = ":formExportar:datosEmbargosExportar";
             nombreArchivo = "NovedadesEmbargosXML";
-            System.out.println("CualTabla = " + cualTabla);
+            log.info("CualTabla = " + cualTabla);
             embargoSeleccionado = listaEmbargos.get(index);
             cambiarEmbargo();
 
@@ -2896,7 +2899,7 @@ public class ControlNovedadEmbargo implements Serializable {
             cualTabla = 1;
             tablaImprimir = ":formExportar:datosDetallesEmbargosExportar";
             nombreArchivo = "DetallesEmbargosXML";
-            System.out.println("CualTabla = " + cualTabla);
+            log.info("CualTabla = " + cualTabla);
             detallesEmbargoSeleccionado = listaDetallesEmbargos.get(indexD);
             if (tipoLista == 0) {
                 secRegistro = listaDetallesEmbargos.get(indexD).getSecuencia();
@@ -2922,7 +2925,7 @@ public class ControlNovedadEmbargo implements Serializable {
             tipoActualizacion = 1;
             index = -1;
             secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
         } else if (LND == 2) {
             index = -1;
             secRegistro = null;
@@ -2959,7 +2962,7 @@ public class ControlNovedadEmbargo implements Serializable {
             tipoActualizacion = 1;
             index = -1;
             secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
         } else if (LND == 2) {
             index = -1;
             secRegistro = null;
@@ -3096,12 +3099,12 @@ public class ControlNovedadEmbargo implements Serializable {
     public void verificarRastro() {
         if (cualTabla == 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("lol");
+            log.info("lol");
             if (!listaEmbargos.isEmpty()) {
                 if (secRegistro != null) {
-                    System.out.println("lol 2");
+                    log.info("lol 2");
                     int resultado = administrarRastros.obtenerTabla(secRegistro, "EERSPRESTAMOS");
-                    System.out.println("resultado: " + resultado);
+                    log.info("resultado: " + resultado);
                     if (resultado == 1) {
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                     } else if (resultado == 2) {
@@ -3124,12 +3127,12 @@ public class ControlNovedadEmbargo implements Serializable {
             index = -1;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("D");
+            log.info("D");
             if (!listaDetallesEmbargos.isEmpty()) {
                 if (secRegistro != null) {
-                    System.out.println("NF2");
+                    log.info("NF2");
                     int resultadoNF = administrarRastros.obtenerTabla(secRegistro, "EERSPRESTAMOSDTOS");
-                    System.out.println("resultado: " + resultadoNF);
+                    log.info("resultado: " + resultadoNF);
                     if (resultadoNF == 1) {
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
                     } else if (resultadoNF == 2) {
@@ -3184,7 +3187,7 @@ public class ControlNovedadEmbargo implements Serializable {
 
     public List<EersPrestamos> getListaEmbargos() {
         if (listaEmbargos == null) {
-            System.out.println("empleadoActual.getSecuencia()" + empleadoActual.getSecuencia());
+            log.info("empleadoActual.getSecuencia()" + empleadoActual.getSecuencia());
             listaEmbargos = administrarNovedadesEmbargos.eersPrestamosEmpleado(empleadoActual.getSecuencia());
             if (!listaEmbargos.isEmpty()) {
                 embargoSeleccionado = listaEmbargos.get(0);
@@ -3522,7 +3525,7 @@ public class ControlNovedadEmbargo implements Serializable {
 
     public List<VWPrestamoDtosRealizados> getListaVWPrestamo() {
         if (listaVWPrestamo == null && detallesEmbargoSeleccionado != null) {
-            System.out.println("Entra");
+            log.info("Entra");
             listaVWPrestamo = administrarNovedadesEmbargos.prestamosRealizados(detallesEmbargoSeleccionado.getSecuencia());
         }
         return listaVWPrestamo;

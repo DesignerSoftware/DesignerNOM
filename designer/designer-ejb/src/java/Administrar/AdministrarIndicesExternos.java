@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarIndicesExternos implements AdministrarIndicesExternosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarIndicesExternos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

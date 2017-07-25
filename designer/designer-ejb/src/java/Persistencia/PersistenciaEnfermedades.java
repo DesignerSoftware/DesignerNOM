@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEnfermedades.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -35,7 +38,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             em.merge(enfermedades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEnfermedades.crear: " + e);
+            log.error("Error PersistenciaEnfermedades.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +54,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             em.merge(enfermedades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEnfermedades.editar: " + e);
+            log.error("Error PersistenciaEnfermedades.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +76,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaEnfermedades.borrar: " + e);
+                log.error("Error PersistenciaEnfermedades.borrar: " + e);
             }
         }
     }
@@ -84,7 +87,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             em.clear();
             return em.find(Enfermedades.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en la persistenciaEnfermedadesERROR : " + e);
+            log.error("Error en la persistenciaEnfermedadesERROR : " + e);
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             List<Enfermedades> enfermedades = query.getResultList();
             return enfermedades;
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaEnfermedadesProfesionales Por Empleados ERROR" + e);
+            log.error("Error en PersistenciaEnfermedadesProfesionales Por Empleados ERROR" + e);
             return null;
         }
     }
@@ -111,10 +114,10 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAENFERMEDADES contadorAusentimos = " + retorno);
+            log.error("PERSISTENCIAENFERMEDADES contadorAusentimos = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAENFERMEDADES contadorAusentimos  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorAusentimos  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -128,10 +131,10 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAENFERMEDADES contadorDetallesLicencias = " + retorno);
+            log.error("PERSISTENCIAENFERMEDADES contadorDetallesLicencias = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAENFERMEDADES contadorDetallesLicencias  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorDetallesLicencias  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -145,10 +148,10 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas = " + retorno);
+            log.error("PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -162,10 +165,10 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAENFERMEDADES contadorSoausentismos = " + retorno);
+            log.error("PERSISTENCIAENFERMEDADES contadorSoausentismos = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAENFERMEDADES contadorSoausentismos  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorSoausentismos  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -179,10 +182,10 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas = " + retorno);
+            log.error("PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }

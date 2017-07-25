@@ -15,9 +15,9 @@ import InterfacePersistencia.PersistenciaJornadasLaboralesInterface;
 import InterfacePersistencia.PersistenciaJornadasSemanalesInterface;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarJornadasSemanales implements AdministrarJornadasSemanalesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarJornadasSemanales.class);
 
     @EJB
     PersistenciaJornadasSemanalesInterface persistenciaJornadasSemanales;
@@ -64,7 +66,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
     public void modificarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
         JornadasSemanales c;
         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             c = listaJornadasSemanales.get(i);
             persistenciaJornadasSemanales.editar(em, c);
         }
@@ -73,7 +75,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
     @Override
     public void borrarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             persistenciaJornadasSemanales.borrar(em, listaJornadasSemanales.get(i));
         }
     }
@@ -81,7 +83,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
     @Override
     public void crearJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-            System.out.println("Creando...");
+            log.warn("Creando...");
             persistenciaJornadasSemanales.crear(em, listaJornadasSemanales.get(i));
         }
     }

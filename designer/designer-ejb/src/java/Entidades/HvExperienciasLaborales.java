@@ -86,13 +86,11 @@ public class HvExperienciasLaborales implements Serializable {
     }
 
     public Date getFechadesde() {
-        System.out.println("Entidad GET fechadesde : "+fechadesde);
         return fechadesde;
     }
 
     public void setFechadesde(Date fechita) {
         this.fechadesde = fechita;
-        System.out.println("Entidad SET fechadesde : " + fechadesde);
     }
 
     public String getStrFechaDesde() {

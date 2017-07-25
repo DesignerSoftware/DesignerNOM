@@ -6,13 +6,10 @@ package Persistencia;
 import Entidades.TiposEducaciones;
 import InterfacePersistencia.PersistenciaTiposEducacionesInterface;
 import java.util.List;
-
 import javax.ejb.Stateless;
-
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-
 import javax.persistence.Query;
 
 /**
@@ -25,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTiposEducaciones.class);
+
     @Override
     public List<TiposEducaciones> tiposEducaciones(EntityManager em) {
         try {
@@ -34,7 +33,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             List<TiposEducaciones> tiposEducaciones = query.getResultList();
             return tiposEducaciones;
         } catch (Exception e) {
-            System.out.println("error en PersistenciaTiposEducaciones.tiposeducaciones " + e.getMessage());
+            log.error("error en PersistenciaTiposEducaciones.tiposeducaciones " + e.getMessage());
             return null;
         }
     }
@@ -48,7 +47,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             em.merge(tipoEducacion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEducaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEducaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +64,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEducaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEducaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +80,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             em.merge(tipoEducacion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEducaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEducaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

@@ -8,8 +8,8 @@ import InterfacePersistencia.PersistenciaPryRolesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
  * Clase Stateless. <br> 
@@ -19,6 +19,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPryRoles.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -34,7 +36,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             List<PryRoles> pryroles = query.getResultList();
             return pryroles;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPryRoles.pryroles()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPryRoles.pryroles()" + e.getMessage());
             return null;
         }
     }
@@ -48,7 +50,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             em.merge(pryrol);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryRoles.crear: " + e.getMessage());
+            log.error("Error PersistenciaPryRoles.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +66,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             em.merge(pryrol);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryRoles.editar: " + e.getMessage());
+            log.error("Error PersistenciaPryRoles.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +82,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             em.remove(em.merge(pryrol));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryRoles.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPryRoles.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

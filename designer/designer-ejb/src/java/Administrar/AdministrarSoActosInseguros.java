@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoActosInseguros.class);
 
     @EJB
     PersistenciaSoActosInsegurosInterface persistenciaSoActosInseguros;
@@ -43,7 +46,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
     @Override
     public void modificarSoActosInseguros(List<SoActosInseguros> listSoActosInseguros) {
         for (int i = 0; i < listSoActosInseguros.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaSoActosInseguros.editar(em, listSoActosInseguros.get(i));
         }
     }
@@ -51,7 +54,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
     @Override
     public void borrarSoActosInseguros(List<SoActosInseguros> listSoActosInseguros) {
         for (int i = 0; i < listSoActosInseguros.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSoActosInseguros.borrar(em, listSoActosInseguros.get(i));
         }
     }
@@ -59,7 +62,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
     @Override
     public void crearSoActosInseguros(List<SoActosInseguros> listSoActosInseguros) {
         for (int i = 0; i < listSoActosInseguros.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaSoActosInseguros.crear(em, listSoActosInseguros.get(i));
         }
     }
@@ -81,10 +84,10 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
     public BigInteger verificarSoAccidentesMedicos(BigInteger secuenciaElementos) {
         BigInteger verificarSoAccidtenesMedicos;
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaElementos);
+            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
             return verificarSoAccidtenesMedicos = persistenciaSoActosInseguros.contadorSoAccidentesMedicos(em, secuenciaElementos);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARSOACTOSINSEGUROS verificarSoAccidtenesMedicos ERROR :" + e);
+            log.error("ERROR ADMINISTRARSOACTOSINSEGUROS verificarSoAccidtenesMedicos ERROR :" + e);
             return null;
         }
     }

@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlConceptosProyecciones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlConceptosProyecciones.class);
 
    @EJB
    AdministrarConceptosProyeccionesInterface administrarConceptosProyecciones;
@@ -145,14 +148,14 @@ public class ControlConceptosProyecciones implements Serializable {
          administrarConceptosProyecciones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlConceptosProyecciones.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlConceptosProyecciones.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -160,12 +163,12 @@ public class ControlConceptosProyecciones implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarConceptosProyecciones.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlConceptosProyecciones eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlConceptosProyecciones eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -174,7 +177,7 @@ public class ControlConceptosProyecciones implements Serializable {
          if (tipoLista == 0) {
             if (cualCelda == 0) {
                backupConcepto = listConceptosProyecciones.get(index).getConcepto().getDescripcion();
-               System.out.println("Concepto : " + backupConcepto);
+               log.info("Concepto : " + backupConcepto);
 
             }
             if (cualCelda == 1) {
@@ -183,7 +186,7 @@ public class ControlConceptosProyecciones implements Serializable {
          } else if (tipoLista == 1) {
             if (cualCelda == 0) {
                backupConcepto = filtrarConceptosProyecciones.get(index).getConcepto().getDescripcion();
-               System.out.println("Concepto : " + backupConcepto);
+               log.info("Concepto : " + backupConcepto);
             }
             if (cualCelda == 0) {
                backupPorcentajeProyeccion = filtrarConceptosProyecciones.get(index).getPorcentajeproyeccion();
@@ -192,19 +195,19 @@ public class ControlConceptosProyecciones implements Serializable {
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("\n ENTRE A ControlConceptosProyecciones.asignarIndex \n");
+         log.info("\n ENTRE A ControlConceptosProyecciones.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
@@ -214,7 +217,7 @@ public class ControlConceptosProyecciones implements Serializable {
             dig = -1;
          }
       } catch (Exception e) {
-         System.out.println("ERROR ControlConceptosProyecciones.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlConceptosProyecciones.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -311,10 +314,10 @@ public class ControlConceptosProyecciones implements Serializable {
          concepto = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:concepto");
          concepto.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          porcentaje = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:porcentaje");
          porcentaje.setFilterStyle("display: none; visibility: hidden;");
@@ -330,9 +333,9 @@ public class ControlConceptosProyecciones implements Serializable {
    public void actualizarConceptos() {
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("Concepto seleccionado : " + conceptoSeleccionado.getDescripcion());
-      System.out.println("tipo Actualizacion : " + tipoActualizacion);
-      System.out.println("tipo Lista : " + tipoLista);
+      log.info("Concepto seleccionado : " + conceptoSeleccionado.getDescripcion());
+      log.info("tipo Actualizacion : " + tipoActualizacion);
+      log.info("tipo Lista : " + tipoLista);
 
       if (tipoActualizacion == 0) {
          for (int i = 0; i < listConceptosProyecciones.size(); i++) {
@@ -385,15 +388,15 @@ public class ControlConceptosProyecciones implements Serializable {
             }
          }
          permitirIndex = true;
-         System.out.println("ACTUALIZAR CONCEPTO CONCEPTO SELECCIONADO : " + conceptoSeleccionado.getDescripcion());
+         log.info("ACTUALIZAR CONCEPTO CONCEPTO SELECCIONADO : " + conceptoSeleccionado.getDescripcion());
          RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (tipoActualizacion == 1) {
-         System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + conceptoSeleccionado.getDescripcion());
+         log.info("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + conceptoSeleccionado.getDescripcion());
          nuevoConceptosProyecciones.setConcepto(conceptoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
       } else if (tipoActualizacion == 2) {
-         System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + conceptoSeleccionado.getDescripcion());
+         log.info("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + conceptoSeleccionado.getDescripcion());
          duplicarConceptosProyecciones.setConcepto(conceptoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCargo");
       }
@@ -426,20 +429,20 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void modificarConceptosProyecciones(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
       int coincidencias = 0;
       int contador = 0;
       boolean banderita = false;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearConceptosProyecciones.contains(listConceptosProyecciones.get(indice))) {
 
-               System.out.println("backupPorcentajeProyeccion : " + backupPorcentajeProyeccion);
+               log.info("backupPorcentajeProyeccion : " + backupPorcentajeProyeccion);
 
                if (listConceptosProyecciones.get(indice).getPorcentajeproyeccion() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -474,7 +477,7 @@ public class ControlConceptosProyecciones implements Serializable {
                RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-               System.out.println("backupPorcentajeProyeccion : " + backupPorcentajeProyeccion);
+               log.info("backupPorcentajeProyeccion : " + backupPorcentajeProyeccion);
 
                if (listConceptosProyecciones.get(indice).getPorcentajeproyeccion() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -562,7 +565,7 @@ public class ControlConceptosProyecciones implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (confirmarCambio.equalsIgnoreCase("CONCEPTOS")) {
-         System.out.println("MODIFICANDO CONCEPTOS: " + listConceptosProyecciones.get(indice).getConcepto().getDescripcion());
+         log.info("MODIFICANDO CONCEPTOS: " + listConceptosProyecciones.get(indice).getConcepto().getDescripcion());
          if (!listConceptosProyecciones.get(indice).getConcepto().getDescripcion().equals("")) {
             if (tipoLista == 0) {
                listConceptosProyecciones.get(indice).getConcepto().setDescripcion(backupConcepto);
@@ -602,7 +605,7 @@ public class ControlConceptosProyecciones implements Serializable {
                }
             }
             tipoActualizacion = 0;
-            System.out.println("PAIS ANTES DE MOSTRAR DIALOGO CONCEPTOS : " + backupConcepto);
+            log.info("PAIS ANTES DE MOSTRAR DIALOGO CONCEPTOS : " + backupConcepto);
             RequestContext.getCurrentInstance().update("form:conceptosDialogo");
             RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
          }
@@ -650,7 +653,7 @@ public class ControlConceptosProyecciones implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoConceptosProyecciones");
+            log.info("Entro a borrandoConceptosProyecciones");
             if (!modificarConceptosProyecciones.isEmpty() && modificarConceptosProyecciones.contains(listConceptosProyecciones.get(index))) {
                int modIndex = modificarConceptosProyecciones.indexOf(listConceptosProyecciones.get(index));
                modificarConceptosProyecciones.remove(modIndex);
@@ -664,7 +667,7 @@ public class ControlConceptosProyecciones implements Serializable {
             listConceptosProyecciones.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoConceptosProyecciones ");
+            log.info("borrandoConceptosProyecciones ");
             if (!modificarConceptosProyecciones.isEmpty() && modificarConceptosProyecciones.contains(filtrarConceptosProyecciones.get(index))) {
                int modIndex = modificarConceptosProyecciones.indexOf(filtrarConceptosProyecciones.get(index));
                modificarConceptosProyecciones.remove(modIndex);
@@ -701,14 +704,14 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void valoresBackupAutocompletar(int tipoNuevo, String valorCambio) {
-      System.out.println("1...");
+      log.info("1...");
       if (valorCambio.equals("CONCEPTOS")) {
          if (tipoNuevo == 1) {
             nuevoYduplicarCompletarCargo = nuevoConceptosProyecciones.getConcepto().getDescripcion();
          } else if (tipoNuevo == 2) {
             nuevoYduplicarCompletarCargo = duplicarConceptosProyecciones.getConcepto().getDescripcion();
          }
-         System.out.println("CONCEPTOS : " + nuevoYduplicarCompletarCargo);
+         log.info("CONCEPTOS : " + nuevoYduplicarCompletarCargo);
       }
 
    }
@@ -719,13 +722,13 @@ public class ControlConceptosProyecciones implements Serializable {
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CONCEPTOS")) {
-         System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
-         System.out.println("NUEVO PERSONA :-------> " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
+         log.info(" nueva Ciudad    Entro al if 'Centro costo'");
+         log.info("NUEVO PERSONA :-------> " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
 
          if (!nuevoConceptosProyecciones.getConcepto().getDescripcion().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarCargo);
+            log.info("ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("valorConfirmar: " + valorConfirmar);
+            log.info("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarCargo);
             nuevoConceptosProyecciones.getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
             for (int i = 0; i < lovConceptos.size(); i++) {
                if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -733,11 +736,11 @@ public class ControlConceptosProyecciones implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                nuevoConceptosProyecciones.setConcepto(lovConceptos.get(indiceUnicoElemento));
                lovConceptos = null;
-               System.err.println("CONCEPTOS GUARDADA :-----> " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
+               log.error("CONCEPTOS GUARDADA :-----> " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:conceptosDialogo");
                RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
@@ -745,10 +748,10 @@ public class ControlConceptosProyecciones implements Serializable {
             }
          } else {
             nuevoConceptosProyecciones.getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("valorConfirmar cuando es vacio: " + valorConfirmar);
             nuevoConceptosProyecciones.setConcepto(new Conceptos());
             nuevoConceptosProyecciones.getConcepto().setDescripcion(" ");
-            System.out.println("NUEVO CONCEPTOS " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
+            log.info("NUEVO CONCEPTOS " + nuevoConceptosProyecciones.getConcepto().getDescripcion());
          }
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargo");
       }
@@ -780,18 +783,18 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-      System.out.println("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
+      log.info("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CONCEPTOS")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarCargo);
+         log.info("DUPLICAR valorConfirmar : " + valorConfirmar);
+         log.info("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarCargo);
 
          if (!duplicarConceptosProyecciones.getConcepto().getDescripcion().equals("")) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarCargo);
+            log.info("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("DUPLICAR valorConfirmar: " + valorConfirmar);
+            log.info("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarCargo);
             duplicarConceptosProyecciones.getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
             for (int i = 0; i < lovConceptos.size(); i++) {
                if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -799,7 +802,7 @@ public class ControlConceptosProyecciones implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                duplicarConceptosProyecciones.setConcepto(lovConceptos.get(indiceUnicoElemento));
                lovConceptos = null;
@@ -811,17 +814,17 @@ public class ControlConceptosProyecciones implements Serializable {
             }
          } else if (tipoNuevo == 2) {
             //duplicarConceptosProyecciones.getEmpresa().setDescripcion(nuevoYduplicarCompletarPais);
-            System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-            System.out.println("DUPLICAR INDEX : " + index);
+            log.info("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("DUPLICAR INDEX : " + index);
             duplicarConceptosProyecciones.setConcepto(new Conceptos());
             duplicarConceptosProyecciones.getConcepto().setDescripcion(" ");
 
-            System.out.println("DUPLICAR CONCEPTOS  : " + duplicarConceptosProyecciones.getConcepto().getDescripcion());
-            System.out.println("nuevoYduplicarCompletarCONCEPTOS : " + nuevoYduplicarCompletarCargo);
+            log.info("DUPLICAR CONCEPTOS  : " + duplicarConceptosProyecciones.getConcepto().getDescripcion());
+            log.info("nuevoYduplicarCompletarCONCEPTOS : " + nuevoYduplicarCompletarCargo);
             if (tipoLista == 0) {
                listConceptosProyecciones.get(index).getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia Parentesco " + listConceptosProyecciones.get(index).getConcepto().getSecuencia());
+               log.error("tipo lista" + tipoLista);
+               log.error("Secuencia Parentesco " + listConceptosProyecciones.get(index).getConcepto().getSecuencia());
             } else if (tipoLista == 1) {
                filtrarConceptosProyecciones.get(index).getConcepto().setDescripcion(nuevoYduplicarCompletarCargo);
             }
@@ -845,7 +848,7 @@ public class ControlConceptosProyecciones implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarConceptosProyecciones");
+         log.info("Realizando guardarConceptosProyecciones");
          if (!borrarConceptosProyecciones.isEmpty()) {
             administrarConceptosProyecciones.borrarConceptosProyecciones(borrarConceptosProyecciones);
             //mostrarBorrados
@@ -862,7 +865,7 @@ public class ControlConceptosProyecciones implements Serializable {
             administrarConceptosProyecciones.crearConceptosProyecciones(crearConceptosProyecciones);
             crearConceptosProyecciones.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listConceptosProyecciones = null;
          k = 0;
          guardado = true;
@@ -885,7 +888,7 @@ public class ControlConceptosProyecciones implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editPorcentaje");
             RequestContext.getCurrentInstance().execute("PF('editPorcentaje').show()");
@@ -902,7 +905,7 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void agregarNuevoConceptosProyecciones() {
-      System.out.println("agregarNuevoConceptosProyecciones");
+      log.info("agregarNuevoConceptosProyecciones");
       int contador = 0;
       int duplicados = 0;
 
@@ -912,7 +915,7 @@ public class ControlConceptosProyecciones implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoConceptosProyecciones.getPorcentajeproyeccion() == null) {
          mensajeValidacion = " *Porcentaje \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else if (0 <= nuevoConceptosProyecciones.getPorcentajeproyeccion() && nuevoConceptosProyecciones.getPorcentajeproyeccion() <= 100) {
          contador++;
       } else {
@@ -920,7 +923,7 @@ public class ControlConceptosProyecciones implements Serializable {
       }
       if (nuevoConceptosProyecciones.getConcepto().getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Concepto \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int i = 0; i < listConceptosProyecciones.size(); i++) {
@@ -929,7 +932,7 @@ public class ControlConceptosProyecciones implements Serializable {
             }
          }
          if (duplicados == 0) {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          } else {
             mensajeValidacion += "*Concepto ya Insertado.";
@@ -941,7 +944,7 @@ public class ControlConceptosProyecciones implements Serializable {
          if (bandera == 1) {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             porcentaje = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:porcentaje");
             porcentaje.setFilterStyle("display: none; visibility: hidden;");
             concepto = (Column) c.getViewRoot().findComponent("form:datosConceptosProyecciones:concepto");
@@ -950,7 +953,7 @@ public class ControlConceptosProyecciones implements Serializable {
             filtrarConceptosProyecciones = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -981,7 +984,7 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void limpiarNuevoConceptosProyecciones() {
-      System.out.println("limpiarNuevoConceptosProyecciones");
+      log.info("limpiarNuevoConceptosProyecciones");
       nuevoConceptosProyecciones = new ConceptosProyecciones();
       nuevoConceptosProyecciones.setConcepto(new Conceptos());
       secRegistro = null;
@@ -991,7 +994,7 @@ public class ControlConceptosProyecciones implements Serializable {
 
    //------------------------------------------------------------------------------
    public void cargarNuevoConceptosProyecciones() {
-      System.out.println("cargarNuevoConceptosProyecciones");
+      log.info("cargarNuevoConceptosProyecciones");
 
       duplicarConceptosProyecciones = new ConceptosProyecciones();
       duplicarConceptosProyecciones.setConcepto(new Conceptos());
@@ -1002,7 +1005,7 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void duplicandoConceptosProyecciones() {
-      System.out.println("duplicandoConceptosProyecciones");
+      log.info("duplicandoConceptosProyecciones");
       if (index >= 0) {
          duplicarConceptosProyecciones = new ConceptosProyecciones();
          duplicarConceptosProyecciones.setConcepto(new Conceptos());
@@ -1030,18 +1033,18 @@ public class ControlConceptosProyecciones implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar porcentaje " + duplicarConceptosProyecciones.getPorcentajeproyeccion());
+      log.error("ConfirmarDuplicar porcentaje " + duplicarConceptosProyecciones.getPorcentajeproyeccion());
 
       if (duplicarConceptosProyecciones.getPorcentajeproyeccion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Porcentaje \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else if (0 <= duplicarConceptosProyecciones.getPorcentajeproyeccion() && duplicarConceptosProyecciones.getPorcentajeproyeccion() <= 100) {
          contador++;
       } else {
@@ -1049,7 +1052,7 @@ public class ControlConceptosProyecciones implements Serializable {
       }
       if (duplicarConceptosProyecciones.getConcepto().getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Concepto \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int i = 0; i < listConceptosProyecciones.size(); i++) {
@@ -1058,7 +1061,7 @@ public class ControlConceptosProyecciones implements Serializable {
             }
          }
          if (duplicados == 0) {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          } else {
             mensajeValidacion += "*Concepto ya Insertado";
@@ -1068,18 +1071,18 @@ public class ControlConceptosProyecciones implements Serializable {
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarConceptosProyecciones.getSecuencia() + "  " + duplicarConceptosProyecciones.getPorcentajeproyeccion());
+         log.info("Datos Duplicando: " + duplicarConceptosProyecciones.getSecuencia() + "  " + duplicarConceptosProyecciones.getPorcentajeproyeccion());
          if (crearConceptosProyecciones.contains(duplicarConceptosProyecciones)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listConceptosProyecciones.add(duplicarConceptosProyecciones);
          crearConceptosProyecciones.add(duplicarConceptosProyecciones);
          RequestContext.getCurrentInstance().update("form:datosConceptosProyecciones");
          index = -1;
-         System.out.println("--------------DUPLICAR------------------------");
-         System.out.println("CODIGO : " + duplicarConceptosProyecciones.getPorcentajeproyeccion());
-         System.out.println("CONCEPTOS : " + duplicarConceptosProyecciones.getConcepto().getDescripcion());
-         System.out.println("--------------DUPLICAR------------------------");
+         log.info("--------------DUPLICAR------------------------");
+         log.info("CODIGO : " + duplicarConceptosProyecciones.getPorcentajeproyeccion());
+         log.info("CONCEPTOS : " + duplicarConceptosProyecciones.getConcepto().getDescripcion());
+         log.info("--------------DUPLICAR------------------------");
 
          secRegistro = null;
          if (guardado == true) {
@@ -1140,12 +1143,12 @@ public class ControlConceptosProyecciones implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listConceptosProyecciones.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "CONCEPTOSPROYECCIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

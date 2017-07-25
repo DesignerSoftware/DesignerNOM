@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br> Clase encargada de realizar las operaciones lógicas para
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposContratos implements AdministrarTiposContratosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposContratos.class);
 
     //--------------------------------------------------------------------------    
     //ATRIBUTOS
@@ -69,7 +72,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
             List<TiposContratos> lista = persistenciaTiposContratos.tiposContratos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaTiposContratos Admi : " + e.toString());
+            log.warn("Error listaTiposContratos Admi : " + e.toString());
             return null;
         }
     }
@@ -81,7 +84,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
                 persistenciaTiposContratos.crear(em, listaTC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearTiposContratos Admi : " + e.toString());
+            log.warn("Error crearTiposContratos Admi : " + e.toString());
         }
     }
 
@@ -92,7 +95,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
                 persistenciaTiposContratos.editar(em, listaTC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarTiposContratos Admi : " + e.toString());
+            log.warn("Error editarTiposContratos Admi : " + e.toString());
         }
     }
 
@@ -103,18 +106,18 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
                 persistenciaTiposContratos.borrar(em, listaTC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarTiposContratos Admi : " + e.toString());
+            log.warn("Error borrarTiposContratos Admi : " + e.toString());
         }
     }
 
     @Override
     public List<DiasLaborables> listaDiasLaborablesParaTipoContrato(BigInteger secTipoContrato) {
         try {
-            System.out.println("listaDiasLaborablesParaTipoContrato: em : " + em);
+            log.warn("listaDiasLaborablesParaTipoContrato: em : " + em);
             List<DiasLaborables> lista = persistenciaDiasLaborables.diasLaborablesParaSecuenciaTipoContrato(em, secTipoContrato);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaDiasLaborablesParaTipoContrato Admi : " + e.toString());
+            log.warn("Error listaDiasLaborablesParaTipoContrato Admi : " + e.toString());
             return null;
         }
     }
@@ -126,7 +129,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
                 persistenciaDiasLaborables.crear(em, listaDL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearDiasLaborables Admi : " + e.toString());
+            log.warn("Error crearDiasLaborables Admi : " + e.toString());
         }
     }
 
@@ -137,7 +140,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
                 persistenciaDiasLaborables.editar(em, listaDL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarDiasLaborables Admi : " + e.toString());
+            log.warn("Error editarDiasLaborables Admi : " + e.toString());
         }
     }
 
@@ -148,7 +151,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
                 persistenciaDiasLaborables.borrar(em, listaDL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarDiasLaborables Admi : " + e.toString());
+            log.warn("Error borrarDiasLaborables Admi : " + e.toString());
         }
     }
 
@@ -158,7 +161,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
             List<TiposDias> lista = persistenciaTiposDias.buscarTiposDias(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposDias Admi : " + e.toString());
+            log.warn("Error lovTiposDias Admi : " + e.toString());
             return null;
         }
     }
@@ -168,7 +171,7 @@ public class AdministrarTiposContratos implements AdministrarTiposContratosInter
         try {
             persistenciaTiposContratos.clonarTipoContrato(secuenciaClonado, nuevoNombre, nuevoCodigo);
         } catch (Exception e) {
-            System.out.println("Error clonarTC Admi : " + e.toString());
+            log.warn("Error clonarTC Admi : " + e.toString());
         }
     }
 }

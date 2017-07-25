@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplDemanda.class);
 
     @EJB
     PersistenciaDemandasInterface persistenciaDemadas;
@@ -52,7 +55,7 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
             Empleados empl = persistenciaEmpleado.buscarEmpleado(em,secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error actualEmpleado Admi : " + e.toString());
+            log.warn("Error actualEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -63,7 +66,7 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
             List<MotivosDemandas> listMotivosD = persistenciaMotivosDemandas.buscarMotivosDemandas(em);
             return listMotivosD;
         } catch (Exception e) {
-            System.out.println("Error listMotivosDemandas Admi : " + e.toString());
+            log.warn("Error listMotivosDemandas Admi : " + e.toString());
             return null;
         }
     }
@@ -74,7 +77,7 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
             List<Demandas> listDemandas = persistenciaDemadas.demandasPersona(em,secuencia);
             return listDemandas;
         } catch (Exception e) {
-            System.out.println("Error listDemandasEmpleadoSecuencia Admi : " + e.toString());
+            log.warn("Error listDemandasEmpleadoSecuencia Admi : " + e.toString());
             return null;
         }
     }
@@ -89,7 +92,7 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
                 persistenciaDemadas.crear(em,listD.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearDemandas Admi : " + e.toString());
+            log.warn("Error crearDemandas Admi : " + e.toString());
         }
     }
 
@@ -103,7 +106,7 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
                 persistenciaDemadas.editar(em,listD.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarDemandas Admi : " + e.toString());
+            log.warn("Error editarDemandas Admi : " + e.toString());
         }
     }
 
@@ -117,7 +120,7 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
                 persistenciaDemadas.borrar(em,listD.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarDemandas Admi : " + e.toString());
+            log.warn("Error borrarDemandas Admi : " + e.toString());
         }
     }
 }

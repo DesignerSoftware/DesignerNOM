@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -29,6 +30,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasTiposContratos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasTiposContratos.class);
 
    @EJB
    AdministrarVigenciasTiposContratosInterface administrarVigenciasTiposContratos;
@@ -137,8 +140,8 @@ public class ControlVigenciasTiposContratos implements Serializable {
          administrarVigenciasTiposContratos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -508,10 +511,10 @@ public class ControlVigenciasTiposContratos implements Serializable {
    //GUARDAR
    public void guardarCambiosVTC() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Vigencias Tipos Contratos");
+         log.info("Realizando Operaciones Vigencias Tipos Contratos");
          if (!listVTCBorrar.isEmpty()) {
             for (int i = 0; i < listVTCBorrar.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                if (listVTCBorrar.get(i).getCiudad().getSecuencia() == null) {
                   listVTCBorrar.get(i).setCiudad(null);
                   administrarVigenciasTiposContratos.borrarVTC(listVTCBorrar.get(i));
@@ -524,7 +527,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          }
          if (!listVTCCrear.isEmpty()) {
             for (int i = 0; i < listVTCCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                if (listVTCCrear.get(i).getCiudad().getSecuencia() == null) {
                   listVTCCrear.get(i).setCiudad(null);
                   administrarVigenciasTiposContratos.crearVTC(listVTCCrear.get(i));
@@ -592,7 +595,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
       } else if (vigenciaSeleccionada != null) {
          editarVTC = vigenciaSeleccionada;
 
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
             RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
@@ -819,7 +822,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
+         log.info("Activar");
          vtcFecha = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcFecha");
          vtcFecha.setFilterStyle("width: 85% !important");
          vtcContrato = (Column) c.getViewRoot().findComponent("form:datosVTCEmpleado:vtcContrato");
@@ -1210,7 +1213,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          return vigenciasTiposContratoEmpleado;
 
       } catch (Exception e) {
-         System.out.println("Error...!! getVigenciasTiposContratosEmpleado " + e);
+         log.warn("Error...!! getVigenciasTiposContratosEmpleado " + e);
          return null;
       }
    }
@@ -1254,7 +1257,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
 
    public void verProceso() {
       for (int i = 0; i < listVTCCrear.size(); i++) {
-         System.out.println("Las que se van a Crear:         " + " Fecha:   " + listVTCCrear.get(i).getFechavigencia() + "|   Motivo:  " + listVTCCrear.get(i).getMotivocontrato().getNombre() + "|   Tipo:  " + listVTCCrear.get(i).getTipocontrato().getNombre() + "|   Ciudad:  " + listVTCCrear.get(i).getCiudad().getSecuencia() + "|   Empleado:  " + listVTCCrear.get(i).getEmpleado().getSecuencia());
+         log.info("Las que se van a Crear:         " + " Fecha:   " + listVTCCrear.get(i).getFechavigencia() + "|   Motivo:  " + listVTCCrear.get(i).getMotivocontrato().getNombre() + "|   Tipo:  " + listVTCCrear.get(i).getTipocontrato().getNombre() + "|   Ciudad:  " + listVTCCrear.get(i).getCiudad().getSecuencia() + "|   Empleado:  " + listVTCCrear.get(i).getEmpleado().getSecuencia());
       }
    }
 

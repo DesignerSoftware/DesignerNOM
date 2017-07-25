@@ -38,13 +38,13 @@ import InterfacePersistencia.PersistenciaVigenciasConceptosTCInterface;
 import InterfacePersistencia.PersistenciaVigenciasConceptosTTInterface;
 import InterfacePersistencia.PersistenciaVigenciasCuentasInterface;
 import InterfacePersistencia.PersistenciaVigenciasGruposConceptosInterface;
-import Persistencia.PersistenciaProcesos;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -55,6 +55,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDetalleConcepto.class);
 
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -205,7 +207,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<VigenciasCuentas> lista = persistenciaVigenciasCuentas.buscarVigenciasCuentasPorConcepto(em, secConcepto);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listVigenciasCuentasConcepto Admi : " + e.toString());
+         log.warn("Error listVigenciasCuentasConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -217,7 +219,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasCuentas.crear(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasCuentas Admi : " + e.toString());
+         log.warn("Error crearVigenciasCuentas Admi : " + e.toString());
       }
    }
 
@@ -228,7 +230,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasCuentas.editar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasCuentas Admi : " + e.toString());
+         log.warn("Error crearVigenciasCuentas Admi : " + e.toString());
       }
    }
 
@@ -239,7 +241,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasCuentas.borrar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasCuentas Admi : " + e.toString());
+         log.warn("Error crearVigenciasCuentas Admi : " + e.toString());
       }
    }
 
@@ -249,7 +251,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<TiposCentrosCostos> tipos = persistenciaTiposCentrosCostos.buscarTiposCentrosCostos(em);
          return tipos;
       } catch (Exception e) {
-         System.out.println("Error listTiposCentrosCostos Admi : " + e.toString());
+         log.warn("Error listTiposCentrosCostos Admi : " + e.toString());
          return null;
       }
    }
@@ -260,7 +262,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<Cuentas> cuentas = persistenciaCuentas.buscarCuentas(em);
          return cuentas;
       } catch (Exception e) {
-         System.out.println("Error listCuentas Admi : " + e.toString());
+         log.warn("Error listCuentas Admi : " + e.toString());
          return null;
       }
    }
@@ -271,7 +273,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<CentrosCostos> centros = persistenciaCentrosCostos.buscarCentrosCostos(em);
          return centros;
       } catch (Exception e) {
-         System.out.println("Error listCentrosCostos Admi : " + e.toString());
+         log.warn("Error listCentrosCostos Admi : " + e.toString());
          return null;
       }
    }
@@ -282,7 +284,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<VigenciasGruposConceptos> lista = persistenciaVigenciasGruposConceptos.listVigenciasGruposConceptosPorConcepto(em, secConcepto);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listVigenciasGruposConceptosConcepto Admi : " + e.toString());
+         log.warn("Error listVigenciasGruposConceptosConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -294,7 +296,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasGruposConceptos.crear(em, listaVGC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasGruposConceptos Admi : " + e.toString());
+         log.warn("Error crearVigenciasGruposConceptos Admi : " + e.toString());
       }
    }
 
@@ -305,7 +307,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasGruposConceptos.editar(em, listaVGC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarVigenciasGruposConceptos Admi : " + e.toString());
+         log.warn("Error editarVigenciasGruposConceptos Admi : " + e.toString());
       }
    }
 
@@ -316,7 +318,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasGruposConceptos.borrar(em, listaVGC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarVigenciasGruposConceptos Admi : " + e.toString());
+         log.warn("Error borrarVigenciasGruposConceptos Admi : " + e.toString());
       }
    }
 
@@ -326,7 +328,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<GruposConceptos> grupos = persistenciaGruposConceptos.buscarGruposConceptos(em);
          return grupos;
       } catch (Exception e) {
-         System.out.println("Error listGruposConceptos Admi : " + e.toString());
+         log.warn("Error listGruposConceptos Admi : " + e.toString());
          return null;
       }
    }
@@ -337,7 +339,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<VigenciasConceptosTT> lista = persistenciaVigenciasConceptosTT.listVigenciasConceptosTTPorConcepto(em, secConcepto);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listVigenciasConceptosTTConcepto Admi : " + e.toString());
+         log.warn("Error listVigenciasConceptosTTConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -349,7 +351,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosTT.crear(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasConceptosTT Admi : " + e.toString());
+         log.warn("Error crearVigenciasConceptosTT Admi : " + e.toString());
       }
    }
 
@@ -360,7 +362,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosTT.editar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarVigenciasConceptosTT Admi : " + e.toString());
+         log.warn("Error editarVigenciasConceptosTT Admi : " + e.toString());
       }
    }
 
@@ -371,7 +373,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosTT.borrar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarVigenciasConceptosTT Admi : " + e.toString());
+         log.warn("Error borrarVigenciasConceptosTT Admi : " + e.toString());
       }
    }
 
@@ -381,7 +383,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<TiposTrabajadores> tipos = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
          return tipos;
       } catch (Exception e) {
-         System.out.println("Error listTiposTrabajadores Admi : " + e.toString());
+         log.warn("Error listTiposTrabajadores Admi : " + e.toString());
          return null;
       }
    }
@@ -392,7 +394,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<VigenciasConceptosTC> lista = persistenciaVigenciasConceptosTC.listVigenciasConceptosTCPorConcepto(em, secConcepto);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listVigenciasConceptosTCConcepto Admi : " + e.toString());
+         log.warn("Error listVigenciasConceptosTCConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -404,7 +406,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosTC.crear(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasConceptosTC Admi : " + e.toString());
+         log.warn("Error crearVigenciasConceptosTC Admi : " + e.toString());
       }
    }
 
@@ -415,7 +417,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosTC.editar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarVigenciasConceptosTC Admi : " + e.toString());
+         log.warn("Error editarVigenciasConceptosTC Admi : " + e.toString());
       }
    }
 
@@ -426,7 +428,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosTC.borrar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarVigenciasConceptosTC Admi : " + e.toString());
+         log.warn("Error borrarVigenciasConceptosTC Admi : " + e.toString());
       }
    }
 
@@ -436,7 +438,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<TiposContratos> tipos = persistenciaTiposContratos.tiposContratos(em);
          return tipos;
       } catch (Exception e) {
-         System.out.println("Error listTiposContratos Admi : " + e.toString());
+         log.warn("Error listTiposContratos Admi : " + e.toString());
          return null;
       }
    }
@@ -447,7 +449,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<VigenciasConceptosRL> lista = persistenciaVigenciasConceptosRL.listVigenciasConceptosRLPorConcepto(em, secConcepto);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listVigenciasConceptosRLCConcepto Admi : " + e.toString());
+         log.warn("Error listVigenciasConceptosRLCConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -459,7 +461,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosRL.crear(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasConceptosTC Admi : " + e.toString());
+         log.warn("Error crearVigenciasConceptosTC Admi : " + e.toString());
       }
    }
 
@@ -470,7 +472,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosRL.editar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarVigenciasConceptosTC Admi : " + e.toString());
+         log.warn("Error editarVigenciasConceptosTC Admi : " + e.toString());
       }
    }
 
@@ -481,7 +483,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaVigenciasConceptosRL.borrar(em, listaVC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarVigenciasConceptosTC Admi : " + e.toString());
+         log.warn("Error borrarVigenciasConceptosTC Admi : " + e.toString());
       }
    }
 
@@ -491,7 +493,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<ReformasLaborales> reformas = persistenciaReformasLaborales.buscarReformasLaborales(em);
          return reformas;
       } catch (Exception e) {
-         System.out.println("Error listReformasLaborales Admi : " + e.toString());
+         log.warn("Error listReformasLaborales Admi : " + e.toString());
          return null;
       }
    }
@@ -502,7 +504,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listFormulasConceptosConcepto Admi : " + e.toString());
+         log.warn("Error listFormulasConceptosConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -514,7 +516,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaFormulasConceptos.crear(em, listaFC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearFormulasConceptos Admi : " + e.toString());
+         log.warn("Error crearFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -525,7 +527,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaFormulasConceptos.editar(em, listaFC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarFormulasConceptos Admi : " + e.toString());
+         log.warn("Error editarFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -536,7 +538,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
             persistenciaFormulasConceptos.borrar(em, listaFC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarFormulasConceptos Admi : " + e.toString());
+         log.warn("Error borrarFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -546,7 +548,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<Formulas> formulas = persistenciaFormulas.buscarFormulas(em);
          return formulas;
       } catch (Exception e) {
-         System.out.println("Error listFormulas Admi : " + e.toString());
+         log.warn("Error listFormulas Admi : " + e.toString());
          return null;
       }
    }
@@ -557,7 +559,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          List<FormulasConceptos> formulas = persistenciaFormulasConceptos.buscarFormulasConceptos(em);
          return formulas;
       } catch (Exception e) {
-         System.out.println("Error listFormulasConceptos Admi : " + e.toString());
+         log.warn("Error listFormulasConceptos Admi : " + e.toString());
          return null;
       }
    }
@@ -565,10 +567,10 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<Procesos> consultarLOVProcesos() {
       try {
-         System.out.println("Si entro en consultarLOVProcesos()");
+         log.warn("Si entro en consultarLOVProcesos()");
          return persistenciaProcesos.lovProcesos(em);
       } catch (Exception e) {
-         System.out.println("Error listFormulasConceptos Admi : " + e.toString());
+         log.warn("Error listFormulasConceptos Admi : " + e.toString());
          return null;
       }
    }
@@ -579,7 +581,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          Long retorno = PersistenciaFormulasConceptos.comportamientoConceptoAutomaticoSecuenciaConcepto(em, secConcepto);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error comportamientoAutomaticoConcepto Admi : " + e.toString());
+         log.warn("Error comportamientoAutomaticoConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -590,7 +592,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          Long retorno = PersistenciaFormulasConceptos.comportamientoConceptoSemiAutomaticoSecuenciaConcepto(em, secConcepto);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error comportamientoSemiAutomaticoConcepto Admi : " + e.toString());
+         log.warn("Error comportamientoSemiAutomaticoConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -601,7 +603,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          Conceptos actual = persistenciaConceptos.conceptosPorSecuencia(em, secConcepto);
          return actual;
       } catch (Exception e) {
-         System.out.println("Error conceptoActual Admi : " + e.toString());
+         log.warn("Error conceptoActual Admi : " + e.toString());
          return null;
       }
    }
@@ -611,7 +613,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       try {
          return persistenciaConceptos.eliminarConcepto(em, secConcepto);
       } catch (Exception e) {
-         System.out.println("Error eliminarConcepto Admi : " + e.toString());
+         log.warn("Error eliminarConcepto Admi : " + e.toString());
          return false;
       }
    }
@@ -622,7 +624,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
          boolean retorno = persistenciaSolucionesNodos.solucionesNodosParaConcepto(em, secConcepto);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error verificarSolucionesNodosParaConcepto Admi : " + e.toString());
+         log.warn("Error verificarSolucionesNodosParaConcepto Admi : " + e.toString());
          return false;
       }
    }
@@ -631,7 +633,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       try {
          return persistenciaCuentas.contarVigCuentasPorTipoccConceptoYCuentac(em, tipoCC, cuentaC, concepto, fechaIni);
       } catch (Exception e) {
-         System.out.println("AdministrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentac() ERROR : " + e);
+         log.warn("AdministrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentac() ERROR : " + e);
          return 0;
       }
    }
@@ -640,7 +642,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       try {
          return persistenciaCuentas.contarVigCuentasPorTipoccConceptoYCuentad(em, tipoCC, cuentaD, concepto, fechaIni);
       } catch (Exception e) {
-         System.out.println("AdministrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentad() ERROR : " + e);
+         log.warn("AdministrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentad() ERROR : " + e);
          return 0;
       }
    }
@@ -649,7 +651,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       try {
          return persistenciaCuentas.centroCostoLocalizacionTrabajador(em, secEmpresa);
       } catch (Exception e) {
-         System.out.println("AdministrarDetalleConcepto.centroCostoLocalizacionTrabajador() ERROR : " + e);
+         log.warn("AdministrarDetalleConcepto.centroCostoLocalizacionTrabajador() ERROR : " + e);
          return null;
       }
    }
@@ -658,7 +660,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       try {
          return persistenciaCuentas.centroCostoContabilidad(em, secEmpresa);
       } catch (Exception e) {
-         System.out.println("AdministrarDetalleConcepto.centroCostoContabilidad() ERROR : " + e);
+         log.warn("AdministrarDetalleConcepto.centroCostoContabilidad() ERROR : " + e);
          return null;
       }
    }
@@ -667,7 +669,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
       try {
          return persistenciaCuentas.cuenta2505(em, secEmpresa);
       } catch (Exception e) {
-         System.out.println("AdministrarDetalleConcepto.cuenta2505() ERROR : " + e);
+         log.warn("AdministrarDetalleConcepto.cuenta2505() ERROR : " + e);
          return null;
       }
    }

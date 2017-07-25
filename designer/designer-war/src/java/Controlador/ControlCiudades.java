@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlCiudades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlCiudades.class);
 
    @EJB
    AdministrarCiudadesInterface administrarCiudades;
@@ -132,8 +135,8 @@ public class ControlCiudades implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
 
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -229,7 +232,7 @@ public class ControlCiudades implements Serializable {
       anularBotonLOV();
       for (int i = 0; i < listaCiudades.size(); i++) {
          if (duplicarCiudad.getNombre().equals(listaCiudades.get(i).getNombre())) {
-            System.out.println("Entro al IF");
+            log.info("Entro al IF");
             RequestContext.getCurrentInstance().update("formularioDialogos:existe");
             RequestContext.getCurrentInstance().execute("PF('existe').show()");
             pasa++;
@@ -349,7 +352,7 @@ public class ControlCiudades implements Serializable {
       if (ciudadSeleccionada != null) {
          editarCiudad = ciudadSeleccionada;
 
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
             RequestContext.getCurrentInstance().execute("PF('editarCodigos').show()");
@@ -388,11 +391,11 @@ public class ControlCiudades implements Serializable {
    }
 
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
          tipoLista = 1;
-         System.out.println("Activar");
+         log.info("Activar");
          ciudadesCodigos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigos");
          ciudadesCodigos.setFilterStyle("width: 85% !important");
          ciudadesNombres = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesNombres");
@@ -405,7 +408,7 @@ public class ControlCiudades implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosCiudades");
          bandera = 1;
          anularBotonLOV();
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       } else if (bandera == 1) {
          restablecerTabla();
       }
@@ -419,19 +422,19 @@ public class ControlCiudades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (nuevaCiudad.getNombre() == null && (nuevaCiudad.getNombre().equals(" ")) || (nuevaCiudad.getNombre().equals(""))) {
-         System.out.println("Entra");
+         log.info("Entra");
          mensajeValidacion = mensajeValidacion + " * Nombre de la Ciudad \n";
          pasa++;
       }
       if (nuevaCiudad.getDepartamento().getSecuencia() == null) {
-         System.out.println("Entra 2");
+         log.info("Entra 2");
          mensajeValidacion = mensajeValidacion + "   * Departamento \n";
          pasa++;
       }
 
       for (int i = 0; i < listaCiudades.size(); i++) {
          if (nuevaCiudad.getNombre().equals(listaCiudades.get(i).getNombre())) {
-            System.out.println("Entro al IF");
+            log.info("Entro al IF");
             RequestContext.getCurrentInstance().update("formularioDialogos:existe");
             RequestContext.getCurrentInstance().execute("PF('existe').show()");
             pasaA++;
@@ -648,7 +651,7 @@ public class ControlCiudades implements Serializable {
          nuevaCiudad.setDepartamento(seleccionDepartamento);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDepartamento");
       } else if (tipoActualizacion == 2) {
-         System.out.println(seleccionDepartamento.getNombre());
+         log.info(seleccionDepartamento.getNombre());
          duplicarCiudad.setDepartamento(seleccionDepartamento);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDepartamento");
       }
@@ -730,7 +733,7 @@ public class ControlCiudades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (ciudadSeleccionada != null) {
          int resultado = administrarRastros.obtenerTabla(ciudadSeleccionada.getSecuencia(), "CIUDADES");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

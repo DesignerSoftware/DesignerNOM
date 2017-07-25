@@ -27,6 +27,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlProfesiones")
 @SessionScoped
 public class ControlProfesiones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlProfesiones.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -95,8 +98,8 @@ public class ControlProfesiones implements Serializable {
             administrarRastros.obtenerConexion(ses.getId());
             administrarProfesiones.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -200,7 +203,7 @@ public class ControlProfesiones implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
             deshabilitarBotonLov();
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -210,7 +213,7 @@ public class ControlProfesiones implements Serializable {
     public void salir() {
         limpiarListasValor();
         if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -267,7 +270,7 @@ public class ControlProfesiones implements Serializable {
             }
 
             for (int i = 0; i < listaProfesiones.size(); i++) {
-                System.out.println("Codigos: " + listaProfesiones.get(i).getCodigo());
+                log.info("Codigos: " + listaProfesiones.get(i).getCodigo());
                 if (listaProfesiones.get(i).getCodigo() == nuevaProfesion.getCodigo()) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
                     RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
@@ -290,7 +293,7 @@ public class ControlProfesiones implements Serializable {
         if (pasa == 0 && pasaA == 0) {
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 FacesContext c = FacesContext.getCurrentInstance();
                 codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -326,10 +329,10 @@ public class ControlProfesiones implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
+        log.info("TipoLista= " + tipoLista);
         if (bandera == 0) {
-            System.out.println("Activar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Activar");
+            log.info("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("width: 85% !important");
@@ -340,8 +343,8 @@ public class ControlProfesiones implements Serializable {
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -414,7 +417,7 @@ public class ControlProfesiones implements Serializable {
 
     public void cambiarIndice(Profesiones profesion, int celda) {
         profesionSeleccionada = profesion;
-        System.out.println("profesion seleccionada : " + profesionSeleccionada);
+        log.info("profesion seleccionada : " + profesionSeleccionada);
         if (permitirIndex == true) {
             cualCelda = celda;
             if (cualCelda == 0) {
@@ -482,7 +485,7 @@ public class ControlProfesiones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 FacesContext c = FacesContext.getCurrentInstance();
                 codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -567,7 +570,7 @@ public class ControlProfesiones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (profesionSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(profesionSeleccionada.getSecuencia(), "TIPOSEDUCACIONES");
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

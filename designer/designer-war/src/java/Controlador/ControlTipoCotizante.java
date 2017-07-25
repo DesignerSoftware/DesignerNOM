@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTipoCotizante implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoCotizante.class);
 
    @EJB
    AdministrarTiposCotizantesInterface administrarTiposCotizantes;
@@ -203,8 +206,8 @@ public class ControlTipoCotizante implements Serializable {
          administrarDetallesTiposCotizantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -274,8 +277,8 @@ public class ControlTipoCotizante implements Serializable {
       }
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-      System.out.println("tipo cotizante Subtipo: " + tipoCotizanteSeleccionado.getSubtipocotizante());
-      System.out.println("tipo cotizante Subtipo String: " + tipoCotizanteSeleccionado.getEstadoSubTipoCotizante());
+      log.info("tipo cotizante Subtipo: " + tipoCotizanteSeleccionado.getSubtipocotizante());
+      log.info("tipo cotizante Subtipo String: " + tipoCotizanteSeleccionado.getEstadoSubTipoCotizante());
    }
 
    //MOSTRAR DATOS CELDA
@@ -330,12 +333,12 @@ public class ControlTipoCotizante implements Serializable {
 
    //FILTRADO
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       if (bandera == 0 && banderaNF == 0) {
          altoTabla = "75";
          altoTablaNF = "75";
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
          tcCodigo.setFilterStyle("width: 85% !important;");
          tcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcDescripcion");
@@ -619,7 +622,7 @@ public class ControlTipoCotizante implements Serializable {
          RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoCotizante");
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoCotizante').show()");
       } else if (CualTabla == 1) {
-         System.out.println("Entra Duplicar NF");
+         log.info("Entra Duplicar NF");
          duplicarRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
          m++;
          n = BigInteger.valueOf(m);
@@ -670,8 +673,8 @@ public class ControlTipoCotizante implements Serializable {
          }
          if (bandera == 1) {
             altoTabla = "73";
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
             tcCodigo.setFilterStyle("display: none; visibility: hidden;");
             tcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcDescripcion");
@@ -721,7 +724,7 @@ public class ControlTipoCotizante implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          if (tipoCotizanteSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(tipoCotizanteSeleccionado.getSecuencia(), "TIPOSCOTIZANTES");
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -742,7 +745,7 @@ public class ControlTipoCotizante implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          if (detalleTipoCotizanteSeleccionado != null) {
             int resultadoNF = administrarRastros.obtenerTabla(detalleTipoCotizanteSeleccionado.getSecuencia(), "DETALLESTIPOSCOTIZANTES");
-            System.out.println("resultado: " + resultadoNF);
+            log.info("resultado: " + resultadoNF);
             if (resultadoNF == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
             } else if (resultadoNF == 2) {
@@ -896,7 +899,7 @@ public class ControlTipoCotizante implements Serializable {
             listaTiposCotizantesBorrar.clear();
          }
          if (!listaTiposCotizantesCrear.isEmpty()) {
-            System.out.println(listaTiposCotizantesCrear.size());
+            log.info(listaTiposCotizantesCrear.size());
             administrarTiposCotizantes.crearTipoCotizante(listaTiposCotizantesCrear);
             listaTiposCotizantesCrear.clear();
          }
@@ -941,7 +944,7 @@ public class ControlTipoCotizante implements Serializable {
          RequestContext.getCurrentInstance().update("form:growl");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("entró al catch de guardarTodo : " + e.toString());
+         log.info("entró al catch de guardarTodo : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Hubo un error en el guardado, por favor intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1315,7 +1318,7 @@ public class ControlTipoCotizante implements Serializable {
       if (auxiliar == 0) {
          BigInteger auxsecuenciaClonado;
          auxsecuenciaClonado = administrarTiposCotizantes.clonarTipoCotizante(clonarTipoCotizante.getCodigo(), clonarCodigo, clonarDescripcion, secuenciaClonado);
-         System.out.println("secuenciaClonado : " + auxsecuenciaClonado);
+         log.info("secuenciaClonado : " + auxsecuenciaClonado);
          RequestContext.getCurrentInstance().execute("PF('confirmarClonar').show()");
       } else {
          RequestContext.getCurrentInstance().execute("PF('datosClonadoRepetidos').show()");

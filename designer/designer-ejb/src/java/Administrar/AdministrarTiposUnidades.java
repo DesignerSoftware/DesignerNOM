@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposUnidades.class);
 
     @EJB
     PersistenciaTiposUnidadesInterface persistenciaTiposUnidades;
@@ -43,7 +46,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
     @Override
     public void modificarTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
         for (int i = 0; i < listaTiposUnidades.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposUnidades.editar(em, listaTiposUnidades.get(i));
         }
     }
@@ -51,7 +54,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
     @Override
     public void borrarTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
         for (int i = 0; i < listaTiposUnidades.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposUnidades.borrar(em, listaTiposUnidades.get(i));
         }
     }
@@ -59,7 +62,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
     @Override
     public void crearTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
         for (int i = 0; i < listaTiposUnidades.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposUnidades.crear(em, listaTiposUnidades.get(i));
         }
     }
@@ -82,10 +85,10 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
         BigInteger contarCursosTipoCurso = null;
 
         try {
-            System.err.println("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
+            log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
             contarCursosTipoCurso = persistenciaTiposUnidades.contarUnidadesTipoUnidad(em, secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarTiposUnidades contarUnidadesTipoUnidad ERROR :" + e);
+            log.error("ERROR AdmnistrarTiposUnidades contarUnidadesTipoUnidad ERROR :" + e);
         } finally {
             return contarCursosTipoCurso;
         }

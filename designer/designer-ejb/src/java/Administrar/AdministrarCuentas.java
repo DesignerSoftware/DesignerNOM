@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarCuentas implements AdministrarCuentasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCuentas.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -82,7 +85,7 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
                 persistenciaCuentas.crear(em, listCuentasCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en crearCuentas Admi : " + e.toString());
+            log.warn("Error en crearCuentas Admi : " + e.toString());
         }
     }
 
@@ -104,7 +107,7 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
                 persistenciaCuentas.editar(em, listCuentasModificar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en modificarCuentas Admi : " + e.toString());
+            log.warn("Error en modificarCuentas Admi : " + e.toString());
         }
     }
 
@@ -125,7 +128,7 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
                 persistenciaCuentas.borrar(em, listCuentasBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en borrarCuentas Admi : " + e.toString());
+            log.warn("Error en borrarCuentas Admi : " + e.toString());
         }
     }
 
@@ -135,7 +138,7 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
             List<Cuentas> listCuentas = persistenciaCuentas.buscarCuentasSecuenciaEmpresa(em, secuencia);
             return listCuentas;
         } catch (Exception e) {
-            System.out.println("Error en listCuentasEmpresa Admi : " + e.toString());
+            log.warn("Error en listCuentasEmpresa Admi : " + e.toString());
             return null;
         }
     }
@@ -146,7 +149,7 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
             List<Empresas> listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error en listEmpresas Admi : " + e.toString());
+            log.warn("Error en listEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -157,7 +160,7 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
             List<Rubrospresupuestales> listRubros = persistenciaRubrosPresupuestales.buscarRubros(em);
             return listRubros;
         } catch (Exception e) {
-            System.out.println("Error en listRubros Admi : " + e.toString());
+            log.warn("Error en listRubros Admi : " + e.toString());
             return null;
         }
     }

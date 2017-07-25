@@ -19,10 +19,13 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 @Local
 public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacacionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesVacaciones.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;
@@ -58,23 +61,23 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
             Date ultimaFecha = persistenciaVigenciasTiposContratos.fechaFinalContratacionVacaciones(em, secEmpleado);
             return ultimaFecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaContratacionEmpleado Admi : " + e.toString());
+            log.warn("Error obtenerFechaContratacionEmpleado Admi : " + e.toString());
             return null;
         }
     }
 
     @Override
     public void adelantarPeriodo(BigInteger secEmpleado) {
-        System.out.println("Administrar novedades Vacaciones. adelantar Periodo para el empleado : " + secEmpleado);
+        log.warn("Administrar novedades Vacaciones. adelantar Periodo para el empleado : " + secEmpleado);
        persistenciaVacaciones.adelantarPeriodo(em, secEmpleado); 
     }
     
     
     @Override
     public BigDecimal validarJornadaVacaciones(BigInteger secEmpleado, Date fechaInicialDisfrute) {
-        System.out.println("entró a validarJornadaVacaciones");
-        System.out.println("empleado a consultar : " + secEmpleado);
-        System.out.println("fecha inicial : " + fechaInicialDisfrute);
+        log.warn("entró a validarJornadaVacaciones");
+        log.warn("empleado a consultar : " + secEmpleado);
+        log.warn("fecha inicial : " + fechaInicialDisfrute);
         BigDecimal jornada = persistenciaVacaciones.consultarJornadaVacaciones(em, secEmpleado, fechaInicialDisfrute);
         return jornada;
     }

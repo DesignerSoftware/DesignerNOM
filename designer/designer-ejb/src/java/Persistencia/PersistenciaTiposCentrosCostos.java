@@ -8,15 +8,16 @@ import InterfacePersistencia.PersistenciaTiposCentrosCostosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosCostosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposCentrosCostos.class);
 
     @Override
     public void crear(EntityManager em, TiposCentrosCostos TiposCentrosCostos) {
@@ -27,7 +28,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.merge(TiposCentrosCostos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCentrosCostos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposCentrosCostos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +44,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.merge(TiposCentrosCostos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCentrosCostos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposCentrosCostos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +60,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.remove(em.merge(TiposCentrosCostos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCentrosCostos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposCentrosCostos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +73,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.clear();
             return em.find(TiposCentrosCostos.class, secuencia);
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaTiposCentosCostos buscarTiposCentrosCostos ERROR " + e.getMessage());
+            log.error("ERROR PersistenciaTiposCentosCostos buscarTiposCentrosCostos ERROR " + e.getMessage());
             return null;
         }
     }
@@ -85,7 +86,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             cq.select(cq.from(TiposCentrosCostos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("\n ERROR EN PersistenciaTiposCentrosCostos buscarTiposCentrosCostos ERROR" + e.getMessage());
+            log.error("\n ERROR EN PersistenciaTiposCentrosCostos buscarTiposCentrosCostos ERROR" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +101,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             retorno = new BigInteger(query.getSingleResult().toString());
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }
@@ -117,7 +118,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             retorno = new BigInteger(query.getSingleResult().toString());
 
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }
@@ -134,7 +135,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }

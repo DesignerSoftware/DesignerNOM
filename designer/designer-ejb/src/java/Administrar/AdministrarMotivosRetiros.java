@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosRetiros.class);
 
     @EJB
     PersistenciaMotivosRetirosInterface persistenciaMotivosRetiros;
@@ -42,8 +45,8 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
     @Override
     public void modificarMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
         for (int i = 0; i < listaMotivosRetiros.size(); i++) {
-            System.out.println("Administrar Modificando...");
-            System.out.println("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
+            log.warn("Administrar Modificando...");
+            log.warn("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
             persistenciaMotivosRetiros.editar(em, listaMotivosRetiros.get(i));
         }
     }
@@ -51,8 +54,8 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
     @Override
     public void borrarMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
         for (int i = 0; i < listaMotivosRetiros.size(); i++) {
-            System.out.println("Administrar Borrando...");
-            System.out.println("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
+            log.warn("Administrar Borrando...");
+            log.warn("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
             persistenciaMotivosRetiros.borrar(em, listaMotivosRetiros.get(i));
         }
     }
@@ -60,8 +63,8 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
     @Override
     public void crearMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
         for (int i = 0; i < listaMotivosRetiros.size(); i++) {
-            System.out.println("Administrar Creando...");
-            System.out.println("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
+            log.warn("Administrar Creando...");
+            log.warn("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
             persistenciaMotivosRetiros.crear(em, listaMotivosRetiros.get(i));
         }
     }
@@ -86,7 +89,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
         try {
             return contarHVExperienciasLaboralesMotivoRetiro = persistenciaMotivosRetiros.contarHVExperienciasLaboralesMotivoRetiro(em, secMotivosRetiros);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
         try {
             return contarNovedadesSistemasMotivoRetiro = persistenciaMotivosRetiros.contarNovedadesSistemasMotivoRetiro(em, secMotivosRetiros);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
             return null;
         }
     }
@@ -110,7 +113,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
         try {
             return contarRetiMotivosRetirosMotivoRetiro = persistenciaMotivosRetiros.contarRetiMotivosRetirosMotivoRetiro(em, secMotivosRetiros);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
             return null;
         }
     }
@@ -122,7 +125,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
         try {
             return contarRetiradosMotivoRetiro = persistenciaMotivosRetiros.contarRetiradosMotivoRetiro(em, secMotivosRetiros);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMotivosRetiros contarRetiradosMotivoRetiro ERROR : " + e);
+            log.error("ERROR AdministrarMotivosRetiros contarRetiradosMotivoRetiro ERROR : " + e);
             return null;
         }
     }

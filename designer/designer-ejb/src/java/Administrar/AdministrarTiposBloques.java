@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposBloques.class);
 
    @EJB
    PersistenciaTiposBloquesInterface persistenciaTiposBloques;
@@ -44,7 +47,7 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
       List<TiposBloques> listaTiposBloques = persistenciaTiposBloques.tiposBloques(em, secuenciaOperando);
 //      if (listaTiposBloques != null) {
 //         if (!listaTiposBloques.isEmpty()) {
-//            System.out.println("AdministrarTiposBloques.buscarTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
+//            log.warn("AdministrarTiposBloques.buscarTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
 //         }
 //      }
       return listaTiposBloques;

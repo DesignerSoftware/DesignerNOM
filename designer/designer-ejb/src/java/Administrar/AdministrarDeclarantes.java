@@ -14,11 +14,11 @@ import InterfacePersistencia.PersistenciaDeclarantesInterface;
 import InterfacePersistencia.PersistenciaRetencionesMinimasInterface;
 import InterfacePersistencia.PersistenciaTarifaDeseoInterface;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDeclarantes.class);
 
     @EJB
     PersistenciaDeclarantesInterface persistenciaDeclarantes;
@@ -58,7 +60,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
         try {
             declarantesLista = persistenciaDeclarantes.buscarDeclarantesPersona(em,secPersona);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Declarantes (declarantesPersona)");
+            log.warn("Error en Administrar Declarantes (declarantesPersona)");
             declarantesLista = null;
         }
         return declarantesLista;
@@ -74,7 +76,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
             if (listaDeclarantesModificados.get(i).getRetencionminima().getSecuencia() == null) {
                 listaDeclarantesModificados.get(i).setRetencionminima(null);
             }
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
 
             persistenciaDeclarantes.editar(em,listaDeclarantesModificados.get(i));
         }

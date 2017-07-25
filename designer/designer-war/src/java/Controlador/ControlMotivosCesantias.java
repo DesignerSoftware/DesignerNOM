@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosCesantias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosCesantias.class);
 
     @EJB
     AdministrarMotivosCesantiasInterface administrarMotivosCesantias;
@@ -135,8 +138,8 @@ public class ControlMotivosCesantias implements Serializable {
             administrarMotivosCesantias.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -145,7 +148,7 @@ public class ControlMotivosCesantias implements Serializable {
     }
 
     public void cambiarIndice(MotivosCesantias motivo, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
 
         if (permitirIndex == true) {
             motivoCesantiaSeleccionado = motivo;
@@ -157,19 +160,19 @@ public class ControlMotivosCesantias implements Serializable {
 
     public void asignarIndex(MotivosCesantias motivo, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE A CONTROLMOTIVOSCESANTIAS ASIGNAR INDEX \n");
+            log.info("\n ENTRE A CONTROLMOTIVOSCESANTIAS ASIGNAR INDEX \n");
             motivoCesantiaSeleccionado = motivo;
             if (LND == 0) {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("TIPO ACTUALIZACION : " + tipoActualizacion);
+                log.info("TIPO ACTUALIZACION : " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLMOTIVOSCESANTIAS ASIGNAR INDEX ERROR = " + e);
+            log.warn("Error CONTROLMOTIVOSCESANTIAS ASIGNAR INDEX ERROR = " + e);
         }
     }
 
@@ -221,11 +224,11 @@ public class ControlMotivosCesantias implements Serializable {
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
             descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
             altoTabla = "280";
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
@@ -239,7 +242,7 @@ public class ControlMotivosCesantias implements Serializable {
     }
 
     public void modificandoMotivoCensantia(MotivosCesantias motivo, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR MOTIVOSCESANTIA");
+        log.error("ENTRE A MODIFICAR MOTIVOSCESANTIA");
         motivoCesantiaSeleccionado = motivo;
 
         int contador = 0;
@@ -248,9 +251,9 @@ public class ControlMotivosCesantias implements Serializable {
         Integer a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR MOTIVOEMBARGOS, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR MOTIVOEMBARGOS, CONFIRMAR CAMBIO ES N");
 
             if (!crearMotivosCesantias.contains(motivoCesantiaSeleccionado)) {
                 if (motivoCesantiaSeleccionado.getCodigo() == a) {
@@ -285,17 +288,17 @@ public class ControlMotivosCesantias implements Serializable {
 
     public void verificarBorrado() {
         try {
-            System.out.println("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-            System.out.println("secuencia borrado : " + motivoCesantiaSeleccionado.getSecuencia());
+            log.info("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
+            log.info("secuencia borrado : " + motivoCesantiaSeleccionado.getSecuencia());
             if (tipoLista == 0) {
-                System.out.println("secuencia borrado : " + motivoCesantiaSeleccionado.getSecuencia());
+                log.info("secuencia borrado : " + motivoCesantiaSeleccionado.getSecuencia());
                 verificarEerPrestamos = administrarMotivosCesantias.contarNovedadesSistemasMotivoCesantia(motivoCesantiaSeleccionado.getSecuencia());
             } else {
-                System.out.println("secuencia borrado : " + motivoCesantiaSeleccionado.getSecuencia());
+                log.info("secuencia borrado : " + motivoCesantiaSeleccionado.getSecuencia());
                 verificarEerPrestamos = administrarMotivosCesantias.contarNovedadesSistemasMotivoCesantia(motivoCesantiaSeleccionado.getSecuencia());
             }
             if (!verificarEerPrestamos.equals(new BigInteger("0"))) {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -305,18 +308,18 @@ public class ControlMotivosCesantias implements Serializable {
                 verificarEerPrestamos = new BigInteger("-1");
 
             } else {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoMotivosCesantias();
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
         }
     }
 
     public void borrandoMotivosCesantias() {
 
         if (motivoCesantiaSeleccionado != null) {
-            System.out.println("Entro a borrandoMotivosCesantias");
+            log.info("Entro a borrandoMotivosCesantias");
             if (!modificarMotivosCesantias.isEmpty() && modificarMotivosCesantias.contains(motivoCesantiaSeleccionado)) {
                 int modIndex = modificarMotivosCesantias.indexOf(motivoCesantiaSeleccionado);
                 modificarMotivosCesantias.remove(modIndex);
@@ -361,7 +364,7 @@ public class ControlMotivosCesantias implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("REALIZANDO MOTIVOCESANTIA");
+            log.info("REALIZANDO MOTIVOCESANTIA");
             if (!borrarMotivosCesantias.isEmpty()) {
                 administrarMotivosCesantias.borrarMotivosCesantias(borrarMotivosCesantias);
                 //mostrarBorrados
@@ -379,7 +382,7 @@ public class ControlMotivosCesantias implements Serializable {
                 administrarMotivosCesantias.modificarMotivosCesantias(modificarMotivosCesantias);
                 modificarMotivosCesantias.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosCesantias = null;
             guardado = true;
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
@@ -400,7 +403,7 @@ public class ControlMotivosCesantias implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -417,7 +420,7 @@ public class ControlMotivosCesantias implements Serializable {
     }
 
     public void agregarNuevoMotivosCesantias() {
-        System.out.println("agregarNuevoMotivosCesantias");
+        log.info("agregarNuevoMotivosCesantias");
         int contador = 0;
         int duplicados = 0;
 
@@ -427,41 +430,41 @@ public class ControlMotivosCesantias implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoMotivoCesantia.getCodigo() == a) {
             mensajeValidacion = " *Debe Tener Un Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivoCesantia.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivoCesantia.getCodigo());
 
             for (int x = 0; x < listMotivosCesantias.size(); x++) {
                 if (listMotivosCesantias.get(x).getCodigo() == nuevoMotivoCesantia.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivoCesantia.getNombre() == (null)) {
             mensajeValidacion = mensajeValidacion + " *Debe tener una descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
@@ -471,7 +474,7 @@ public class ControlMotivosCesantias implements Serializable {
                 filtrarMotivosCesantias = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -502,7 +505,7 @@ public class ControlMotivosCesantias implements Serializable {
     }
 
     public void duplicandoMotivosCesantias() {
-        System.out.println("duplicandoMotivosCesantias");
+        log.info("duplicandoMotivosCesantias");
         if (motivoCesantiaSeleccionado != null) {
             duplicarMotivoCesantia = new MotivosCesantias();
             k++;
@@ -528,7 +531,7 @@ public class ControlMotivosCesantias implements Serializable {
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR MOTIVOSCESANTIAS");
+        log.error("ESTOY EN CONFIRMAR DUPLICAR MOTIVOSCESANTIAS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
@@ -538,7 +541,7 @@ public class ControlMotivosCesantias implements Serializable {
 
         if (duplicarMotivoCesantia.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listMotivosCesantias.size(); x++) {
                 if (listMotivosCesantias.get(x).getCodigo() == duplicarMotivoCesantia.getCodigo()) {
@@ -547,27 +550,27 @@ public class ControlMotivosCesantias implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarMotivoCesantia.getNombre() == null) {
             mensajeValidacion = mensajeValidacion + "   * Una descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarMotivoCesantia.getSecuencia() + "  " + duplicarMotivoCesantia.getCodigo());
+            log.info("Datos Duplicando: " + duplicarMotivoCesantia.getSecuencia() + "  " + duplicarMotivoCesantia.getCodigo());
             if (crearMotivosCesantias.contains(duplicarMotivoCesantia)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listMotivosCesantias.add(duplicarMotivoCesantia);
             crearMotivosCesantias.add(duplicarMotivoCesantia);
@@ -622,11 +625,11 @@ public class ControlMotivosCesantias implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (motivoCesantiaSeleccionado != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(motivoCesantiaSeleccionado.getSecuencia(), "MOTIVOSCENSANTIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -647,13 +650,13 @@ public class ControlMotivosCesantias implements Serializable {
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A CONTROLMOTIVOSCESANTIAS EVENTOFILTRAR \n");
+            log.info("\n ENTRE A CONTROLMOTIVOSCESANTIAS EVENTOFILTRAR \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
             contarRegistros();
         } catch (Exception e) {
-            System.err.println("ERROR CONTROLMOTIVOSCESANTIAS EVENTOFILTRAR  ERROR =" + e.getMessage());
+            log.error("ERROR CONTROLMOTIVOSCESANTIAS EVENTOFILTRAR  ERROR =" + e.getMessage());
         }
     }
 

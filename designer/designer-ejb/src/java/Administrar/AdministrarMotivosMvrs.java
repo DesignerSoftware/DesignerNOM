@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosMvrs.class);
 
     @EJB
     PersistenciaMotivosMvrsInterface persistenciaMotivosMvrs;
@@ -41,7 +44,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
     @Override
     public void modificarMotivosMvrs(List<Motivosmvrs> listaMotivosMvrs) {
         for (int i = 0; i < listaMotivosMvrs.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosMvrs.editar(em, listaMotivosMvrs.get(i));
         }
     }
@@ -49,7 +52,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
     @Override
     public void borrarMotivosMvrs(List<Motivosmvrs> listaMotivosMvrs) {
         for (int i = 0; i < listaMotivosMvrs.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosMvrs.borrar(em, listaMotivosMvrs.get(i));
         }
     }
@@ -57,7 +60,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
     @Override
     public void crearMotivosMvrs(List<Motivosmvrs> listaMotivosMvrs) {
         for (int i = 0; i < listaMotivosMvrs.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosMvrs.crear(em, listaMotivosMvrs.get(i));
         }
     }

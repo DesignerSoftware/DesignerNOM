@@ -17,9 +17,12 @@ import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
-public class AdministrarTelefonos implements AdministrarTelefonosInterface{
+public class AdministrarTelefonos implements AdministrarTelefonosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTelefonos.class);
 
     @EJB
     PersistenciaTelefonosInterface persistenciaTelefonos;
@@ -52,7 +55,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface{
         try {
             return persistenciaTelefonos.telefonosPersona(em, secPersona);
         } catch (Exception e) {
-            System.err.println("Error AdministrarTelefonos.telefonosPersona " + e);
+            log.error("Error AdministrarTelefonos.telefonosPersona " + e);
             return null;
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface{
     @Override
     public void modificarTelefono(List<Telefonos> listaTelefonosModificar) {
         for (int i = 0; i < listaTelefonosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaTelefonosModificar.get(i).getTipotelefono().getSecuencia() == null) {
                 listaTelefonosModificar.get(i).setTipotelefono(null);
                 t = listaTelefonosModificar.get(i);
@@ -113,7 +116,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface{
         Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
         return retorno;
         }catch(Exception  e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+            log.warn("Error empleadoActual Admi : "+e.toString());
             return null;
         }
     }

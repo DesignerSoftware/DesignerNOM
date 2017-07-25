@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarClavesSap implements AdministrarClavesSapInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarClavesSap.class);
 
     @EJB
     PersistenciaClavesSapInterface persistenciaClavesSap;
@@ -40,21 +43,21 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
 
     public void modificarClavesSap(List<ClavesSap> listaClavesSap) {
         for (int i = 0; i < listaClavesSap.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaClavesSap.editar(em, listaClavesSap.get(i));
         }
     }
 
     public void borrarClavesSap(List<ClavesSap> listaClavesSap) {
         for (int i = 0; i < listaClavesSap.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaClavesSap.borrar(em, listaClavesSap.get(i));
         }
     }
 
     public void crearClavesSap(List<ClavesSap> listaClavesSap) {
         for (int i = 0; i < listaClavesSap.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaClavesSap.crear(em, listaClavesSap.get(i));
         }
     }

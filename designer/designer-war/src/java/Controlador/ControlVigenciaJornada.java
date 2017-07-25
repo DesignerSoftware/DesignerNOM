@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -33,6 +34,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciaJornada implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciaJornada.class);
 
    @EJB
    AdministrarVigenciasJornadasInterface administrarVigenciasJornadas;
@@ -232,8 +235,8 @@ public class ControlVigenciaJornada implements Serializable {
          administrarVigenciasJornadas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -673,7 +676,7 @@ public class ControlVigenciaJornada implements Serializable {
     * @param celda Columna de la tabla
     */
    public void cambiarIndice(VigenciasJornadas vJornada, int celda) {
-      System.out.println("vigenciaJornadaSeleccionada: " + vigenciaJornadaSeleccionada);
+      log.info("vigenciaJornadaSeleccionada: " + vigenciaJornadaSeleccionada);
       vigenciaJornadaSeleccionada = vJornada;
       actualizarSeleccionVJ();
       if (permitirIndex) {
@@ -2628,7 +2631,7 @@ public class ControlVigenciaJornada implements Serializable {
             return listVigenciasJornadas;
          }
       } catch (Exception e) {
-         System.out.println("Error getVigenciaLocalizaciones " + e.toString());
+         log.warn("Error getVigenciaLocalizaciones " + e.toString());
          return null;
       }
    }

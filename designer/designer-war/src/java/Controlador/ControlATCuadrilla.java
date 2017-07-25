@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlATCuadrilla implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlATCuadrilla.class);
 
    @EJB
    AdministrarATCuadrillaInterface administrarATCuadrilla;
@@ -227,8 +230,8 @@ public class ControlATCuadrilla implements Serializable {
          administrarATCuadrilla.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -734,7 +737,7 @@ public class ControlATCuadrilla implements Serializable {
             guardarCambiosTurnos();
          }
          if (cambiosDetalle == true) {
-            System.out.println("Guardo");
+            log.info("Guardo");
             guardarCambiosDetalles();
          }
       }
@@ -768,7 +771,7 @@ public class ControlATCuadrilla implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCuadrillas Controlador : " + e.toString());
+         log.warn("Error guardarCambiosCuadrillas Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Cuadrillas");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -807,7 +810,7 @@ public class ControlATCuadrilla implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosTurnos Controlador : " + e.toString());
+         log.warn("Error guardarCambiosTurnos Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Turnos Rotativos");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -817,19 +820,19 @@ public class ControlATCuadrilla implements Serializable {
    public void guardarCambiosDetalles() {
       RequestContext context = RequestContext.getCurrentInstance();
       try {
-         System.out.println("guardarCambiosDetalles");
+         log.info("guardarCambiosDetalles");
          if (!listDetallesTurnosRotativosBorrar.isEmpty()) {
-            System.out.println("guardarCambiosDetalles listDetallesTurnosRotativosBorrar");
+            log.info("guardarCambiosDetalles listDetallesTurnosRotativosBorrar");
             administrarATCuadrilla.borrarDetallesTurnosRotativos(listDetallesTurnosRotativosBorrar);
             listDetallesTurnosRotativosBorrar.clear();
          }
          if (!listDetallesTurnosRotativosCrear.isEmpty()) {
-            System.out.println("guardarCambiosDetalles listDetallesTurnosRotativosCrear");
+            log.info("guardarCambiosDetalles listDetallesTurnosRotativosCrear");
             administrarATCuadrilla.crearDetallesTurnosRotativos(listDetallesTurnosRotativosCrear);
             listDetallesTurnosRotativosCrear.clear();
          }
          if (!listDetallesTurnosRotativosModificar.isEmpty()) {
-            System.out.println("guardarCambiosDetalles listDetallesTurnosRotativosModificar");
+            log.info("guardarCambiosDetalles listDetallesTurnosRotativosModificar");
             administrarATCuadrilla.editarDetallesTurnosRotativos(listDetallesTurnosRotativosModificar);
             listDetallesTurnosRotativosModificar.clear();
          }
@@ -850,7 +853,7 @@ public class ControlATCuadrilla implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosDetalles Controlador : " + e.toString());
+         log.warn("Error guardarCambiosDetalles Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Detalles Turnos Rotativos");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1360,7 +1363,7 @@ public class ControlATCuadrilla implements Serializable {
          }
          listDetallesTurnosRotativosCrear.add(nuevaDetalle);
          listaDetallesTurnosRotativos.add(nuevaDetalle);
-         System.out.println("listaDetallesTurnosRotativos : " + listaDetallesTurnosRotativos.size());
+         log.info("listaDetallesTurnosRotativos : " + listaDetallesTurnosRotativos.size());
          nuevaDetalle = new DetallesTurnosRotativos();
          nuevaDetalle.setEmpleado(new Empleados());
          nuevaDetalle.getEmpleado().setPersona(new Personas());
@@ -2186,7 +2189,7 @@ public class ControlATCuadrilla implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error borrarProgramacionCompleta Controlador : " + e.toString());
+         log.warn("Error borrarProgramacionCompleta Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el borrado de la programacion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2220,7 +2223,7 @@ public class ControlATCuadrilla implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnBuscarEmpleados Controlador : " + e.toString());
+         log.warn("Error actionBtnBuscarEmpleados Controlador : " + e.toString());
       }
    }
 
@@ -2334,7 +2337,7 @@ public class ControlATCuadrilla implements Serializable {
          RequestContext.getCurrentInstance().update("form:BUSCAR");
          RequestContext.getCurrentInstance().update("form:TODOS");
       } catch (Exception e) {
-         System.out.println("Error actualizarEmpleadosCuadrillas Controlador : " + e.toString());
+         log.warn("Error actualizarEmpleadosCuadrillas Controlador : " + e.toString());
       }
    }
 
@@ -2591,7 +2594,7 @@ public class ControlATCuadrilla implements Serializable {
             return listaCuadrillas;
          }
       } catch (Exception e) {
-         System.out.println("Error...!! getVigenciasReformasLaboralesEmpleado ");
+         log.warn("Error...!! getVigenciasReformasLaboralesEmpleado ");
          return null;
       }
    }

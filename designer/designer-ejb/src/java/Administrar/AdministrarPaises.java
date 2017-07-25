@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPaises implements AdministrarPaisesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPaises.class);
 
     @EJB
     PersistenciaPaisesInterface persistenciaPaises;
@@ -54,7 +57,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
     @Override
     public void modificarPaises(List<Paises> listaPaises) {
         for (int i = 0; i < listaPaises.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaPaises.editar(em, listaPaises.get(i));
         }
     }
@@ -62,7 +65,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
     @Override
     public void borrarPaises(List<Paises> listaPaises) {
         for (int i = 0; i < listaPaises.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaPaises.borrar(em, listaPaises.get(i));
         }
     }
@@ -70,7 +73,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
     @Override
     public void crearPaises(List<Paises> listaPaises) {
         for (int i = 0; i < listaPaises.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaPaises.crear(em, listaPaises.get(i));
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
         try {
             return contarDepartamentosPais = persistenciaPaises.contarDepartamentosPais(em, secPaises);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPaises contarDepartamentosPais ERROR : " + e);
+            log.error("ERROR AdministrarPaises contarDepartamentosPais ERROR : " + e);
             return null;
         }
     }
@@ -107,7 +110,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
         try {
             return contarFestivosPais = persistenciaPaises.contarFestivosPais(em, secPaises);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPaises contarFestivosPais ERROR : " + e);
+            log.error("ERROR AdministrarPaises contarFestivosPais ERROR : " + e);
             return null;
         }
     }

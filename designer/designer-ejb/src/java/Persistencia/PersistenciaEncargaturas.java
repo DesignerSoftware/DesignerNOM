@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -23,6 +24,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEncargaturas.class);
+
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     private Long contarReemplazoPersona(EntityManager em, BigInteger secuenciaEmpleado) {
@@ -35,7 +38,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaEncargaturas.contarReemplazoPersona()");
+            log.error("Persistencia.PersistenciaEncargaturas.contarReemplazoPersona()");
             e.printStackTrace();
             return resultado;
         }
@@ -46,7 +49,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
      */
     @Override
     public List<Encargaturas> reemplazoPersona(EntityManager em, BigInteger secuenciaEmpleado) {
-        System.out.println(this.getClass().getName() + ".reemplazoPersona()");
+        log.error(this.getClass().getName() + ".reemplazoPersona()");
         Long resultado = this.contarReemplazoPersona(em, secuenciaEmpleado);
         if (resultado != null && resultado > 0) {
             try {
@@ -61,11 +64,11 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
                 List<Encargaturas> listaEncargaturas = queryFinal.getResultList();
                 return listaEncargaturas;
             } catch (Exception e) {
-                System.out.println("Error PersistenciaEncargaturas.reemplazoPersona" + e);
+                log.error("Error PersistenciaEncargaturas.reemplazoPersona" + e);
                 return null;
             }
         } else {
-            System.out.println("el conteo no proporciono datos válidos");
+            log.error("el conteo no proporciono datos válidos");
             return null;
         }
     }
@@ -79,11 +82,11 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             em.merge(encargaturas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEncargaturas.crear: " + e);
+            log.error("Error PersistenciaEncargaturas.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("la transaccion se cerro");
+            log.error("la transaccion se cerro");
         }
     }
 
@@ -96,11 +99,11 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             em.merge(encargaturas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEncargaturas.editar: " + e);
+            log.error("Error PersistenciaEncargaturas.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerró la transacción");
+            log.error("se cerró la transacción");
         }
     }
 
@@ -113,11 +116,11 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             em.remove(em.merge(encargaturas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEncargaturas.borrar: " + e);
+            log.error("Error PersistenciaEncargaturas.borrar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Se cerro la transacción");
+            log.error("Se cerro la transacción");
         }
     }
 
@@ -129,7 +132,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             cq.select(cq.from(Encargaturas.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("error en buscarEncargaturas");
+            log.error("error en buscarEncargaturas");
             e.printStackTrace();
             return null;
         }
@@ -145,7 +148,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             List<Encargaturas> listaEncargaturas = query.getResultList();
             return listaEncargaturas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEncargaturas.encargaturasEmpleado" + e);
+            log.error("Error PersistenciaEncargaturas.encargaturasEmpleado" + e);
             return null;
         }
     }
@@ -169,7 +172,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             }
             return reemplazo;
         } catch (NoResultException e) {
-            System.out.println("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e.getMessage());
+            log.error("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e.getMessage());
             reemplazo = " ";
             return reemplazo;
         }

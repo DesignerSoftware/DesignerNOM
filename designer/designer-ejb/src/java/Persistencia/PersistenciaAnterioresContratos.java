@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaAnterioresContratos implements PersistenciaAnterioresContratosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaAnterioresContratos.class);
+
     @Override
     public void crear(EntityManager em, AnterioresContratos anteriorContrato) {
         em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
             em.merge(anteriorContrato);
             tx.commit();
         }catch(Exception e){
-            System.out.println("Error PersistenciaAnterioresContratos.crear: " + e.getMessage());
+            log.error("Error PersistenciaAnterioresContratos.crear: " + e.getMessage());
             if(tx.isActive()){
                 tx.rollback();
             }
@@ -46,7 +49,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
         em.merge(anteriorContrato);
         tx.commit();
         }catch(Exception e){
-            System.out.println("Error PersistenciaAnterioresContratos.editar: " + e.getMessage());
+            log.error("Error PersistenciaAnterioresContratos.editar: " + e.getMessage());
             if(tx.isActive()){
                 tx.rollback();
             }
@@ -62,7 +65,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
         em.remove(em.merge(anteriorContrato));
         tx.commit();
        }catch(Exception e){
-           System.out.println("Error PersitenciaAnterioresContratos.borrar: " + e.getMessage());   
+           log.error("Error PersitenciaAnterioresContratos.borrar: " + e.getMessage());   
            if(tx.isActive()){
                tx.rollback();
            }
@@ -79,7 +82,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
        List<AnterioresContratos> listAnterioresContratos = query.getResultList();
        return listAnterioresContratos;
        }catch(Exception e){
-           System.out.println("error PersistenciaAnterioresContratosInterface.anterioresContratosPersona : " + e.getMessage());
+           log.error("error PersistenciaAnterioresContratosInterface.anterioresContratosPersona : " + e.getMessage());
            return null;
        }
     }

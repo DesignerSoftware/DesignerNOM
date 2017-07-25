@@ -10,8 +10,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -24,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFormasPagosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasFormasPagos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -44,7 +46,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasFormasPagos.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasFormasPagos.crear()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +63,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             em.merge(vigenciasFormasPagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasFormasPagos.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasFormasPagos.editar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -77,7 +79,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             em.remove(em.merge(vigenciasFormasPagos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasFormasPagos.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasFormasPagos.borrar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -90,7 +92,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             em.clear();
             return em.find(VigenciasFormasPagos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en la persistencia vigencias formas pagos ERROR :" + e.getMessage());
+            log.error("Error en la persistencia vigencias formas pagos ERROR :" + e.getMessage());
             return null;
         }
     }
@@ -105,7 +107,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             List<VigenciasFormasPagos> vigenciasNormasEmpleados = query.getResultList();
             return vigenciasNormasEmpleados;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e.getMessage());
+            log.error("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e.getMessage());
             return null;
         }
     }
@@ -126,10 +128,10 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             Query query = em.createNativeQuery(sql);
             query.setParameter("1", secEmpleado);
             BigDecimal periodicidad = (BigDecimal) query.getSingleResult();
-            System.out.println("buscarPeriodicidadPorEmpl: " + periodicidad);
+            log.error("buscarPeriodicidadPorEmpl: " + periodicidad);
             return periodicidad;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Formas Pagos.buscarVigenciaFormaPagoPorEmpl() " + e.getMessage());
+            log.error("Error en Persistencia Vigencias Formas Pagos.buscarVigenciaFormaPagoPorEmpl() " + e.getMessage());
             return null;
         }
     }

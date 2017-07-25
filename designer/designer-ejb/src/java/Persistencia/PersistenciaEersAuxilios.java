@@ -10,7 +10,7 @@ import InterfacePersistencia.PersistenciaEersAuxiliosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -18,7 +18,9 @@ import javax.persistence.Query;
  * @author user
  */
 @Stateless
-public class PersistenciaEersAuxilios implements PersistenciaEersAuxiliosInterface{
+public class PersistenciaEersAuxilios implements PersistenciaEersAuxiliosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEersAuxilios.class);
 
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -32,7 +34,7 @@ public class PersistenciaEersAuxilios implements PersistenciaEersAuxiliosInterfa
             List<EersAuxilios> listaAuxilios = query.getResultList();
             return listaAuxilios;
         } catch (Exception e) {
-            System.out.println("Exepcion en PersistenciaEersAuxilios.auxilios" + e);
+            log.error("Exepcion en PersistenciaEersAuxilios.auxilios" + e);
             return null;
         }
     }

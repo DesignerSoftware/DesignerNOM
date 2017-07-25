@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTipoFuncion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoFuncion.class);
 
    @EJB
    AdministrarTiposFuncionesInterface administrarTiposFunciones;
@@ -115,8 +118,8 @@ public class ControlTipoFuncion implements Serializable {
          administrarTiposFunciones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -299,7 +302,7 @@ public class ControlTipoFuncion implements Serializable {
          editarTiposFunciones = tipoFuncionSeleccionada;
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
             RequestContext.getCurrentInstance().execute("PF('editarFechasIniciales').show()");
@@ -375,7 +378,7 @@ public class ControlTipoFuncion implements Serializable {
       if (guardado == false) {
          if (!listaTiposFuncionesBorrar.isEmpty()) {
             for (int i = 0; i < listaTiposFuncionesBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaTiposFuncionesBorrar.size());
+               log.info("Borrando..." + listaTiposFuncionesBorrar.size());
                if (listaTiposFuncionesBorrar.get(i).getFechafinal() == null) {
                   listaTiposFuncionesBorrar.get(i).setFechafinal(null);
                }
@@ -403,7 +406,7 @@ public class ControlTipoFuncion implements Serializable {
             listaTiposFuncionesModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaTiposFunciones = null;
          tipoFuncionSeleccionada = null;
 
@@ -422,7 +425,7 @@ public class ControlTipoFuncion implements Serializable {
    public void verificarRastro() {
       if (tipoFuncionSeleccionada != null) {
          int result = administrarRastros.obtenerTabla(tipoFuncionSeleccionada.getSecuencia(), "TIPOSFUNCIONES");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -466,7 +469,7 @@ public class ControlTipoFuncion implements Serializable {
          k++;
          l = BigInteger.valueOf(k);
          nuevoTipoFuncion.setSecuencia(l);
-         System.out.println("Operando: " + operando);
+         log.info("Operando: " + operando);
          nuevoTipoFuncion.setOperando(operando);
 
          RequestContext.getCurrentInstance().update("form:ACEPTAR");

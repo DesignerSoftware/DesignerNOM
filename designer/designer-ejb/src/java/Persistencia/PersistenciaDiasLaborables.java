@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDiasLaborables.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          em.persist(diasLaborables);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiasLaborables.crear: " + e);
+         log.error("Error PersistenciaDiasLaborables.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          em.merge(diasLaborables);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiasLaborables.editar: " + e);
+         log.error("Error PersistenciaDiasLaborables.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +75,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDiasLaborables.borrar: " + e);
+         log.error("Error PersistenciaDiasLaborables.borrar: " + e);
       }
    }
 
@@ -86,7 +89,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          DiasLaborables diasLaborables = (DiasLaborables) query.getSingleResult();
          return diasLaborables;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaDiasLaborables.buscarDiaLaborableSecuencia() e: " + e);
+         log.error("Persistencia.PersistenciaDiasLaborables.buscarDiaLaborableSecuencia() e: " + e);
          DiasLaborables diasLaborables = null;
          return diasLaborables;
       }
@@ -101,7 +104,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          List<DiasLaborables> diasLaborables = query.getResultList();
          return diasLaborables;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaDiasLaborables.diasLaborables() e: " + e);
+         log.error("Persistencia.PersistenciaDiasLaborables.diasLaborables() e: " + e);
          return null;
       }
    }
@@ -116,7 +119,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          List<DiasLaborables> diasLaborables = query.getResultList();
          return diasLaborables;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaDiasLaborables.diasLaborablesParaSecuenciaTipoContrato() e: " + e);
+         log.error("Persistencia.PersistenciaDiasLaborables.diasLaborablesParaSecuenciaTipoContrato() e: " + e);
          return null;
       }
    }

@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaRastrosValores implements PersistenciaRastrosValoresInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaRastrosValores.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaRastrosValores implements PersistenciaRastrosValoresInt
             List<RastrosValores> listaRastroV = query.getResultList();
             return listaRastroV;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRastrosValores.rastroValores()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRastrosValores.rastroValores()" + e.getMessage());
             return null;
         }
     }

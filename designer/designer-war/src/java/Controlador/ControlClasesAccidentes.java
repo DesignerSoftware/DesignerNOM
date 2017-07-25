@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlClasesAccidentes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlClasesAccidentes.class);
 
    @EJB
    AdministrarClasesAccidentesInterface administrarClasesAccidentes;
@@ -136,14 +139,14 @@ public class ControlClasesAccidentes implements Serializable {
          administrarClasesAccidentes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n EVENTO FILTRAR \n");
+         log.info("\n EVENTO FILTRAR \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -151,12 +154,12 @@ public class ControlClasesAccidentes implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarClasesAccidentes.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR EVENTO FILTRAR ERROR===" + e.getMessage());
+         log.warn("Error EVENTO FILTRAR ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -177,24 +180,24 @@ public class ControlClasesAccidentes implements Serializable {
          secRegistro = listClasesAccidentes.get(index).getSecuencia();
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE CONTROCLASESACCIDENTES  AsignarIndex \n");
+         log.info("\n ENTRE CONTROCLASESACCIDENTES  AsignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR CONTROCLASESACCIDENTES asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error CONTROCLASESACCIDENTES asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -279,12 +282,12 @@ public class ControlClasesAccidentes implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosClasesAccidentes");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:descripcion");
@@ -297,7 +300,7 @@ public class ControlClasesAccidentes implements Serializable {
    }
 
    public void modificandoClaseAccidente(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("MODIFICAR CLASES ACCIDENTES");
+      log.error("MODIFICAR CLASES ACCIDENTES");
       index = indice;
 
       int contador = 0;
@@ -305,9 +308,9 @@ public class ControlClasesAccidentes implements Serializable {
       Short a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("MODIFICANDO CLASE ACCIDENTE CONFIRMAR CAMBIO = N");
+         log.error("MODIFICANDO CLASE ACCIDENTE CONFIRMAR CAMBIO = N");
          if (tipoLista == 0) {
             if (!crearClasesAccidentes.contains(listClasesAccidentes.get(indice))) {
                if (listClasesAccidentes.get(indice).getCodigo() == null) {
@@ -434,7 +437,7 @@ public class ControlClasesAccidentes implements Serializable {
                banderita = false;
             } else {
                for (int j = 0; j < listClasesAccidentes.size(); j++) {
-                  System.err.println("indice lista  indice : " + listClasesAccidentes.get(j).getCodigo());
+                  log.error("indice lista  indice : " + listClasesAccidentes.get(j).getCodigo());
                   if (indice != j) {
                      if (filtrarClasesAccidentes.get(indice).getCodigo().equals(listClasesAccidentes.get(j).getCodigo())) {
                         contador++;
@@ -443,7 +446,7 @@ public class ControlClasesAccidentes implements Serializable {
                }
 
                for (int j = 0; j < filtrarClasesAccidentes.size(); j++) {
-                  System.err.println("indice filtrar indice : " + filtrarClasesAccidentes.get(j).getCodigo());
+                  log.error("indice filtrar indice : " + filtrarClasesAccidentes.get(j).getCodigo());
                   if (j != indice) {
                      if (filtrarClasesAccidentes.get(indice).getCodigo().equals(filtrarClasesAccidentes.get(j).getCodigo())) {
                         contador++;
@@ -500,7 +503,7 @@ public class ControlClasesAccidentes implements Serializable {
                banderita = false;
             } else {
                for (int j = 0; j < listClasesAccidentes.size(); j++) {
-                  System.err.println("indice lista  indice : " + listClasesAccidentes.get(j).getCodigo());
+                  log.error("indice lista  indice : " + listClasesAccidentes.get(j).getCodigo());
                   if (indice != j) {
                      if (filtrarClasesAccidentes.get(indice).getCodigo().equals(listClasesAccidentes.get(j).getCodigo())) {
                         contador++;
@@ -509,7 +512,7 @@ public class ControlClasesAccidentes implements Serializable {
                }
 
                for (int j = 0; j < filtrarClasesAccidentes.size(); j++) {
-                  System.err.println("indice filtrar indice : " + filtrarClasesAccidentes.get(j).getCodigo());
+                  log.error("indice filtrar indice : " + filtrarClasesAccidentes.get(j).getCodigo());
                   if (j != indice) {
                      if (filtrarClasesAccidentes.get(indice).getCodigo().equals(filtrarClasesAccidentes.get(j).getCodigo())) {
                         contador++;
@@ -563,7 +566,7 @@ public class ControlClasesAccidentes implements Serializable {
       if (index >= 0) {
 
          if (tipoLista == 0) {
-            System.out.println("borrandoClaseAccidente");
+            log.info("borrandoClaseAccidente");
             if (!modificarClasesAccidentes.isEmpty() && modificarClasesAccidentes.contains(listClasesAccidentes.get(index))) {
                int modIndex = modificarClasesAccidentes.indexOf(listClasesAccidentes.get(index));
                modificarClasesAccidentes.remove(modIndex);
@@ -577,7 +580,7 @@ public class ControlClasesAccidentes implements Serializable {
             listClasesAccidentes.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoClaseAccidente");
+            log.info("borrandoClaseAccidente");
             if (!modificarClasesAccidentes.isEmpty() && modificarClasesAccidentes.contains(filtrarClasesAccidentes.get(index))) {
                int modIndex = modificarClasesAccidentes.indexOf(filtrarClasesAccidentes.get(index));
                modificarClasesAccidentes.remove(modIndex);
@@ -607,7 +610,7 @@ public class ControlClasesAccidentes implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("verificarBorrado");
+      log.info("verificarBorrado");
       try {
          if (tipoLista == 0) {
             verificarBorradoAccidentes = administrarClasesAccidentes.verificarSoAccidentesMedicosClaseAccidente(listClasesAccidentes.get(index).getSecuencia());
@@ -615,10 +618,10 @@ public class ControlClasesAccidentes implements Serializable {
             verificarBorradoAccidentes = administrarClasesAccidentes.verificarSoAccidentesMedicosClaseAccidente(filtrarClasesAccidentes.get(index).getSecuencia());
          }
          if (verificarBorradoAccidentes.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoClaseAccidente();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -628,7 +631,7 @@ public class ControlClasesAccidentes implements Serializable {
          }
          verificarBorradoAccidentes = new BigInteger("-1");
       } catch (Exception e) {
-         System.err.println("ERROR CLASES ACCIDENTES verificarBorrado ERROR " + e);
+         log.error("ERROR CLASES ACCIDENTES verificarBorrado ERROR " + e);
       }
    }
 
@@ -646,7 +649,7 @@ public class ControlClasesAccidentes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("REALIZANDO CLASES ACCIDENTES");
+         log.info("REALIZANDO CLASES ACCIDENTES");
          if (!borrarClasesAccidentes.isEmpty()) {
             administrarClasesAccidentes.borrarClasesAccidentes(borrarClasesAccidentes);
             //mostrarBorrados
@@ -675,7 +678,7 @@ public class ControlClasesAccidentes implements Serializable {
             administrarClasesAccidentes.modificarClasesAccidentes(modificarClasesAccidentes);
             modificarClasesAccidentes.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listClasesAccidentes = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -701,7 +704,7 @@ public class ControlClasesAccidentes implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -718,7 +721,7 @@ public class ControlClasesAccidentes implements Serializable {
    }
 
    public void agregarNuevaClaseAccidente() {
-      System.out.println("agregarNuevaClaseAccidente");
+      log.info("agregarNuevaClaseAccidente");
       int contador = 0;
       int duplicados = 0;
 
@@ -728,42 +731,42 @@ public class ControlClasesAccidentes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevaClaseAccidente.getCodigo() == null) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevaClaseAccidente.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevaClaseAccidente.getCodigo());
 
          for (int x = 0; x < listClasesAccidentes.size(); x++) {
             if (listClasesAccidentes.get(x).getCodigo().equals(nuevaClaseAccidente.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevaClaseAccidente.getNombre() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesAccidentes:descripcion");
@@ -773,7 +776,7 @@ public class ControlClasesAccidentes implements Serializable {
             filtrarClasesAccidentes = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -803,7 +806,7 @@ public class ControlClasesAccidentes implements Serializable {
    }
 
    public void limpiarNuevaClaseAccidente() {
-      System.out.println("limpiarNuevaClaseAccidente");
+      log.info("limpiarNuevaClaseAccidente");
       nuevaClaseAccidente = new ClasesAccidentes();
       secRegistro = null;
       index = -1;
@@ -812,7 +815,7 @@ public class ControlClasesAccidentes implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoClaseAccidente() {
-      System.out.println("duplicandoClaseAccidente");
+      log.info("duplicandoClaseAccidente");
       if (index >= 0) {
          duplicarClaseAccidente = new ClasesAccidentes();
          k++;
@@ -838,19 +841,19 @@ public class ControlClasesAccidentes implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("CONFIRMAR DUPLICAR CLASE ACCIDENTE");
+      log.error("CONFIRMAR DUPLICAR CLASE ACCIDENTE");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Short a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarClaseAccidente.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarClaseAccidente.getNombre());
+      log.error("ConfirmarDuplicar codigo " + duplicarClaseAccidente.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarClaseAccidente.getNombre());
 
       if (duplicarClaseAccidente.getCodigo() == null) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int x = 0; x < listClasesAccidentes.size(); x++) {
@@ -860,27 +863,27 @@ public class ControlClasesAccidentes implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarClaseAccidente.getNombre() == null) {
          mensajeValidacion = mensajeValidacion + "   *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarClaseAccidente.getSecuencia() + "  " + duplicarClaseAccidente.getCodigo());
+         log.info("Datos Duplicando: " + duplicarClaseAccidente.getSecuencia() + "  " + duplicarClaseAccidente.getCodigo());
          if (crearClasesAccidentes.contains(duplicarClaseAccidente)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listClasesAccidentes.add(duplicarClaseAccidente);
          crearClasesAccidentes.add(duplicarClaseAccidente);
@@ -941,12 +944,12 @@ public class ControlClasesAccidentes implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listClasesAccidentes.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "CLASESACCIDENTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

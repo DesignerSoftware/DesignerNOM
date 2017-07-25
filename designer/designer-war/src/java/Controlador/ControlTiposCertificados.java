@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposCertificados implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposCertificados.class);
 
    @EJB
    AdministrarTiposCertificadosInterface administrarTiposCertificados;
@@ -81,7 +84,7 @@ public class ControlTiposCertificados implements Serializable {
       duplicarTiposCertificados = new TiposCertificados();
       guardado = true;
       tamano = 330;
-      System.out.println("controlTiposCertificados Constructor");
+      log.info("controlTiposCertificados Constructor");
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -92,14 +95,14 @@ public class ControlTiposCertificados implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposCertificados PostConstruct ");
+         log.info("ControlTiposCertificados PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposCertificados.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -236,10 +239,10 @@ public class ControlTiposCertificados implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposCertificados");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 330;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -306,7 +309,7 @@ public class ControlTiposCertificados implements Serializable {
 
    public void guardarTiposCertificados() {
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposCertificados");
+         log.info("Realizando guardarTiposCertificados");
          if (!borrarTiposCertificados.isEmpty()) {
             administrarTiposCertificados.borrarTiposCertificados(borrarTiposCertificados);
             //mostrarBorrados
@@ -320,7 +323,7 @@ public class ControlTiposCertificados implements Serializable {
             administrarTiposCertificados.crearTiposCertificados(crearTiposCertificados);
             crearTiposCertificados.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposCertificados = null;
          RequestContext.getCurrentInstance().update("form:datosTiposCertificados");
          k = 0;
@@ -371,12 +374,12 @@ public class ControlTiposCertificados implements Serializable {
       }
       if (nuevoTiposCertificados.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else if (nuevoTiposCertificados.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
@@ -384,7 +387,7 @@ public class ControlTiposCertificados implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:descripcion");
@@ -394,7 +397,7 @@ public class ControlTiposCertificados implements Serializable {
             filtrarTiposCertificados = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -420,7 +423,7 @@ public class ControlTiposCertificados implements Serializable {
    }
 
    public void limpiarNuevoTiposCertificados() {
-      System.out.println("limpiarNuevoTiposCertificados");
+      log.info("limpiarNuevoTiposCertificados");
       nuevoTiposCertificados = new TiposCertificados();
    }
 
@@ -441,18 +444,18 @@ public class ControlTiposCertificados implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposCertificados.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposCertificados.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarTiposCertificados.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTiposCertificados.getDescripcion());
 
       if (duplicarTiposCertificados.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposCertificados.size(); x++) {
             if (listTiposCertificados.get(x).getCodigo() == duplicarTiposCertificados.getCodigo()) {
@@ -461,9 +464,9 @@ public class ControlTiposCertificados implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -533,11 +536,11 @@ public class ControlTiposCertificados implements Serializable {
    }
 
    public void verificarRastro() {
-      System.out.println("lol");
+      log.info("lol");
       if (tiposCertificadoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(tiposCertificadoSeleccionado.getSecuencia(), "TIPOSCERTIFICADOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

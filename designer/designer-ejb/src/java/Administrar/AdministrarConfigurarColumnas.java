@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarConfigurarColumnas implements AdministrarConfigurarColumnasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarConfigurarColumnas.class);
 
     @EJB
     PersistenciaColumnasEscenariosInterface persistenciaColumnasEscenarios;
@@ -44,7 +47,7 @@ public class AdministrarConfigurarColumnas implements AdministrarConfigurarColum
             List<ColumnasEscenarios> lista = persistenciaColumnasEscenarios.buscarColumnasEscenarios(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaColumnasEscenarios Admi : " + e.toString());
+            log.warn("Error listaColumnasEscenarios Admi : " + e.toString());
             return null;
         }
     }

@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposTelefonos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposTelefonos.class);
 
    @EJB
    AdministrarTiposTelefonosInterface administrarTiposTelefonos;
@@ -113,8 +116,8 @@ public class ControlTiposTelefonos implements Serializable {
          administrarTiposTelefonos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -175,12 +178,12 @@ public class ControlTiposTelefonos implements Serializable {
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigosTiposTelefonos");
             RequestContext.getCurrentInstance().execute("PF('editarCodigosTiposTelefonos').show()");
-            System.out.println("1");
+            log.info("1");
             cualCelda = -1;
          } else if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarNombresTiposTelefonos");
             RequestContext.getCurrentInstance().execute("PF('editarNombresTiposTelefonos').show()");
-            System.out.println("2");
+            log.info("2");
             cualCelda = -1;
          }
       } else {
@@ -197,9 +200,9 @@ public class ControlTiposTelefonos implements Serializable {
    public void guardarCambiosTipoTelefono() {
       try {
          if (guardado == false) {
-            System.out.println("listaTiposTelefonosBorrar: " + listaTiposTelefonosBorrar);
-            System.out.println("listaTiposTelefonosModificar: " + listaTiposTelefonosModificar);
-            System.out.println("listaTiposTelefonosCrear: " + listaTiposTelefonosCrear);
+            log.info("listaTiposTelefonosBorrar: " + listaTiposTelefonosBorrar);
+            log.info("listaTiposTelefonosModificar: " + listaTiposTelefonosModificar);
+            log.info("listaTiposTelefonosCrear: " + listaTiposTelefonosCrear);
             if (!listaTiposTelefonosBorrar.isEmpty()) {
                for (int i = 0; i < listaTiposTelefonosBorrar.size(); i++) {
                   administrarTiposTelefonos.borrarTipoTelefono(listaTiposTelefonosBorrar.get(i));
@@ -232,7 +235,7 @@ public class ControlTiposTelefonos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
          deshabilitarBotonLov();
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -243,7 +246,7 @@ public class ControlTiposTelefonos implements Serializable {
    public void salir() {
       limpiarListasValor();
       if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          FacesContext c = FacesContext.getCurrentInstance();
          tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
          tiposTelefonosCodigos.setFilterStyle("display: none; visibility: hidden;");
@@ -284,13 +287,13 @@ public class ControlTiposTelefonos implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Codigo \n";
          pasa++;
       }
-      System.out.println("Lista Tipos Telefonos tiene: " + listaTiposTelefonos.size());
+      log.info("Lista Tipos Telefonos tiene: " + listaTiposTelefonos.size());
 
       for (int i = 0; i < listaTiposTelefonos.size(); i++) {
-         System.out.println("Nombres: " + listaTiposTelefonos.get(i).getNombre());
+         log.info("Nombres: " + listaTiposTelefonos.get(i).getNombre());
 
          if (listaTiposTelefonos.get(i).getNombre().equals(nuevoTipoTelefono.getNombre())) {
-            System.out.println("Entro al IF Tipo Telefono");
+            log.info("Entro al IF Tipo Telefono");
             RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
             RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
             pasaA++;
@@ -303,9 +306,9 @@ public class ControlTiposTelefonos implements Serializable {
       }
 
       for (int i = 0; i < listaTiposTelefonos.size(); i++) {
-         System.out.println("Codigos: " + listaTiposTelefonos.get(i).getCodigo());
+         log.info("Codigos: " + listaTiposTelefonos.get(i).getCodigo());
          if (listaTiposTelefonos.get(i).getCodigo().compareTo(nuevoTipoTelefono.getCodigo()) == 0) {
-            System.out.println("Entro al IF Tipo Telefono");
+            log.info("Entro al IF Tipo Telefono");
             RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
             RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
             pasaA++;
@@ -326,7 +329,7 @@ public class ControlTiposTelefonos implements Serializable {
       if (pasa == 0 && pasaA == 0) {
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             FacesContext c = FacesContext.getCurrentInstance();
             tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
             tiposTelefonosCodigos.setFilterStyle("display: none; visibility: hidden;");
@@ -369,10 +372,10 @@ public class ControlTiposTelefonos implements Serializable {
 
    //FILTRADO
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       if (bandera == 0) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          FacesContext c = FacesContext.getCurrentInstance();
          tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
          tiposTelefonosCodigos.setFilterStyle("width: 85%;");
@@ -383,8 +386,8 @@ public class ControlTiposTelefonos implements Serializable {
          bandera = 1;
          tipoLista = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          FacesContext c = FacesContext.getCurrentInstance();
          tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
          tiposTelefonosCodigos.setFilterStyle("display: none; visibility: hidden;");
@@ -531,7 +534,7 @@ public class ControlTiposTelefonos implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             FacesContext c = FacesContext.getCurrentInstance();
             tiposTelefonosCodigos = (Column) c.getViewRoot().findComponent("form:datosTiposTelefonos:tiposTelefonosCodigos");
             tiposTelefonosCodigos.setFilterStyle("display: none; visibility: hidden;");
@@ -598,11 +601,11 @@ public class ControlTiposTelefonos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (tipoTelefonoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(tipoTelefonoSeleccionado.getSecuencia(), "TIPOSTELEFONOS");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -42,6 +43,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlDireccionesBancos")
 @SessionScoped
 public class ControlDireccionesBancos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDireccionesBancos.class);
 
    @EJB
    AdministrarDireccionesInterface administrarDirecciones;
@@ -159,8 +162,8 @@ public class ControlDireccionesBancos implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarBancos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -313,7 +316,7 @@ public class ControlDireccionesBancos implements Serializable {
          nuevaDireccion.setCiudad(ciudadSeleccionada);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
       } else if (tipoActualizacion == 2) {
-         System.out.println(ciudadSeleccionada.getNombre());
+         log.info(ciudadSeleccionada.getNombre());
          duplicarDireccion.setCiudad(ciudadSeleccionada);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
       }
@@ -349,8 +352,8 @@ public class ControlDireccionesBancos implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesBanco:dFecha");
          dFecha.setFilterStyle("width: 85% !important");
          dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesBanco:dUbicacionPrincipal");
@@ -370,8 +373,8 @@ public class ControlDireccionesBancos implements Serializable {
          bandera = 1;
          tipoLista = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesBanco:dFecha");
          dFecha.setFilterStyle("display: none; visibility: hidden;");
          dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesBanco:dUbicacionPrincipal");
@@ -572,7 +575,7 @@ public class ControlDireccionesBancos implements Serializable {
                administrarDirecciones.modificarDirecciones(listaDireccionesModificar);
                listaDireccionesModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaDirecciones = null;
             getListaDirecciones();
             contarRegistros();
@@ -588,7 +591,7 @@ public class ControlDireccionesBancos implements Serializable {
          }
          direccionSeleccionada = null;
       } catch (Exception e) {
-         System.out.println("entró al catch... error en el guardado de direcciones " + e.toString());
+         log.info("entró al catch... error en el guardado de direcciones " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Error en el guardado, por favor intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

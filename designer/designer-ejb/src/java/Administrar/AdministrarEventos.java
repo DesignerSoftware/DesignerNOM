@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEventos implements AdministrarEventosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEventos.class);
 
     @EJB
     PersistenciaEventosInterface persistenciaEventos;
@@ -42,7 +45,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
     @Override
     public void modificarEventos(List<Eventos> listaEventos) {
         for (int i = 0; i < listaEventos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaEventos.editar(em,listaEventos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
     @Override
     public void borrarEventos(List<Eventos> listaEventos) {
         for (int i = 0; i < listaEventos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaEventos.borrar(em,listaEventos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
     @Override
     public void crearEventos(List<Eventos> listaEventos) {
         for (int i = 0; i < listaEventos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaEventos.crear(em,listaEventos.get(i));
         }
     }
@@ -81,10 +84,10 @@ public class AdministrarEventos implements AdministrarEventosInterface {
     public BigInteger verificarVigenciasEventos(BigInteger secuenciaEventos) {
         BigInteger verificadorVigenciasEventos = null;
         try {
-            System.err.println("Secuencia VigenciasEventos " + secuenciaEventos);
+            log.error("Secuencia VigenciasEventos " + secuenciaEventos);
             verificadorVigenciasEventos = persistenciaEventos.contadorVigenciasEventos(em,secuenciaEventos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEventos VigenciasEstadoCiviles ERROR :" + e);
+            log.error("ERROR AdministrarEventos VigenciasEstadoCiviles ERROR :" + e);
         } finally {
             return verificadorVigenciasEventos;
         }

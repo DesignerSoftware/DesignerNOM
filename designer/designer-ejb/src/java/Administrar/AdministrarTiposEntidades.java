@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,95 +25,97 @@ import javax.persistence.EntityManager;
 @Stateful
 public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInterface {
 
-    @EJB
-    PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
-    @EJB
-    PersistenciaGruposTiposEntidadesInterface persistenciaGruposTiposEntidades;
-    @EJB
-    PersistenciaVigenciasAfiliacionesInterface persistenciaVigenciasAfiliaciones;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private static Logger log = Logger.getLogger(AdministrarTiposEntidades.class);
 
-    @Override
-    public void modificarTipoEntidad(List<TiposEntidades> listTiposEntidadesModificadas) {
-        for (int i = 0; i < listTiposEntidadesModificadas.size(); i++) {
-            System.out.println("Administrar Modificando...");
-            persistenciaTiposEntidades.editar(em, listTiposEntidadesModificadas.get(i));
-        }
-    }
+   @EJB
+   PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
+   @EJB
+   PersistenciaGruposTiposEntidadesInterface persistenciaGruposTiposEntidades;
+   @EJB
+   PersistenciaVigenciasAfiliacionesInterface persistenciaVigenciasAfiliaciones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void borrarTipoEntidad(List<TiposEntidades> listTiposEntidadesModificadas) {
-        for (int i = 0; i < listTiposEntidadesModificadas.size(); i++) {
-            System.out.println("Administrar Borrando...");
-            persistenciaTiposEntidades.borrar(em, listTiposEntidadesModificadas.get(i));
-        }
-    }
+   private EntityManager em;
 
-    @Override
-    public void crearTipoEntidad(List<TiposEntidades> listTiposEntidadesModificadas) {
-        for (int i = 0; i < listTiposEntidadesModificadas.size(); i++) {
-            System.out.println("Administrar Creando...");
-            persistenciaTiposEntidades.crear(em, listTiposEntidadesModificadas.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
 
-    @Override
-    public List<TiposEntidades> consultarTiposEntidades() {
-        List<TiposEntidades> listTiposEntidades;
-        listTiposEntidades = persistenciaTiposEntidades.buscarTiposEntidades(em);
-        return listTiposEntidades;
-    }
+   @Override
+   public void modificarTipoEntidad(List<TiposEntidades> listTiposEntidadesModificadas) {
+      for (int i = 0; i < listTiposEntidadesModificadas.size(); i++) {
+         log.warn("Administrar Modificando...");
+         persistenciaTiposEntidades.editar(em, listTiposEntidadesModificadas.get(i));
+      }
+   }
 
-    @Override
-    public TiposEntidades consultarTipoEntidad(BigInteger secTipoEntidad) {
-        TiposEntidades tipoEntidad;
-        tipoEntidad = persistenciaTiposEntidades.buscarTiposEntidadesSecuencia(em, secTipoEntidad);
-        return tipoEntidad;
-    }
+   @Override
+   public void borrarTipoEntidad(List<TiposEntidades> listTiposEntidadesModificadas) {
+      for (int i = 0; i < listTiposEntidadesModificadas.size(); i++) {
+         log.warn("Administrar Borrando...");
+         persistenciaTiposEntidades.borrar(em, listTiposEntidadesModificadas.get(i));
+      }
+   }
 
-    @Override
-    public List<Grupostiposentidades> consultarLOVGruposTiposEntidades() {
-        List<Grupostiposentidades> listGruposTiposEntidades;
-        listGruposTiposEntidades = persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(em);
-        return listGruposTiposEntidades;
-    }
+   @Override
+   public void crearTipoEntidad(List<TiposEntidades> listTiposEntidadesModificadas) {
+      for (int i = 0; i < listTiposEntidadesModificadas.size(); i++) {
+         log.warn("Administrar Creando...");
+         persistenciaTiposEntidades.crear(em, listTiposEntidadesModificadas.get(i));
+      }
+   }
 
-    @Override
-    public BigInteger contarVigenciasAfiliacionesTipoEntidad(BigInteger secuenciaTipoEntidad) {
-        BigInteger verificador;
+   @Override
+   public List<TiposEntidades> consultarTiposEntidades() {
+      List<TiposEntidades> listTiposEntidades;
+      listTiposEntidades = persistenciaTiposEntidades.buscarTiposEntidades(em);
+      return listTiposEntidades;
+   }
 
-        try {
-            return verificador = persistenciaTiposEntidades.verificarBorrado(em, secuenciaTipoEntidad);
-        } catch (Exception e) {
-            System.err.println("ERROR AdministrarTipoEntidad verificarBorrado ERROR :" + e);
+   @Override
+   public TiposEntidades consultarTipoEntidad(BigInteger secTipoEntidad) {
+      TiposEntidades tipoEntidad;
+      tipoEntidad = persistenciaTiposEntidades.buscarTiposEntidadesSecuencia(em, secTipoEntidad);
+      return tipoEntidad;
+   }
 
-            return null;
-        }
-    }
+   @Override
+   public List<Grupostiposentidades> consultarLOVGruposTiposEntidades() {
+      List<Grupostiposentidades> listGruposTiposEntidades;
+      listGruposTiposEntidades = persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(em);
+      return listGruposTiposEntidades;
+   }
 
-    @Override
-    public BigInteger contarFormulasContratosEntidadesTipoEntidad(BigInteger secuenciaTipoEntidad) {
-        BigInteger verificador;
+   @Override
+   public BigInteger contarVigenciasAfiliacionesTipoEntidad(BigInteger secuenciaTipoEntidad) {
+      BigInteger verificador;
 
-        try {
-            return verificador = persistenciaTiposEntidades.verificarBorradoFCE(em, secuenciaTipoEntidad);
-        } catch (Exception e) {
-            System.err.println("ERROR AdministrarTipoEntidad verificarBorradoFCE ERROR :" + e);
+      try {
+         return verificador = persistenciaTiposEntidades.verificarBorrado(em, secuenciaTipoEntidad);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTipoEntidad verificarBorrado ERROR :" + e);
 
-            return null;
-        }
-    }
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarFormulasContratosEntidadesTipoEntidad(BigInteger secuenciaTipoEntidad) {
+      BigInteger verificador;
+
+      try {
+         return verificador = persistenciaTiposEntidades.verificarBorradoFCE(em, secuenciaTipoEntidad);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTipoEntidad verificarBorradoFCE ERROR :" + e);
+
+         return null;
+      }
+   }
 }

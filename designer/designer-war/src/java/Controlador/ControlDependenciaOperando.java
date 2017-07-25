@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlDependenciaOperando implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDependenciaOperando.class);
 
    @EJB
    AdministrarDependenciasOperandosInterface administrarDependenciasOperandos;
@@ -155,8 +158,8 @@ public class ControlDependenciaOperando implements Serializable {
          administrarDependenciasOperandos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -262,14 +265,14 @@ public class ControlDependenciaOperando implements Serializable {
          tipoActualizacion = 1;
          index = -1;
          secRegistro = null;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          index = -1;
          secRegistro = null;
          tipoActualizacion = 2;
       }
       if (dlg == 0) {
-         System.out.println("Operando en asignar Index" + operando);
+         log.info("Operando en asignar Index" + operando);
          RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
          RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
       }
@@ -313,8 +316,8 @@ public class ControlDependenciaOperando implements Serializable {
          tipoLista = 1;
       } else if (bandera == 1) {
          altoTabla = "245";
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
          dependenciasOperandosCodigo.setFilterStyle("display: none; visibility: hidden;");
          dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
@@ -332,8 +335,8 @@ public class ControlDependenciaOperando implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          altoTabla = "245";
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
          dependenciasOperandosCodigo.setFilterStyle("display: none; visibility: hidden;");
          dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
@@ -375,7 +378,7 @@ public class ControlDependenciaOperando implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarNombre");
             RequestContext.getCurrentInstance().execute("PF('editarNombre').show()");
@@ -514,23 +517,23 @@ public class ControlDependenciaOperando implements Serializable {
    //GUARDAR
    public void guardarCambiosDependenciasOperandos() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Novedades");
+         log.info("Realizando Operaciones Novedades");
 
          if (!listaDependenciasOperandosBorrar.isEmpty()) {
             for (int i = 0; i < listaDependenciasOperandosBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaDependenciasOperandosBorrar.size());
+               log.info("Borrando..." + listaDependenciasOperandosBorrar.size());
                administrarDependenciasOperandos.borrarDependenciasOperandos(listaDependenciasOperandosBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaDependenciasOperandosBorrar.clear();
          }
 
          if (!listaDependenciasOperandosCrear.isEmpty()) {
             for (int i = 0; i < listaDependenciasOperandosCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                administrarDependenciasOperandos.crearDependenciasOperandos(listaDependenciasOperandosCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaDependenciasOperandosCrear.clear();
          }
          if (!listaDependenciasOperandosModificar.isEmpty()) {
@@ -540,7 +543,7 @@ public class ControlDependenciaOperando implements Serializable {
             listaDependenciasOperandosModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaDependenciasOperandos = null;
 
          RequestContext context = RequestContext.getCurrentInstance();
@@ -562,7 +565,7 @@ public class ControlDependenciaOperando implements Serializable {
       if (!listaDependenciasOperandos.isEmpty()) {
          if (secRegistro != null) {
             int result = administrarRastros.obtenerTabla(secRegistro, "NOVEDADESOPERANDOS");
-            System.out.println("resultado: " + result);
+            log.info("resultado: " + result);
             if (result == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (result == 2) {
@@ -618,20 +621,20 @@ public class ControlDependenciaOperando implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
       } else if (tipoActualizacion == 1) {
-         System.out.println("LAWWWWWWL");
+         log.info("LAWWWWWWL");
          nuevoDependenciaOperando.setCodigo(seleccionOperandos.getCodigo());
          nuevoDependenciaOperando.setDescripcion(seleccionOperandos.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigo");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombre");
       } else if (tipoActualizacion == 2) {
-         System.out.println("ENTRO DUPLICAR");
+         log.info("ENTRO DUPLICAR");
          duplicarDependenciaOperando.setCodigo(seleccionOperandos.getCodigo());
          duplicarDependenciaOperando.setDescripcion(seleccionOperandos.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombre");
 
       }
-      System.out.println("listaDependenciasOperandos.size()" + listaDependenciasOperandos.size());
+      log.info("listaDependenciasOperandos.size()" + listaDependenciasOperandos.size());
       filtradosListaDependenciasOperandos = null;
       seleccionOperandos = null;
       aceptar = true;
@@ -686,8 +689,8 @@ public class ControlDependenciaOperando implements Serializable {
          if (bandera == 1) {
             //CERRAR FILTRADO
             altoTabla = "245";
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
             dependenciasOperandosCodigo.setFilterStyle("display: none; visibility: hidden;");
             dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
@@ -703,7 +706,7 @@ public class ControlDependenciaOperando implements Serializable {
          k++;
          l = BigInteger.valueOf(k);
          nuevoDependenciaOperando.setSecuencia(l);
-         System.out.println("Operando: " + operando);
+         log.info("Operando: " + operando);
          nuevoDependenciaOperando.setOperando(operando);
 
          cambiosPagina = false;
@@ -754,7 +757,7 @@ public class ControlDependenciaOperando implements Serializable {
             int CIndex = listaDependenciasOperandos.indexOf(filtradosListaDependenciasOperandos.get(index));
             listaDependenciasOperandos.remove(CIndex);
             filtradosListaDependenciasOperandos.remove(index);
-            System.out.println("Realizado");
+            log.info("Realizado");
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
@@ -774,8 +777,8 @@ public class ControlDependenciaOperando implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          altoTabla = "245";
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
          dependenciasOperandosCodigo.setFilterStyle("display: none; visibility: hidden;");
          dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
@@ -823,8 +826,8 @@ public class ControlDependenciaOperando implements Serializable {
       if (pasa == 0) {
          if (bandera == 1) {
             altoTabla = "245";
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             dependenciasOperandosCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosCodigo");
             dependenciasOperandosCodigo.setFilterStyle("display: none; visibility: hidden;");
             dependenciasOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDependenciasOperandos:dependenciasOperandosNombre");
@@ -862,7 +865,7 @@ public class ControlDependenciaOperando implements Serializable {
          for (int i = 0; i < listaDependenciasOperandos.size(); i++) {
             nombre = administrarDependenciasOperandos.nombreOperandos(listaDependenciasOperandos.get(i).getCodigo());
             listaDependenciasOperandos.get(i).setDescripcion(nombre);
-            System.out.println("Nombre: " + nombre);
+            log.info("Nombre: " + nombre);
          }
 
       }

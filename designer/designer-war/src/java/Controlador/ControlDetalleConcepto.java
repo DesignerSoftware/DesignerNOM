@@ -36,6 +36,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -48,6 +49,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlDetalleConcepto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDetalleConcepto.class);
 
    @EJB
    AdministrarDetalleConceptoInterface administrarDetalleConcepto;
@@ -241,7 +244,7 @@ public class ControlDetalleConcepto implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlDetalleConcepto() {
-      System.err.println("ControlDetalleConcepto() : 1");
+      log.info("ControlDetalleConcepto() : 1");
       altoTablaVigenciaCuenta = "105";
       altoTablaVigenciaGrupoC = "120";
       altoTablaVigenciaConceptoTT = "105";
@@ -419,7 +422,7 @@ public class ControlDetalleConcepto implements Serializable {
       infoRegistroFormulaConcepto = "0";
 
       activarLOV = true;
-      System.err.println("ControlDetalleConcepto() : 2");
+      log.info("ControlDetalleConcepto() : 2");
       num = 1;
       paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -477,17 +480,17 @@ public class ControlDetalleConcepto implements Serializable {
 
    @PostConstruct
    public void inicializarAdministrador() {
-      System.out.println("Entro en inicializarAdministrador()");
+      log.info("Entro en inicializarAdministrador()");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarDetalleConcepto.obtenerConexion(ses.getId());
-         System.out.println("FacesContext x : " + x.toString());
+         log.info("FacesContext x : " + x.toString());
          administrarRastros.obtenerConexion(ses.getId());
-         System.out.println("HttpSession ses : " + ses.toString());
+         log.info("HttpSession ses : " + ses.toString());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -498,8 +501,8 @@ public class ControlDetalleConcepto implements Serializable {
          if (conceptoActual != null) {
             Long auto = administrarDetalleConcepto.contarFormulasConceptosConcepto(conceptoActual.getSecuencia());
             Long semi = administrarDetalleConcepto.contarFormulasNovedadesConcepto(conceptoActual.getSecuencia());
-            System.out.println("obtenerConcepto() auto : " + auto);
-            System.out.println("obtenerConcepto() semi : " + semi);
+            log.info("obtenerConcepto() auto : " + auto);
+            log.info("obtenerConcepto() semi : " + semi);
             if ((auto == 0 && semi == 0) || auto == null || semi == null) {
                if (conceptoActual.getDescripcion().length() > 60) {
 //                        comportamientoConcepto = conceptoActual.getInfoDetalleConcepto().substring(0, 30) + "/ MANUAL";
@@ -542,7 +545,7 @@ public class ControlDetalleConcepto implements Serializable {
          try {
             navegar("detalleconcepto");
          } catch (Exception e) {
-            System.out.println("obtenerConcepto() Entro al Catch, Error : " + e.toString());
+            log.info("obtenerConcepto() Entro al Catch, Error : " + e.toString());
          }
          num++;
       }
@@ -1211,7 +1214,7 @@ public class ControlDetalleConcepto implements Serializable {
                auxVC_ConsCre = duplicarVigenciaCuenta.getConsolidadorc().getNombre();
             }
          } else if (campo.equals("PROCESO")) {
-            System.out.println("valoresBackupAutocompletarGeneral campo = 'PROCESO'");
+            log.info("valoresBackupAutocompletarGeneral campo = 'PROCESO'");
             if (tipoNuevo == 1) {
                auxVC_Proceso = nuevaVigenciaCuenta.getNombreProceso();
             } else if (tipoNuevo == 2) {
@@ -1284,35 +1287,35 @@ public class ControlDetalleConcepto implements Serializable {
       CentrosCostos ccLocalizacionTrabajador = null;
       CentrosCostos ccContabilidad = null;
       List<Cuentas> cuenta2505 = null;
-      System.out.println("ControlDetalleConcepto.autocompletarTipoCC() conceptoActual : " + conceptoActual);
-      System.out.println("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta : " + vigCuenta);
-      System.out.println("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
+      log.info("ControlDetalleConcepto.autocompletarTipoCC() conceptoActual : " + conceptoActual);
+      log.info("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta : " + vigCuenta);
+      log.info("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
       if (vigCuenta.getConcepto() == null) {
          vigCuenta.setConcepto(conceptoActual);
       }
       if (vigCuenta.getConcepto() != null) {
-         System.out.println("ControlDetalleConcepto.autocompletarTipoCC() 1");
+         log.info("ControlDetalleConcepto.autocompletarTipoCC() 1");
          int conteoVCuentas = administrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentac(vigCuenta.getTipocc().getSecuencia(), vigCuenta.getCuentac().getSecuencia(), vigCuenta.getConcepto().getSecuencia(), vigCuenta.getFechainicial());
          if (conteoVCuentas > 1) {
             mensajeError = "El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta";
-            System.out.println("El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta 1");
+            log.info("El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta 1");
             error++;
          } else {
             conteoVCuentas = administrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentad(vigCuenta.getTipocc().getSecuencia(), vigCuenta.getCuentad().getSecuencia(), vigCuenta.getConcepto().getSecuencia(), vigCuenta.getFechainicial());
             if (conteoVCuentas > 1) {
                mensajeError = "El Tipo de Centro Costo que Ingresó ya está asignado a otro VigenciaCuenta";
-               System.out.println("El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta 2");
+               log.info("El Tipo de Centro Costo que Ingresó ya está asignado a otra VigenciaCuenta 2");
                error++;
             }
          }
-         System.out.println("ControlDetalleConcepto.autocompletarTipoCC() error: " + error);
+         log.info("ControlDetalleConcepto.autocompletarTipoCC() error: " + error);
          if (error == 0) {
             ccLocalizacionTrabajador = administrarDetalleConcepto.centroCostoLocalizacionTrabajador(vigCuenta.getConcepto().getEmpresa().getSecuencia());
             ccContabilidad = administrarDetalleConcepto.centroCostoContabilidad(vigCuenta.getConcepto().getEmpresa().getSecuencia());
             cuenta2505 = administrarDetalleConcepto.cuenta2505(vigCuenta.getConcepto().getEmpresa().getSecuencia());
-            System.out.println("ccLocalizacionTrabajador: " + ccLocalizacionTrabajador);
-            System.out.println("ccContabilidad: " + ccContabilidad);
-            System.out.println("cuenta2505: " + cuenta2505);
+            log.info("ccLocalizacionTrabajador: " + ccLocalizacionTrabajador);
+            log.info("ccContabilidad: " + ccContabilidad);
+            log.info("cuenta2505: " + cuenta2505);
             if (cuenta2505 != null) {
                if (cuenta2505.size() != 1) {
                   lovCuentas2505.clear();
@@ -1323,7 +1326,7 @@ public class ControlDetalleConcepto implements Serializable {
                   }
                   error++;
                   mensajeError = "cuentas con [2505...] retornan mas de un registro o ninguno.";
-                  System.out.println(mensajeError);
+                  log.info(mensajeError);
                   RequestContext.getCurrentInstance().update("form:CuentasDialogo");
                   RequestContext.getCurrentInstance().update("form:lovCuentas");
                   RequestContext.getCurrentInstance().execute("PF('CuentasDialogo').show()");
@@ -1331,27 +1334,27 @@ public class ControlDetalleConcepto implements Serializable {
                }
             } else {
                mensajeError = "Se genero un conflicto consultando cuentas con [2505...]";
-               System.out.println(mensajeError);
+               log.info(mensajeError);
                error++;
             }
-            System.out.println("error: " + error);
+            log.warn("Error: " + error);
             if (error == 0) {
-               System.out.println("vigCuenta.getConcepto().getNaturaleza(): " + vigCuenta.getConcepto().getNaturaleza());
-               System.out.println("vigCuenta.getTipocc().getNombre(): " + vigCuenta.getTipocc().getNombre());
-               System.out.println("vigCuenta.getConsolidadord(): " + vigCuenta.getConsolidadord());
-               System.out.println("vigCuenta.getConsolidadorc(): " + vigCuenta.getConsolidadorc());
-               System.out.println("vigCuenta.getTipocc(): " + vigCuenta.getTipocc());
+               log.info("vigCuenta.getConcepto().getNaturaleza(): " + vigCuenta.getConcepto().getNaturaleza());
+               log.info("vigCuenta.getTipocc().getNombre(): " + vigCuenta.getTipocc().getNombre());
+               log.info("vigCuenta.getConsolidadord(): " + vigCuenta.getConsolidadord());
+               log.info("vigCuenta.getConsolidadorc(): " + vigCuenta.getConsolidadorc());
+               log.info("vigCuenta.getTipocc(): " + vigCuenta.getTipocc());
                if (vigCuenta.getTipocc() != null) {
-                  System.out.println("vigCuenta.getTipocc().getNombre(): " + vigCuenta.getTipocc().getNombre());
+                  log.info("vigCuenta.getTipocc().getNombre(): " + vigCuenta.getTipocc().getNombre());
                }
                if (vigCuenta.getConcepto().getNaturaleza().equals("P")) {
-                  System.out.println("vigCuenta.getTipocc().getNombre().contains(\"APLICA\")  :: ->" + (vigCuenta.getTipocc().getNombre().contains("APLICA")));
+                  log.info("vigCuenta.getTipocc().getNombre().contains(\"APLICA\")  :: ->" + (vigCuenta.getTipocc().getNombre().contains("APLICA")));
                   if (!vigCuenta.getTipocc().getNombre().contains("APLICA")) {
                      if (vigCuenta.getConsolidadord() != null) {
                         if (vigCuenta.getConsolidadord().getNombre() != null) {
-                           System.out.println("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
+                           log.info("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
                            mensajeError = "Atención: Se va a cambiar el centro de costo consolidador débito por la localizacion del trabajador. Revise por favor esta configuración.";
-                           System.out.println(mensajeError);
+                           log.info(mensajeError);
                            error++;
                         }
                      }
@@ -1368,9 +1371,9 @@ public class ControlDetalleConcepto implements Serializable {
                   if (!vigCuenta.getTipocc().getNombre().contains("APLICA")) {
                      if (vigCuenta.getConsolidadorc() != null) {
                         if (vigCuenta.getConsolidadorc().getNombre() != null) {
-                           System.out.println("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
+                           log.info("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
                            mensajeError = "Atención: Se va a cambiar el centro de costo consolidador crédito por la localizacion del trabajador. Revise por favor esta configuración.";
-                           System.out.println(mensajeError);
+                           log.info(mensajeError);
                            error++;
                         }
                      }
@@ -1391,9 +1394,9 @@ public class ControlDetalleConcepto implements Serializable {
                   if (!vigCuenta.getTipocc().getNombre().contains("APLICA")) {
                      if (vigCuenta.getConsolidadorc() != null) {
                         if (vigCuenta.getConsolidadorc().getNombre() != null) {
-                           System.out.println("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
+                           log.info("vigCuenta.getConsolidadord().getNombre(): " + vigCuenta.getConsolidadord().getNombre());
                            mensajeError = "Atención: Se va a cambiar el centro de costo consolidador crédito por la localizacion del trabajador. Revise por favor esta configuración.";
-                           System.out.println(mensajeError);
+                           log.info(mensajeError);
                            error++;
                         }
                      }
@@ -1408,10 +1411,10 @@ public class ControlDetalleConcepto implements Serializable {
                      vigCuenta.setCuentac(cuenta2505.get(0));
                   }
                }
-               System.out.println("error: " + error);
-               System.out.println("vigCuenta.getConsolidadord(): " + vigCuenta.getConsolidadord());
-               System.out.println("vigCuenta.getConsolidadorc(): " + vigCuenta.getConsolidadorc());
-               System.out.println("vigCuenta.getTipocc(): " + vigCuenta.getTipocc());
+               log.warn("Error: " + error);
+               log.info("vigCuenta.getConsolidadord(): " + vigCuenta.getConsolidadord());
+               log.info("vigCuenta.getConsolidadorc(): " + vigCuenta.getConsolidadorc());
+               log.info("vigCuenta.getTipocc(): " + vigCuenta.getTipocc());
                if (error > 0) {
                   RequestContext.getCurrentInstance().update("form:alertaTCC");
                   RequestContext.getCurrentInstance().execute("PF('alertaTCC').show()");
@@ -1428,7 +1431,7 @@ public class ControlDetalleConcepto implements Serializable {
             return false;
          }
       } else {
-         System.out.println("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
+         log.info("ControlDetalleConcepto.autocompletarTipoCC() vigCuenta.getConcepto() : " + vigCuenta.getConcepto());
          return false;
       }
    }
@@ -1667,7 +1670,7 @@ public class ControlDetalleConcepto implements Serializable {
             }
          }
       } else if (campo.equalsIgnoreCase("PROCESO")) {
-         System.out.println("autocompletarNuevoyDuplicadoVigenciaCuenta campo = 'PROCESO'");
+         log.info("autocompletarNuevoyDuplicadoVigenciaCuenta campo = 'PROCESO'");
          if (tipoNuevo == 1) {
             nuevaVigenciaCuenta.setNombreProceso(auxVC_Proceso);
          } else if (tipoNuevo == 2) {
@@ -2039,7 +2042,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void cambiarIndiceVigenciaConceptoTT(VigenciasConceptosTT conceptoTT, int celda) {
-      System.out.println("Ya entro en cambiarIndiceVigenciaConceptoTT() permitirIndexVigenciaConceptoTT : " + permitirIndexVigenciaConceptoTT);
+      log.info("Ya entro en cambiarIndiceVigenciaConceptoTT() permitirIndexVigenciaConceptoTT : " + permitirIndexVigenciaConceptoTT);
       if (permitirIndexVigenciaConceptoTT == true) {
          cualCeldaVigenciaConceptoTT = celda;
          if (celda == 2) {
@@ -2504,7 +2507,7 @@ public class ControlDetalleConcepto implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosVigenciaCuenta : " + e.toString());
+         log.warn("Error guardarCambiosVigenciaCuenta : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Cuentas y Tipos CC, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2537,7 +2540,7 @@ public class ControlDetalleConcepto implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosVigenciaGrupoConcepto : " + e.toString());
+         log.warn("Error guardarCambiosVigenciaGrupoConcepto : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Grupos C/N/G, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2570,7 +2573,7 @@ public class ControlDetalleConcepto implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosVigenciaConceptoTT : " + e.toString());
+         log.warn("Error guardarCambiosVigenciaConceptoTT : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Tipo Trabajador, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2603,7 +2606,7 @@ public class ControlDetalleConcepto implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosVigenciaConceptoTC : " + e.toString());
+         log.warn("Error guardarCambiosVigenciaConceptoTC : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Tipo Contrato, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2636,7 +2639,7 @@ public class ControlDetalleConcepto implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosVigenciaConceptoRL : " + e.toString());
+         log.warn("Error guardarCambiosVigenciaConceptoRL : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Tipo Salario, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2669,7 +2672,7 @@ public class ControlDetalleConcepto implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosFormulasConceptos : " + e.toString());
+         log.warn("Error guardarCambiosFormulasConceptos : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Formula, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2910,7 +2913,7 @@ public class ControlDetalleConcepto implements Serializable {
             RequestContext.getCurrentInstance().update("form:CentroCostoCDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoCDialogo').show()");
          } else if (campo == 9) {
-            System.out.println("asignarIndex (campo == 9)");
+            log.info("asignarIndex (campo == 9)");
             contarRegistrosLovProcesos();
             RequestContext.getCurrentInstance().update("form:ProcesosDialogo");
             RequestContext.getCurrentInstance().update("form:lovProceso");
@@ -3226,13 +3229,13 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (i == 1) {
-         System.out.println("(nuevaVigenciaCuenta.getFechafinal() != null) : " + (nuevaVigenciaCuenta.getFechafinal() != null));
-         System.out.println("(nuevaVigenciaCuenta.getFechainicial() != null) : " + (nuevaVigenciaCuenta.getFechainicial() != null));
-         System.out.println("(nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null));
-         System.out.println("(nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null));
-         System.out.println("(nuevaVigenciaCuenta.getCuentac().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentac().getSecuencia() != null));
-         System.out.println("(nuevaVigenciaCuenta.getCuentad().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentad().getSecuencia() != null));
-         System.out.println("(nuevaVigenciaCuenta.getTipocc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getTipocc().getSecuencia() != null));
+         log.info("(nuevaVigenciaCuenta.getFechafinal() != null) : " + (nuevaVigenciaCuenta.getFechafinal() != null));
+         log.info("(nuevaVigenciaCuenta.getFechainicial() != null) : " + (nuevaVigenciaCuenta.getFechainicial() != null));
+         log.info("(nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null));
+         log.info("(nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null));
+         log.info("(nuevaVigenciaCuenta.getCuentac().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentac().getSecuencia() != null));
+         log.info("(nuevaVigenciaCuenta.getCuentad().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentad().getSecuencia() != null));
+         log.info("(nuevaVigenciaCuenta.getTipocc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getTipocc().getSecuencia() != null));
 
          if ((nuevaVigenciaCuenta.getFechafinal() != null)
                  && (nuevaVigenciaCuenta.getFechainicial() != null)
@@ -3241,7 +3244,7 @@ public class ControlDetalleConcepto implements Serializable {
                  && (nuevaVigenciaCuenta.getCuentac().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getCuentad().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getTipocc().getSecuencia() != null)) {
-            System.out.println("Va a retornar true");
+            log.info("Va a retornar true");
             retorno = true;
          }
       }
@@ -4231,7 +4234,7 @@ public class ControlDetalleConcepto implements Serializable {
       vigenciaCuentaSeleccionada = null;
       vigenciaGrupoCoSeleccionada = null;
       vigFormulaConceptoSeleccionada = null;
-      System.out.println("Entro en activarCtrlF11()");
+      log.info("Entro en activarCtrlF11()");
 //        if (vigenciaCuentaSeleccionada != null) {
       filtradoVigenciaCuenta();
 //        }
@@ -4256,7 +4259,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void filtradoVigenciaCuenta() {
-      System.out.println("banderaVigenciaCuenta : " + banderaVigenciaCuenta);
+      log.info("banderaVigenciaCuenta : " + banderaVigenciaCuenta);
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaVigenciaCuenta == 0) {
          altoTablaVigenciaCuenta = "85";
@@ -4288,7 +4291,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void filtradoVigenciaGrupoConcepto() {
-      System.out.println("banderaVigenciaGrupoConcepto : " + banderaVigenciaGrupoConcepto);
+      log.info("banderaVigenciaGrupoConcepto : " + banderaVigenciaGrupoConcepto);
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaVigenciaGrupoConcepto == 0) {
          altoTablaVigenciaGrupoC = "100";
@@ -4309,7 +4312,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void filtradoVigenciaConceptoTT() {
-      System.out.println("banderaVigenciaConceptoTT : " + banderaVigenciaConceptoTT);
+      log.info("banderaVigenciaConceptoTT : " + banderaVigenciaConceptoTT);
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaVigenciaConceptoTT == 0) {
          altoTablaVigenciaConceptoTT = "85";
@@ -4328,7 +4331,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void filtradoVigenciaConceptoTC() {
-      System.out.println("banderaVigenciaConceptoTC : " + banderaVigenciaConceptoTC);
+      log.info("banderaVigenciaConceptoTC : " + banderaVigenciaConceptoTC);
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaVigenciaConceptoTC == 0) {
          altoTablaVigenciaConceptoTC = "85";
@@ -4346,7 +4349,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void filtradoVigenciaConceptoRL() {
-      System.out.println("banderaVigenciaConceptoRL : " + banderaVigenciaConceptoRL);
+      log.info("banderaVigenciaConceptoRL : " + banderaVigenciaConceptoRL);
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaVigenciaConceptoRL == 0) {
          altoTablaVigenciaConceptoRL = "85";
@@ -4364,7 +4367,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void filtradoFormulasConceptos() {
-      System.out.println("banderaFormulasConceptos : " + banderaFormulasConceptos);
+      log.info("banderaFormulasConceptos : " + banderaFormulasConceptos);
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaFormulasConceptos == 0) {
          altoTablaFormulaConcepto = "102";
@@ -4510,7 +4513,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void actualizarTipoCentroCosto() {
-      System.out.println("actualizarTipoCentroCosto() tipoActualizacion : " + tipoActualizacion);
+      log.info("actualizarTipoCentroCosto() tipoActualizacion : " + tipoActualizacion);
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          vigenciaCuentaSeleccionada.setTipocc(tipoCentroCostoSeleccionadoLOV);
@@ -5804,51 +5807,51 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void cargarLOVs() {
       ////////////Listas Valores VigenciasCuentas/////////////
-      System.out.println("Entro en cargarLOVs()");
+      log.info("Entro en cargarLOVs()");
       if (lovTiposCentrosCostos == null) {
          lovTiposCentrosCostos = administrarDetalleConcepto.consultarLOVTiposCentrosCostos();
-         System.out.println("cargo lovTiposCentrosCostos");
+         log.info("cargo lovTiposCentrosCostos");
       }
       if (lovCuentas == null) {
          lovCuentas = administrarDetalleConcepto.consultarLOVCuentas();
-         System.out.println("cargo lovCuentas");
+         log.info("cargo lovCuentas");
       }
       if (lovCentrosCostos == null) {
          lovCentrosCostos = administrarDetalleConcepto.consultarLOVCentrosCostos();
-         System.out.println("cargo lovCentrosCostos");
+         log.info("cargo lovCentrosCostos");
       }
       if (lovProcesos == null) {
          lovProcesos = administrarDetalleConcepto.consultarLOVProcesos();
-         System.out.println("cargo lovProcesos");
+         log.info("cargo lovProcesos");
       }
       /////////////Lista Valores VigenciaGrupoConcepto///////////////////////
       if (lovGruposConceptos == null) {
          lovGruposConceptos = administrarDetalleConcepto.consultarLOVGruposConceptos();
-         System.out.println("cargo lovGruposConceptos");
+         log.info("cargo lovGruposConceptos");
       }
       /////////////Lista Valores VigenciasConceptosTT///////////////////////
       if (lovTiposTrabajadores == null) {
          lovTiposTrabajadores = administrarDetalleConcepto.consultarLOVTiposTrabajadores();
-         System.out.println("cargo lovTiposTrabajadores");
+         log.info("cargo lovTiposTrabajadores");
       }
       /////////////Lista Valores VigenciasConceptosTC///////////////////////
       if (lovTiposContratos == null) {
          lovTiposContratos = administrarDetalleConcepto.consultarLOVTiposContratos();
-         System.out.println("cargo lovTiposContratos");
+         log.info("cargo lovTiposContratos");
       }
       /////////////Lista Valores VigenciasConceptosRL///////////////////////
       if (lovReformasLaborales == null) {
          lovReformasLaborales = administrarDetalleConcepto.consultarLOVReformasLaborales();
-         System.out.println("cargo lovReformasLaborales");
+         log.info("cargo lovReformasLaborales");
       }
       /////////////Lista Valores FormulasConceptos///////////////////////
       if (lovFormulas == null) {
          lovFormulas = administrarDetalleConcepto.consultarLOVFormulas();
-         System.out.println("cargo lovFormulas");
+         log.info("cargo lovFormulas");
       }
       if (lovFormulasConceptos == null) {
          lovFormulasConceptos = administrarDetalleConcepto.consultarLOVFormulasConceptos();
-         System.out.println("cargo lovFormulasConceptos");
+         log.info("cargo lovFormulasConceptos");
       }
    }
 
@@ -6093,7 +6096,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
          return listVigenciasCuentasConcepto;
       } catch (Exception e) {
-         System.out.println("Error getListConceptosJuridicos " + e.toString());
+         log.warn("Error getListConceptosJuridicos " + e.toString());
          return null;
       }
    }
@@ -6271,7 +6274,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
          return listVigenciasGruposConceptos;
       } catch (Exception e) {
-         System.out.println("Error getListVigenciasGruposConceptosConcepto : " + e.toString());
+         log.warn("Error getListVigenciasGruposConceptosConcepto : " + e.toString());
          return null;
       }
 
@@ -6354,7 +6357,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
          return listVigenciasConceptosTTConcepto;
       } catch (Exception e) {
-         System.out.println("Error getListVigenciasConceptosTTConcepto : " + e.toString());
+         log.warn("Error getListVigenciasConceptosTTConcepto : " + e.toString());
          return null;
       }
    }
@@ -6380,7 +6383,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
          return listVigenciasConceptosTCConcepto;
       } catch (Exception e) {
-         System.out.println("Error getListVigenciasConceptosTCConcepto : " + e.toString());
+         log.warn("Error getListVigenciasConceptosTCConcepto : " + e.toString());
          return null;
       }
    }

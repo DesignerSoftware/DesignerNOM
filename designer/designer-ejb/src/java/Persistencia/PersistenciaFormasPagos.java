@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,6 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormasPagos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +40,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             em.merge(formasPagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFormasPagos.crear: " + e);
+            log.error("Error PersistenciaFormasPagos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +59,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaFormasPagos.editar: " + e);
+            log.error("Error PersistenciaFormasPagos.editar: " + e);
         }
     }
 
@@ -73,7 +76,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaFormasPagos.borrar: " + e);
+                log.error("Error PersistenciaFormasPagos.borrar: " + e);
         }
     }
 
@@ -83,7 +86,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             em.clear();
             return em.find(FormasPagos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en la persistencia vigencias formas pagos ERROR : " + e);
+            log.error("Error en la persistencia vigencias formas pagos ERROR : " + e);
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             List<FormasPagos> vigenciasNormasEmpleados = query.getResultList();
             return vigenciasNormasEmpleados;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e);
+            log.error("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e);
             return null;
         }
     }

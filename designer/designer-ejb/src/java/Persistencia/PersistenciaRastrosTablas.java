@@ -7,7 +7,7 @@ import InterfacePersistencia.PersistenciaRastrosTablasInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless. <br> 
@@ -16,7 +16,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaRastrosTablas implements PersistenciaRastrosTablasInterface{
+public class PersistenciaRastrosTablas implements PersistenciaRastrosTablasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaRastrosTablas.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
 //     */
@@ -37,7 +39,7 @@ public class PersistenciaRastrosTablas implements PersistenciaRastrosTablasInter
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRastrosTablas.verificarRastroTabla()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRastrosTablas.verificarRastroTabla()" + e.getMessage());
             return false;
         }
     }

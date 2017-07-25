@@ -10,11 +10,14 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasArps.class);
 
    @Override
    public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
@@ -32,7 +35,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          tx.commit();
          return actualARP;
       } catch (Exception e) {
-         System.out.println("Exepcion: PersistenciaVigenciasArps.actualARP " + e.getMessage());
+         log.error("Exepcion: PersistenciaVigenciasArps.actualARP " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +56,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             return 0;
          }
       } catch (Exception e) {
-         System.out.println("Error contarVigenciasARPsPorEstructuraYCargo PersistenciaVigenciasArps : " + e.toString());
+         log.error("Error contarVigenciasARPsPorEstructuraYCargo PersistenciaVigenciasArps : " + e.toString());
          return 0;
       }
    }
@@ -67,7 +70,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          em.merge(vigarp);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasArps.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasArps.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -83,7 +86,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          em.remove(em.merge(vigarp));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasArps.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasArps.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -99,7 +102,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          em.merge(vigarp);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasArps.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasArps.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -120,7 +123,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
                        + " FROM VIGENCIASARPS V, ESTRUCTURAS E, CARGOS C WHERE V.ESTRUCTURA = E.SECUENCIA AND V.CARGO = C.SECUENCIA", VigenciasArpsAux.class);
                List<VigenciasArpsAux> listaAux = q2.getResultList();
                if (listaAux != null) {
-                  System.out.println("Persistencia.PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
+                  log.error("Persistencia.PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaVigencias.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {
@@ -138,7 +141,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          }
          return listaVigencias;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasArps.consultarVigenciasArps: " + e);
+         log.error("Error PersistenciaVigenciasArps.consultarVigenciasArps: " + e);
          return listaVigencias;
       }
    }

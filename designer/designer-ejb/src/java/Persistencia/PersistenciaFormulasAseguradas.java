@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAseguradasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormulasAseguradas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -34,7 +37,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          em.merge(formulasAseguradas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +52,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          em.merge(formulasAseguradas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +71,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
       }
    }
 
@@ -80,7 +83,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          List<FormulasAseguradas> formulasAseguradas = query.getResultList();
          return formulasAseguradas;
       } catch (Exception e) {
-         System.out.println("Error consultarFormulasAseguradas");
+         log.error("Error consultarFormulasAseguradas");
          return null;
       }
    }
@@ -94,7 +97,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          FormulasAseguradas formulasAseguradas = (FormulasAseguradas) query.getSingleResult();
          return formulasAseguradas;
       } catch (Exception e) {
-         System.out.println("Error consultarFormulasAseguradas");
+         log.error("Error consultarFormulasAseguradas");
          FormulasAseguradas formulasAseguradas = null;
          return formulasAseguradas;
       }

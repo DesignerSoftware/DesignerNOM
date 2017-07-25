@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosPrestamos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosPrestamos.class);
 
     @EJB
     AdministrarMotivosPrestamosInterface administrarMotivosPrestamos;
@@ -127,24 +130,24 @@ public class ControlMotivosPrestamos implements Serializable {
             administrarMotivosPrestamos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A CONTROLMOTIVOSPRESTAMOS EVENTOFILTRAR \n");
+            log.info("\n ENTRE A CONTROLMOTIVOSPRESTAMOS EVENTOFILTRAR \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLMOTIVOSPRESTAMOS EVENTOFILTRAR  ERROR===" + e.getMessage());
+            log.warn("Error CONTROLMOTIVOSPRESTAMOS EVENTOFILTRAR  ERROR===" + e.getMessage());
         }
     }
 
     public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
 
         if (permitirIndex == true) {
             index = indice;
@@ -152,24 +155,24 @@ public class ControlMotivosPrestamos implements Serializable {
             secRegistro = listMotivosPrestamos.get(index).getSecuencia();
 
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
+        log.info("Indice: " + index + " Celda: " + cualCelda);
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE A CONTROLMOTIVOSPRESTAMOS ASIGNAR INDEX \n");
+            log.info("\n ENTRE A CONTROLMOTIVOSPRESTAMOS ASIGNAR INDEX \n");
             index = indice;
             if (LND == 0) {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("TIPO ACTUALIZACION : " + tipoActualizacion);
+                log.info("TIPO ACTUALIZACION : " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLMOTIVOSPRESTAMOS ASIGNAR INDEX ERROR======" + e.getMessage());
+            log.warn("Error CONTROLMOTIVOSPRESTAMOS ASIGNAR INDEX ERROR======" + e.getMessage());
         }
     }
 
@@ -215,10 +218,10 @@ public class ControlMotivosPrestamos implements Serializable {
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
@@ -231,7 +234,7 @@ public class ControlMotivosPrestamos implements Serializable {
     }
 
     public void modificandoMotivoPrestamos(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR MOTIVOSPRESTAMOS");
+        log.error("ENTRE A MODIFICAR MOTIVOSPRESTAMOS");
         index = indice;
 
         int contador = 0;
@@ -240,9 +243,9 @@ public class ControlMotivosPrestamos implements Serializable {
         Integer a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR MOTIVOPRESTAMO, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR MOTIVOPRESTAMO, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 if (!crearMotivosPrestamos.contains(listMotivosPrestamos.get(indice))) {
                     if (listMotivosPrestamos.get(indice).getCodigo() == a || listMotivosPrestamos.get(indice).getCodigo().equals(null)) {
@@ -305,19 +308,19 @@ public class ControlMotivosPrestamos implements Serializable {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                     banderita = false;
                 } else {
-                    System.err.println("codigo ingresado " + filtrarMotivosPrestamos.get(indice).getCodigo());
+                    log.error("codigo ingresado " + filtrarMotivosPrestamos.get(indice).getCodigo());
                     for (int j = 0; j < listMotivosPrestamos.size(); j++) {
                         if (j != indice) {
                             if (filtrarMotivosPrestamos.get(indice).getCodigo().equals(listMotivosPrestamos.get(j).getCodigo())) {
-                                System.err.println("Contador 1... " + contador);
-                                System.err.println("lista" + listMotivosPrestamos.get(indice).getCodigo());
-                                System.err.println("filtrar " + filtrarMotivosPrestamos.get(indice).getCodigo());
+                                log.error("Contador 1... " + contador);
+                                log.error("lista" + listMotivosPrestamos.get(indice).getCodigo());
+                                log.error("filtrar " + filtrarMotivosPrestamos.get(indice).getCodigo());
                                 contador++;
                             }
                         }
                     }
 
-                    //System.err.println("Contador 1... " + contador);
+                    //log.error("Contador 1... " + contador);
                     for (int j = 0; j < filtrarMotivosPrestamos.size(); j++) {
                         if (j != indice) {
                             if (filtrarMotivosPrestamos.get(indice).getCodigo().equals(filtrarMotivosPrestamos.get(j).getCodigo())) {
@@ -326,7 +329,7 @@ public class ControlMotivosPrestamos implements Serializable {
                         }
                     }
 
-                    System.err.println("Contador " + contador);
+                    log.error("Contador " + contador);
                     if (contador > 0) {
                         mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
@@ -383,7 +386,7 @@ public class ControlMotivosPrestamos implements Serializable {
 
         if (index >= 0) {
             if (tipoLista == 0) {
-                System.out.println("Entro a borrandoMotivosPrestamos");
+                log.info("Entro a borrandoMotivosPrestamos");
                 if (!modificarMotivosPrestamos.isEmpty() && modificarMotivosPrestamos.contains(listMotivosPrestamos.get(index))) {
                     int modIndex = modificarMotivosPrestamos.indexOf(listMotivosPrestamos.get(index));
                     modificarMotivosPrestamos.remove(modIndex);
@@ -397,7 +400,7 @@ public class ControlMotivosPrestamos implements Serializable {
                 listMotivosPrestamos.remove(index);
             }
             if (tipoLista == 1) {
-                System.out.println("borrandoMotivosPrestamos");
+                log.info("borrandoMotivosPrestamos");
                 if (!modificarMotivosPrestamos.isEmpty() && modificarMotivosPrestamos.contains(filtrarMotivosPrestamos.get(index))) {
                     int modIndex = modificarMotivosPrestamos.indexOf(filtrarMotivosPrestamos.get(index));
                     modificarMotivosPrestamos.remove(modIndex);
@@ -429,18 +432,18 @@ public class ControlMotivosPrestamos implements Serializable {
     private BigInteger verificarEerPrestamos;
 
     public void verificarBorrado() {
-        System.out.println("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
+        log.info("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
         try {
-            System.out.println("secuencia borrado : " + listMotivosPrestamos.get(index).getSecuencia());
+            log.info("secuencia borrado : " + listMotivosPrestamos.get(index).getSecuencia());
             if (tipoLista == 0) {
-                System.out.println("secuencia borrado : " + listMotivosPrestamos.get(index).getSecuencia());
+                log.info("secuencia borrado : " + listMotivosPrestamos.get(index).getSecuencia());
                 verificarEerPrestamos = administrarMotivosPrestamos.verificarEersPrestamosMotivoPrestamo(listMotivosPrestamos.get(index).getSecuencia());
             } else {
-                System.out.println("secuencia borrado : " + filtrarMotivosPrestamos.get(index).getSecuencia());
+                log.info("secuencia borrado : " + filtrarMotivosPrestamos.get(index).getSecuencia());
                 verificarEerPrestamos = administrarMotivosPrestamos.verificarEersPrestamosMotivoPrestamo(filtrarMotivosPrestamos.get(index).getSecuencia());
             }
             if (!verificarEerPrestamos.equals(new BigInteger("0"))) {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -450,11 +453,11 @@ public class ControlMotivosPrestamos implements Serializable {
                 verificarEerPrestamos = new BigInteger("-1");
 
             } else {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoMotivosPrestamos();
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
         }
     }
 
@@ -472,7 +475,7 @@ public class ControlMotivosPrestamos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando MotivoPrestamo");
+            log.info("Realizando MotivoPrestamo");
             if (!borrarMotivosPrestamos.isEmpty()) {
                 administrarMotivosPrestamos.borrarMotivosPrestamos(borrarMotivosPrestamos);
                 //mostrarBorrados
@@ -490,7 +493,7 @@ public class ControlMotivosPrestamos implements Serializable {
                 administrarMotivosPrestamos.modificarMotivosPrestamos(modificarMotivosPrestamos);
                 modificarMotivosPrestamos.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosPrestamos = null;
             guardado = true;
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
@@ -511,7 +514,7 @@ public class ControlMotivosPrestamos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -529,7 +532,7 @@ public class ControlMotivosPrestamos implements Serializable {
     }
 
     public void agregarNuevoMotivosPrestamos() {
-        System.out.println("agregarNuevoMotivosPrestamos");
+        log.info("agregarNuevoMotivosPrestamos");
         int contador = 0;
         int duplicados = 0;
 
@@ -539,41 +542,41 @@ public class ControlMotivosPrestamos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoMotivoPrestamo.getCodigo() == a) {
             mensajeValidacion = " *Debe Tener Un Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivoPrestamo.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivoPrestamo.getCodigo());
 
             for (int x = 0; x < listMotivosPrestamos.size(); x++) {
                 if (listMotivosPrestamos.get(x).getCodigo() == nuevoMotivoPrestamo.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivoPrestamo.getNombre() == (null)) {
             mensajeValidacion = mensajeValidacion + " *Debe tener un Nombre Motivo Préstamo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
@@ -583,7 +586,7 @@ public class ControlMotivosPrestamos implements Serializable {
                 filtrarMotivosPrestamos = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -611,7 +614,7 @@ public class ControlMotivosPrestamos implements Serializable {
     }
 
     public void limpiarNuevoMotivosPrestamos() {
-        System.out.println("limpiarNuevoMotivosPrestamos");
+        log.info("limpiarNuevoMotivosPrestamos");
         nuevoMotivoPrestamo = new MotivosPrestamos();
         secRegistro = null;
         index = -1;
@@ -620,7 +623,7 @@ public class ControlMotivosPrestamos implements Serializable {
 
     //------------------------------------------------------------------------------
     public void duplicandoMotivosPrestamos() {
-        System.out.println("duplicandoMotivosPrestamos");
+        log.info("duplicandoMotivosPrestamos");
         if (index >= 0) {
             duplicarMotivoPrestamo = new MotivosPrestamos();
             k++;
@@ -646,7 +649,7 @@ public class ControlMotivosPrestamos implements Serializable {
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR MOTIVOSPRESTAMOS");
+        log.error("ESTOY EN CONFIRMAR DUPLICAR MOTIVOSPRESTAMOS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
@@ -656,7 +659,7 @@ public class ControlMotivosPrestamos implements Serializable {
 
         if (duplicarMotivoPrestamo.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listMotivosPrestamos.size(); x++) {
                 if (listMotivosPrestamos.get(x).getCodigo() == duplicarMotivoPrestamo.getCodigo()) {
@@ -665,27 +668,27 @@ public class ControlMotivosPrestamos implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarMotivoPrestamo.getNombre() == null) {
             mensajeValidacion = mensajeValidacion + "   * Un Nombre Motivo Préstamo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarMotivoPrestamo.getSecuencia() + "  " + duplicarMotivoPrestamo.getCodigo());
+            log.info("Datos Duplicando: " + duplicarMotivoPrestamo.getSecuencia() + "  " + duplicarMotivoPrestamo.getCodigo());
             if (crearMotivosPrestamos.contains(duplicarMotivoPrestamo)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listMotivosPrestamos.add(duplicarMotivoPrestamo);
             crearMotivosPrestamos.add(duplicarMotivoPrestamo);
@@ -743,12 +746,12 @@ public class ControlMotivosPrestamos implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listMotivosPrestamos.isEmpty()) {
             if (secRegistro != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "MOTIVOSPRESTAMOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {

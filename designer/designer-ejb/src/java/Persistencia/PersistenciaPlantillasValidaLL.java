@@ -8,8 +8,8 @@ package Persistencia;
 import Entidades.PlantillasValidaLL;
 import InterfacePersistencia.PersistenciaPlantillasValidaLLInterface;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 
 /**
@@ -17,7 +17,9 @@ import javax.persistence.EntityTransaction;
  * @author user
  */
 @Stateless
-public class PersistenciaPlantillasValidaLL implements PersistenciaPlantillasValidaLLInterface{
+public class PersistenciaPlantillasValidaLL implements PersistenciaPlantillasValidaLLInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPlantillasValidaLL.class);
 
     @Override
     public void crear(EntityManager em, PlantillasValidaLL plantillall) {
@@ -28,7 +30,7 @@ public class PersistenciaPlantillasValidaLL implements PersistenciaPlantillasVal
             em.merge(plantillall);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantillasValidaLL.crear: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaLL.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +46,7 @@ public class PersistenciaPlantillasValidaLL implements PersistenciaPlantillasVal
             em.merge(plantillall);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantillasValidaLL.editar: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaLL.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +62,7 @@ public class PersistenciaPlantillasValidaLL implements PersistenciaPlantillasVal
             em.remove(em.merge(plantillall));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantillasValidaLL.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaLL.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

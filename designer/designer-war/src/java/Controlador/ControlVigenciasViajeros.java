@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasViajeros implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasViajeros.class);
 
    @EJB
    AdministrarVigenciasViajerosInterface administrarVigenciasViajeros;
@@ -119,8 +122,8 @@ public class ControlVigenciasViajeros implements Serializable {
          administrarVigenciasViajeros.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -256,7 +259,7 @@ public class ControlVigenciasViajeros implements Serializable {
             dig = -1;
          }
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLBETAEMPLVIGENCIANORMALABORAL.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error CONTROLBETAEMPLVIGENCIANORMALABORAL.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -537,7 +540,7 @@ public class ControlVigenciasViajeros implements Serializable {
          nuevoVigenciasViajeros = new VigenciasViajeros();
          nuevoVigenciasViajeros.setTipoViajero(new Tiposviajeros());
       } catch (Exception e) {
-         System.out.println("Error ControlVigenciasViajeros LIMPIAR NUEVO VIAJERO ERROR :" + e.getMessage());
+         log.warn("Error ControlVigenciasViajeros LIMPIAR NUEVO VIAJERO ERROR :" + e.getMessage());
       }
    }
 
@@ -649,7 +652,7 @@ public class ControlVigenciasViajeros implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
             borrarVigenciasViajerosPorEmpleado.clear();
          }
-         System.out.println("crearVigenciasViajerosPorEmpleado: " + crearVigenciasViajerosPorEmpleado);
+         log.info("crearVigenciasViajerosPorEmpleado: " + crearVigenciasViajerosPorEmpleado);
 
          if (!crearVigenciasViajerosPorEmpleado.isEmpty()) {
             for (int i = 0; i < crearVigenciasViajerosPorEmpleado.size(); i++) {
@@ -752,7 +755,7 @@ public class ControlVigenciasViajeros implements Serializable {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
          contarRegistros();
-         System.out.println("nuevoVigenciasViajeros: " + nuevoVigenciasViajeros);
+         log.info("nuevoVigenciasViajeros: " + nuevoVigenciasViajeros);
          nuevoVigenciasViajeros = new VigenciasViajeros();
          nuevoVigenciasViajeros.setTipoViajero(new Tiposviajeros());
 
@@ -770,7 +773,7 @@ public class ControlVigenciasViajeros implements Serializable {
          pasa = 0;
       }
       for (int i = 0; i < crearVigenciasViajerosPorEmpleado.size(); i++) {
-         System.out.println("crearVigenciasViajerosPorEmpleado Poss " + i + " : " + crearVigenciasViajerosPorEmpleado.get(i));
+         log.info("crearVigenciasViajerosPorEmpleado Poss " + i + " : " + crearVigenciasViajerosPorEmpleado.get(i));
       }
    }
 

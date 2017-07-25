@@ -24,13 +24,16 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author AndresPineda
  */
 @Stateful
-public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosInterface{ 
+public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasSueldos.class); 
 
     @EJB
     PersistenciaVigenciasSueldosInterface persistenciaVigenciasSueldos;
@@ -86,7 +89,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             listVigenciasSueldos = persistenciaVigenciasSueldos.buscarVigenciasSueldosEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Sueldos (VigenciasSueldosEmpleado)");
+            log.warn("Error en Administrar Vigencias Sueldos (VigenciasSueldosEmpleado)");
             listVigenciasSueldos = null;
         }
         return listVigenciasSueldos;
@@ -97,7 +100,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             listVigenciasSueldos = persistenciaVigenciasSueldos.buscarVigenciasSueldosEmpleadoRecientes(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Sueldos (VigenciasSueldosActualesEmpleado)");
+            log.warn("Error en Administrar Vigencias Sueldos (VigenciasSueldosActualesEmpleado)");
             listVigenciasSueldos = null;
         }
         return listVigenciasSueldos;
@@ -109,7 +112,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             listTercerosSucursales = persistenciaTercerosSucursales.buscarTercerosSucursales(em);
             return listTercerosSucursales;
         } catch (Exception e) {
-            System.out.println("Error listTercerosSucursales Admi : " + e.toString());
+            log.warn("Error listTercerosSucursales Admi : " + e.toString());
             return null;
         }
     }
@@ -119,7 +122,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
     public void modificarVS(List<VigenciasSueldos> listVSModificadas) {
         try {
             for (int i = 0; i < listVSModificadas.size(); i++) {
-                System.out.println("Modificando...");
+                log.warn("Modificando...");
                 if(listVSModificadas.get(i).getMotivocambiosueldo().getSecuencia()==null){
                     listVSModificadas.get(i).setMotivocambiosueldo(null);
                 }
@@ -130,7 +133,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
                 persistenciaVigenciasSueldos.editar(em, vigenciaSueldo);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVS AdmiVigenciasSueldos");
+            log.warn("Error modificarVS AdmiVigenciasSueldos");
         }
     }
 
@@ -139,7 +142,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             persistenciaVigenciasSueldos.borrar(em, vigenciasSueldos);
         } catch (Exception e) {
-            System.out.println("Error borrarVS AdmiVigenciasSueldos");
+            log.warn("Error borrarVS AdmiVigenciasSueldos");
         }
     }
 
@@ -148,7 +151,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             persistenciaVigenciasSueldos.crear(em, vigenciasSueldos);
         } catch (Exception e) {
-            System.out.println("Error crearVS AdmiVigenciasSueldos");
+            log.warn("Error crearVS AdmiVigenciasSueldos");
         }
     }
 
@@ -158,7 +161,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             empleado = persistenciaEmpleados.buscarEmpleadoSecuencia(em, secuencia);
             return empleado;
         } catch (Exception e) {
-            System.out.println("Error buscarEmpleado AdmiVigenciasSueldos");
+            log.warn("Error buscarEmpleado AdmiVigenciasSueldos");
             empleado = null;
             return empleado;
         }
@@ -169,7 +172,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             listVigenciasAfiliaciones = persistenciaVigenciasAfiliaciones.buscarVigenciasAfiliacionesVigenciaSecuencia(em, secVigencia);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Afiliaciones (VigenciasSueldosEmpleado)");
+            log.warn("Error en Administrar Vigencias Afiliaciones (VigenciasSueldosEmpleado)");
             listVigenciasAfiliaciones = null;
         }
         return listVigenciasAfiliaciones;
@@ -179,7 +182,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
     public void modificarVA(List<VigenciasAfiliaciones> listVAModificadas) {
         try {
             for (int i = 0; i < listVAModificadas.size(); i++) {
-                System.out.println("Modificando...");
+                log.warn("Modificando...");
                 if(listVAModificadas.get(i).getTipoentidad().getSecuencia()==null){
                     listVAModificadas.get(i).setTipoentidad(null);
                 }
@@ -190,7 +193,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
                 persistenciaVigenciasAfiliaciones.editar(em, vigenciaAfiliacion);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVA AdmiVigenciasSueldos");
+            log.warn("Error modificarVA AdmiVigenciasSueldos");
         }
     }
 
@@ -199,7 +202,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             persistenciaVigenciasAfiliaciones.borrar(em, vigenciasAfiliaciones);
         } catch (Exception e) {
-            System.out.println("Error borrarVA AdmiVigenciasSueldos");
+            log.warn("Error borrarVA AdmiVigenciasSueldos");
         }
     }
 
@@ -208,7 +211,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             persistenciaVigenciasAfiliaciones.crear(em, vigenciasAfiliaciones);
         } catch (Exception e) {
-            System.out.println("Error crearVA AdmiVigenciasSueldos");
+            log.warn("Error crearVA AdmiVigenciasSueldos");
         }
     }
 
@@ -218,7 +221,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             listTiposSueldos = persistenciaTiposSueldos.buscarTiposSueldos(em);
             return listTiposSueldos;
         } catch (Exception e) {
-            System.out.println("Error tiposSueldos AdmiVigenciasSueldos");
+            log.warn("Error tiposSueldos AdmiVigenciasSueldos");
             return null;
         }
     }
@@ -229,7 +232,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             listMotivosCambiosSueldos = persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(em);
             return listMotivosCambiosSueldos;
         } catch (Exception e) {
-            System.out.println("Error motivosCambiosSueldos AdmiVigenciasSueldos");
+            log.warn("Error motivosCambiosSueldos AdmiVigenciasSueldos");
             return null;
         }
     }
@@ -240,7 +243,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             listTiposEntidades = persistenciaTiposEntidades.buscarTiposEntidades(em);
             return listTiposEntidades;
         } catch (Exception e) {
-            System.out.println("Error tiposEntidades AdmiVigenciasSueldos");
+            log.warn("Error tiposEntidades AdmiVigenciasSueldos");
             return null;
         }
     }
@@ -251,7 +254,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             listTerceros = persistenciaTerceros.buscarTerceros(em);
             return listTerceros;
         } catch (Exception e) {
-            System.out.println("Error terceros AdmiVigenciasSueldos");
+            log.warn("Error terceros AdmiVigenciasSueldos");
             return null;
         }
     }
@@ -262,7 +265,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
             listTercerosSucursales = persistenciaTercerosSucursales.buscarTercerosSucursalesPorTerceroSecuencia(em, secuencia);
             return listTercerosSucursales;
         } catch (Exception e) {
-            System.out.println("Error tercerosSucursales AdmiVigenciasSueldos");
+            log.warn("Error tercerosSucursales AdmiVigenciasSueldos");
             return null;
         }
     }
@@ -272,7 +275,7 @@ public class AdministrarVigenciasSueldos implements AdministrarVigenciasSueldosI
         try {
             persistenciaTercerosSucursales.crear(em, tercerosSucursales);
         } catch (Exception e) {
-            System.out.println("Error crearTerceroSucursal AdmiVigenciasSueldos");
+            log.warn("Error crearTerceroSucursal AdmiVigenciasSueldos");
         }
     }
     

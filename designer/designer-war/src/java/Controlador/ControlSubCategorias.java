@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlSubCategorias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlSubCategorias.class);
 
    @EJB
    AdministrarSubCategoriasInterface administrarSubCategorias;
@@ -96,8 +99,8 @@ public class ControlSubCategorias implements Serializable {
          administrarSubCategorias.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -141,7 +144,7 @@ public class ControlSubCategorias implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlSubCategorias.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlSubCategorias.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -149,12 +152,12 @@ public class ControlSubCategorias implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarSubCategorias.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlSubCategorias eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlSubCategorias eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -173,24 +176,24 @@ public class ControlSubCategorias implements Serializable {
          secRegistro = listSubCategorias.get(index).getSecuencia();
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlSubCategorias.asignarIndex \n");
+         log.info("\n ENTRE A ControlSubCategorias.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlSubCategorias.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlSubCategorias.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -283,10 +286,10 @@ public class ControlSubCategorias implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosSubCategoria:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosSubCategoria");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosSubCategoria:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -300,7 +303,7 @@ public class ControlSubCategorias implements Serializable {
    }
 
    public void modificarSubCategoria(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0, pass = 0;
@@ -308,9 +311,9 @@ public class ControlSubCategorias implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearSubCategorias.contains(listSubCategorias.get(indice))) {
                if (listSubCategorias.get(indice).getCodigo() == a) {
@@ -515,7 +518,7 @@ public class ControlSubCategorias implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoSubCategorias");
+            log.info("Entro a borrandoSubCategorias");
             if (!modificarSubCategorias.isEmpty() && modificarSubCategorias.contains(listSubCategorias.get(index))) {
                int modIndex = modificarSubCategorias.indexOf(listSubCategorias.get(index));
                modificarSubCategorias.remove(modIndex);
@@ -529,7 +532,7 @@ public class ControlSubCategorias implements Serializable {
             listSubCategorias.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoSubCategorias ");
+            log.info("borrandoSubCategorias ");
             if (!modificarSubCategorias.isEmpty() && modificarSubCategorias.contains(filtrarSubCategorias.get(index))) {
                int modIndex = modificarSubCategorias.indexOf(filtrarSubCategorias.get(index));
                modificarSubCategorias.remove(modIndex);
@@ -565,21 +568,21 @@ public class ControlSubCategorias implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contaEvalConvocatoriasSubCategoria;
 
       try {
-         System.err.println("Control Secuencia de ControlSubCategorias ");
+         log.error("Control Secuencia de ControlSubCategorias ");
          if (tipoLista == 0) {
             contaEvalConvocatoriasSubCategoria = administrarSubCategorias.contarEscalafones(listSubCategorias.get(index).getSecuencia());
          } else {
             contaEvalConvocatoriasSubCategoria = administrarSubCategorias.contarEscalafones(filtrarSubCategorias.get(index).getSecuencia());
          }
          if (contaEvalConvocatoriasSubCategoria.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoSubCategorias();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -589,7 +592,7 @@ public class ControlSubCategorias implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlSubCategorias verificarBorrado ERROR " + e);
+         log.error("ERROR ControlSubCategorias verificarBorrado ERROR " + e);
       }
    }
 
@@ -607,7 +610,7 @@ public class ControlSubCategorias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarSubCategorias");
+         log.info("Realizando guardarSubCategorias");
          if (!borrarSubCategorias.isEmpty()) {
             administrarSubCategorias.borrarSubCategorias(borrarSubCategorias);
 
@@ -625,7 +628,7 @@ public class ControlSubCategorias implements Serializable {
             administrarSubCategorias.modificarSubCategorias(modificarSubCategorias);
             modificarSubCategorias.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listSubCategorias = null;
          RequestContext.getCurrentInstance().update("form:datosSubCategoria");
          k = 0;
@@ -649,7 +652,7 @@ public class ControlSubCategorias implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -666,7 +669,7 @@ public class ControlSubCategorias implements Serializable {
    }
 
    public void agregarNuevoSubCategorias() {
-      System.out.println("agregarNuevoSubCategorias");
+      log.info("agregarNuevoSubCategorias");
       int contador = 0;
       int duplicados = 0;
 
@@ -676,36 +679,36 @@ public class ControlSubCategorias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoSubCategoria.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoSubCategoria.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoSubCategoria.getCodigo());
 
          for (int x = 0; x < listSubCategorias.size(); x++) {
             if (listSubCategorias.get(x).getCodigo() == nuevoSubCategoria.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoSubCategoria.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
@@ -713,7 +716,7 @@ public class ControlSubCategorias implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             tamano = 270;
 
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosSubCategoria:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSubCategoria:descripcion");
@@ -723,7 +726,7 @@ public class ControlSubCategorias implements Serializable {
             filtrarSubCategorias = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -754,7 +757,7 @@ public class ControlSubCategorias implements Serializable {
    }
 
    public void limpiarNuevoSubCategorias() {
-      System.out.println("limpiarNuevoSubCategorias");
+      log.info("limpiarNuevoSubCategorias");
       nuevoSubCategoria = new SubCategorias();
       secRegistro = null;
       index = -1;
@@ -763,7 +766,7 @@ public class ControlSubCategorias implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoSubCategorias() {
-      System.out.println("duplicandoSubCategorias");
+      log.info("duplicandoSubCategorias");
       if (index >= 0) {
          duplicarSubCategoria = new SubCategorias();
          k++;
@@ -789,19 +792,19 @@ public class ControlSubCategorias implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarSubCategoria.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarSubCategoria.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarSubCategoria.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarSubCategoria.getDescripcion());
 
       if (duplicarSubCategoria.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listSubCategorias.size(); x++) {
             if (listSubCategorias.get(x).getCodigo() == duplicarSubCategoria.getCodigo()) {
@@ -810,27 +813,27 @@ public class ControlSubCategorias implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarSubCategoria.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarSubCategoria.getSecuencia() + "  " + duplicarSubCategoria.getCodigo());
+         log.info("Datos Duplicando: " + duplicarSubCategoria.getSecuencia() + "  " + duplicarSubCategoria.getCodigo());
          if (crearSubCategorias.contains(duplicarSubCategoria)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listSubCategorias.add(duplicarSubCategoria);
          crearSubCategorias.add(duplicarSubCategoria);
@@ -893,12 +896,12 @@ public class ControlSubCategorias implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listSubCategorias.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "SUBCATEGORIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

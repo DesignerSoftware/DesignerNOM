@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import utilidades.AgnosMesesDiasNumeros;
 @ManagedBean
 @SessionScoped
 public class ControlProverbio implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlProverbio.class);
 
     @EJB
     AdministrarRecordatoriosInterface administrarRecordatorios;
@@ -140,8 +143,8 @@ public class ControlProverbio implements Serializable {
             administrarRecordatorios.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 

@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,6 +18,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGeneraConsulta implements AdministrarGeneraConsultaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGeneraConsulta.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -27,7 +30,7 @@ public class AdministrarGeneraConsulta implements AdministrarGeneraConsultaInter
 
     @Override
     public void obtenerConexion(String idSesion) {
-        System.out.println("AdministrarGeneraConsulta.obtenerConexion");
+        log.warn("AdministrarGeneraConsulta.obtenerConexion");
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
 
@@ -37,7 +40,7 @@ public class AdministrarGeneraConsulta implements AdministrarGeneraConsultaInter
             Recordatorios recordatorio = persistenciaRecordatorios.consultaRecordatorios(em, secuencia);
             return recordatorio;
         } catch (Exception e) {
-            System.out.println("consultarPorSecuencia en " + this.getClass().getName() + ": ");
+            log.warn("consultarPorSecuencia en " + this.getClass().getName() + ": ");
             e.printStackTrace();
             return null;
         }
@@ -45,12 +48,12 @@ public class AdministrarGeneraConsulta implements AdministrarGeneraConsultaInter
 
     @Override
     public List<String> ejecutarConsulta(BigInteger secuencia) {
-        System.out.println("AdministrarGeneraConsulta.ejecutarConsulta");
+        log.warn("AdministrarGeneraConsulta.ejecutarConsulta");
         try {
             List<String> lista = persistenciaRecordatorios.ejecutarConsultaRecordatorio(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("ejecutarConsulta en " + this.getClass().getName() + ": ");
+            log.warn("ejecutarConsulta en " + this.getClass().getName() + ": ");
             e.printStackTrace();
             return null;
         }

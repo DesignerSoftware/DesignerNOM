@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenciasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarLugaresOcurrencias.class);
 
   @EJB
     PersistenciaLugaresOcurrenciasInterface persistenciaLugaresOcurrencias;
@@ -46,7 +49,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
   @Override
     public void modificarLugarOcurrencia(List<LugaresOcurrencias> listaLugaresOcurrencias) {
         for (int i = 0; i < listaLugaresOcurrencias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaLugaresOcurrencias.editar(em, listaLugaresOcurrencias.get(i));
         }
     }
@@ -54,7 +57,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
   @Override
     public void borrarLugarOcurrencia(List<LugaresOcurrencias> listaLugaresOcurrencias) {
         for (int i = 0; i < listaLugaresOcurrencias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaLugaresOcurrencias.borrar(em, listaLugaresOcurrencias.get(i));
         }
     }
@@ -62,7 +65,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
   @Override
     public void crearLugarOcurrencia(List<LugaresOcurrencias> listaLugaresOcurrencias) {
         for (int i = 0; i < listaLugaresOcurrencias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaLugaresOcurrencias.crear(em, listaLugaresOcurrencias.get(i));
         }
     }
@@ -85,7 +88,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
         try {
             return verificarSoAccidentes = persistenciaLugaresOcurrencias.contadorSoAccidentes(em, secuenciaLugaresOcurrencias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARLUGARESOCURRENCIAS VERIFICAR SO ACCIDENTES ERROR : " + e);
+            log.error("ERROR ADMINISTRARLUGARESOCURRENCIAS VERIFICAR SO ACCIDENTES ERROR : " + e);
             return null;
         }
     }

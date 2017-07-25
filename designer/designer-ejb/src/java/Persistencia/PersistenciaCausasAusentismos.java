@@ -8,9 +8,8 @@ import InterfacePersistencia.PersistenciaCausasAusentismosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 /**
  * Clase Stateless. <br>
@@ -19,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCausasAusentismos.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -34,7 +35,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
             em.merge(causasAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCausasAusentismos.crear: " + e);
+            log.error("Error PersistenciaCausasAusentismos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +51,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
             em.merge(causasAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCausasAusentismos.editar: " + e);
+            log.error("Error PersistenciaCausasAusentismos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +73,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaCausasAusentismos.borrar: " + e);
+                log.error("Error PersistenciaCausasAusentismos.borrar: " + e);
             }
         }
     }
@@ -86,7 +87,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
             List<Causasausentismos> todasCausasAusentismos = query.getResultList();
             return todasCausasAusentismos;
         } catch (Exception e) {
-            System.out.println("Error: (todasCausas)" + e);
+            log.error("Error: (todasCausas)" + e);
             return null;
         }
     }

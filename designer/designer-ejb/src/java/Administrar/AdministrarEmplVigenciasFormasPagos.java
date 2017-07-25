@@ -25,6 +25,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,6 +34,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @Local
 public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigenciasFormasPagosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplVigenciasFormasPagos.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;
@@ -74,7 +77,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
         try {
             listVigenciasFormasPagosPorEmpleado = persistenciaVigenciasFormasPagos.buscarVigenciasFormasPagosPorEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Formas Pagos");
+            log.warn("Error en Administrar Vigencias Formas Pagos");
             listVigenciasFormasPagosPorEmpleado = null;
         }
         return listVigenciasFormasPagosPorEmpleado;
@@ -82,18 +85,18 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
 
     @Override
     public void modificarVigenciasFormasPagos(List<VigenciasFormasPagos> listaVigenciasFormasPagos) {
-        System.out.println("Administrar Modificando... Tamaño :" + listaVigenciasFormasPagos.size());
+        log.warn("Administrar Modificando... Tamaño :" + listaVigenciasFormasPagos.size());
         for (int i = 0; i < listaVigenciasFormasPagos.size(); i++) {
-            System.out.println("AdministrarEmplVigenciasFormasPagos FECHA INICIAL : " + listaVigenciasFormasPagos.get(i).getFechavigencia());
-            System.out.println("AdministrarEmplVigenciasFormasPagos CUENTA : " + listaVigenciasFormasPagos.get(i).getCuenta());
-            System.out.println("AdministrarEmplVigenciasFormasPagos FECHA CUENTA : " + listaVigenciasFormasPagos.get(i).getFechacuenta());
-            System.out.println("AdministrarEmplVigenciasFormasPagos SUCURSAL : " + listaVigenciasFormasPagos.get(i).getSucursal().getNombre());
-            System.out.println("AdministrarEmplVigenciasFormasPagos FORMA PAGO : " + listaVigenciasFormasPagos.get(i).getFormapago().getNombre());
-            System.out.println("AdministrarEmplVigenciasFormasPagos TIPO CUENTA : " + listaVigenciasFormasPagos.get(i).getTipocuenta());
-            System.out.println("AdministrarEmplVigenciasFormasPagos METODO PAGO : " + listaVigenciasFormasPagos.get(i).getMetodopago().getDescripcion());
+            log.warn("AdministrarEmplVigenciasFormasPagos FECHA INICIAL : " + listaVigenciasFormasPagos.get(i).getFechavigencia());
+            log.warn("AdministrarEmplVigenciasFormasPagos CUENTA : " + listaVigenciasFormasPagos.get(i).getCuenta());
+            log.warn("AdministrarEmplVigenciasFormasPagos FECHA CUENTA : " + listaVigenciasFormasPagos.get(i).getFechacuenta());
+            log.warn("AdministrarEmplVigenciasFormasPagos SUCURSAL : " + listaVigenciasFormasPagos.get(i).getSucursal().getNombre());
+            log.warn("AdministrarEmplVigenciasFormasPagos FORMA PAGO : " + listaVigenciasFormasPagos.get(i).getFormapago().getNombre());
+            log.warn("AdministrarEmplVigenciasFormasPagos TIPO CUENTA : " + listaVigenciasFormasPagos.get(i).getTipocuenta());
+            log.warn("AdministrarEmplVigenciasFormasPagos METODO PAGO : " + listaVigenciasFormasPagos.get(i).getMetodopago().getDescripcion());
 
             if (listaVigenciasFormasPagos.get(i).getSucursal().getSecuencia() == null) {
-                System.out.println("ADMINISTRAR EMPLVIGENCIASFORMASPAGOS ES NULO...");
+                log.warn("ADMINISTRAR EMPLVIGENCIASFORMASPAGOS ES NULO...");
                 listaVigenciasFormasPagos.get(i).setSucursal(null);
             }
             persistenciaVigenciasFormasPagos.editar(em, listaVigenciasFormasPagos.get(i));
@@ -103,9 +106,9 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
     @Override
     public void borrarVigenciasFormasPagos(List<VigenciasFormasPagos> listaVigenciasFormasPagos) {
         for (int i = 0; i < listaVigenciasFormasPagos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             if (listaVigenciasFormasPagos.get(i).getSucursal().getSecuencia() == null) {
-                System.out.println("ADMINISTRAR EMPLVIGENCIASFORMASPAGOS ES NULO...");
+                log.warn("ADMINISTRAR EMPLVIGENCIASFORMASPAGOS ES NULO...");
                 listaVigenciasFormasPagos.get(i).setSucursal(null);
             }
             persistenciaVigenciasFormasPagos.borrar(em, listaVigenciasFormasPagos.get(i));
@@ -123,7 +126,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             empleado = persistenciaEmpleados.buscarEmpleadoSecuencia(em, secuencia);
             return empleado;
         } catch (Exception e) {
-            System.out.println("AdministrarVigenciasFormasPagos buscarEmpleado error" + e);
+            log.warn("AdministrarVigenciasFormasPagos buscarEmpleado error" + e);
             empleado = null;
             return empleado;
         }
@@ -135,7 +138,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             listSucursales = persistenciaSucursales.consultarSucursales(em);
             return listSucursales;
         } catch (Exception e) {
-            System.err.println("AdministrarVigencasFormasPagos Error en la busqueda de sucursales " + e);
+            log.error("AdministrarVigencasFormasPagos Error en la busqueda de sucursales " + e);
             return null;
         }
     }
@@ -146,7 +149,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             listFormasPagos = persistenciaFormasPagos.buscarFormasPagos(em);
             return listFormasPagos;
         } catch (Exception e) {
-            System.err.println("AdministrarVigencasFormasPagos Error en la busqueda de Formas pagos " + e);
+            log.error("AdministrarVigencasFormasPagos Error en la busqueda de Formas pagos " + e);
             return null;
         }
     }
@@ -157,7 +160,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             listMetodosPagos = persistenciaMetodosPagos.buscarMetodosPagos(em);
             return listMetodosPagos;
         } catch (Exception e) {
-            System.err.println("AdministrarVigencasFormasPagos Error en la busqueda de Metodos Pagos " + e);
+            log.error("AdministrarVigencasFormasPagos Error en la busqueda de Metodos Pagos " + e);
             return null;
         }
     }
@@ -168,7 +171,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             listPeriodicidades = persistenciaPeriodicidades.consultarPeriodicidades(em);
             return listPeriodicidades;
         } catch (Exception e) {
-            System.err.println("AdministrarVigencasFormasPagos Error en la busqueda de Periodicidades " + e);
+            log.error("AdministrarVigencasFormasPagos Error en la busqueda de Periodicidades " + e);
             return null;
         }
     }
@@ -179,7 +182,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             BigDecimal periodicidad = persistenciaVigenciasFormasPagos.buscarPeriodicidadPorEmpl(em, secEmpleado);
             return periodicidad;
         } catch (Exception e) {
-            System.out.println("error en consultarPeriodicidadporEmpl " + e.getMessage());
+            log.warn("error en consultarPeriodicidadporEmpl " + e.getMessage());
             return null;
         }
     }

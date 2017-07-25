@@ -9,12 +9,12 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaCiudadesInterface;
 import InterfacePersistencia.PersistenciaDepartamentosInterface;
 import InterfacePersistencia.PersistenciaUbicacionesGeograficasInterface;
-import Persistencia.PersistenciaUbicacionesGeograficas;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br> Clase encargada de realizar las operaciones lógicas para
@@ -24,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarCiudades implements AdministrarCiudadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCiudades.class);
 
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -69,7 +71,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
    public void modificarCiudades(List<Ciudades> listaCiudades) {
       Ciudades c;
       for (int i = 0; i < listaCiudades.size(); i++) {
-         System.out.println("Modificando...");
+         log.warn("Modificando...");
          if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
             listaCiudades.get(i).setDepartamento(null);
             c = listaCiudades.get(i);
@@ -97,7 +99,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
    @Override
    public void crearCiudades(List<Ciudades> listaCiudades) {
       for (int i = 0; i < listaCiudades.size(); i++) {
-         System.out.println("Creando...");
+         log.warn("Creando...");
          if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
 
             listaCiudades.get(i).setDepartamento(null);
@@ -113,7 +115,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
       try {
          return persistenciaUbicacionesGeograficas.existeCiudadporSecuencia(em, secCiudad);
       } catch (Exception e) {
-         System.err.println("ERROR: AdministrarCiudades. existeenUbicacionesGeograficas() : " + e);
+         log.error("ERROR: AdministrarCiudades. existeenUbicacionesGeograficas() : " + e);
          return 0;
       }
    }

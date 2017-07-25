@@ -1,14 +1,11 @@
 package Persistencia;
 
-import Entidades.VWActualesMvrs;
-import Entidades.VWActualesVigenciasViajeros;
 import InterfacePersistencia.PersistenciaVWActualesMvrsInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.NumberFormat;
-import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -17,6 +14,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesMvrs implements PersistenciaVWActualesMvrsInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesMvrs.class);
 
     @Override
     public BigDecimal buscarActualMVR(EntityManager em, BigInteger secuencia) {
@@ -27,7 +26,7 @@ public class PersistenciaVWActualesMvrs implements PersistenciaVWActualesMvrsInt
             BigDecimal valorMVR = (BigDecimal) query.getSingleResult();
             return valorMVR;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesMvrs.buscarActualMVR()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesMvrs.buscarActualMVR()" + e.getMessage());
             return null;
         }
     }

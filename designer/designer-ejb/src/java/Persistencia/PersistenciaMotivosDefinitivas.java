@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefinitivasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosDefinitivas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             em.merge(motivosDefinitivas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDefinitivas.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosDefinitivas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             em.merge(motivosDefinitivas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDefinitivas.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosDefinitivas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             tx.commit();
 
         } catch (Exception e) {
-        System.out.println("Error PersistenciaMotivosDefinitivas.borrar: " + e.getMessage());
+        log.error("Error PersistenciaMotivosDefinitivas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -86,7 +88,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             List<MotivosDefinitivas> motivoD = query.getResultList();
             return motivoD;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDefinitivfas.buscarMotivosDefinitivas" + e.getMessage());
+            log.error("Error PersistenciaMotivosDefinitivfas.buscarMotivosDefinitivas" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             em.clear();
             return em.find(MotivosDefinitivas.class, secuenciaME);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosDefinitivas.buscarMotivoDefinitiva()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosDefinitivas.buscarMotivoDefinitiva()" + e.getMessage());
             return null;
         }
     }
@@ -113,7 +115,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -129,7 +131,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORPARAMETROSCAMBIOSMASIVOS  ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORPARAMETROSCAMBIOSMASIVOS  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

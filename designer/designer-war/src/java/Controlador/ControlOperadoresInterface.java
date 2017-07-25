@@ -24,6 +24,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlOperadoresInterface")
 @SessionScoped
 public class ControlOperadoresInterface implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlOperadoresInterface.class);
 
     @EJB
     AdministrarOperadoresInterface administrarOperadores;
@@ -90,8 +93,8 @@ public class ControlOperadoresInterface implements Serializable {
             administrarOperadores.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -222,7 +225,7 @@ public class ControlOperadoresInterface implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosOperadores");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             tamano = 270;
             signo = (Column) c.getViewRoot().findComponent("form:datosOperadores:signo");
             signo.setFilterStyle("display: none; visibility: hidden;");
@@ -255,7 +258,7 @@ public class ControlOperadoresInterface implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (operadorSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(operadorSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -334,7 +337,7 @@ public class ControlOperadoresInterface implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosOperadores");
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -409,7 +412,7 @@ public class ControlOperadoresInterface implements Serializable {
 
   
    public void agregarNuevoTiposCursos() {
-      System.out.println("agregarNuevoTiposCursos");
+      log.info("agregarNuevoTiposCursos");
       int contador = 0;
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -441,7 +444,7 @@ public class ControlOperadoresInterface implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosOperadores:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosOperadores:descripcion");

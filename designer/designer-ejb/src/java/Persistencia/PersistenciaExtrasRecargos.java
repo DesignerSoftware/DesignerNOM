@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaExtrasRecargos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             em.merge(extrasRecargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaExtrasRecargos.crear: " + e);
+            log.error("Error PersistenciaExtrasRecargos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +58,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaExtrasRecargos.editar: " + e);
+            log.error("Error PersistenciaExtrasRecargos.editar: " + e);
         }
     }
 
@@ -74,7 +77,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaExtrasRecargos.borrar: " + e);
+                log.error("Error PersistenciaExtrasRecargos.borrar: " + e);
             }
         }
     }
@@ -85,7 +88,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             em.clear();
             return em.find(ExtrasRecargos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error PersistenciaExtrasRecargos buscarExtraRecargo : " + e.toString());
+            log.error("Error PersistenciaExtrasRecargos buscarExtraRecargo : " + e.toString());
             return null;
         }
     }
@@ -99,7 +102,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             List<ExtrasRecargos> extrasRecargos = query.getResultList();
             return extrasRecargos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaExtrasRecargos buscarExtrasRecargos : " + e.toString());
+            log.error("Error PersistenciaExtrasRecargos buscarExtrasRecargos : " + e.toString());
             return null;
         }
     }

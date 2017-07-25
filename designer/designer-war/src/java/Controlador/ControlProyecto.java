@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlProyecto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlProyecto.class);
 
     @EJB
     AdministrarProyectosInterface administrarProyectos;
@@ -153,8 +156,8 @@ public class ControlProyecto implements Serializable {
             administrarProyectos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -658,7 +661,7 @@ public class ControlProyecto implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosProyectos");
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosP : " + e.toString());
+            log.warn("Error guardarCambiosP : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1018,7 +1021,7 @@ public class ControlProyecto implements Serializable {
             }
         } catch (Exception e) {
             RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-            System.err.println("ERROR controlProyecto BorrarP " + e);
+            log.error("ERROR controlProyecto BorrarP " + e);
         }
 
     }
@@ -1669,7 +1672,7 @@ public class ControlProyecto implements Serializable {
             }
             return listProyectos;
         } catch (Exception e) {
-            System.out.println("Error en getListProyectos : " + e.toString());
+            log.warn("Error en getListProyectos : " + e.toString());
             return null;
         }
     }
@@ -1691,7 +1694,7 @@ public class ControlProyecto implements Serializable {
             lovEmpresas = administrarProyectos.listEmpresas();
             return lovEmpresas;
         } catch (Exception e) {
-            System.out.println("Error getListEmpresas " + e.toString());
+            log.warn("Error getListEmpresas " + e.toString());
             return null;
         }
     }
@@ -1721,7 +1724,7 @@ public class ControlProyecto implements Serializable {
             lovPryClientes = administrarProyectos.listPryClientes();
             return lovPryClientes;
         } catch (Exception e) {
-            System.out.println("Error getListPryClientes " + e.toString());
+            log.warn("Error getListPryClientes " + e.toString());
             return null;
         }
     }
@@ -1807,7 +1810,7 @@ public class ControlProyecto implements Serializable {
             lovPryPlataformas = administrarProyectos.listPryPlataformas();
             return lovPryPlataformas;
         } catch (Exception e) {
-            System.out.println("Error getListPryPlataformas : " + e.toString());
+            log.warn("Error getListPryPlataformas : " + e.toString());
             return null;
         }
 

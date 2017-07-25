@@ -12,9 +12,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
-public class AdministrarInstituciones implements AdministrarInstitucionesInterface{
+public class AdministrarInstituciones implements AdministrarInstitucionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarInstituciones.class);
 
     @EJB
     PersistenciaInstitucionesInterface persistenciaInstituciones;
@@ -53,7 +56,7 @@ public class AdministrarInstituciones implements AdministrarInstitucionesInterfa
                 persistenciaInstituciones.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarInstituciones.crear : " + e.toString());
+            log.warn("Error en AdministrarInstituciones.crear : " + e.toString());
         }
     }
 
@@ -64,7 +67,7 @@ public class AdministrarInstituciones implements AdministrarInstitucionesInterfa
                 persistenciaInstituciones.editar(em, listaEditar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarInstituciones.editar : " + e.toString());
+            log.warn("Error en AdministrarInstituciones.editar : " + e.toString());
         }
     }
 
@@ -75,7 +78,7 @@ public class AdministrarInstituciones implements AdministrarInstitucionesInterfa
                 persistenciaInstituciones.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarInstituciones.borrar : " + e.toString());
+            log.warn("Error en AdministrarInstituciones.borrar : " + e.toString());
         }
     }
 }

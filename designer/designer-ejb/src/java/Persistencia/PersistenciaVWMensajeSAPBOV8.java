@@ -3,9 +3,9 @@ package Persistencia;
 import Entidades.VWMensajeSAPBOV8;
 import InterfacePersistencia.PersistenciaVWMensajeSAPBOV8Interface;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -13,7 +13,9 @@ import javax.persistence.Query;
  * @author Administrador
  */
 @Stateless
-public class PersistenciaVWMensajeSAPBOV8 implements PersistenciaVWMensajeSAPBOV8Interface{
+public class PersistenciaVWMensajeSAPBOV8 implements PersistenciaVWMensajeSAPBOV8Interface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWMensajeSAPBOV8.class);
 
     @Override
     public List<VWMensajeSAPBOV8> buscarListaErroresSAPBOV8(EntityManager em) {
@@ -28,7 +30,7 @@ public class PersistenciaVWMensajeSAPBOV8 implements PersistenciaVWMensajeSAPBOV
             List<VWMensajeSAPBOV8> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarListaErroresSAPBOV8 PersistenciaVWMensajesAPBOV8 : " + e.getMessage());
+            log.error("Error buscarListaErroresSAPBOV8 PersistenciaVWMensajesAPBOV8 : " + e.getMessage());
             return null;
         }
     }

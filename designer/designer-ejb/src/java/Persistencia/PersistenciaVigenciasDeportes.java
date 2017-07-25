@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDeportesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasDeportes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             em.persist(vigenciasDeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             em.merge(vigenciasDeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             em.remove(em.merge(vigenciasDeportes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -94,7 +96,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.deportePersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.deportePersona" + e.getMessage());
             return null;
         }
     }
@@ -109,7 +111,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             List<VigenciasDeportes> listaVigenciasDeportes = queryFinal.getResultList();
             return listaVigenciasDeportes;
         } catch (Exception e) {
-            System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
+            log.error("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
             return null;
         }
     }
@@ -129,7 +131,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             deporte = (String) query.getSingleResult();
             return deporte;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasDeportes.consultarPrimerDeporte()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasDeportes.consultarPrimerDeporte()" + e.getMessage());
             deporte = "";
             return deporte;
         }

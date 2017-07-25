@@ -36,6 +36,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -43,6 +44,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEvalCompetenciaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNReporteEvalCompetencia.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -108,7 +111,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             }
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -119,7 +122,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioCapacitacion(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e);
+            log.warn("Error listInforeportesUsuario " + e);
             return null;
         }
     }
@@ -130,7 +133,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Administrar : " + e.toString());
+            log.warn("Error listEmpresas Administrar : " + e.toString());
             return null;
         }
     }
@@ -139,10 +142,10 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
     public List<Empleados> listEmpleados() {
         try {
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
-            System.out.println(this.getClass().getName() + ".listEmpleados() fin.");
+            log.warn(this.getClass().getName() + ".listEmpleados() fin.");
             return listEmpleados;
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error " + e.toString());
+            log.warn(this.getClass().getName() + " error " + e.toString());
             return null;
         }
     }
@@ -153,7 +156,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listEstructuras = persistenciaEstructuras.buscarEstructuras(em);
             return listEstructuras;
         } catch (Exception e) {
-            System.out.println("Error listEstructuras : " + e.toString());
+            log.warn("Error listEstructuras : " + e.toString());
             return null;
         }
     }
@@ -163,7 +166,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
         try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosReportes : " + e.toString());
+            log.warn("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -174,7 +177,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 
@@ -184,7 +187,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listPlanillas = persistenciaPlanillas.consultarEvalPlanilla(em);
             return listPlanillas;
         } catch (Exception e) {
-            System.out.println("Error listConvocatorias Administrar : " + e.toString());
+            log.warn("Error listConvocatorias Administrar : " + e.toString());
             return null;
         }
     }
@@ -195,7 +198,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listEvaluadores = persistenciaEvaluadores.buscarEvalEvaluadores(em);
             return listEvaluadores;
         } catch (Exception e) {
-            System.out.println("Error listConvocatorias Administrar : " + e.toString());
+            log.warn("Error listConvocatorias Administrar : " + e.toString());
             return null;
         }
     }
@@ -206,7 +209,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listConvocatorias = persistenciaConvocatorias.consultarEvalConvocatorias(em, secEmpleado);
             return listConvocatorias;
         } catch (Exception e) {
-            System.out.println("Error listConvocatorias Administrar : " + e.toString());
+            log.warn("Error listConvocatorias Administrar : " + e.toString());
             return null;
         }
 
@@ -218,7 +221,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
             listConvocatorias = persistenciaConvocatorias.consultarEvalConvocatorias(em);
             return listConvocatorias;
         } catch (Exception e) {
-            System.out.println("Error listConvocatorias Administrar : " + e.toString());
+            log.warn("Error listConvocatorias Administrar : " + e.toString());
             return null;
         }
 

@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEvalDimensiones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEvalDimensiones.class);
 
    @EJB
    AdministrarEvalDimensionesInterface administrarEvalDimensiones;
@@ -132,14 +135,14 @@ public class ControlEvalDimensiones implements Serializable {
          administrarEvalDimensiones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlMotivosLocalizaciones.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlMotivosLocalizaciones.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -147,7 +150,7 @@ public class ControlEvalDimensiones implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarEvalDimensiones.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlMotivosLocalizaciones eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlMotivosLocalizaciones eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
@@ -155,7 +158,7 @@ public class ControlEvalDimensiones implements Serializable {
    private Integer backupCodigo;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -169,25 +172,25 @@ public class ControlEvalDimensiones implements Serializable {
             backupDescripcion = filtrarEvalDimensiones.get(index).getDescripcion();
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlEvalDimensiones.asignarIndex \n");
+         log.info("\n ENTRE A ControlEvalDimensiones.asignarIndex \n");
          index = indice;
          RequestContext context = RequestContext.getCurrentInstance();
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlEvalDimensiones.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlEvalDimensiones.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -279,11 +282,11 @@ public class ControlEvalDimensiones implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalDimension:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosEvalDimension");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosEvalDimension:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalDimension:descripcion");
@@ -296,20 +299,20 @@ public class ControlEvalDimensiones implements Serializable {
    }
 
    public void modificarEvalDimensiones(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR EVALDIMENSIONES");
+      log.error("ENTRE A MODIFICAR EVALDIMENSIONES");
       int contador = 0;
       boolean banderita = false;
       boolean banderita1 = false;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearEvalDimensiones.contains(listEvalDimensiones.get(indice))) {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listEvalDimensiones.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -368,8 +371,8 @@ public class ControlEvalDimensiones implements Serializable {
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listEvalDimensiones.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -543,17 +546,17 @@ public class ControlEvalDimensiones implements Serializable {
 
    public void verificarBorrado() {
       try {
-         System.out.println("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-         System.out.println("secuencia borrado : " + listEvalDimensiones.get(index).getSecuencia());
+         log.info("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
+         log.info("secuencia borrado : " + listEvalDimensiones.get(index).getSecuencia());
          if (tipoLista == 0) {
-            System.out.println("secuencia borrado : " + listEvalDimensiones.get(index).getSecuencia());
+            log.info("secuencia borrado : " + listEvalDimensiones.get(index).getSecuencia());
             verificarTablasAuxilios = administrarEvalDimensiones.verificarEvalPlanillas(listEvalDimensiones.get(index).getSecuencia());
          } else {
-            System.out.println("secuencia borrado : " + filtrarEvalDimensiones.get(index).getSecuencia());
+            log.info("secuencia borrado : " + filtrarEvalDimensiones.get(index).getSecuencia());
             verificarTablasAuxilios = administrarEvalDimensiones.verificarEvalPlanillas(filtrarEvalDimensiones.get(index).getSecuencia());
          }
          if (!verificarTablasAuxilios.equals(new BigInteger("0"))) {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -563,11 +566,11 @@ public class ControlEvalDimensiones implements Serializable {
             verificarTablasAuxilios = new BigInteger("-1");
 
          } else {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoEvalDimensiones();
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
       }
    }
 
@@ -576,7 +579,7 @@ public class ControlEvalDimensiones implements Serializable {
       if (index >= 0) {
 
          if (tipoLista == 0) {
-            System.out.println("Entro a borrardatosEvalDimensiones");
+            log.info("Entro a borrardatosEvalDimensiones");
             if (!modificarEvalDimensiones.isEmpty() && modificarEvalDimensiones.contains(listEvalDimensiones.get(index))) {
                int modIndex = modificarEvalDimensiones.indexOf(listEvalDimensiones.get(index));
                modificarEvalDimensiones.remove(modIndex);
@@ -590,7 +593,7 @@ public class ControlEvalDimensiones implements Serializable {
             listEvalDimensiones.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrardatosEvalDimensiones ");
+            log.info("borrardatosEvalDimensiones ");
             if (!modificarEvalDimensiones.isEmpty() && modificarEvalDimensiones.contains(filtrarEvalDimensiones.get(index))) {
                int modIndex = modificarEvalDimensiones.indexOf(filtrarEvalDimensiones.get(index));
                modificarEvalDimensiones.remove(modIndex);
@@ -622,15 +625,15 @@ public class ControlEvalDimensiones implements Serializable {
    }
 
    /*public void verificarBorrado() {
-     System.out.println("Estoy en verificarBorrado");
+     log.info("Estoy en verificarBorrado");
      try {
      borradoVC = administrarMotivosCambiosCargos.verificarBorradoVC(listMotivosLocalizaciones.get(index).getSecuencia());
      if (borradoVC.intValue() == 0) {
-     System.out.println("Borrado==0");
+     log.info("Borrado==0");
      borrarMotivosCambiosCargos();
      }
      if (borradoVC.intValue() != 0) {
-     System.out.println("Borrado>0");
+     log.info("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -640,14 +643,14 @@ public class ControlEvalDimensiones implements Serializable {
      }
 
      } catch (Exception e) {
-     System.err.println("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+     log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
      }
      }*/
    public void guardarEvalDimensiones() {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando Operaciones EvalDimensiones");
+         log.info("Realizando Operaciones EvalDimensiones");
          if (!borrarEvalDimensiones.isEmpty()) {
             administrarEvalDimensiones.borrarEvalDimensiones(borrarEvalDimensiones);
             //mostrarBorrados
@@ -664,7 +667,7 @@ public class ControlEvalDimensiones implements Serializable {
             administrarEvalDimensiones.modificarEvalDimensiones(modificarEvalDimensiones);
             modificarEvalDimensiones.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listEvalDimensiones = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -688,7 +691,7 @@ public class ControlEvalDimensiones implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -705,7 +708,7 @@ public class ControlEvalDimensiones implements Serializable {
    }
 
    public void agregarNuevoEvalDimension() {
-      System.out.println("Agregar EvalDimensiones");
+      log.info("Agregar EvalDimensiones");
       int contador = 0;
       int duplicados = 0;
 
@@ -715,42 +718,42 @@ public class ControlEvalDimensiones implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoEvalDimension.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEvalDimension.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoEvalDimension.getCodigo());
 
          for (int x = 0; x < listEvalDimensiones.size(); x++) {
             if (listEvalDimensiones.get(x).getCodigo().equals(nuevoEvalDimension.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoEvalDimension.getDescripcion() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvalDimension:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalDimension:descripcion");
@@ -760,7 +763,7 @@ public class ControlEvalDimensiones implements Serializable {
             filtrarEvalDimensiones = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          //AGREGAR REGISTRO A LA LISTA VIGENCIAS CARGOS EMPLEADO.
          k++;
@@ -779,12 +782,12 @@ public class ControlEvalDimensiones implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         System.out.println("Despues de la bandera guardado");
+         log.info("Despues de la bandera guardado");
 
          RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEvalDimensiones').hide()");
          index = -1;
          secRegistro = null;
-         System.out.println("Despues de nuevoRegistroEvalDimensiones");
+         log.info("Despues de nuevoRegistroEvalDimensiones");
 
       } else {
          RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
@@ -794,7 +797,7 @@ public class ControlEvalDimensiones implements Serializable {
    }
 
    public void limpiarNuevoEvalDimension() {
-      System.out.println("limpiarnuevoEvalDimensiones");
+      log.info("limpiarnuevoEvalDimensiones");
       nuevoEvalDimension = new EvalDimensiones();
       secRegistro = null;
       index = -1;
@@ -803,7 +806,7 @@ public class ControlEvalDimensiones implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicarEvalDimensiones() {
-      System.out.println("duplicarEvalDimensiones");
+      log.info("duplicarEvalDimensiones");
       if (index >= 0) {
          duplicarEvalDimension = new EvalDimensiones();
          k++;
@@ -829,19 +832,19 @@ public class ControlEvalDimensiones implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR EvalDimensiones");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR EvalDimensiones");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarEvalDimension.getCodigo());
-      System.err.println("ConfirmarDuplicar descripcion " + duplicarEvalDimension.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarEvalDimension.getCodigo());
+      log.error("ConfirmarDuplicar descripcion " + duplicarEvalDimension.getDescripcion());
 
       if (duplicarEvalDimension.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listEvalDimensiones.size(); x++) {
             if (listEvalDimensiones.get(x).getCodigo().equals(duplicarEvalDimension.getCodigo())) {
@@ -850,27 +853,27 @@ public class ControlEvalDimensiones implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarEvalDimension.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarEvalDimension.getSecuencia() + "  " + duplicarEvalDimension.getCodigo());
+         log.info("Datos Duplicando: " + duplicarEvalDimension.getSecuencia() + "  " + duplicarEvalDimension.getCodigo());
          if (crearEvalDimensiones.contains(duplicarEvalDimension)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listEvalDimensiones.add(duplicarEvalDimension);
          crearEvalDimensiones.add(duplicarEvalDimension);
@@ -931,12 +934,12 @@ public class ControlEvalDimensiones implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listEvalDimensiones.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "EVALDIMENSIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

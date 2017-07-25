@@ -29,6 +29,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlUsuariosContratos")
 @SessionScoped
 public class ControlUsuariosContratos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUsuariosContratos.class);
 
     @EJB
     AdministrarUsuariosContratosInterface administrarUsuariosContratos;
@@ -113,8 +116,8 @@ public class ControlUsuariosContratos implements Serializable {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 

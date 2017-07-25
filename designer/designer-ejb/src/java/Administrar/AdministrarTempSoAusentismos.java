@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTempSoAusentismos.class);
 
    @EJB
    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
@@ -99,7 +102,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
          Generales general = persistenciaGenerales.obtenerRutas(em);
          return general.getUbicareportes();
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCargueArchivos.consultarRuta() e : " + e);
+         log.warn("ERROR Administrar.AdministrarCargueArchivos.consultarRuta() e : " + e);
          return "C:\\DesignerRHN\\Reportes\\ArchivosPlanos\\";
       }
    }

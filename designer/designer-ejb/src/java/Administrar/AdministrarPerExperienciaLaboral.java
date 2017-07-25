@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienciaLaboralInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPerExperienciaLaboral.class);
 
     @EJB
     PersistenciaHvExperienciasLaboralesInterface persistenciaHvExperienciasLaborales;
@@ -60,7 +63,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
             Empleados empl = persistenciaEmpleado.buscarEmpleado(em, secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }
@@ -71,7 +74,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
             List<SectoresEconomicos> retorno = persistenciaSectoresEconomicos.buscarSectoresEconomicos(em);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listSectoresEconomicos Admi : " + e.toString());
+            log.warn("Error listSectoresEconomicos Admi : " + e.toString());
             return null;
         }
     }
@@ -82,7 +85,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
             List<MotivosRetiros> retorno = persistenciaMotivosRetiros.consultarMotivosRetiros(em);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listMotivosRetiros Admi : " + e.toString());
+            log.warn("Error listMotivosRetiros Admi : " + e.toString());
             return null;
         }
     }
@@ -105,7 +108,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
                 persistenciaHvExperienciasLaborales.crear(em, listHEL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearExperienciaLaboral Admi : " + e.toString());
+            log.warn("Error crearExperienciaLaboral Admi : " + e.toString());
         }
     }
 
@@ -127,7 +130,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
                 persistenciaHvExperienciasLaborales.editar(em, listHEL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarExperienciaLaboral Admi : " + e.toString());
+            log.warn("Error editarExperienciaLaboral Admi : " + e.toString());
         }
     }
 
@@ -144,7 +147,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
                 persistenciaHvExperienciasLaborales.borrar(em, listHEL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarExperienciaLaboral Admi : " + e.toString());
+            log.warn("Error borrarExperienciaLaboral Admi : " + e.toString());
         }
     }
 
@@ -154,7 +157,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
             List<HvExperienciasLaborales> retorno = persistenciaHvExperienciasLaborales.experienciasLaboralesSecuenciaEmpleado(em, secuencia);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listExperienciasLaboralesSecuenciaEmpleado Admi : " + e.toString());
+            log.warn("Error listExperienciasLaboralesSecuenciaEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -165,7 +168,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
             HVHojasDeVida hojaVida = persistenciaHVHojasDeVida.hvHojaDeVidaPersona(em, secuencia);
             return hojaVida;
         } catch (Exception e) {
-            System.out.println("Error obtenerHojaVidaPersona Admi : " + e.toString());
+            log.warn("Error obtenerHojaVidaPersona Admi : " + e.toString());
             return null;
         }
     }

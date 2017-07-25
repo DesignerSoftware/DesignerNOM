@@ -1128,7 +1128,6 @@ public class AportesCorrecciones implements Serializable {
     }
 
     public void setBing(boolean bing) {
-//        System.out.println("entró a set bing : " + bing);
         this.bing = bing;
         if (bing == true) {
             ing = "X";

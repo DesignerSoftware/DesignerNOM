@@ -11,6 +11,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,59 +23,71 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ControlListaNavegacion implements Serializable {
 
-    private List<String> listaPaginasAnteriores = new ArrayList<String>();
-    private String paginaActual = "1";
+   private static Logger log = Logger.getLogger(ControlListaNavegacion.class);
 
-    /**
-     * Creates a new instance of ControlListaNavegacion
-     */
-    public ControlListaNavegacion() {
-        listaPaginasAnteriores.add("iniciored");
-    }
+   private List<String> listaPaginasAnteriores = new ArrayList<String>();
+   private String paginaActual = "1";
 
-    public String guardarNavegacion(String pagActual, String pagDestino) {
-        try {
-            if (pagActual.equals("nominaf")) {
-                listaPaginasAnteriores.clear();
-                listaPaginasAnteriores.add("iniciored");
-            } else if (!pagActual.equals(paginaActual) && !paginaActual.equals("1")) {
-                adicionarPagina("nominaf");
-            }
-            paginaActual = pagDestino;
-            adicionarPagina(pagActual);
-        } catch (Exception e) {
-            System.out.println("ControlListaNavegacion.guardarNavegacion() ERROR : " + e);
-            pagDestino = "nominaf";
-        }
-        return pagDestino;
-    }
+   /**
+    * Creates a new instance of ControlListaNavegacion
+    */
+   public ControlListaNavegacion() {
+      listaPaginasAnteriores.add("iniciored");
+   }
 
-    public void adicionarPagina(String pag) {
-        listaPaginasAnteriores.add(pag);
-        System.out.println("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
-    }
+   public String guardarNavegacion(String pagActual, String pagDestino) {
+      try {
+         if (pagActual.equals("nominaf")) {
+            listaPaginasAnteriores.clear();
+            listaPaginasAnteriores.add("iniciored");
+         } else if (!pagActual.equals(paginaActual) && !paginaActual.equals("1")) {
+            adicionarPagina("nominaf");
+         }
+         paginaActual = pagDestino;
+         adicionarPagina(pagActual);
+      } catch (Exception e) {
+         log.error("ControlListaNavegacion.guardarNavegacion() ERROR : " + e);
+         pagDestino = "nominaf";
+      }
+      return pagDestino;
+   }
 
-    public void quitarPagina(String pagParametro) {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        System.out.println("quitarPagina(pag) : " + pagParametro + ", paginaActual : " + paginaActual);
-        if (paginaActual.equals(pagParametro)) {
-            if (listaPaginasAnteriores.size() > 1) {
-                paginaActual = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
-                listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-            }
-            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, paginaActual);
-        } else {
-            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "nominaf");
-        }
-        System.out.println("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
-    }
+   public void adicionarPagina(String pag) {
+      listaPaginasAnteriores.add(pag);
+      log.info("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
+   }
 
-    public List<String> getListaPaginasAnteriores() {
-        return listaPaginasAnteriores;
-    }
+   public void quitarPagina(String pagParametro) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+//      log.info("quitarPagina(pag) : " + pagParametro + ", paginaActual : " + paginaActual);
+      if (paginaActual.equals(pagParametro)) {
+         if (listaPaginasAnteriores.size() > 1) {
+            paginaActual = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
+            listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
+         }
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, paginaActual);
+      } else {
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "nominaf");
+      }
+      log.info("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
+   }
 
-    public void setListaPaginasAnteriores(List<String> listaPaginasAnteriores) {
-        this.listaPaginasAnteriores = listaPaginasAnteriores;
-    }
+   public void matarPagina(String nombrePagina) {
+      try {
+         //nombrePagina = nombre del controlador empezando en minuuscula
+         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(nombrePagina, null);
+         log.warn("ControlListaNavegacion.matarPagina() : " + nombrePagina + " : YA");
+      } catch (Exception e) {
+         log.error("ControlListaNavegacion.matarPagina() e: " + e);
+      }
+   }
+
+   public List<String> getListaPaginasAnteriores() {
+      return listaPaginasAnteriores;
+   }
+
+   public void setListaPaginasAnteriores(List<String> listaPaginasAnteriores) {
+      this.listaPaginasAnteriores = listaPaginasAnteriores;
+   }
 
 }

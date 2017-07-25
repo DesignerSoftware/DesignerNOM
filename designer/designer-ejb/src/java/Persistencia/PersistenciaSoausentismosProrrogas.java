@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -18,7 +18,9 @@ import javax.persistence.Query;
  * <strong>Entidad Virtual</strong>
  */
 @Stateless
-public class PersistenciaSoausentismosProrrogas implements PersistenciaSoausentismosProrrogasInterface{
+public class PersistenciaSoausentismosProrrogas implements PersistenciaSoausentismosProrrogasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSoausentismosProrrogas.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -48,7 +50,7 @@ public class PersistenciaSoausentismosProrrogas implements PersistenciaSoausenti
             return prorrogas;
 
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaSoausentismosProrrogas.prorrogas()"+ e.getMessage());
+            log.error("Persistencia.PersistenciaSoausentismosProrrogas.prorrogas()"+ e.getMessage());
             return null;
         }
     }

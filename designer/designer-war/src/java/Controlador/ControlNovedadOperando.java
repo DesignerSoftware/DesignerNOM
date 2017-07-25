@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadOperando implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadOperando.class);
 
    @EJB
    AdministrarNovedadesOperandosInterface administrarNovedadesOperandos;
@@ -158,8 +161,8 @@ public class ControlNovedadOperando implements Serializable {
          administrarNovedadesOperandos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -215,7 +218,7 @@ public class ControlNovedadOperando implements Serializable {
       if (dlg == 0) {
          lovListaOperandos.clear();
          lovListaOperandos.add(operando);
-         System.out.println("Operando en asignar Index" + operando);
+         log.info("Operando en asignar Index" + operando);
          RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
          RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
       }
@@ -226,7 +229,7 @@ public class ControlNovedadOperando implements Serializable {
       if (dlg == 0) {
          lovListaOperandos.clear();
          lovListaOperandos.add(operando);
-         System.out.println("Operando en asignar Index" + operando);
+         log.info("Operando en asignar Index" + operando);
          RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
          RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
       }
@@ -325,8 +328,8 @@ public class ControlNovedadOperando implements Serializable {
 
    public void restaurarTabla() {
       altoTabla = "275";
-      System.out.println("Desactivar");
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("Desactivar");
+      log.info("TipoLista= " + tipoLista);
       novedadesOperandosNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNovedadesOperandos:novedadesOperandosNombre");
       novedadesOperandosNombre.setFilterStyle("display: none; visibility: hidden;");
       RequestContext.getCurrentInstance().update("form:datosNovedadesOperandos");
@@ -364,7 +367,7 @@ public class ControlNovedadOperando implements Serializable {
    public void editarCelda() {
       if (novedadOpeSeleccionada != null) {
          editarNovedadesOperandos = novedadOpeSeleccionada;
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarOperandos");
             RequestContext.getCurrentInstance().execute("PF('editarOperandos').show()");
@@ -426,18 +429,18 @@ public class ControlNovedadOperando implements Serializable {
       if (guardado == false) {
          if (!listaNovedadesOperandosBorrar.isEmpty()) {
             for (int i = 0; i < listaNovedadesOperandosBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaNovedadesOperandosBorrar.size());
+               log.info("Borrando..." + listaNovedadesOperandosBorrar.size());
                administrarNovedadesOperandos.borrarNovedadesOperandos(listaNovedadesOperandosBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaNovedadesOperandosBorrar.clear();
          }
          if (!listaNovedadesOperandosCrear.isEmpty()) {
             for (int i = 0; i < listaNovedadesOperandosCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                administrarNovedadesOperandos.crearNovedadesOperandos(listaNovedadesOperandosCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaNovedadesOperandosCrear.clear();
          }
          if (!listaNovedadesOperandosModificar.isEmpty()) {
@@ -461,7 +464,7 @@ public class ControlNovedadOperando implements Serializable {
    public void verificarRastro() {
       if (novedadOpeSeleccionada != null) {
          int result = administrarRastros.obtenerTabla(novedadOpeSeleccionada.getSecuencia(), "NOVEDADESOPERANDOS");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -554,7 +557,7 @@ public class ControlNovedadOperando implements Serializable {
          k++;
          l = BigInteger.valueOf(k);
          nuevoNovedadOperando.setSecuencia(l);
-         System.out.println("Operando: " + operando);
+         log.info("Operando: " + operando);
          nuevoNovedadOperando.setOperando(operando);
 
          cambiosPagina = false;

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarReingresarEmpleado implements AdministrarReingresarEmpleadoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarReingresarEmpleado.class);
 
    @EJB
    PersistenciaPersonasInterface persistenciaPersonas;
@@ -54,7 +57,7 @@ public class AdministrarReingresarEmpleado implements AdministrarReingresarEmple
       try {
          persistenciaEmpleado.reingresarEmpleado(em, codigoEmpleado, centroCosto, fechaReingreso, empresa, fechaFinal);
       } catch (Exception e) {
-         System.out.println("ERROR - AdministrarReingresarEmpleado.reintegrarEmpleado() ERROR");
+         log.warn("ERROR - AdministrarReingresarEmpleado.reintegrarEmpleado() ERROR");
       }
    }
 

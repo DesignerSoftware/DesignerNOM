@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesFormasPagosInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -17,7 +17,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaVWActualesFormasPagos implements PersistenciaVWActualesFormasPagosInterface{
+public class PersistenciaVWActualesFormasPagos implements PersistenciaVWActualesFormasPagosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesFormasPagos.class);
 
     public VWActualesFormasPagos buscarFormaPago(EntityManager em, BigInteger secuencia) {
         try {
@@ -28,7 +30,7 @@ public class PersistenciaVWActualesFormasPagos implements PersistenciaVWActuales
             VWActualesFormasPagos actualesFormasPagos = (VWActualesFormasPagos) query.getSingleResult();
             return actualesFormasPagos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesFormasPagos.buscarFormaPago()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesFormasPagos.buscarFormaPago()" + e.getMessage());
             return null;
         }
     }

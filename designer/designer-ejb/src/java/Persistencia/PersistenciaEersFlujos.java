@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -15,7 +16,9 @@ import javax.persistence.Query;
  * @author Administrador
  */
 @Stateless
-public class PersistenciaEersFlujos implements PersistenciaEersFlujosInterface{
+public class PersistenciaEersFlujos implements PersistenciaEersFlujosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEersFlujos.class);
 
     @Override
     public List<EersFlujos> buscarEersFlujosPorEersCabecera(EntityManager em, BigInteger secuencia) {
@@ -27,7 +30,7 @@ public class PersistenciaEersFlujos implements PersistenciaEersFlujosInterface{
             List<EersFlujos> eersCabeceras = query.getResultList();
             return eersCabeceras;
         } catch (Exception e) {
-            System.out.println("Error buscarEersFlujosPorEersCabecera PersistenciaEersFlujos " + e.toString());
+            log.error("Error buscarEersFlujosPorEersCabecera PersistenciaEersFlujos " + e.toString());
             return null;
         }
     }

@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNReporteLaboral.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -69,7 +72,7 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
             parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -80,19 +83,19 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioLaboral(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e);
+            log.warn("Error listInforeportesUsuario " + e);
             return null;
         }
     }
     
     @Override
     public void modificarParametrosReportes(ParametrosReportes parametroInforme){
-        System.out.println("Administrar.AdministrarNReporteLaboral.modificarParametrosReportes()");
+        log.warn("Administrar.AdministrarNReporteLaboral.modificarParametrosReportes()");
         try{
-            System.out.println("Ingrese al try");
+            log.warn("Ingrese al try");
             persistenciaParametrosReportes.editar(em, parametroInforme);
         }catch(Exception e){
-            System.out.println("Error modificarParametrosReportes : "+e.toString());
+            log.warn("Error modificarParametrosReportes : "+e.toString());
         }
     }
     
@@ -102,7 +105,7 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
             listCargos = persistenciaCargos.consultarCargos(em);
             return listCargos;
         }catch(Exception e){
-            System.out.println("Error en listCargos Administrar: "+e.toString());
+            log.warn("Error en listCargos Administrar: "+e.toString());
             return null;
         }
     }
@@ -113,7 +116,7 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
             return listEmpleados;
         }catch(Exception e){
-            System.out.println("Error listEmpleados : "+e.toString());
+            log.warn("Error listEmpleados : "+e.toString());
             return null;
         }
     }
@@ -124,23 +127,23 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
             listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Administrar : " + e.toString());
+            log.warn("Error listEmpresas Administrar : " + e.toString());
             return null;
         }
     }
     
      @Override 
     public void guardarCambiosInfoReportes(List<Inforeportes> listaIR) {
-         System.out.println("Administrar.AdministrarNReporteLaboral.guardarCambiosInfoReportes()");
+         log.warn("Administrar.AdministrarNReporteLaboral.guardarCambiosInfoReportes()");
         try {
-            System.out.println("Ingrese al try... listaIR: " + listaIR);
+            log.warn("Ingrese al try... listaIR: " + listaIR);
             for (int i = 0; i < listaIR.size(); i++) {
-                System.out.println("listaIR.get(i): " + listaIR.get(i));
+                log.warn("listaIR.get(i): " + listaIR.get(i));
                 persistenciaInforeportes.editar(em, listaIR.get(i));
-//                System.out.println("listaIR.get(i): " + listaIR.get(i));                
+//                log.warn("listaIR.get(i): " + listaIR.get(i));                
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 }

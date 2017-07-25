@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlGrupoSalarial implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlGrupoSalarial.class);
 
    @EJB
    AdministrarGrupoSalarialInterface administrarGrupoSalarial;
@@ -203,8 +206,8 @@ public class ControlGrupoSalarial implements Serializable {
          administrarGrupoSalarial.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -370,7 +373,7 @@ public class ControlGrupoSalarial implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosGrupoSalarial : " + e.toString());
+         log.warn("Error guardarCambiosGrupoSalarial : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Grupo Salarial, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -408,7 +411,7 @@ public class ControlGrupoSalarial implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosGrupoSalarial : " + e.toString());
+         log.warn("Error guardarCambiosGrupoSalarial : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Vigencia Grupo Salarial, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -555,7 +558,7 @@ public class ControlGrupoSalarial implements Serializable {
       } else {
          contador++;
       }
-      System.out.println("contador : " + contador);
+      log.info("contador : " + contador);
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -621,7 +624,7 @@ public class ControlGrupoSalarial implements Serializable {
       } else {
          contador++;
       }
-      System.out.println("contador : " + contador);
+      log.info("contador : " + contador);
       if (contador == 2) {
          if (banderaVGS == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -739,7 +742,7 @@ public class ControlGrupoSalarial implements Serializable {
          contador++;
       }
 
-      System.out.println("contador : " + contador);
+      log.info("contador : " + contador);
       if (contador == 2) {
          k++;
          l = BigInteger.valueOf(k);
@@ -802,7 +805,7 @@ public class ControlGrupoSalarial implements Serializable {
       } else {
          contador++;
       }
-      System.out.println("contador : " + contador);
+      log.info("contador : " + contador);
       if (contador == 2) {
          duplicarVigenciaGrupoSalarial.setGruposalarial(grupoSalarialTablaSeleccionada);
          if (listVigenciasGruposSalariales == null) {
@@ -1190,7 +1193,7 @@ public class ControlGrupoSalarial implements Serializable {
          }
          return listGruposSalariales;
       } catch (Exception e) {
-         System.out.println("Error...!! getListGruposSalariales : " + e.toString());
+         log.warn("Error...!! getListGruposSalariales : " + e.toString());
          return null;
       }
    }

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosMvrs implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosMvrs.class);
 
     @EJB
     AdministrarMotivosMvrsInterface administrarMotivosMvrs;
@@ -134,8 +137,8 @@ public class ControlMotivosMvrs implements Serializable {
             administrarMotivosMvrs.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -160,17 +163,17 @@ public class ControlMotivosMvrs implements Serializable {
 
     public void cambiarIndice(Motivosmvrs mmvr, int celda) {
         motivoMvrSeleccionada = mmvr;
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
 
         if (permitirIndex == true) {
             cualCelda = celda;
             if (cualCelda == 0) {
                 backUpCodigo = motivoMvrSeleccionada.getCodigo();
-                System.out.println("BACKUPCODIGO " + backUpCodigo);
+                log.info("BACKUPCODIGO " + backUpCodigo);
             }
             if (cualCelda == 1) {
                 backUpDescripcion = motivoMvrSeleccionada.getNombre();
-                System.out.println("BACKUPDESCRIPCION " + backUpDescripcion);
+                log.info("BACKUPDESCRIPCION " + backUpDescripcion);
             }
         }
     }
@@ -251,11 +254,11 @@ public class ControlMotivosMvrs implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             tamano = 330;
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
@@ -283,7 +286,7 @@ public class ControlMotivosMvrs implements Serializable {
 
     public void borrarMotivosMvrs() {
         if (motivoMvrSeleccionada != null) {
-            System.out.println("Entro a borrarNormasLaborales");
+            log.info("Entro a borrarNormasLaborales");
             if (!modificarMotivoMvrs.isEmpty() && modificarMotivoMvrs.contains(motivoMvrSeleccionada)) {
                 modificarMotivoMvrs.remove(motivoMvrSeleccionada);
                 borrarMotivoMvrs.add(motivoMvrSeleccionada);
@@ -310,15 +313,15 @@ public class ControlMotivosMvrs implements Serializable {
     }
 
     /* public void verificarBorrado() {
-     System.out.println("Estoy en verificarBorrado");
+     log.info("Estoy en verificarBorrado");
      try {
      borradoVC = administrarNormasLaborales.verificarBorradoVNE(listNormasLaborales.get(index).getSecuencia());
      if (borradoVC.intValue() == 0) {
-     System.out.println("Borrado==0");
+     log.info("Borrado==0");
      borrarNormasLaborales();
      }
      if (borradoVC.intValue() != 0) {
-     System.out.println("Borrado>0");
+     log.info("Borrado>0");
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -328,13 +331,13 @@ public class ControlMotivosMvrs implements Serializable {
      }
 
      } catch (Exception e) {
-     System.err.println("ERROR ControlNormasLaborales verificarBorrado ERROR " + e);
+     log.error("ERROR ControlNormasLaborales verificarBorrado ERROR " + e);
      }
      }
      */
     public void guardarMotivosMvrs() {
         if (guardado == false) {
-            System.out.println("Realizando Motivos Mvrs");
+            log.info("Realizando Motivos Mvrs");
             if (!borrarMotivoMvrs.isEmpty()) {
                 administrarMotivosMvrs.borrarMotivosMvrs(borrarMotivoMvrs);
                 registrosBorrados = borrarMotivoMvrs.size();
@@ -348,7 +351,7 @@ public class ControlMotivosMvrs implements Serializable {
                 administrarMotivosMvrs.modificarMotivosMvrs(modificarMotivoMvrs);
                 modificarMotivoMvrs.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosMvrs = null;
             RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
             k = 0;
@@ -365,7 +368,7 @@ public class ControlMotivosMvrs implements Serializable {
             editarMotivosMvrs = motivoMvrSeleccionada;
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -379,7 +382,7 @@ public class ControlMotivosMvrs implements Serializable {
     }
 
     public void agregarNuevoMotivoMvrs() {
-        System.out.println("Agregar Norma Laboral");
+        log.info("Agregar Norma Laboral");
         int contador = 0;
         int duplicados = 0;
 
@@ -389,42 +392,42 @@ public class ControlMotivosMvrs implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoMotivoMvr.getCodigo() == a) {
             mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivoMvr.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivoMvr.getCodigo());
 
             for (int x = 0; x < listMotivosMvrs.size(); x++) {
                 if (listMotivosMvrs.get(x).getCodigo() == nuevoMotivoMvr.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivoMvr.getNombre() == (null) || nuevoMotivoMvr.getNombre().equals(" ") || nuevoMotivoMvr.getNombre().isEmpty()) {
             mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoMvr:descripcion");
@@ -434,7 +437,7 @@ public class ControlMotivosMvrs implements Serializable {
                 filtrarMotivosMvrs = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -461,14 +464,14 @@ public class ControlMotivosMvrs implements Serializable {
     }
 
     public void limpiarNuevoMotivoMvrs() {
-        System.out.println("limpiarNuevoMotivoMvrs");
+        log.info("limpiarNuevoMotivoMvrs");
         nuevoMotivoMvr = new Motivosmvrs();
 
     }
 
     //------------------------------------------------------------------------------
     public void duplicarMotivoMvrs() {
-        System.out.println("duplicarMotivoMvr");
+        log.info("duplicarMotivoMvr");
         if (motivoMvrSeleccionada != null) {
             duplicarMotivosMvrs = new Motivosmvrs();
             k++;
@@ -486,18 +489,18 @@ public class ControlMotivosMvrs implements Serializable {
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR CONTROLMOTIVOMVRS");
+        log.error("ESTOY EN CONFIRMAR DUPLICAR CONTROLMOTIVOMVRS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarMotivosMvrs.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarMotivosMvrs.getNombre());
+        log.error("ConfirmarDuplicar codigo " + duplicarMotivosMvrs.getCodigo());
+        log.error("ConfirmarDuplicar Descripcion " + duplicarMotivosMvrs.getNombre());
 
         if (duplicarMotivosMvrs.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listMotivosMvrs.size(); x++) {
                 if (listMotivosMvrs.get(x).getCodigo() == duplicarMotivosMvrs.getCodigo()) {
@@ -506,25 +509,25 @@ public class ControlMotivosMvrs implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarMotivosMvrs.getNombre() == (null) || duplicarMotivosMvrs.getNombre().isEmpty()) {
             mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
         if (contador == 2) {
-            System.out.println("Datos Duplicando: " + duplicarMotivosMvrs.getSecuencia() + "  " + duplicarMotivosMvrs.getCodigo());
+            log.info("Datos Duplicando: " + duplicarMotivosMvrs.getSecuencia() + "  " + duplicarMotivosMvrs.getCodigo());
             if (crearMotivoMvrs.contains(duplicarMotivosMvrs)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listMotivosMvrs.add(duplicarMotivosMvrs);
             crearMotivoMvrs.add(duplicarMotivosMvrs);

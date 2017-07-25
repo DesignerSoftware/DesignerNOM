@@ -35,6 +35,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
@@ -50,6 +51,8 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @SessionScoped
 public class ControlNReporteLaboral implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNReporteLaboral.class);
 
     @EJB
     AdministrarNReporteLaboralInterface administrarNReporteLaboral;
@@ -212,8 +215,8 @@ public class ControlNReporteLaboral implements Serializable {
             administarReportes.obtenerConexion(ses.getId());
             administrarInforeportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getMessage());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.info("Causa: " + e.getMessage());
         }
     }
 
@@ -291,7 +294,7 @@ public class ControlNReporteLaboral implements Serializable {
             }
             RequestContext.getCurrentInstance().update("formParametros");
         } catch (Exception ex) {
-            System.out.println("Error en selecccion Registro : " + ex.getMessage());
+            log.warn("Error en selecccion Registro : " + ex.getMessage());
         }
     }
 
@@ -347,7 +350,7 @@ public class ControlNReporteLaboral implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } catch (Exception e) {
-            System.out.println("Error en guardar Cambios Controlador : " + e.toString());
+            log.warn("Error en guardar Cambios Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -443,7 +446,7 @@ public class ControlNReporteLaboral implements Serializable {
             seleccionRegistro();
             generarDocumentoReporte();
         } catch (Exception e) {
-            System.out.println("error en generarReporte : " + e.getMessage());
+            log.warn("Error en generarReporte : " + e.getMessage());
         }
     }
 
@@ -464,10 +467,10 @@ public class ControlNReporteLaboral implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }
             } else {
-                System.out.println("Reporte Seleccionado es nulo");
+                log.info("Reporte Seleccionado es nulo");
             }
         } catch (Exception e) {
-            System.out.println("error generarDocumentoReporte() " + e.getMessage());
+            log.warn("Error generarDocumentoReporte() " + e.getMessage());
         }
     }
 
@@ -481,9 +484,9 @@ public class ControlNReporteLaboral implements Serializable {
                 } else {
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
                         RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
@@ -493,7 +496,7 @@ public class ControlNReporteLaboral implements Serializable {
                     }
                     if (reporte != null) {
                         if (inforreporteSeleccionado != null) {
-                            System.out.println("User Agent" + userAgent);
+                            log.info("User Agent" + userAgent);
                             if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                                 context.update("formDialogos:descargarReporte");
                                 context.execute("PF('descargarReporte').show();");
@@ -545,7 +548,7 @@ public class ControlNReporteLaboral implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
+            log.warn("Error mostrarDialogoBuscarReporte : " + e.toString());
         }
     }
 
@@ -617,9 +620,9 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void seleccionarTipoR(String tipo, Inforeportes reporte) {
-        System.out.println("inforreporteSeleccionado: " + inforreporteSeleccionado);
-        System.out.println("reporte: " + reporte);
-        System.out.println("tipo: " + tipo);
+        log.info("inforreporteSeleccionado: " + inforreporteSeleccionado);
+        log.info("reporte: " + reporte);
+        log.info("tipo: " + tipo);
         switch (tipo) {
             case "PDF":
                 inforreporteSeleccionado.setTipo("PDF");
@@ -1042,7 +1045,7 @@ public class ControlNReporteLaboral implements Serializable {
                 }
             }
         } else {
-            System.out.println("empleadoDesde, empleado hasta, fechadesde, fechahasta estan nulas");
+            log.info("empleadoDesde, empleado hasta, fechadesde, fechahasta estan nulas");
         }
     }
 
@@ -1073,7 +1076,7 @@ public class ControlNReporteLaboral implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("error en exportarReporte() " + e.getMessage());
+            log.warn("Error en exportarReporte() " + e.getMessage());
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -1181,7 +1184,7 @@ public class ControlNReporteLaboral implements Serializable {
 
             return parametroDeReporte;
         } catch (Exception e) {
-            System.out.println("Error getParametroDeInforme : " + e);
+            log.warn("Error getParametroDeInforme : " + e);
             return null;
         }
     }

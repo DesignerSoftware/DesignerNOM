@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-//import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -20,6 +20,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWAcumulados implements PersistenciaVWAcumuladosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWAcumulados.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -37,7 +39,7 @@ public class PersistenciaVWAcumulados implements PersistenciaVWAcumuladosInterfa
             List<VWAcumulados> VWAcumuladosPorEmpleado = query.getResultList();
             return VWAcumuladosPorEmpleado;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia VWAcumulados " + e.getMessage());
+            log.error("Error en Persistencia VWAcumulados " + e.getMessage());
             return null;
         }
     }

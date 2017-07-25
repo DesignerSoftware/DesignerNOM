@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposConclusiones implements AdministrarTiposConclusionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposConclusiones.class);
 
    @EJB
     PersistenciaTiposConclusionesInterface persistenciaTiposConclusiones;
@@ -43,7 +46,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
     @Override
     public void modificarTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
         for (int i = 0; i < listaTiposConclusiones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposConclusiones.editar(em, listaTiposConclusiones.get(i));
         }
     }
@@ -51,7 +54,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
     @Override
     public void borrarTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
         for (int i = 0; i < listaTiposConclusiones.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposConclusiones.borrar(em, listaTiposConclusiones.get(i));
         }
     }
@@ -59,7 +62,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
     @Override
     public void crearTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
         for (int i = 0; i < listaTiposConclusiones.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposConclusiones.crear(em, listaTiposConclusiones.get(i));
         }
     }
@@ -85,7 +88,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
         try {
             return contarProcesosTipoConclusion = persistenciaTiposConclusiones.contarChequeosMedicosTipoConclusion(em, secTiposConclusiones);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e);
+            log.error("ERROR AdministrarTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e);
             return null;
         }
     }

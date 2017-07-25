@@ -9,8 +9,8 @@ import Entidades.UsuariosTiposSueldos;
 import InterfacePersistencia.PersistenciaUsuariosTiposSueldosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTiposSueldosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosTiposSueldos.class);
+
     @Override
     public void crear(EntityManager em, UsuariosTiposSueldos usuariots) {
         em.clear();
@@ -30,7 +32,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosTiposSueldos.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +48,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosTiposSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +64,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             em.remove(em.merge(usuariots));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosTiposSueldos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             List<UsuariosTiposSueldos> usuariosTS = query.getResultList();
             return usuariosTS;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosTiposSueldos.buscarUsuariosTiposSueldos" + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.buscarUsuariosTiposSueldos" + e.getMessage());
             return null;
         }
     }

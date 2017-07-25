@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNormasLaborales.class);
 
     @EJB
     PersistenciaNormasLaboralesInterface persistenciaNormasLaborales;
@@ -41,7 +44,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
     @Override
     public void modificarNormasLaborales(List<NormasLaborales> listaNormasLaborales) {
         for (int i = 0; i < listaNormasLaborales.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaNormasLaborales.editar(em, listaNormasLaborales.get(i));
         }
     }
@@ -49,7 +52,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
     @Override
     public void borrarNormasLaborales(List<NormasLaborales> listaNormasLaborales) {
         for (int i = 0; i < listaNormasLaborales.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaNormasLaborales.borrar(em, listaNormasLaborales.get(i));
         }
     }
@@ -57,7 +60,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
     @Override
     public void crearNormasLaborales(List<NormasLaborales> listaNormasLaborales) {
         for (int i = 0; i < listaNormasLaborales.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaNormasLaborales.crear(em, listaNormasLaborales.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
         try {
             return verificadorVNE = persistenciaNormasLaborales.contarVigenciasNormasEmpleadosNormaLaboral(em, secuenciaNormasLaborales);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarNormasLaborales verificarBorradoVNE ERROR :" + e);
+            log.error("ERROR AdministrarNormasLaborales verificarBorradoVNE ERROR :" + e);
             return null;
         }
     }

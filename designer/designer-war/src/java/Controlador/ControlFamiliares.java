@@ -33,6 +33,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -46,6 +47,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlFamiliares")
 @SessionScoped
 public class ControlFamiliares implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlFamiliares.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -185,8 +188,8 @@ public class ControlFamiliares implements Serializable {
          administrarFamiliares.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -202,7 +205,6 @@ public class ControlFamiliares implements Serializable {
          }
       }
    }
-
 
    public void cambiarIndice(Familiares familiar, int celda) {
       if (permitirIndex == true) {
@@ -511,7 +513,7 @@ public class ControlFamiliares implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosFamiliares");
          deshabilitarBotonLov();
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1351,7 +1353,7 @@ public class ControlFamiliares implements Serializable {
          RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
          lovPersonas = null;
       } catch (Exception e) {
-         System.out.println("error crear persona " + e.getMessage());
+         log.warn("Error crear persona " + e.getMessage());
       }
    }
 
@@ -1667,6 +1669,6 @@ public class ControlFamiliares implements Serializable {
    }
 
    private void imprimir(String etiqueta, String texto) {
-      System.out.println(etiqueta + " " + texto);
+      log.info(etiqueta + " " + texto);
    }
 }

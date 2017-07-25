@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaGruposSalariales implements PersistenciaGruposSalarialesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGruposSalariales.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +40,7 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
          em.merge(gruposSalariales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposSalariales.crear: " + e);
+         log.error("Error PersistenciaGruposSalariales.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +56,7 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
          em.merge(gruposSalariales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposSalariales.crear: " + e);
+         log.error("Error PersistenciaGruposSalariales.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +75,7 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposSalariales.borrar: " + e);
+         log.error("Error PersistenciaGruposSalariales.borrar: " + e);
       }
    }
 
@@ -85,7 +88,7 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
          List<GruposSalariales> gruposSalariales = query.getResultList();
          return gruposSalariales;
       } catch (Exception e) {
-         System.out.println("Error buscarGruposSalariales PersistenciaGruposSalariales : " + e.toString());
+         log.error("Error buscarGruposSalariales PersistenciaGruposSalariales : " + e.toString());
          return null;
       }
    }
@@ -101,7 +104,7 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
          GruposSalariales gruposSalariales = (GruposSalariales) query.getSingleResult();
          return gruposSalariales;
       } catch (Exception e) {
-         System.out.println("Error buscarGrupoSalarialSecuencia PersistenciaGruposSalariales : " + e.toString());
+         log.error("Error buscarGrupoSalarialSecuencia PersistenciaGruposSalariales : " + e.toString());
          GruposSalariales gruposSalariales = null;
          return gruposSalariales;
       }
@@ -118,7 +121,7 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
          List<GruposSalariales> gruposSalariales = query.getResultList();
          return gruposSalariales;
       } catch (Exception e) {
-         System.out.println("Error buscarGruposSalarialesParaEscalafonSalarial PersistenciaGruposSalariales : " + e.toString());
+         log.error("Error buscarGruposSalarialesParaEscalafonSalarial PersistenciaGruposSalariales : " + e.toString());
          return null;
       }
    }

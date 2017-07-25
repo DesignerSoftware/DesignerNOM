@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlUsuariosClon implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUsuariosClon.class);
 
    @EJB
    AdministrarUsuariosClonInterface administrarUsuarioClon;
@@ -156,8 +159,8 @@ public class ControlUsuariosClon implements Serializable {
             infoRegistro = "Cantidad de registros : 0";
          }
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -209,10 +212,10 @@ public class ControlUsuariosClon implements Serializable {
 
    //ACTIVAR F11
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
+         log.info("Activar");
          usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
          usuarioPersona.setFilterStyle("width: 85% !important");
          usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -225,28 +228,28 @@ public class ControlUsuariosClon implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosUsuarios");
          bandera = 1;
          tipoLista = 1;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
          usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
-         System.out.println("persona");
+         log.info("persona");
          usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
          usuarioPerfil.setFilterStyle("display: none; visibility: hidden;");
-         System.out.println("perfil");
+         log.info("perfil");
          usuarioAlias = (Column) c.getViewRoot().findComponent("form:datosUsuarios:alias");
          usuarioAlias.setFilterStyle("display: none; visibility: hidden;");
-         System.out.println("alias");
+         log.info("alias");
          usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantalla");
-         System.out.println("pantalla1");
+         log.info("pantalla1");
          usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
-         System.out.println("pantalla2");
+         log.info("pantalla2");
          RequestContext.getCurrentInstance().update("form:datosUsuarios");
          altoTabla = "270";
          bandera = 0;
          filtrarUsuarios = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
 
       }
    }
@@ -263,7 +266,7 @@ public class ControlUsuariosClon implements Serializable {
 
    //UBICACION CELDA
    public void cambiarIndice(int indice, int celda) {
-      System.out.println("primerp indice");
+      log.info("primerp indice");
       if (permitirIndex == true) {
          RequestContext context = RequestContext.getCurrentInstance();
          index = indice;
@@ -320,7 +323,7 @@ public class ControlUsuariosClon implements Serializable {
    }
 
    public void perderFoco() {
-      System.out.println("llegue");
+      log.info("llegue");
       RequestContext context = RequestContext.getCurrentInstance();
       if (vestructura == false) {
          vestructura = true;
@@ -364,7 +367,7 @@ public class ControlUsuariosClon implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarPersona");
             RequestContext.getCurrentInstance().execute("PF('editarPersona').show()");
@@ -451,7 +454,7 @@ public class ControlUsuariosClon implements Serializable {
          tipoActualizacion = 1;
          index = -1;
          secRegistro = null;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          index = -1;
          secRegistro = null;
@@ -540,7 +543,7 @@ public class ControlUsuariosClon implements Serializable {
          tipoActualizacion = 1;
          index = -1;
          secRegistro = null;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          index = -1;
          secRegistro = null;
@@ -646,7 +649,7 @@ public class ControlUsuariosClon implements Serializable {
          tipoActualizacion = 1;
          index = -1;
          secRegistro = null;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          index = -1;
          secRegistro = null;
@@ -900,10 +903,10 @@ public class ControlUsuariosClon implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (guardado == false) {
-            System.out.println("Realizando Operaciones Unidades");
+            log.info("Realizando Operaciones Unidades");
             if (!listaUsuariosBorrar.isEmpty()) {
                administrarUsuarioClon.borrarUsuarios(listaUsuariosBorrar);
-               System.out.println("Entra");
+               log.info("Entra");
                listaUsuariosBorrar.clear();
             }
             if (!listaUsuariosCrear.isEmpty()) {
@@ -914,7 +917,7 @@ public class ControlUsuariosClon implements Serializable {
                administrarUsuarioClon.modificarUsuarios(listaUsuariosModificar);
                listaUsuariosModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaUsuarios = null;
             getListaUsuarios();
             if (listaUsuarios != null && !listaUsuarios.isEmpty()) {
@@ -1172,32 +1175,32 @@ public class ControlUsuariosClon implements Serializable {
       mensajeValidacion = " ";
 
       if (nuevaUsuarios.getAlias() == null) {
-         System.out.println("entra2");
+         log.info("entra2");
          mensajeValidacion = mensajeValidacion + "   * Alias\n";
          pasa++;
       }
       if (nuevaUsuarios.getPersona().getNombreCompleto() == null || nuevaUsuarios.getPersona().getNombreCompleto().equals("")) {
-         System.out.println("entra3");
+         log.info("entra3");
          mensajeValidacion = mensajeValidacion + "   * persona\n";
          pasa++;
       }
       if (nuevaUsuarios.getPerfil().getDescripcion() == null || nuevaUsuarios.getPerfil().getDescripcion().equals("")) {
-         System.out.println("entra4");
+         log.info("entra4");
          mensajeValidacion = mensajeValidacion + "   * perfil\n";
          pasa++;
       }
       if (nuevaUsuarios.getPantallainicio().getNombre() == null || nuevaUsuarios.getPantallainicio().getNombre().equals("")) {
-         System.out.println("entra5");
+         log.info("entra5");
          mensajeValidacion = mensajeValidacion + "   * pantalla\n";
          pasa++;
       }
       if (nuevaUsuarios.getPersona().getNombreCompleto() != null) {
-         System.out.println("entra1");
+         log.info("entra1");
          for (int i = 0; i < listaUsuarios.size(); i++) {
             // if (listaUsuarios.get(i).getPersona().getNombreCompleto() != null){
             if (nuevaUsuarios.getPersona().getNombreCompleto().equals(listaUsuarios.get(i).getPersona().getNombreCompleto())) {
                pasas++;
-               System.out.println("i= " + i);
+               log.info("i= " + i);
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionPersona");
                RequestContext.getCurrentInstance().execute("PF('validacionPersona').show()");
             }
@@ -1208,8 +1211,8 @@ public class ControlUsuariosClon implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
 
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
             usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1246,7 +1249,7 @@ public class ControlUsuariosClon implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         System.out.println("SE ESTÀ CERRANDO? YA VEREMOS");
+         log.info("SE ESTÀ CERRANDO? YA VEREMOS");
          RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').hide()");
          index = -1;
@@ -1295,7 +1298,7 @@ public class ControlUsuariosClon implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (duplicarUsuarios.getPersona().getNombreCompleto() != null) {
-         System.out.println("entra1");
+         log.info("entra1");
          for (int i = 0; i < listaUsuarios.size(); i++) {
             if (duplicarUsuarios.getPersona().getNombreCompleto() != null) {
                if (duplicarUsuarios.getPersona().getNombreCompleto().equals(listaUsuarios.get(i).getPersona().getNombreCompleto())) {
@@ -1307,22 +1310,22 @@ public class ControlUsuariosClon implements Serializable {
          }
       }
       if (duplicarUsuarios.getAlias() == null) {
-         System.out.println("entra2");
+         log.info("entra2");
          mensajeValidacion = mensajeValidacion + "   * Alias\n";
          pasa++;
       }
       if (duplicarUsuarios.getPersona().getNombreCompleto() == null || duplicarUsuarios.getPersona().getNombreCompleto().equals("")) {
-         System.out.println("entra3");
+         log.info("entra3");
          mensajeValidacion = mensajeValidacion + "   * persona\n";
          pasa++;
       }
       if (duplicarUsuarios.getPerfil().getDescripcion() == null || duplicarUsuarios.getPerfil().getDescripcion().equals("")) {
-         System.out.println("entra4");
+         log.info("entra4");
          mensajeValidacion = mensajeValidacion + "   * perfil\n";
          pasa++;
       }
       if (duplicarUsuarios.getPantallainicio().getNombre() == null || duplicarUsuarios.getPantallainicio().getNombre().equals("")) {
-         System.out.println("entra5");
+         log.info("entra5");
          mensajeValidacion = mensajeValidacion + "   * pantalla\n";
          pasa++;
       }
@@ -1337,7 +1340,7 @@ public class ControlUsuariosClon implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
             usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1350,7 +1353,7 @@ public class ControlUsuariosClon implements Serializable {
             altoTabla = "270";
             bandera = 0;
             filtrarUsuarios = null;
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("TipoLista= " + tipoLista);
             tipoLista = 0;
          }
 
@@ -1374,12 +1377,12 @@ public class ControlUsuariosClon implements Serializable {
    //VERIFICAR RASTRO
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listaUsuarios.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "USUARIOS");
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -1407,7 +1410,7 @@ public class ControlUsuariosClon implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
          usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
          usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1423,7 +1426,7 @@ public class ControlUsuariosClon implements Serializable {
          bandera = 0;
          filtrarUsuarios = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       }
       listaUsuariosBorrar.clear();
       listaUsuariosCrear.clear();
@@ -1471,7 +1474,7 @@ public class ControlUsuariosClon implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
          usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
          usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1487,7 +1490,7 @@ public class ControlUsuariosClon implements Serializable {
          bandera = 0;
          filtrarUsuarios = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       }
       listaUsuariosBorrar.clear();
       listaUsuariosCrear.clear();
@@ -1529,9 +1532,9 @@ public class ControlUsuariosClon implements Serializable {
             listaUsuarios.get(index).getAlias();
             listaUsuarios.get(index).getPantallainicio();
             listaUsuarios.get(index).getActivo();
-            System.out.println("alias: " + listaUsuarios.get(index).getAlias());
-            System.out.println("perfil1: " + listaUsuarios.get(index).getPerfil().getDescripcion());
-            System.out.println("perfil2: " + listaUsuarios.get(index).getPerfil());
+            log.info("alias: " + listaUsuarios.get(index).getAlias());
+            log.info("perfil1: " + listaUsuarios.get(index).getPerfil().getDescripcion());
+            log.info("perfil2: " + listaUsuarios.get(index).getPerfil());
             administrarUsuarioClon.crearUsuariosBD(listaUsuarios.get(index).getAlias(), listaUsuarios.get(index).getPerfil().getDescripcion());
          }
          if (tipoLista == 1) {
@@ -1569,7 +1572,7 @@ public class ControlUsuariosClon implements Serializable {
             mensajeV = filtrarUsuarios.get(index).getAlias();
          }
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("entro aqui");
+         log.info("entro aqui");
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionEliminar");
          RequestContext.getCurrentInstance().execute("PF('validacionEliminar').show()");
          index = -1;
@@ -1578,16 +1581,16 @@ public class ControlUsuariosClon implements Serializable {
    }
 
    public void eliminarUsuarioBD() {
-      System.out.println("aksjdhaksjbdkas");
+      log.info("aksjdhaksjbdkas");
 
       eliminarUsuarios.getPersona().getNombreCompleto();
       eliminarUsuarios.getPerfil().getDescripcion();
       eliminarUsuarios.getAlias();
       eliminarUsuarios.getPantallainicio().getNombre();
       eliminarUsuarios.getActivo();
-      System.out.println("alias: " + eliminarUsuarios.getAlias());
+      log.info("alias: " + eliminarUsuarios.getAlias());
       administrarUsuarioClon.eliminarUsuariosBD(eliminarUsuarios.getAlias());
-      System.out.println("si está haciendo algo");
+      log.info("si está haciendo algo");
 
       index = -1;
       secRegistro = null;
@@ -1596,8 +1599,8 @@ public class ControlUsuariosClon implements Serializable {
 
    public void asignarAliasClon() {
       auxClon = usuariosSeleccionado.getAlias();
-      System.out.println("esto es: " + auxClon);
-      System.out.println("estos es2: " + getAuxClon());
+      log.info("esto es: " + auxClon);
+      log.info("estos es2: " + getAuxClon());
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formularioDialogos:LOVUsuariosAlias:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('LOVUsuariosAlias').clearFilters()");
@@ -1606,14 +1609,14 @@ public class ControlUsuariosClon implements Serializable {
    }
 
    public void dfghjkl() {
-      System.out.println("asgAJSG");
+      log.info("asgAJSG");
    }
 
    public void usuarioClonarBD() {
-      System.out.println("prueba 1 auxclon: " + getAuxClon());
-      System.out.println("esto deberia cogerlo pero no: " + auxClon);
+      log.info("prueba 1 auxclon: " + getAuxClon());
+      log.info("esto deberia cogerlo pero no: " + auxClon);
       //getAuxClon();
-      System.out.println("En usaurio clonar auxclon es: " + auxClon);
+      log.info("En usaurio clonar auxclon es: " + auxClon);
 
       RequestContext context = RequestContext.getCurrentInstance();
       if (auxClon.equals("")) {
@@ -1622,7 +1625,7 @@ public class ControlUsuariosClon implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('validacionClon').show()");
 
       } else if (!auxClon.equals("")) {
-         System.out.println("alias a clonar: " + auxClon);
+         log.info("alias a clonar: " + auxClon);
          if (index >= 0) {
             if (tipoLista == 0) {
                listaUsuarios.get(index).getPersona();
@@ -1630,8 +1633,8 @@ public class ControlUsuariosClon implements Serializable {
                listaUsuarios.get(index).getAlias();
                listaUsuarios.get(index).getPantallainicio();
                listaUsuarios.get(index).getActivo();
-               System.out.println("alias: " + listaUsuarios.get(index).getAlias());
-               System.out.println("aliasclon: " + auxClon);
+               log.info("alias: " + listaUsuarios.get(index).getAlias());
+               log.info("aliasclon: " + auxClon);
                administrarUsuarioClon.clonarUsuariosBD(listaUsuarios.get(index).getSecuencia(), usuariosSeleccionado.getSecuencia());
                FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
                FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1664,7 +1667,7 @@ public class ControlUsuariosClon implements Serializable {
             listaUsuarios.get(index).getAlias();
             listaUsuarios.get(index).getPantallainicio();
             listaUsuarios.get(index).getActivo();
-            System.out.println("alias para desbloquear: " + listaUsuarios.get(index).getAlias());
+            log.info("alias para desbloquear: " + listaUsuarios.get(index).getAlias());
             administrarUsuarioClon.desbloquearUsuariosBD(listaUsuarios.get(index).getAlias());
             RequestContext context = RequestContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("Información", "Usuario Desbloqueado");
@@ -1695,10 +1698,10 @@ public class ControlUsuariosClon implements Serializable {
       Calendar cal = Calendar.getInstance();
       if (cal.get(cal.MONTH) < 10) {
          fecha = cal.get(cal.DATE) + "0" + cal.get(cal.MONTH) + cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE);
-         System.out.println("esta es la fecha de hoy: " + fecha);
+         log.info("esta es la fecha de hoy: " + fecha);
       } else {
          fecha = cal.get(cal.DATE) + "" + cal.get(cal.MONTH) + cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE);
-         System.out.println("esta es la fecha de hoy: " + fecha);
+         log.info("esta es la fecha de hoy: " + fecha);
       }
       if (index >= 0) {
          if (tipoLista == 0) {
@@ -1707,8 +1710,8 @@ public class ControlUsuariosClon implements Serializable {
             listaUsuarios.get(index).getAlias();
             listaUsuarios.get(index).getPantallainicio();
             listaUsuarios.get(index).getActivo();
-            System.out.println("alias para desbloquear: " + listaUsuarios.get(index).getAlias());
-            System.out.println("esta es la fecha de hoy22222: " + fecha);
+            log.info("alias para desbloquear: " + listaUsuarios.get(index).getAlias());
+            log.info("esta es la fecha de hoy22222: " + fecha);
             administrarUsuarioClon.restaurarUsuariosBD(listaUsuarios.get(index).getAlias(), fecha);
             mensajeContra = listaUsuarios.get(index).getAlias() + "_" + fecha;
             RequestContext context = RequestContext.getCurrentInstance();

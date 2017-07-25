@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosPrestamos.class);
 
     @EJB
     PersistenciaMotivosPrestamosInterface persistenciaMotivosPrestamos;
@@ -42,7 +45,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
     @Override
     public void modificarMotivosPrestamos(List<MotivosPrestamos> listaMotivosPrestamos) {
         for (int i = 0; i < listaMotivosPrestamos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosPrestamos.editar(em, listaMotivosPrestamos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
     @Override
     public void borrarMotivosPrestamos(List<MotivosPrestamos> listaMotivosPrestamos) {
         for (int i = 0; i < listaMotivosPrestamos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosPrestamos.borrar(em, listaMotivosPrestamos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
     @Override
     public void crearMotivosPrestamos(List<MotivosPrestamos> listaMotivosPrestamos) {
         for (int i = 0; i < listaMotivosPrestamos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosPrestamos.crear(em, listaMotivosPrestamos.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
             BigInteger verificarBorradoEersPrestamos = null;
             return verificarBorradoEersPrestamos = persistenciaMotivosPrestamos.contadorEersPrestamos(em, secuenciaMotivosPrestamos);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARMOTIVOSPRESTAMOS VERIFICARDIASLABORALES ERROR :" + e);
+            log.error("ERROR ADMINISTRARMOTIVOSPRESTAMOS VERIFICARDIASLABORALES ERROR :" + e);
             return null;
         }
     }

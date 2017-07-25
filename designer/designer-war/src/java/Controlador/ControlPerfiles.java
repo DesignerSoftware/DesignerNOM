@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -49,6 +50,8 @@ import org.primefaces.model.StreamedContent;
 @Named(value = "controlPerfiles")
 @SessionScoped
 public class ControlPerfiles implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPerfiles.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -194,8 +197,8 @@ public class ControlPerfiles implements Serializable {
             externalContext = x.getExternalContext();
             userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -302,7 +305,7 @@ public class ControlPerfiles implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosObjetos");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             altoTabla = "56";
             altoTablaPantalla = "50";
             altoTablaObjeto = "50";
@@ -631,13 +634,13 @@ public class ControlPerfiles implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             } else {
-                System.out.println("no hay datos para guardar");
+                log.info("no hay datos para guardar");
                 FacesMessage msg = new FacesMessage("Información", "No se han realizado cambios a guardar");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
-            System.out.println("Error guardadoGeneral " + e.toString());
+            log.warn("Error guardadoGeneral " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado , Por favor intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1626,7 +1629,7 @@ public class ControlPerfiles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('sinPrivilegios').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en RecrearPerfil : " + e.getMessage());
+            log.warn("Error en RecrearPerfil : " + e.getMessage());
         }
     }
 
@@ -1977,7 +1980,7 @@ public class ControlPerfiles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('pantallasClonadas').show()");
             }
         } catch (Exception e) {
-            System.out.println("Controlador.ControlPerfiles.clonarPermisosPantallas()" + e.getMessage());
+            log.info("Controlador.ControlPerfiles.clonarPermisosPantallas()" + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('errorClonarPantalla').show()");
         }
     }
@@ -1992,7 +1995,7 @@ public class ControlPerfiles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('permisosClonados').show()");
             }
         } catch (Exception e) {
-            System.out.println("Controlador.ControlPerfiles.clonarPermisosObjetos()" + e.getMessage());
+            log.info("Controlador.ControlPerfiles.clonarPermisosObjetos()" + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('errorClonarPermisos').show()");
         }
     }
@@ -2015,33 +2018,33 @@ public class ControlPerfiles implements Serializable {
 
     /// métodos para generar reporte////////
     public AsynchronousFilllListener listener() {
-        System.out.println(this.getClass().getName() + ".listener()");
+        log.info(this.getClass().getName() + ".listener()");
         return new AsynchronousFilllListener() {
             //RequestContext context = c;
 
             @Override
             public void reportFinished(JasperPrint jp) {
-                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+                log.info(this.getClass().getName() + ".listener().reportFinished()");
                 try {
                     estadoReporte = true;
                     resultadoReporte = "Exito";
                     //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
 //                    generarArchivoReporte(jp);
                 } catch (Exception e) {
-                    System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+                    log.info("ControlNReporteNomina reportFinished ERROR: " + e.toString());
                 }
             }
 
             @Override
             public void reportCancelled() {
-                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+                log.info(this.getClass().getName() + ".listener().reportCancelled()");
                 estadoReporte = true;
                 resultadoReporte = "Cancelación";
             }
 
             @Override
             public void reportFillError(Throwable e) {
-                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+                log.info(this.getClass().getName() + ".listener().reportFillError()");
                 if (e.getCause() != null) {
                     pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
                 } else {
@@ -2055,30 +2058,30 @@ public class ControlPerfiles implements Serializable {
 
     public void validarDescargaReportePantallas() {
         try {
-            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            log.info(this.getClass().getName() + ".validarDescargaReporte()");
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
             RequestContext context = RequestContext.getCurrentInstance();
             nombreReporte = "segpantallas";
             tipoReporte = "PDF";
-            System.out.println("nombre reporte : " + nombreReporte);
-            System.out.println("tipo reporte: " + tipoReporte);
+            log.info("nombre reporte : " + nombreReporte);
+            log.info("tipo reporte: " + tipoReporte);
 
             pathReporteGenerado = administarReportes.generarReportePantallas(nombreReporte, tipoReporte);
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                System.out.println("validar descarga reporte - ingreso al if 1");
+                log.info("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    log.info("validar descarga reporte - ingreso al if 2 else");
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
-                        System.out.println("reporte despues de esto : " + reporte);
+                        log.info("reporte despues de esto : " + reporte);
                         if (reporte != null) {
-                            System.out.println("userAgent: " + userAgent);
-                            System.out.println("validar descarga reporte - ingreso al if 4");
+                            log.info("userAgent: " + userAgent);
+                            log.info("validar descarga reporte - ingreso al if 4");
                             if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                                 context.update("formularioDialogos:descargarReporte");
                                 context.execute("PF('descargarReporte').show();");
@@ -2089,48 +2092,48 @@ public class ControlPerfiles implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("error en validarDescargarReporte : " + ex.getMessage());
+                        log.warn("Error en validarDescargarReporte : " + ex.getMessage());
                         RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
                         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                         reporte = null;
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                log.info("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en validar descargar Reporte " + e.toString());
+            log.warn("Error en validar descargar Reporte " + e.toString());
         }
     }
 
     public void validarDescargaReporteObjetos() {
         try {
-            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            log.info(this.getClass().getName() + ".validarDescargaReporte()");
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
             RequestContext context = RequestContext.getCurrentInstance();
             nombreReporte = "segobjetos";
             tipoReporte = "PDF";
-            System.out.println("nombre reporte : " + nombreReporte);
-            System.out.println("tipo reporte: " + tipoReporte);
+            log.info("nombre reporte : " + nombreReporte);
+            log.info("tipo reporte: " + tipoReporte);
 
             pathReporteGenerado = administarReportes.generarReporteObjetos(nombreReporte, tipoReporte);
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                System.out.println("validar descarga reporte - ingreso al if 1");
+                log.info("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    log.info("validar descarga reporte - ingreso al if 2 else");
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
-                        System.out.println("reporte despues de esto : " + reporte);
+                        log.info("reporte despues de esto : " + reporte);
                         if (reporte != null) {
-                            System.out.println("userAgent: " + userAgent);
-                            System.out.println("validar descarga reporte - ingreso al if 4");
+                            log.info("userAgent: " + userAgent);
+                            log.info("validar descarga reporte - ingreso al if 4");
                             if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                                 context.update("formularioDialogos:descargarReporte");
                                 context.execute("PF('descargarReporte').show();");
@@ -2141,24 +2144,24 @@ public class ControlPerfiles implements Serializable {
                             }
                         }
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        log.info("validar descarga reporte - ingreso al catch 1");
+                        log.info(ex);
                         reporte = null;
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                log.info("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en validar descargar Reporte " + e.toString());
+            log.warn("Error en validar descargar Reporte " + e.toString());
         }
     }
 
     public void exportarReporte() throws IOException {
         try {
-            System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+            log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
             if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
                 FacesContext ctx = FacesContext.getCurrentInstance();
@@ -2183,7 +2186,7 @@ public class ControlPerfiles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("error en exportarReporte :" + e.getMessage());
+            log.warn("Error en exportarReporte :" + e.getMessage());
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }

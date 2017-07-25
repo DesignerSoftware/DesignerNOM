@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -31,6 +32,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciaDeporte implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciaDeporte.class);
 
     @EJB
     AdministrarVigenciaDeporteInterface administrarVigenciaDeporte;
@@ -107,10 +110,10 @@ public class ControlVigenciaDeporte implements Serializable {
             administrarVigenciaDeporte.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
             vigenciaTablaSeleccionada = listVigenciasDeportes.get(0);
-            System.out.println("El nombre del empleado es" + empleado.getPersona().getNombreCompleto());
+            log.info("El nombre del empleado es" + empleado.getPersona().getNombreCompleto());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -373,7 +376,7 @@ public class ControlVigenciaDeporte implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
             deshabilitarBotonLov();
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1053,7 +1056,7 @@ public class ControlVigenciaDeporte implements Serializable {
             }
             return listVigenciasDeportes;
         } catch (Exception e) {
-            System.out.println("Error...!! getListVigenciasDeportes : " + e.toString());
+            log.warn("Error...!! getListVigenciasDeportes : " + e.toString());
             return null;
         }
     }

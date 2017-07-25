@@ -22,13 +22,13 @@ import InterfacePersistencia.PersistenciaParametrosContablesInterface;
 import InterfacePersistencia.PersistenciaParametrosEstructurasInterface;
 import InterfacePersistencia.PersistenciaProcesosInterface;
 import InterfacePersistencia.PersistenciaVWContabilidadResumida1Interface;
-import Persistencia.PersistenciaInterconSapBO;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -36,6 +36,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVWContabilidadResumida implements AdministrarVWContabilidadResumida1Interface {
+
+   private static Logger log = Logger.getLogger(AdministrarVWContabilidadResumida.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -110,7 +112,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             }
             return listaParametros;
         } catch (Exception e) {
-            System.out.println("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
+            log.warn("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
             return null;
         }
     }
@@ -121,7 +123,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             List<Procesos> lista = persistenciaProcesos.buscarProcesos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovProcesos Admi : " + e.toString());
+            log.warn("Error lovProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -132,7 +134,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             ActualUsuario user = persistenciaActualUsuario.actualUsuarioBD(em);
             return user;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -143,7 +145,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -154,7 +156,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             Date fecha = persistenciaContabilizaciones.obtenerFechaMaximaContabilizaciones(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaMaxContabilizaciones Admi : " + e.toString());
+            log.warn("Error obtenerFechaMaxContabilizaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -165,7 +167,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             Date fecha = persistenciaInterconSapBO.obtenerFechaMaxInterconSAPBO(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaMaxInterconTotal Admi : " + e.toString());
+            log.warn("Error obtenerFechaMaxInterconTotal Admi : " + e.toString());
             return null;
         }
     }
@@ -190,7 +192,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -201,7 +203,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
             Integer proceso = persistenciaContabilidadResumida.abrirPeriodoContable(em, FechaIni, FechaFin, secProceso);
             return proceso;
         } catch (Exception e) {
-            System.out.println("Error en abrirPeriodoContable Admi : " + e.getMessage());
+            log.warn("Error en abrirPeriodoContable Admi : " + e.getMessage());
             return null;
         }
     }

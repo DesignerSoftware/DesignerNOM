@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlGrupoConcepto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlGrupoConcepto.class);
 
    @EJB
    AdministrarGruposConceptosInterface administrarGruposConceptos;
@@ -163,8 +166,8 @@ public class ControlGrupoConcepto implements Serializable {
          administrarGruposConceptos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -297,7 +300,7 @@ public class ControlGrupoConcepto implements Serializable {
       int pasa3 = 0;
       Date fechaCero = new Date(1, 1, 1);
       mensajeValidacion = new String();
-      System.out.println("validarCamposNuevaVigencia fechaCero : " + fechaCero);
+      log.info("validarCamposNuevaVigencia fechaCero : " + fechaCero);
       if (vigencia.getConcepto().getSecuencia() == null) {
          mensajeValidacion = mensajeValidacion + " * Codigo\n";
          pasa1++;
@@ -308,9 +311,9 @@ public class ControlGrupoConcepto implements Serializable {
       } else if (vigencia.getFechainicial().after(vigencia.getFechafinal())
               || vigencia.getFechainicial().equals(vigencia.getFechafinal())
               || vigencia.getFechainicial().before(fechaCero)) {
-         System.out.println("vigencia.getFechainicial().after(vigencia.getFechafinal()) : " + vigencia.getFechainicial().after(vigencia.getFechafinal()));
-         System.out.println("vigencia.getFechainicial().equals(vigencia.getFechafinal()) : " + vigencia.getFechainicial().equals(vigencia.getFechafinal()));
-         System.out.println("vigencia.getFechainicial().before(fechaCero) : " + vigencia.getFechainicial().before(fechaCero));
+         log.info("vigencia.getFechainicial().after(vigencia.getFechafinal()) : " + vigencia.getFechainicial().after(vigencia.getFechafinal()));
+         log.info("vigencia.getFechainicial().equals(vigencia.getFechafinal()) : " + vigencia.getFechainicial().equals(vigencia.getFechafinal()));
+         log.info("vigencia.getFechainicial().before(fechaCero) : " + vigencia.getFechainicial().before(fechaCero));
          pasa2++;
       } else if (listaVigenciasGruposConceptos != null) {
          if (!listaVigenciasGruposConceptos.isEmpty()) {
@@ -472,7 +475,7 @@ public class ControlGrupoConcepto implements Serializable {
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          } else {
-            System.out.println("No se puede borrar porque tiene registros en la tabla de abajo");
+            log.info("No se puede borrar porque tiene registros en la tabla de abajo");
             RequestContext.getCurrentInstance().update("formularioDialogos:registro");
             RequestContext.getCurrentInstance().execute("PF('registro').show()");
             deshabilitarBotonLov();
@@ -516,30 +519,30 @@ public class ControlGrupoConcepto implements Serializable {
 
    public void guardarTodo() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Grupo Concepto");
+         log.info("Realizando Operaciones Grupo Concepto");
          if (!listaGruposConceptosBorrar.isEmpty()) {
             for (int i = 0; i < listaGruposConceptosBorrar.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                if (listaGruposConceptosBorrar.get(i).getFundamental() == null) {
                   listaGruposConceptosBorrar.get(i).setFundamental(null);
                }
 
                administrarGruposConceptos.borrarGruposConceptos(listaGruposConceptosBorrar.get(i));
-               System.out.println("Entra");
+               log.info("Entra");
                listaGruposConceptosBorrar.clear();
             }
          }
          if (!listaGruposConceptosCrear.isEmpty()) {
             for (int i = 0; i < listaGruposConceptosCrear.size(); i++) {
-               System.out.println("Creando...");
-               System.out.println(listaGruposConceptosCrear.size());
+               log.info("Creando...");
+               log.info(listaGruposConceptosCrear.size());
                if (listaGruposConceptosCrear.get(i).getFundamental() == null) {
                   listaGruposConceptosCrear.get(i).setFundamental(null);
                }
                administrarGruposConceptos.crearGruposConceptos(listaGruposConceptosCrear.get(i));
             }
 
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaGruposConceptosCrear.clear();
          }
          if (!listaGruposConceptosModificar.isEmpty()) {
@@ -547,7 +550,7 @@ public class ControlGrupoConcepto implements Serializable {
             listaGruposConceptosModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaGruposConceptos = null;
          RequestContext.getCurrentInstance().update("form:datosGruposConceptos");
          contarRegistros();
@@ -556,23 +559,23 @@ public class ControlGrupoConcepto implements Serializable {
          cambiosPagina = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
-      System.out.println("Valor k: " + k);
+      log.info("Valor k: " + k);
 
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Vigencias");
+         log.info("Realizando Operaciones Vigencias");
          if (!listaVigenciasGruposConceptosBorrar.isEmpty()) {
             for (int i = 0; i < listaVigenciasGruposConceptosBorrar.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                administrarGruposConceptos.borrarVigenciaGruposConceptos(listaVigenciasGruposConceptosBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaVigenciasGruposConceptosBorrar.clear();
          }
       }
       if (!listaVigenciasGruposConceptosCrear.isEmpty()) {
          for (int i = 0; i < listaVigenciasGruposConceptosCrear.size(); i++) {
-            System.out.println("Creando...");
-            System.out.println(listaVigenciasGruposConceptosCrear.size());
+            log.info("Creando...");
+            log.info(listaVigenciasGruposConceptosCrear.size());
 
             administrarGruposConceptos.crearVigenciaGruposConceptos(listaVigenciasGruposConceptosCrear.get(i));
 
@@ -585,7 +588,7 @@ public class ControlGrupoConcepto implements Serializable {
          listaVigenciasGruposConceptosModificar.clear();
       }
       grupoConceptoSeleccionado = null;
-      System.out.println("Se guardaron los datos con exito");
+      log.info("Se guardaron los datos con exito");
       listaVigenciasGruposConceptos = null;
       FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -603,9 +606,9 @@ public class ControlGrupoConcepto implements Serializable {
 
    //CTRL + F11 ACTIVAR/DESACTIVAR
    public void activarCtrlF11() {
-      System.out.println("cualTabla= " + cualTabla);
+      log.info("cualTabla= " + cualTabla);
       if (bandera == 0) {
-         System.out.println("Activa 1");
+         log.info("Activa 1");
          //Tabla Vigencias VigenciasGruposConceptos
          colCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colCodigo");
          colCodigo.setFilterStyle("width: 85% !important");
@@ -617,7 +620,7 @@ public class ControlGrupoConcepto implements Serializable {
          contarRegistros();
          bandera = 1;
 
-         System.out.println("Activa 2");
+         log.info("Activa 2");
          colCodigo2 = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colCodigo2");
          colCodigo2.setFilterStyle("width: 85% !important;");
          colDescripcion2 = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colDescripcion2");
@@ -759,7 +762,7 @@ public class ControlGrupoConcepto implements Serializable {
 //         k++;
 //         l = BigInteger.valueOf(k);
 //         nuevoVigenciasGruposConceptos.setSecuencia(l);
-//         System.out.println("grupoConceptoSeleccionado" + grupoConceptoSeleccionado.getCodigo());
+//         log.info("grupoConceptoSeleccionado" + grupoConceptoSeleccionado.getCodigo());
 //         nuevoVigenciasGruposConceptos.setGrupoconcepto(grupoConceptoSeleccionado);
 //         cambiosPagina = false;
 //         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -862,7 +865,7 @@ public class ControlGrupoConcepto implements Serializable {
    public void editarCelda() {
       if (grupoConceptoSeleccionado != null && cualTabla == 0) {
          editarGruposConceptos = grupoConceptoSeleccionado;
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoGC");
             RequestContext.getCurrentInstance().execute("PF('editarCodigoGC').show()");
@@ -878,8 +881,8 @@ public class ControlGrupoConcepto implements Serializable {
          }
       } else if (vigenciaGrupoCSeleccionado != null && cualTabla == 1) {
          editarVigenciasGruposConceptos = vigenciaGrupoCSeleccionado;
-         System.out.println("Entro a editar... valor celda: " + cualCeldaD);
-         System.out.println("Cual Tabla: " + cualTabla);
+         log.info("Entro a editar... valor celda: " + cualCeldaD);
+         log.info("Cual Tabla: " + cualTabla);
          if (cualCeldaD == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoV");
             RequestContext.getCurrentInstance().execute("PF('editarCodigoV').show()");
@@ -1053,7 +1056,7 @@ public class ControlGrupoConcepto implements Serializable {
       fechaParametro.setYear(0);
       fechaParametro.setMonth(1);
       fechaParametro.setDate(1);
-      System.err.println("fechaparametro : " + fechaParametro);
+      log.error("fechaparametro : " + fechaParametro);
       boolean retorno = true;
       if (i == 0) {
          VigenciasGruposConceptos auxiliar = null;
@@ -1279,7 +1282,7 @@ public class ControlGrupoConcepto implements Serializable {
          cualTabla = 0;
          tablaImprimir = ":formExportar:datosGruposConceptosExportar";
          nombreArchivo = "GruposConceptosXML";
-         System.out.println("CualTabla = " + cualTabla);
+         log.info("CualTabla = " + cualTabla);
          grupoConceptoSeleccionado = grupoConceptoSeleccionado;
          listaVigenciasGruposConceptos = null;
          getListaVigenciasGruposConceptos();
@@ -1299,7 +1302,7 @@ public class ControlGrupoConcepto implements Serializable {
          fechaFinal = vigenciaGrupoCSeleccionado.getFechafinal();
          tablaImprimir = ":formExportar:datosVigenciasGruposConceptosExportar";
          nombreArchivo = "VigenciasGruposConceptosXML";
-         System.out.println("CualTabla = " + cualTabla);
+         log.info("CualTabla = " + cualTabla);
          codigo = vigenciaGrupoCSeleccionado.getConcepto().getCodigoSTR();
          empresa = vigenciaGrupoCSeleccionado.getConcepto().getEmpresa().getNombre();
          if (cualCeldaD == 0 || cualCeldaD == 1) {
@@ -1372,12 +1375,12 @@ public class ControlGrupoConcepto implements Serializable {
 
    public void verificarRastro() {
       if (cualTabla == 0) {
-         System.out.println("lol");
+         log.info("lol");
 //         if (!listaGruposConceptos.isEmpty()) {
          if (grupoConceptoSeleccionado != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(grupoConceptoSeleccionado.getSecuencia(), "GRUPOSCONCEPTOS");
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -1398,12 +1401,12 @@ public class ControlGrupoConcepto implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
          }
       } else {
-         System.out.println("D");
+         log.info("D");
 //         if (!listaVigenciasGruposConceptos.isEmpty()) {
          if (vigenciaGrupoCSeleccionado != null) {
-            System.out.println("NF2");
+            log.info("NF2");
             int resultadoNF = administrarRastros.obtenerTabla(vigenciaGrupoCSeleccionado.getSecuencia(), "VIGENCIASGRUPOSCONCEPTOS");
-            System.out.println("resultado: " + resultadoNF);
+            log.info("resultado: " + resultadoNF);
             if (resultadoNF == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
             } else if (resultadoNF == 2) {
@@ -1496,7 +1499,7 @@ public class ControlGrupoConcepto implements Serializable {
          //   pag = "rastrotabla";
          //}
       }
-      System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
+      log.info("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
       limpiarListasValor();
    }
 
@@ -1781,7 +1784,7 @@ public class ControlGrupoConcepto implements Serializable {
    public String getTamano() {
       colCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colCodigo");
       String estilo = colCodigo.getFilterStyle();
-      System.out.println("getTamano() estilo : " + estilo);
+      log.info("getTamano() estilo : " + estilo);
       if (estilo.startsWith("width: 85%")) {
          tamano = "" + 113;
       } else {

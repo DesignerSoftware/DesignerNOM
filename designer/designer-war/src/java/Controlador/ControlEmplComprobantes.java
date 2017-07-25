@@ -31,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplComprobantes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplComprobantes.class);
 
    @EJB
    AdministrarEmplComprobantesInterface administrarComprobantes;
@@ -272,8 +275,8 @@ public class ControlEmplComprobantes implements Serializable {
          administrarComprobantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -401,7 +404,7 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void cargarListasConComprobante() {
-      System.out.println("Entro en cargarListasConComprobante()");
+      log.info("Entro en cargarListasConComprobante()");
       listaCortesProcesos = administrarComprobantes.consultarCortesProcesosComprobante(comprobanteSeleccionado.getSecuencia());
       if (!listaCortesProcesos.isEmpty()) {
          cortesProcesosSeleccionado = listaCortesProcesos.get(0);
@@ -414,7 +417,7 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void cargarListasSolucionesNodos() {
-      System.out.println("Entro en cargarListasSolucionesNodos()");
+      log.info("Entro en cargarListasSolucionesNodos()");
       listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(cortesProcesosSeleccionado.getSecuencia(), empleado.getSecuencia());
       listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(cortesProcesosSeleccionado.getSecuencia(), empleado.getSecuencia());
       if (listaSolucionesNodosEmpleado != null) {
@@ -467,7 +470,7 @@ public class ControlEmplComprobantes implements Serializable {
       if (modificacionesSolucionesNodosEmpleado == false && modificacionesSolucionesNodosEmpleador == false) {
          if (modificacionesCortesProcesos == false) {
             if (permitirIndex == true) {
-               System.out.println("Esta en cambiarIndiceComprobantes()");
+               log.info("Esta en cambiarIndiceComprobantes()");
                subtotalPago = new BigDecimal(0);
                subtotalDescuento = new BigDecimal(0);
                subtotalPasivo = new BigDecimal(0);
@@ -507,7 +510,7 @@ public class ControlEmplComprobantes implements Serializable {
    public void cambiarIndiceCortesProcesos(CortesProcesos corteProceso, int celda) {
       cortesProcesosSeleccionado = corteProceso;
       if (modificacionesSolucionesNodosEmpleado == false && modificacionesSolucionesNodosEmpleador == false) {
-         System.out.println("Esta en cambiarIndiceCortesProcesos()");
+         log.info("Esta en cambiarIndiceCortesProcesos()");
          if (permitirIndex == true) {
             subtotalPago = new BigDecimal(0);
             subtotalDescuento = new BigDecimal(0);
@@ -662,7 +665,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       nombreArchivoExportar = "SolucionesNodosEmpleadoXML";
-      System.out.println("ControlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado() tablaActiva: " + tablaActiva);
+      log.info("ControlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleado() tablaActiva: " + tablaActiva);
    }
 
    public void cambiarIndiceSolucionesNodosEmpleador(SolucionesNodos snEmpleador, int celda) {
@@ -690,14 +693,14 @@ public class ControlEmplComprobantes implements Serializable {
          }
       }
       nombreArchivoExportar = "SolucionesNodosEmpleadorXML";
-      System.out.println("ControlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador() tablaActiva: " + tablaActiva);
+      log.info("ControlEmplComprobantes.cambiarIndiceSolucionesNodosEmpleador() tablaActiva: " + tablaActiva);
    }
 
    public void modificarComprobantesFechaEntregado(Comprobantes comprobante, int celda) {
       comprobanteSeleccionado = comprobante;
-      System.out.println("modificarComprobantesFechaEntregado()");
+      log.info("modificarComprobantesFechaEntregado()");
       if (comprobanteSeleccionado.getFechaentregado() == null) {
-         System.out.println("comprobanteSeleccionado.getFechaentregado() == null");
+         log.info("comprobanteSeleccionado.getFechaentregado() == null");
          comprobanteSeleccionado.setFechaentregado(auxFechaEntregadoComprobante);
          RequestContext.getCurrentInstance().execute("PF('errorFechaEntregaNull').show()");
       }
@@ -706,7 +709,7 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void modificarComprobantes(Comprobantes comprobante) {
-      System.out.println("modificarComprobantes()");
+      log.info("modificarComprobantes()");
       comprobanteSeleccionado = comprobante;
       if (!listaComprobantesCrear.contains(comprobanteSeleccionado)) {
          if (listaComprobantesModificar.isEmpty()) {
@@ -1881,7 +1884,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    //MOSTRAR DATOS CELDA
    public void editarCelda() {
-      System.out.println("Controlador.ControlEmplComprobantes.editarCelda() tablaActiva : " + tablaActiva);
+      log.info("Controlador.ControlEmplComprobantes.editarCelda() tablaActiva : " + tablaActiva);
       if (tablaActiva == 0) {
          if (comprobanteSeleccionado != null) {
             editarComprobante = comprobanteSeleccionado;
@@ -2211,7 +2214,7 @@ public class ControlEmplComprobantes implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosComprobantes Controlador: " + e.toString());
+         log.warn("Error guardarCambiosComprobantes Controlador: " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Comprobante, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2219,8 +2222,8 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void eliminarComprobantegeneral() {
-      System.out.println("Entro en eliminarComprobantegeneral()");
-      System.out.println("cortesProcesosSeleccionado : " + cortesProcesosSeleccionado);
+      log.info("Entro en eliminarComprobantegeneral()");
+      log.info("cortesProcesosSeleccionado : " + cortesProcesosSeleccionado);
       if (cortesProcesosSeleccionado != null) {
          boolean pasa = administrarComprobantes.eliminarCPconUndoCierre(cortesProcesosSeleccionado.getProceso().getSecuencia(), secuenciaEmpleado, cortesProcesosSeleccionado.getCorte());
          if (pasa) {
@@ -2290,7 +2293,7 @@ public class ControlEmplComprobantes implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCorteProceso Controlador: " + e.toString());
+         log.warn("Error guardarCambiosCorteProceso Controlador: " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Corte Proceso, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2313,7 +2316,7 @@ public class ControlEmplComprobantes implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosEmpleado Controlador: " + e.toString());
+         log.warn("Error guardarCambiosEmpleado Controlador: " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Empleado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2336,7 +2339,7 @@ public class ControlEmplComprobantes implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosEmpleador Controlador: " + e.toString());
+         log.warn("Error guardarCambiosEmpleador Controlador: " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Empleador, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2350,11 +2353,11 @@ public class ControlEmplComprobantes implements Serializable {
 
    //GUARDAR
    public void guardarCambios() {
-      System.out.println("guardarCambios() guardado : " + guardado);
-      System.out.println("guardarCambios() modificacionesComprobantes : " + modificacionesComprobantes);
-      System.out.println("guardarCambios() modificacionesCortesProcesos : " + modificacionesCortesProcesos);
-      System.out.println("guardarCambios() modificacionesSolucionesNodosEmpleado : " + modificacionesSolucionesNodosEmpleado);
-      System.out.println("guardarCambios() modificacionesSolucionesNodosEmpleador : " + modificacionesComprobantes);
+      log.info("guardarCambios() guardado : " + guardado);
+      log.info("guardarCambios() modificacionesComprobantes : " + modificacionesComprobantes);
+      log.info("guardarCambios() modificacionesCortesProcesos : " + modificacionesCortesProcesos);
+      log.info("guardarCambios() modificacionesSolucionesNodosEmpleado : " + modificacionesSolucionesNodosEmpleado);
+      log.info("guardarCambios() modificacionesSolucionesNodosEmpleador : " + modificacionesComprobantes);
       if (guardado == false) {
          if (modificacionesComprobantes == true) {
             guardarCambiosComprobantes();
@@ -2441,13 +2444,13 @@ public class ControlEmplComprobantes implements Serializable {
    public void seleccionEmpleadoDefault() {
       empleadorTablaSeleccionado = null;
       tablaActiva = 2;
-      System.out.println("ControlEmplComprobantes.seleccionEmpleadoDefault() tablaActiva : " + tablaActiva);
+      log.info("ControlEmplComprobantes.seleccionEmpleadoDefault() tablaActiva : " + tablaActiva);
    }
 
    public void seleccionEmpleadorDefault() {
       empleadoTablaSeleccionado = null;
       tablaActiva = 3;
-      System.out.println("ControlEmplComprobantes.seleccionEmpleadorDefault() tablaActiva : " + tablaActiva);
+      log.info("ControlEmplComprobantes.seleccionEmpleadorDefault() tablaActiva : " + tablaActiva);
    }
 
    public void eventoFiltrarSNEmpleador() {

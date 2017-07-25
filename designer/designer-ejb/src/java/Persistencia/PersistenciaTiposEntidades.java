@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposEntidades.class);
 
     @Override
     public void crear(EntityManager em, TiposEntidades tiposEntidades) {
@@ -25,7 +27,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             em.merge(tiposEntidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEntidades.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEntidades.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             em.merge(tiposEntidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEntidades.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEntidades.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             em.remove(em.merge(tiposEntidades));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEntidades.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEntidades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             List<TiposEntidades> tiposEntidades = query.getResultList();
             return tiposEntidades;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidades()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidades()" + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             TiposEntidades tiposEntidades = (TiposEntidades) query.getSingleResult();
             return tiposEntidades;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidadesSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidadesSecuencia()" + e.getMessage());
             return null;
         }
     }
@@ -103,7 +105,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return retorno = new BigInteger(query.getSingleResult().toString());
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEntidades.verificarBorrado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEntidades.verificarBorrado()" + e.getMessage());
             return null;
         }
     }
@@ -118,7 +120,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return retorno = new BigInteger(query.getSingleResult().toString());
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEntidades.verificarBorradoFCE()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEntidades.verificarBorradoFCE()" + e.getMessage());
             return null;
         }
     }
@@ -132,7 +134,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             List<TiposEntidades> tiposEntidades = (List<TiposEntidades>) query.getResultList();
             return tiposEntidades;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidadesIBCS()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidadesIBCS()" + e.getMessage());
             return null;
         }
     }
@@ -147,7 +149,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             List<TiposEntidades> tiposEntidades = (List<TiposEntidades>) query.getResultList();
             return tiposEntidades;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidadesPorSecuenciaGrupo()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEntidades.buscarTiposEntidadesPorSecuenciaGrupo()" + e.getMessage());
             return null;
         }
     }
@@ -162,7 +164,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             TiposEntidades tiposEntidades = (TiposEntidades) query.getSingleResult();
             return tiposEntidades;
         } catch (Exception e) {
-            System.out.println("Error buscarTipoEntidadPorCodigo PersistenciaTiposEntidades : " + e.getMessage());
+            log.error("Error buscarTipoEntidadPorCodigo PersistenciaTiposEntidades : " + e.getMessage());
             return null;
         }
     }
@@ -179,7 +181,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
             List<TiposEntidades> tiposEntidades = query.getResultList();
             return tiposEntidades;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposEntidadesParametroAutoliq PersistenciaTiposEntidades : " + e.getMessage());
+            log.error("Error buscarTiposEntidadesParametroAutoliq PersistenciaTiposEntidades : " + e.getMessage());
             return null;
         }
     }

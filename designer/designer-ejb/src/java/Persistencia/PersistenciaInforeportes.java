@@ -5,10 +5,10 @@ package Persistencia;
 
 import Entidades.Inforeportes;
 import InterfacePersistencia.PersistenciaInforeportesInterface;
-import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaInforeportes implements PersistenciaInforeportesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaInforeportes.class);
 
     private EntityManager em;
 
@@ -39,7 +41,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             em.merge(inforeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInforeportes.crear: " + e.getMessage());
+            log.error("Error PersistenciaInforeportes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +57,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             em.merge(inforeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInforeportes.editar: " + e.getMessage());
+            log.error("Error PersistenciaInforeportes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +73,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             em.remove(em.merge(inforeportes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInforeportes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaInforeportes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +89,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInforeportes buscarInforeportes : " + e.toString());
+            log.error("Error PersistenciaInforeportes buscarInforeportes : " + e.toString());
             return null;
         }
     }
@@ -102,7 +104,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -116,7 +118,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -130,7 +132,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -143,7 +145,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes" + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes" + e.toString());
             return null;
         }
     }
@@ -156,7 +158,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -169,7 +171,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -183,7 +185,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -197,7 +199,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }
@@ -211,7 +213,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
             return inforeportes;
         } catch (Exception e) {
-            System.out.println("Error en buscarInforeportesUsuarioEvaluacionCompetencias PersistenciaInforeportes : " + e.toString());
+            log.error("Error en buscarInforeportesUsuarioEvaluacionCompetencias PersistenciaInforeportes : " + e.toString());
             return null;
         }
     }

@@ -59,9 +59,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndividualInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmpleadoIndividual.class);
 
     @EJB
     PersistenciaHVHojasDeVidaInterface persistenciaHVHojasDeVida;
@@ -147,7 +150,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en Primer Telefono Persona :" + e.getMessage());
+            log.warn("error en Primer Telefono Persona :" + e.getMessage());
             return null;
         }
     }
@@ -163,7 +166,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en Primera Dirección Persona : " + e.getMessage());
+            log.warn("error en Primera Dirección Persona : " + e.getMessage());
             return null;
         }
     }
@@ -179,7 +182,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error es estadoCivilPersona : " + e.getMessage());
+            log.warn("error es estadoCivilPersona : " + e.getMessage());
             return null;
         }
 
@@ -196,7 +199,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en informaciónAdicionalPersona : " + e.getMessage());
+            log.warn("error en informaciónAdicionalPersona : " + e.getMessage());
             return null;
         }
     }
@@ -212,7 +215,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en reemplazoPersona : " + e.getMessage());
+            log.warn("error en reemplazoPersona : " + e.getMessage());
             return null;
         }
 
@@ -229,7 +232,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("errro en educacionPersona : " + e.getMessage());
+            log.warn("errro en educacionPersona : " + e.getMessage());
             return null;
         }
     }
@@ -245,7 +248,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en idiomasPersona : " + e.getMessage());
+            log.warn("error en idiomasPersona : " + e.getMessage());
             return null;
         }
     }
@@ -261,7 +264,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en proyectosPersona  :" + e.getMessage());
+            log.warn("error en proyectosPersona  :" + e.getMessage());
             return null;
         }
     }
@@ -277,7 +280,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en referenciasPersonalesPersona : " + e.getMessage());
+            log.warn("error en referenciasPersonalesPersona : " + e.getMessage());
             return null;
         }
     }
@@ -293,7 +296,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en referenciasFamiliaresPersona  : " + e.getMessage());
+            log.warn("error en referenciasFamiliaresPersona  : " + e.getMessage());
             return null;
         }
     }
@@ -309,7 +312,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en experienciaLaboralPersona : " + e.getMessage());
+            log.warn("error en experienciaLaboralPersona : " + e.getMessage());
             return null;
         }
     }
@@ -325,7 +328,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en eventosPersona : " + e.getMessage());
+            log.warn("error en eventosPersona : " + e.getMessage());
             return null;
         }
     }
@@ -341,7 +344,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en deportesPersona : " + e.getMessage());
+            log.warn("error en deportesPersona : " + e.getMessage());
             return null;
         }
     }
@@ -357,7 +360,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en aficionesPersona  : " + e.getMessage());
+            log.warn("error en aficionesPersona  : " + e.getMessage());
             return null;
         }
     }
@@ -369,7 +372,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             resultado = persistenciaFamiliares.consultaFamiliar(em, secPersona);
             return resultado;
         } catch (Exception e) {
-            System.out.println("error en consultaFamiliaresPersona : " + e.getMessage());
+            log.warn("error en consultaFamiliaresPersona : " + e.getMessage());
             return resultado;
         }
     }
@@ -385,7 +388,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en entrevistasPersona : " + e.getMessage());
+            log.warn("error en entrevistasPersona : " + e.getMessage());
             return null;
         }
     }
@@ -401,7 +404,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en Indicadores Persona : " + e.getMessage());
+            log.warn("error en Indicadores Persona : " + e.getMessage());
             return null;
         }
     }
@@ -417,7 +420,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en demanda Persona : " + e.getMessage());
+            log.warn("error en demanda Persona : " + e.getMessage());
             return null;
         }
     }
@@ -433,7 +436,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en visitasDomiciliariasPersona : " + e.getMessage());
+            log.warn("error en visitasDomiciliariasPersona : " + e.getMessage());
             return null;
         }
     }
@@ -449,7 +452,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("error en pruebasAplicadasPersona : " + e.getMessage());
+            log.warn("error en pruebasAplicadasPersona : " + e.getMessage());
             return null;
         }
     }
@@ -462,7 +465,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             listaTiposDocumentos = persistenciaTiposDocumentos.consultarTiposDocumentos(em);
             return listaTiposDocumentos;
         } catch (Exception e) {
-            System.out.println("error en tiposDocumentos  : " + e.getMessage());
+            log.warn("error en tiposDocumentos  : " + e.getMessage());
             return null;
         }
     }
@@ -474,7 +477,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             listaCiudades = persistenciaCiudades.consultarCiudades(em);
             return listaCiudades;
         } catch (Exception e) {
-            System.out.println("error en ciudades : " + e.getMessage());
+            log.warn("error en ciudades : " + e.getMessage());
             return null;
         }
     }
@@ -486,7 +489,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             listaCargos = persistenciaCargos.consultarCargos(em);
             return listaCargos;
         } catch (Exception e) {
-            System.out.println("Error Administrar.AdministrarEmpleadoIndividual.cargos() : " + e.getMessage());
+            log.warn("Error Administrar.AdministrarEmpleadoIndividual.cargos() : " + e.getMessage());
             return null;
         }
     }
@@ -507,7 +510,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         try {
             persistenciaEmpleado.editar(em, empleado);
         } catch (Exception e) {
-            System.out.println("Error modificando. AdministrarEmpleadoIndividual.modificarEmpleado");
+            log.warn("Error modificando. AdministrarEmpleadoIndividual.modificarEmpleado");
         }
     }
 
@@ -516,7 +519,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         try {
             persistenciaHVHojasDeVida.editar(em, hojaVida);
         } catch (Exception e) {
-            System.out.println("Error modificando. AdministrarEmpleadoIndividual.modificarHojaDeVida " + e);
+            log.warn("Error modificando. AdministrarEmpleadoIndividual.modificarHojaDeVida " + e);
         }
     }
 
@@ -540,7 +543,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
 
             persistenciaPersonas.editar(em, personas);
         } catch (Exception e) {
-            System.out.println("Error modificando. AdministrarEmpleadoIndividual.modificarPersona");
+            log.warn("Error modificando. AdministrarEmpleadoIndividual.modificarPersona");
         }
     }
 
@@ -551,7 +554,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             persona.setPathfoto("S");
             persistenciaPersonas.editar(em, persona);
         } catch (Exception e) {
-            System.out.println("No se puede actalizar el estado de la Foto.");
+            log.warn("No se puede actalizar el estado de la Foto.");
         }
     }
 
@@ -560,7 +563,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             general = persistenciaGenerales.obtenerRutas(em);
             return general;
         } catch (Exception e) {
-            System.out.println("Error en AdministrarEmpleadoIndividual.obtenerRutaFoto");
+            log.warn("Error en AdministrarEmpleadoIndividual.obtenerRutaFoto");
             return null;
         }
     }
@@ -581,7 +584,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Error en foto empleado" + e.getMessage());
+            log.warn("Error en foto empleado" + e.getMessage());
             return null;
         }
     }
@@ -591,7 +594,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         try {
             return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
         } catch (Exception e) {
-            System.out.println("error en encontrarPersona : " + e.getMessage());
+            log.warn("error en encontrarPersona : " + e.getMessage());
             return null;
         }
     }
@@ -601,7 +604,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         try {
             return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
         } catch (Exception e) {
-            System.out.println("error en obtenerPersonaPorEmpleado : " + e.getMessage());
+            log.warn("error en obtenerPersonaPorEmpleado : " + e.getMessage());
             return null;
         }
     }
@@ -612,7 +615,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String telefono = persistenciaTelefonos.consultarUltimoTelefono(em, secPersona);
             return telefono;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerTelefonoPersona : " + e.getMessage());
+            log.warn("error en consultarPrimerTelefonoPersona : " + e.getMessage());
            return " ";
         }
     }
@@ -623,7 +626,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String direccion = persistenciaDirecciones.consultarPrimeraDireccion(em, secPersona);
             return direccion;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraDireccionPersona");
+            log.warn("error en consultarPrimeraDireccionPersona");
            return " ";
         }
     }
@@ -634,7 +637,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String estadoCivil = persistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil(em, secPersona);
             return estadoCivil;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerEstadoCivilPersona : " + e.getMessage());
+            log.warn("error en consultarPrimerEstadoCivilPersona : " + e.getMessage());
             return " ";
         }
     }
@@ -645,7 +648,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String infoAd = persistenciaInformacionesAdicionales.primeraInformacionAdicional(em, secPersona);
             return infoAd;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraInformacionAd : " + e.getMessage());
+            log.warn("error en consultarPrimeraInformacionAd : " + e.getMessage());
             return " ";
         }
     }
@@ -659,7 +662,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             }
             return reemplazo;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerReemplazo : " + e.getMessage());
+            log.warn("error en consultarPrimerReemplazo : " + e.getMessage());
             return " ";
         }
     }
@@ -670,7 +673,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String educacion = persistenciaVigenciasFormales.primeraVigenciaFormal(em, secPersona);
             return educacion;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraVigenciaFormal  : " + e.getMessage());
+            log.warn("error en consultarPrimeraVigenciaFormal  : " + e.getMessage());
             return " ";
         }
     }
@@ -681,7 +684,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String idioma = persistenciaIdiomasPersonas.primerIdioma(em, secPersona);
             return idioma;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerIdioma : " + e.getMessage());
+            log.warn("error en consultarPrimerIdioma : " + e.getMessage());
             return " ";
         }
     }
@@ -692,7 +695,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String proyecto = persistenciaVigenciasProyectos.primerProyecto(em, secPersona);
             return proyecto;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerProyecto : " + e.getMessage());
+            log.warn("error en consultarPrimerProyecto : " + e.getMessage());
            return " ";
         }
     }
@@ -703,7 +706,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String evento = persistenciaVigenciasEventos.primerEvento(em, secPersona);
             return evento;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerEvento : " + e.getMessage());
+            log.warn("error en consultarPrimerEvento : " + e.getMessage());
             return " ";
         }
     }
@@ -714,7 +717,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String deporte = persistenciaVigenciasDeportes.consultarPrimerDeporte(em, secPersona);
             return deporte;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerDeporte : " + e.getMessage());
+            log.warn("error en consultarPrimerDeporte : " + e.getMessage());
             return " ";
         }
     }
@@ -725,7 +728,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String aficion = persistenciaVigenciasAficiones.primeraAficion(em, secPersona);
             return aficion;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraAfición : " + e.getMessage());
+            log.warn("error en consultarPrimeraAfición : " + e.getMessage());
             return " ";
         }
     }
@@ -736,7 +739,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String familiar = persistenciaFamiliares.consultarPrimerFamiliar(em, secPersona);
             return familiar;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerFamiliar : " + e.getMessage());
+            log.warn("error en consultarPrimerFamiliar : " + e.getMessage());
             return " ";
         }
     }
@@ -747,7 +750,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String indicador = persistenciaVigenciasIndicadores.primeraVigenciaIndicador(em, secPersona);
             return indicador;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimerIndicador : " + e.getMessage());
+            log.warn("error en consultarPrimerIndicador : " + e.getMessage());
             return " ";
         }
     }
@@ -758,7 +761,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String demanda = persistenciaDemandas.primeraDemanda(em, Persona);
             return demanda;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraDemanda : " + e.getMessage());
+            log.warn("error en consultarPrimeraDemanda : " + e.getMessage());
             return " ";
         }
     }
@@ -769,7 +772,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String visita = persistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria(em, secPersona);
             return visita;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraVisita : " + e.getMessage());
+            log.warn("error en consultarPrimeraVisita : " + e.getMessage());
             return " ";
         }
     }
@@ -780,7 +783,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String entrevista = persistenciaHvEntrevistas.consultarPrimeraEnterevista(em, secHV);
             return entrevista;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraEntrevista : " + e.getMessage());
+            log.warn("error en consultarPrimeraEntrevista : " + e.getMessage());
             return " ";
         }
     }
@@ -791,7 +794,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String referenciaF = persistenciaHvReferencias.primeraReferenciaFamiliar(em, secHV);
             return referenciaF;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraReferenciaF : " + e.getMessage());
+            log.warn("error en consultarPrimeraReferenciaF : " + e.getMessage());
             return " ";
         }
     }
@@ -802,7 +805,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String referenciaP = persistenciaHvReferencias.primeraReferenciaPersonal(em, secHV);
             return referenciaP;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraReferenciaP : " + e.getMessage());
+            log.warn("error en consultarPrimeraReferenciaP : " + e.getMessage());
             return " ";
         }
     }
@@ -813,7 +816,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String experiencia = persistenciaHvExperienciasLaborales.primeraExpLaboral(em, secHv);
             return experiencia;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraExpLaboral : " + e.getMessage());
+            log.warn("error en consultarPrimeraExpLaboral : " + e.getMessage());
             return " ";
         }
     }
@@ -824,7 +827,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             String prueba = persistenciaEvalResultadosConv.primerPruebaAplicada(em, secPersona);
             return prueba;
         } catch (Exception e) {
-            System.out.println("error en consultarPrimeraPrueba : " + e.getMessage());
+            log.warn("error en consultarPrimeraPrueba : " + e.getMessage());
             return " ";
         }
     }

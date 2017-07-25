@@ -55,16 +55,10 @@ public class VWActualesTiposContratos implements Serializable {
     }
 
     public Date getFechaVigencia() throws ParseException {
-        /*SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        String f = formato.format(fechaVigencia);
-        fechaVigencia=formato.parse(f);
-        System.out.println(fechaVigencia);*/
         return fechaVigencia;
     }
 
     public void setFechaVigencia(Date fechaVigencia) throws ParseException {
-       /* SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-        String f =formato.format(fechaVigencia);*/
         this.fechaVigencia =fechaVigencia; //formato.parse(f);
         
     }

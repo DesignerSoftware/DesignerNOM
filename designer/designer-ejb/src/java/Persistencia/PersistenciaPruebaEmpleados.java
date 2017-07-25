@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPruebaEmpleados.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -69,14 +72,14 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          }
          return pruebaEmpleado;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaPruebaEmpleados.empleadosAsignacion()" + e.getMessage());
+          log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosAsignacion()" + e.getMessage());
          e.printStackTrace();
          return null;
       }
    }
 
    public List<PruebaEmpleados> empleadosNovedadesEmpl(EntityManager em) {
-      System.out.println("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmpl()");
+      log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmpl()");
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWA.valor) VALOR, tt.tipo TIPO\n"
@@ -99,15 +102,15 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          List<PruebaEmpleados> pruebasEmpleados = query.getResultList();
          return pruebasEmpleados;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
-         System.out.println("e.getCause() : " + e.getCause());
+         log.error("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
+         log.error("e.getCause() : " + e.getCause());
          e.printStackTrace();
          return null;
       }
    }
 
    public List<PruebaEmpleados> empleadosNovedadesEmple(EntityManager em) {
-      System.out.println("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmple()");
+      log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmple()");
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWA.valor) VALOR, tt.tipo TIPO\n"
@@ -121,7 +124,7 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          List<PruebaEmpleados> pruebasEmpleados = query.getResultList();
          return pruebasEmpleados;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
+         log.error("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
          return null;
       }
    }

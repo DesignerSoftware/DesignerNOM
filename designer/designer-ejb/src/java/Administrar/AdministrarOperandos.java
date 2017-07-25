@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarOperandos implements AdministrarOperandosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarOperandos.class);
 
    @EJB
    PersistenciaOperandosInterface persistenciaOperandos;
@@ -59,7 +62,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
    @Override
    public void modificarOperando(List<Operandos> listaOperandosModificar) {
       for (int i = 0; i < listaOperandosModificar.size(); i++) {
-         System.out.println("Modificando...");
+         log.warn("Modificando...");
          persistenciaOperandos.editar(em, listaOperandosModificar.get(i));
       }
    }
@@ -76,7 +79,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
          Operandos actual = persistenciaOperandos.operandosPorSecuencia(em, secOperando);
          return actual;
       } catch (Exception e) {
-         System.out.println("Error conceptoActual Admi : " + e.toString());
+         log.warn("Error conceptoActual Admi : " + e.toString());
          return null;
       }
    }
@@ -85,7 +88,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
       try {
          return persistenciaOperandos.clonarOperando(em, codigoO, nombreDes, descripcionDes);
       } catch (Exception e) {
-         System.out.println("AdministrarOperandos.clonarOperando() Error : " + e.toString());
+         log.warn("AdministrarOperandos.clonarOperando() Error : " + e.toString());
          return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";
       }
    }

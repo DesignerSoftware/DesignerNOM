@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSucursales implements AdministrarSucursalesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSucursales.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -63,7 +66,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
     public void modificarSucursales(List<Sucursales> listaSucursales) {
         //for (int i = 0; i < listaSucursales.size(); i++) {
         for (Sucursales listaSucursale : listaSucursales) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             //persistenciaSucursales.editar(em, listaSucursales.get(i));
             persistenciaSucursales.editar(em, listaSucursale);
         }
@@ -72,7 +75,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
     @Override
     public void borrarSucursales(List<Sucursales> listaSucursales) {
         for (int i = 0; i < listaSucursales.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSucursales.borrar(em, listaSucursales.get(i));
         }
     }

@@ -30,6 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlParametro implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlParametro.class);
 
    @EJB
    AdministrarParametrosInterface administrarParametros;
@@ -124,8 +127,8 @@ public class ControlParametro implements Serializable {
             }
          }
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -361,16 +364,16 @@ public class ControlParametro implements Serializable {
 
    public void seleccionarEmpleados() {
       if (listEmpleadosParametros != null) {
-         System.out.println("empleadosParametros.size() : " + listEmpleadosParametros.size());
+         log.info("empleadosParametros.size() : " + listEmpleadosParametros.size());
          if (!listEmpleadosParametros.isEmpty()) {
             int control = 0;
             for (int j = 0; j < empleadosSeleccionados.size(); j++) {
 
-               System.out.println("seleccionEmpleado.getSecuencia() : " + empleadosSeleccionados.get(j).getSecuencia());
+               log.info("seleccionEmpleado.getSecuencia() : " + empleadosSeleccionados.get(j).getSecuencia());
                for (int i = 0; i < listEmpleadosParametros.size(); i++) {
                   if (listEmpleadosParametros.get(i).getEmpleado().getSecuencia().equals(empleadosSeleccionados.get(j).getSecuencia())) {
-                     System.out.println("empleadosParametros.get(i).getEmpleado().getSecuencia() : " + listEmpleadosParametros.get(i).getEmpleado().getSecuencia());
-                     System.out.println("empleadosParametros.get(i) Empleado() : " + listEmpleadosParametros.get(i).getEmpleado().getPersona().getNombreCompleto());
+                     log.info("empleadosParametros.get(i).getEmpleado().getSecuencia() : " + listEmpleadosParametros.get(i).getEmpleado().getSecuencia());
+                     log.info("empleadosParametros.get(i) Empleado() : " + listEmpleadosParametros.get(i).getEmpleado().getPersona().getNombreCompleto());
                      empleadosSeleccionados.remove(empleadosSeleccionados.get(j));
                      control++;
                      break;
@@ -420,7 +423,7 @@ public class ControlParametro implements Serializable {
    }
 
    public void agregarParametros() {
-      System.out.println("Entro en agregarParametro()");
+      log.info("Entro en agregarParametro()");
 //      List<Empleados> listaEmpleadosParBorrados = new ArrayList<>();
       if (!listaBorrarParametros.isEmpty()) {
          for (int i = 0; i < listaBorrarParametros.size(); i++) {
@@ -583,7 +586,7 @@ public class ControlParametro implements Serializable {
    }
 
    public void validarGuardado(String tipoG) {
-      System.out.println("Entre a validarGuardado() guardado: " + guardado);
+      log.info("Entre a validarGuardado() guardado: " + guardado);
       tipoGuardado = tipoG;
       int cont = 0;
       if (!guardado) {
@@ -669,7 +672,7 @@ public class ControlParametro implements Serializable {
    }
 
    public void guardarCambios() {
-      System.out.println("Entro en guardarCambios()");
+      log.info("Entro en guardarCambios()");
       try {
          if (cambiosParametros) {
             if (parametroLiquidacion.getTipotrabajador().getSecuencia() == null) {
@@ -683,15 +686,15 @@ public class ControlParametro implements Serializable {
             parametroLiquidacion = getParametroLiquidacion();
             cambiosParametros = false;
          }
-         System.out.println("cambiosEmpleadosParametros : " + cambiosEmpleadosParametros);
+         log.info("cambiosEmpleadosParametros : " + cambiosEmpleadosParametros);
          if (cambiosEmpleadosParametros) {
             if (!listaBorrarParametros.isEmpty()) {
                administrarParametros.eliminarParametros(listaBorrarParametros);
                listaBorrarParametros.clear();
             }
             if (!listaCrearParametros.isEmpty()) {
-               System.out.println("guardarCambios() !listaCrearParametros.isEmpty() : ");
-               System.out.println("parametroLiquidacion.getFechadesdecausado() : " + parametroLiquidacion.getFechadesdecausado() + ", parametroLiquidacion.getFechahastacausado() : " + parametroLiquidacion.getFechahastacausado());
+               log.info("guardarCambios() !listaCrearParametros.isEmpty() : ");
+               log.info("parametroLiquidacion.getFechadesdecausado() : " + parametroLiquidacion.getFechadesdecausado() + ", parametroLiquidacion.getFechahastacausado() : " + parametroLiquidacion.getFechahastacausado());
                Usuarios au = administrarParametros.usuarioActual();
                Date fechaDesde = parametroLiquidacion.getFechadesdecausado();
                Date fechaHasta = parametroLiquidacion.getFechahastacausado();
@@ -711,7 +714,7 @@ public class ControlParametro implements Serializable {
             }
          }
 
-         System.out.println("cambiosFechasParametros : " + cambiosFechasParametros);
+         log.info("cambiosFechasParametros : " + cambiosFechasParametros);
          if (cambiosFechasParametros) {
             if (!listEmpleadosParametros.isEmpty()) {
                if (!listaCrearParametros.isEmpty()) {
@@ -741,9 +744,9 @@ public class ControlParametro implements Serializable {
          listaCrearParametros.clear();
 
          if (tipoGuardado.equals("ADICIONAR EMPLEADOS")) {
-            System.out.println("Entro a ADICIONAR EMPLEADOS");
+            log.info("Entro a ADICIONAR EMPLEADOS");
             if (consultarEmpleadosParametrizados() == true) {
-               System.out.println("Entro a consultarEmpleadosParametrizados() == true");
+               log.info("Entro a consultarEmpleadosParametrizados() == true");
                adicionarEmpleados();
             } else {
                RequestContext.getCurrentInstance().update("formularioDialogos:confirmarAdicionarEmpleados");
@@ -966,7 +969,7 @@ public class ControlParametro implements Serializable {
    }
 
    public void adicionarEmpleados() {
-      System.out.println("Entre a Adicionar Empleados: parametroLiquidacion : " + parametroLiquidacion);
+      log.info("Entre a Adicionar Empleados: parametroLiquidacion : " + parametroLiquidacion);
       if (parametroLiquidacion != null) {
          administrarParametros.adicionarEmpleados(parametroLiquidacion.getSecuencia());
       }
@@ -988,9 +991,9 @@ public class ControlParametro implements Serializable {
    }
 
    public boolean consultarEmpleadosParametrizados() {
-      System.out.println("Entro en consultarEmpleadosParametrizados()");
+      log.info("Entro en consultarEmpleadosParametrizados()");
       empleadosParametrizados = administrarParametros.empleadosParametrizados(parametroLiquidacion.getProceso().getSecuencia());
-      System.out.println("empleadosParametrizados : " + empleadosParametrizados);
+      log.info("empleadosParametrizados : " + empleadosParametrizados);
       if (empleadosParametrizados == 0) {
          return true;
       } else {

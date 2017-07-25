@@ -13,9 +13,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
-public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbicacionesInterface{
+public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbicacionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasUbicaciones.class);
 
     @EJB
     PersistenciaUbicacionesGeograficasInterface persistenciaUbicacionesGeograficas;
@@ -47,7 +50,7 @@ public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbic
         try {
             vigenciasUbicaciones = persistenciaVigenciasUbicaciones.buscarVigenciaUbicacionesEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Ubiaciones (vigenciasUbicacionesEmpleado)");
+            log.warn("Error en Administrar Vigencias Ubiaciones (vigenciasUbicacionesEmpleado)");
             vigenciasUbicaciones = null;
         }
         return vigenciasUbicaciones;
@@ -56,7 +59,7 @@ public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbic
     @Override
     public void modificarVU(List<VigenciasUbicaciones> listVUModificadas) {
         for (int i = 0; i < listVUModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             vu = listVUModificadas.get(i);
             persistenciaVigenciasUbicaciones.editar(em, vu);
         }

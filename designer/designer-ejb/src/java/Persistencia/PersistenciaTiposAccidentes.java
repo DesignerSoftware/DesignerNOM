@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTiposAccidentes.class);
+
     public void crear(EntityManager em, TiposAccidentes tiposAccidentes) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -30,7 +32,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.merge(tiposAccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +47,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.merge(tiposAccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +62,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.remove(em.merge(tiposAccidentes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +74,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.clear();
             return em.find(TiposAccidentes.class, secuenciaTA);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAccidentes.buscarTipoAccidente()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAccidentes.buscarTipoAccidente()" + e.getMessage());
             return null;
         }
     }
@@ -85,7 +87,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             List<TiposAccidentes> listPartesCuerpo = query.getResultList();
             return listPartesCuerpo;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAccidentes.buscarTiposAccidentes()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAccidentes.buscarTiposAccidentes()" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAccidentes.contadorSoAccidentesMedicos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAccidentes.contadorSoAccidentesMedicos()" + e.getMessage());
             return retorno;
         }
     }
@@ -115,7 +117,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAccidentes.contadorAccidentes()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAccidentes.contadorAccidentes()" + e.getMessage());
             return retorno;
         }
     }

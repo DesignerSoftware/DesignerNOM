@@ -57,13 +57,12 @@ import InterfacePersistencia.PersistenciaTiposTelefonosInterface;
 import InterfacePersistencia.PersistenciaVigenciasDomiciliariasInterface;
 import InterfacePersistencia.PersistenciaVigenciasEstadosCivilesInterface;
 import InterfacePersistencia.PersistenciaVigenciasFormalesInterface;
-import Persistencia.PersistenciaAdiestramientosF;
-import Persistencia.PersistenciaEmpleados;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -71,6 +70,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDomiciliariasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasDomiciliarias.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -344,7 +345,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     @Override
     public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar) {
         for (int i = 0; i < listaVigenciasFormalesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasFormalesModificar.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setTipoeducacion(null);
             }
@@ -364,7 +365,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     @Override
     public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar) {
         for (int i = 0; i < listaVigenciasFormalesBorrar.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             if (listaVigenciasFormalesBorrar.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesBorrar.get(i).setTipoeducacion(null);
             }
@@ -381,7 +382,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     @Override
     public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
         for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasFormalesCrear.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
             }
@@ -458,7 +459,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
                 persistenciaHvExp.crear(em, listHEL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearExperienciaLaboral Admi : " + e.toString());
+            log.warn("Error crearExperienciaLaboral Admi : " + e.toString());
         }
     }
 
@@ -480,7 +481,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
                 persistenciaHvExp.editar(em, listHEL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarExperienciaLaboral Admi : " + e.toString());
+            log.warn("Error editarExperienciaLaboral Admi : " + e.toString());
         }
     }
 
@@ -497,7 +498,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
                 persistenciaHvExp.borrar(em, listHEL.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarExperienciaLaboral Admi : " + e.toString());
+            log.warn("Error borrarExperienciaLaboral Admi : " + e.toString());
         }
     }
 
@@ -562,7 +563,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             if (listaModificar.get(i).getPersona() == null) {
                 listaModificar.get(i).setPersona(new Personas());
             }
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaFamiliares.editar(em, listaModificar.get(i));
         }
     }
@@ -573,7 +574,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             if (listaBorrar.get(i).getPersona() == null) {
                 listaBorrar.get(i).setPersona(new Personas());
             }
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaFamiliares.borrar(em, listaBorrar.get(i));
         }
     }
@@ -581,7 +582,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     @Override
     public void crearFamilares(List<Familiares> listaCrear) {
         for (int i = 0; i < listaCrear.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             if (listaCrear.get(i).getPersona() == null) {
                 listaCrear.get(i).setPersona(new Personas());
             }

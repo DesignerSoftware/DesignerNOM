@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlDetalleLegislacion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDetalleLegislacion.class);
 
    @EJB
    AdministrarDetalleLegislacionInterface administrarDetalleLegislacion;
@@ -202,8 +205,8 @@ public class ControlDetalleLegislacion implements Serializable {
          administrarDetalleLegislacion.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -892,7 +895,7 @@ public class ControlDetalleLegislacion implements Serializable {
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
-         System.out.println("Error");
+         log.warn("Error");
       }
    }
 
@@ -1018,7 +1021,7 @@ public class ControlDetalleLegislacion implements Serializable {
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
-         System.out.println("Error");
+         log.warn("Error");
       }
    }
 
@@ -1928,7 +1931,7 @@ public class ControlDetalleLegislacion implements Serializable {
          }
          return listFormulasContratosDetalle;
       } catch (Exception e) {
-         System.out.println("Error getListFormulasContratosDetalle : " + e.toString());
+         log.warn("Error getListFormulasContratosDetalle : " + e.toString());
          return null;
       }
    }

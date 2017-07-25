@@ -8,12 +8,14 @@ import InterfacePersistencia.PersistenciaTempNovedadesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTempNovedades.class);
 
    @Override
    public void crear(EntityManager em, TempNovedades tempNovedades) {
@@ -24,7 +26,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          em.merge(tempNovedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempNovedades.crear: " + e.getMessage());
+         log.error("Error PersistenciaTempNovedades.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -40,7 +42,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          em.merge(tempNovedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempNovedades.editar: " + e.getMessage());
+         log.error("Error PersistenciaTempNovedades.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +59,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          tx.commit();
 
       } catch (Exception e) {
-        System.out.println("Error PersistenciaTempNovedades.borrar: " + e.getMessage());
+        log.error("Error PersistenciaTempNovedades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -76,7 +78,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro (borrarRegistrosTempNovedades) : " + e.toString());
+         log.error("No se pudo borrar el registro (borrarRegistrosTempNovedades) : " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -94,7 +96,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<TempNovedades> listTNovedades = query.getResultList();
          return listTNovedades;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTempNovedades.obtenerTempNovedades()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTempNovedades.obtenerTempNovedades()" + e.getMessage());
          return null;
       }
    }
@@ -110,7 +112,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTempNovedades.obtenerDocumentosSoporteCargados()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTempNovedades.obtenerDocumentosSoporteCargados()" + e.getMessage());
          return null;
       }
    }
@@ -129,7 +131,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTempNovedades.cargarTempNovedades()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTempNovedades.cargarTempNovedades()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -151,7 +153,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTempNovedades.reversarTempNovedades()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTempNovedades.reversarTempNovedades()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }

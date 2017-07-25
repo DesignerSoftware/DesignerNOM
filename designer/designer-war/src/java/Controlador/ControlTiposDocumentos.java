@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposDocumentos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposDocumentos.class);
 
    @EJB
    AdministrarTiposDocumentosInterface administrarTiposDocumentos;
@@ -91,8 +94,8 @@ public class ControlTiposDocumentos implements Serializable {
          administrarTiposDocumentos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -136,7 +139,7 @@ public class ControlTiposDocumentos implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlTiposDocumentos.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlTiposDocumentos.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -144,12 +147,12 @@ public class ControlTiposDocumentos implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarTiposDocumentos.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposDocumentos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposDocumentos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -163,24 +166,24 @@ public class ControlTiposDocumentos implements Serializable {
             }
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposDocumentos.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposDocumentos.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposDocumentos.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposDocumentos.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -273,10 +276,10 @@ public class ControlTiposDocumentos implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposDocumentos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -290,15 +293,15 @@ public class ControlTiposDocumentos implements Serializable {
    }
 
    public void modificarTiposDocumentos(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0, pass = 0;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposDocumentos.contains(listTiposDocumentos.get(indice))) {
                if (listTiposDocumentos.get(indice).getNombrecorto() != null) {
@@ -494,7 +497,7 @@ public class ControlTiposDocumentos implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoTiposDocumentos");
+            log.info("Entro a borrandoTiposDocumentos");
             if (!modificarTiposDocumentos.isEmpty() && modificarTiposDocumentos.contains(listTiposDocumentos.get(index))) {
                int modIndex = modificarTiposDocumentos.indexOf(listTiposDocumentos.get(index));
                modificarTiposDocumentos.remove(modIndex);
@@ -508,7 +511,7 @@ public class ControlTiposDocumentos implements Serializable {
             listTiposDocumentos.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoTiposDocumentos ");
+            log.info("borrandoTiposDocumentos ");
             if (!modificarTiposDocumentos.isEmpty() && modificarTiposDocumentos.contains(filtrarTiposDocumentos.get(index))) {
                int modIndex = modificarTiposDocumentos.indexOf(filtrarTiposDocumentos.get(index));
                modificarTiposDocumentos.remove(modIndex);
@@ -544,12 +547,12 @@ public class ControlTiposDocumentos implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarCodeudoresTipoDocumento;
       BigInteger contarPersonasTipoDocumento;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposDocumentos ");
+         log.error("Control Secuencia de ControlTiposDocumentos ");
          if (tipoLista == 0) {
             contarCodeudoresTipoDocumento = administrarTiposDocumentos.contarCodeudoresTipoDocumento(listTiposDocumentos.get(index).getSecuencia());
             contarPersonasTipoDocumento = administrarTiposDocumentos.contarPersonasTipoDocumento(listTiposDocumentos.get(index).getSecuencia());
@@ -558,10 +561,10 @@ public class ControlTiposDocumentos implements Serializable {
             contarPersonasTipoDocumento = administrarTiposDocumentos.contarPersonasTipoDocumento(filtrarTiposDocumentos.get(index).getSecuencia());
          }
          if (contarCodeudoresTipoDocumento.equals(new BigInteger("0")) && contarPersonasTipoDocumento.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposDocumentos();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -572,7 +575,7 @@ public class ControlTiposDocumentos implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposDocumentos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposDocumentos verificarBorrado ERROR " + e);
       }
    }
 
@@ -590,7 +593,7 @@ public class ControlTiposDocumentos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposDocumentos");
+         log.info("Realizando guardarTiposDocumentos");
          if (!borrarTiposDocumentos.isEmpty()) {
             administrarTiposDocumentos.borrarTiposDocumentos(borrarTiposDocumentos);
             //mostrarBorrados
@@ -607,7 +610,7 @@ public class ControlTiposDocumentos implements Serializable {
             administrarTiposDocumentos.crearTiposDocumentos(crearTiposDocumentos);
             crearTiposDocumentos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposDocumentos = null;
          RequestContext.getCurrentInstance().update("form:datosTiposDocumentos");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -631,7 +634,7 @@ public class ControlTiposDocumentos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -648,7 +651,7 @@ public class ControlTiposDocumentos implements Serializable {
    }
 
    public void agregarNuevoTiposDocumentos() {
-      System.out.println("agregarNuevoTiposDocumentos");
+      log.info("agregarNuevoTiposDocumentos");
       int contador = 0;
       int duplicados = 0;
 
@@ -671,21 +674,21 @@ public class ControlTiposDocumentos implements Serializable {
 
       if (nuevoTiposDocumentos.getNombrelargo() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:descripcion");
@@ -695,7 +698,7 @@ public class ControlTiposDocumentos implements Serializable {
             filtrarTiposDocumentos = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -726,7 +729,7 @@ public class ControlTiposDocumentos implements Serializable {
    }
 
    public void limpiarNuevoTiposDocumentos() {
-      System.out.println("limpiarNuevoTiposDocumentos");
+      log.info("limpiarNuevoTiposDocumentos");
       nuevoTiposDocumentos = new TiposDocumentos();
       secRegistro = null;
       index = -1;
@@ -735,7 +738,7 @@ public class ControlTiposDocumentos implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposDocumentos() {
-      System.out.println("duplicandoTiposDocumentos");
+      log.info("duplicandoTiposDocumentos");
       if (index >= 0) {
          duplicarTiposDocumentos = new TiposDocumentos();
          k++;
@@ -761,14 +764,14 @@ public class ControlTiposDocumentos implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
 
-      System.err.println("ConfirmarDuplicar Nombre Corto " + duplicarTiposDocumentos.getNombrecorto());
-      System.err.println("ConfirmarDuplicar Nombre Largo " + duplicarTiposDocumentos.getNombrelargo());
+      log.error("ConfirmarDuplicar Nombre Corto " + duplicarTiposDocumentos.getNombrecorto());
+      log.error("ConfirmarDuplicar Nombre Largo " + duplicarTiposDocumentos.getNombrelargo());
       if (duplicarTiposDocumentos.getNombrecorto() != null) {
          for (int i = 0; i < listTiposDocumentos.size(); i++) {
             if (duplicarTiposDocumentos.getNombrecorto().equals(listTiposDocumentos.get(i).getNombrecorto())) {
@@ -786,10 +789,10 @@ public class ControlTiposDocumentos implements Serializable {
 
       if (duplicarTiposDocumentos.getNombrelargo() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion  \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
@@ -798,7 +801,7 @@ public class ControlTiposDocumentos implements Serializable {
          l = BigInteger.valueOf(k);
          duplicarTiposDocumentos.setSecuencia(l);
          if (crearTiposDocumentos.contains(duplicarTiposDocumentos)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposDocumentos.add(duplicarTiposDocumentos);
          crearTiposDocumentos.add(duplicarTiposDocumentos);
@@ -860,12 +863,12 @@ public class ControlTiposDocumentos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listTiposDocumentos.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSDOCUMENTOS"); //En ENCARGATURAS lo cambia por el Descripcion de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlClasesCategorias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlClasesCategorias.class);
 
    @EJB
    AdministrarClasesCategoriasInterface administrarClasesCategorias;
@@ -131,8 +134,8 @@ public class ControlClasesCategorias implements Serializable {
          administrarClasesCategorias.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -142,7 +145,7 @@ public class ControlClasesCategorias implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlClasesCategorias.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlClasesCategorias.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -150,7 +153,7 @@ public class ControlClasesCategorias implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarClasesCategorias.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlClasesCategorias eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlClasesCategorias eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
@@ -158,7 +161,7 @@ public class ControlClasesCategorias implements Serializable {
    private Integer backCodigo;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -179,24 +182,24 @@ public class ControlClasesCategorias implements Serializable {
             }
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlClasesCategorias.asignarIndex \n");
+         log.info("\n ENTRE A ControlClasesCategorias.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlClasesCategorias.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlClasesCategorias.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -281,10 +284,10 @@ public class ControlClasesCategorias implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesCategorias:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosClasesCategorias");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          FacesContext c = FacesContext.getCurrentInstance();
          codigo = (Column) c.getViewRoot().findComponent("form:datosClasesCategorias:codigo");
@@ -299,7 +302,7 @@ public class ControlClasesCategorias implements Serializable {
    }
 
    public void modificarClasesCategorias(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0;
@@ -307,9 +310,9 @@ public class ControlClasesCategorias implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearClasesCategorias.contains(listClasesCategorias.get(indice))) {
                if (listClasesCategorias.get(indice).getCodigo() == a) {
@@ -527,7 +530,7 @@ public class ControlClasesCategorias implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoClasesCategorias");
+            log.info("Entro a borrandoClasesCategorias");
             if (!modificarClasesCategorias.isEmpty() && modificarClasesCategorias.contains(listClasesCategorias.get(index))) {
                int modIndex = modificarClasesCategorias.indexOf(listClasesCategorias.get(index));
                modificarClasesCategorias.remove(modIndex);
@@ -541,7 +544,7 @@ public class ControlClasesCategorias implements Serializable {
             listClasesCategorias.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoClasesCategorias ");
+            log.info("borrandoClasesCategorias ");
             if (!modificarClasesCategorias.isEmpty() && modificarClasesCategorias.contains(filtrarClasesCategorias.get(index))) {
                int modIndex = modificarClasesCategorias.indexOf(filtrarClasesCategorias.get(index));
                modificarClasesCategorias.remove(modIndex);
@@ -574,21 +577,21 @@ public class ControlClasesCategorias implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarCategoriaClaseCategoria;
 
       try {
-         System.err.println("Control Secuencia de ControlClasesCategorias ");
+         log.error("Control Secuencia de ControlClasesCategorias ");
          if (tipoLista == 0) {
             contarCategoriaClaseCategoria = administrarClasesCategorias.contarCategoriaClaseCategoria(listClasesCategorias.get(index).getSecuencia());
          } else {
             contarCategoriaClaseCategoria = administrarClasesCategorias.contarCategoriaClaseCategoria(filtrarClasesCategorias.get(index).getSecuencia());
          }
          if (contarCategoriaClaseCategoria.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoClasesCategorias();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -598,7 +601,7 @@ public class ControlClasesCategorias implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlClasesCategorias verificarBorrado ERROR " + e);
+         log.error("ERROR ControlClasesCategorias verificarBorrado ERROR " + e);
       }
    }
 
@@ -616,7 +619,7 @@ public class ControlClasesCategorias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarClasesCategorias");
+         log.info("Realizando guardarClasesCategorias");
          if (!borrarClasesCategorias.isEmpty()) {
             administrarClasesCategorias.borrarClasesCategorias(borrarClasesCategorias);
             //mostrarBorrados
@@ -633,7 +636,7 @@ public class ControlClasesCategorias implements Serializable {
             administrarClasesCategorias.crearClasesCategorias(crearClasesCategorias);
             crearClasesCategorias.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listClasesCategorias = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -657,7 +660,7 @@ public class ControlClasesCategorias implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -674,7 +677,7 @@ public class ControlClasesCategorias implements Serializable {
    }
 
    public void agregarNuevoClasesCategorias() {
-      System.out.println("agregarNuevoClasesCategorias");
+      log.info("agregarNuevoClasesCategorias");
       int contador = 0;
       int duplicados = 0;
 
@@ -684,46 +687,46 @@ public class ControlClasesCategorias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoClasesCategorias.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoClasesCategorias.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoClasesCategorias.getCodigo());
 
          for (int x = 0; x < listClasesCategorias.size(); x++) {
             if (listClasesCategorias.get(x).getCodigo() == nuevoClasesCategorias.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoClasesCategorias.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoClasesCategorias.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosClasesCategorias:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesCategorias:descripcion");
@@ -733,7 +736,7 @@ public class ControlClasesCategorias implements Serializable {
             filtrarClasesCategorias = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -764,7 +767,7 @@ public class ControlClasesCategorias implements Serializable {
    }
 
    public void limpiarNuevoClasesCategorias() {
-      System.out.println("limpiarNuevoClasesCategorias");
+      log.info("limpiarNuevoClasesCategorias");
       nuevoClasesCategorias = new ClasesCategorias();
       secRegistro = null;
       index = -1;
@@ -773,7 +776,7 @@ public class ControlClasesCategorias implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoClasesCategorias() {
-      System.out.println("duplicandoClasesCategorias");
+      log.info("duplicandoClasesCategorias");
       if (index >= 0) {
          duplicarClasesCategorias = new ClasesCategorias();
          k++;
@@ -799,19 +802,19 @@ public class ControlClasesCategorias implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarClasesCategorias.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarClasesCategorias.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarClasesCategorias.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarClasesCategorias.getDescripcion());
 
       if (duplicarClasesCategorias.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listClasesCategorias.size(); x++) {
             if (listClasesCategorias.get(x).getCodigo() == duplicarClasesCategorias.getCodigo()) {
@@ -820,31 +823,31 @@ public class ControlClasesCategorias implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarClasesCategorias.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarClasesCategorias.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarClasesCategorias.getSecuencia() + "  " + duplicarClasesCategorias.getCodigo());
+         log.info("Datos Duplicando: " + duplicarClasesCategorias.getSecuencia() + "  " + duplicarClasesCategorias.getCodigo());
          if (crearClasesCategorias.contains(duplicarClasesCategorias)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listClasesCategorias.add(duplicarClasesCategorias);
          crearClasesCategorias.add(duplicarClasesCategorias);
@@ -906,12 +909,12 @@ public class ControlClasesCategorias implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listClasesCategorias.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "CLASESCATEGORIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

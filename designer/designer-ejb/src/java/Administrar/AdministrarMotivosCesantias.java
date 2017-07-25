@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosCesantias.class);
 
     @EJB
     PersistenciaMotivosCesantiasInterface persistenciaMotivosCensantias;
@@ -42,7 +45,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
     @Override
     public void modificarMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
         for (int i = 0; i < listaMotivosCesantias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosCensantias.editar(em, listaMotivosCesantias.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
     @Override
     public void borrarMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
         for (int i = 0; i < listaMotivosCesantias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosCensantias.borrar(em, listaMotivosCesantias.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
     @Override
     public void crearMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
         for (int i = 0; i < listaMotivosCesantias.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosCensantias.crear(em, listaMotivosCesantias.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
         try {
             verificarNovedadesSistema = persistenciaMotivosCensantias.contadorNovedadesSistema(em, secuenciaMotivosCesantias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARMOTIVOSCESANTIAS verificarNovedadesSistema ERROR :" + e);
+            log.error("ERROR ADMINISTRARMOTIVOSCESANTIAS verificarNovedadesSistema ERROR :" + e);
         } finally {
             return verificarNovedadesSistema;
         }

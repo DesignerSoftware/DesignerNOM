@@ -5,17 +5,16 @@
  */
 package Administrar;
 
-import Entidades.DetallesTiposCotizantes;
 import Entidades.TiposCotizantes;
 import InterfaceAdministrar.AdministrarTiposCotizantesInterface;
 import InterfacePersistencia.PersistenciaTiposCotizantesInterface;
-import Persistencia.PersistenciaDetallesTiposCotizantes;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposCotizantes.class);
 
     @EJB
     PersistenciaTiposCotizantesInterface persistenciaTiposCotizantes;
@@ -46,7 +47,7 @@ public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInt
             listaTiposCotizantes = persistenciaTiposCotizantes.lovTiposCotizantes(em);
             return listaTiposCotizantes;
         } catch (Exception e) {
-            System.out.println("error en AdminsitrarTiposCotizantes.tiposCotizantes : " + e.toString());
+            log.warn("error en AdminsitrarTiposCotizantes.tiposCotizantes : " + e.toString());
             return null;
         }
     }
@@ -70,11 +71,11 @@ public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInt
         try {
 
             for (int i = 0; i < listEditar.size(); i++) {
-                System.out.println("Modificando...");
+                log.warn("Modificando...");
                 persistenciaTiposCotizantes.editar(em, listEditar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en modificarTipoCotizante : " + e.toString());
+            log.warn("error en modificarTipoCotizante : " + e.toString());
         }
     }
 
@@ -82,10 +83,10 @@ public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInt
     public BigInteger clonarTipoCotizante(BigInteger codOrigen, BigInteger codDestino, String descripcion, BigInteger secClonado) {
        try{
            BigInteger secuenciaClonado = persistenciaTiposCotizantes.clonarTipoCotizante(em, codOrigen, codDestino, descripcion, secClonado);
-           System.out.println("secuencia clonado en el administrar : " + secuenciaClonado);
+           log.warn("secuencia clonado en el administrar : " + secuenciaClonado);
            return secuenciaClonado;
        }catch(Exception e){
-           System.out.println("error AdministrarTiposCotizantes.clonarTipoCotizante : " + e.toString());
+           log.warn("error AdministrarTiposCotizantes.clonarTipoCotizante : " + e.toString());
            return null;
        }
     }

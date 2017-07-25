@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNiveles implements AdministrarNivelesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNiveles.class);
 
     @EJB
     PersistenciaNivelesInterface persistenciaNiveles;
@@ -40,21 +43,21 @@ public class AdministrarNiveles implements AdministrarNivelesInterface {
     }
     public void modificarNiveles(List<Niveles> listaNiveles) {
         for (int i = 0; i < listaNiveles.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaNiveles.editar(em, listaNiveles.get(i));
         }
     }
 
     public void borrarNiveles(List<Niveles> listaNiveles) {
         for (int i = 0; i < listaNiveles.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaNiveles.borrar(em, listaNiveles.get(i));
         }
     }
 
     public void crearNiveles(List<Niveles> listaNiveles) {
         for (int i = 0; i < listaNiveles.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaNiveles.crear(em, listaNiveles.get(i));
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarNiveles implements AdministrarNivelesInterface {
         try {
             return contarEvalConvocatoriasNivel = persistenciaNiveles.contarEvalConvocatoriasNivel(em, secNiveles);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarNiveles contarEvalConvocatoriasNivel ERROR :" + e);
+            log.error("ERROR AdministrarNiveles contarEvalConvocatoriasNivel ERROR :" + e);
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarNiveles implements AdministrarNivelesInterface {
         try {
             return contarPlantasNivel = persistenciaNiveles.contarPlantasNivel(em, secNiveles);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarNiveles contarPlantasNivel ERROR :" + e);
+            log.error("ERROR AdministrarNiveles contarPlantasNivel ERROR :" + e);
             return null;
         }
     }
@@ -99,7 +102,7 @@ public class AdministrarNiveles implements AdministrarNivelesInterface {
         try {
             return contarPlantasPersonalesNivel = persistenciaNiveles.contarPlantasPersonalesNivel(em, secNiveles);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarNiveles verificarBorradoVNE ERROR :" + e);
+            log.error("ERROR AdministrarNiveles verificarBorradoVNE ERROR :" + e);
             return null;
         }
     }

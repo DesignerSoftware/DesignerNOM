@@ -6,6 +6,7 @@
 package Controlador;
 
 import InterfaceAdministrar.AdministrarRastrosInterface;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import Entidades.Empleados;
 import Entidades.EnvioCorreos;
@@ -43,6 +44,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlRegistroEnvios")
 @SessionScoped
 public class ControlRegistroEnvios implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlRegistroEnvios.class);
 
     @EJB
     AdministrarRegistroEnviosInterface administrarRegistroEnvio;
@@ -93,7 +96,7 @@ public class ControlRegistroEnvios implements Serializable {
 
     //private List<Empleados> empl;
     public ControlRegistroEnvios() {
-        System.out.println("Controlador.ControlRegistroEnvios()");
+        log.info("Controlador.ControlRegistroEnvios()");
         bandera = 0;
         enviocorreos = null;
         fecha = new Date();
@@ -130,8 +133,8 @@ public class ControlRegistroEnvios implements Serializable {
             administrarEnvioCorreos.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error Controlador.ControlRegistroEnvios.inicializarAdministrador()" + e);
-            System.out.println("Causa: " + e.getCause());
+            log.warn("Error Controlador.ControlRegistroEnvios.inicializarAdministrador()" + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -174,36 +177,36 @@ public class ControlRegistroEnvios implements Serializable {
     }
 
 //    public void recibirPaginaEntrante(String pagina, Inforeportes secReporte) {
-//        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
-//        System.out.println("Pagina: " + paginaAnterior);
-//        System.out.println("secReporte: " + secReporte);
+//        log.info("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
+//        log.info("Pagina: " + paginaAnterior);
+//        log.info("secReporte: " + secReporte);
 //
 //        paginaAnterior = pagina;
 //        recibirReporte(secReporte);
 //    }
     public void recibirPaginaEntrante(String pagina, BigInteger secReporte) {
-        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
-        System.out.println("pagina: " + pagina);
+        log.info("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
+        log.info("pagina: " + pagina);
         paginaAnterior = pagina;
         Inforeportes reporte = administrarRegistroEnvio.consultarPorSecuencia(secReporte);
         reporteActual = reporte;
         nombreReporte = reporteActual.getNombre();
 //        if (reporteActual != null) {
 //            nombreReporte = reporteActual.getNombre();
-//            System.out.println("reporte actual: " + reporteActual.getSecuencia());
-//            System.out.println("nombreReporte: " + nombreReporte);
+//            log.info("reporte actual: " + reporteActual.getSecuencia());
+//            log.info("nombreReporte: " + nombreReporte);
 //        }
         //getEnviocorreos();
         //cargarListaCorreos(reporteActual.getSecuencia());
-        System.out.println("reporteActual: " + reporteActual);
+        log.info("reporteActual: " + reporteActual);
     }
 
     //TOOLBAR
     //GUARDAR CAMBIOS
     public void guardarCambios() {
-        System.out.println("Controlador.ControlRegistroEnvios.guardarCambios()");
+        log.info("Controlador.ControlRegistroEnvios.guardarCambios()");
         if (guardado == false) {
-            System.out.println("listECBorrar.size(): " + listECBorrar.size());
+            log.info("listECBorrar.size(): " + listECBorrar.size());
             if (!listECBorrar.isEmpty()) {
                 for (int i = 0; i < listECBorrar.size(); i++) {
                     administrarRegistroEnvio.borrarEnvioCorreos(listECBorrar.get(i));
@@ -214,10 +217,10 @@ public class ControlRegistroEnvios implements Serializable {
                 administrarRegistroEnvio.modificarEC(listECModificar);
                 listECModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             enviocorreos = null;
             getEnviocorreos();
-            System.out.println("enviocorreos: " + enviocorreos);
+            log.info("enviocorreos: " + enviocorreos);
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosEC");
             guardado = true;
@@ -261,7 +264,7 @@ public class ControlRegistroEnvios implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            System.out.println("Activar");
+            log.info("Activar");
             ecFecha = (Column) c.getViewRoot().findComponent("form:datosEC:ecFecha");
             ecFecha.setFilterStyle("width: 85% !important;");
             ecEmpleado = (Column) c.getViewRoot().findComponent("form:datosEC:ecEmpleado");
@@ -305,8 +308,8 @@ public class ControlRegistroEnvios implements Serializable {
 
     //BORRAR EC
     public void borrarEC() {
-        System.out.println("Controlador.ControlRegistroEnvios.borrarEC()");
-        System.out.println("envioSeleccionado: " + envioSeleccionado);
+        log.info("Controlador.ControlRegistroEnvios.borrarEC()");
+        log.info("envioSeleccionado: " + envioSeleccionado);
         if (envioSeleccionado != null) {
             if (!listECModificar.isEmpty() && listECModificar.contains(envioSeleccionado)) {
                 int modIndex = listECModificar.indexOf(envioSeleccionado);
@@ -332,10 +335,10 @@ public class ControlRegistroEnvios implements Serializable {
     }
 
     public void borrarTodos() {
-        System.out.println(this.getClass().getName() + ".borrarTodos()");
-        System.out.println("enviocorreos.size(): " + enviocorreos.size());
+        log.info(this.getClass().getName() + ".borrarTodos()");
+        log.info("enviocorreos.size(): " + enviocorreos.size());
         if (enviocorreos != null || !enviocorreos.isEmpty()) {
-            System.out.println("listECBorrar: " + listECBorrar);
+            log.info("listECBorrar: " + listECBorrar);
             for (int i = 0; i < enviocorreos.size(); i++) {
                 listECBorrar.add(enviocorreos.get(i));
             }
@@ -376,7 +379,7 @@ public class ControlRegistroEnvios implements Serializable {
     }
 
     public void cancelarModificaciones() {
-        System.out.println("Controlador.ControlRegistroEnvios.cancelarModificaciones()");
+        log.info("Controlador.ControlRegistroEnvios.cancelarModificaciones()");
         cerrarFiltrado();
         listECBorrar.clear();
         listECModificar.clear();
@@ -394,7 +397,7 @@ public class ControlRegistroEnvios implements Serializable {
 
     public void salir() {
         limpiarListasValor();
-        System.out.println("Controlador.ControlRegistroEnvios.salir()");
+        log.info("Controlador.ControlRegistroEnvios.salir()");
         cerrarFiltrado();
         listECBorrar.clear();
         listECModificar.clear();
@@ -437,30 +440,30 @@ public class ControlRegistroEnvios implements Serializable {
     }
 
     public void dispararDialogoGuardarCambios() {
-        System.out.println(this.getClass().getName() + ".dispararDialogoGuardarCambios()");
+        log.info(this.getClass().getName() + ".dispararDialogoGuardarCambios()");
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
 
     }
 
     public void guardarYSalir() {
-        System.out.println(this.getClass().getName() + ".guardarYSalir()");
+        log.info(this.getClass().getName() + ".guardarYSalir()");
         guardarCambios();
         salir();
     }
 
     public void cancelarYSalir() {
-        System.out.println(this.getClass().getName() + ".cancelarYSalir()");
+        log.info(this.getClass().getName() + ".cancelarYSalir()");
         cancelarModificaciones();
         salir();
     }
 
     public void checkBox(EnvioCorreos reenvio) {
-        System.out.println("Controlador.ControlRegistroEnvios.reenviarCorreo()");
-        System.out.println("reenvio: " + reenvio);
+        log.info("Controlador.ControlRegistroEnvios.reenviarCorreo()");
+        log.info("reenvio: " + reenvio);
         envioSeleccionado = reenvio;
-        System.out.println("envioSeleccionado: " + envioSeleccionado);
-        System.out.println("ListReenvioCorreos: " + listReenvioCorreos);
+        log.info("envioSeleccionado: " + envioSeleccionado);
+        log.info("ListReenvioCorreos: " + listReenvioCorreos);
         if (!listReenvioCorreos.contains(envioSeleccionado)) {
             if (listReenvioCorreos.isEmpty()) {
                 listReenvioCorreos.add(envioSeleccionado);
@@ -474,27 +477,27 @@ public class ControlRegistroEnvios implements Serializable {
                 listReenvioCorreos.add(envioSeleccionado);
             }
         }
-        System.out.println("Reenviar: " + reenvio.getReenviar());
+        log.info("Reenviar: " + reenvio.getReenviar());
     }
 
     //METODOS REENVIAR
     public void reenviarCorreo() {
-        System.out.println("Controlador.ControlRegistroEnvios.reenviarCorreo()");
+        log.info("Controlador.ControlRegistroEnvios.reenviarCorreo()");
         if (envioSeleccionado.getEstadoReenviar()) {
 //            getListCorreoCodigos();
 //            correo = "";
             String tipoRespCorreo = "D";
             String mensaje = "";
-            System.out.println("correo: " + correo);
+            log.info("correo: " + correo);
             if (listReenvioCorreos != null) {
                 if (!listReenvioCorreos.isEmpty()) {
-                    System.out.println("correo: " + correo);
+                    log.info("correo: " + correo);
                     for (int i = 0; i < listReenvioCorreos.size(); i++) {
-                        System.out.println("Ingrese a for");
+                        log.info("Ingrese a for");
                         String[] msjResul = new String[1];
                         msjResul[0] = "";
                         if (validarCorreo()) {
-                            System.out.println("Entre if validar el correo");
+                            log.info("Entre if validar el correo");
                             Map paramEmpl = new HashMap();
                             paramEmpl.put("empleadoDesde", listReenvioCorreos.get(i).getCodigoEmpleado().getCodigoempleado());
                             paramEmpl.put("empleadoHasta", listReenvioCorreos.get(i).getCodigoEmpleado().getCodigoempleado());
@@ -510,48 +513,48 @@ public class ControlRegistroEnvios implements Serializable {
                         }
                     }
                 } else {
-                    System.out.println("listReenvioCorreos: Lista Vacia");
+                    log.info("listReenvioCorreos: Lista Vacia");
                 }
             } else {
-                System.out.println("listReenvioCorreos: Lista null");
+                log.info("listReenvioCorreos: Lista null");
             }
             mostrarMensajes(tipoRespCorreo, mensaje);
         }
     }
 
     public boolean validarCorreo() {
-        System.out.println("Controlador.ControlEnvioCorreos.validarCorreo()");
+        log.info("Controlador.ControlEnvioCorreos.validarCorreo()");
         if (correo != null) {
-            System.out.println("Ingrese a primer if");
+            log.info("Ingrese a primer if");
             String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(PATTERN_EMAIL);
             Matcher matcher = pattern.matcher(correo);
             if (matcher.matches()) {
-                System.out.println("Ingrese al segundo if");
+                log.info("Ingrese al segundo if");
                 return true;
             } else {
-                System.out.println("Correo Invalido");
+                log.info("Correo Invalido");
 //                FacesMessage msg = new FacesMessage("Error", "Correo inválido, por favor verifique.");
 //                FacesContext.getCurrentInstance().addMessage(null, msg);
 //                RequestContext.getCurrentInstance().update("form:growl");
             }
         } else {
-            System.out.println("Ingrese segundo else");
+            log.info("Ingrese segundo else");
             return true;
         }
         return false;
     }
 
     private String generaReporte(Map paramEmpl) {
-        System.out.println("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
+        log.info("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
         String pathReporteGeneradoLoc = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo(), paramEmpl);
-        System.out.println("adjunto: " + pathReporteGeneradoLoc);
+        log.info("adjunto: " + pathReporteGeneradoLoc);
         return pathReporteGeneradoLoc;
     }
 
     private boolean enviarReporteCorreo(BigInteger secEmp, String correoE, String asuntoCorreo, String mensaje, String rutaArchivo, String[] msjResul) {
-        System.out.println("Controlador.ControlRegistroEnvios.enviarReporteCorreo()");
+        log.info("Controlador.ControlRegistroEnvios.enviarReporteCorreo()");
         boolean resultado = false;
         if (administrarEnvioCorreos.enviarCorreo(secEmp, correoE,
                 asuntoCorreo, mensaje,
@@ -805,7 +808,7 @@ public class ControlRegistroEnvios implements Serializable {
 //    }
 
     public BigInteger getSecEmpresa() {
-        System.out.println("Controlador.ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
+        log.info("Controlador.ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
         if (secEmpresa == null) {
             try {
                 secEmpresa = empleado.getEmpresa().getSecuencia();

@@ -1,66 +1,62 @@
 package Cargue;
 
-import Entidades.Estructuras;
-import InterfaceAdministrar.AdministrarEstructurasInterface;
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @SessionScoped
 public class PruebaComponetesUnitarios implements Serializable {
 
-    private String inputFoco;
-    private List<String> listaPrueb;
-    private int num;
+   private static Logger log = Logger.getLogger(PruebaComponetesUnitarios.class);
 
-    public PruebaComponetesUnitarios() {
-        listaPrueb = null;
-        inputFoco = "form:tablaEjemplo:0:input3";
-        num = 0;
+   private String inputFoco;
+   private List<String> listaPrueb;
+   private int num;
 
-    }
+   public PruebaComponetesUnitarios() {
+      listaPrueb = null;
+      inputFoco = "form:tablaEjemplo:0:input3";
+      num = 0;
 
-    public List<String> getListaPrueb() {
-        if (listaPrueb == null) {
-            listaPrueb = new ArrayList<String>();
-            listaPrueb.add("HOLA1");
-            listaPrueb.add("HOLA2");
-            listaPrueb.add("HOLA3");
-            listaPrueb.add("HOLA4");
-        }
-        return listaPrueb;
-    }
+   }
 
-    public void probarFocusDinamico() {
-        if (num < 4) {
-            num++;
-            inputFoco = "form:tablaEjemplo:" + num + ":input3";
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.update("form:superBoton");
-        }
-    }
+   public List<String> getListaPrueb() {
+      if (listaPrueb == null) {
+         listaPrueb = new ArrayList<String>();
+         listaPrueb.add("HOLA1");
+         listaPrueb.add("HOLA2");
+         listaPrueb.add("HOLA3");
+         listaPrueb.add("HOLA4");
+      }
+      return listaPrueb;
+   }
 
-    public void setListaPrueb(List<String> listaPrueb) {
-        this.listaPrueb = listaPrueb;
-    }
+   public void probarFocusDinamico() {
+      if (num < 4) {
+         num++;
+         inputFoco = "form:tablaEjemplo:" + num + ":input3";
+         RequestContext context = RequestContext.getCurrentInstance();
+         context.update("form:superBoton");
+      }
+   }
 
-    public String getInputFoco() {
-        return inputFoco;
-    }
+   public void setListaPrueb(List<String> listaPrueb) {
+      this.listaPrueb = listaPrueb;
+   }
 
-    public void setInputFoco(String inputFoco) {
-        this.inputFoco = inputFoco;
-    }
+   public String getInputFoco() {
+      return inputFoco;
+   }
 
-    public void cambiarFoco() {
-    }
+   public void setInputFoco(String inputFoco) {
+      this.inputFoco = inputFoco;
+   }
+
+   public void cambiarFoco() {
+   }
 }

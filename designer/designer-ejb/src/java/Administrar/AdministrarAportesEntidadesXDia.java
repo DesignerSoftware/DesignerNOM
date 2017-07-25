@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @Local
 public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntidadesXDiaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarAportesEntidadesXDia.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -62,7 +65,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
                 persistenciaAportesEntidadesXDia.crear(em, listaAE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearAportesEntidadesXDia Admi : " + e.toString());
+            log.warn("Error crearAportesEntidadesXDia Admi : " + e.toString());
         }
     }
 
@@ -79,7 +82,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
                 persistenciaAportesEntidadesXDia.editar(em, listAE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarAportesEntidadesXDia Admi : " + e.toString());
+            log.warn("Error editarAportesEntidadesXDia Admi : " + e.toString());
         }
     }
 
@@ -96,7 +99,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
                 persistenciaAportesEntidadesXDia.borrar(em, listAE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarAportesEntidadesXDia Admi : " + e.toString());
+            log.warn("Error borrarAportesEntidadesXDia Admi : " + e.toString());
         }
     }
 

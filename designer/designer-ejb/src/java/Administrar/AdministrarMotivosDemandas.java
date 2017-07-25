@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosDemandas.class);
 
     @EJB
     PersistenciaMotivosDemandasInterface persistenciaMotivosDemandas;
@@ -42,7 +45,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
     @Override
     public void modificarMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
         for (int i = 0; i < listMotivosDemandas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosDemandas.editar(em, listMotivosDemandas.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
     @Override
     public void borrarMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
         for (int i = 0; i < listMotivosDemandas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosDemandas.borrar(em, listMotivosDemandas.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
     @Override
     public void crearMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
         for (int i = 0; i < listMotivosDemandas.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosDemandas.crear(em, listMotivosDemandas.get(i));
         }
     }
@@ -82,10 +85,10 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
         BigInteger verificadorDemanda = null;
 
         try {
-            System.err.println("Secuencia Motivo Demanda " + secuenciaEventos);
+            log.error("Secuencia Motivo Demanda " + secuenciaEventos);
             verificadorDemanda = persistenciaMotivosDemandas.contadorDemandas(em, secuenciaEventos);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarMotivoDemanda verificarBorradoDemanda ERROR :" + e);
+            log.error("ERROR AdmnistrarMotivoDemanda verificarBorradoDemanda ERROR :" + e);
         } finally {
             return verificadorDemanda;
         }

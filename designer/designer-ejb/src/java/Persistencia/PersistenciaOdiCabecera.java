@@ -7,7 +7,6 @@ package Persistencia;
 
 import Entidades.Empleados;
 import Entidades.Empresas;
-import Entidades.NovedadesAutoLiquidaciones;
 import Entidades.OdisCabeceras;
 import Entidades.OdisDetalles;
 import Entidades.RelacionesIncapacidades;
@@ -19,6 +18,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -29,6 +29,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaOdiCabecera.class);
+
     @Override
     public void crear(EntityManager em, OdisCabeceras odicabecera) {
         em.clear();
@@ -38,7 +40,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odicabecera);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.crear: " + e.getMessage());
+            log.error("Error PersistenciaOdiCabecera.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odicabecera);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.editar: " + e.getMessage());
+            log.error("Error PersistenciaOdiCabecera.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.remove(em.merge(odicabecera));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.borrar: " + e.getMessage());
+            log.error("Error PersistenciaOdiCabecera.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -93,7 +95,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<Terceros> listaTerceros = query.getResultList();
             return listaTerceros;
         } catch (Exception e) {
-            System.out.println("Error: (lovTerceros)" + e.getMessage());
+            log.error("Error: (lovTerceros)" + e.getMessage());
             return null;
         }
     }
@@ -114,7 +116,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<TiposEntidades> tiposentidades = query.getResultList();
             return tiposentidades;
         } catch (Exception e) {
-            System.out.println("Error: (lovTiposEntidades)" + e.getMessage());
+            log.error("Error: (lovTiposEntidades)" + e.getMessage());
             return null;
         }
     }
@@ -128,7 +130,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<Empresas> listaEmpresas = query.getResultList();
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("Error: (lovEmpresas)" + e.getMessage());
+            log.error("Error: (lovEmpresas)" + e.getMessage());
             return null;
         }
     }
@@ -150,7 +152,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<Empleados> lovempleados = query.getResultList();
             return lovempleados;
         } catch (Exception e) {
-            System.out.println("Error: (lovSucursalesPila)" + e.getMessage());
+            log.error("Error: (lovSucursalesPila)" + e.getMessage());
             return null;
         }
     }
@@ -165,7 +167,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<SucursalesPila> listasucursalespila = query.getResultList();
             return listasucursalespila;
         } catch (Exception e) {
-            System.out.println("Error: (lovSucursalesPila)" + e.getMessage());
+            log.error("Error: (lovSucursalesPila)" + e.getMessage());
             return null;
         }
     }
@@ -185,7 +187,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             return lovrelacionesincapacidades;
 
         } catch (Exception e) {
-            System.out.println("Error: (lovRelacionesIncapacidades) " + e.getMessage());
+            log.error("Error: (lovRelacionesIncapacidades) " + e.getMessage());
             return null;
         }
     }
@@ -204,7 +206,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<OdisCabeceras> listaodiscabeceras = query.getResultList();
             return listaodiscabeceras;
         } catch (Exception e) {
-            System.out.println("Error: (listaNovedades)" + e.getMessage());
+            log.error("Error: (listaNovedades)" + e.getMessage());
             return null;
         }
     }
@@ -218,7 +220,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odidetalle);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.crearDetalle: " + e.getMessage());
+            log.error("Error PersistenciaOdiCabecera.crearDetalle: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -234,7 +236,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odidetalle);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.editarDetalle: " + e.getMessage());
+            log.error("Error PersistenciaOdiCabecera.editarDetalle: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -250,7 +252,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.remove(em.merge(odidetalle));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.borrarDetalle: " + e.getMessage());
+            log.error("Error PersistenciaOdiCabecera.borrarDetalle: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

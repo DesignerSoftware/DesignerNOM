@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposPagos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposPagos.class);
 
    @EJB
    AdministrarTiposPagosInterface administrarTiposPagos;
@@ -87,14 +90,14 @@ public class ControlTiposPagos implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposPagos PostConstruct ");
+         log.info("ControlTiposPagos PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposPagos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -230,10 +233,10 @@ public class ControlTiposPagos implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPagos:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposPagos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 320;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposPagos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -296,7 +299,7 @@ public class ControlTiposPagos implements Serializable {
             contarRetiradosClasePension = new BigInteger("-1");
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposPagos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposPagos verificarBorrado ERROR " + e);
       }
    }
 

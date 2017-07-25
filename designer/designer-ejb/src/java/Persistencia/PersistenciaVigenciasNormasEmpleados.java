@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -24,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenciasNormasEmpleadosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasNormasEmpleados.class);
+
    @Override
    public boolean crear(EntityManager em, VigenciasNormasEmpleados vigenciasNormasEmpleados) {
       em.clear();
@@ -34,7 +36,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasNormasEmpleados.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasNormasEmpleados.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -51,7 +53,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.merge(vigenciasNormasEmpleados);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasNormasEmpleados.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasNormasEmpleados.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +69,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.remove(em.merge(vigenciasNormasEmpleados));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasNormasEmpleados.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasNormasEmpleados.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +83,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.clear();
          return em.find(VigenciasNormasEmpleados.class, secuencia);
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleado()" + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleado()" + e.getMessage());
          return null;
       }
    }
@@ -96,7 +98,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          List<VigenciasNormasEmpleados> vigenciasNormasEmpleados = query.getResultList();
          return vigenciasNormasEmpleados;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia Vigencias Normas Empleados " + e.getMessage());
+         log.error("Error en Persistencia Vigencias Normas Empleados " + e.getMessage());
          return null;
       }
    }
@@ -109,7 +111,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
       cq.select(cq.from(VigenciasNormasEmpleados.class));
       return em.createQuery(cq).getResultList();
       }catch(Exception e){
-          System.out.println("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleados()" + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleados()" + e.getMessage());
           return null;
       }
    }

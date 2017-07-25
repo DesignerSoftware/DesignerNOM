@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEventos implements PersistenciaEventosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEventos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          em.merge(eventos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEventos.crear: " + e);
+         log.error("Error PersistenciaEventos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +55,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          em.merge(eventos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEventos.editar: " + e);
+         log.error("Error PersistenciaEventos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +72,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEventos.borrar: " + e);
+         log.error("Error PersistenciaEventos.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -83,7 +85,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          em.clear();
          return em.find(Eventos.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error en la PersistenciaEventos : " + e);
+         log.error("Error en la PersistenciaEventos : " + e);
          return null;
       }
    }
@@ -97,7 +99,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          List<Eventos> eventos = query.getResultList();
          return eventos;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaEventos Por buscarEventos ERROR" + e);
+         log.error("Error en PersistenciaEventos Por buscarEventos ERROR" + e);
          return null;
       }
    }
@@ -110,10 +112,10 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("Contador PersitenciaEventos contadorVigenciasEventos persistencia " + retorno);
+         log.error("Contador PersitenciaEventos contadorVigenciasEventos persistencia " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("Error PersitenciaEventos contadorVigenciasEventos. " + e);
+         log.error("Error PersitenciaEventos contadorVigenciasEventos. " + e);
          return retorno;
       }
    }

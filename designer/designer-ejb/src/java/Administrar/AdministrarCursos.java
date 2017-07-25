@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 /**
  * Clase Stateful. <br>
  * Clase encargada de realizar las operaciones lógicas para la pantalla 'Cursos'.
@@ -18,6 +19,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarCursos implements AdministrarCursosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCursos.class);
     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    
@@ -58,7 +61,7 @@ public class AdministrarCursos implements AdministrarCursosInterface {
                 persistenciaCursos.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarCursos.crear : " + e.toString());
+            log.warn("Error en AdministrarCursos.crear : " + e.toString());
         }
     }
 
@@ -69,7 +72,7 @@ public class AdministrarCursos implements AdministrarCursosInterface {
                 persistenciaCursos.editar(em, listaEditar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarCursos.editar : " + e.toString());
+            log.warn("Error en AdministrarCursos.editar : " + e.toString());
         }
     }
 
@@ -80,7 +83,7 @@ public class AdministrarCursos implements AdministrarCursosInterface {
                 persistenciaCursos.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarCursos.borrar : " + e.toString());
+            log.warn("Error en AdministrarCursos.borrar : " + e.toString());
         }
     }
 }

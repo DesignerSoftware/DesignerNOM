@@ -8,7 +8,6 @@ package Administrar;
 import Entidades.Empleados;
 import Entidades.HVHojasDeVida;
 import Entidades.HvEntrevistas;
-import Entidades.Personas;
 import InterfaceAdministrar.AdministrarHvEntrevistasInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
@@ -19,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarHvEntrevistas.class);
 
     @EJB
     PersistenciaHvEntrevistasInterface persistenciaHvEntrevistas;
@@ -51,7 +53,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
     @Override
     public void modificarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
         for (int i = 0; i < listHvEntrevistas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             persistenciaHvEntrevistas.editar(em, listHvEntrevistas.get(i));
         }
     }
@@ -59,7 +61,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
     @Override
     public void borrarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
         for (int i = 0; i < listHvEntrevistas.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             persistenciaHvEntrevistas.borrar(em, listHvEntrevistas.get(i));
         }
     }
@@ -80,7 +82,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
         try {
             listHvEntrevistas = persistenciaHvEntrevistas.buscarHvEntrevistasPorEmpleado(em, secPersona);
         } catch (Exception e) {
-            System.out.println("Error en AdministrarHvEntrevistas hvEntrevistasPorEmplado");
+            log.warn("Error en AdministrarHvEntrevistas hvEntrevistasPorEmplado");
             listHvEntrevistas = null;
         }
         return listHvEntrevistas;
@@ -101,7 +103,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
             return empleado;
         } catch (Exception e) {
             empleado = null;
-            System.out.println("ERROR AdministrarHvEntrevistas  buscarEmpleado ERROR =====" + e);
+            log.warn("ERROR AdministrarHvEntrevistas  buscarEmpleado ERROR =====" + e);
             return empleado;
         }
     }
@@ -113,7 +115,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
             hvHojasDeVida = persistenciaHvEntrevistas.buscarHvHojaDeVidaPorPersona(em, secuencia);
             return hvHojasDeVida;
         } catch (Exception e) {
-            System.out.println("ERROR AdministrarHvEntrevistas  buscarHVHojasDeVida ERROR =====" + e);
+            log.warn("ERROR AdministrarHvEntrevistas  buscarHVHojasDeVida ERROR =====" + e);
             return null;
         }
     }
@@ -124,7 +126,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
             HVHojasDeVida hojaVida = persistenciaHVHojasDeVida.hvHojaDeVidaPersona(em, secuencia);
             return hojaVida;
         } catch (Exception e) {
-            System.out.println("Error obtenerHojaVidaPersona Admi : " + e.toString());
+            log.warn("Error obtenerHojaVidaPersona Admi : " + e.toString());
             return null;
         }
     }

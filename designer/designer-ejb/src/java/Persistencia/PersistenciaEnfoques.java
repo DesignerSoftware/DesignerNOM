@@ -8,6 +8,7 @@ package Persistencia;
 import InterfacePersistencia.PersistenciaEnfoquesInterface;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import Entidades.Enfoques;
 import java.math.BigInteger;
 import java.util.List;
@@ -22,6 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEnfoques.class);
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -35,7 +38,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             em.merge(enfoques);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEnfoques.crear: " + e);
+            log.error("Error PersistenciaEnfoques.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +53,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             em.merge(enfoques);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEnfoques.editar: " + e);
+            log.error("Error PersistenciaEnfoques.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +72,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaEnfoques.borrar: " + e);
+                log.error("Error PersistenciaEnfoques.borrar: " + e);
         }
     }
 
@@ -78,7 +81,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             em.clear();
             return em.find(Enfoques.class, secuenciaEnfoques);
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaEnfoques buscarEnfoque ERROR " + e);
+            log.error("ERROR PersistenciaEnfoques buscarEnfoque ERROR " + e);
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             cq.select(cq.from(Enfoques.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("\n ERROR EN PersistenciaEnfoques buscarEnfoques ERROR" + e);
+            log.error("\n ERROR EN PersistenciaEnfoques buscarEnfoques ERROR" + e);
             return null;
         }
     }
@@ -103,10 +106,10 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAENFOQUES contadorTiposDetalles = " + retorno);
+            log.error("PERSISTENCIAENFOQUES contadorTiposDetalles = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAENFOQUES contadorTiposDetalles  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFOQUES contadorTiposDetalles  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }

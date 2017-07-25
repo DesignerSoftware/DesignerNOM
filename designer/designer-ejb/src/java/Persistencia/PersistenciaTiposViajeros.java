@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposViajeros.class);
 
     @Override
     public void crear(EntityManager em, Tiposviajeros subCategorias) {
@@ -31,7 +33,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposViajeros.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +49,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposViajeros.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +65,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.remove(em.merge(subCategorias));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposViajeros.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +81,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             List<Tiposviajeros> listTiposViajeros = query.getResultList();
             return listTiposViajeros;
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
+            log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
             return null;
         }
     }
@@ -94,7 +96,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             Tiposviajeros subCategorias = (Tiposviajeros) query.getSingleResult();
             return subCategorias;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposViajeros.consultarSubCategoria()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposViajeros.consultarSubCategoria()" + e.getMessage());
             return null;
         }
     }
@@ -108,10 +110,10 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposViajeros contarVigenciasViajeros persistencia " + retorno);
+            log.error("Contador PersistenciaTiposViajeros contarVigenciasViajeros persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposViajeros contarVigenciasViajeros. " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros contarVigenciasViajeros. " + e.getMessage());
             return retorno;
         }
     }
@@ -125,10 +127,10 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposViajeros contarTiposLegalizaciones persistencia " + retorno);
+            log.error("Contador PersistenciaTiposViajeros contarTiposLegalizaciones persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposViajeros contarTiposLegalizaciones. " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros contarTiposLegalizaciones. " + e.getMessage());
             return retorno;
         }
     }

@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaProyecciones implements PersistenciaProyeccionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaProyecciones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -34,7 +37,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             em.persist(proyectos);
             tx.commit();
         } catch (Exception e) {
-            System.err.println("Error PersistenciaProyecciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaProyecciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +52,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             em.merge(proyectos);
             tx.commit();
         } catch (Exception e) {
-            System.err.println("Error PersistenciaProyecciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaProyecciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +67,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             em.remove(em.merge(proyectos));
             tx.commit();
         } catch (Exception e) {
-            System.err.println("Error PersistenciaProyecciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaProyecciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +85,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             lista = query.getResultList();
         } catch (Exception e) {
             lista = null;
-            System.err.println("PersistenciaProyecciones consultarProyecciones ERROR : " + e.getMessage());
+            log.error("PersistenciaProyecciones consultarProyecciones ERROR : " + e.getMessage());
         }
         return lista;
     }

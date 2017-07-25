@@ -16,9 +16,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarRastros implements AdministrarRastrosInterface, Serializable {
+   
+   private static Logger log = Logger.getLogger(AdministrarRastros.class);
 
     @EJB
     PersistenciaObjetosDBInterface persistenciaObjetosDB;

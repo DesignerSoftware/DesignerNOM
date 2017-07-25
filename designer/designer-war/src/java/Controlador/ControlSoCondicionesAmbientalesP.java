@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlSoCondicionesAmbientalesP implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlSoCondicionesAmbientalesP.class);
 
     @EJB
     AdministrarSoCondicionesAmbientalesPInterface administrarSoCondicionesAmbientalesP;
@@ -97,8 +100,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             administrarSoCondicionesAmbientalesP.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -160,7 +163,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n EVENTO FILTRAR \n");
+            log.info("\n EVENTO FILTRAR \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
@@ -168,12 +171,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             infoRegistro = "Cantidad de registros: " + filtrarSoCondicionesAmbientalesP.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
-            System.out.println("ERROR EVENTO FILTRAR ERROR===" + e.getMessage());
+            log.warn("Error EVENTO FILTRAR ERROR===" + e.getMessage());
         }
     }
 
     public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
 
         if (permitirIndex == true) {
             index = indice;
@@ -196,24 +199,24 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             secRegistro = listSoCondicionesAmbientalesP.get(index).getSecuencia();
 
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
+        log.info("Indice: " + index + " Celda: " + cualCelda);
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE CONTROLSOCONDICIONESAMBIENTALESP  AsignarIndex \n");
+            log.info("\n ENTRE CONTROLSOCONDICIONESAMBIENTALESP  AsignarIndex \n");
             index = indice;
             if (LND == 0) {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLSOCONDICIONESAMBIENTALESP asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error CONTROLSOCONDICIONESAMBIENTALESP asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -297,11 +300,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             tamano = 270;
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
@@ -314,7 +317,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void modificandoSoCondicionAmbientalP(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("MODIFICAR  SO CONDICIONES AMBIENTALES P");
+        log.error("MODIFICAR  SO CONDICIONES AMBIENTALES P");
         index = indice;
 
         int contador = 0;
@@ -322,9 +325,9 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         Short a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("MODIFICANDO CLASE ACCIDENTE CONFIRMAR CAMBIO = N");
+            log.error("MODIFICANDO CLASE ACCIDENTE CONFIRMAR CAMBIO = N");
             if (tipoLista == 0) {
                 if (!crearSoCondicionesAmbientalesP.contains(listSoCondicionesAmbientalesP.get(indice))) {
                     if (listSoCondicionesAmbientalesP.get(indice).getCodigo() == null) {
@@ -448,14 +451,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     banderita = false;
                 } else {
                     for (int j = 0; j < listSoCondicionesAmbientalesP.size(); j++) {
-                        System.err.println("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
+                        log.error("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
                         if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(listSoCondicionesAmbientalesP.get(j).getCodigo())) {
                             contador++;
                         }
                     }
 
                     for (int j = 0; j < filtrarSoCondicionesAmbientalesP.size(); j++) {
-                        System.err.println("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
+                        log.error("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
                         if (j == indice) {
                             if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(filtrarSoCondicionesAmbientalesP.get(j).getCodigo())) {
                                 contador++;
@@ -511,14 +514,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     banderita = false;
                 } else {
                     for (int j = 0; j < listSoCondicionesAmbientalesP.size(); j++) {
-                        System.err.println("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
+                        log.error("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
                         if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(listSoCondicionesAmbientalesP.get(j).getCodigo())) {
                             contador++;
                         }
                     }
 
                     for (int j = 0; j < filtrarSoCondicionesAmbientalesP.size(); j++) {
-                        System.err.println("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
+                        log.error("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
                         if (j == indice) {
                             if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(filtrarSoCondicionesAmbientalesP.get(j).getCodigo())) {
                                 contador++;
@@ -571,7 +574,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         if (index >= 0) {
 
             if (tipoLista == 0) {
-                System.out.println("borrandoSoCondicionesAmbientalesP");
+                log.info("borrandoSoCondicionesAmbientalesP");
                 if (!modificarSoCondicionesAmbientalesP.isEmpty() && modificarSoCondicionesAmbientalesP.contains(listSoCondicionesAmbientalesP.get(index))) {
                     int modIndex = modificarSoCondicionesAmbientalesP.indexOf(listSoCondicionesAmbientalesP.get(index));
                     modificarSoCondicionesAmbientalesP.remove(modIndex);
@@ -585,7 +588,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 listSoCondicionesAmbientalesP.remove(index);
             }
             if (tipoLista == 1) {
-                System.out.println("borrandoSoCondicionesAmbientalesP");
+                log.info("borrandoSoCondicionesAmbientalesP");
                 if (!modificarSoCondicionesAmbientalesP.isEmpty() && modificarSoCondicionesAmbientalesP.contains(filtrarSoCondicionesAmbientalesP.get(index))) {
                     int modIndex = modificarSoCondicionesAmbientalesP.indexOf(filtrarSoCondicionesAmbientalesP.get(index));
                     modificarSoCondicionesAmbientalesP.remove(modIndex);
@@ -616,7 +619,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void verificarBorrado() {
-        System.out.println("verificarBorrado");
+        log.info("verificarBorrado");
         try {
             if (tipoLista == 0) {
                 verificarBorradoAccidentes = administrarSoCondicionesAmbientalesP.verificarSoAccidentesMedicos(listSoCondicionesAmbientalesP.get(index).getSecuencia());
@@ -624,10 +627,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 verificarBorradoAccidentes = administrarSoCondicionesAmbientalesP.verificarSoAccidentesMedicos(filtrarSoCondicionesAmbientalesP.get(index).getSecuencia());
             }
             if (verificarBorradoAccidentes.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoSoCondicionesAmbientalesP();
             } else {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -636,7 +639,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 verificarBorradoAccidentes = new BigInteger("-1");
             }
         } catch (Exception e) {
-            System.err.println("ERROR CLASES ACCIDENTES verificarBorrado ERROR " + e);
+            log.error("ERROR CLASES ACCIDENTES verificarBorrado ERROR " + e);
         }
     }
 
@@ -654,7 +657,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("REALIZANDO SO CONDICIONES AMBIENTALES P");
+            log.info("REALIZANDO SO CONDICIONES AMBIENTALES P");
             if (!borrarSoCondicionesAmbientalesP.isEmpty()) {
                 administrarSoCondicionesAmbientalesP.borrarSoCondicionesAmbientalesP(borrarSoCondicionesAmbientalesP);
                 //mostrarBorrados
@@ -671,7 +674,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 administrarSoCondicionesAmbientalesP.modificarSoCondicionesAmbientalesP(modificarSoCondicionesAmbientalesP);
                 modificarSoCondicionesAmbientalesP.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listSoCondicionesAmbientalesP = null;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -698,7 +701,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -715,7 +718,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void agregarNuevaSoCondicionAmbiental() {
-        System.out.println("agregarNuevaSoCondicionAmbiental");
+        log.info("agregarNuevaSoCondicionAmbiental");
         int contador = 0;
         int duplicados = 0;
 
@@ -725,42 +728,42 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevaSoCondicionAmbientalP.getCodigo() == null) {
             mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevaSoCondicionAmbientalP.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevaSoCondicionAmbientalP.getCodigo());
 
             for (int x = 0; x < listSoCondicionesAmbientalesP.size(); x++) {
                 if (listSoCondicionesAmbientalesP.get(x).getCodigo().equals(nuevaSoCondicionAmbientalP.getCodigo())) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevaSoCondicionAmbientalP.getDescripcion() == (null)) {
             mensajeValidacion = mensajeValidacion + " *Descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosSoCondicionesAmbientalesP:descripcion");
@@ -770,7 +773,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 filtrarSoCondicionesAmbientalesP = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -800,7 +803,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void limpiarNuevoSoCondicionesAmbientalesP() {
-        System.out.println("limpiarSoCondicionesAmbientalesP");
+        log.info("limpiarSoCondicionesAmbientalesP");
         nuevaSoCondicionAmbientalP = new SoCondicionesAmbientalesP();
         secRegistro = null;
         index = -1;
@@ -809,7 +812,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     //------------------------------------------------------------------------------
     public void duplicandoSoCondicionAmbientalP() {
-        System.out.println("duplicandoSoCondicionAmbientalP");
+        log.info("duplicandoSoCondicionAmbientalP");
         if (index >= 0) {
             duplicarSoCondicionAmbientalP = new SoCondicionesAmbientalesP();
             k++;
@@ -835,19 +838,19 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void confirmarDuplicar() {
-        System.err.println("CONFIRMAR DUPLICAR SO CONDICIONES AMBIENTALES P");
+        log.error("CONFIRMAR DUPLICAR SO CONDICIONES AMBIENTALES P");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Short a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarSoCondicionAmbientalP.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarSoCondicionAmbientalP.getDescripcion());
+        log.error("ConfirmarDuplicar codigo " + duplicarSoCondicionAmbientalP.getCodigo());
+        log.error("ConfirmarDuplicar Descripcion " + duplicarSoCondicionAmbientalP.getDescripcion());
 
         if (duplicarSoCondicionAmbientalP.getCodigo() == null || duplicarSoCondicionAmbientalP.getCodigo().equals(" ") || duplicarSoCondicionAmbientalP.getCodigo().isEmpty()) {
             mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
             for (int x = 0; x < listSoCondicionesAmbientalesP.size(); x++) {
@@ -857,27 +860,27 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarSoCondicionAmbientalP.getDescripcion() == null) {
             mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarSoCondicionAmbientalP.getSecuencia() + "  " + duplicarSoCondicionAmbientalP.getCodigo());
+            log.info("Datos Duplicando: " + duplicarSoCondicionAmbientalP.getSecuencia() + "  " + duplicarSoCondicionAmbientalP.getCodigo());
             if (crearSoCondicionesAmbientalesP.contains(duplicarSoCondicionAmbientalP)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listSoCondicionesAmbientalesP.add(duplicarSoCondicionAmbientalP);
             crearSoCondicionesAmbientalesP.add(duplicarSoCondicionAmbientalP);
@@ -938,12 +941,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listSoCondicionesAmbientalesP.isEmpty()) {
             if (secRegistro != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "SOCONDICIONESAMBIENTALESP"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {

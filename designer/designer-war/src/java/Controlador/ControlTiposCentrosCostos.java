@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposCentrosCostos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposCentrosCostos.class);
 
    @EJB
    AdministrarTiposCentrosCostosInterface administrarTiposCentrosCostos;
@@ -113,8 +116,8 @@ public class ControlTiposCentrosCostos implements Serializable {
          administrarTiposCentrosCostos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -357,11 +360,11 @@ public class ControlTiposCentrosCostos implements Serializable {
          grupoTipoCC = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:grupoTipoCC");
          grupoTipoCC.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 330;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          nombre = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:nombre");
@@ -446,7 +449,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          if (duplicados > 0) {
             mensajeValidacion = " Existe un registro con el código ingresado. Por favor ingrese un código válido \n";
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
@@ -468,7 +471,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             if (bandera == 1) {
                FacesContext c = FacesContext.getCurrentInstance();
                //CERRAR FILTRADO
-               System.out.println("Desactivar");
+               log.info("Desactivar");
                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:codigo");
                codigo.setFilterStyle("display: none; visibility: hidden;");
                nombre = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:nombre");
@@ -588,7 +591,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          if (duplicados > 0) {
             mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido \n";
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -597,24 +600,24 @@ public class ControlTiposCentrosCostos implements Serializable {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarTipoCentroCosto.getGrupotipocc().getDescripcion() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          contador++;
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
       }
 
       if (contador == 3) {
          k++;
          l = BigInteger.valueOf(k);
          duplicarTipoCentroCosto.setSecuencia(l);
-         System.out.println("Datos Duplicando: " + duplicarTipoCentroCosto.getSecuencia() + "  " + duplicarTipoCentroCosto.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTipoCentroCosto.getSecuencia() + "  " + duplicarTipoCentroCosto.getCodigo());
          if (crearTiposCentrosCostos.contains(duplicarTipoCentroCosto)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposCentrosCostos.add(duplicarTipoCentroCosto);
          crearTiposCentrosCostos.add(duplicarTipoCentroCosto);
@@ -660,7 +663,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          editarTipoCentroCosto = tipoCentroCostoSeleccionado;
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -720,7 +723,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          }
 
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
       }
    }
 
@@ -728,7 +731,7 @@ public class ControlTiposCentrosCostos implements Serializable {
 
       if (tipoCentroCostoSeleccionado != null) {
 
-         System.out.println("Entro a borrarTiposCentrosCostos");
+         log.info("Entro a borrarTiposCentrosCostos");
          if (!modificarTiposCentrosCostos.isEmpty() && modificarTiposCentrosCostos.contains(tipoCentroCostoSeleccionado)) {
             int modIndex = modificarTiposCentrosCostos.indexOf(tipoCentroCostoSeleccionado);
             modificarTiposCentrosCostos.remove(modIndex);
@@ -786,7 +789,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposCentrosCostos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposCentrosCostos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

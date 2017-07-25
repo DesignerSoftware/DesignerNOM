@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlCausasAusentismos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlCausasAusentismos.class);
 
    @EJB
    AdministrarCausasAusentismosInterface administrarCausasAusentismos;
@@ -172,8 +175,8 @@ public class ControlCausasAusentismos implements Serializable {
          administrarCausasAusentismos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -187,10 +190,10 @@ public class ControlCausasAusentismos implements Serializable {
 
    //ACTIVAR F11
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
+         log.info("Activar");
          Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
          Codigo.setFilterStyle("width: 85% !important");
          Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
@@ -209,9 +212,9 @@ public class ControlCausasAusentismos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
          bandera = 1;
          tipoLista = 1;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
          Codigo.setFilterStyle("display: none; visibility: hidden;");
          Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
@@ -231,7 +234,7 @@ public class ControlCausasAusentismos implements Serializable {
          bandera = 0;
          filtrarCausasAusentismos = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
 
       }
    }
@@ -279,7 +282,7 @@ public class ControlCausasAusentismos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigo");
             RequestContext.getCurrentInstance().execute("PF('editarCodigo').show()");
@@ -367,7 +370,7 @@ public class ControlCausasAusentismos implements Serializable {
       }
 
       RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
-      System.out.println("Subtipo: " + causasAusentismoSeleccionado.getOrigenincapacidad());
+      log.info("Subtipo: " + causasAusentismoSeleccionado.getOrigenincapacidad());
    }
 
    //NUEVO Y DUPLICADO, REGISTRO DE ORIGEN INCAPACIDAD
@@ -486,7 +489,7 @@ public class ControlCausasAusentismos implements Serializable {
       }
 
       RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
-      System.out.println("Subtipo: " + causasAusentismoSeleccionado.getFormaliquidacion());
+      log.info("Subtipo: " + causasAusentismoSeleccionado.getFormaliquidacion());
    }
 
    //NUEVO Y DUPLICADO, REGISTRO DE FORMA LIQUIDACION
@@ -565,10 +568,10 @@ public class ControlCausasAusentismos implements Serializable {
                }
                if (causasAusentismoSeleccionado.getCodigo() == null || (causasAusentismoSeleccionado.getCodigo().toString()).equals("")) {
                   pasac++;
-                  System.out.println("pasac: " + pasac);
+                  log.info("pasac: " + pasac);
                }
                if (pasa == 1 && pasac == 0) {
-                  System.out.println("pasac es: " + pasac);
+                  log.info("pasac es: " + pasac);
                   if (listaCausasAusentismosModificar.isEmpty()) {
                      listaCausasAusentismosModificar.add(causasAusentismoSeleccionado);
                   } else if (!listaCausasAusentismosModificar.contains(causasAusentismoSeleccionado)) {
@@ -933,7 +936,7 @@ public class ControlCausasAusentismos implements Serializable {
       int pasa = 0;
       mensajeValidacion = " ";
       if (nuevaCausasAusentismos.getCodigo() != null) {
-         System.out.println("entra1");
+         log.info("entra1");
          for (int i = 0; i < listaCausasAusentismos.size(); i++) {
             if (nuevaCausasAusentismos.getCodigo() == listaCausasAusentismos.get(i).getCodigo()) {
                pasa++;
@@ -943,12 +946,12 @@ public class ControlCausasAusentismos implements Serializable {
          }
       }
       if (nuevaCausasAusentismos.getCodigo() == null) {
-         System.out.println("entra2");
+         log.info("entra2");
          mensajeValidacion = mensajeValidacion + "   * Codigo\n";
          pasa++;
       }
       if (nuevaCausasAusentismos.getClase().getDescripcion() == null || nuevaCausasAusentismos.getClase().getDescripcion().equals("")) {
-         System.out.println("entra3");
+         log.info("entra3");
          mensajeValidacion = mensajeValidacion + "   * Clase Ausentismo\n";
          pasa++;
       }
@@ -956,8 +959,8 @@ public class ControlCausasAusentismos implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
 
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
             Codigo.setFilterStyle("display: none; visibility: hidden;");
             Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
@@ -1109,7 +1112,7 @@ public class ControlCausasAusentismos implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
             Codigo.setFilterStyle("display: none; visibility: hidden;");
             Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
@@ -1136,7 +1139,7 @@ public class ControlCausasAusentismos implements Serializable {
             altoTabla = "270";
             bandera = 0;
             filtrarCausasAusentismos = null;
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("TipoLista= " + tipoLista);
             tipoLista = 0;
          }
 
@@ -1163,7 +1166,7 @@ public class ControlCausasAusentismos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (causasAusentismoSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(causasAusentismoSeleccionado.getSecuencia(), "CAUSASAUSENTISMOS");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -1193,7 +1196,7 @@ public class ControlCausasAusentismos implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
          Codigo.setFilterStyle("display: none; visibility: hidden;");
          Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
@@ -1222,7 +1225,7 @@ public class ControlCausasAusentismos implements Serializable {
          bandera = 0;
          filtrarCausasAusentismos = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       }
 
       listaCausasAusentismosBorrar.clear();
@@ -1233,7 +1236,7 @@ public class ControlCausasAusentismos implements Serializable {
       listaCausasAusentismos = null;
       getListaCausasAusentismos();
       for (int i = 0; i < listaCausasAusentismos.size(); i++) {
-         System.out.println("Posicion: " + i + "Tiene en origen: " + listaCausasAusentismos.get(i).getOrigenincapacidad());
+         log.info("Posicion: " + i + "Tiene en origen: " + listaCausasAusentismos.get(i).getOrigenincapacidad());
       }
       contarRegistros();
       guardado = true;
@@ -1251,7 +1254,7 @@ public class ControlCausasAusentismos implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          Codigo = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:codigo");
          Codigo.setFilterStyle("display: none; visibility: hidden;");
          Descripcion = (Column) c.getViewRoot().findComponent("form:datosCausasAusentismos:descripcion");
@@ -1279,7 +1282,7 @@ public class ControlCausasAusentismos implements Serializable {
          bandera = 0;
          filtrarCausasAusentismos = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       }
       listaCausasAusentismosBorrar.clear();
       listaCausasAusentismosCrear.clear();
@@ -1305,10 +1308,10 @@ public class ControlCausasAusentismos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (guardado == false) {
-            System.out.println("Realizando Operaciones Unidades");
+            log.info("Realizando Operaciones Unidades");
             if (!listaCausasAusentismosBorrar.isEmpty()) {
                administrarCausasAusentismos.borrarCausasAusentismos(listaCausasAusentismosBorrar);
-               System.out.println("Entra");
+               log.info("Entra");
                listaCausasAusentismosBorrar.clear();
             }
             if (!listaCausasAusentismosCrear.isEmpty()) {
@@ -1319,7 +1322,7 @@ public class ControlCausasAusentismos implements Serializable {
                administrarCausasAusentismos.modificarCausasAusentismos(listaCausasAusentismosModificar);
                listaCausasAusentismosModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaCausasAusentismos = null;
             getListaCausasAusentismos();
             contarRegistros();

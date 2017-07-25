@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmpresasOpcionesKioskos implements AdministrarEmpresasOpcionesKioskosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmpresasOpcionesKioskos.class);
 
     @EJB
     PersistenciaEmpresasOpcionesKioskosInterface persistenciaEmpresasOK;
@@ -40,7 +43,7 @@ public class AdministrarEmpresasOpcionesKioskos implements AdministrarEmpresasOp
                 persistenciaEmpresasOK.editar(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en modificarEmpresasOpcionesKioskos admi : " + e.getMessage());
+            log.warn("error en modificarEmpresasOpcionesKioskos admi : " + e.getMessage());
         }
     }
 
@@ -51,7 +54,7 @@ public class AdministrarEmpresasOpcionesKioskos implements AdministrarEmpresasOp
                 persistenciaEmpresasOK.borrar(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en borrarEmpresasOpcionesKioskos admi : " + e.getMessage());
+            log.warn("error en borrarEmpresasOpcionesKioskos admi : " + e.getMessage());
         }
     }
 
@@ -62,7 +65,7 @@ public class AdministrarEmpresasOpcionesKioskos implements AdministrarEmpresasOp
                 persistenciaEmpresasOK.crear(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en crearEmpresasOpcionesKioskos admi : " + e.getMessage());
+            log.warn("error en crearEmpresasOpcionesKioskos admi : " + e.getMessage());
         }
     }
 
@@ -72,7 +75,7 @@ public class AdministrarEmpresasOpcionesKioskos implements AdministrarEmpresasOp
             List<EmpresasOpcionesKioskos> empresaOK = persistenciaEmpresasOK.consultarEmpresaOpKioskos(em);
             return empresaOK;
         } catch (Exception e) {
-            System.out.println("error en consultarEmpresasOpcionesKioskos : " + e.getMessage());
+            log.warn("error en consultarEmpresasOpcionesKioskos : " + e.getMessage());
             return null;
         }
     }

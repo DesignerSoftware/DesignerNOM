@@ -15,13 +15,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarTercero implements AdministrarTerceroInterface{
+public class AdministrarTercero implements AdministrarTerceroInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTercero.class);
 
     @EJB
     PersistenciaTercerosInterface persistenciaTerceros;
@@ -53,7 +56,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
             List<Terceros> listTerceros = persistenciaTerceros.lovTerceros(em, secuencia);
             return listTerceros;
         } catch (Exception e) {
-            System.out.println("Error en obtenerListTerceros Admi : " + e.toString());
+            log.warn("Error en obtenerListTerceros Admi : " + e.toString());
             return null;
         }
     }
@@ -63,7 +66,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
         try {
             persistenciaTerceros.editar(em, t);
         } catch (Exception e) {
-            System.out.println("Error en modificarTercero Admi : " + e.toString());
+            log.warn("Error en modificarTercero Admi : " + e.toString());
         }
     }
 
@@ -72,7 +75,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
         try {
             persistenciaTerceros.borrar(em, t);
         } catch (Exception e) {
-            System.out.println("Error en borrarTercero Admi : " + e.toString());
+            log.warn("Error en borrarTercero Admi : " + e.toString());
 
         }
     }
@@ -82,7 +85,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
         try {
             persistenciaTerceros.crear(em, t);
         } catch (Exception e) {
-            System.out.println("Error en crearTercero Admi : " + e.toString());
+            log.warn("Error en crearTercero Admi : " + e.toString());
 
         }
     }
@@ -93,7 +96,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
             List<TercerosSucursales> listTercerosSurcursales = persistenciaTercerosSucursales.buscarTercerosSucursalesPorTerceroSecuencia(em, secuencia);
             return listTercerosSurcursales;
         } catch (Exception e) {
-            System.out.println("Error obtenerListTercerosSucursales Admi : " + e.toString());
+            log.warn("Error obtenerListTercerosSucursales Admi : " + e.toString());
             return null;
         }
     }
@@ -103,7 +106,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
         try {
             persistenciaTercerosSucursales.editar(em, t);
         } catch (Exception e) {
-            System.out.println("Error en modificarTerceroSucursales Admi : " + e.toString());
+            log.warn("Error en modificarTerceroSucursales Admi : " + e.toString());
         }
     }
 
@@ -112,7 +115,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
         try {
             persistenciaTercerosSucursales.borrar(em, t);
         } catch (Exception e) {
-            System.out.println("Error en borrarTerceroSucursales Admi : " + e.toString());
+            log.warn("Error en borrarTerceroSucursales Admi : " + e.toString());
         }
     }
 
@@ -121,7 +124,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
         try {
             persistenciaTercerosSucursales.crear(em, t);
         } catch (Exception e) {
-            System.out.println("Error en crearTerceroSucursales Admi : " + e.toString());
+            log.warn("Error en crearTerceroSucursales Admi : " + e.toString());
         }
     }
 
@@ -131,7 +134,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
             List<Empresas> listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error en listEmpresas Admi : "+e.toString());
+            log.warn("Error en listEmpresas Admi : "+e.toString());
             return null;
         }
     }
@@ -142,7 +145,7 @@ public class AdministrarTercero implements AdministrarTerceroInterface{
             List<Ciudades> listCiudades = persistenciaCiudades.consultarCiudades(em);
             return listCiudades;
         }catch(Exception e){
-            System.out.println("Error en listCiudades Admi : "+e.toString());
+            log.warn("Error en listCiudades Admi : "+e.toString());
             return null;
         }
     }

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarActividades implements AdministrarActividadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarActividades.class);
     
 
     @EJB
@@ -42,21 +45,21 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
 
     public void modificarActividades(List<Actividades> listaActividades) {
         for (int i = 0; i < listaActividades.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaActividades.editar(em,listaActividades.get(i));
         }
     }
 
     public void borrarActividades(List<Actividades> listaActividades) {
         for (int i = 0; i < listaActividades.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaActividades.borrar(em,listaActividades.get(i));
         }
     }
 
     public void crearActividades(List<Actividades> listaActividades) {
         for (int i = 0; i < listaActividades.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaActividades.crear(em,listaActividades.get(i));
         }
     }
@@ -72,7 +75,7 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
         try {
             return contarParametrosInformesActividad = persistenciaActividades.contarBienNecesidadesActividad(em,secuenciaActividades);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARACTIVIDADES contarBienNecesidadesActividad ERROR :" + e);
+            log.error("ERROR ADMINISTRARACTIVIDADES contarBienNecesidadesActividad ERROR :" + e);
             return null;
         }
     }
@@ -81,7 +84,7 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
         try {
             return contarParametrosInformesActividad = persistenciaActividades.contarParametrosInformesActividad(em,secuenciaActividades);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARACTIVIDADES contarParametrosInformesActividad ERROR :" + e);
+            log.error("ERROR ADMINISTRARACTIVIDADES contarParametrosInformesActividad ERROR :" + e);
             return null;
         }
     }

@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposTiposEntidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTSGruposTiposEntidades.class);
 
    @Override
    public void crear(EntityManager em, TSGruposTiposEntidades tSGruposTiposEntidades) {
@@ -25,7 +27,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          em.persist(tSGruposTiposEntidades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTSGruposTiposEntidades.crear: " + e.getMessage());
+         log.error("Error PersistenciaTSGruposTiposEntidades.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -41,7 +43,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          em.merge(tSGruposTiposEntidades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTSGruposTiposEntidades.editar: " + e.getMessage());
+         log.error("Error PersistenciaTSGruposTiposEntidades.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +59,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          em.remove(em.merge(tSGruposTiposEntidades));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTSGruposTiposEntidades.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTSGruposTiposEntidades.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +75,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          List<TSGruposTiposEntidades> tSGruposTiposEntidades = (List<TSGruposTiposEntidades>) query.getResultList();
          return tSGruposTiposEntidades;
       } catch (Exception e) {
-         System.out.println("Error buscarTSGruposTiposEntidades PersistenciaTSGruposTiposEntidades : " + e.toString());
+         log.error("Error buscarTSGruposTiposEntidades PersistenciaTSGruposTiposEntidades : " + e.toString());
          return null;
       }
    }
@@ -88,7 +90,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          TSGruposTiposEntidades tSGruposTiposEntidades = (TSGruposTiposEntidades) query.getSingleResult();
          return tSGruposTiposEntidades;
       } catch (Exception e) {
-         System.out.println("Error buscarTSGrupoTipoEntidadSecuencia PersistenciaTSGruposTiposEntidades : " + e.toString());
+         log.error("Error buscarTSGrupoTipoEntidadSecuencia PersistenciaTSGruposTiposEntidades : " + e.toString());
          return null;
       }
    }
@@ -96,16 +98,16 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
    @Override
    public List<TSGruposTiposEntidades> buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo(EntityManager em, BigInteger secTipoSueldo) {
       try {
-         System.out.println("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
+         log.error("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
          em.clear();
          Query query = em.createQuery("SELECT t FROM TSGruposTiposEntidades t WHERE t.tiposueldo.secuencia =:secTipoSueldo");
          query.setParameter("secTipoSueldo", secTipoSueldo);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<TSGruposTiposEntidades> tSGruposTiposEntidades = (List<TSGruposTiposEntidades>) query.getResultList();
-         System.out.println("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo()2");
+         log.error("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo()2");
          return tSGruposTiposEntidades;
       } catch (Exception e) {
-         System.out.println("Error buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo PersistenciaTSGruposTiposEntidades : " + e.toString());
+         log.error("Error buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo PersistenciaTSGruposTiposEntidades : " + e.toString());
          return null;
       }
    }

@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-//import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.*;
 import javax.persistence.Query;
 
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPantallas implements PersistenciaPantallasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPantallas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             Pantallas pantalla = (Pantallas) query.getSingleResult();
             return pantalla;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPantallas.buscarPantalla()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPantallas.buscarPantalla()" + e.getMessage());
             return null;
         }
     }
@@ -52,7 +54,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             List<Pantallas> todosPantallas = query.getResultList();
             return todosPantallas;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaPantallas consultarPantallas ERROR " + e.getMessage());
+            log.error("Error: PersistenciaPantallas consultarPantallas ERROR " + e.getMessage());
             return null;
         }
     }
@@ -67,7 +69,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             String intcontables = (String) query.getSingleResult();
             return intcontables;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaPantallas buscarIntContable ERROR " + e.getMessage());
+            log.error("Error: PersistenciaPantallas buscarIntContable ERROR " + e.getMessage());
             return " ";
         }
     }
@@ -86,7 +88,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             intcontables = (String) query.getSingleResult();
             return intcontables;
         } catch (NoResultException nre)  {
-            System.err.println("Error: PersistenciaPantallas buscarPantallaPorCodigoEmpresa ERROR " + nre.getMessage());
+            log.error("Error: PersistenciaPantallas buscarPantallaPorCodigoEmpresa ERROR " + nre.getMessage());
             return " ";
         }
     }
@@ -103,7 +105,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             query.setParameter(1, codigo);
             intcontables = (String) query.getSingleResult();
         } catch (NonUniqueResultException nure) {
-            System.err.println("Error: PersistenciaPantallas buscarPantallaPorCodigo ERROR " + nure.getMessage());
+            log.error("Error: PersistenciaPantallas buscarPantallaPorCodigo ERROR " + nure.getMessage());
             try {
                 em.clear();
                 sql = "SELECT NOMBRE FROM PANTALLAS WHERE CODIGO = ? AND ROWNUM <= 1 ";

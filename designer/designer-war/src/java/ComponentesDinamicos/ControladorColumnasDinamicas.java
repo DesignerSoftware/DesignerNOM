@@ -10,12 +10,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import org.primefaces.component.column.Column;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @ViewScoped
 public class ControladorColumnasDinamicas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControladorColumnasDinamicas.class);
 
    private final static List<String> NOMBRE_COLUMNAS_VALIDAS = Arrays.asList("codigoEmpleado", "nombre", "primerApellido", "segundoApellido",
            "columna0", "columna1", "columna2", "columna3", "columna4", "columna5", "columna6", "columna7", "columna8", "columna9");
@@ -35,11 +37,11 @@ public class ControladorColumnasDinamicas implements Serializable {
       String[] columnKeys = columnas.split(",");
       columns = new ArrayList<ColumnModel>();
 
-      System.out.println("Esta en createDynamicColumns()");
+      log.info("Esta en createDynamicColumns()");
       for (int i = 0; i < columnKeys.length; i++) {
          //String columnKey = columnKeys[i];
          columns.add(new ColumnModel(columnKeys[i].toUpperCase(), NOMBRE_COLUMNAS_VALIDAS.get(i)));
-         System.out.println("columnKeys[" + i + "].toUpperCase() :  " + columnKeys[i].toUpperCase() + " ---- \t NOMBRE_COLUMNAS_VALIDAS.get(" + i + ")" + NOMBRE_COLUMNAS_VALIDAS.get(i));
+         log.info("columnKeys[" + i + "].toUpperCase() :  " + columnKeys[i].toUpperCase() + " ---- \t NOMBRE_COLUMNAS_VALIDAS.get(" + i + ")" + NOMBRE_COLUMNAS_VALIDAS.get(i));
       }
       columns.get(0).setWidthColumn(130);
       columns.get(1).setWidthColumn(200);
@@ -51,13 +53,13 @@ public class ControladorColumnasDinamicas implements Serializable {
       String[] columnKeys = columnas.split(",");
       columns = new ArrayList<ColumnModel>();
 
-      System.out.println("Esta en createDynamicColumns()");
+      log.info("Esta en createDynamicColumns()");
       for (int i = 0; i < columnKeys.length; i++) {
          //String columnKey = columnKeys[i];
          columns.add(new ColumnModel(columnKeys[i].toUpperCase(), NOMBRE_COLUMNAS_VALIDAS.get(i)));
-         System.out.println("columnKeys[" + i + "].toUpperCase() :  " + columnKeys[i].toUpperCase() + " ---- \t NOMBRE_COLUMNAS_VALIDAS.get(" + i + ")" + NOMBRE_COLUMNAS_VALIDAS.get(i));
+         log.info("columnKeys[" + i + "].toUpperCase() :  " + columnKeys[i].toUpperCase() + " ---- \t NOMBRE_COLUMNAS_VALIDAS.get(" + i + ")" + NOMBRE_COLUMNAS_VALIDAS.get(i));
       }
-      System.out.println("primerResultado : " + primerResultado);
+      log.info("primerResultado : " + primerResultado);
       if (primerResultado != null) {
          try {
             columns.get(0).setWidthColumn(130);
@@ -69,55 +71,55 @@ public class ControladorColumnasDinamicas implements Serializable {
             } else {
                columns.get(4).setWidthColumn(calcularAncho(primerResultado.getColumna0().length()));
             }
-            
+
             if (columnKeys[5].length() >= primerResultado.getColumna1().length()) {
                columns.get(5).setWidthColumn(calcularAncho(columnKeys[5].length()));
             } else {
                columns.get(5).setWidthColumn(calcularAncho(primerResultado.getColumna1().length()));
             }
-            
+
             if (columnKeys[6].length() >= primerResultado.getColumna2().length()) {
                columns.get(6).setWidthColumn(calcularAncho(columnKeys[6].length()));
             } else {
                columns.get(6).setWidthColumn(calcularAncho(primerResultado.getColumna2().length()));
             }
-            
+
             if (columnKeys[7].length() >= primerResultado.getColumna3().length()) {
                columns.get(7).setWidthColumn(calcularAncho(columnKeys[7].length()));
             } else {
                columns.get(7).setWidthColumn(calcularAncho(primerResultado.getColumna3().length()));
             }
-            
+
             if (columnKeys[8].length() >= primerResultado.getColumna4().length()) {
                columns.get(8).setWidthColumn(calcularAncho(columnKeys[8].length()));
             } else {
                columns.get(8).setWidthColumn(calcularAncho(primerResultado.getColumna4().length()));
             }
-            
+
             if (columnKeys[9].length() >= primerResultado.getColumna5().length()) {
                columns.get(9).setWidthColumn(calcularAncho(columnKeys[9].length()));
             } else {
                columns.get(9).setWidthColumn(calcularAncho(primerResultado.getColumna5().length()));
             }
-            
+
             if (columnKeys[10].length() >= primerResultado.getColumna6().length()) {
                columns.get(10).setWidthColumn(calcularAncho(columnKeys[10].length()));
             } else {
                columns.get(10).setWidthColumn(calcularAncho(primerResultado.getColumna6().length()));
             }
-            
+
             if (columnKeys[11].length() >= primerResultado.getColumna7().length()) {
                columns.get(11).setWidthColumn(calcularAncho(columnKeys[11].length()));
             } else {
                columns.get(11).setWidthColumn(calcularAncho(primerResultado.getColumna7().length()));
             }
-            
+
             if (columnKeys[12].length() >= primerResultado.getColumna8().length()) {
                columns.get(12).setWidthColumn(calcularAncho(columnKeys[12].length()));
             } else {
                columns.get(12).setWidthColumn(calcularAncho(primerResultado.getColumna8().length()));
             }
-            
+
             if (columnKeys[13].length() >= primerResultado.getColumna0().length()) {
                columns.get(13).setWidthColumn(calcularAncho(columnKeys[9].length()));
             } else {
@@ -132,7 +134,7 @@ public class ControladorColumnasDinamicas implements Serializable {
 //            columns.get(12).setWidthColumn(calcularAncho(primerResultado.getColumna8().length()));
 //            columns.get(13).setWidthColumn(calcularAncho(primerResultado.getColumna9().length()));
          } catch (Exception e) {
-            System.out.println("Entro al catch() e : " + e);
+            log.info("Entro al catch() e : " + e);
          }
       }
    }
@@ -165,6 +167,8 @@ public class ControladorColumnasDinamicas implements Serializable {
    }
 
    static public class ColumnModel implements Serializable {
+
+      private static Logger log = Logger.getLogger(ColumnModel.class);
 
       private String header;
       private String property;

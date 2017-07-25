@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarProcesosProductivos implements AdministrarProcesosProductivosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarProcesosProductivos.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -56,14 +59,14 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
 
     public void modificarProcesosProductivos(List<ProcesosProductivos> listaProcesosProductivos) {
         for (int i = 0; i < listaProcesosProductivos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaProcesosProductivos.editar(em, listaProcesosProductivos.get(i));
         }
     }
 
     public void borrarProcesosProductivos(List<ProcesosProductivos> listaProcesosProductivos) {
         for (int i = 0; i < listaProcesosProductivos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaProcesosProductivos.borrar(em, listaProcesosProductivos.get(i));
         }
     }

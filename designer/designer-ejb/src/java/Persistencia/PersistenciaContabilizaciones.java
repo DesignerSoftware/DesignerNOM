@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -18,6 +19,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaContabilizaciones implements PersistenciaContabilizacionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaContabilizaciones.class);
+
    @Override
    public void crear(EntityManager em, Contabilizaciones contabilizaciones) {
       em.clear();
@@ -27,7 +30,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          em.persist(contabilizaciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaContabilizaciones.crear: " + e.toString());
+         log.error("Error PersistenciaContabilizaciones.crear: " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +46,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          em.merge(contabilizaciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaContabilizaciones.editar: " + e.toString());
+         log.error("Error PersistenciaContabilizaciones.editar: " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +62,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          em.remove(em.merge(contabilizaciones));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaContabilizaciones.borrar: " + e.toString());
+         log.error("Error PersistenciaContabilizaciones.borrar: " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +78,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          List<Contabilizaciones> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         System.out.println("Error buscarContabilizaciones PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error buscarContabilizaciones PersistenciaContabilizaciones : " + e.toString());
          return null;
       }
    }
@@ -92,7 +95,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          Date fecha = (Date) query.getSingleResult();
          return fecha;
       } catch (Exception e) {
-         System.out.println("Error obtenerFechaMaximaContabilizaciones PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerFechaMaximaContabilizaciones PersistenciaContabilizaciones : " + e.toString());
          return null;
       }
    }
@@ -106,7 +109,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          Date fecha = (Date) query.getSingleResult();
          return fecha;
       } catch (Exception e) {
-         System.out.println("Error obtenerFechaMaximaContabilizacionesSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerFechaMaximaContabilizacionesSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
          return null;
       }
    }
@@ -134,7 +137,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -165,7 +168,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -192,7 +195,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             return conteo;
          }
       } catch (Exception e) {
-         System.out.println("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones : " + e.toString());
          e.printStackTrace();
          return null;
       }
@@ -219,7 +222,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             return conteo;
          }
       } catch (Exception e) {
-         System.out.println("Error obtenerContadorFlagGeneradoFechasTotal PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerContadorFlagGeneradoFechasTotal PersistenciaContabilizaciones : " + e.toString());
          e.printStackTrace();
          return null;
       }
@@ -244,7 +247,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             return conteo;
          }
       } catch (Exception e) {
-         System.out.println("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones : " + e.toString());
          e.printStackTrace();
          return null;
       }

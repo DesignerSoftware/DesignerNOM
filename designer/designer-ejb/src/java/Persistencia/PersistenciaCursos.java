@@ -8,6 +8,7 @@ import InterfacePersistencia.PersistenciaCursosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaCursos implements PersistenciaCursosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCursos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -48,7 +51,7 @@ public class PersistenciaCursos implements PersistenciaCursosInterface {
          em.merge(curso);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCursos.crear: " + e);
+         log.error("Error PersistenciaCursos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +71,7 @@ public class PersistenciaCursos implements PersistenciaCursosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCursos.borrar: " + e);
+         log.error("Error PersistenciaCursos.borrar: " + e);
       }
    }
 
@@ -81,7 +84,7 @@ public class PersistenciaCursos implements PersistenciaCursosInterface {
          em.merge(curso);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCursos.editar: " + e);
+         log.error("Error PersistenciaCursos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }

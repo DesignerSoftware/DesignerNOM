@@ -5,19 +5,20 @@
  */
 package Persistencia;
 
-import Entidades.CentrosCostos;
 import Entidades.SucursalesPila;
 import InterfacePersistencia.PersistenciaSucursalesPilaInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSucursalesPila.class);
 
     public void crear(EntityManager em, SucursalesPila sucursalesPilas) {
         em.clear();
@@ -27,7 +28,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             em.merge(sucursalesPilas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.crear: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -42,7 +43,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             em.merge(sucursalesPilas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.editar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +58,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             em.remove(em.merge(sucursalesPilas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +74,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             List<SucursalesPila> todosSucursalesPila = query.getResultList();
             return todosSucursalesPila;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaSucursalesPila consultarSucursalesPila ERROR " + e.getMessage());
+            log.error("Error: PersistenciaSucursalesPila consultarSucursalesPila ERROR " + e.getMessage());
             return null;
         }
     }
@@ -82,17 +83,17 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
     public List<SucursalesPila> consultarSucursalesPilaPorEmpresa(EntityManager em, BigInteger secEmpresa) {
         try {
             em.clear();
-            System.out.println("PersistenciaSucursalesPila consultarSucursalesPilaPorEmpresa secuenciaEmpresa : " + secEmpresa);
+            log.error("PersistenciaSucursalesPila consultarSucursalesPilaPorEmpresa secuenciaEmpresa : " + secEmpresa);
             Query query = em.createQuery("SELECT cce FROM SucursalesPila cce WHERE cce.empresa.secuencia = :secuenciaEmpr ORDER BY cce.codigo ASC");
             query.setParameter("secuenciaEmpr", secEmpresa);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<SucursalesPila> listaSucursalesPila = query.getResultList();
             if (listaSucursalesPila != null) {
-                System.out.println("tamano lista retorno :" + listaSucursalesPila.size());
+                log.error("tamano lista retorno :" + listaSucursalesPila.size());
             }
             return listaSucursalesPila;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia PersistenciaSucursalesPila buscarSucursalesPilaPorEmpresa  ERROR : " + e.getMessage());
+            log.error("Error en Persistencia PersistenciaSucursalesPila buscarSucursalesPilaPorEmpresa  ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -107,7 +108,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSucursalesPila contarUbicacionesGeograficasSucursal_Pila ERROR : " + e.getMessage());
+            log.error("Error PersistenciaSucursalesPila contarUbicacionesGeograficasSucursal_Pila ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -122,7 +123,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSucursalesPila contarParametrosInformesSucursal_Pila ERROR : " + e.getMessage());
+            log.error("Error PersistenciaSucursalesPila contarParametrosInformesSucursal_Pila ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -135,10 +136,10 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila Retorno " + retorno);
+            log.error("Contador PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);
+            log.error("Error PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);
             return retorno;
         }
     }
@@ -153,7 +154,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSucursalesPila contarOdisCabecerasSucursal_Pila ERROR : " + e);
+            log.error("Error PersistenciaSucursalesPila contarOdisCabecerasSucursal_Pila ERROR : " + e);
             return retorno;
         }
     }
@@ -168,7 +169,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e.getMessage());
+            log.error("Error PersistenciaSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -183,7 +184,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e.getMessage());
+            log.error("Error PersistenciaSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e.getMessage());
             return retorno;
         }
     }

@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarClasesCategorias implements AdministrarClasesCategoriasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarClasesCategorias.class);
 
    @EJB
     PersistenciaClasesCategoriasInterface persistenciaClasesCategorias;
@@ -43,7 +46,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
     @Override
     public void modificarClasesCategorias(List<ClasesCategorias> listaClasesCategorias) {
         for (int i = 0; i < listaClasesCategorias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaClasesCategorias.editar(em,listaClasesCategorias.get(i));
         }
     }
@@ -51,7 +54,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
     @Override
     public void borrarClasesCategorias(List<ClasesCategorias> listaClasesCategorias) {
         for (int i = 0; i < listaClasesCategorias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaClasesCategorias.borrar(em,listaClasesCategorias.get(i));
         }
     }
@@ -59,7 +62,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
     @Override
     public void crearClasesCategorias(List<ClasesCategorias> listaClasesCategorias) {
         for (int i = 0; i < listaClasesCategorias.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaClasesCategorias.crear(em,listaClasesCategorias.get(i));
         }
     }
@@ -84,7 +87,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
         try {
             return contarCategoriaClaseCategoria = persistenciaClasesCategorias.contarCategoriasClaseCategoria(em,secClasesCategorias);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarClasesCategorias contarCategoriaClaseCategoria ERROR : " + e);
+            log.error("ERROR AdministrarClasesCategorias contarCategoriaClaseCategoria ERROR : " + e);
             return null;
         }
     }

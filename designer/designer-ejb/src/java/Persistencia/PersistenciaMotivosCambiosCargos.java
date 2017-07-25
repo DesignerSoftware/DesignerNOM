@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCambiosCargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosCambiosCargos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +40,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             em.merge(motivoCambioCargo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosCargos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosCargos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +56,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             em.merge(motivoCambioCargo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosCargos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosCargos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +73,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosCargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosCargos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +86,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             em.clear();
             return em.find(MotivosCambiosCargos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosCambiosCargos.buscarMotivoCambioCargo()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosCambiosCargos.buscarMotivoCambioCargo()" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +100,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             List<MotivosCambiosCargos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos()" + e.getMessage());
             return null;
         }
     }
@@ -113,7 +116,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             retorno = new BigInteger(query.getSingleResult().toString());
 
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaMotivosCambiosCargos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaMotivosCambiosCargos verificarBorrado ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }

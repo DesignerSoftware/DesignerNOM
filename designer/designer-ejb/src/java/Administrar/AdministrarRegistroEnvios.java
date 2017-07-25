@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarRegistroEnvios.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -40,12 +43,12 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
 
     @Override
     public List<EnvioCorreos> consultarEnvioCorreos(BigInteger reporte) {
-        System.out.println("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
+        log.warn("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
         List<EnvioCorreos> enviocorreos;
         try {
             enviocorreos = persistenciaEnvioCorreos.consultarEnvios(em, reporte);
         } catch (Exception e) {
-            System.out.println("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
+            log.warn("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
             enviocorreos = new ArrayList<>();
         }
         return enviocorreos;
@@ -53,32 +56,32 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
 
     @Override
     public Inforeportes consultarPorSecuencia(BigInteger envio) {
-        System.out.println("Administrar.AdministrarRegistroEnvios.consultarPorSecuencia()");
-        System.out.println("envio: " + envio);
+        log.warn("Administrar.AdministrarRegistroEnvios.consultarPorSecuencia()");
+        log.warn("envio: " + envio);
         Inforeportes envioConsultado;
         try {
             envioConsultado = persistenciaEnvioCorreos.buscarEnvioCorreoporSecuencia(em, envio);
         } catch (Exception e) {
             envioConsultado = null;
         }
-        System.out.println("ec: " + ec);
+        log.warn("ec: " + ec);
         return envioConsultado;
     }
 
     @Override
     public void editarEnvioCorreos(EnvioCorreos listaEC) {
         try {
-            System.out.println("Administrar.AdministrarRegistroEnvios.editarEnvioCorreos()  " + listaEC.getSecuencia());
+            log.warn("Administrar.AdministrarRegistroEnvios.editarEnvioCorreos()  " + listaEC.getSecuencia());
             persistenciaEnvioCorreos.editar(em, listaEC);
         } catch (Exception ex) {
-            System.out.println("Error Administrar.AdministrarRegistroEnvios.editarEnvioCorreos() " + ex);
+            log.warn("Error Administrar.AdministrarRegistroEnvios.editarEnvioCorreos() " + ex);
         }
     }
 
     @Override
     public void modificarEC(List<EnvioCorreos> listECModificadas) {
         for (int i = 0; i < listECModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listECModificadas.get(i).getCodigoEmpleado() != null && listECModificadas.get(i).getCodigoEmpleado().getSecuencia() == null) {
                 listECModificadas.get(i).setCodigoEmpleado(null);
                 ec = listECModificadas.get(i);
@@ -96,7 +99,7 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
         try {
             persistenciaEnvioCorreos.borrar(em, listaEC);
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            log.warn("Error" + e);
         }
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarFormulasAseguradas implements AdministrarFormulasAseguradasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFormulasAseguradas.class);
 
     //-------------------------------------------------------------------------
     //ATRIBUTOS
@@ -64,7 +67,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
 
     public void modificarFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
         for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             if (listaFormulasAseguradas.get(i).getPeriodicidad().getSecuencia() == null) {
                 listaFormulasAseguradas.get(i).setPeriodicidad(null);
             }
@@ -74,7 +77,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
 
     public void borrarFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
         for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             if (listaFormulasAseguradas.get(i).getPeriodicidad().getSecuencia() == null) {
                 listaFormulasAseguradas.get(i).setPeriodicidad(null);
             }

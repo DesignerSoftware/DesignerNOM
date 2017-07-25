@@ -1,6 +1,5 @@
 package Controlador;
 
-import Entidades.Empleados;
 import InterfaceAdministrar.AdministarReportesInterface;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,11 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -21,22 +16,19 @@ import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.mail.Address;
 import javax.mail.BodyPart;
-import javax.mail.Message;
 import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean
 @SessionScoped
 public class ControlPruebaEnvioCorreo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPruebaEnvioCorreo.class);
 
     @EJB
     AdministarReportesInterface administarReportes;
@@ -65,8 +57,8 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -128,7 +120,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             out.flush();
             out.close();
         } catch (Exception e) {
-            System.out.println("Pailander: " + e);
+            log.info("Pailander: " + e);
         }
     }
 
@@ -209,7 +201,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             }*/
             return true;
         } catch (Exception e) {
-            System.out.println("Error enviarCorreo: " + e);
+            log.warn("Error enviarCorreo: " + e);
             return false;
         }
     }

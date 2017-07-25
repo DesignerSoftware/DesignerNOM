@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 //import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigenciasEstadosCivilesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasEstadosCiviles.class);
 
     /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;
@@ -44,7 +47,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.crear()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -62,7 +65,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             em.merge(vigenciasEstadosCiviles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.editar()" + e.toString());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.editar()" + e.toString());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -79,7 +82,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             em.remove(em.merge(vigenciasEstadosCiviles));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.borrar()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -89,12 +92,12 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
 
     @Override
     public VigenciasEstadosCiviles buscarVigenciaEstadoCivil(EntityManager em, BigInteger secuencia) {
-        System.out.println(this.getClass().getName() + ".buscarVigenciaEstadoCivil()");
+        log.error(this.getClass().getName() + ".buscarVigenciaEstadoCivil()");
         try {
             em.clear();
             return em.find(VigenciasEstadosCiviles.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.buscarVigenciaEstadoCivil()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.buscarVigenciaEstadoCivil()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -108,14 +111,14 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             cq.select(cq.from(VigenciasEstadosCiviles.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
     }
 
     private Long contarVigenciasEstadosCivielesPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName() + ".contarVigenciasEstadosCivielesPersona()");
+        log.error(this.getClass().getName() + ".contarVigenciasEstadosCivielesPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -125,7 +128,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.contarVigenciasEstadosCivielesPersona()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.contarVigenciasEstadosCivielesPersona()" + e.getMessage());
             e.printStackTrace();
             return resultado;
         }
@@ -141,7 +144,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
                 List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles = queryFinal.getResultList();
                 return listaVigenciasEstadosCiviles;
             } catch (Exception e) {
-                System.out.println("Error PersistenciaVigenciasEstadosCiviles.estadoCivilPersona" + e.getMessage());
+                log.error("Error PersistenciaVigenciasEstadosCiviles.estadoCivilPersona" + e.getMessage());
                 return null;
             }
         } else {
@@ -159,7 +162,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles = query.getResultList();
             return listaVigenciasEstadosCiviles;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -175,7 +178,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             VigenciasEstadosCiviles estadoc = (VigenciasEstadosCiviles) query.getSingleResult();
             return estadoc;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.estadoCivilActual()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.estadoCivilActual()" + e.getMessage());
             return null;
         }
     }
@@ -195,7 +198,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             EstadoCivil = (String) query.getSingleResult();
             return EstadoCivil;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil()" + e.getMessage());
             EstadoCivil = "";
             return EstadoCivil;
         }

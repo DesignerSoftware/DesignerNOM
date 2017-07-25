@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGrupoSalarial.class);
 
     @EJB
     PersistenciaGruposSalarialesInterface persistenciaGruposSalariales;
@@ -48,7 +51,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
             List<GruposSalariales> gruposSalariales = persistenciaGruposSalariales.buscarGruposSalariales(em);
             return gruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error listGruposSalariales Admi : " + e.toString());
+            log.warn("Error listGruposSalariales Admi : " + e.toString());
             return null;
         }
     }
@@ -60,7 +63,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
                 persistenciaGruposSalariales.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearGruposSalariales Admi : " + e.toString());
+            log.warn("Error crearGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -71,7 +74,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
                 persistenciaGruposSalariales.editar(em, listaEditar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarGruposSalariales Admi : " + e.toString());
+            log.warn("Error editarGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -82,7 +85,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
                 persistenciaGruposSalariales.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarGruposSalariales Admi : " + e.toString());
+            log.warn("Error borrarGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -92,7 +95,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
             List<VigenciasGruposSalariales> VgruposSalariales = persistenciaVigenciasGruposSalariales.buscarVigenciaGrupoSalarialSecuenciaGrupoSal(em, secuencia);
             return VgruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error lisVigenciasGruposSalarialesSecuencia Admi : " + e.toString());
+            log.warn("Error lisVigenciasGruposSalarialesSecuencia Admi : " + e.toString());
             return null;
         }
     }
@@ -104,7 +107,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
                 persistenciaVigenciasGruposSalariales.crear(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearVigenciasGruposSalariales Admi : " + e.toString());
+            log.warn("Error crearVigenciasGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -115,7 +118,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
                 persistenciaVigenciasGruposSalariales.editar(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarVigenciasGruposSalariales Admi : " + e.toString());
+            log.warn("Error editarVigenciasGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -126,7 +129,7 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
                 persistenciaVigenciasGruposSalariales.borrar(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarVigenciasGruposSalariales Admi : " + e.toString());
+            log.warn("Error borrarVigenciasGruposSalariales Admi : " + e.toString());
         }
     }
 }

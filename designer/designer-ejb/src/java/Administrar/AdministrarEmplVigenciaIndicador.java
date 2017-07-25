@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigenciaIndicadorInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplVigenciaIndicador.class);
 
     @EJB
     PersistenciaVigenciasIndicadoresInterface persistenciaVigenciasIndicadores;
@@ -56,7 +59,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
             List<Indicadores> retorno = persistenciaIndicadores.buscarIndicadores(em);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listIndicadores Admi : " + e.toString());
+            log.warn("Error listIndicadores Admi : " + e.toString());
             return null;
         }
     }
@@ -67,7 +70,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
             List<TiposIndicadores> retorno = persistenciaTiposIndicadores.buscarTiposIndicadores(em);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listTiposIndicadores Admi : " + e.toString());
+            log.warn("Error listTiposIndicadores Admi : " + e.toString());
             return null;
         }
     }
@@ -78,7 +81,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
             Empleados actual = persistenciaEmpleado.buscarEmpleado(em,secuencia);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }
@@ -89,7 +92,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
             List<VigenciasIndicadores> retorno = persistenciaVigenciasIndicadores.indicadoresTotalesEmpleadoSecuencia(em,secuencia);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasAfiliacioneaEmpleado Admi : " + e.toString());
+            log.warn("Error listVigenciasAfiliacioneaEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -107,7 +110,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
                 persistenciaVigenciasIndicadores.crear(em,listVI.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearVigenciasIndicadores Admi : " + e.toString());
+            log.warn("Error crearVigenciasIndicadores Admi : " + e.toString());
         }
     }
 
@@ -124,7 +127,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
                 persistenciaVigenciasIndicadores.editar(em,listVI.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarVigenciasIndicadores Admi : " + e.toString());
+            log.warn("Error editarVigenciasIndicadores Admi : " + e.toString());
         }
     }
 
@@ -141,7 +144,7 @@ public class AdministrarEmplVigenciaIndicador implements AdministrarEmplVigencia
                 persistenciaVigenciasIndicadores.borrar(em,listVI.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarVigenciasIndicadores Admi : " + e.toString());
+            log.warn("Error borrarVigenciasIndicadores Admi : " + e.toString());
         }
     }
 }

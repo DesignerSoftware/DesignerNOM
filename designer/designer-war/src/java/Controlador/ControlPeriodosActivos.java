@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPeriodosActivos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPeriodosActivos.class);
 
     @EJB
     AdministrarEmpresasInterface administrarEmpresas;
@@ -96,8 +99,8 @@ public class ControlPeriodosActivos implements Serializable {
             administrarEmpresas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -164,13 +167,13 @@ public class ControlPeriodosActivos implements Serializable {
     }
 
     public void cambiarIndiceDefault() {
-        System.out.println("ControlPeriodosActivos.cambiarIndiceDefault() empresaSeleccionada.secuencia : " + empresaSeleccionada.getSecuencia());
+        log.info("ControlPeriodosActivos.cambiarIndiceDefault() empresaSeleccionada.secuencia : " + empresaSeleccionada.getSecuencia());
         backUpEmpresaActual.setControlinicioperiodoactivo(empresaSeleccionada.getControlinicioperiodoactivo());
         backUpEmpresaActual.setControlfinperiodoactivo(empresaSeleccionada.getControlfinperiodoactivo());
     }
 
     public void cambiarIndice(Empresas empresa, int celda) {
-        System.out.println("ControlPeriodosActivos.cambiarIndice() empresaSeleccionada.secuencia : " + empresaSeleccionada.getSecuencia());
+        log.info("ControlPeriodosActivos.cambiarIndice() empresaSeleccionada.secuencia : " + empresaSeleccionada.getSecuencia());
         empresaSeleccionada = empresa;
         cualCelda = celda;
         backUpEmpresaActual.setControlinicioperiodoactivo(empresaSeleccionada.getControlinicioperiodoactivo());
@@ -193,31 +196,31 @@ public class ControlPeriodosActivos implements Serializable {
                 myCalendar.setTime(empresaSeleccionada.getControlinicioperiodoactivo());
                 myCalendar.set(Calendar.DAY_OF_MONTH, 1);
                 Date firstDay = myCalendar.getTime();
-                System.err.println("Primer Dia : " + firstDay);
+                log.error("Primer Dia : " + firstDay);
                 empresaSeleccionada.setControlinicioperiodoactivo(firstDay);
                 myCalendar.add(Calendar.MONTH, 1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, 1);
                 myCalendar.add(Calendar.DATE, -1);
                 Date lastDay = myCalendar.getTime();
-                System.err.println("Ultimo dia : " + lastDay);
+                log.error("Ultimo dia : " + lastDay);
                 empresaSeleccionada.setControlfinperiodoactivo(lastDay);
                 contador++;
             }
         } else {
-            System.err.println("FINAL");
+            log.error("FINAL");
             if (empresaSeleccionada.getControlfinperiodoactivo() == null) {
                 mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
             } else {
                 myCalendar.setTime(empresaSeleccionada.getControlfinperiodoactivo());
                 myCalendar.set(Calendar.DAY_OF_MONTH, 1);
                 Date firstDay = myCalendar.getTime();
-                System.err.println("Primer Dia : " + firstDay);
+                log.error("Primer Dia : " + firstDay);
                 empresaSeleccionada.setControlinicioperiodoactivo(firstDay);
                 myCalendar.add(Calendar.MONTH, 1);
                 myCalendar.set(Calendar.DAY_OF_MONTH, 1);
                 myCalendar.set(Calendar.DATE, -1);
                 Date lastDay = myCalendar.getTime();
-                System.err.println("Ultimo dia : " + lastDay);
+                log.error("Ultimo dia : " + lastDay);
                 empresaSeleccionada.setControlfinperiodoactivo(lastDay);
                 contador++;
             }
@@ -228,10 +231,10 @@ public class ControlPeriodosActivos implements Serializable {
             anitoHoy = hoy.getYear();
             mes = empresaSeleccionada.getControlfinperiodoactivo().getMonth();
             anito = empresaSeleccionada.getControlfinperiodoactivo().getYear();
-            System.err.println("mesHoy : " + mesHoy);
-            System.err.println("anitoHoy : " + anitoHoy);
-            System.err.println("mes: " + mes);
-            System.err.println("anito: " + anito);
+            log.error("mesHoy : " + mesHoy);
+            log.error("anitoHoy : " + anitoHoy);
+            log.error("mes: " + mes);
+            log.error("anito: " + anito);
             if ((anito - anitoHoy) != 0 || (mes - mesHoy) != 0) {
                 RequestContext.getCurrentInstance().execute("PF('modificacionFechas1').show()");
             }
@@ -257,7 +260,7 @@ public class ControlPeriodosActivos implements Serializable {
 
     public void cancelarModificacion() {
         try {
-            System.out.println("entre a CONTROLBETACENTROSCOSTOS.cancelarModificacion");
+            log.info("entre a CONTROLBETACENTROSCOSTOS.cancelarModificacion");
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -292,14 +295,14 @@ public class ControlPeriodosActivos implements Serializable {
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
             RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
         }
     }
 
     public void salir() {
         limpiarListasValor();
         try {
-            System.out.println("entre a CONTROLBETACENTROSCOSTOS.Salir");
+            log.info("entre a CONTROLBETACENTROSCOSTOS.Salir");
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 fechaInicial = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaInicial");
@@ -320,7 +323,7 @@ public class ControlPeriodosActivos implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLBETACENTROSCOSTOS.ModificarModificacion ERROR====================" + E.getMessage());
         }
         navegar("atras");
     }
@@ -357,14 +360,14 @@ public class ControlPeriodosActivos implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("\n ENTRE A CONTROLBETACENTROSCOSTOS.activarCtrlF11 \n");
+        log.info("\n ENTRE A CONTROLBETACENTROSCOSTOS.activarCtrlF11 \n");
 
         try {
 
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 0) {
                 tamano = 240;
-                System.out.println("Activar");
+                log.info("Activar");
                 fechaInicial = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaInicial");
                 fechaInicial.setFilterStyle("width: 85% !important;");
                 fechaFinal = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaFinal");
@@ -373,7 +376,7 @@ public class ControlPeriodosActivos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosEmpresas");
                 bandera = 1;
             } else if (bandera == 1) {
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 //0
                 fechaInicial = (Column) c.getViewRoot().findComponent("form:datosEmpresas:fechaInicial");
                 fechaInicial.setFilterStyle("display: none; visibility: hidden;");
@@ -388,17 +391,17 @@ public class ControlPeriodosActivos implements Serializable {
             }
         } catch (Exception e) {
 
-            System.out.println("ERROR CONTROLBETACENTROSCOSTOS.activarCtrlF11 ERROR====================" + e.getMessage());
+            log.warn("Error CONTROLBETACENTROSCOSTOS.activarCtrlF11 ERROR====================" + e.getMessage());
         }
     }
 
     public void editarCelda() {
         try {
             if (empresaSeleccionada != null) {
-                System.out.println("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
+                log.info("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
                 editarEmpresas = empresaSeleccionada;
 
-                System.out.println("CONTROLBETACENTROSCOSTOS: Entro a editar... valor celda: " + cualCelda);
+                log.info("CONTROLBETACENTROSCOSTOS: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
                     RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
@@ -410,7 +413,7 @@ public class ControlPeriodosActivos implements Serializable {
                 }
             }
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLBETACENTROSCOSTOS.editarCelDa ERROR=====================" + E.getMessage());
+            log.warn("Error CONTROLBETACENTROSCOSTOS.editarCelDa ERROR=====================" + E.getMessage());
         }
     }
 

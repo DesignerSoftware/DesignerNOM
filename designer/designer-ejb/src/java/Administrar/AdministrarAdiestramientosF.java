@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 /**
  * Clase Stateful. <br>
  * Clase encargada de realizar las operaciones lógicas para la pantalla 'AdiestramientosF'.
@@ -19,6 +20,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarAdiestramientosF implements AdministrarAdiestramientosFInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarAdiestramientosF.class);
     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    

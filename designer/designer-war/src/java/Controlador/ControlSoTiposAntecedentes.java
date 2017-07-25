@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlSoTiposAntecedentes")
 @SessionScoped
 public class ControlSoTiposAntecedentes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlSoTiposAntecedentes.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -90,8 +93,8 @@ public class ControlSoTiposAntecedentes implements Serializable {
          administrarTiposAntecedentes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -322,8 +325,8 @@ public class ControlSoTiposAntecedentes implements Serializable {
          bandera = 1;
 
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposAntecedentes:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAntecedentes:descripcion");
@@ -453,7 +456,7 @@ public class ControlSoTiposAntecedentes implements Serializable {
             tipoantecedenteSeleccionado = null;
          }
       } catch (Exception e) {
-         System.out.println("Error guardando datos : " + e.getMessage());
+         log.warn("Error guardando datos : " + e.getMessage());
          FacesMessage msg = new FacesMessage("Información", "Error en el guardado, Intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

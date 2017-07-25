@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlFormulaProceso implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlFormulaProceso.class);
 
    @EJB
    AdministrarFormulaProcesoInterface administrarFormulaProceso;
@@ -171,8 +174,8 @@ public class ControlFormulaProceso implements Serializable {
          administrarFormulaProceso.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -265,7 +268,7 @@ public class ControlFormulaProceso implements Serializable {
    //GUARDAR
    public void guardarGeneral() {
       try {
-         System.out.println("listFormulasProcesosModificar : " + listFormulasProcesosModificar);
+         log.info("listFormulasProcesosModificar : " + listFormulasProcesosModificar);
          if (guardado == false) {
             if (!listFormulasProcesosBorrar.isEmpty()) {
                for (int i = 0; i < listFormulasProcesosBorrar.size(); i++) {
@@ -281,9 +284,9 @@ public class ControlFormulaProceso implements Serializable {
             }
             if (!listFormulasProcesosModificar.isEmpty()) {
                for (int i = 0; i < listFormulasProcesosModificar.size(); i++) {
-                  System.out.println("listFormulasProcesosModificar.get(i).getProceso().getDescripcion() : " + listFormulasProcesosModificar.get(i).getProceso().getDescripcion());
-                  System.out.println("listFormulasProcesosModificar.get(i).getPeriodicidadindependiente() : " + listFormulasProcesosModificar.get(i).getPeriodicidadindependiente());
-                  System.out.println("listFormulasProcesosModificar.get(i).isCheckPeriodicidad() : " + listFormulasProcesosModificar.get(i).isCheckPeriodicidad());
+                  log.info("listFormulasProcesosModificar.get(i).getProceso().getDescripcion() : " + listFormulasProcesosModificar.get(i).getProceso().getDescripcion());
+                  log.info("listFormulasProcesosModificar.get(i).getPeriodicidadindependiente() : " + listFormulasProcesosModificar.get(i).getPeriodicidadindependiente());
+                  log.info("listFormulasProcesosModificar.get(i).isCheckPeriodicidad() : " + listFormulasProcesosModificar.get(i).isCheckPeriodicidad());
                }
                administrarFormulaProceso.editarFormulasProcesos(listFormulasProcesosModificar);
                listFormulasProcesosModificar.clear();
@@ -302,7 +305,7 @@ public class ControlFormulaProceso implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

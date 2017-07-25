@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposDias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposDias.class);
 
    @EJB
    AdministrarTiposDiasInterface administrarTiposDias;
@@ -136,14 +139,14 @@ public class ControlTiposDias implements Serializable {
          administrarTiposDias.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void recibirAtras(String atras) {
       paginaAnterior = atras;
-      System.out.println("ControlTiposDias pagina anterior : " + paginaAnterior);
+      log.info("ControlTiposDias pagina anterior : " + paginaAnterior);
    }
 
    public String redireccionarAtras() {
@@ -152,7 +155,7 @@ public class ControlTiposDias implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A CONTROLTIPOSDIAS EVENTOFILTRAR \n");
+         log.info("\n ENTRE A CONTROLTIPOSDIAS EVENTOFILTRAR \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -160,12 +163,12 @@ public class ControlTiposDias implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarTiposDias.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLTIPOSDIAS EVENTOFILTRAR ERROR===" + e.getMessage());
+         log.warn("Error CONTROLTIPOSDIAS EVENTOFILTRAR ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -188,24 +191,24 @@ public class ControlTiposDias implements Serializable {
          secRegistro = listTiposDias.get(index).getSecuencia();
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A CONTROLTIPOSDIAS ASIGNAR INDEX \n");
+         log.info("\n ENTRE A CONTROLTIPOSDIAS ASIGNAR INDEX \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("TIPO ACTUALIZACION : " + tipoActualizacion);
+            log.info("TIPO ACTUALIZACION : " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLTIPOSDIAS ASIGNAR INDEX ERROR =" + e.getMessage());
+         log.warn("Error CONTROLTIPOSDIAS ASIGNAR INDEX ERROR =" + e.getMessage());
       }
    }
 
@@ -296,12 +299,12 @@ public class ControlTiposDias implements Serializable {
          tipo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:tipo");
          tipo.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTipoDia");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
@@ -322,7 +325,7 @@ public class ControlTiposDias implements Serializable {
          index = indice;
          cualCelda = celda;
          secRegistro = listTiposDias.get(index).getSecuencia();
-         System.out.println("Tipo = " + listTiposDias.get(index).getTipo());
+         log.info("Tipo = " + listTiposDias.get(index).getTipo());
          if (tipoLista == 0) {
             if (!crearTiposDias.contains(listTiposDias.get(indice))) {
                if (modificarTiposDias.isEmpty()) {
@@ -353,12 +356,12 @@ public class ControlTiposDias implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosTipoDia");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
 
    }
 
    public void modificandoTipoDia(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR TIPOSDIAS");
+      log.error("ENTRE A MODIFICAR TIPOSDIAS");
       index = indice;
       boolean banderaTamano = false;
       int contador = 0;
@@ -367,9 +370,9 @@ public class ControlTiposDias implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICARTIPODIA, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICARTIPODIA, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposDias.contains(listTiposDias.get(indice))) {
                if (listTiposDias.get(indice).getCodigo() == a) {
@@ -583,7 +586,7 @@ public class ControlTiposDias implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoTiposDias");
+            log.info("Entro a borrandoTiposDias");
             if (!modificarTiposDias.isEmpty() && modificarTiposDias.contains(listTiposDias.get(index))) {
                int modIndex = modificarTiposDias.indexOf(listTiposDias.get(index));
                modificarTiposDias.remove(modIndex);
@@ -597,7 +600,7 @@ public class ControlTiposDias implements Serializable {
             listTiposDias.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoTiposDias");
+            log.info("borrandoTiposDias");
             if (!modificarTiposDias.isEmpty() && modificarTiposDias.contains(filtrarTiposDias.get(index))) {
                int modIndex = modificarTiposDias.indexOf(filtrarTiposDias.get(index));
                modificarTiposDias.remove(modIndex);
@@ -639,7 +642,7 @@ public class ControlTiposDias implements Serializable {
          }
 
          if (!verificarDiasLaborales.equals(new BigInteger("0")) || !verificarExtrasRecargos.equals(new BigInteger("0"))) {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -650,11 +653,11 @@ public class ControlTiposDias implements Serializable {
             verificarExtrasRecargos = new BigInteger("-1");
 
          } else {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposDias();
          }
       } catch (Exception e) {
-         System.err.println("ERROR CONTROLTIPOSDIAS verificarBorrado ERROR " + e);
+         log.error("ERROR CONTROLTIPOSDIAS verificarBorrado ERROR " + e);
       }
    }
 
@@ -672,7 +675,7 @@ public class ControlTiposDias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando TiposDias");
+         log.info("Realizando TiposDias");
          if (!borrarTiposDias.isEmpty()) {
             administrarTiposDias.borrarTiposDias(borrarTiposDias);
 
@@ -690,7 +693,7 @@ public class ControlTiposDias implements Serializable {
             administrarTiposDias.modificarTiposDias(modificarTiposDias);
             modificarTiposDias.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposDias = null;
          guardado = true;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -714,7 +717,7 @@ public class ControlTiposDias implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -732,7 +735,7 @@ public class ControlTiposDias implements Serializable {
    }
 
    public void agregarNuevoTiposDias() {
-      System.out.println("agregarNuevoTiposDias");
+      log.info("agregarNuevoTiposDias");
       int contador = 0;
       int duplicados = 0;
 
@@ -742,43 +745,43 @@ public class ControlTiposDias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoTipoDia.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTipoDia.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoTipoDia.getCodigo());
 
          for (int x = 0; x < listTiposDias.size(); x++) {
             if (listTiposDias.get(x).getCodigo().equals(nuevoTipoDia.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
-      System.out.println("NUEVA DESCRIPCION : " + nuevoTipoDia.getDescripcion());
+      log.info("NUEVA DESCRIPCION : " + nuevoTipoDia.getDescripcion());
       if (nuevoTipoDia.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoTipoDia.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
-      System.out.println("NUEVO TIPO : " + nuevoTipoDia.getTipo());
+      log.info("NUEVO TIPO : " + nuevoTipoDia.getTipo());
       if (nuevoTipoDia.getTipo() == null) {
          nuevoTipoDia.setTipo("ORD");
       }
@@ -786,7 +789,7 @@ public class ControlTiposDias implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
@@ -796,7 +799,7 @@ public class ControlTiposDias implements Serializable {
             filtrarTiposDias = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -826,7 +829,7 @@ public class ControlTiposDias implements Serializable {
    }
 
    public void limpiarNuevoTiposDias() {
-      System.out.println("limpiarNuevoTiposDias");
+      log.info("limpiarNuevoTiposDias");
       nuevoTipoDia = new TiposDias();
       secRegistro = null;
       index = -1;
@@ -835,7 +838,7 @@ public class ControlTiposDias implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposDias() {
-      System.out.println("duplicandoTiposDias");
+      log.info("duplicandoTiposDias");
       if (index >= 0) {
          duplicarTipoDia = new TiposDias();
          k++;
@@ -863,7 +866,7 @@ public class ControlTiposDias implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICARTIPOSDIAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICARTIPOSDIAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
@@ -873,7 +876,7 @@ public class ControlTiposDias implements Serializable {
 
       if (duplicarTipoDia.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposDias.size(); x++) {
             if (listTiposDias.get(x).getCodigo() == duplicarTipoDia.getCodigo()) {
@@ -882,31 +885,31 @@ public class ControlTiposDias implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTipoDia.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   * Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarTipoDia.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTipoDia.getSecuencia() + "  " + duplicarTipoDia.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTipoDia.getSecuencia() + "  " + duplicarTipoDia.getCodigo());
          if (crearTiposDias.contains(duplicarTipoDia)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposDias.add(duplicarTipoDia);
          crearTiposDias.add(duplicarTipoDia);
@@ -967,12 +970,12 @@ public class ControlTiposDias implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listTiposDias.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSDIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

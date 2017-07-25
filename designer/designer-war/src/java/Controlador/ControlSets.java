@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlSets implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlSets.class);
 
     @EJB
     AdministrarSetsInterface administrarSets;
@@ -126,8 +129,8 @@ public class ControlSets implements Serializable {
             administrarSets.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -197,12 +200,12 @@ public class ControlSets implements Serializable {
             }
             if (tam == 1) {
                 String tipo = auxiliar.getTiposet();
-                System.out.println("Tipo : " + tipo);
+                log.info("Tipo : " + tipo);
                 if (tipo.equalsIgnoreCase("1") || tipo.equalsIgnoreCase("2")) {
-                    System.out.println("OK");
+                    log.info("OK");
                 } else {
                     retorno = false;
-                    System.out.println("Entr :S");
+                    log.info("Entr :S");
                 }
             }
             if (auxiliar.getPromedio() != null) {
@@ -226,12 +229,12 @@ public class ControlSets implements Serializable {
             }
             if (tam == 1) {
                 String tipo = nuevoSet.getTiposet();
-                System.out.println("Tipo : " + tipo);
+                log.info("Tipo : " + tipo);
                 if (tipo.equalsIgnoreCase("1") || tipo.equalsIgnoreCase("2")) {
-                    System.out.println("OK");
+                    log.info("OK");
                 } else {
                     retorno = false;
-                    System.out.println("Entr :S");
+                    log.info("Entr :S");
                 }
             }
             if (nuevoSet.getPromedio() != null) {
@@ -250,30 +253,30 @@ public class ControlSets implements Serializable {
             } else {
                 tam = duplicarSet.getTiposet().length();
                 if (tam == 0 || tam >= 2) {
-                    System.out.println("Duplicar error");
+                    log.info("Duplicar error");
                     retorno = false;
                 }
             }
             if (tam == 1) {
                 String tipo = duplicarSet.getTiposet();
-                System.out.println("Tipo : " + tipo);
+                log.info("Tipo : " + tipo);
                 if (tipo.equalsIgnoreCase("1") || tipo.equalsIgnoreCase("2")) {
-                    System.out.println("OK");
+                    log.info("OK");
                 } else {
                     retorno = false;
-                    System.out.println("Entr :S");
+                    log.info("Entr :S");
                 }
             }
             if (duplicarSet.getPromedio() != null) {
-                System.out.println("Diferente");
+                log.info("Diferente");
                 int signo = duplicarSet.getPromedio().signum();
-                System.out.println("Signo = " + signo);
+                log.info("Signo = " + signo);
                 if (signo <= 0) {
-                    System.out.println("Signp fail");
+                    log.info("Signp fail");
                     retorno = false;
                 }
             } else {
-                System.out.println("Error fuck ");
+                log.warn("Error fuck ");
                 retorno = false;
             }
         }
@@ -316,7 +319,7 @@ public class ControlSets implements Serializable {
         fechaParametro.setYear(0);
         fechaParametro.setMonth(1);
         fechaParametro.setDate(1);
-        System.err.println("fechaparametro : " + fechaParametro);
+        log.error("fechaparametro : " + fechaParametro);
         boolean retorno = true;
         if (i == 0) {
             Sets auxiliar = null;
@@ -835,7 +838,7 @@ public class ControlSets implements Serializable {
         } else {
             setSeleccionado = null;
         }
-        System.out.println("vigenciaSeleccionada: " + setSeleccionado);
+        log.info("vigenciaSeleccionada: " + setSeleccionado);
     }
 
     //GETTERS AND SETTERS

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmplAcumulados implements AdministrarEmplAcumuladosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplAcumulados.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -65,7 +68,7 @@ public class AdministrarEmplAcumulados implements AdministrarEmplAcumuladosInter
         try {
             return persistenciaVWAcumulados.buscarAcumuladosPorEmpleado(em,secEmpleado);
         } catch (Exception e) {
-            System.err.println("ERROR EN ADMINISTRAR EMPLACUMULADOS ERROR " + e);
+            log.error("ERROR EN ADMINISTRAR EMPLACUMULADOS ERROR " + e);
             return null;
         }
     }
@@ -75,7 +78,7 @@ public class AdministrarEmplAcumulados implements AdministrarEmplAcumuladosInter
         try {
             return persistenciaEmpleados.buscarEmpleadoSecuencia(em,secEmplado);
         } catch (Exception e) {
-            System.err.println("ERROR Administrar emplAcumulados ERROR : " + e);
+            log.error("ERROR Administrar emplAcumulados ERROR : " + e);
             return null;
         }
     }

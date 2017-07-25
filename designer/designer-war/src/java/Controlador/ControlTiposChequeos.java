@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposChequeos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposChequeos.class);
 
    @EJB
    AdministrarTiposChequeosInterface administrarTiposChequeos;
@@ -82,7 +85,7 @@ public class ControlTiposChequeos implements Serializable {
       guardado = true;
       tamano = 270;
       mapParametros.put("paginaAnterior", paginaAnterior);
-      System.out.println("controlTiposChequeos Constructor");
+      log.info("controlTiposChequeos Constructor");
    }
 
    public void limpiarListasValor() {
@@ -92,14 +95,14 @@ public class ControlTiposChequeos implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposChequeos PostConstruct ");
+         log.info("ControlTiposChequeos PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposChequeos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -147,7 +150,7 @@ public class ControlTiposChequeos implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlTiposChequeos.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlTiposChequeos.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -155,12 +158,12 @@ public class ControlTiposChequeos implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarTiposChequeos.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposChequeos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposChequeos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -168,44 +171,44 @@ public class ControlTiposChequeos implements Serializable {
          if (tipoLista == 0) {
             if (cualCelda == 0) {
                backUpCodigo = listTiposChequeos.get(index).getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
             } else if (cualCelda == 1) {
                backUpDescripcion = listTiposChequeos.get(index).getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
             }
             secRegistro = listTiposChequeos.get(index).getSecuencia();
          } else {
             if (cualCelda == 0) {
                backUpCodigo = filtrarTiposChequeos.get(index).getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
 
             } else if (cualCelda == 1) {
                backUpDescripcion = filtrarTiposChequeos.get(index).getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
 
             }
             secRegistro = filtrarTiposChequeos.get(index).getSecuencia();
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposChequeos.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposChequeos.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposChequeos.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposChequeos.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -292,10 +295,10 @@ public class ControlTiposChequeos implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposChequeos:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposChequeos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposChequeos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -309,7 +312,7 @@ public class ControlTiposChequeos implements Serializable {
    }
 
    public void modificarTiposChequeos(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0;
@@ -317,9 +320,9 @@ public class ControlTiposChequeos implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposChequeos.contains(listTiposChequeos.get(indice))) {
                if (listTiposChequeos.get(indice).getCodigo() == a) {
@@ -525,7 +528,7 @@ public class ControlTiposChequeos implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoTiposChequeos");
+            log.info("Entro a borrandoTiposChequeos");
             if (!modificarTiposChequeos.isEmpty() && modificarTiposChequeos.contains(listTiposChequeos.get(index))) {
                int modIndex = modificarTiposChequeos.indexOf(listTiposChequeos.get(index));
                modificarTiposChequeos.remove(modIndex);
@@ -539,7 +542,7 @@ public class ControlTiposChequeos implements Serializable {
             listTiposChequeos.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoTiposChequeos ");
+            log.info("borrandoTiposChequeos ");
             if (!modificarTiposChequeos.isEmpty() && modificarTiposChequeos.contains(filtrarTiposChequeos.get(index))) {
                int modIndex = modificarTiposChequeos.indexOf(filtrarTiposChequeos.get(index));
                modificarTiposChequeos.remove(modIndex);
@@ -572,12 +575,12 @@ public class ControlTiposChequeos implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarChequeosMedicosTipoChequeo;
       BigInteger contarTiposExamenesCargosTipoChequeo;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposChequeos ");
+         log.error("Control Secuencia de ControlTiposChequeos ");
          if (tipoLista == 0) {
             contarChequeosMedicosTipoChequeo = administrarTiposChequeos.contarChequeosMedicosTipoChequeo(listTiposChequeos.get(index).getSecuencia());
             contarTiposExamenesCargosTipoChequeo = administrarTiposChequeos.contarTiposExamenesCargosTipoChequeo(listTiposChequeos.get(index).getSecuencia());
@@ -587,10 +590,10 @@ public class ControlTiposChequeos implements Serializable {
          }
          if (contarChequeosMedicosTipoChequeo.equals(new BigInteger("0"))
                  && contarTiposExamenesCargosTipoChequeo.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposChequeos();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -599,7 +602,7 @@ public class ControlTiposChequeos implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposChequeos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposChequeos verificarBorrado ERROR " + e);
       }
    }
 
@@ -617,7 +620,7 @@ public class ControlTiposChequeos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposChequeos");
+         log.info("Realizando guardarTiposChequeos");
          if (!borrarTiposChequeos.isEmpty()) {
             administrarTiposChequeos.borrarTiposChequeos(borrarTiposChequeos);
             //mostrarBorrados
@@ -634,7 +637,7 @@ public class ControlTiposChequeos implements Serializable {
             administrarTiposChequeos.crearTiposChequeos(crearTiposChequeos);
             crearTiposChequeos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposChequeos = null;
          RequestContext.getCurrentInstance().update("form:datosTiposChequeos");
          k = 0;
@@ -658,7 +661,7 @@ public class ControlTiposChequeos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -675,7 +678,7 @@ public class ControlTiposChequeos implements Serializable {
    }
 
    public void agregarNuevoTiposChequeos() {
-      System.out.println("agregarNuevoTiposChequeos");
+      log.info("agregarNuevoTiposChequeos");
       int contador = 0;
       int duplicados = 0;
 
@@ -685,46 +688,46 @@ public class ControlTiposChequeos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoTiposChequeos.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTiposChequeos.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoTiposChequeos.getCodigo());
 
          for (int x = 0; x < listTiposChequeos.size(); x++) {
             if (listTiposChequeos.get(x).getCodigo().equals(nuevoTiposChequeos.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoTiposChequeos.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoTiposChequeos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposChequeos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposChequeos:descripcion");
@@ -734,7 +737,7 @@ public class ControlTiposChequeos implements Serializable {
             filtrarTiposChequeos = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -765,7 +768,7 @@ public class ControlTiposChequeos implements Serializable {
    }
 
    public void limpiarNuevoTiposChequeos() {
-      System.out.println("limpiarNuevoTiposChequeos");
+      log.info("limpiarNuevoTiposChequeos");
       nuevoTiposChequeos = new TiposChequeos();
       secRegistro = null;
       index = -1;
@@ -774,7 +777,7 @@ public class ControlTiposChequeos implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposChequeos() {
-      System.out.println("duplicandoTiposChequeos");
+      log.info("duplicandoTiposChequeos");
       if (index >= 0) {
          duplicarTiposChequeos = new TiposChequeos();
          k++;
@@ -800,19 +803,19 @@ public class ControlTiposChequeos implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposChequeos.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposChequeos.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarTiposChequeos.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTiposChequeos.getDescripcion());
 
       if (duplicarTiposChequeos.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposChequeos.size(); x++) {
             if (listTiposChequeos.get(x).getCodigo().equals(duplicarTiposChequeos.getCodigo())) {
@@ -821,32 +824,32 @@ public class ControlTiposChequeos implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTiposChequeos.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarTiposChequeos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTiposChequeos.getSecuencia() + "  " + duplicarTiposChequeos.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTiposChequeos.getSecuencia() + "  " + duplicarTiposChequeos.getCodigo());
          if (crearTiposChequeos.contains(duplicarTiposChequeos)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposChequeos.add(duplicarTiposChequeos);
          crearTiposChequeos.add(duplicarTiposChequeos);
@@ -908,12 +911,12 @@ public class ControlTiposChequeos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listTiposChequeos.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSCHEQUEOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -939,7 +942,7 @@ public class ControlTiposChequeos implements Serializable {
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<TiposChequeos> getListTiposChequeos() {
       if (listTiposChequeos == null) {
-         System.out.println("ControlTiposChequeos getListTiposChequeos");
+         log.info("ControlTiposChequeos getListTiposChequeos");
          listTiposChequeos = administrarTiposChequeos.consultarTiposChequeos();
       }
       RequestContext context = RequestContext.getCurrentInstance();

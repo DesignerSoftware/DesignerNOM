@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEscalafones.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -74,7 +77,7 @@ public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
             List<Escalafones> lista = persistenciaEscalafones.buscarEscalafones(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaEscalafones Admi : " + e.toString());
+            log.warn("Error listaEscalafones Admi : " + e.toString());
             return null;
         }
     }
@@ -86,7 +89,7 @@ public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
                 persistenciaEscalafones.crear(em,listaE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearEscalafones Admi : " + e.toString());
+            log.warn("Error crearEscalafones Admi : " + e.toString());
         }
     }
 
@@ -97,7 +100,7 @@ public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
                 persistenciaEscalafones.editar(em,listaE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarEscalafones Admi : " + e.toString());
+            log.warn("Error editarEscalafones Admi : " + e.toString());
         }
     }
 
@@ -108,7 +111,7 @@ public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
                 persistenciaEscalafones.borrar(em,listaE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarEscalafones Admi : " + e.toString());
+            log.warn("Error borrarEscalafones Admi : " + e.toString());
         }
     }
 
@@ -118,7 +121,7 @@ public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
             List<Categorias> lista = persistenciaCategorias.buscarCategorias(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovCategorias Admi : " + e.toString());
+            log.warn("Error lovCategorias Admi : " + e.toString());
             return null;
         }
     }
@@ -129,7 +132,7 @@ public class AdministrarEscalafones implements AdministrarEscalafonesInterface {
             List<SubCategorias> lista = persistenciaSubCategorias.consultarSubCategorias(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovSubCategorias Admi : " + e.toString());
+            log.warn("Error lovSubCategorias Admi : " + e.toString());
             return null;
         }
     }

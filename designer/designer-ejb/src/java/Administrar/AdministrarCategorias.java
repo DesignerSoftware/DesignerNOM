@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarCategorias implements AdministrarCategoriasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCategorias.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -80,7 +83,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
             List<Categorias> lista = persistenciaCategorias.buscarCategorias(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaCategorias Admi : " + e.toString());
+            log.warn("Error listaCategorias Admi : " + e.toString());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
                 persistenciaCategorias.crear(em,listaC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearCategorias Admi : " + e.toString());
+            log.warn("Error crearCategorias Admi : " + e.toString());
         }
     }
 
@@ -109,7 +112,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
                 persistenciaCategorias.editar(em,listaC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarCategorias Admi : " + e.toString());
+            log.warn("Error editarCategorias Admi : " + e.toString());
         }
     }
 
@@ -123,7 +126,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
                 persistenciaCategorias.borrar(em,listaC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarCategorias Admi : " + e.toString());
+            log.warn("Error borrarCategorias Admi : " + e.toString());
         }
     }
 
@@ -133,7 +136,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
             List<ClasesCategorias> lista = persistenciaClasesCategorias.consultarClasesCategorias(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovClasesCategorias Admi : " + e.toString());
+            log.warn("Error lovClasesCategorias Admi : " + e.toString());
             return null;
         }
     }
@@ -144,7 +147,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
             List<TiposSueldos> lista = persistenciaTiposSueldos.buscarTiposSueldos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposSueldos Admi : " + e.toString());
+            log.warn("Error lovTiposSueldos Admi : " + e.toString());
             return null;
         }
     }
@@ -155,7 +158,7 @@ public class AdministrarCategorias implements AdministrarCategoriasInterface {
             List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovConceptos Admi : " + e.toString());
+            log.warn("Error lovConceptos Admi : " + e.toString());
             return null;
         }
     }

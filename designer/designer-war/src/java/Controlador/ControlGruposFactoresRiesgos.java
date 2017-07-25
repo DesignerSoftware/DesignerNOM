@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlGruposFactoresRiesgos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlGruposFactoresRiesgos.class);
 
    @EJB
    AdministrarGruposFactoresRiesgosInterface administrarGruposFactoresRiesgos;
@@ -134,14 +137,14 @@ public class ControlGruposFactoresRiesgos implements Serializable {
          administrarGruposFactoresRiesgos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlGruposFactoresRiesgos.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlGruposFactoresRiesgos.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -149,13 +152,13 @@ public class ControlGruposFactoresRiesgos implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarGruposFactoresRiesgos.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlGruposFactoresRiesgos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlGruposFactoresRiesgos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
-      System.err.println("permitirIndex  " + permitirIndex);
+      log.error("TIPO LISTA = " + tipoLista);
+      log.error("permitirIndex  " + permitirIndex);
 
       if (permitirIndex == true) {
          index = indice;
@@ -169,24 +172,24 @@ public class ControlGruposFactoresRiesgos implements Serializable {
             backupDescripcion = filtrarGruposFactoresRiesgos.get(index).getDescripcion();
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlGruposFactoresRiesgos.asignarIndex \n");
+         log.info("\n ENTRE A ControlGruposFactoresRiesgos.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlGruposFactoresRiesgos.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlGruposFactoresRiesgos.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -277,10 +280,10 @@ public class ControlGruposFactoresRiesgos implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposFactoresRiesgos:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosGruposFactoresRiesgos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosGruposFactoresRiesgos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -294,7 +297,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
    }
 
    public void modificarGruposFactoresRiesgos(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0;
@@ -302,14 +305,14 @@ public class ControlGruposFactoresRiesgos implements Serializable {
       boolean banderita1 = false;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearGruposFactoresRiesgos.contains(listGruposFactoresRiesgos.get(indice))) {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listGruposFactoresRiesgos.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -367,8 +370,8 @@ public class ControlGruposFactoresRiesgos implements Serializable {
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listGruposFactoresRiesgos.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -542,7 +545,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoGruposFactoresRiesgos");
+            log.info("Entro a borrandoGruposFactoresRiesgos");
             if (!modificarGruposFactoresRiesgos.isEmpty() && modificarGruposFactoresRiesgos.contains(listGruposFactoresRiesgos.get(index))) {
                int modIndex = modificarGruposFactoresRiesgos.indexOf(listGruposFactoresRiesgos.get(index));
                modificarGruposFactoresRiesgos.remove(modIndex);
@@ -556,7 +559,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
             listGruposFactoresRiesgos.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoGruposFactoresRiesgos ");
+            log.info("borrandoGruposFactoresRiesgos ");
             if (!modificarGruposFactoresRiesgos.isEmpty() && modificarGruposFactoresRiesgos.contains(filtrarGruposFactoresRiesgos.get(index))) {
                int modIndex = modificarGruposFactoresRiesgos.indexOf(filtrarGruposFactoresRiesgos.get(index));
                modificarGruposFactoresRiesgos.remove(modIndex);
@@ -588,13 +591,13 @@ public class ControlGruposFactoresRiesgos implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarFactoresRiesgoGrupoFactorRiesgo;
       BigInteger contarSoProActividadesGrupoFactorRiesgo;
       BigInteger contarSoIndicadoresGrupoFactorRiesgo;
 
       try {
-         System.err.println("Control Secuencia de ControlGruposFactoresRiesgos ");
+         log.error("Control Secuencia de ControlGruposFactoresRiesgos ");
          if (tipoLista == 0) {
             contarFactoresRiesgoGrupoFactorRiesgo = administrarGruposFactoresRiesgos.contarFactoresRiesgoGrupoFactorRiesgo(listGruposFactoresRiesgos.get(index).getSecuencia());
             contarSoIndicadoresGrupoFactorRiesgo = administrarGruposFactoresRiesgos.contarSoIndicadoresGrupoFactorRiesgo(listGruposFactoresRiesgos.get(index).getSecuencia());
@@ -605,10 +608,10 @@ public class ControlGruposFactoresRiesgos implements Serializable {
             contarSoProActividadesGrupoFactorRiesgo = administrarGruposFactoresRiesgos.contarSoProActividadesGrupoFactorRiesgo(filtrarGruposFactoresRiesgos.get(index).getSecuencia());
          }
          if (contarFactoresRiesgoGrupoFactorRiesgo.equals(new BigInteger("0")) && contarSoIndicadoresGrupoFactorRiesgo.equals(new BigInteger("0")) && contarSoProActividadesGrupoFactorRiesgo.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoGruposFactoresRiesgos();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -619,7 +622,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlGruposFactoresRiesgos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlGruposFactoresRiesgos verificarBorrado ERROR " + e);
       }
    }
 
@@ -637,7 +640,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarGruposFactoresRiesgos");
+         log.info("Realizando guardarGruposFactoresRiesgos");
          if (!borrarGruposFactoresRiesgos.isEmpty()) {
             administrarGruposFactoresRiesgos.borrarGruposFactoresRiesgos(borrarGruposFactoresRiesgos);
             //mostrarBorrados
@@ -654,7 +657,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
             administrarGruposFactoresRiesgos.crearGruposFactoresRiesgos(crearGruposFactoresRiesgos);
             crearGruposFactoresRiesgos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listGruposFactoresRiesgos = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -678,7 +681,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -695,7 +698,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
    }
 
    public void agregarNuevoGruposFactoresRiesgos() {
-      System.out.println("agregarNuevoGruposFactoresRiesgos");
+      log.info("agregarNuevoGruposFactoresRiesgos");
       int contador = 0;
       int duplicados = 0;
 
@@ -705,42 +708,42 @@ public class ControlGruposFactoresRiesgos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoGruposFactoresRiesgos.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoGruposFactoresRiesgos.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoGruposFactoresRiesgos.getCodigo());
 
          for (int x = 0; x < listGruposFactoresRiesgos.size(); x++) {
             if (listGruposFactoresRiesgos.get(x).getCodigo() == nuevoGruposFactoresRiesgos.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoGruposFactoresRiesgos.getDescripcion() == null || nuevoGruposFactoresRiesgos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosGruposFactoresRiesgos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposFactoresRiesgos:descripcion");
@@ -750,7 +753,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
             filtrarGruposFactoresRiesgos = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -780,7 +783,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
    }
 
    public void limpiarNuevoGruposFactoresRiesgos() {
-      System.out.println("limpiarNuevoGruposFactoresRiesgos");
+      log.info("limpiarNuevoGruposFactoresRiesgos");
       nuevoGruposFactoresRiesgos = new GruposFactoresRiesgos();
       secRegistro = null;
       index = -1;
@@ -789,7 +792,7 @@ public class ControlGruposFactoresRiesgos implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoGruposFactoresRiesgos() {
-      System.out.println("duplicandoGruposFactoresRiesgos");
+      log.info("duplicandoGruposFactoresRiesgos");
       if (index >= 0) {
          duplicarGruposFactoresRiesgos = new GruposFactoresRiesgos();
          k++;
@@ -815,19 +818,19 @@ public class ControlGruposFactoresRiesgos implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarGruposFactoresRiesgos.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarGruposFactoresRiesgos.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarGruposFactoresRiesgos.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarGruposFactoresRiesgos.getDescripcion());
 
       if (duplicarGruposFactoresRiesgos.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listGruposFactoresRiesgos.size(); x++) {
             if (listGruposFactoresRiesgos.get(x).getCodigo() == duplicarGruposFactoresRiesgos.getCodigo()) {
@@ -836,27 +839,27 @@ public class ControlGruposFactoresRiesgos implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarGruposFactoresRiesgos.getDescripcion() == null || duplicarGruposFactoresRiesgos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarGruposFactoresRiesgos.getSecuencia() + "  " + duplicarGruposFactoresRiesgos.getCodigo());
+         log.info("Datos Duplicando: " + duplicarGruposFactoresRiesgos.getSecuencia() + "  " + duplicarGruposFactoresRiesgos.getCodigo());
          if (crearGruposFactoresRiesgos.contains(duplicarGruposFactoresRiesgos)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listGruposFactoresRiesgos.add(duplicarGruposFactoresRiesgos);
          crearGruposFactoresRiesgos.add(duplicarGruposFactoresRiesgos);
@@ -917,12 +920,12 @@ public class ControlGruposFactoresRiesgos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listGruposFactoresRiesgos.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "GRUPOSFACTORESRIESGOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

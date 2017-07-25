@@ -8,9 +8,8 @@ import InterfacePersistencia.PersistenciaOperadoresInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Clase Stateless.<br> 
@@ -19,7 +18,9 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author Andres Pineda.
  */
 @Stateless
-public class PersistenciaOperadores implements PersistenciaOperadoresInterface{
+public class PersistenciaOperadores implements PersistenciaOperadoresInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaOperadores.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
 //     */
@@ -35,7 +36,7 @@ public class PersistenciaOperadores implements PersistenciaOperadoresInterface{
             List<Operadores> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarOperadores PersistenciaOperadores : "+e.toString());
+            log.error("Error buscarOperadores PersistenciaOperadores : "+e.toString());
             return null;
         }
     }

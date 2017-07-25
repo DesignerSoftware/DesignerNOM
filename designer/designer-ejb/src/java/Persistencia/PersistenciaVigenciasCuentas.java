@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuentasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasCuentas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -39,7 +41,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          em.persist(vigenciasCuentas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCuentas.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCuentas.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +57,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          em.merge(vigenciasCuentas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCuentas.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCuentas.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +73,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          em.remove(em.merge(vigenciasCuentas));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCuentas.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCuentas.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -97,7 +99,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          VigenciasCuentas vigenciasCuentas = (VigenciasCuentas) query.getSingleResult();
          return vigenciasCuentas;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasCuentas.buscarVigenciaCuentaSecuencia() + e.getMessage()");
+          log.error("Persistencia.PersistenciaVigenciasCuentas.buscarVigenciaCuentaSecuencia() + e.getMessage()");
          return null;
       }
    }
@@ -112,7 +114,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          List<VigenciasCuentas> vigenciasCuentas = (List<VigenciasCuentas>) query.getResultList();
          return vigenciasCuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasCuentasPorCredito Persistencia : " + e.getMessage());
+         log.error("Error buscarVigenciasCuentasPorCredito Persistencia : " + e.getMessage());
          return null;
       }
    }
@@ -127,7 +129,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          List<VigenciasCuentas> vigenciasCuentas = (List<VigenciasCuentas>) query.getResultList();
          return vigenciasCuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasCuentasPorDebito Persistencia : " + e.getMessage());
+         log.error("Error buscarVigenciasCuentasPorDebito Persistencia : " + e.getMessage());
          return null;
       }
    }
@@ -142,7 +144,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          List<VigenciasCuentas> vigenciasCuentas = (List<VigenciasCuentas>) query.getResultList();
          return vigenciasCuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasCuentasPorConcepto Persistencia : " + e.getMessage());
+         log.error("Error buscarVigenciasCuentasPorConcepto Persistencia : " + e.getMessage());
         return null;
       }
    }

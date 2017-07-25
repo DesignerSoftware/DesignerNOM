@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalCompetencias.class);
 
     @EJB
     PersistenciaEvalCompetenciasInterface persistenciaEvalCompetencias;
@@ -42,7 +45,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
     @Override
     public void modificarEvalCompetencias(List<EvalCompetencias> listEvalCompetencias) {
         for (int i = 0; i < listEvalCompetencias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaEvalCompetencias.editar(em,listEvalCompetencias.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
     @Override
     public void borrarEvalCompetencias(List<EvalCompetencias> listEvalCompetencias) {
         for (int i = 0; i < listEvalCompetencias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaEvalCompetencias.borrar(em,listEvalCompetencias.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
     @Override
     public void crearEvalCompetencias(List<EvalCompetencias> listEvalCompetencias) {
         for (int i = 0; i < listEvalCompetencias.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaEvalCompetencias.crear(em,listEvalCompetencias.get(i));
         }
     }
@@ -81,10 +84,10 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
     public BigInteger verificarCompetenciasCargos(BigInteger secuenciaCompetenciasCargos) {
         BigInteger verificadorCompetenciasCargos = null;
         try {
-            System.err.println("Secuencia Borrado Competencias Cargos" + secuenciaCompetenciasCargos);
+            log.error("Secuencia Borrado Competencias Cargos" + secuenciaCompetenciasCargos);
             verificadorCompetenciasCargos = persistenciaEvalCompetencias.contadorCompetenciasCargos(em,secuenciaCompetenciasCargos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEvalCompetencias verificarBorradoCompetenciasCargos ERROR :" + e);
+            log.error("ERROR AdministrarEvalCompetencias verificarBorradoCompetenciasCargos ERROR :" + e);
         } finally {
             return verificadorCompetenciasCargos;
         }

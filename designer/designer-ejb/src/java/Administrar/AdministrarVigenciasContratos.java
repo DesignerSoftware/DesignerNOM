@@ -18,6 +18,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,7 +26,9 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 
-public class AdministrarVigenciasContratos implements AdministrarVigenciasContratosInterface{
+public class AdministrarVigenciasContratos implements AdministrarVigenciasContratosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasContratos.class);
 
     @EJB
     PersistenciaContratosInterface persistenciaContratos;
@@ -60,7 +63,7 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
         try {
             vigenciasContratos = persistenciaVigenciasContratos.buscarVigenciaContratoEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Contratos (VigenciasContratosEmpleado)");
+            log.warn("Error en Administrar Vigencias Contratos (VigenciasContratosEmpleado)");
             vigenciasContratos = null;
         }
         return vigenciasContratos;
@@ -69,7 +72,7 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
     @Override
     public void modificarVC(List<VigenciasContratos> listVCModificadas) {
         for (int i = 0; i < listVCModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             vigenciaContrato = listVCModificadas.get(i);
             persistenciaVigenciasContratos.editar(em, vigenciaContrato);
         }

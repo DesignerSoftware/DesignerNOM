@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasConceptosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTEFormulasConceptos.class);
 
    @Override
    public void crear(EntityManager em, TEFormulasConceptos tEFormulasConceptos) {
@@ -25,7 +27,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          em.persist(tEFormulasConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTEFormulasConceptos.crear: " + e.getMessage());
+         log.error("Error PersistenciaTEFormulasConceptos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -41,7 +43,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          em.merge(tEFormulasConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTEFormulasConceptos.editar: " + e.getMessage());
+         log.error("Error PersistenciaTEFormulasConceptos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +59,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          em.remove(em.merge(tEFormulasConceptos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTEFormulasConceptos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTEFormulasConceptos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +75,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          List<TEFormulasConceptos> tEFormulasConceptos = (List<TEFormulasConceptos>) query.getResultList();
          return tEFormulasConceptos;
       } catch (Exception e) {
-         System.out.println("Error buscarTEFormulasConceptos PersistenciaTEFormulasConceptos : " + e.toString());
+         log.error("Error buscarTEFormulasConceptos PersistenciaTEFormulasConceptos : " + e.toString());
          return null;
       }
    }
@@ -88,7 +90,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          TEFormulasConceptos tEFormulasConceptos = (TEFormulasConceptos) query.getSingleResult();
          return tEFormulasConceptos;
       } catch (Exception e) {
-         System.out.println("Error buscarTEFormulaConceptoSecuencia PersistenciaTEFormulasConceptos : " + e.toString());
+         log.error("Error buscarTEFormulaConceptoSecuencia PersistenciaTEFormulasConceptos : " + e.toString());
          return null;
       }
    }
@@ -96,19 +98,19 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
    @Override
    public List<TEFormulasConceptos> buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad(EntityManager em, BigInteger secTSGrupo) {
       try {
-         System.out.println("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() secTSGrupo: " + secTSGrupo);
+         log.error("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() secTSGrupo: " + secTSGrupo);
          em.clear();
          Query query = em.createNativeQuery("SELECT t.* FROM TEFormulasConceptos t, EMPRESAS E  WHERE t.tsgrupotipoentidad = ? AND E.SECUENCIA = t.EMPRESA", TEFormulasConceptos.class);
          query.setParameter(1, secTSGrupo);
          List<TEFormulasConceptos> tEFormulasConceptos = query.getResultList();
          if (tEFormulasConceptos != null) {
-            System.out.println("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : " + tEFormulasConceptos.size());
+            log.error("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : " + tEFormulasConceptos.size());
          } else {
-            System.out.println("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : NULL");
+            log.error("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : NULL");
          }
          return tEFormulasConceptos;
       } catch (Exception e) {
-         System.out.println("Error buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad PersistenciaTEFormulasConceptos : " + e.toString());
+         log.error("Error buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad PersistenciaTEFormulasConceptos : " + e.toString());
          return null;
       }
    }

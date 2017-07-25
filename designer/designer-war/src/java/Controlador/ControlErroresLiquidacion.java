@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlErroresLiquidacion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlErroresLiquidacion.class);
 
    @EJB
    AdministrarErroresLiquidacionesInterface administrarErroresLiquidacion;
@@ -73,7 +76,7 @@ public class ControlErroresLiquidacion implements Serializable {
       tamano = 296;
       tamanoReg = 13;
       backupErroresLiq = new ErroresLiquidacion();
-      System.out.println("controlErroresLiquidacion Constructor");
+      log.info("controlErroresLiquidacion Constructor");
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -94,14 +97,14 @@ public class ControlErroresLiquidacion implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlErroresLiquidacion PostConstruct ");
+         log.info("ControlErroresLiquidacion PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarErroresLiquidacion.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -193,50 +196,50 @@ public class ControlErroresLiquidacion implements Serializable {
 //      int indiceUnicoElemento = 0, pass = 0;
 //      RequestContext context = RequestContext.getCurrentInstance();
 //      if (confirmarCambio.equalsIgnoreCase("N")) {
-//         System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar");
+//         log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar");
 //         if (!crearErroresLiquidacion.contains(errorLiquSeleccionado)) {
 //
 //            if (errorLiquSeleccionado.getEmpleado().getPersona().getNombreCompleto() == null) {
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
 //               errorLiquSeleccionado.getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
 //            } else if (!errorLiquSeleccionado.getEmpleado().getPersona().getNombreCompleto().equals(backUpEmpleado) && backUpEmpleado != null) {
 //               errorLiquSeleccionado.getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
 //            }
 //            if (errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre() == null) {
 //               errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
 //            } else if (!errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre().equals(backUpTipoCentroCosto) && backUpTipoCentroCosto != null) {
 //               errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
 //            }
 //            if (errorLiquSeleccionado.getConcepto().getDescripcion() == null) {
 //               errorLiquSeleccionado.getConcepto().setDescripcion(backUpConcepto);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
 //            } else if (!errorLiquSeleccionado.getConcepto().getDescripcion().equals(backUpConcepto) && backUpConcepto != null) {
 //               errorLiquSeleccionado.getConcepto().setDescripcion(backUpConcepto);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
 //            }
 //            if (errorLiquSeleccionado.getFormula().getNombrelargo() == null) {
 //               errorLiquSeleccionado.getFormula().setNombrelargo(backUpFormula);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpValor : " + backUpFormula);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpValor : " + backUpFormula);
 //            } else if (!errorLiquSeleccionado.getFormula().getNombrelargo().equals(backUpFormula) && backUpFormula != null) {
 //               errorLiquSeleccionado.getFormula().setNombrelargo(backUpFormula);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpFormula : " + backUpFormula);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpFormula : " + backUpFormula);
 //            }
 //            if (errorLiquSeleccionado.getError() == null) {
 //               errorLiquSeleccionado.setError(backUpError);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
 //            } else if (!errorLiquSeleccionado.getError().equals(backUpError) && backUpError != null) {
 //               errorLiquSeleccionado.setError(backUpError);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
 //            }
 //            if (errorLiquSeleccionado.getPaquete() == null) {
 //               errorLiquSeleccionado.setPaquete(backUpPaquete);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
 //            } else if (!errorLiquSeleccionado.getPaquete().equals(backUpPaquete) && backUpPaquete != null) {
 //               errorLiquSeleccionado.setPaquete(backUpPaquete);
-//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
+//               log.error("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
 //            }
 //            
 //            errorLiquSeleccionado = null;
@@ -245,13 +248,13 @@ public class ControlErroresLiquidacion implements Serializable {
 //      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
 //   }
    public void asignarIndex(ErroresLiquidacion erroresLiq, int LND, int dig) {
-      System.out.println("\n ENTRE A ControlErroresLiquidacion.asignarIndex \n");
+      log.info("\n ENTRE A ControlErroresLiquidacion.asignarIndex \n");
       errorLiquSeleccionado = erroresLiq;
       if (LND == 0) {
          tipoActualizacion = 0;
       } else if (LND == 1) {
          tipoActualizacion = 1;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          tipoActualizacion = 2;
       }
@@ -295,7 +298,7 @@ public class ControlErroresLiquidacion implements Serializable {
 
    public void borrandoErroresLiquidaciones() {
       if (errorLiquSeleccionado != null) {
-         System.out.println("Entro a borrandoErroresLiquidaciones");
+         log.info("Entro a borrandoErroresLiquidaciones");
          if (!borrarErroresLiquidacion.contains(errorLiquSeleccionado)) {
             borrarErroresLiquidacion.add(errorLiquSeleccionado);
          }
@@ -339,7 +342,7 @@ public class ControlErroresLiquidacion implements Serializable {
          paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
          paquete.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          restaurarTabla();
@@ -379,7 +382,7 @@ public class ControlErroresLiquidacion implements Serializable {
    public void editarCelda() {
       if (errorLiquSeleccionado != null) {
          editarErroresLiquidacion = errorLiquSeleccionado;
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
             RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
@@ -464,12 +467,12 @@ public class ControlErroresLiquidacion implements Serializable {
 
    public void guardarErroresLiquidacion() {
       if (guardado == false) {
-         System.out.println("Realizando guardarClasesPensiones");
+         log.info("Realizando guardarClasesPensiones");
          if (!borrarErroresLiquidacion.isEmpty()) {
             administrarErroresLiquidacion.borrarErroresLiquidaciones(borrarErroresLiquidacion);
             borrarErroresLiquidacion.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listErroresLiquidacion = null;
          RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
          k = 0;
@@ -513,11 +516,11 @@ public class ControlErroresLiquidacion implements Serializable {
    }
 
    public void verificarRastro() {
-      System.out.println("lol");
+      log.info("lol");
       if (errorLiquSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(errorLiquSeleccionado.getSecuencia(), "ERRORESLIQUIDACION"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -541,7 +544,7 @@ public class ControlErroresLiquidacion implements Serializable {
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<ErroresLiquidacion> getListErroresLiquidacion() {
       if (listErroresLiquidacion == null) {
-         System.out.println("ControlErroresLiquidacion getListErroresLiquidacion");
+         log.info("ControlErroresLiquidacion getListErroresLiquidacion");
          listErroresLiquidacion = administrarErroresLiquidacion.consultarErroresLiquidacion();
       }
       return listErroresLiquidacion;

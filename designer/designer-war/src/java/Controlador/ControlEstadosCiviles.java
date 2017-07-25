@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEstadosCiviles implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEstadosCiviles.class);
 
    @EJB
    AdministrarEstadosCivilesInterface administrarEstadosCiviles;
@@ -136,8 +139,8 @@ public class ControlEstadosCiviles implements Serializable {
          administrarEstadosCiviles.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -246,11 +249,11 @@ public class ControlEstadosCiviles implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEstadosCiviles:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosEstadosCiviles:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEstadosCiviles:descripcion");
@@ -306,13 +309,13 @@ public class ControlEstadosCiviles implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       try {
-         System.err.println("Control Secuencia de EstadosCiviles a borrar");
+         log.error("Control Secuencia de EstadosCiviles a borrar");
          vigenciasEstadosAficilaciones = administrarEstadosCiviles.verificarVigenciasEstadosCiviles(estadoCivilSeleccionado.getSecuencia());
 
          if (!vigenciasEstadosAficilaciones.equals(new BigInteger("0"))) {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -322,11 +325,11 @@ public class ControlEstadosCiviles implements Serializable {
             vigenciasEstadosAficilaciones = new BigInteger("-1");
 
          } else {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoEstadoCivil();
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlEstadosCiviles verificarBorrado ERROR " + e);
+         log.error("ERROR ControlEstadosCiviles verificarBorrado ERROR " + e);
       }
    }
 
@@ -343,7 +346,7 @@ public class ControlEstadosCiviles implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando EstadosCiviles");
+         log.info("Realizando EstadosCiviles");
          if (!borrarEstadosCiviles.isEmpty()) {
             administrarEstadosCiviles.borrarEstadosCiviles(borrarEstadosCiviles);
             //mostrarBorrados
@@ -360,7 +363,7 @@ public class ControlEstadosCiviles implements Serializable {
             administrarEstadosCiviles.modificarEstadosCiviles(modificarEstadosCiviles);
             modificarEstadosCiviles.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listEstadosCiviles = null;
          getListEstadosCiviles();
          contarRegistros();
@@ -386,7 +389,7 @@ public class ControlEstadosCiviles implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -423,7 +426,7 @@ public class ControlEstadosCiviles implements Serializable {
       if (nuevoEstadoCivil.getDescripcion() == (null)) {
          mensajeValidacion = mensajeValidacion + " Campo Descripción vacío \n";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
@@ -431,7 +434,7 @@ public class ControlEstadosCiviles implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEstadosCiviles:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEstadosCiviles:descripcion");
@@ -442,7 +445,7 @@ public class ControlEstadosCiviles implements Serializable {
             tipoLista = 0;
             tamano = 270;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -464,14 +467,14 @@ public class ControlEstadosCiviles implements Serializable {
    }
 
    public void limpiarNuevoEstadoCivil() {
-      System.out.println("limpiarNuevoEstadosCiviles");
+      log.info("limpiarNuevoEstadosCiviles");
       nuevoEstadoCivil = new EstadosCiviles();
 
    }
 
    //------------------------------------------------------------------------------
    public void duplicarEstadosCiviles() {
-      System.out.println("duplicarEstadosCiviles");
+      log.info("duplicarEstadosCiviles");
       if (estadoCivilSeleccionado != null) {
          duplicarEstadoCivil = new EstadosCiviles();
          k++;
@@ -523,7 +526,7 @@ public class ControlEstadosCiviles implements Serializable {
          mensajeValidacion = " Campo Descripción vacío \n";
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
@@ -583,11 +586,11 @@ public class ControlEstadosCiviles implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (estadoCivilSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(estadoCivilSeleccionado.getSecuencia(), "ESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -613,7 +616,7 @@ public class ControlEstadosCiviles implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlEstadosCiviles eventoFiltrar ERROR== " + e.getMessage());
+         log.warn("Error ControlEstadosCiviles eventoFiltrar ERROR== " + e.getMessage());
       }
    }
 

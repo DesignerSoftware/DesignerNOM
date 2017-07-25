@@ -14,9 +14,9 @@ import InterfacePersistencia.PersistenciaUsuariosVistasInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUsuariosVistas.class);
 
     @EJB
     PersistenciaUsuariosVistasInterface persistenciaUsuariosVistas;
@@ -97,7 +99,7 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
             exe = persistenciaUsuariosVistas.crearUsuarioVista(em, objeto);
             return exe;
         } catch (Exception e) {
-            System.out.println("Error crearUsuarioVistaDB Admi : " + e.toString());
+            log.warn("Error crearUsuarioVistaDB Admi : " + e.toString());
             return null;
         }
     }

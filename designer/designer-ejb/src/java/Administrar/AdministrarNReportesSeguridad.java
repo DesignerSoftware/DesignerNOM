@@ -31,6 +31,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -38,6 +39,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguridadInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNReportesSeguridad.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -90,7 +93,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
             }
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -101,7 +104,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioSeguridadSocial(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e);
+            log.warn("Error listInforeportesUsuario " + e);
             return null;
         }
     }
@@ -112,7 +115,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
             listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Administrar : " + e.toString());
+            log.warn("Error listEmpresas Administrar : " + e.toString());
             return null;
         }
     }
@@ -123,7 +126,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
             listGruposConceptos = persistenciaGruposConceptos.buscarGruposConceptos(em);
             return listGruposConceptos;
         } catch (Exception e) {
-            System.out.println("Error listGruposConcetos : " + e.toString());
+            log.warn("Error listGruposConcetos : " + e.toString());
             return null;
         }
     }
@@ -133,7 +136,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
         try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosReportes : " + e.toString());
+            log.warn("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -155,7 +158,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
             listEstructuras = persistenciaEstructuras.buscarEstructuras(em);
             return listEstructuras;
         } catch (Exception e) {
-            System.out.println("Error listEstructuras : " + e.toString());
+            log.warn("Error listEstructuras : " + e.toString());
             return null;
         }
     }
@@ -174,14 +177,14 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
 
     @Override
     public List<Empleados> listEmpleados() {
-        System.out.println(this.getClass().getName() + ".listEmpleados()");
-        System.out.println(this.getClass().getName() + ".listEmpleados() entity manager" + em);
+        log.warn(this.getClass().getName() + ".listEmpleados()");
+        log.warn(this.getClass().getName() + ".listEmpleados() entity manager" + em);
         try {
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
-            System.out.println(this.getClass().getName() + ".listEmpleados() fin.");
+            log.warn(this.getClass().getName() + ".listEmpleados() fin.");
             return listEmpleados;
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error " + e.toString());
+            log.warn(this.getClass().getName() + " error " + e.toString());
             return null;
         }
     }
@@ -193,7 +196,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 

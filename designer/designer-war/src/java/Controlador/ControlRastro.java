@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -26,6 +27,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlRastro implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlRastro.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -80,8 +83,8 @@ public class ControlRastro implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -130,13 +133,13 @@ public class ControlRastro implements Serializable {
         nombreTablaRastro = nombreTablaR;
         nomPagina = nombrePagina;
         listaRastros = administrarRastros.rastrosTabla(secRegistroT, nombreTablaRastro);
-        System.out.println("recibirDatosTabla() : ");
-        System.out.println("Secuencia tabla " + secRegistroT);
-        System.out.println("nombreTablaRastro : " + nombreTablaRastro);
-        //System.out.println("listaRastros : " + listaRastros.get(bandera));
+        log.info("recibirDatosTabla() : ");
+        log.info("Secuencia tabla " + secRegistroT);
+        log.info("nombreTablaRastro : " + nombreTablaRastro);
+        //log.info("listaRastros : " + listaRastros.get(bandera));
         estado = 1;
         campoEmpl = administrarRastros.existenciaEmpleadoTabla(nombreTablaRastro);
-        System.out.println("Empleado: " + campoEmpl);
+        log.info("Empleado: " + campoEmpl);
     }
 
     //HISTORICOS RASTRO TABLA
@@ -146,10 +149,10 @@ public class ControlRastro implements Serializable {
         nombreTablaRastro = nombreTablaR;
         nomPagina = nombrePagina;
         getListaRastros();
-        System.out.println("ControlRastro.historicosTabla() : ");
-        System.out.println("Secuencia tabla " + secRegistroT);
-        System.out.println("nombreTablaRastro : " + nombreTablaRastro);
-        System.out.println("nombrePagina : " + nomPagina);
+        log.info("ControlRastro.historicosTabla() : ");
+        log.info("Secuencia tabla " + secRegistroT);
+        log.info("nombreTablaRastro : " + nombreTablaRastro);
+        log.info("nombrePagina : " + nomPagina);
         listaRastros = administrarRastros.rastrosTablaHistoricos(nombreTablaRastro);
         estado = 2;
         campoEmpl = administrarRastros.existenciaEmpleadoTabla(nombreTablaRastro);
@@ -195,7 +198,7 @@ public class ControlRastro implements Serializable {
         if (estadoBtn == 1) {
             RequestContext.getCurrentInstance().execute("PF('confirmarEliminados').show()");
         } else {
-            System.out.println("Estado : " + estado);
+            log.info("Estado : " + estado);
             if (estado == 1) {
                 listaRastros = administrarRastros.rastrosTabla(secRegistroT, nombreTablaRastro);
             } else if (estado == 2) {

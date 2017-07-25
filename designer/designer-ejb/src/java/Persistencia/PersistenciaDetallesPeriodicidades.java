@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaDetallesPeriodicidades implements PersistenciaDetallesPeriodicidadesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaDetallesPeriodicidades.class);
+
     @Override
     public void crear(EntityManager em, DetallesPeriodicidades detallep) {
         em.clear();
@@ -31,7 +34,7 @@ public class PersistenciaDetallesPeriodicidades implements PersistenciaDetallesP
             em.merge(detallep);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesPeriodicidades.crear: " + e);
+            log.error("Error PersistenciaDetallesPeriodicidades.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +50,7 @@ public class PersistenciaDetallesPeriodicidades implements PersistenciaDetallesP
             em.merge(detallep);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesPeriodicidades.editar: " + e);
+            log.error("Error PersistenciaDetallesPeriodicidades.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +66,7 @@ public class PersistenciaDetallesPeriodicidades implements PersistenciaDetallesP
             em.remove(em.merge(detallep));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesPeriodicidades.borrar: " + e);
+            log.error("Error PersistenciaDetallesPeriodicidades.borrar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +83,7 @@ public class PersistenciaDetallesPeriodicidades implements PersistenciaDetallesP
         List<DetallesPeriodicidades> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            System.out.println("error persistenciadetallesperiodicidades.buscarDetallesPeriodicidad:" + e.toString());
+            log.error("error persistenciadetallesperiodicidades.buscarDetallesPeriodicidad:" + e.toString());
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class PersistenciaDetallesPeriodicidades implements PersistenciaDetallesP
         Periodicidades periodicidad = (Periodicidades) query.getSingleResult();
         return periodicidad;
         }catch(Exception e){
-            System.out.println("error persistenciadetallesperiodicidades.buscarPeriodicidadPorSecuencia:" + e.toString());
+            log.error("error persistenciadetallesperiodicidades.buscarPeriodicidadPorSecuencia:" + e.toString());
             return null;
         }
     }

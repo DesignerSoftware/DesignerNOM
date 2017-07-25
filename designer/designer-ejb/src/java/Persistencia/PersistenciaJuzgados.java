@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaJuzgados.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -39,7 +41,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             em.merge(juzgados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJuzgados.crear: " + e.getMessage());
+            log.error("Error PersistenciaJuzgados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +57,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             em.merge(juzgados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJuzgados.editar: " + e.getMessage());
+            log.error("Error PersistenciaJuzgados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +74,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJuzgados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaJuzgados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +87,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             em.clear();
             return em.find(Juzgados.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaJuzgados.buscarJuzgado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaJuzgados.buscarJuzgado()" + e.getMessage());
             return null;
         }
     }
@@ -99,7 +101,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             List<Juzgados> listaMotivosPrestamos = query.getResultList();
             return listaMotivosPrestamos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaJuzgados.buscarJuzgados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaJuzgados.buscarJuzgados()" + e.getMessage());
             return null;
         }
     }
@@ -114,7 +116,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             List<Juzgados> listaJuzgadosPorCiudad = query.getResultList();
             return listaJuzgadosPorCiudad;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia PersistenciaCentrosCostos BuscarCentrosCostosEmpr " + e.getMessage());
+            log.error("Error en Persistencia PersistenciaCentrosCostos BuscarCentrosCostosEmpr " + e.getMessage());
             return null;
         }
     }
@@ -124,15 +126,15 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
         BigInteger retorno;
         try {
             em.clear();
-            System.out.println("Persistencia secuencia borrado " + secuencia);
+            log.error("Persistencia secuencia borrado " + secuencia);
             String sqlQuery = " SELECT COUNT(*)FROM eersprestamos ers , juzgados juz WHERE ers.juzgado = juz.secuencia AND juz.secuencia = ? ";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS = " + retorno);
+            log.error("PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

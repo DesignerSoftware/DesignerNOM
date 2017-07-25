@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaProyectos implements PersistenciaProyectosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaProyectos.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -36,7 +38,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.persist(proyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProyectos.crear: " + e.getMessage());
+            log.error("Error PersistenciaProyectos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.merge(proyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProyectos.editar: " + e.getMessage());
+            log.error("Error PersistenciaProyectos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +70,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.remove(em.merge(proyectos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProyectos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaProyectos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +87,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             Proyectos proyectos = (Proyectos) query.getSingleResult();
             return proyectos;
         } catch (Exception e) {
-            System.out.println("Error buscarProyectoSecuencia PersistenciaProyectos"+ e.getMessage());
+            log.error("Error buscarProyectoSecuencia PersistenciaProyectos"+ e.getMessage());
             Proyectos proyectos = null;
             return proyectos;
         }
@@ -100,7 +102,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             List<Proyectos> proyectos = query.getResultList();
             return proyectos;
         } catch (Exception e) {
-           System.out.println("Error en PersistenciaProyectos, proyectos() : " + e.getCause().toString());
+           log.error("Error en PersistenciaProyectos, proyectos() : " + e.getCause().toString());
             return null;
         }
     }
@@ -115,7 +117,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
            Proyectos pry = (Proyectos) query.getSingleResult();
            return pry;
        }catch(Exception e){
-           System.out.println("Error buscarProyectoNombre PersistenciaProyectos : "+e.toString());
+           log.error("Error buscarProyectoNombre PersistenciaProyectos : "+e.toString());
            return null;
        }
    }

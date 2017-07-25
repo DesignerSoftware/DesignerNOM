@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -19,6 +20,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWEstadosExtras implements PersistenciaVWEstadosExtrasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWEstadosExtras.class);
 
     @Override
     public List<VWEstadosExtras> buscarVWEstadosExtras(EntityManager em, BigInteger secuencia) {
@@ -30,7 +33,7 @@ public class PersistenciaVWEstadosExtras implements PersistenciaVWEstadosExtrasI
             List<VWEstadosExtras> vwEstadosExtras = query.getResultList();
             return vwEstadosExtras;
         } catch (Exception e) {
-            System.out.println("Error buscarVWEstadosExtras.buscarVWEstadosExtras " + e.getMessage());
+            log.error("Error buscarVWEstadosExtras.buscarVWEstadosExtras " + e.getMessage());
             return null;
         }
     }

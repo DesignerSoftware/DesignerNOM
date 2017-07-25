@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasPlantas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasPlantas.class);
 
    @EJB
    AdministrarVigenciasPlantasInterface administrarVigenciasPlantas;
@@ -94,8 +97,8 @@ public class ControlVigenciasPlantas implements Serializable {
          administrarVigenciasPlantas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -139,7 +142,7 @@ public class ControlVigenciasPlantas implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlVigenciasPlantas.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlVigenciasPlantas.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -147,7 +150,7 @@ public class ControlVigenciasPlantas implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarVigenciasPlantas.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlVigenciasPlantas eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlVigenciasPlantas eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
@@ -155,7 +158,7 @@ public class ControlVigenciasPlantas implements Serializable {
    private Date backUpFecha;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -174,28 +177,28 @@ public class ControlVigenciasPlantas implements Serializable {
             } else {
                backUpFecha = filtrarVigenciasPlantas.get(index).getFechavigencia();
             }
-            System.out.println("ControlVigenciasPlantas indice " + index + " backUpFecha " + backUpFecha);
+            log.info("ControlVigenciasPlantas indice " + index + " backUpFecha " + backUpFecha);
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlVigenciasPlantas.asignarIndex \n");
+         log.info("\n ENTRE A ControlVigenciasPlantas.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlVigenciasPlantas.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlVigenciasPlantas.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -286,10 +289,10 @@ public class ControlVigenciasPlantas implements Serializable {
          fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
          fecha.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -305,21 +308,21 @@ public class ControlVigenciasPlantas implements Serializable {
    public void mostrarInfo(int indice, int celda) {
       int contador = 0;
       int fechas = 0;
-      System.out.println("ControlVigenciasPlantas mostrar info indice : " + indice + "  permitirInxes : " + permitirIndex);
+      log.info("ControlVigenciasPlantas mostrar info indice : " + indice + "  permitirInxes : " + permitirIndex);
       if (permitirIndex == true) {
          RequestContext context = RequestContext.getCurrentInstance();
 
          mensajeValidacion = " ";
          index = indice;
          cualCelda = celda;
-         System.out.println("ControlVigenciasPlantas mostrarInfo INDICE : " + index + " cualCelda : " + cualCelda);
+         log.info("ControlVigenciasPlantas mostrarInfo INDICE : " + index + " cualCelda : " + cualCelda);
          if (tipoLista == 0) {
             secRegistro = listVigenciasPlantas.get(indice).getSecuencia();
-            System.err.println("MODIFICAR FECHA \n Indice" + indice + "Fecha " + listVigenciasPlantas.get(indice).getFechavigencia());
+            log.error("MODIFICAR FECHA \n Indice" + indice + "Fecha " + listVigenciasPlantas.get(indice).getFechavigencia());
             if (listVigenciasPlantas.get(indice).getFechavigencia() == null) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                listVigenciasPlantas.get(indice).setFechavigencia(backUpFecha);
-               System.out.println("ControlVigenciasPlantas despues de mostrar el error fechaAsignada : " + listVigenciasPlantas.get(indice).getFechavigencia());
+               log.info("ControlVigenciasPlantas despues de mostrar el error fechaAsignada : " + listVigenciasPlantas.get(indice).getFechavigencia());
             } else {
                for (int j = 0; j < listVigenciasPlantas.size(); j++) {
                   if (j != indice) {
@@ -361,7 +364,7 @@ public class ControlVigenciasPlantas implements Serializable {
             }
          } else {
             secRegistro = filtrarVigenciasPlantas.get(indice).getSecuencia();
-            System.err.println("MODIFICAR FECHA \n Indice" + indice + "Fecha " + filtrarVigenciasPlantas.get(indice).getFechavigencia());
+            log.error("MODIFICAR FECHA \n Indice" + indice + "Fecha " + filtrarVigenciasPlantas.get(indice).getFechavigencia());
             if (filtrarVigenciasPlantas.get(indice).getFechavigencia() == null) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                contador++;
@@ -413,12 +416,12 @@ public class ControlVigenciasPlantas implements Serializable {
          secRegistro = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
 
    }
 
    public void modificarVigenciaPlanta(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR TIPO EMPRESA");
+      log.error("ENTRE A MODIFICAR TIPO EMPRESA");
       index = indice;
 
       int contador = 0;
@@ -426,9 +429,9 @@ public class ControlVigenciasPlantas implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearVigenciasPlantas.contains(listVigenciasPlantas.get(indice))) {
                if (listVigenciasPlantas.get(indice).getCodigo() == a) {
@@ -591,7 +594,7 @@ public class ControlVigenciasPlantas implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoVigenciasPlantas");
+            log.info("Entro a borrandoVigenciasPlantas");
             if (!modificarVigenciasPlantas.isEmpty() && modificarVigenciasPlantas.contains(listVigenciasPlantas.get(index))) {
                int modIndex = modificarVigenciasPlantas.indexOf(listVigenciasPlantas.get(index));
                modificarVigenciasPlantas.remove(modIndex);
@@ -605,7 +608,7 @@ public class ControlVigenciasPlantas implements Serializable {
             listVigenciasPlantas.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoVigenciasPlantas ");
+            log.info("borrandoVigenciasPlantas ");
             if (!modificarVigenciasPlantas.isEmpty() && modificarVigenciasPlantas.contains(filtrarVigenciasPlantas.get(index))) {
                int modIndex = modificarVigenciasPlantas.indexOf(filtrarVigenciasPlantas.get(index));
                modificarVigenciasPlantas.remove(modIndex);
@@ -635,21 +638,21 @@ public class ControlVigenciasPlantas implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarPlantasVigenciaPlanta;
 
       try {
-         System.err.println("Control Secuencia de ControlVigenciasPlantas ");
+         log.error("Control Secuencia de ControlVigenciasPlantas ");
          if (tipoLista == 0) {
             contarPlantasVigenciaPlanta = administrarVigenciasPlantas.contarPlantasVigenciaPlanta(listVigenciasPlantas.get(index).getSecuencia());
          } else {
             contarPlantasVigenciaPlanta = administrarVigenciasPlantas.contarPlantasVigenciaPlanta(filtrarVigenciasPlantas.get(index).getSecuencia());
          }
          if (contarPlantasVigenciaPlanta.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoVigenciasPlantas();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -659,7 +662,7 @@ public class ControlVigenciasPlantas implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlVigenciasPlantas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlVigenciasPlantas verificarBorrado ERROR " + e);
       }
    }
 
@@ -677,7 +680,7 @@ public class ControlVigenciasPlantas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarVigenciasPlantas");
+         log.info("Realizando guardarVigenciasPlantas");
          if (!borrarVigenciasPlantas.isEmpty()) {
             administrarVigenciasPlantas.borrarVigenciasPlantas(borrarVigenciasPlantas);
 
@@ -695,7 +698,7 @@ public class ControlVigenciasPlantas implements Serializable {
             administrarVigenciasPlantas.modificarVigenciasPlantas(modificarVigenciasPlantas);
             modificarVigenciasPlantas.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listVigenciasPlantas = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -719,7 +722,7 @@ public class ControlVigenciasPlantas implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -736,7 +739,7 @@ public class ControlVigenciasPlantas implements Serializable {
    }
 
    public void agregarNuevoVigenciasPlantas() {
-      System.out.println("agregarNuevoVigenciasPlantas");
+      log.info("agregarNuevoVigenciasPlantas");
       int contador = 0;
       int duplicados = 0;
       int duplicadosFechas = 0;
@@ -746,28 +749,28 @@ public class ControlVigenciasPlantas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoVigenciaPlanta.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoVigenciaPlanta.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoVigenciaPlanta.getCodigo());
 
          for (int x = 0; x < listVigenciasPlantas.size(); x++) {
             if (listVigenciasPlantas.get(x).getCodigo().equals(nuevoVigenciaPlanta.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoVigenciaPlanta.getFechavigencia() == null) {
          mensajeValidacion = " *Fecha \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int j = 0; j < listVigenciasPlantas.size(); j++) {
             if (nuevoVigenciaPlanta.getFechavigencia().equals(listVigenciasPlantas.get(j).getFechavigencia())) {
@@ -782,12 +785,12 @@ public class ControlVigenciasPlantas implements Serializable {
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
       FacesContext c = FacesContext.getCurrentInstance();
       if (contador == 2) {
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciaPlanta:fecha");
@@ -797,7 +800,7 @@ public class ControlVigenciasPlantas implements Serializable {
             filtrarVigenciasPlantas = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -829,7 +832,7 @@ public class ControlVigenciasPlantas implements Serializable {
    }
 
    public void limpiarNuevoVigenciasPlantas() {
-      System.out.println("limpiarNuevoVigenciasPlantas");
+      log.info("limpiarNuevoVigenciasPlantas");
       nuevoVigenciaPlanta = new VigenciasPlantas();
       secRegistro = null;
       index = -1;
@@ -838,7 +841,7 @@ public class ControlVigenciasPlantas implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoVigenciasPlantas() {
-      System.out.println("duplicandoVigenciasPlantas");
+      log.info("duplicandoVigenciasPlantas");
       if (index >= 0) {
          duplicarVigenciaPlanta = new VigenciasPlantas();
          k++;
@@ -864,7 +867,7 @@ public class ControlVigenciasPlantas implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
@@ -872,12 +875,12 @@ public class ControlVigenciasPlantas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarVigenciaPlanta.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarVigenciaPlanta.getFechavigencia());
+      log.error("ConfirmarDuplicar codigo " + duplicarVigenciaPlanta.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarVigenciaPlanta.getFechavigencia());
 
       if (duplicarVigenciaPlanta.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listVigenciasPlantas.size(); x++) {
             if (listVigenciasPlantas.get(x).getCodigo().equals(duplicarVigenciaPlanta.getCodigo())) {
@@ -886,16 +889,16 @@ public class ControlVigenciasPlantas implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarVigenciaPlanta.getFechavigencia() == null) {
          mensajeValidacion = " *Fecha \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int j = 0; j < listVigenciasPlantas.size(); j++) {
             if (duplicarVigenciaPlanta.getFechavigencia().equals(listVigenciasPlantas.get(j).getFechavigencia())) {
@@ -912,9 +915,9 @@ public class ControlVigenciasPlantas implements Serializable {
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarVigenciaPlanta.getSecuencia() + "  " + duplicarVigenciaPlanta.getCodigo());
+         log.info("Datos Duplicando: " + duplicarVigenciaPlanta.getSecuencia() + "  " + duplicarVigenciaPlanta.getCodigo());
          if (crearVigenciasPlantas.contains(duplicarVigenciaPlanta)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listVigenciasPlantas.add(duplicarVigenciaPlanta);
          crearVigenciasPlantas.add(duplicarVigenciaPlanta);
@@ -977,12 +980,12 @@ public class ControlVigenciasPlantas implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listVigenciasPlantas.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "VIGENCIASPLANTAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

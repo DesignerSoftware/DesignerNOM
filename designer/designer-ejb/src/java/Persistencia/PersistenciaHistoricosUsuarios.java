@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsuariosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaHistoricosUsuarios.class);
 
     @Override
     public List<HistoricosUsuarios> buscarHistoricosUsuarios(EntityManager em,BigInteger secUsuario) {
@@ -31,7 +34,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             List<HistoricosUsuarios> historicosusu = query.getResultList();
             return historicosusu;
         } catch (Exception e) {
-            System.out.println("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
+            log.error("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
             return null;
         }
     }
@@ -45,7 +48,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             em.merge(historicou);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoricosUsuarios.crear: " + e.getMessage());
+            log.error("Error PersistenciaHistoricosUsuarios.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +64,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             em.merge(historicou);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoricosUsuarios.editar: " + e.getMessage());
+            log.error("Error PersistenciaHistoricosUsuarios.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +80,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             em.remove(em.merge(historicou));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoricosUsuarios.borrar: " + e.getMessage());
+            log.error("Error PersistenciaHistoricosUsuarios.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

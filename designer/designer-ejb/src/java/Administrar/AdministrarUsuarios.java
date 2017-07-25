@@ -22,9 +22,9 @@ import InterfacePersistencia.PersistenciaUsuariosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -32,6 +32,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarUsuarios implements AdministrarUsuariosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUsuarios.class);
 
     @EJB
     PersistenciaUsuariosInterface persistenciaUsuarios;
@@ -79,7 +81,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
             persistenciaUsuarios.borrarUsuario(em, alias);
             return exeE;
         } catch (Exception e) {
-            System.out.println("Error eliminarUsuariosBD Admi : " + e.toString());
+            log.warn("Error eliminarUsuariosBD Admi : " + e.toString());
             return null;
         }
 
@@ -92,7 +94,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
             exeE2 = persistenciaUsuarios.borrarUsuarioTotal(em, alias);
             return exeE2;
         } catch (Exception e) {
-            System.out.println("Error eliminarUsuarioTotalBD Admi : " + e.toString());
+            log.warn("Error eliminarUsuarioTotalBD Admi : " + e.toString());
             return null;
         }
     }
@@ -151,7 +153,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
     @Override
     public void borrarUsuarios(List<Usuarios> listaUsuarios) {
         for (int i = 0; i < listaUsuarios.size(); i++) {
-            System.out.println("Borrando..Usuarios.");
+            log.warn("Borrando..Usuarios.");
             if (listaUsuarios.get(i).getAlias().equals(null)) {
                 listaUsuarios.get(i).setAlias(null);
                 persistenciaUsuarios.borrar(em, listaUsuarios.get(i));
@@ -170,7 +172,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
     @Override
     public void crearUsuarios(List<Usuarios> listaUsuarios) {
         for (int i = 0; i < listaUsuarios.size(); i++) {
-            System.out.println("Creando. Usuarios..");
+            log.warn("Creando. Usuarios..");
             if (listaUsuarios.get(i).getAlias().equals(null)) {
                 listaUsuarios.get(i).setAlias(null);
                 persistenciaUsuarios.crear(em, listaUsuarios.get(i));

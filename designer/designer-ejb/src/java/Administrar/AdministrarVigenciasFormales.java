@@ -25,9 +25,12 @@ import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarVigenciasFormales implements AdministrarVigenciasFormalesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasFormales.class);
 
     @EJB
     PersistenciaVigenciasFormalesInterface persistenciaVigenciasFormales;
@@ -64,7 +67,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
         try {
             return persistenciaVigenciasFormales.vigenciasFormalesPersona(em, secPersona);
         } catch (Exception e) {
-            System.err.println("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
+            log.error("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
     @Override
     public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar) {
         for (int i = 0; i < listaVigenciasFormalesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasFormalesModificar.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setTipoeducacion(null);
             }
@@ -118,7 +121,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
     @Override
     public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar) {
         for (int i = 0; i < listaVigenciasFormalesBorrar.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             if (listaVigenciasFormalesBorrar.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesBorrar.get(i).setTipoeducacion(null);
             }
@@ -138,7 +141,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
     @Override
     public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
         for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
-            System.out.println("Creando...");
+            log.warn("Creando...");
             if (listaVigenciasFormalesCrear.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
             }
@@ -170,7 +173,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

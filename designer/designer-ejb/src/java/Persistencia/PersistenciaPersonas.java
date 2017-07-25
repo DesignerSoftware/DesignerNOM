@@ -7,6 +7,7 @@ import Entidades.Personas;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import InterfacePersistencia.PersistenciaPersonasInterface;
 import java.math.BigInteger;
 import javax.persistence.EntityTransaction;
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPersonas implements PersistenciaPersonasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPersonas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +40,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             em.merge(personas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPersonas.crear: " + e.getMessage());
+            log.error("Error PersistenciaPersonas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +56,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             em.merge(personas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPersonas.editar: " + e.getMessage());
+            log.error("Error PersistenciaPersonas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +72,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             em.remove(em.merge(personas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPersonas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPersonas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +85,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
         em.clear();
         return em.find(Personas.class, secuencia);
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaPersonas.buscarPersona()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPersonas.buscarPersona()" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +99,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
         List<Personas> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaPersonas.consultarPersonas()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPersonas.consultarPersonas()" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +114,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             query.executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPersonas.actualizarFotoPersona()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPersonas.actualizarFotoPersona()" + e.getMessage());
         }
     }
 
@@ -125,7 +128,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             Personas persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPersonas.buscarFotoPersona()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPersonas.buscarFotoPersona()" + e.getMessage());
             Personas personas = null;
             return personas;
         }
@@ -143,9 +146,9 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPersonas.buscarPersonaSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPersonas.buscarPersonaSecuencia()" + e.getMessage());
             persona = null;
-            System.out.println("Error buscarPersonaSecuencia PersistenciaPersonas");
+            log.error("Error buscarPersonaSecuencia PersistenciaPersonas");
         }
         return persona;
     }
@@ -162,7 +165,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPersonas.buscarPersonaPorEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPersonas.buscarPersonaPorEmpleado()" + e.getMessage());
             persona = null;
         }
         return persona;
@@ -178,7 +181,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             Personas persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
-            System.out.println("Error buscarPersonaPorNumeroDocumento PersistenciaPersonas : " + e.toString());
+            log.error("Error buscarPersonaPorNumeroDocumento PersistenciaPersonas : " + e.toString());
             return null;
         }
     }
@@ -187,14 +190,14 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
     public Personas obtenerUltimaPersonaAlmacenada(EntityManager em, BigInteger documento) {
         try {
             em.clear();
-            System.out.println("documento : " + documento);
+            log.error("documento : " + documento);
             Query query = em.createQuery("SELECT p FROM Personas p WHERE p.numerodocumento = :documento");
             query.setParameter("documento", documento);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             Personas persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
-            System.out.println("Error obtenerUltimaPersonaAlmacenada PersistenciaPersonas : " + e.toString());
+            log.error("Error obtenerUltimaPersonaAlmacenada PersistenciaPersonas : " + e.toString());
             return null;
         }
     }

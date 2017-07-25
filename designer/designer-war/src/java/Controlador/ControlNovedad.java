@@ -11,12 +11,12 @@ import InterfaceAdministrar.AdministrarPermisosObjetosJsfInterface;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 @Named(value = "controlNovedad")
 @SessionScoped
 public class ControlNovedad implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedad.class);
 
     @EJB
     AdministrarPermisosObjetosJsfInterface administrarPermisosObjetosJsf;
@@ -41,8 +43,8 @@ public class ControlNovedad implements Serializable {
             ListObjetosJSF = null;
             getListObjetosJSF();
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
     

@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -23,6 +24,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosticosCategoriasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDiagnosticosCategorias.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -41,7 +44,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCategorias);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiagnosticosCategorias.crear: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +60,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCategorias);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiagnosticosCategorias.editar: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +80,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDiagnosticosCategorias.borrar: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.borrar: " + e);
       }
    }
 
@@ -90,7 +93,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticoscategorias> diagnosticosCategorias = query.getResultList();
          return diagnosticosCategorias;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " + e.getMessage().toString());
          return null;
       }
    }
@@ -105,7 +108,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticoscategorias> diagnosticosCategorias = query.getResultList();
          return diagnosticosCategorias;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " + e.getMessage().toString());
          return null;
       }
    }
@@ -119,7 +122,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticoscapitulos> diagnosticosCapitulos = query.getResultList();
          return diagnosticosCapitulos;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaDiagnosticosCategorias buscarCapitulo ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarCapitulo ERROR : " + e.getMessage().toString());
          return null;
       }
    }
@@ -133,7 +136,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCapitulo);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiagnosticosCategorias.crearCapitulo: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.crearCapitulo: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -149,7 +152,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCapitulo);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiagnosticosCategorias.editarCapitulo: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.editarCapitulo: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -171,7 +174,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
                tx.rollback();
             }
          } catch (Exception ex) {
-            System.out.println("Error PersistenciaDiagnosticosCategorias.borrarCapitulo: " + e);
+            log.error("Error PersistenciaDiagnosticosCategorias.borrarCapitulo: " + e);
          }
       }
    }
@@ -186,7 +189,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticossecciones> diagnosticosSecciones = query.getResultList();
          return diagnosticosSecciones;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaDiagnosticosCategorias buscarSección ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarSección ERROR : " + e.getMessage().toString());
          return null;
       }
    }
@@ -200,7 +203,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosSeccion);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiagnosticosCategorias.crearSección: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.crearSección: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -216,7 +219,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosSeccion);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDiagnosticosCategorias.editarSección: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.editarSección: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -238,7 +241,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
                tx.rollback();
             }
          } catch (Exception ex) {
-            System.out.println("Error PersistenciaDiagnosticosCategorias.borrarSección: " + e);
+            log.error("Error PersistenciaDiagnosticosCategorias.borrarSección: " + e);
          }
       }
    }

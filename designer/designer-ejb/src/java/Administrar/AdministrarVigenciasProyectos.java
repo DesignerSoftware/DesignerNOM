@@ -22,9 +22,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
-public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyectosInterface{
+public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyectosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasProyectos.class);
 
     @EJB
     PersistenciaVigenciasProyectosInterface persistenciaVigenciasProyectos;
@@ -59,7 +62,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
         try {
             return persistenciaVigenciasProyectos.vigenciasProyectosEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.err.println("Error AdministrarVigenciasProyectos.vigenciasProyectosPersona " + e);
+            log.error("Error AdministrarVigenciasProyectos.vigenciasProyectosPersona " + e);
             return null;
         }
     }
@@ -87,7 +90,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
     @Override
     public void modificarVigenciaProyecto(List<VigenciasProyectos> listaVigenciasProyectosModificar) {
         for (int i = 0; i < listaVigenciasProyectosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasProyectosModificar.get(i).getProyecto().getSecuencia() == null) {
                 listaVigenciasProyectosModificar.get(i).setProyecto(null);
                 vP = listaVigenciasProyectosModificar.get(i);

@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlantasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasPlantas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +38,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.merge(vigenciasPlantas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasPlantas.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +53,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.merge(vigenciasPlantas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasPlantas.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +68,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.remove(em.merge(vigenciasPlantas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasPlantas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.clear();
             return em.find(VigenciasPlantas.class, secVigenciasPlantas);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciaPlanta()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciaPlanta()" + e.getMessage());
             return null;
         }
     }
@@ -91,7 +93,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
         List<VigenciasPlantas> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciasPlantas()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciasPlantas()" + e.getMessage());
             return null;
         }
     }
@@ -106,7 +108,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaVigenciasPlantas  contarPlantasVigenciaPlanta ERROR. " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas  contarPlantasVigenciaPlanta ERROR. " + e.getMessage());
             return retorno;
         }
     }

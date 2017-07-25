@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @Local
 public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPeriodicidadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDetallesPeriodicidades.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -44,7 +47,7 @@ public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPer
                 persistenciaDetallesPeriodicidades.editar(em, listaModificar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en AdministrarDetallesPeriodicidades.modificarDetallePeriodicidad () " + e.toString());
+            log.warn("error en AdministrarDetallesPeriodicidades.modificarDetallePeriodicidad () " + e.toString());
         }
     }
 
@@ -55,7 +58,7 @@ public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPer
                 persistenciaDetallesPeriodicidades.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en AdministrarDetallesPeriodicidades.borrarDetallePeriodicidad () " + e.toString());
+            log.warn("error en AdministrarDetallesPeriodicidades.borrarDetallePeriodicidad () " + e.toString());
         }
     }
 
@@ -66,7 +69,7 @@ public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPer
                 persistenciaDetallesPeriodicidades.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en AdministrarDetallesPeriodicidades.crearDetallePeriodicidad () " + e.toString());
+            log.warn("error en AdministrarDetallesPeriodicidades.crearDetallePeriodicidad () " + e.toString());
         }
     }
 
@@ -76,7 +79,7 @@ public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPer
             List<DetallesPeriodicidades> listaDetallesP = persistenciaDetallesPeriodicidades.buscarDetallesPeriodicidad(em, secuenciaPeriodicidad);
             return listaDetallesP;
         } catch (Exception e) {
-            System.out.println("error en AdministrarDetallesPeriodicidades.consultarDetallesPeriodicidades() " + e.toString());
+            log.warn("error en AdministrarDetallesPeriodicidades.consultarDetallesPeriodicidades() " + e.toString());
             return null;
         }
     }
@@ -87,7 +90,7 @@ public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPer
             Periodicidades periodicidad = persistenciaDetallesPeriodicidades.buscarPeriodicidadPorSecuencia(em, secuenciaPeriodicidad);
             return periodicidad;
         } catch (Exception e) {
-            System.out.println("error en AdministrarDetallesPeriodicidades.consultarPeriodicidadPorSecuencia() " + e.toString());
+            log.warn("error en AdministrarDetallesPeriodicidades.consultarPeriodicidadPorSecuencia() " + e.toString());
             return null;
         }
     }

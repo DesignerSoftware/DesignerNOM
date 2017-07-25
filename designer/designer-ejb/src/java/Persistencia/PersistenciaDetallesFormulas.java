@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless. <br>
@@ -17,7 +18,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaDetallesFormulas implements PersistenciaDetallesFormulasInterface{
+public class PersistenciaDetallesFormulas implements PersistenciaDetallesFormulasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDetallesFormulas.class);
 
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -54,7 +57,7 @@ public class PersistenciaDetallesFormulas implements PersistenciaDetallesFormula
             List<DetallesFormulas> listaDetallesFormula = query.getResultList();
             return listaDetallesFormula;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesFormulas.liquidacionesCerradas. " + e);
+            log.error("Error PersistenciaDetallesFormulas.liquidacionesCerradas. " + e);
             return null;
         }
     }

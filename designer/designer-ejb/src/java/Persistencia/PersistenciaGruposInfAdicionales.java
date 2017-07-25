@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAdicionalesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGruposInfAdicionales.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          em.merge(gruposInfAdicionales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposInfAdicionales.crear: " + e);
+         log.error("Error PersistenciaGruposInfAdicionales.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +58,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposInfAdicionales.editar: " + e);
+         log.error("Error PersistenciaGruposInfAdicionales.editar: " + e);
       }
    }
 
@@ -71,7 +74,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposInfAdicionales.borrar: " + e);
+         log.error("Error PersistenciaGruposInfAdicionales.borrar: " + e);
       }
    }
 
@@ -81,7 +84,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          em.clear();
          return em.find(GruposInfAdicionales.class, secuencia);
       } catch (Exception e) {
-         System.err.println("Error buscarGrupoInfAdicional PersistenciaGruposInfAdicionales : " + e.toString());
+         log.error("Error buscarGrupoInfAdicional PersistenciaGruposInfAdicionales : " + e.toString());
          return null;
       }
    }
@@ -95,7 +98,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          List<GruposInfAdicionales> listaGruposInfAdicionales = query.getResultList();
          return listaGruposInfAdicionales;
       } catch (Exception e) {
-         System.err.println("Error buscarGruposInfAdicionales PersistenciaGruposInfAdicionales ERORR " + e);
+         log.error("Error buscarGruposInfAdicionales PersistenciaGruposInfAdicionales ERORR " + e);
          return null;
       }
    }
@@ -108,10 +111,10 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.err.println("PersistenciaGruposInfAdicionales contadorInformacionesAdicionales : " + retorno);
+         log.error("PersistenciaGruposInfAdicionales contadorInformacionesAdicionales : " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposInfAdicionales contadorInformacionesAdicionales ERROR " + e);
+         log.error("Error PersistenciaGruposInfAdicionales contadorInformacionesAdicionales ERROR " + e);
          return retorno;
       }
    }

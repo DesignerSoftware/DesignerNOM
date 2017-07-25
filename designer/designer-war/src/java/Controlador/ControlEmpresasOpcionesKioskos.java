@@ -29,6 +29,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlEmpresasOpcionesKioskos")
 @SessionScoped
 public class ControlEmpresasOpcionesKioskos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmpresasOpcionesKioskos.class);
 
    @EJB
    AdministrarEmpresasOpcionesKioskosInterface administrarEmpresasOK;
@@ -114,8 +117,8 @@ public class ControlEmpresasOpcionesKioskos implements Serializable {
          administrarEmpresas.obtenerConexion(ses.getId());
          administrarOK.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -248,7 +251,7 @@ public class ControlEmpresasOpcionesKioskos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 330;
          empresa = (Column) c.getViewRoot().findComponent("form:datosEmpresasOk:empresa");
          empresa.setFilterStyle("display: none; visibility: hidden;");
@@ -340,7 +343,7 @@ public class ControlEmpresasOpcionesKioskos implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosEmpresasOk");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

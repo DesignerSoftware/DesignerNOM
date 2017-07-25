@@ -11,13 +11,12 @@ import InterfacePersistencia.PersistenciaInterconTotalInterface;
 import excepciones.ExcepcionBD;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -26,6 +25,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaInterconTotal implements PersistenciaInterconTotalInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaInterconTotal.class);
 
     @Override
     public void crear(EntityManager em, InterconTotal interconTotal) {
@@ -36,7 +37,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             em.merge(interconTotal);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.crear: " + e.toString());
+            log.error("Error PersistenciaInterconTotal.crear: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +53,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             em.merge(interconTotal);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.editar: " + e.toString());
+            log.error("Error PersistenciaInterconTotal.editar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +69,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             em.remove(em.merge(interconTotal));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.borrar: " + e.toString());
+            log.error("Error PersistenciaInterconTotal.borrar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +85,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             InterconTotal interconTotal = (InterconTotal) query.getSingleResult();
             return interconTotal;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.buscarInterconTotalSecuencia: " + e.toString());
+            log.error("Error PersistenciaInterconTotal.buscarInterconTotalSecuencia: " + e.toString());
             return null;
         }
     }
@@ -102,7 +103,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             List<InterconTotal> interconTotal = query.getResultList();
             return interconTotal;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.buscarInterconTotalParaParametroContable: " + e.toString());
+            log.error("Error PersistenciaInterconTotal.buscarInterconTotalParaParametroContable: " + e.toString());
             return null;
         }
     }
@@ -117,7 +118,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.obtenerFechaContabilizacionMaxInterconTotal : " + e.toString());
+            log.error("Error PersistenciaInterconTotal.obtenerFechaContabilizacionMaxInterconTotal : " + e.toString());
             return null;
         }
     }
@@ -140,7 +141,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.actualizarFlagInterconTotal. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.actualizarFlagInterconTotal. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -164,7 +165,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.actualizarFlagInterconTotalProcesoDeshacer. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.actualizarFlagInterconTotalProcesoDeshacer. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -191,7 +192,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.eliminarInterconTotal. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.eliminarInterconTotal. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -213,7 +214,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.ejecutarPKGUbicarnuevointercon_total. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.ejecutarPKGUbicarnuevointercon_total. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -237,7 +238,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.contarProcesosContabilizadosInterconTotal. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.contarProcesosContabilizadosInterconTotal. " + e.toString());
             return -1;
         }
     }
@@ -261,7 +262,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.ejecutarCierrePeriodoContableInterconTotal. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.ejecutarCierrePeriodoContableInterconTotal. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -286,7 +287,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.cerrarProcesoContabilizacion. " + e.toString());
+            log.error("Error PersistenciaInterconTotal.cerrarProcesoContabilizacion. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -307,7 +308,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception pe) {
-            System.out.println("Error en la persistencia causado por: " + pe.toString());
+            log.error("Error en la persistencia causado por: " + pe.toString());
             throw new ExcepcionBD(ExtraeCausaExcepcion.obtenerMensajeSQLException(pe));
         } finally {
             if (tx != null) {
@@ -340,7 +341,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.ejecutarPKGCrearArchivoPlano : " + e.toString());
+            log.error("Error PersistenciaInterconTotal.ejecutarPKGCrearArchivoPlano : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -369,7 +370,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.ejecutarPKGCrearArchivoPlano_GEO : " + e.toString());
+            log.error("Error PersistenciaInterconTotal.ejecutarPKGCrearArchivoPlano_GEO : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }

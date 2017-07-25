@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -22,6 +22,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaVigenciasCompensaciones implements PersistenciaVigenciasCompensacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasCompensaciones.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -38,7 +40,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             em.merge(vigenciasCompensaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasCompensaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCompensaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             em.merge(vigenciasCompensaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasCompensaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCompensaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             em.remove(em.merge(vigenciasCompensaciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasCompensaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCompensaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +87,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             cq.select(cq.from(VigenciasCompensaciones.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasCompensaciones PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensaciones PersistenciaVigenciasCompensaciones" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            System.out.println("Error en buscarVigenciasCompensacionesEmpleado PersistenciaVigenciasCompensaciones " + e.getMessage());
+            log.error("Error en buscarVigenciasCompensacionesEmpleado PersistenciaVigenciasCompensaciones " + e.getMessage());
             return null;
         }
     }
@@ -114,7 +116,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             VigenciasCompensaciones vigenciasCompensaciones = (VigenciasCompensaciones) query.getSingleResult();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaCompensacionSecuencia PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciaCompensacionSecuencia PersistenciaVigenciasCompensaciones" + e.getMessage());
             return null;
         }
     }
@@ -129,7 +131,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasCompensacionesVigenciaSecuencia PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensacionesVigenciaSecuencia PersistenciaVigenciasCompensaciones" + e.getMessage());
             return null;
         }
     }
@@ -144,7 +146,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
            List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
            return vigenciasCompensaciones;
         }catch(Exception e){
-            System.out.println("Error buscarVigenciasCompensacionesTipoCompensacion PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensacionesTipoCompensacion PersistenciaVigenciasCompensaciones" + e.getMessage());
             return null;
         }
     }
@@ -160,7 +162,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasCompensacionesVigenciayCompensacion PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensacionesVigenciayCompensacion PersistenciaVigenciasCompensaciones" + e.getMessage());
             return null;
         }
     }

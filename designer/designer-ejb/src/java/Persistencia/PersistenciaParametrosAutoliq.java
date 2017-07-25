@@ -1,11 +1,11 @@
 package Persistencia;
 
 import Entidades.ParametrosAutoliq;
-import Entidades.ParametrosCorreccionesAutoL;
 import InterfacePersistencia.PersistenciaParametrosAutoliqInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -14,7 +14,9 @@ import javax.persistence.Query;
  * @author Administrador
  */
 @Stateless
-public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAutoliqInterface{
+public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAutoliqInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametrosAutoliq.class);
 
     @Override
     public void crear(EntityManager em, ParametrosAutoliq autoliq) {
@@ -25,7 +27,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             em.persist(autoliq);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.crear : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.crear : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             em.merge(autoliq);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.editar : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.editar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             em.remove(em.merge(autoliq));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.borrar : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.borrar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             List<ParametrosAutoliq> listaParametros = query.getResultList();
             return listaParametros;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliq : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliq : " + e.toString());
             return null;
         }
     }
@@ -87,7 +89,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             List<ParametrosAutoliq> listaParametros = query.getResultList();
             return listaParametros;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas : " + e.toString());
             return null;
         }
     }

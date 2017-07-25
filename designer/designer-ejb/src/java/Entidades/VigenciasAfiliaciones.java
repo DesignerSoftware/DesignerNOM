@@ -214,7 +214,6 @@ public class VigenciasAfiliaciones implements Serializable {
     }
 
     public Empleados getEmpleado() {
-        System.out.println("VigenciasAfiliaciones.getEmpleado: " + empleado);
         return empleado;
     }
 

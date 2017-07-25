@@ -8,8 +8,8 @@ package Persistencia;
 import Entidades.PlantillasValidaNL;
 import InterfacePersistencia.PersistenciaPlantillasValidaNLInterface;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 
 /**
@@ -18,6 +18,8 @@ import javax.persistence.EntityTransaction;
  */
 @Stateless
 public class PersistenciaPlantillasValidaNL implements PersistenciaPlantillasValidaNLInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPlantillasValidaNL.class);
 
     @Override
     public void crear(EntityManager em, PlantillasValidaNL plantillanl) {
@@ -28,7 +30,7 @@ public class PersistenciaPlantillasValidaNL implements PersistenciaPlantillasVal
             em.merge(plantillanl);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantillasValidaNL.crear: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaNL.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +46,7 @@ public class PersistenciaPlantillasValidaNL implements PersistenciaPlantillasVal
             em.merge(plantillanl);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantillasValidaNL.editar: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaNL.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +62,7 @@ public class PersistenciaPlantillasValidaNL implements PersistenciaPlantillasVal
             em.remove(em.merge(plantillanl));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantillasValidaNL.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaNL.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

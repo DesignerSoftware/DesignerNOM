@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -29,6 +30,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlLegislacion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlLegislacion.class);
 
     @EJB
     AdministrarContratosInterface administrarContratos;
@@ -176,14 +179,14 @@ public class ControlLegislacion implements Serializable {
             administrarContratos.obtenerConexion(sesion.getId());
             administrarRastros.obtenerConexion(sesion.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
     public void dispararDialogoConfirmarGuardar() {
         if (!listaContratosModificar.isEmpty()) {
-            System.out.println("dispararDialogoConfirmarGuardar. listaContratosModificar : " + listaContratosModificar);
+            log.info("dispararDialogoConfirmarGuardar. listaContratosModificar : " + listaContratosModificar);
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
@@ -192,7 +195,7 @@ public class ControlLegislacion implements Serializable {
 
     public void cambiarIndice(Contratos contrato, int celda) {
         if (permitirIndex == true) {
-            System.out.println("Entro en cambiarIndice()");
+            log.info("Entro en cambiarIndice()");
             contratoSeleccionado = contrato;
             cualCelda = celda;
             if (cualCelda == 2) {
@@ -211,7 +214,7 @@ public class ControlLegislacion implements Serializable {
     }
 
     public void cambiarIndiceDefault() {
-        System.out.println("cambiarIndiceDefault()");
+        log.info("cambiarIndiceDefault()");
         if (permitirCambioBotonLov.equals("SoloHacerNull")) {
             anularBotonLOV();
         } else if (permitirCambioBotonLov.equals("SIapagarCelda")) {
@@ -310,7 +313,7 @@ public class ControlLegislacion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (column.equalsIgnoreCase("N")) {
             int control = 0;
-            System.out.println("modificarContrato Estado : " + contratoSeleccionado.getEstado());
+            log.info("modificarContrato Estado : " + contratoSeleccionado.getEstado());
             for (int i = 0; i < listaContratos.size(); i++) {
                 if (listaContratos.get(i) == contratoSeleccionado) {
                     i++;
@@ -354,10 +357,10 @@ public class ControlLegislacion implements Serializable {
         if (column.equalsIgnoreCase("COD")) {
             contratoSeleccionado.setCodigo(codigoBack);
             Short cod = new Short(valor);
-            System.out.println(" modificar cod = " + cod);
+            log.info(" modificar cod = " + cod);
             for (int i = 0; i < listaContratos.size(); i++) {
                 if (listaContratos.get(i).getCodigo().equals(cod)) {
-                    System.out.println(" modificar codigo 1 igual");
+                    log.info(" modificar codigo 1 igual");
                     indiceUnicoElemento = i;
                     coincidencias++;
                 }
@@ -437,7 +440,7 @@ public class ControlLegislacion implements Serializable {
     }
 
     public void guardarCambios() {
-        System.out.println("listaContratosModificar : " + listaContratosModificar);
+        log.info("listaContratosModificar : " + listaContratosModificar);
 
         RequestContext context = RequestContext.getCurrentInstance();
         try {
@@ -474,7 +477,7 @@ public class ControlLegislacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -666,7 +669,7 @@ public class ControlLegislacion implements Serializable {
     }
 
     public void refrescar() {
-        System.out.println("ControlLegislacion.refrescar");
+        log.info("ControlLegislacion.refrescar");
         if (bandera == 1) {
             restaurarTabla();
         }
@@ -849,7 +852,7 @@ public class ControlLegislacion implements Serializable {
     }
 
     public void cancelarSeleccionContrato() {
-        System.out.println("Entro en cancelarSeleccionContrato()");
+        log.info("Entro en cancelarSeleccionContrato()");
         filtradoListaContratosLOV = null;
         contratoLovSeleccionado = null;
         aceptar = true;

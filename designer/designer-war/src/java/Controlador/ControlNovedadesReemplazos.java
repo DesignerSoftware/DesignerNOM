@@ -30,6 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadesReemplazos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadesReemplazos.class);
 
     @EJB
     AdministrarNovedadesReemplazosInterface administrarNovedadesReemplazos; // Encargaturas
@@ -227,8 +230,8 @@ public class ControlNovedadesReemplazos implements Serializable {
             administrarNovedadesReemplazos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -367,7 +370,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             listaEncargaturas = null;
             getListaEncargaturas();
         }
-        System.out.println("seleccion mostrar en mostrar Todos() : " + seleccionMostrar.getSecuencia());
+        log.info("seleccion mostrar en mostrar Todos() : " + seleccionMostrar.getSecuencia());
         listaEncargaturas = null;
         lovEmpleados = null;
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
@@ -394,7 +397,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 }
             }
         }
-        System.out.println("seleccion mostrar en actualizarBuscarEmpleado() : " + seleccionMostrar.getSecuencia());
+        log.info("seleccion mostrar en actualizarBuscarEmpleado() : " + seleccionMostrar.getSecuencia());
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
         listaEncargaturas = null;
@@ -432,7 +435,7 @@ public class ControlNovedadesReemplazos implements Serializable {
     public void actualizarEmpleados() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            System.out.println("Tipo Lista: " + tipoLista);
+            log.info("Tipo Lista: " + tipoLista);
             encargaturaSeleccionada.setReemplazado(seleccionEmpleados);
             if (!listaEncargaturasCrear.contains(encargaturaSeleccionada)) {
                 if (listaEncargaturasModificar.isEmpty()) {
@@ -447,8 +450,8 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
 
             for (int i = 0; i < listaEncargaturas.size(); i++) {
-                System.out.println("En la lista encargaturas está:" + listaEncargaturas.get(i).getReemplazado().getPersona().getNombreCompleto());
-                System.out.println("Seleccionado: " + seleccionEmpleados.getPersona().getNombreCompleto());
+                log.info("En la lista encargaturas está:" + listaEncargaturas.get(i).getReemplazado().getPersona().getNombreCompleto());
+                log.info("Seleccionado: " + seleccionEmpleados.getPersona().getNombreCompleto());
             }
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
@@ -515,7 +518,7 @@ public class ControlNovedadesReemplazos implements Serializable {
     public void actualizarCargos() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            System.out.println("Tipo Lista: " + tipoLista);
+            log.info("Tipo Lista: " + tipoLista);
             encargaturaSeleccionada.setCargo(seleccionCargos);
             if (!listaEncargaturasCrear.contains(encargaturaSeleccionada)) {
                 if (listaEncargaturasModificar.isEmpty()) {
@@ -712,11 +715,11 @@ public class ControlNovedadesReemplazos implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
+        log.info("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            System.out.println("Activar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Activar");
+            log.info("TipoLista= " + tipoLista);
             nREmpleadoReemplazado = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREmpleadoReemplazado");
             nREmpleadoReemplazado.setFilterStyle("width: 85% !important;");
             nRTiposReemplazos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRTiposReemplazos");
@@ -738,8 +741,8 @@ public class ControlNovedadesReemplazos implements Serializable {
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             nREmpleadoReemplazado = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREmpleadoReemplazado");
             nREmpleadoReemplazado.setFilterStyle("display: none; visibility: hidden;");
             nRTiposReemplazos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRTiposReemplazos");
@@ -788,27 +791,27 @@ public class ControlNovedadesReemplazos implements Serializable {
         mensajeValidacion = new String();
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevaEncargatura.getTiporeemplazo().getNombre() == null || nuevaEncargatura.getTiporeemplazo().getNombre().isEmpty()) {
-            System.out.println("Entro a Tipo Reemplazo");
+            log.info("Entro a Tipo Reemplazo");
             mensajeValidacion = mensajeValidacion + " * TipoReemplazo \n";
             pasa++;
         }
         if (nuevaEncargatura.getFechainicial() == null) {
-            System.out.println("Entro a Fecha Inicial");
+            log.info("Entro a Fecha Inicial");
             mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
             pasa++;
         }
         if (nuevaEncargatura.getFechapago() == null) {
-            System.out.println("Entro a FechaPago");
+            log.info("Entro a FechaPago");
             mensajeValidacion = mensajeValidacion + " * Fecha Pago\n";
             pasa++;
         }
         if (nuevaEncargatura.getFechafinal() == null) {
-            System.out.println("Entro a FechaFinal");
+            log.info("Entro a FechaFinal");
             mensajeValidacion = mensajeValidacion + " * Fecha Final\n";
             pasa++;
         }
 
-        System.out.println("Valor Pasa: " + pasa);
+        log.info("Valor Pasa: " + pasa);
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadReemplazo");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadReemplazo').show()");
@@ -816,7 +819,7 @@ public class ControlNovedadesReemplazos implements Serializable {
 
         if ((nuevaEncargatura.getReemplazado().getPersona().getNombreCompleto() != null && !nuevaEncargatura.getReemplazado().getPersona().getNombreCompleto().equals(" "))
                 && (nuevaEncargatura.getCargo().getNombre() != null && !nuevaEncargatura.getCargo().getNombre().equals(""))) {
-            System.out.println("Entro a Inconsistencia");
+            log.info("Entro a Inconsistencia");
             RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
             RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
             pasa2++;
@@ -825,8 +828,8 @@ public class ControlNovedadesReemplazos implements Serializable {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
 
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
+                log.info("Desactivar");
+                log.info("TipoLista= " + tipoLista);
                 nREmpleadoReemplazado = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREmpleadoReemplazado");
                 nREmpleadoReemplazado.setFilterStyle("display: none; visibility: hidden;");
                 nRTiposReemplazos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRTiposReemplazos");
@@ -880,12 +883,12 @@ public class ControlNovedadesReemplazos implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listaEncargaturas.isEmpty()) {
             if (encargaturaSeleccionada != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(encargaturaSeleccionada.getSecuencia(), "ENCARGATURAS");
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
@@ -923,10 +926,10 @@ public class ControlNovedadesReemplazos implements Serializable {
     public void guardarCambiosEncargaturas() {
         try {
             if (guardado == false) {
-                System.out.println("Realizando Operaciones Encargaturas");
+                log.info("Realizando Operaciones Encargaturas");
                 if (!listaEncargaturasBorrar.isEmpty()) {
                     for (int i = 0; i < listaEncargaturasBorrar.size(); i++) {
-                        System.out.println("Borrando...");
+                        log.info("Borrando...");
                         if (listaEncargaturasBorrar.get(i).getCargo().getSecuencia() == null) {
                             listaEncargaturasBorrar.get(i).setCargo(null);
                         }
@@ -946,13 +949,13 @@ public class ControlNovedadesReemplazos implements Serializable {
 //                        }
                         administrarNovedadesReemplazos.borrarEncargaturas(listaEncargaturasBorrar.get(i));
                     }
-                    System.out.println("Entra");
+                    log.info("Entra");
                     listaEncargaturasBorrar.clear();
                 }
 
                 if (!listaEncargaturasCrear.isEmpty()) {
                     for (int i = 0; i < listaEncargaturasCrear.size(); i++) {
-                        System.out.println("Creando...");
+                        log.info("Creando...");
 
                         if (listaEncargaturasCrear.get(i).getMotivoreemplazo().getSecuencia() == null) {
                             listaEncargaturasCrear.get(i).setMotivoreemplazo(null);
@@ -969,14 +972,14 @@ public class ControlNovedadesReemplazos implements Serializable {
                         administrarNovedadesReemplazos.crearEncargaturas(listaEncargaturasCrear.get(i));
 
                     }
-                    System.out.println("LimpiaLista");
+                    log.info("LimpiaLista");
                     listaEncargaturasCrear.clear();
                 }
                 if (!listaEncargaturasModificar.isEmpty()) {
                     administrarNovedadesReemplazos.modificarEncargatura(listaEncargaturasModificar);
                     listaEncargaturasModificar.clear();
                 }
-                System.out.println("Se guardaron los datos con exito");
+                log.info("Se guardaron los datos con exito");
                 listaEncargaturas = null;
                 encargaturaSeleccionada = null;
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -989,7 +992,7 @@ public class ControlNovedadesReemplazos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
-            System.out.println("error en guardarCambisoEncargaturas : " + e.toString());
+            log.warn("Error en guardarCambisoEncargaturas : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Error en el guardaro, Intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1323,7 +1326,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarReemplazados");
                 RequestContext.getCurrentInstance().execute("PF('editarReemplazados').show()");
@@ -1416,7 +1419,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if ((!duplicarEncargatura.getReemplazado().getPersona().getNombreCompleto().equals("  ") && !duplicarEncargatura.getReemplazado().getPersona().getNombreCompleto().equals(" ")) && (!duplicarEncargatura.getCargo().getNombre().equals(" ") && !duplicarEncargatura.getCargo().getNombre().equals(""))) {
-            System.out.println("Entro a Inconsistencia");
+            log.info("Entro a Inconsistencia");
             RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
             RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
             pasa2++;
@@ -1577,7 +1580,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         if (listaEncargaturas == null) {
             if (seleccionMostrar != null) {
                 listaEncargaturas = administrarNovedadesReemplazos.encargaturasEmpleado(seleccionMostrar.getSecuencia());
-                System.out.println("lista encargaturas en el get : " + listaEncargaturas);
+                log.info("lista encargaturas en el get : " + listaEncargaturas);
             }
         }
         return listaEncargaturas;

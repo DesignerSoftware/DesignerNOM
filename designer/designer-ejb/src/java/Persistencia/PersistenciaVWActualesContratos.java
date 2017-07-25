@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesContratosInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesContratos implements PersistenciaVWActualesContratosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesContratos.class);
 
     public VWActualesContratos buscarContrato(EntityManager em, BigInteger secuencia) {
 
@@ -29,7 +31,7 @@ public class PersistenciaVWActualesContratos implements PersistenciaVWActualesCo
             VWActualesContratos actualesContratos = (VWActualesContratos) query.getSingleResult();
             return actualesContratos;
         } catch (Exception e) {
-            System.out.println("Error: (PersistenciaVWActualesContratos.buscarContrato)" + e.getMessage());
+            log.error("Error: (PersistenciaVWActualesContratos.buscarContrato)" + e.getMessage());
             return null;
         }
     }

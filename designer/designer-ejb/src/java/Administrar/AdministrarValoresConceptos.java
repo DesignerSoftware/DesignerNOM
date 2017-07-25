@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarValoresConceptos implements AdministrarValoresConceptosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarValoresConceptos.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -57,7 +60,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
     @Override
     public void modificarValoresConceptos(List<ValoresConceptos> listaValoresConceptos) {
         for (int i = 0; i < listaValoresConceptos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaValoresConceptos.editar(em, listaValoresConceptos.get(i));
         }
     }
@@ -65,7 +68,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
     @Override
     public void borrarValoresConceptos(List<ValoresConceptos> listaValoresConceptos) {
         for (int i = 0; i < listaValoresConceptos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaValoresConceptos.borrar(em, listaValoresConceptos.get(i));
         }
     }
@@ -99,7 +102,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
             consulta = persistenciaValoresConceptos.consultarConceptoValorConcepto(em, concepto);
             return consulta;
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARVALORESCONCEPTOS CONSULTARCONCEPTOVALORCONCEPTO ERROR : " + e);
+            log.error("ERROR ADMINISTRARVALORESCONCEPTOS CONSULTARCONCEPTOVALORCONCEPTO ERROR : " + e);
             return null;
         }
 

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposUnidades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposUnidades.class);
 
    @EJB
    AdministrarTiposUnidadesInterface administrarTiposUnidades;
@@ -82,7 +85,7 @@ public class ControlTiposUnidades implements Serializable {
       activarLov = true;
       tamano = 270;
       mapParametros.put("paginaAnterior", paginaAnterior);
-      System.out.println("controlTiposUnidades Constructor");
+      log.info("controlTiposUnidades Constructor");
    }
 
    public void limpiarListasValor() {
@@ -92,14 +95,14 @@ public class ControlTiposUnidades implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposUnidades PostConstruct ");
+         log.info("ControlTiposUnidades PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposUnidades.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -248,10 +251,10 @@ public class ControlTiposUnidades implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposUnidades:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposUnidades");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposUnidades:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -281,7 +284,7 @@ public class ControlTiposUnidades implements Serializable {
    public void borrandoTiposUnidades() {
 
       if (tiposUnidadesSeleccionado != null) {
-         System.out.println("Entro a borrandoTiposUnidades");
+         log.info("Entro a borrandoTiposUnidades");
          if (!modificarTiposUnidades.isEmpty() && modificarTiposUnidades.contains(tiposUnidadesSeleccionado)) {
             int modIndex = modificarTiposUnidades.indexOf(tiposUnidadesSeleccionado);
             modificarTiposUnidades.remove(modIndex);
@@ -313,21 +316,21 @@ public class ControlTiposUnidades implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarUnidadesTipoUnidad;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposUnidades ");
+         log.error("Control Secuencia de ControlTiposUnidades ");
          if (tipoLista == 0) {
             contarUnidadesTipoUnidad = administrarTiposUnidades.contarUnidadesTipoUnidad(tiposUnidadesSeleccionado.getSecuencia());
          } else {
             contarUnidadesTipoUnidad = administrarTiposUnidades.contarUnidadesTipoUnidad(tiposUnidadesSeleccionado.getSecuencia());
          }
          if (contarUnidadesTipoUnidad.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposUnidades();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -336,7 +339,7 @@ public class ControlTiposUnidades implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposUnidades verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposUnidades verificarBorrado ERROR " + e);
       }
    }
 
@@ -354,7 +357,7 @@ public class ControlTiposUnidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposUnidades");
+         log.info("Realizando guardarTiposUnidades");
          if (!borrarTiposUnidades.isEmpty()) {
             administrarTiposUnidades.borrarTiposUnidades(borrarTiposUnidades);
             //mostrarBorrados
@@ -371,7 +374,7 @@ public class ControlTiposUnidades implements Serializable {
             administrarTiposUnidades.crearTiposUnidades(crearTiposUnidades);
             crearTiposUnidades.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposUnidades = null;
          RequestContext.getCurrentInstance().update("form:datosTiposUnidades");
          k = 0;
@@ -403,7 +406,7 @@ public class ControlTiposUnidades implements Serializable {
    }
 
    public void agregarNuevoTiposUnidades() {
-      System.out.println("agregarNuevoTiposUnidades");
+      log.info("agregarNuevoTiposUnidades");
       int contador = 0;
       int duplicados = 0;
 
@@ -431,14 +434,14 @@ public class ControlTiposUnidades implements Serializable {
       } else if (nuevoTiposUnidades.getNombre().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposUnidades:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposUnidades:descripcion");
@@ -475,7 +478,7 @@ public class ControlTiposUnidades implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposUnidades() {
-      System.out.println("duplicandoTiposUnidades");
+      log.info("duplicandoTiposUnidades");
       if (tiposUnidadesSeleccionado != null) {
          duplicarTiposUnidades = new TiposUnidades();
          k++;
@@ -493,7 +496,7 @@ public class ControlTiposUnidades implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
@@ -512,7 +515,7 @@ public class ControlTiposUnidades implements Serializable {
          if (duplicados > 0) {
             mensajeValidacion = "El código ingresado está en uso. Por favor ingrese un código válido";
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -522,16 +525,16 @@ public class ControlTiposUnidades implements Serializable {
       } else if (duplicarTiposUnidades.getNombre().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTiposUnidades.getSecuencia() + "  " + duplicarTiposUnidades.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTiposUnidades.getSecuencia() + "  " + duplicarTiposUnidades.getCodigo());
          if (crearTiposUnidades.contains(duplicarTiposUnidades)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposUnidades.add(duplicarTiposUnidades);
          crearTiposUnidades.add(duplicarTiposUnidades);

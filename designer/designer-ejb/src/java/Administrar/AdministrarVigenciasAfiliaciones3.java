@@ -15,7 +15,6 @@ import InterfacePersistencia.PersistenciaTercerosSucursalesInterface;
 import InterfacePersistencia.PersistenciaTiposEntidadesInterface;
 import InterfacePersistencia.PersistenciaVigenciasAfiliacionesInterface;
 import InterfacePersistencia.PersistenciaVigenciasTiposContratosInterface;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +22,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -30,6 +30,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAfiliaciones3Interface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasAfiliaciones3.class);
 
     @EJB
     PersistenciaVigenciasAfiliacionesInterface persistenciaVigenciasAfilicaciones;
@@ -73,11 +75,11 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
     @Override
     public void crearVigenciaAfiliacion(VigenciasAfiliaciones vigencia) {
         try {
-            System.out.println("AdministrarVigenciasAfiliaciones3.crearVigenciaAfiliacion");
-            System.out.println("Secuencia empleado: "+ vigencia.getEmpleado());
+            log.warn("AdministrarVigenciasAfiliaciones3.crearVigenciaAfiliacion");
+            log.warn("Secuencia empleado: "+ vigencia.getEmpleado());
             persistenciaVigenciasAfilicaciones.crear(em, vigencia);
         } catch (Exception e) {
-            System.out.println("Error crearVigenciaAfiliacion Admi : " + e.toString());
+            log.warn("Error crearVigenciaAfiliacion Admi : " + e.toString());
         }
     }
 
@@ -86,7 +88,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
         try {
             persistenciaVigenciasAfilicaciones.editar(em, vigencia);
         } catch (Exception e) {
-            System.out.println("Error editarVigenciaAfiliacion Admi : " + e.toString());
+            log.warn("Error editarVigenciaAfiliacion Admi : " + e.toString());
         }
     }
 
@@ -95,7 +97,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
         try {
             persistenciaVigenciasAfilicaciones.borrar(em, vigencia);
         } catch (Exception e) {
-            System.out.println("Error borrarVigenciaAfiliacion Admi : " + e.toString());
+            log.warn("Error borrarVigenciaAfiliacion Admi : " + e.toString());
         }
     }
 
@@ -105,7 +107,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             listVigenciasAfiliaciones = persistenciaVigenciasAfilicaciones.buscarVigenciasAfiliacionesEmpleado(em, secuencia);
             return listVigenciasAfiliaciones;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasAfiliacionesEmpleado Admi : " + e.toString());
+            log.warn("Error listVigenciasAfiliacionesEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -116,7 +118,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             VigenciasAfiliaciones retorno = persistenciaVigenciasAfilicaciones.buscarVigenciasAfiliacionesSecuencia(em, secuencia);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error vigenciaAfiliacionSecuencia Admi : " + e.toString());
+            log.warn("Error vigenciaAfiliacionSecuencia Admi : " + e.toString());
             return null;
         }
     }
@@ -127,7 +129,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             listTercetos = persistenciaTerceros.buscarTerceros(em);
             return listTercetos;
         } catch (Exception e) {
-            System.out.println("Error listTerceros Admi : " + e.toString());
+            log.warn("Error listTerceros Admi : " + e.toString());
             return null;
         }
     }
@@ -138,7 +140,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             listEstadosAfiliaciones = persistenciaEstadosAfiliaciones.buscarEstadosAfiliaciones(em);
             return listEstadosAfiliaciones;
         } catch (Exception e) {
-            System.out.println("Error listEstadosAfiliaciones Admi : " + e.toString());
+            log.warn("Error listEstadosAfiliaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -149,7 +151,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             listTiposEntidades = persistenciaTiposEntidades.buscarTiposEntidades(em);
             return listTiposEntidades;
         } catch (Exception e) {
-            System.out.println("Error listTiposEntidades Admi : " + e.toString());
+            log.warn("Error listTiposEntidades Admi : " + e.toString());
             return null;
         }
     }
@@ -160,7 +162,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             listTercerosSucursales = persistenciaTercerosSucursales.buscarTercerosSucursales(em);
             return listTercerosSucursales;
         } catch (Exception e) {
-            System.out.println("Error listTercerosSucursales Admi : " + e.toString());
+            log.warn("Error listTercerosSucursales Admi : " + e.toString());
             return null;
         }
     }
@@ -169,10 +171,10 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
     public Empleados obtenerEmpleado(BigInteger secuencia) {
         try {
             empleado = persistenciaEmpleado.buscarEmpleado(em, secuencia);
-            System.out.println("AdministrarVigenciasAfiliaciones.obtenerEmpleado: " + empleado);
+            log.warn("AdministrarVigenciasAfiliaciones.obtenerEmpleado: " + empleado);
             return empleado;
         } catch (Exception e) {
-            System.out.println("Error obtenerEmpleado Admi : " + e.toString());
+            log.warn("Error obtenerEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -183,7 +185,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             Long result = persistenciaSolucionesNodos.validacionTercerosVigenciaAfiliacion(em, secuencia, fechaInicial, secuenciaTE, secuenciaTer);
             return result;
         } catch (Exception e) {
-            System.out.println("Error validacionTercerosSurcursales Admi : " + e.toString());
+            log.warn("Error validacionTercerosSurcursales Admi : " + e.toString());
             return null;
         }
     }
@@ -195,7 +197,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
             fechaContratacion = persistenciaVigenciasTiposContratos.fechaMaxContratacion(em, empleado);
             return fechaContratacion;
         } catch (Exception e) {
-            System.out.println("Error fechaContratacion Admi : " + e.toString());
+            log.warn("Error fechaContratacion Admi : " + e.toString());
             return null;
         }
     }

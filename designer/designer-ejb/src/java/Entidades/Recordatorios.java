@@ -187,7 +187,6 @@ public class Recordatorios implements Serializable {
     }
 
     public void setEstadoAno(String estadoAno) {
-        System.out.println("estadoANo" + estadoAno);
           if (estadoAno.equals("")) {
             setAno(null);
         } else if (estadoAno.equalsIgnoreCase("TODOS LOS MESES")) {
@@ -271,7 +270,6 @@ public class Recordatorios implements Serializable {
     }
 
     public void setEstadoMes(String estadoMes) {
-        System.out.println("estadoMes" + estadoMes);
         if (estadoMes.equals("")) {
             setMes(null);
         } else if (estadoMes.equalsIgnoreCase("TODOS LOS MESES")) {

@@ -63,7 +63,6 @@ public class EmpresasBancos implements Serializable {
     }
 
     public void setTipocuenta(String tipocuenta) {
-        //System.out.println("ENTIDAD EMPRESASBANCOS SET TIPOCUENTA " + tipocuenta);
         this.tipocuenta = tipocuenta;
     }
 
@@ -79,7 +78,6 @@ public class EmpresasBancos implements Serializable {
                 trTipoCuenta = "AHORROS";
             }
         }
-        System.out.println("trTipoCuenta : " + trTipoCuenta);
         return trTipoCuenta;
     }
 

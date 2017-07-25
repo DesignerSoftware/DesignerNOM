@@ -16,13 +16,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarUnidades implements AdministrarUnidadesInterface{
+public class AdministrarUnidades implements AdministrarUnidadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUnidades.class);
 
     @EJB
     PersistenciaUnidadesInterface persistenciaUnidades;
@@ -57,7 +60,7 @@ public class AdministrarUnidades implements AdministrarUnidadesInterface{
     public void modificarUnidades(List<Unidades> listaUnidades) {
         Unidades c;
         for (int i = 0; i < listaUnidades.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaUnidades.get(i).getCodigo().equals(null)) {
                 listaUnidades.get(i).setCodigo(null);
                 c = listaUnidades.get(i);
@@ -74,7 +77,7 @@ public class AdministrarUnidades implements AdministrarUnidadesInterface{
     @Override
     public void borrarUnidades(List<Unidades> listaUnidades) {
         for (int i = 0; i < listaUnidades.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             if (listaUnidades.get(i).getCodigo().equals(null)) {
                 listaUnidades.get(i).setCodigo(null);
                 persistenciaUnidades.borrar(em,listaUnidades.get(i));
@@ -89,7 +92,7 @@ public class AdministrarUnidades implements AdministrarUnidadesInterface{
     @Override
     public void crearUnidades(List<Unidades> listaUnidades) {
         for (int i = 0; i < listaUnidades.size(); i++) {
-            System.out.println("Creando...");
+            log.warn("Creando...");
             if (listaUnidades.get(i).getCodigo().equals(null)) {
 
                 listaUnidades.get(i).setCodigo(null);

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEvalActividades implements AdministrarEvalActividadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalActividades.class);
 
     @EJB
     PersistenciaEvalActividadesInterface persistenciaEvalActividades;
@@ -41,21 +44,21 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
 
     public void modificarEvalActividades(List<EvalActividades> listaEvalActividades) {
         for (int i = 0; i < listaEvalActividades.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaEvalActividades.editar(em,listaEvalActividades.get(i));
         }
     }
 
     public void borrarEvalActividades(List<EvalActividades> listaEvalActividades) {
         for (int i = 0; i < listaEvalActividades.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaEvalActividades.borrar(em,listaEvalActividades.get(i));
         }
     }
 
     public void crearEvalActividades(List<EvalActividades> listaEvalActividades) {
         for (int i = 0; i < listaEvalActividades.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaEvalActividades.crear(em,listaEvalActividades.get(i));
         }
     }
@@ -78,7 +81,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
         try {
             return contarCapBuzonesEvalActividad = persistenciaEvalActividades.contarCapBuzonesEvalActividad(em,secEvalActividades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEvalActividades contarCapBuzonesEvalActividad ERROR : " + e);
+            log.error("ERROR AdministrarEvalActividades contarCapBuzonesEvalActividad ERROR : " + e);
             return null;
         }
     }
@@ -89,7 +92,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
         try {
             return contarCapNecesidadesEvalActividad = persistenciaEvalActividades.contarCapNecesidadesEvalActividad(em,secEvalActividades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEvalActividades contarCapNecesidadesEvalActividad ERROR : " + e);
+            log.error("ERROR AdministrarEvalActividades contarCapNecesidadesEvalActividad ERROR : " + e);
             return null;
         }
     }
@@ -100,7 +103,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
         try {
             return contarEvalPlanesDesarrollosEvalActividad = persistenciaEvalActividades.contarEvalPlanesDesarrollosEvalActividad(em,secEvalActividades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEvalActividades contarEvalPlanesDesarrollosEvalActividad ERROR : " + e);
+            log.error("ERROR AdministrarEvalActividades contarEvalPlanesDesarrollosEvalActividad ERROR : " + e);
             return null;
         }
     }

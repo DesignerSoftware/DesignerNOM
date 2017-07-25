@@ -74,7 +74,6 @@ public class Papeles implements Serializable {
 
     public void setCodigoalternativo(String codigoalternativo) {
         if (codigoalternativo == null) {
-            System.out.println("Papeles : Codigo alternativo nulo");
         } else {
             this.codigoalternativo = codigoalternativo.toUpperCase();
         }

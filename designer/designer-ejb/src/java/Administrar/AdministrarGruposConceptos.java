@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGruposConceptos implements AdministrarGruposConceptosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGruposConceptos.class);
 
     @EJB
     PersistenciaGruposConceptosInterface persistenciaGruposConceptos;
@@ -51,7 +54,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
         try {
             return persistenciaGruposConceptos.buscarGruposConceptos(em);
         } catch (Exception e) {
-            System.err.println("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
+            log.error("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
             return null;
         }
     }
@@ -59,7 +62,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
     @Override
     public void modificarGruposConceptos(List<GruposConceptos> listaGruposConceptosModificar) {
         for (int i = 0; i < listaGruposConceptosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaGruposConceptosModificar.get(i).getFundamental() == null) {
                 listaGruposConceptosModificar.get(i).setFundamental(null);
             }
@@ -81,7 +84,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
     @Override
     public void modificarVigenciaGruposConceptos(List<VigenciasGruposConceptos> listaVigenciasGruposConceptosModificar) {
         for (int i = 0; i < listaVigenciasGruposConceptosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             persistenciaVigenciasGruposConceptos.editar(em, listaVigenciasGruposConceptosModificar.get(i));
         }
     }
@@ -101,7 +104,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
         try {
             return persistenciaVigenciasGruposConceptos.listVigenciasGruposConceptosPorGrupoConcepto(em, secuencia);
         } catch (Exception e) {
-            System.err.println("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
+            log.error("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
             return null;
         }
     }
@@ -111,7 +114,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
         try {
             return persistenciaConceptos.conceptoEmpresa(em);
         } catch (Exception e) {
-            System.err.println("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
+            log.error("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
             return null;
         }
     }

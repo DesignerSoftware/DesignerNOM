@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentismosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTempSoAusentismos.class);
+
    @Override
    public void crear(EntityManager em, TempSoAusentismos tempAusentismos) {
       em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempSoAusentismos.crear: " + e.getMessage());
+         log.error("Error PersistenciaTempSoAusentismos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +49,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempSoAusentismos.editar: " + e.getMessage());
+         log.error("Error PersistenciaTempSoAusentismos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +65,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          em.remove(em.merge(tempAusentismos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempSoAusentismos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTempSoAusentismos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -79,7 +82,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          List<TempSoAusentismos> listTNovedades = query.getResultList();
          return listTNovedades;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempSoAusentismos.obtenerTempAusentismos()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempSoAusentismos.obtenerTempAusentismos()" + e.getMessage());
          return null;
       }
    }
@@ -95,7 +98,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempSoAusentismos.obtenerDocumentosSoporteCargados()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempSoAusentismos.obtenerDocumentosSoporteCargados()" + e.getMessage());
          return null;
       }
    }
@@ -113,7 +116,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempSoAusentismos.cargarTempAusentismos()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempSoAusentismos.cargarTempAusentismos()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -135,7 +138,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          tx.commit();
          return 1;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempSoAusentismos.reversarTempNovedades()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempSoAusentismos.reversarTempNovedades()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -156,7 +159,7 @@ public class PersistenciaTempSoAusentismos implements PersistenciaTempSoAusentis
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro (borrarRegistrosTempNovedades) : " + e.toString());
+         log.error("No se pudo borrar el registro (borrarRegistrosTempNovedades) : " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }

@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -23,7 +24,9 @@ import javax.persistence.Query;
  * @author user
  */
 @Stateless
-public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNovedadesCorreccionAutoLInterface{
+public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNovedadesCorreccionAutoLInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaNovedadesCorreccionAutoL.class);
 
         @Override
     public void crear(EntityManager em, NovedadesCorreccionesAutoLiquidaciones novedades) {
@@ -34,7 +37,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             em.merge(novedades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNovedadesCorreccionAutoL.crear: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesCorreccionAutoL.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +53,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             em.merge(novedades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNovedadesCorreccionAutoL.editar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesCorreccionAutoL.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +69,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             em.remove(em.merge(novedades));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNovedadesCorreccionAutoL.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesCorreccionAutoL.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +86,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<SucursalesPila> listasucursalespila = query.getResultList();
             return listasucursalespila;
         } catch (Exception e) {
-            System.out.println("Error: (listasucursalesPila)" + e.getMessage());
+            log.error("Error: (listasucursalesPila)" + e.getMessage());
             return null;
         }
     }
@@ -99,7 +102,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<Terceros> listaTerceros = query.getResultList();
             return listaTerceros;
         } catch (Exception e) {
-            System.out.println("Error: (listaTerceros)" + e.getMessage());
+            log.error("Error: (listaTerceros)" + e.getMessage());
             return null;
         }
     }
@@ -115,7 +118,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<TiposEntidades> tiposentidades = query.getResultList();
             return tiposentidades;
         } catch (Exception e) {
-            System.out.println("Error: (listaTiposEntidades)" + e.getMessage());
+            log.error("Error: (listaTiposEntidades)" + e.getMessage());
             return null;
         }
     }
@@ -131,7 +134,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<Empresas> listaEmpresas = query.getResultList();
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("Error: (listaEmpresas)" + e.getMessage());
+            log.error("Error: (listaEmpresas)" + e.getMessage());
             return null;
         }
 
@@ -151,7 +154,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<NovedadesCorreccionesAutoLiquidaciones> listanovedades = query.getResultList();
             return listanovedades;
         } catch (Exception e) {
-            System.out.println("Error: (listaNovedades)" + e.getMessage());
+            log.error("Error: (listaNovedades)" + e.getMessage());
             return null;
         }
     }

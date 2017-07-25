@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantallasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaPermisosPantallas.class);
+
     @Override
     public void crear(EntityManager em, PermisosPantallas permisosp) {
         em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPermisosPantallas.crear: " + e.getMessage());
+            log.error("Error PersistenciaPermisosPantallas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +49,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPermisosPantallas.editar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosPantallas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +65,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             em.remove(em.merge(permisosp));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPermisosPantallas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosPantallas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +84,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             List<PermisosPantallas> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPermisosPantallas.consultarPermisosPorPerfil()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPermisosPantallas.consultarPermisosPorPerfil()" + e.getMessage());
             return null;
         }
     }

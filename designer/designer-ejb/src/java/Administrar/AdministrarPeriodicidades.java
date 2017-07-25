@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPeriodicidades.class);
 
     @EJB
     PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
@@ -47,18 +50,18 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public void modificarPeriodicidades(List<Periodicidades> listaPeriodicidades) {
         try {
             for (int i = 0; i < listaPeriodicidades.size(); i++) {
-                System.out.println("Administrar Modificando...");
+                log.warn("Administrar Modificando...");
                 persistenciaPeriodicidades.editar(em, listaPeriodicidades.get(i));
             }
         } catch (Exception e) {
-            System.err.println("SE JODIDO ESTO ADMINISTRARPERIODICIDADES MODIFICARPERIODICIDADES ERROR : " + e);
+            log.error("SE JODIDO ESTO ADMINISTRARPERIODICIDADES MODIFICARPERIODICIDADES ERROR : " + e);
         }
     }
 
     @Override
     public void borrarPeriodicidades(List<Periodicidades> listaPeriodicidades) {
         for (int i = 0; i < listaPeriodicidades.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaPeriodicidades.borrar(em, listaPeriodicidades.get(i));
         }
     }
@@ -66,7 +69,7 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     @Override
     public void crearPeriodicidades(List<Periodicidades> listaPeriodicidades) {
         for (int i = 0; i < listaPeriodicidades.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaPeriodicidades.crear(em, listaPeriodicidades.get(i));
         }
     }
@@ -94,10 +97,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarCPCompromisosPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarCPCompromisosPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarCPCompromisosPeriodicidad = persistenciaPeriodicidades.contarCPCompromisosPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarCPCompromisosPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarCPCompromisosPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -105,10 +108,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarDetallesPeriodicidadesPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarDetallesPeriodicidadesPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarDetallesPeriodicidadesPeriodicidad = persistenciaPeriodicidades.contarDetallesPeriodicidadesPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarDetallesPeriodicidadesPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarDetallesPeriodicidadesPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -116,10 +119,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarEersPrestamosDtosPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarEersPrestamosDtosPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarEersPrestamosDtosPeriodicidad = persistenciaPeriodicidades.contarEersPrestamosDtosPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarEersPrestamosDtosPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarEersPrestamosDtosPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -127,10 +130,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarEmpresasPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarEmpresasPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarEmpresasPeriodicidad = persistenciaPeriodicidades.contarEmpresasPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarEmpresasPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarEmpresasPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -138,10 +141,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarFormulasAseguradasPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarFormulasAseguradasPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarFormulasAseguradasPeriodicidad = persistenciaPeriodicidades.contarFormulasAseguradasPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarFormulasAseguradasPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarFormulasAseguradasPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -149,10 +152,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarFormulasContratosPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarFormulasContratosPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarFormulasContratosPeriodicidad = persistenciaPeriodicidades.contarFormulasContratosPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarFormulasContratosPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarFormulasContratosPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -160,10 +163,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarGruposProvisionesPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarGruposProvisionesPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarGruposProvisionesPeriodicidad = persistenciaPeriodicidades.contarGruposProvisionesPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarGruposProvisionesPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarGruposProvisionesPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -171,10 +174,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarNovedadesPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarNovedadPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarNovedadPeriodicidad = persistenciaPeriodicidades.contarNovedadesPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarNovedadPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarNovedadPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -182,10 +185,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarParametrosCambiosMasivosPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarParametrosCambiosMasivosPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarParametrosCambiosMasivosPeriodicidad = persistenciaPeriodicidades.contarParametrosCambiosMasivosPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarParametrosCambiosMasivosPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarParametrosCambiosMasivosPeriodicidad ERROR :" + e);
             return null;
         }
     }
@@ -193,10 +196,10 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
     public BigInteger contarVigenciasFormasPagosPeriodicidad(BigInteger secuenciaPeriodicidades) {
         BigInteger contarVigenciasFormasPagosPeriodicidad;
         try {
-            System.out.println("Secuencia Periodicidades : " + secuenciaPeriodicidades);
+            log.warn("Secuencia Periodicidades : " + secuenciaPeriodicidades);
             return contarVigenciasFormasPagosPeriodicidad = persistenciaPeriodicidades.contarVigenciasFormasPagosPeriodicidad(em, secuenciaPeriodicidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPeriodicidades contarVigenciasFormasPagosPeriodicidad ERROR :" + e);
+            log.error("ERROR AdministrarPeriodicidades contarVigenciasFormasPagosPeriodicidad ERROR :" + e);
             return null;
         }
     }

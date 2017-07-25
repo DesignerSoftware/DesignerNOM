@@ -15,14 +15,13 @@ import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaMotivosCesantiasInterface;
 import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaVigenciasTiposContratosInterface;
-import Persistencia.PersistenciaMotivosCesantias;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -31,6 +30,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @LocalBean
 public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesantiasRCInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadCesantiasRC.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;

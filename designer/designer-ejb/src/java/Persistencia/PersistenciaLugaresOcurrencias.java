@@ -12,8 +12,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -21,6 +21,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurrenciasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaLugaresOcurrencias.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +38,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.merge(lugaresOcurrencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
+            log.error("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.merge(lugaresOcurrencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
+            log.error("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             tx.commit();
 
         } catch (Exception e) {
-        System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e.getMessage());
+        log.error("Error PersistenciaHistoriasformulas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -82,7 +84,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.clear();
             return em.find(LugaresOcurrencias.class, secuenciaLO);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
+            log.error("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +98,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             List<LugaresOcurrencias> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
+            log.error("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
             return null;
         }
     }
@@ -112,7 +114,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES" + e.getMessage());
+            log.error("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES" + e.getMessage());
             return retorno;
         }
     }

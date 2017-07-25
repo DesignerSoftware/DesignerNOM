@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlDiagnosticosCategorias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDiagnosticosCategorias.class);
 
    @EJB
    AdministrarDiagnosticosCategoriasInterface administrarDiagnosticosCategorias;
@@ -213,8 +216,8 @@ public class ControlDiagnosticosCategorias implements Serializable {
          administrarDiagnosticosCategorias.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -1387,7 +1390,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (diagnosticoCategoriaSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(diagnosticoCategoriaSeleccionado.getSecuencia().toBigInteger(), "DIAGNOSTICOSCATEGORIAS");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

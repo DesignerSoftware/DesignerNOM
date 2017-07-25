@@ -9,9 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSoaccidentes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +39,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             em.merge(soaccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoaccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaSoaccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +55,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             em.merge(soaccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoaccidentes.editar: " + e.getMessage());
+            log.error("Error PersistenciaSoaccidentes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +71,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             em.remove(em.merge(soaccidentes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoaccidentes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSoaccidentes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +88,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             List<Soaccidentes> todosAccidentes = query.getResultList();
             return todosAccidentes;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaSoaccidentes.accidentesEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaSoaccidentes.accidentesEmpleado()" + e.getMessage());
             return null;
         }
     }

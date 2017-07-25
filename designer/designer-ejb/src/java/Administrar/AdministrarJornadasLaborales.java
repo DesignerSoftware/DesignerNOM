@@ -16,9 +16,9 @@ import InterfacePersistencia.PersistenciaJornadasSemanalesInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarJornadasLaborales implements AdministrarJornadasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarJornadasLaborales.class);
 
    @EJB
    PersistenciaJornadasLaboralesInterface persistenciaJornadasLaborales;
@@ -78,7 +80,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @Override
    public void borrarJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
       for (int i = 0; i < listaJornadasLaborales.size(); i++) {
-         System.out.println("Borrando..JornadasLaborales.");
+         log.warn("Borrando..JornadasLaborales.");
 //         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
 //            listaJornadasLaborales.get(i).setCodigo(null);
 //            persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
@@ -92,7 +94,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @Override
    public void crearJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
       for (int i = 0; i < listaJornadasLaborales.size(); i++) {
-         System.out.println("Creando. JornadasLaborales..");
+         log.warn("Creando. JornadasLaborales..");
          persistenciaJornadasLaborales.crear(em, listaJornadasLaborales.get(i));
       }
    }
@@ -100,7 +102,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @Override
    public void modificarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
       for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-         System.out.println("Modificando JornadasSemanales...");
+         log.warn("Modificando JornadasSemanales...");
          persistenciaJornadasSemanales.editar(em, listaJornadasSemanales.get(i));
       }
    }
@@ -108,7 +110,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @Override
    public void borrarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
       for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-         System.out.println("Borrando JornadasSemanales...");
+         log.warn("Borrando JornadasSemanales...");
          persistenciaJornadasSemanales.borrar(em, listaJornadasSemanales.get(i));
 
       }
@@ -117,8 +119,8 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @Override
    public void crearJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
       for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-         System.out.println("Creando JornadasSemanales...");
-         System.out.println("secuencia: " + listaJornadasSemanales.get(i).getSecuencia());
+         log.warn("Creando JornadasSemanales...");
+         log.warn("secuencia: " + listaJornadasSemanales.get(i).getSecuencia());
          persistenciaJornadasSemanales.crear(em, listaJornadasSemanales.get(i));
       }
    }

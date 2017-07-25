@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosCambiosSueldos implements AdministrarMotivosCambiosSueldosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosCambiosSueldos.class);
 
     @EJB
     PersistenciaMotivosCambiosSueldosInterface persistenciaMotivosCambiosSueldos;
@@ -44,7 +47,7 @@ public class AdministrarMotivosCambiosSueldos implements AdministrarMotivosCambi
     @Override
     public void modificarMotivosCambiosSueldos(List<MotivosCambiosSueldos> listaMotivosCambiosSueldos) {
         for (int i = 0; i < listaMotivosCambiosSueldos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosCambiosSueldos.editar(em, listaMotivosCambiosSueldos.get(i));
         }
     }
@@ -52,7 +55,7 @@ public class AdministrarMotivosCambiosSueldos implements AdministrarMotivosCambi
     @Override
     public void borrarMotivosCambiosSueldos(List<MotivosCambiosSueldos> listaMotivosCambiosSueldos) {
         for (int i = 0; i < listaMotivosCambiosSueldos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosCambiosSueldos.borrar(em, listaMotivosCambiosSueldos.get(i));
         }
     }
@@ -60,7 +63,7 @@ public class AdministrarMotivosCambiosSueldos implements AdministrarMotivosCambi
     @Override
     public void crearMotivosCambiosSueldos(List<MotivosCambiosSueldos> listaMotivosCambiosSueldos) {
         for (int i = 0; i < listaMotivosCambiosSueldos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosCambiosSueldos.crear(em, listaMotivosCambiosSueldos.get(i));
         }
     }
@@ -84,7 +87,7 @@ public class AdministrarMotivosCambiosSueldos implements AdministrarMotivosCambi
         try {
             return verificadorVS = persistenciaMotivosCambiosSueldos.verificarBorradoVigenciasSueldos(em, secuenciaMovitoCambioSueldo);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMotivosCambiosSueldos verificarBorradoVS ERROR :" + e);
+            log.error("ERROR AdministrarMotivosCambiosSueldos verificarBorradoVS ERROR :" + e);
             return null;
         }
     }

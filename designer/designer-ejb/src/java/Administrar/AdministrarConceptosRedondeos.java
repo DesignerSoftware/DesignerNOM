@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarConceptosRedondeos implements AdministrarConceptosRedondeosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarConceptosRedondeos.class);
 
     @EJB
     PersistenciaConceptosRedondeosInterface persistenciaConceptosRedondeos;
@@ -61,7 +64,7 @@ public class AdministrarConceptosRedondeos implements AdministrarConceptosRedond
     @Override
     public void modificarConceptosRedondeos(List<ConceptosRedondeos> listaConceptosRedondeosModificar) {
         for (int i = 0; i < listaConceptosRedondeosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             persistenciaConceptosRedondeos.editar(em,listaConceptosRedondeosModificar.get(i));
         }
     }
@@ -71,7 +74,7 @@ public class AdministrarConceptosRedondeos implements AdministrarConceptosRedond
             List<ConceptosRedondeos> actual = persistenciaConceptosRedondeos.buscarConceptosRedondeos(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasRetenciones: " + e.toString());
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
             return null;
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarConceptosRedondeos implements AdministrarConceptosRedond
             List<Conceptos> actual = persistenciaConceptos.buscarConceptos(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error lovConceptos: " + e.toString());
+            log.warn("Error lovConceptos: " + e.toString());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarConceptosRedondeos implements AdministrarConceptosRedond
             List<TiposRedondeos> actual = persistenciaTiposRedondeos.buscarTiposRedondeos(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error lovTiposRedondeos: " + e.toString());
+            log.warn("Error lovTiposRedondeos: " + e.toString());
             return null;
         }
     }

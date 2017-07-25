@@ -28,6 +28,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.export.Exporter;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposTrabajadores implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposTrabajadores.class);
 
    @EJB
    AdministrarTiposCotizantesInterface administrarTiposCotizantes;
@@ -190,8 +193,8 @@ public class ControlTiposTrabajadores implements Serializable {
          administrarTiposCotizantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -289,12 +292,12 @@ public class ControlTiposTrabajadores implements Serializable {
       permitirCambioBotonLov = "SIapagarCelda";
       tablaActiva = 1;
       vigenciaDiaSeleccionado = null;
-      System.out.println("cambiarIndiceDefault() tablaActiva: " + tablaActiva);
+      log.info("cambiarIndiceDefault() tablaActiva: " + tablaActiva);
       RequestContext.getCurrentInstance().update("form:datosVigenciasDTT");
    }
 
    public void cambiarIndiceVD(VigenciasDiasTT vigenciaDia, int celda) {
-      System.out.println("cambiarIndiceVD celda: " + celda);
+      log.info("cambiarIndiceVD celda: " + celda);
       vigenciaDiaSeleccionado = vigenciaDia;
       tipoActualizacion = 0;
       cualCeldaVD = celda;
@@ -307,9 +310,9 @@ public class ControlTiposTrabajadores implements Serializable {
    }
 
    public void cambiarIndiceVDDefault() {
-      System.out.println("cambiarIndiceDefault cualCeldaVD : " + cualCeldaVD);
+      log.info("cambiarIndiceDefault cualCeldaVD : " + cualCeldaVD);
       cualCeldaVD = 0;
-      System.out.println("cambiarIndiceDefault cualCeldaVD : " + cualCeldaVD);
+      log.info("cambiarIndiceDefault cualCeldaVD : " + cualCeldaVD);
       tipoActualizacion = 0;
       anularBotonLOV();
       tablaActiva = 2;
@@ -373,7 +376,7 @@ public class ControlTiposTrabajadores implements Serializable {
          }
       }
       if (column.equalsIgnoreCase("COD")) {
-         System.out.println("modificarTT COD valor : " + valor);
+         log.info("modificarTT COD valor : " + valor);
          tipoTrabajadorSeleccionado.setCodigo(codigoBack);
          Short cod = new Short(valor);
          for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
@@ -392,7 +395,7 @@ public class ControlTiposTrabajadores implements Serializable {
          }
       }
       if (column.equalsIgnoreCase("NOM")) {
-         System.out.println("modificarTT NOM valor : " + valor);
+         log.info("modificarTT NOM valor : " + valor);
          tipoTrabajadorSeleccionado.setNombre(nombreTTBack);
 //            llenarLOVTT();
          for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
@@ -417,7 +420,7 @@ public class ControlTiposTrabajadores implements Serializable {
    }
 
    public void modificarTT(TiposTrabajadores tipoTrabajador) {
-      System.out.println("Entro en el evento Change()");
+      log.info("Entro en el evento Change()");
       tipoTrabajadorSeleccionado = tipoTrabajador;
       if (!listTTCrear.contains(tipoTrabajadorSeleccionado)) {
          if (listTTModificar.isEmpty()) {
@@ -614,7 +617,7 @@ public class ControlTiposTrabajadores implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosVigenciasDTT");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          altoTabla = "187";
          altoTablaVD = "45";
          tTCodigo = (Column) c.getViewRoot().findComponent("form:datosTTrabajadores:tTCodigo");
@@ -787,7 +790,7 @@ public class ControlTiposTrabajadores implements Serializable {
          duplicarVD.setFechaVigencia(vigenciaDiaSeleccionado.getFechaVigencia());
          duplicarVD.setTipoTrabajador(vigenciaDiaSeleccionado.getTipoTrabajador());
          duplicarVD.setSecuencia(nuevaSecuencia);
-         System.out.println("duplicarTT abrir duplicarRegistroVD");
+         log.info("duplicarTT abrir duplicarRegistroVD");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroVD");
          RequestContext.getCurrentInstance().execute("PF('duplicarRegistroVD').show()");
 
@@ -815,7 +818,7 @@ public class ControlTiposTrabajadores implements Serializable {
          duplicarTT.setTipocotizante(tipoTrabajadorSeleccionado.getTipocotizante());
          duplicarTT.setSemestreespecial(tipoTrabajadorSeleccionado.getSemestreespecial());
          duplicarTT.setSecuencia(nuevaSecuencia);
-         System.out.println("duplicarTT abrir duplicarRegistroTT");
+         log.info("duplicarTT abrir duplicarRegistroTT");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTT");
          RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTT').show()");
       }
@@ -1123,7 +1126,7 @@ public class ControlTiposTrabajadores implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('dialogTiposCot').hide()");
 
       } catch (Exception e) {
-         System.out.println("ERROR BETA .actualizarCentroCosto ERROR============" + e.getMessage());
+         log.warn("Error BETA .actualizarCentroCosto ERROR============" + e.getMessage());
       }
       activarBotonLOV();
    }
@@ -1143,7 +1146,7 @@ public class ControlTiposTrabajadores implements Serializable {
          RequestContext.getCurrentInstance().update("form:aceptarTC");
          RequestContext.getCurrentInstance().execute("PF('dialogTiposCot').hide()");
       } catch (Exception e) {
-         System.out.println("ERROR cancelarSeleccionTipoCot :" + e.getMessage());
+         log.warn("Error cancelarSeleccionTipoCot :" + e.getMessage());
       }
    }
 
@@ -1161,7 +1164,7 @@ public class ControlTiposTrabajadores implements Serializable {
             contarRegistrosLovTT();
          }
       } catch (Exception e) {
-         System.err.println("ERROR LLAMADO DIALOGO BUSCAR TT " + e);
+         log.error("ERROR LLAMADO DIALOGO BUSCAR TT " + e);
       }
    }
 
@@ -1213,7 +1216,7 @@ public class ControlTiposTrabajadores implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('dialogTiposTra').hide()");
 
       } catch (Exception e) {
-         System.out.println("ERROR seleccionarTipoTrabajador : " + e.getMessage());
+         log.warn("Error seleccionarTipoTrabajador : " + e.getMessage());
       }
    }
 
@@ -1261,7 +1264,7 @@ public class ControlTiposTrabajadores implements Serializable {
 
    public void clonarTT() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("Entro en Clonar()");
+      log.info("Entro en Clonar()");
       if (nombreNuevoClonado != null && codigoNuevoClonado > 0 && tipoTrabajadorAClonar.getCodigo() > 0) {
          int error = 0;
          for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
@@ -1322,7 +1325,7 @@ public class ControlTiposTrabajadores implements Serializable {
          RequestContext.getCurrentInstance().update("form:aceptarTTra");
          RequestContext.getCurrentInstance().execute("PF('dialogTiposTra').hide()");
       } catch (Exception e) {
-         System.out.println("ERROR cancelarCambioTipoTrabajador : " + e.getMessage());
+         log.warn("Error cancelarCambioTipoTrabajador : " + e.getMessage());
       }
    }
 
@@ -1688,7 +1691,7 @@ public class ControlTiposTrabajadores implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          tablaVD = (DataTable) c.getViewRoot().findComponent("form:datosVigenciasDTT");
          tablaVD.setSelection(vigenciaDiaSeleccionado);
-         System.out.println("vigenciaDiaSeleccionado: " + vigenciaDiaSeleccionado);
+         log.info("vigenciaDiaSeleccionado: " + vigenciaDiaSeleccionado);
       }
    }
 

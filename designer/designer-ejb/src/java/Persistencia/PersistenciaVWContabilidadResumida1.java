@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWContabilidadResumida1 implements PersistenciaVWContabilidadResumida1Interface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWContabilidadResumida1.class);
 
     @Override
     public List<VWContabilidadResumida1> buscarContabilidadResumidaParametroContable(EntityManager em, Date fechaInicial, Date fechaFinal, BigInteger Proceso) {
@@ -38,7 +41,7 @@ public class PersistenciaVWContabilidadResumida1 implements PersistenciaVWContab
             List<VWContabilidadResumida1> contabilidadResumida = query.getResultList();
             return contabilidadResumida;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVWContabilidadResumida1.buscarContabilidadResumidaParametroContable: " + e.toString());
+            log.error("Error PersistenciaVWContabilidadResumida1.buscarContabilidadResumidaParametroContable: " + e.toString());
             return null;
         }
     }
@@ -58,7 +61,7 @@ public class PersistenciaVWContabilidadResumida1 implements PersistenciaVWContab
             List<VWContabilidadDetallada> VWContabilidadDetallada = query.getResultList();
             return VWContabilidadDetallada;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVWContabilidadResumida1.buscarContabilidadDetalladaParametroContable: " + e.toString());
+            log.error("Error PersistenciaVWContabilidadResumida1.buscarContabilidadDetalladaParametroContable: " + e.toString());
             return null;
         }
     }
@@ -87,7 +90,7 @@ public class PersistenciaVWContabilidadResumida1 implements PersistenciaVWContab
                 return conteo;
             }
         } catch (Exception e) {
-            System.out.println("Error abrirPeriodoContable PersistenciaVWContabilidadResumida1 : " + e.toString());
+            log.error("Error abrirPeriodoContable PersistenciaVWContabilidadResumida1 : " + e.toString());
             e.printStackTrace();
             return null;
         }
@@ -108,7 +111,7 @@ public class PersistenciaVWContabilidadResumida1 implements PersistenciaVWContab
             query.setParameter(2, fechaFinal);
             query.setParameter(3, Proceso);
         } catch (Exception e) {
-            System.out.println("Error abrirPeriodoContable PersistenciaVWContabilidadResumida1 : " + e.getMessage());
+            log.error("Error abrirPeriodoContable PersistenciaVWContabilidadResumida1 : " + e.getMessage());
         }
     }
 }

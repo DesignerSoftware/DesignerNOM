@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +20,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposEducaciones implements AdministrarTiposEducacionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposEducaciones.class);
 
     @EJB
     PersistenciaTiposEducacionesInterface persistenciaTiposEducaciones;
@@ -56,7 +59,7 @@ public class AdministrarTiposEducaciones implements AdministrarTiposEducacionesI
                 persistenciaTiposEducaciones.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarTiposEducaciones.crear : " + e.toString());
+            log.warn("Error en AdministrarTiposEducaciones.crear : " + e.toString());
         }
     }
 
@@ -67,7 +70,7 @@ public class AdministrarTiposEducaciones implements AdministrarTiposEducacionesI
                 persistenciaTiposEducaciones.editar(em, listaEditar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarTiposEducaciones.editar : " + e.toString());
+            log.warn("Error en AdministrarTiposEducaciones.editar : " + e.toString());
         }
     }
 
@@ -78,7 +81,7 @@ public class AdministrarTiposEducaciones implements AdministrarTiposEducacionesI
                 persistenciaTiposEducaciones.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarTiposEducaciones.borrar : " + e.toString());
+            log.warn("Error en AdministrarTiposEducaciones.borrar : " + e.toString());
         }
     }
 }

@@ -28,9 +28,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercerosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesTerceros.class);
 
     @EJB
     PersistenciaNovedadesInterface persistenciaNovedades;
@@ -73,7 +76,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
         try {
             return persistenciaNovedades.novedadesTercero(em, secuenciaTercero);
         } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesTerceros.novedadesTercero" + e);
+            log.error("Error AdministrarNovedadesTerceros.novedadesTercero" + e);
             return null;
         }
     }
@@ -136,7 +139,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
     @Override
     public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
         for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
 
             if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
                 listaNovedadesModificar.get(i).setPeriodicidad(null);
@@ -158,7 +161,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
         try {
             return persistenciaNovedades.todasNovedadesTercero(em, secuenciaTercero);
         } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesTerceros.todasNovedadesConcepto" + e);
+            log.error("Error AdministrarNovedadesTerceros.todasNovedadesConcepto" + e);
             return null;
         }
     }

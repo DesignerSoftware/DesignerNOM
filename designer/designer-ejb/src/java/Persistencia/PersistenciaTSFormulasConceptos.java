@@ -9,11 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasConceptosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTSFormulasConceptos.class);
 
    @Override
    public void crear(EntityManager em, TSFormulasConceptos tSFormulasConceptos) {
@@ -24,7 +27,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
          em.persist(tSFormulasConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTSFormulasConceptos.crear: " + e.getMessage());
+         log.error("Error PersistenciaTSFormulasConceptos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -40,7 +43,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
          em.merge(tSFormulasConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTSFormulasConceptos.editar: " + e.getMessage());
+         log.error("Error PersistenciaTSFormulasConceptos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +59,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
          em.remove(em.merge(tSFormulasConceptos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTSFormulasConceptos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTSFormulasConceptos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +75,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
          List<TSFormulasConceptos> tSFormulasConceptos = (List<TSFormulasConceptos>) query.getResultList();
          return tSFormulasConceptos;
       } catch (Exception e) {
-         System.out.println("Error buscarTSFormulasConceptos PersistenciaTSFormulasConceptos : " + e.toString());
+         log.error("Error buscarTSFormulasConceptos PersistenciaTSFormulasConceptos : " + e.toString());
          return null;
       }
    }
@@ -87,33 +90,33 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
          TSFormulasConceptos tSFormulasConceptos = (TSFormulasConceptos) query.getSingleResult();
          return tSFormulasConceptos;
       } catch (Exception e) {
-         System.out.println("Error buscarTSFormulaConceptoSecuencia PersistenciaTSFormulasConceptos : " + e.toString());
+         log.error("Error buscarTSFormulaConceptoSecuencia PersistenciaTSFormulasConceptos : " + e.toString());
          return null;
       }
    }
 
    @Override
    public List<TSFormulasConceptos> buscarTSFormulasConceptosPorSecuenciaTipoSueldo(EntityManager em, BigInteger secTipoSueldo) {
-      System.out.println("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
+      log.error("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT t.* FROM TSFormulasConceptos t, EMPRESAS E WHERE\n"
                  + " t.tiposueldo = ? AND E.SECUENCIA = t.EMPRESA", TSFormulasConceptos.class);
          query.setParameter(1, secTipoSueldo);
          List<TSFormulasConceptos> tEFormulasConceptos = (List<TSFormulasConceptos>) query.getResultList();
-         System.out.println("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo()2");
+         log.error("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo()2");
          if (tEFormulasConceptos != null) {
             if (!tEFormulasConceptos.isEmpty()) {
-               System.out.println("tEFormulasConceptos: " + tEFormulasConceptos);
-               System.out.println("tEFormulasConceptos.get(0).getTiposueldo(): " + tEFormulasConceptos.get(0).getTiposueldo());
-               System.out.println("tEFormulasConceptos.get(0).getConcepto(): " + tEFormulasConceptos.get(0).getConcepto());
-               System.out.println("tEFormulasConceptos.get(0).getEmpresa(): " + tEFormulasConceptos.get(0).getEmpresa());
-               System.out.println("tEFormulasConceptos.get(0).getFormula(): " + tEFormulasConceptos.get(0).getFormula());
+               log.error("tEFormulasConceptos: " + tEFormulasConceptos);
+               log.error("tEFormulasConceptos.get(0).getTiposueldo(): " + tEFormulasConceptos.get(0).getTiposueldo());
+               log.error("tEFormulasConceptos.get(0).getConcepto(): " + tEFormulasConceptos.get(0).getConcepto());
+               log.error("tEFormulasConceptos.get(0).getEmpresa(): " + tEFormulasConceptos.get(0).getEmpresa());
+               log.error("tEFormulasConceptos.get(0).getFormula(): " + tEFormulasConceptos.get(0).getFormula());
             }
          }
          return tEFormulasConceptos;
       } catch (Exception e) {
-         System.out.println("Error buscarTSFormulasConceptosPorSecuenciaTipoSueldo PersistenciaTSFormulasConceptos : " + e.toString());
+         log.error("Error buscarTSFormulasConceptosPorSecuenciaTipoSueldo PersistenciaTSFormulasConceptos : " + e.toString());
          return null;
       }
    }

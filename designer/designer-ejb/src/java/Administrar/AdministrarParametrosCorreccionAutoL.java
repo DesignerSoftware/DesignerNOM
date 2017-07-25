@@ -27,13 +27,13 @@ import InterfacePersistencia.PersistenciaParametrosInformesInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaTiposEntidadesInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
-import Persistencia.PersistenciaParametrosCorreccionAutoL;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,6 +41,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarParametrosCorreccionAutoL implements AdministrarParametrosCorreccionAutoLInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarParametrosCorreccionAutoL.class);
 
     @EJB
     PersistenciaTiposTrabajadoresInterface persistenciaTiposTrabajadores;
@@ -77,7 +79,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<ParametrosCorreccionesAutoL> lista = persistenciaParametrosCorreccionAuto.consultarParametrosCorreccionesAutoL(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarParametrosAutoliq Admi : " + e.toString());
+            log.warn("Error consultarParametrosAutoliq Admi : " + e.toString());
             return null;
         }
     }
@@ -95,7 +97,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 persistenciaParametrosCorreccionAuto.crearCorreccion(em, listaPCA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearParametrosCorreccionAutoliq Admi : " + e.toString());
+            log.warn("Error crearParametrosCorreccionAutoliq Admi : " + e.toString());
         }
     }
 
@@ -112,7 +114,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 persistenciaParametrosCorreccionAuto.editarCorreccion(em, listaPCA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarParametrosCorreccionAutoliq Admi : " + e.toString());
+            log.warn("Error editarParametrosCorreccionAutoliq Admi : " + e.toString());
         }
     }
 
@@ -129,7 +131,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 persistenciaParametrosCorreccionAuto.borrarCorreccion(em, listaPCA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarParametrosCorreccionAutoliq Admi : " + e.toString());
+            log.warn("Error borrarParametrosCorreccionAutoliq Admi : " + e.toString());
         }
     }
 
@@ -155,7 +157,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 persistenciaAportesCorrecciones.crear(em, listaAC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearAportesCorrecciones Admi : " + e.toString());
+            log.warn("Error crearAportesCorrecciones Admi : " + e.toString());
         }
     }
 
@@ -176,7 +178,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 persistenciaAportesCorrecciones.editar(em, listAC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarAportesCorrecciones Admi : " + e.toString());
+            log.warn("Error editarAportesCorrecciones Admi : " + e.toString());
         }
     }
 
@@ -197,7 +199,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
                 persistenciaAportesCorrecciones.borrar(em, listAC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarAportesCorrecciones Admi : " + e.toString());
+            log.warn("Error editarAportesCorrecciones Admi : " + e.toString());
         }
     }
 
@@ -222,7 +224,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarAportesCorrecciones Admi : " + e.toString());
+            log.warn("Error consultarAportesCorrecciones Admi : " + e.toString());
             return null;
         }
     }
@@ -233,7 +235,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<AportesCorrecciones> lista = persistenciaAportesCorrecciones.consultarAportesEntidades(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarAportesCorrecciones Admi : " + e.toString());
+            log.warn("Error consultarAportesCorrecciones Admi : " + e.toString());
             return null;
         }
     }
@@ -244,7 +246,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposTrabajadores Admi : " + e.toString());
+            log.warn("Error lovTiposTrabajadores Admi : " + e.toString());
             return null;
         }
     }
@@ -255,7 +257,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<Empleados> lista = persistenciaEmpleados.consultarEmpleadosParametroAutoliq(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpleados Admi : " + e.toString());
+            log.warn("Error lovEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -266,7 +268,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<TiposEntidades> lista = persistenciaTiposEntidades.buscarTiposEntidadesParametroAutoliq(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposEntidades Admi : " + e.toString());
+            log.warn("Error lovTiposEntidades Admi : " + e.toString());
             return null;
         }
     }
@@ -277,7 +279,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<Terceros> lista = persistenciaTerceros.buscarTercerosParametrosAutoliq(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTerceros Admi : " + e.toString());
+            log.warn("Error lovTerceros Admi : " + e.toString());
             return null;
         }
     }
@@ -288,7 +290,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -299,7 +301,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             ActualUsuario actual = persistenciaActualUsuario.actualUsuarioBD(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -310,7 +312,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             ParametrosInformes parametro = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuario);
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error buscarParametroInforme Admi : " + e.toString());
+            log.warn("Error buscarParametroInforme Admi : " + e.toString());
             return null;
         }
 
@@ -321,7 +323,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
         try {
             persistenciaParametrosInformes.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroInforme Admi : " + e.toString());
+            log.warn("Error modificarParametroInforme Admi : " + e.toString());
         }
     }
 
@@ -331,7 +333,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             ParametrosEstructuras parametro = persistenciaParametrosEstructuras.buscarParametro(em, usuario);
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error buscarParametroEstructura Admi : " + e.toString());
+            log.warn("Error buscarParametroEstructura Admi : " + e.toString());
             return null;
         }
     }
@@ -341,7 +343,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
         try {
             persistenciaParametrosEstructuras.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroEstructura Admi : " + e.toString());
+            log.warn("Error modificarParametroEstructura Admi : " + e.toString());
         }
     }
 
@@ -350,7 +352,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
         try {
             persistenciaAportesCorrecciones.borrarAportesCorreccionesProcesoAutomatico(em, empresa, mes, ano);
         } catch (Exception e) {
-            System.out.println("Error borrarAportesCorreccionesProcesoAutomatico Admi : " + e.toString());
+            log.warn("Error borrarAportesCorreccionesProcesoAutomatico Admi : " + e.toString());
         }
     }
 
@@ -360,7 +362,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             String proceso = persistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion(em, secuenciaEmpresa, mes, ano);
             return proceso;
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGActualizarNovedadesCorreccion Admi : " + e.toString());
+            log.warn("Error ejecutarPKGActualizarNovedadesCorreccion Admi : " + e.toString());
             return "ERROR_ADMINISTRAR";
         }
     }
@@ -371,7 +373,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             String proceso = persistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion(em, fechaIni, fechaFin, secTipoTrabajador, secuenciaEmpresa);
             return proceso;
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGInsertarCorreccion Admi : " + e.toString());
+            log.warn("Error ejecutarPKGInsertarCorreccion Admi : " + e.toString());
             return "ERROR_ADMINISTRAR";
         }
     }
@@ -382,7 +384,7 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
             String proceso = persistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion(em, secuenciaEmpresa, mes, ano);
             return proceso;
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGIdentificaCorreccion Admi : " + e.toString());
+            log.warn("Error ejecutarPKGIdentificaCorreccion Admi : " + e.toString());
             return "ERROR_ADMINISTRAR";
         }
     }

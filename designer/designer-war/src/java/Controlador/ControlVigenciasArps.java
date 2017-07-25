@@ -29,6 +29,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlVigenciasArps")
 @SessionScoped
 public class ControlVigenciasArps implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasArps.class);
 
    @EJB
    AdministrarVigenciasArpsInterface administrarVigenciasArps;
@@ -111,8 +114,8 @@ public class ControlVigenciasArps implements Serializable {
          administrarVigenciasArps.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasArps: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasArps: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -412,35 +415,35 @@ public class ControlVigenciasArps implements Serializable {
    }
 
    public void actualizarEstructura() {
-      System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: " + tipoActualizacion);
+      log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: " + tipoActualizacion);
       if (tipoActualizacion == 0) {
          vigenciaSeleccionada.setEstructura(estructuraLovSeleccionada.getSecuencia());
          vigenciaSeleccionada.setNombreEstructura(estructuraLovSeleccionada.getNombre());
-         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 1");
+         log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 1");
          if (!listaCrear.contains(vigenciaSeleccionada)) {
-            System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 2");
+            log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 2");
             if (listaModificar.isEmpty()) {
                listaModificar.add(vigenciaSeleccionada);
-               System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 3");
+               log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 3");
             } else if (!listaModificar.contains(vigenciaSeleccionada)) {
                listaModificar.add(vigenciaSeleccionada);
-               System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 4");
+               log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 4");
             }
          }
          if (guardado == true) {
             guardado = false;
-            System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 5");
+            log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 5");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().update("form:DatosVigencias");
-         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 6");
+         log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 6");
       } else if (tipoActualizacion == 1) {
-         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 7");
+         log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 7");
          nuevaVig.setEstructura(estructuraLovSeleccionada.getSecuencia());
          nuevaVig.setNombreEstructura(estructuraLovSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaV");
       } else if (tipoActualizacion == 2) {
-         System.out.println("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 8");
+         log.info("ControlVigenciasArps.actualizarEstructura() tipoActualizacion: 8");
          duplicarVig.setEstructura(estructuraLovSeleccionada.getSecuencia());
          duplicarVig.setNombreEstructura(estructuraLovSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarV");
@@ -735,7 +738,7 @@ public class ControlVigenciasArps implements Serializable {
             }
             listaModificar.clear();
          }
-         //System.out.println("Se guardaron los datos con exito");
+         //log.info("Se guardaron los datos con exito");
          listaVigenciasArps = null;
          getListaVigenciasArps();
          contarRegistros();

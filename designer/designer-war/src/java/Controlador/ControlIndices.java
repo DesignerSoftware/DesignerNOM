@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlIndices implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlIndices.class);
 
    @EJB
    AdministrarIndicesInterface administrarIndices;
@@ -125,26 +128,16 @@ public class ControlIndices implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
          
       } else {
-         */
-String pagActual = "indice";
-         
-         
-         
+       */
+      String pagActual = "indice";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -160,7 +153,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -172,14 +165,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          administrarIndices.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlIndices.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlIndices.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -187,13 +180,13 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          infoRegistro = "Cantidad de registros: " + filtrarIndices.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlIndices eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlIndices eventoFiltrar ERROR===" + e.getMessage());
       }
    }
    private BigDecimal backUpPorcentaje;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -214,7 +207,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             } else {
                tipoIndice = filtrarIndices.get(index).getTipoindice().getDescripcion();
             }
-            System.out.println("Cambiar Indice tipoIndice : " + tipoIndice);
+            log.info("Cambiar Indice tipoIndice : " + tipoIndice);
          }
          if (cualCelda == 3) {
             if (tipoLista == 0) {
@@ -222,16 +215,16 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             } else {
                backUpPorcentaje = filtrarIndices.get(index).getPorcentajeestandar();
             }
-            System.out.println("Cambiar Indice backUpPorcentaje : " + backUpPorcentaje);
+            log.info("Cambiar Indice backUpPorcentaje : " + backUpPorcentaje);
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlIndices.asignarIndex \n");
+         log.info("\n ENTRE A ControlIndices.asignarIndex \n");
          RequestContext context = RequestContext.getCurrentInstance();
 
          index = indice;
@@ -239,7 +232,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
@@ -250,7 +243,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlIndices.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlIndices.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -318,7 +311,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          //CERRAR FILTRADO
@@ -382,11 +376,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          divisor = (Column) c.getViewRoot().findComponent("form:datosIndices:divisor");
          divisor.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosIndices");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosIndices:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosIndices:descripcion");
@@ -409,7 +403,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    /*   public void modificandoHvReferencia(int indice, String confirmarCambio, String valorConfirmar) {
-     System.err.println("ENTRE A MODIFICAR HV Referencia");
+     log.error("ENTRE A MODIFICAR HV Referencia");
      index = indice;
 
      int contador = 0;
@@ -417,9 +411,9 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
      Short a;
      a = null;
      RequestContext context = RequestContext.getCurrentInstance();
-     System.err.println("TIPO LISTA = " + tipoLista);
+     log.error("TIPO LISTA = " + tipoLista);
      if (confirmarCambio.equalsIgnoreCase("N")) {
-     System.err.println("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
+     log.error("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
      if (tipoLista == 0) {
      if (!crearIndicesFamiliares.contains(listIndices.get(indice))) {
 
@@ -503,7 +497,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearIndices.contains(listIndices.get(indice))) {
 
@@ -641,7 +635,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                tipoActualizacion = 0;
             }
          } else {
-            System.out.println("PUSE UN VACIO");
+            log.info("PUSE UN VACIO");
             listIndices.get(indice).getTipoindice().setDescripcion(tipoIndice);
             listIndices.get(indice).setTipoindice(new TiposIndices());
             coincidencias = 1;
@@ -684,7 +678,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
       }
       if (confirmarCambio.equalsIgnoreCase("CODIGO")) {
-         System.err.println("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearIndices.contains(listIndices.get(indice))) {
 
@@ -700,7 +694,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                      }
                   }
                   contadorBD = administrarIndices.contarCodigosRepetidosIndices(listIndices.get(indice).getCodigo());
-                  System.out.println("ControlIndices modificarIndices ContadorDB : " + contadorBD.intValue());
+                  log.info("ControlIndices modificarIndices ContadorDB : " + contadorBD.intValue());
                   if (contador > 0 || !contadorBD.equals(new BigInteger("0"))) {
                      mensajeValidacion = "CODIGOS REPETIDOS";
                      listIndices.get(indice).setCodigo(backUpCodigo);
@@ -907,7 +901,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoIndices");
+            log.info("Entro a borrandoIndices");
             if (!modificarIndices.isEmpty() && modificarIndices.contains(listIndices.get(index))) {
                int modIndex = modificarIndices.indexOf(listIndices.get(index));
                modificarIndices.remove(modIndex);
@@ -921,7 +915,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             listIndices.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoIndices ");
+            log.info("borrandoIndices ");
             if (!modificarIndices.isEmpty() && modificarIndices.contains(filtrarIndices.get(index))) {
                int modIndex = modificarIndices.indexOf(filtrarIndices.get(index));
                modificarIndices.remove(modIndex);
@@ -957,14 +951,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger competenciasCargos;
       BigInteger contarResultadosIndicesDetallesIndice;
       BigInteger contarResultadosIndicesIndice;
       BigInteger contarResultadosIndicesSoportesIndice;
       BigInteger contarUsuariosIndicesIndice;
       try {
-         System.err.println("Control Secuencia de ControlIndices ");
+         log.error("Control Secuencia de ControlIndices ");
          competenciasCargos = administrarIndices.contarParametrosIndicesIndice(listIndices.get(index).getSecuencia());
          contarResultadosIndicesDetallesIndice = administrarIndices.contarResultadosIndicesDetallesIndice(listIndices.get(index).getSecuencia());
          contarResultadosIndicesIndice = administrarIndices.contarResultadosIndicesIndice(listIndices.get(index).getSecuencia());
@@ -976,10 +970,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                  && contarResultadosIndicesIndice.equals(new BigInteger("0"))
                  && contarResultadosIndicesSoportesIndice.equals(new BigInteger("0"))
                  && contarUsuariosIndicesIndice.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoIndices();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -988,7 +982,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlIndices verificarBorrado ERROR " + e);
+         log.error("ERROR ControlIndices verificarBorrado ERROR " + e);
       }
    }
 
@@ -1006,10 +1000,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarIndice");
+         log.info("Realizando guardarIndice");
          if (!borrarIndices.isEmpty()) {
             for (int i = 0; i < borrarIndices.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                if (borrarIndices.get(i).getTipoindice().getSecuencia() == null) {
                   borrarIndices.get(i).setTipoindice(null);
                }
@@ -1028,7 +1022,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                   crearIndices.get(i).setTipoindice(null);
                }
             }
-            System.out.println("Creando...");
+            log.info("Creando...");
             administrarIndices.crearIndices(crearIndices);
             crearIndices.clear();
          }
@@ -1041,7 +1035,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             administrarIndices.modificarIndices(modificarIndices);
             modificarIndices.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listIndices = null;
          RequestContext.getCurrentInstance().update("form:datosIndices");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -1065,7 +1059,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             editarIndices = filtrarIndices.get(index);
          }
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -1113,7 +1107,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             nuevoParentesco = duplicarIndices.getTipoindice().getDescripcion();
          }
       }
-      System.err.println("NUEVO PARENTESCO " + nuevoParentesco);
+      log.error("NUEVO PARENTESCO " + nuevoParentesco);
    }
 
    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1195,12 +1189,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
          } else if (tipoNuevo == 2) {
             duplicarIndices.setTipoindice(new TiposIndices());
-            System.out.println("NUEVO PARENTESCO " + nuevoParentesco);
+            log.info("NUEVO PARENTESCO " + nuevoParentesco);
             if (tipoLista == 0) {
                if (index >= 0) {
                   listIndices.get(index).getTipoindice().setDescripcion(nuevoParentesco);
-                  System.err.println("tipo lista" + tipoLista);
-                  System.err.println("Secuencia Parentesco " + listIndices.get(index).getTipoindice().getSecuencia());
+                  log.error("tipo lista" + tipoLista);
+                  log.error("Secuencia Parentesco " + listIndices.get(index).getTipoindice().getSecuencia());
                }
             } else if (tipoLista == 1) {
                filtrarIndices.get(index).getTipoindice().setDescripcion(nuevoParentesco);
@@ -1226,7 +1220,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void agregarNuevoIndices() {
-      System.out.println("agregarNuevoIndices");
+      log.info("agregarNuevoIndices");
       int contador = 0;
       int pass = 0;
       BigInteger contadorBD;
@@ -1237,7 +1231,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
       if (nuevoIndices.getCodigo() == null) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int j = 0; j < listIndices.size(); j++) {
@@ -1249,7 +1243,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          contadorBD = administrarIndices.contarCodigosRepetidosIndices(nuevoIndices.getCodigo());
          if (contador > 0 || !contadorBD.equals(new BigInteger("0"))) {
             mensajeValidacion = "*Codigo Repetidos";
-            System.out.println("mensaje validación : " + mensajeValidacion);
+            log.info("mensaje validación : " + mensajeValidacion);
             contador++;
          }
          if (contador == 0) {
@@ -1271,7 +1265,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosIndices:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosIndices:descripcion");
@@ -1292,7 +1286,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             filtrarIndices = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -1322,7 +1316,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void limpiarNuevoIndices() {
-      System.out.println("limpiarNuevoIndices");
+      log.info("limpiarNuevoIndices");
       nuevoIndices = new Indices();
       nuevoIndices.setTipoindice(new TiposIndices());
       secRegistro = null;
@@ -1332,7 +1326,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    //------------------------------------------------------------------------------
    public void duplicandoIndices() {
-      System.out.println("duplicandoIndices");
+      log.info("duplicandoIndices");
       if (index >= 0) {
          duplicarIndices = new Indices();
          k++;
@@ -1367,7 +1361,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR INDICES");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR INDICES");
       int contador = 0;
       int pass = 0;
       BigInteger contadorBD;
@@ -1375,7 +1369,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext context = RequestContext.getCurrentInstance();
       if (duplicarIndices.getCodigo() == null) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int j = 0; j < listIndices.size(); j++) {
@@ -1387,7 +1381,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          contadorBD = administrarIndices.contarCodigosRepetidosIndices(duplicarIndices.getCodigo());
          if (contador > 0 || !contadorBD.equals(new BigInteger("0"))) {
             mensajeValidacion = "*Codigo Repetidos";
-            System.out.println("mensaje validación : " + mensajeValidacion);
+            log.info("mensaje validación : " + mensajeValidacion);
             contador++;
          }
          if (contador == 0) {
@@ -1408,7 +1402,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       if (pass == 2) {
 
          if (crearIndices.contains(duplicarIndices)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          } else {
             crearIndices.add(duplicarIndices);
          }
@@ -1483,12 +1477,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listIndices.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "INDICES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

@@ -15,13 +15,13 @@ import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaOrganigramasInterface;
 import InterfacePersistencia.PersistenciaPlantasPersonalesInterface;
 import InterfacePersistencia.PersistenciaVWActualesCargosInterface;
-import Persistencia.PersistenciaEmpresas;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br> Clase encargada de realizar las operaciones lógicas para
@@ -31,6 +31,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlantasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEstructurasPlantas.class);
 
    //-------------------------------------------------------------------------
    //ATRIBUTOS
@@ -88,11 +90,11 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public List<Organigramas> listaOrganigramas() {
       List<Empresas> listaEmpresas = consultarEmpresas();
       List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
-      System.out.println("listaEmpresas : " + listaEmpresas);
-      System.out.println("em : " + em);
+      log.warn("listaEmpresas : " + listaEmpresas);
+      log.warn("em : " + em);
 
       if (listaEmpresas != null) {
-         System.out.println("listaEmpresas.size() : " + listaEmpresas.size());
+         log.warn("listaEmpresas.size() : " + listaEmpresas.size());
 
          for (int i = 0; i < listaEmpresas.size(); i++) {
             try {
@@ -100,11 +102,11 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
                        listaEmpresas.get(i).getSecuencia());
                listaOrganigramas.addAll(lista);
             } catch (Exception e) {
-               System.out.println("Error listaOrganigramas Empresa: " + listaEmpresas.get(i).getSecuencia() + " ex: " + e.toString());
+               log.warn("Error listaOrganigramas Empresa: " + listaEmpresas.get(i).getSecuencia() + " ex: " + e.toString());
             }
          }
       } else {
-         System.out.println("listaEmpresas = null");
+         log.warn("listaEmpresas = null");
       }
       return listaOrganigramas;
    }
@@ -116,7 +118,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          listaEmpresas = persistenciaEmpresas.buscarEmpresas(em);
          return listaEmpresas;
       } catch (Exception e) {
-         System.out.println("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
+         log.warn("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
          e.printStackTrace();
          return listaEmpresas;
       }
@@ -127,9 +129,9 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
       List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
       try {
          listaOrganigramas = persistenciaOrganigramas.buscarOrganigramas(em);
-         System.out.println("Ya salio del EJB");
+         log.warn("Ya salio del EJB");
       } catch (Exception e) {
-         System.out.println("Error listaOrganigramas : "
+         log.warn("Error listaOrganigramas : "
                  + e.toString());
       }
       return listaOrganigramas;
@@ -142,7 +144,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
             persistenciaOrganigramas.editar(em, listaO.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error modificarOrganigramas Admi : " + e.toString());
+         log.warn("Error modificarOrganigramas Admi : " + e.toString());
       }
    }
 
@@ -156,7 +158,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          }
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error cantidadCargosAControlar Admi : " + e.toString());
+         log.warn("Error cantidadCargosAControlar Admi : " + e.toString());
          String retorno = "";
          return retorno;
       }
@@ -172,7 +174,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          }
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error cantidadCargosEmplActivos Admi : " + e.toString());
+         log.warn("Error cantidadCargosEmplActivos Admi : " + e.toString());
          String retorno = "0";
          return retorno;
       }
@@ -201,7 +203,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          }
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaEstructurasPorSecuenciaOrganigrama Admi : " + e.toString());
+         log.warn("Error listaEstructurasPorSecuenciaOrganigrama Admi : " + e.toString());
          return null;
       }
    }
@@ -213,7 +215,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
             persistenciaEstructuras.crear(em, recEstructura);
          }
       } catch (Exception e) {
-         System.out.println("Error crearEstructura Admi : " + e.toString());
+         log.warn("Error crearEstructura Admi : " + e.toString());
       }
    }
 
@@ -224,7 +226,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
             persistenciaEstructuras.editar(em, recEstructura);
          }
       } catch (Exception e) {
-         System.out.println("Error editarEstructura Admi : " + e.toString());
+         log.warn("Error editarEstructura Admi : " + e.toString());
       }
    }
 
@@ -235,7 +237,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
             persistenciaEstructuras.borrar(em, recEstructura);
          }
       } catch (Exception e) {
-         System.out.println("Error borrarEstructura Admi : " + e.toString());
+         log.warn("Error borrarEstructura Admi : " + e.toString());
       }
    }
 
@@ -245,7 +247,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPadres(em, secOrganigrama, secEstructura);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEstructurasPadres Admi : " + e.toString());
+         log.warn("Error lovEstructurasPadres Admi : " + e.toString());
          return null;
       }
    }
@@ -256,7 +258,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          List<CentrosCostos> lista = persistenciaCentrosCostos.buscarCentroCostoPorSecuenciaEmpresa(em, secEmpresa);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCentrosCostos Admi : " + e.toString());
+         log.warn("Error lovCentrosCostos Admi : " + e.toString());
          return null;
       }
    }
@@ -267,7 +269,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
          List<Estructuras> lista = persistenciaEstructuras.buscarEstructuras(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEstructuras Admi : " + e.toString());
+         log.warn("Error lovEstructuras Admi : " + e.toString());
          return null;
       }
    }
@@ -275,7 +277,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    @Override
    public void modificarOrganigrama(List<Organigramas> listOrganigramasModificados) {
       for (int i = 0; i < listOrganigramasModificados.size(); i++) {
-         System.out.println("Modificando...");
+         log.warn("Modificando...");
          org = listOrganigramasModificados.get(i);
          persistenciaOrganigramas.editar(em, org);
       }

@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplNovedad.class);
 
     @EJB
     PersistenciaNovedadesInterface persistenciaNovedades;
@@ -60,7 +63,7 @@ public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
             List<Novedades> listNovedades = persistenciaNovedades.todasNovedadesEmpleado(em, secuenciaE);
             return listNovedades;
         } catch (Exception e) {
-            System.out.println("Error listNovedadesEmpleado Admi : " + e.toString());
+            log.warn("Error listNovedadesEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -71,7 +74,7 @@ public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
             Empleados empl = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error actualEmpleado Admi : " + e.toString());
+            log.warn("Error actualEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -82,7 +85,7 @@ public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
             List<Conceptos> lovConceptos = persistenciaConceptos.buscarConceptos(em);
             return lovConceptos;
         } catch (Exception e) {
-            System.out.println("Error en lovConceptos:" + e.getMessage());
+            log.warn("Error en lovConceptos:" + e.getMessage());
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
             List<Periodicidades> lovPeriodicidades = persistenciaPeriodicidad.consultarPeriodicidades(em);
             return lovPeriodicidades;
         } catch (Exception e) {
-            System.out.println("Error en lovPeriodicidades:" + e.getMessage());
+            log.warn("Error en lovPeriodicidades:" + e.getMessage());
             return null;
         }
     }
@@ -104,7 +107,7 @@ public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
             List<Terceros> lovTerceros = persistenciaTercero.buscarTerceros(em);
             return lovTerceros;
         } catch (Exception e) {
-            System.out.println("Error en lovTerceros:" + e.getMessage());
+            log.warn("Error en lovTerceros:" + e.getMessage());
             return null;
         }
     }
@@ -145,7 +148,7 @@ public class AdministrarEmplNovedad implements AdministrarEmplNovedadInterface {
                 persistenciaNovedades.borrar(em, listaBorrar.get(i));
             }
         }catch(Exception e){
-            System.out.println("error en BorrarNovedad" + e.getMessage() );
+            log.warn("error en BorrarNovedad" + e.getMessage() );
         }
     }
 

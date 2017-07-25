@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPryPlataformas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.merge(plataformas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryPlataformas.crear: " + e.getMessage());
+            log.error("Error PersistenciaPryPlataformas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.merge(plataformas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryPlataformas.editar: " + e.getMessage());
+            log.error("Error PersistenciaPryPlataformas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.remove(em.merge(plataformas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryPlataformas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPryPlataformas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +87,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             List<PryPlataformas> plataformas = (List<PryPlataformas>) query.getResultList();
             return plataformas;
         } catch (Exception e) {
-            System.out.println("Error buscarPryPlataformas PersistenciaPryPlataformas : " + e.getMessage());
+            log.error("Error buscarPryPlataformas PersistenciaPryPlataformas : " + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             PryPlataformas plataformas = (PryPlataformas) query.getSingleResult();
             return plataformas;
         } catch (Exception e) {
-            System.out.println("Error buscarPryPlataformaSecuencia PersistenciaPryPlataformas : " + e.toString());
+            log.error("Error buscarPryPlataformaSecuencia PersistenciaPryPlataformas : " + e.toString());
             PryPlataformas plataformas = null;
             return plataformas;
         }
@@ -114,10 +116,10 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador contadorProyectos persistencia " + retorno);
+            log.error("Contador contadorProyectos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos. " + e.getMessage());
+            log.error("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos. " + e.getMessage());
             return retorno;
         }
     }

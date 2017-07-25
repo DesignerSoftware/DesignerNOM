@@ -9,9 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaNovedades.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +39,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.crear: " + e.getMessage());
+         log.error("Error PersistenciaNovedades.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +55,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.editar: " + e.getMessage());
+         log.error("Error PersistenciaNovedades.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +71,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.remove(em.merge(novedades));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.borrar: " + e.getMessage());
+         log.error("Error PersistenciaNovedades.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -91,7 +92,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
             return null;
          }
       } catch (Exception e) {
-         System.out.println("Error buscarNovedad PersistenciaNovedades : " + e.toString());
+         log.error("Error buscarNovedad PersistenciaNovedades : " + e.toString());
          return null;
       }
    }
@@ -107,14 +108,14 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> listNovedades = query.getResultList();
          return listNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (novedadesParaReversar)" + e.getMessage());
+         log.error("Error: (novedadesParaReversar)" + e.getMessage());
          return null;
       }
    }
 
    @Override
    public List<Novedades> todasNovedadesEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
-      System.out.println("Persistencia.PersistenciaNovedades.todasNovedadesEmpleado() secuenciaEmpleado : " + secuenciaEmpleado);
+      log.error("Persistencia.PersistenciaNovedades.todasNovedadesEmpleado() secuenciaEmpleado : " + secuenciaEmpleado);
       try {
          em.clear();
 //            Query query = em.createQuery("SELECT n FROM Novedades n WHERE n.empleado.secuencia = :secuenciaEmpleado");
@@ -124,7 +125,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedades)" + e.getMessage());
+         log.error("Error: (todasNovedades)" + e.getMessage());
          return null;
       }
    }
@@ -139,7 +140,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedadesConcepto)" + e.getMessage());
+         log.error("Error: (todasNovedadesConcepto)" + e.getMessage());
          return null;
       }
    }
@@ -154,7 +155,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedadesTercero)" + e.getMessage());
+         log.error("Error: (todasNovedadesTercero)" + e.getMessage());
          return null;
       }
    }
@@ -170,7 +171,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          int rows = query.executeUpdate();
          return rows;
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro. (reversarNovedades)" + e.getMessage());
+         log.error("No se pudo borrar el registro. (reversarNovedades)" + e.getMessage());
          return 0;
       }
    }
@@ -186,7 +187,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.novedadesEmpleado" + e.getMessage());
+         log.error("Error PersistenciaNovedades.novedadesEmpleado" + e.getMessage());
          return null;
       }
    }
@@ -203,7 +204,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
+         log.error("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
          return null;
       }
    }
@@ -222,7 +223,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
+         log.error("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
          return null;
       }
    }

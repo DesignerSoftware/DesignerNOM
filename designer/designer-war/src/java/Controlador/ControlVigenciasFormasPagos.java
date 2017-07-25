@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasFormasPagos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasFormasPagos.class);
 
    @EJB
    AdministrarEmplVigenciasFormasPagosInterface administrarEmplVigenciasFormasPagos;
@@ -125,8 +128,8 @@ public class ControlVigenciasFormasPagos implements Serializable {
          administrarEmplVigenciasFormasPagos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -305,7 +308,7 @@ public class ControlVigenciasFormasPagos implements Serializable {
             dig = -1;
          }
       } catch (Exception e) {
-         System.out.println("ERROR ControlVigenciasAfiliaciones3.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlVigenciasAfiliaciones3.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -378,9 +381,9 @@ public class ControlVigenciasFormasPagos implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("N")) {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
-         System.err.println("Fecha a modificar " + vigenciaSeleccionada.getFechavigencia());
+         log.error("Fecha a modificar " + vigenciaSeleccionada.getFechavigencia());
          for (int z = 0; z < listVigenciasFormasPagosPorEmpleado.size(); z++) {
-            System.err.println("Contador vigenciasformas pagos modificar " + z);
+            log.error("Contador vigenciasformas pagos modificar " + z);
             if (vigenciaSeleccionada != listVigenciasFormasPagosPorEmpleado.get(z)) {
                if (vigenciaSeleccionada.getFechavigencia().equals(listVigenciasFormasPagosPorEmpleado.get(z).getFechavigencia())) {
                   contador++;
@@ -554,23 +557,23 @@ public class ControlVigenciasFormasPagos implements Serializable {
       if (vigenciaSeleccionada.getMetodopago().getDescripcion().equalsIgnoreCase("TRANSFERENCIA")) {
          if (vigenciaSeleccionada.getCuenta() == null) {
             mensajeValidacion = mensajeValidacion + " Cuenta ";
-            System.err.println("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
+            log.error("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
             val++;
          }
          if (vigenciaSeleccionada.getSucursal().getNombre() == null) {
             mensajeValidacion = mensajeValidacion + " Sucursal ";
             val++;
-            System.err.println("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
+            log.error("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
 
          }
          if (vigenciaSeleccionada.getTipocuenta() == null) {
             mensajeValidacion = mensajeValidacion + " Tipo de cuenta ";
             val++;
-            System.err.println("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
+            log.error("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
 
          }
          if (val > 0) {
-            System.err.println("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
+            log.error("modificarVigenciasFormasPagos mensaje validacion : " + mensajeValidacion);
 
             RequestContext.getCurrentInstance().update("form:validacioModificarMetodoPago");
             RequestContext.getCurrentInstance().execute("PF('validacioModificarMetodoPago').show()");
@@ -754,23 +757,23 @@ public class ControlVigenciasFormasPagos implements Serializable {
          if (vigenciaSeleccionada.getMetodopago().getDescripcion().equalsIgnoreCase("TRANSFERENCIA")) {
             if (vigenciaSeleccionada.getCuenta() == null) {
                mensajeValidacion = mensajeValidacion + " Cuenta ";
-               System.err.println("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
+               log.error("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
                val++;
             }
             if (vigenciaSeleccionada.getSucursal().getNombre() == null) {
                mensajeValidacion = mensajeValidacion + " Sucursal ";
                val++;
-               System.err.println("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
+               log.error("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
 
             }
             if (vigenciaSeleccionada.getTipocuenta() == null) {
                mensajeValidacion = mensajeValidacion + " Tipo de cuenta ";
                val++;
-               System.err.println("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
+               log.error("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
 
             }
             if (val > 0) {
-               System.err.println("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
+               log.error("actualizarMetodoPago mensaje validacion : " + mensajeValidacion);
 
                RequestContext.getCurrentInstance().update("form:validacionModificarMetodoPago");
                RequestContext.getCurrentInstance().execute("PF('validacionModificarMetodoPago').show()");
@@ -1377,7 +1380,7 @@ public class ControlVigenciasFormasPagos implements Serializable {
       } else {
          vigenciaSeleccionada = null;
       }
-      System.out.println("vigenciaSeleccionada: " + vigenciaSeleccionada);
+      log.info("vigenciaSeleccionada: " + vigenciaSeleccionada);
    }
 
    public void anularLOV() {

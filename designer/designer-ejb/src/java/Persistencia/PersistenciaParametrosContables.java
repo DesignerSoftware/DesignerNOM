@@ -5,6 +5,7 @@ import InterfacePersistencia.PersistenciaParametrosContablesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -13,7 +14,9 @@ import javax.persistence.Query;
  * @author Administrador
  */
 @Stateless
-public class PersistenciaParametrosContables implements PersistenciaParametrosContablesInterface { 
+public class PersistenciaParametrosContables implements PersistenciaParametrosContablesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametrosContables.class); 
 
     @Override
     public void crear(EntityManager em, ParametrosContables parametrosContables) {
@@ -24,7 +27,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             em.merge(parametrosContables);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosContables.crear: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.crear: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -40,7 +43,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             em.merge(parametrosContables);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosContables.editar: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.editar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +59,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             em.remove(em.merge(parametrosContables));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosContables.borrar: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.borrar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +75,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             List<ParametrosContables> parametro =  query.getResultList();
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosContables.buscarParametroContable: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.buscarParametroContable: " + e.toString());
             return null;
         }
     }

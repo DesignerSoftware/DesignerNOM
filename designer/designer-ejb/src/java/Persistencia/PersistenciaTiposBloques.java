@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposBloques.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +40,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          em.merge(tiposBloques);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPensionados.crear: " + e.getMessage());
+         log.error("Error PersistenciaPensionados.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +56,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          em.merge(tiposBloques);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPensionados.editar: " + e.getMessage());
+         log.error("Error PersistenciaPensionados.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +72,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          em.merge(tiposBloques);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPensionados.borrar: " + e.getMessage());
+         log.error("Error PersistenciaPensionados.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -88,7 +90,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          tiposBloquesResult = query.getResultList();
          return tiposBloquesResult;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTiposBloques.tiposBloques()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTiposBloques.tiposBloques()" + e.getMessage());
          return null;
       }
    }

@@ -285,7 +285,6 @@ public class VigenciasDomiciliarias implements Serializable {
 
     public void setConstruccion(String construccion) {
         this.construccion = construccion;
-        System.out.println("construcción seleccionada : " + construccion );
     }
 
     public String getServicioagua() {
@@ -656,7 +655,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.servicioagua = "N";
         }
-        System.out.println("servicio agua: " + recagua + "" + servicioagua);
     }
 
     public boolean isRecluz() {
@@ -675,7 +673,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.servicioluz = "N";
         }
-        System.out.println("servicio luz: " + recluz + "" + servicioluz);
     }
 
     public boolean isRectelefono() {
@@ -694,7 +691,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.serviciotelefono = "N";
         }
-        System.out.println("servicio Telefono: " + this.rectelefono + "" + serviciotelefono);
     }
 
     public boolean isRecparabolica() {
@@ -713,7 +709,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.servicioparabolica = "N";
         }
-        System.out.println("servicio Parabolica: " + this.recparabolica + "" + servicioparabolica);
     }
 
     public boolean isRectransporte() {
@@ -732,7 +727,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.serviciotransporte = "N";
         }
-        System.out.println("servicio Transporte: " + this.rectransporte + "" + serviciotransporte);
     }
 
     public boolean isRecalcantarillado() {
@@ -751,7 +745,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.servicioalcantarillado = "N";
         }
-        System.out.println("servicio Alcantarillado: " + this.recalcantarillado + "" + servicioalcantarillado);
     }
 
     public boolean isRecaseo() {
@@ -770,7 +763,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.servicioaseo = "N";
         }
-        System.out.println("servicio Aseo: " + this.recaseo + "" + servicioaseo);
     }
 
     public boolean isRecotro() {
@@ -789,7 +781,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.serviciootros = "N";
         }
-        System.out.println("servicio Otro: " + this.recotro + "" + serviciootros);
     }
 
     public boolean isOrigenind() {
@@ -808,7 +799,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.origenindependiente = "N";
         }
-        System.out.println("Origen comercio Independiente: " + this.origenind + "" + origenindependiente);
     }
 
     public boolean isOrigenarriendo() {
@@ -827,7 +817,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.origenarrendamiento = "N";
         }
-        System.out.println("Origen Arrendamiento: " + this.origenarriendo + "" + origenarrendamiento);
     }
 
     public boolean isOrigenpen() {
@@ -846,7 +835,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.origenpension = "N";
         }
-        System.out.println("Origen Pensión: " + this.origenpen + "" + origenpension);
     }
 
     public boolean isOrigensal() {
@@ -865,7 +853,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.origensalario = "N";
         }
-        System.out.println("Origen Salario: " + this.origensal + "" + origensalario);
     }
 
     public boolean isOrigenncdt() {
@@ -884,7 +871,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.origencdt = "N";
         }
-        System.out.println("Origen CDT: " + this.origenncdt + "" + origencdt);
     }
 
     public boolean isOrigenaux() {
@@ -903,7 +889,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.origenauxilios = "N";
         }
-        System.out.println("Origen Auxilios: " + this.origenaux + "" + origenauxilios);
     }
 
     public boolean isAportepadre() {
@@ -922,7 +907,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.ingresopapa = "N";
         }
-        System.out.println("Ingreso padre: " + this.aportepadre + "" + ingresopapa);
     }
 
     public boolean isAportemadre() {
@@ -941,7 +925,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.ingresomama = "N";
         }
-        System.out.println("Ingreso madre: " + this.aportemadre + "" + ingresomama);
     }
 
     public boolean isAportehermano() {
@@ -960,7 +943,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.ingresohermano = "N";
         }
-        System.out.println("Ingreso Hermano: " + this.aportehermano + "" + ingresohermano);
     }
 
     public boolean isAporteabuelo() {
@@ -979,7 +961,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.ingresoabuelo = "N";
         }
-        System.out.println("Ingreso Abuelo: " + this.aporteabuelo + "" + ingresoabuelo);
     }
 
     public boolean isAportetio() {
@@ -998,7 +979,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.ingresotio = "N";
         }
-        System.out.println("Ingreso Tío: " + this.aportetio + "" + ingresotio);
     }
 
     public boolean isAporteotro() {
@@ -1017,7 +997,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.ingresootro = "N";
         }
-        System.out.println("Ingreso Otro: " + this.aporteotro + "" + ingresootro);
     }
 
     public boolean isEgresoEducacion() {
@@ -1036,7 +1015,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversioneducacion = "N";
         }
-        System.out.println("Egreso Educación: " + this.egresoEducacion + "" + inversioneducacion);
     }
 
     public boolean isEgresoRecreacion() {
@@ -1055,7 +1033,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversionrecreacion = "N";
         }
-        System.out.println("Egreso Recreación: " + this.egresoRecreacion + "" + inversionrecreacion);
     }
 
     public boolean isEgresoAlimentacion() {
@@ -1074,7 +1051,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversionalimentacion = "N";
         }
-        System.out.println("Egreso Alimentación: " + this.egresoAlimentacion + "" + inversionalimentacion);
     }
 
     public boolean isEgresoMedico() {
@@ -1093,7 +1069,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversionmedica = "N";
         }
-        System.out.println("Egreso Médico: " + this.egresoMedico + "" + inversionmedica);
     }
 
     public boolean isEgresoArriendo() {
@@ -1112,7 +1087,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversionarriendo = "N";
         }
-        System.out.println("Egreso Arriendo: " + this.egresoArriendo + "" + inversionarriendo);
     }
 
     public boolean isEgresoServicios() {
@@ -1131,7 +1105,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversionservicios = "N";
         }
-        System.out.println("Egreso Servicios: " + this.egresoServicios + "" + inversionservicios);
     }
 
     public boolean isEgresoOtros() {
@@ -1150,7 +1123,6 @@ public class VigenciasDomiciliarias implements Serializable {
         } else {
             this.inversionotros = "N";
         }
-        System.out.println("Egreso Otros: " + this.egresoOtros + "" + inversionotros);
     }
 
     @Override

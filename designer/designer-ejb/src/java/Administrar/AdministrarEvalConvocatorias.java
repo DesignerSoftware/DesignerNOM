@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEvalConvocatorias implements AdministrarEvalConvocatoriasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalConvocatorias.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -40,7 +43,7 @@ public class AdministrarEvalConvocatorias implements AdministrarEvalConvocatoria
                 persistenciaevalconv.crear(em, listCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalConvocatorias.crear : " + e.toString());
+            log.warn("AdministrarEvalConvocatorias.crear : " + e.toString());
         }
     }
 
@@ -51,7 +54,7 @@ public class AdministrarEvalConvocatorias implements AdministrarEvalConvocatoria
                 persistenciaevalconv.borrar(em, listBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalConvocatorias.borrar : " + e.toString());
+            log.warn("AdministrarEvalConvocatorias.borrar : " + e.toString());
         }
     }
 
@@ -62,7 +65,7 @@ public class AdministrarEvalConvocatorias implements AdministrarEvalConvocatoria
                 persistenciaevalconv.editar(em, listModificar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalConvocatorias.editar : " + e.toString());
+            log.warn("AdministrarEvalConvocatorias.editar : " + e.toString());
         }
     }
 

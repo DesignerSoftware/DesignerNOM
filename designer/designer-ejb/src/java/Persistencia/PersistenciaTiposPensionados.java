@@ -9,11 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposPensionados implements PersistenciaTiposPensionadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposPensionados.class);
 
    @Override
     public void crear(EntityManager em, TiposPensionados tiposPensionados) {
@@ -24,7 +27,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             em.merge(tiposPensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPensionados.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposPensionados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -40,7 +43,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             em.merge(tiposPensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPensionados.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposPensionados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +59,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             em.remove(em.merge(tiposPensionados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPensionados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposPensionados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +76,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             List<TiposPensionados> listaTiposPensionados = query.getResultList();
             return listaTiposPensionados;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposPensionados.consultarTiposPensionados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposPensionados.consultarTiposPensionados()" + e.getMessage());
             return null;
         }
     }
@@ -89,7 +92,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             TiposPensionados tipoP = (TiposPensionados) query.getSingleResult();
             return tipoP;
         } catch (Exception e) {
-            System.out.println("Error buscarTipoPensionSecuencia PersistenciaTiposPensionados " + e.getMessage());
+            log.error("Error buscarTipoPensionSecuencia PersistenciaTiposPensionados " + e.getMessage());
             TiposPensionados tipoP = null;
             return tipoP;
         }
@@ -106,7 +109,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e.getMessage());
             return retorno;
         }
     }

@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEscalafones.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          em.persist(escalafones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEscalafones.crear: " + e);
+         log.error("Error PersistenciaEscalafones.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          em.merge(escalafones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEscalafones.editar: " + e);
+         log.error("Error PersistenciaEscalafones.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +74,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEscalafones.borrar: " + e);
+         log.error("Error PersistenciaEscalafones.borrar: " + e);
       }
    }
 
@@ -84,7 +87,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          List<Escalafones> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEscalafones buscarEscalafones : " + e.toString());
+         log.error("Error PersistenciaEscalafones buscarEscalafones : " + e.toString());
          return null;
       }
    }
@@ -99,7 +102,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          Escalafones escalafones = (Escalafones) query.getSingleResult();
          return escalafones;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaEscalafones.buscarEscalafonSecuencia() e: " + e);
+         log.error("Persistencia.PersistenciaEscalafones.buscarEscalafonSecuencia() e: " + e);
          return null;
       }
    }

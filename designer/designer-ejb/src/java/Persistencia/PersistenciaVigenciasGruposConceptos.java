@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -20,6 +20,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenciasGruposConceptosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasGruposConceptos.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -36,7 +38,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.persist(vigenciasGruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposConceptos.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposConceptos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.merge(vigenciasGruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposConceptos.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposConceptos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +70,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.remove(em.merge(vigenciasGruposConceptos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposConceptos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposConceptos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +87,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
+            log.error("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
             return false;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             List<VigenciasGruposConceptos> resultado = (List<VigenciasGruposConceptos>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Exepcion listVigenciasGruposConceptosPorConcepto PersistenciaVigenciasGruposConceptos: " + e.getMessage());
+            log.error("Exepcion listVigenciasGruposConceptosPorConcepto PersistenciaVigenciasGruposConceptos: " + e.getMessage());
             return null;
         }
     }
@@ -117,7 +119,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             List<VigenciasGruposConceptos> resultado = query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error: (prorrogaMostrar)" + e.getMessage());
+            log.error("Error: (prorrogaMostrar)" + e.getMessage());
             return null;
         }
     }

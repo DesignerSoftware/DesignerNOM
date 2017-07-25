@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaParametrosEstructuras implements PersistenciaParametrosEstructurasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametrosEstructuras.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +41,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             em.merge(parametroEstructura);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +58,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             BigInteger secEmpresa = (BigInteger) query.getSingleResult();
             return secEmpresa;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
+            log.error("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
             return null;
         }
     }
@@ -70,7 +73,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             BigInteger secEmpresa = (BigInteger) query.getSingleResult();
             return secEmpresa;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
+            log.error("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosEstructuras.estructurasComprobantes" + e.getMessage());
+            log.error("Error PersistenciaParametrosEstructuras.estructurasComprobantes" + e.getMessage());
             return null;
         }
     }
@@ -110,7 +113,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("PersistenciaParametrosEstructuras.adicionarEmpleados: " + e.getMessage());
+            log.error("PersistenciaParametrosEstructuras.adicionarEmpleados: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -133,7 +136,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             Integer empeladosALiquidar = a.intValueExact();
             return empeladosALiquidar;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosEstructuras.empleadosParametrizados " + e.getMessage());
+            log.error("Error PersistenciaParametrosEstructuras.empleadosParametrizados " + e.getMessage());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             Integer empeladosALiquidar = a.intValueExact();
             return empeladosALiquidar;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosEstructuras.diasDiferenciaFechas " + e.getMessage());
+            log.error("Error PersistenciaParametrosEstructuras.diasDiferenciaFechas " + e.getMessage());
             return null;
         }
     }

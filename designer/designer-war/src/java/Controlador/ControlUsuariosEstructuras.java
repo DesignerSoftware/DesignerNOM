@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Administrar.AdministrarUsuariosEstructurasInterface;
+import InterfaceAdministrar.AdministrarUsuariosEstructurasInterface;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Empresas;
 import Entidades.Estructuras;
@@ -32,6 +32,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -44,6 +45,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlUsuariosEstructuras")
 @SessionScoped
 public class ControlUsuariosEstructuras implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUsuariosEstructuras.class);
 
    @EJB
    AdministrarUsuariosEstructurasInterface administrarUsuariosEstructuras;
@@ -164,8 +167,8 @@ public class ControlUsuariosEstructuras implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarUsuariosFiltros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -227,7 +230,7 @@ public class ControlUsuariosEstructuras implements Serializable {
    }
 
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
          usuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:usuario");
@@ -797,7 +800,7 @@ public class ControlUsuariosEstructuras implements Serializable {
             contarUsuariosFiltros = new BigDecimal("-1");
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
       }
 
    }
@@ -1266,7 +1269,7 @@ public class ControlUsuariosEstructuras implements Serializable {
          administrarUsuariosEstructuras.crearVistaUsuarioEstructura(usuarioEstructuraSeleccionado.getSecuencia(), usuarioEstructuraSeleccionado.getUsuario().getSecuencia());
          RequestContext.getCurrentInstance().execute("PF('crearVistaUsuarioEstructura').show()");
       } catch (Exception e) {
-         System.out.println("error Controlador.ControlUsuariosEstructuras.crearVistaUsuarioEstructura()" + e.getMessage());
+         log.warn("Error Controlador.ControlUsuariosEstructuras.crearVistaUsuarioEstructura()" + e.getMessage());
          RequestContext.getCurrentInstance().execute("PF('errorCrearVistaUsuarioEstructura').show()");
       }
    }
@@ -1276,7 +1279,7 @@ public class ControlUsuariosEstructuras implements Serializable {
          administrarUsuariosFiltros.crearFiltroUsuario(usuariosFiltroSeleccionado.getUsuariovista().getSecuencia());
          RequestContext.getCurrentInstance().execute("PF('crearFiltroUsuario').show()");
       } catch (Exception e) {
-         System.out.println("error ControlUsuariosEstructuras.crearFiltroUsuario() : " + e.getMessage());
+         log.warn("Error ControlUsuariosEstructuras.crearFiltroUsuario() : " + e.getMessage());
          RequestContext.getCurrentInstance().execute("PF('errorCrearFiltroUsuario').show()");
       }
    }

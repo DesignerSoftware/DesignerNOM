@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosFiltros.class);
+
     @Override
     public void crear(EntityManager em, UsuariosFiltros usuarioF) {
         em.clear();
@@ -31,7 +34,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             em.merge(usuarioF);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaUsuariosFiltros.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaUsuariosFiltros.crear()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +50,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             em.merge(usuarioF);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaUsuariosFiltros.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaUsuariosFiltros.editar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +66,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             em.remove(em.merge(usuarioF));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaUsuariosFiltros.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaUsuariosFiltros.borrar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +83,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             List<UsuariosFiltros> lista = query.getResultList();
             return lista;
         }catch(Exception e){
-            System.out.println("error PersistenciaUsuariosFiltros.consultarUsuariosFiltros()" + e.getMessage());
+            log.error("error PersistenciaUsuariosFiltros.consultarUsuariosFiltros()" + e.getMessage());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             BigDecimal count = (BigDecimal) query.getSingleResult();
             return count;
         }catch(Exception e){
-            System.out.println("error PersistenciaUsuariosFiltros.contarUsuariosFiltros()" + e.getMessage());
+            log.error("error PersistenciaUsuariosFiltros.contarUsuariosFiltros()" + e.getMessage());
             return null;
         }
     }
@@ -125,7 +128,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             tx.commit();
          }
       }catch(Exception e){
-          System.out.println("Error PersistenciaUsuariosFiltros.crearFiltroUsuario() : " + e.getMessage());
+          log.error("Error PersistenciaUsuariosFiltros.crearFiltroUsuario() : " + e.getMessage());
       }
     }
 

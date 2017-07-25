@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,10 +22,12 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEnvioCorreos.class);
+
     @Override
     public List<EnvioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte) {
-        System.out.println("Persistencia.PersisteciaEnvioCorreos.consultarEnvios()");
-        System.out.println("secReporte:  " + secReporte);
+        log.error("Persistencia.PersisteciaEnvioCorreos.consultarEnvios()");
+        log.error("secReporte:  " + secReporte);
         try {
             em.clear();
             String consulta = "SELECT ec.* \n"
@@ -59,7 +62,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             }
             return listaEnvios;
         } catch (Exception e) {
-            System.out.println("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
             return null;
         }
     }
@@ -67,22 +70,22 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
     @Override
     public Inforeportes buscarEnvioCorreoporSecuencia(EntityManager em, BigInteger secEnvioReporte) {
         try {
-            System.out.println("buscarEnvioCorreoporSecuencia() secEnvioReporte: " + secEnvioReporte);
+            log.error("buscarEnvioCorreoporSecuencia() secEnvioReporte: " + secEnvioReporte);
             em.clear();
             String sqlString = "SELECT * FROM inforeportes WHERE secuencia = " + secEnvioReporte;
             Query query = em.createNativeQuery(sqlString, Inforeportes.class);
             Inforeportes reporte = (Inforeportes) query.getSingleResult();
             return reporte;
         } catch (Exception e) {
-            System.out.println("Error Persistencia.PersisteciaEnvioCorreos.buscarEnvioCorreoporSecuencia(): " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.buscarEnvioCorreoporSecuencia(): " + e);
             return null;
         }
     }
 
 //    @Override
 //    public List<Empleados> buscarEmpleados(EntityManager em, BigInteger secEnvioRepEmp) {
-//        System.out.println("Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()");
-//        System.out.println("secEnvioRepEmp:  " + secEnvioRepEmp);
+//        log.error("Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()");
+//        log.error("secEnvioRepEmp:  " + secEnvioRepEmp);
 //        try {
 //            em.clear();
 //            String consulta = "SELECT e.* \n"
@@ -96,7 +99,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 //            List<Empleados> listEmpleados = (List<Empleados>) query2.getResultList();
 //            return listEmpleados;
 //        } catch (Exception e) {
-//            System.out.println("Error Persistencia.PersistenciaEnvioCorreos.buscarEmpleados() " + e);
+//            log.error("Error Persistencia.PersistenciaEnvioCorreos.buscarEmpleados() " + e);
 //            return null;
 //        }
 //    }
@@ -109,7 +112,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             em.merge(enviocorreos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error Persistencia.PersisteciaEnvioCorreos.editar() " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.editar() " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -118,7 +121,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public void borrar(EntityManager em, EnvioCorreos envio) {
-        System.out.println("Persistencia.PersisteciaEnvioCorreos.borrar()");
+        log.error("Persistencia.PersisteciaEnvioCorreos.borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -127,13 +130,13 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Entre al catch");
+            log.error("Entre al catch");
             try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error Persistencia.PersisteciaEnvioCorreos.borrar() " + e);
+                log.error("Error Persistencia.PersisteciaEnvioCorreos.borrar() " + e);
             }
         }
 
@@ -141,9 +144,9 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public List<Empleados> CorreoCodEmpleados(EntityManager em, BigDecimal emplDesde, BigDecimal emplHasta) {
-        System.out.println("Persistencia.PersistenciaEnvioCorreos.CorreoCodEmpleados()");
-        System.out.println("emplDesde: " + emplDesde);
-        System.out.println("emplHasta: " + emplHasta);
+        log.error("Persistencia.PersistenciaEnvioCorreos.CorreoCodEmpleados()");
+        log.error("emplDesde: " + emplDesde);
+        log.error("emplHasta: " + emplHasta);
         try {
             em.clear();
             String consulta = "SELECT e.* \n"
@@ -155,17 +158,17 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
             Query query = em.createNativeQuery(consulta, Empleados.class);
             List<Empleados> correoCod = (List<Empleados>) query.getResultList();
-            System.out.println("CorreoCod: " + correoCod);
+            log.error("CorreoCod: " + correoCod);
             return correoCod;
         } catch (Exception e) {
-            System.out.println("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
             return null;
         }
     }
 
     @Override
     public ConfiguracionCorreo consultarRemitente(EntityManager em, BigInteger secEmpresa) {
-        System.out.println("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
+        log.error("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
         try {
             em.clear();
             String consulta = "SELECT cc.* \n"
@@ -173,17 +176,17 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
                     + "WHERE cc.empresa = " + secEmpresa + " ";
             Query query = em.createNativeQuery(consulta, ConfiguracionCorreo.class);
             ConfiguracionCorreo remitente = (ConfiguracionCorreo) query.getSingleResult();
-            System.out.println("CorreoCod: " + remitente);
+            log.error("CorreoCod: " + remitente);
             return remitente;
         } catch (Exception e) {
-            System.out.println("Error Persistencia.PersistenciaEnvioCorreos.consultarRemitente(): " + e);
+            log.error("Error Persistencia.PersistenciaEnvioCorreos.consultarRemitente(): " + e);
             return null;
         }
     }
 
     @Override
     public void insertarFalloCorreos(EntityManager em, EnvioCorreos enviocorreo) {
-        System.out.println("Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos()");
+        log.error("Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -191,7 +194,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             em.persist(enviocorreo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos(): " + e.toString());
+            log.error("Error Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos(): " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }

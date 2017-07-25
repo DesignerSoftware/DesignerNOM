@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMvrs implements PersistenciaMvrsInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMvrs.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.merge(mvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMvrs.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMvrs.crear()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.merge(mvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMvrs.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMvrs.editar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.remove(em.merge(mvrs));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMvrs.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMvrs.borrar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +85,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
         List<Mvrs> mvrs = (List<Mvrs>) em.createQuery("SELECT m FROM Mvrs m").getResultList();
         return mvrs;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaMvrs.buscarMvrs()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMvrs.buscarMvrs()" + e.getMessage());
             return null;
         }
     }
@@ -98,7 +100,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             Mvrs mvrs = (Mvrs) query.getSingleResult();
             return mvrs;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMvrs.buscarMvrSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMvrs.buscarMvrSecuencia()" + e.getMessage());
             Mvrs mvrs = null;
             return mvrs;
         }
@@ -114,7 +116,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             List<Mvrs> mvrs = (List<Mvrs>) query.getResultList();
             return mvrs;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMvrs.buscarMvrsEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMvrs.buscarMvrsEmpleado()" + e.getMessage());
             List<Mvrs> mvrs = null;
             return mvrs;
         }

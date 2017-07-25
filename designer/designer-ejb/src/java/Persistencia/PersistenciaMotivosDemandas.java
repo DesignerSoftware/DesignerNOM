@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosDemandas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.merge(motivosDemandas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosDemandas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.merge(motivosDemandas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosDemandas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.remove(em.merge(motivosDemandas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosDemandas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +84,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.clear();
             return em.find(MotivosDemandas.class, secuenciaE);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosDemandas.buscarMotivoDemanda()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosDemandas.buscarMotivoDemanda()" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +98,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             List<MotivosDemandas> motivosDemandas = query.getResultList();
             return motivosDemandas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.buscarMotivosDemandas" + e.getMessage());
+            log.error("Error PersistenciaMotivosDemandas.buscarMotivosDemandas" + e.getMessage());
             return null;
         }
     }
@@ -109,10 +111,10 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PersistenciaMotivosDemana Contador " + retorno);
+            log.error("PersistenciaMotivosDemana Contador " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error  PersistenciaMotivosDemanas contadorDemanas error " + e.getMessage());
+            log.error("Error  PersistenciaMotivosDemanas contadorDemanas error " + e.getMessage());
             return retorno;
         }
     }

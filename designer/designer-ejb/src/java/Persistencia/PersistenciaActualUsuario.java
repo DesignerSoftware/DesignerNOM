@@ -8,14 +8,10 @@ import Entidades.CambiosMasivos;
 import Entidades.ParametrosCambiosMasivos;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import java.util.List;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-//import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
-//import org.apache.log4j.Logger;
-//import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Clase Stateless. <br> Clase encargada de realizar operaciones sobre la tabla
@@ -25,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaActualUsuario.class);
 
    //private final static Logger logger = Logger.getLogger("connectionSout");
    //private Date fechaDia;
@@ -47,27 +45,25 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          actualUsuario = (ActualUsuario) query.getSingleResult();
          return actualUsuario;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaActualUsuario.actualUsuarioBD() e: " + e);
+         log.fatal("Persistencia.PersistenciaActualUsuario.actualUsuarioBD() e: " + e);
          e.printStackTrace();
-         //  PropertyConfigurator.configure("log4j.properties");
-         //logger.error("Metodo: actualUsuarioBD - PersistenciaActualUsuario - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
          return null;
       }
    }
 
    @Override
    public String actualAliasBD(EntityManager em) {
-      System.out.println(this.getClass().getName() + ".actualAliasBD()");
+      log.warn(this.getClass().getName() + ".actualAliasBD()");
       try {
          em.clear();
          String sqlQuery = "SELECT au.ALIAS FROM VWActualUsuario au";
          Query query = em.createNativeQuery(sqlQuery);
          String alias;
          alias = (String) query.getSingleResult();
-         System.out.println("alias: " + alias);
+         log.warn("alias: " + alias);
          return alias;
       } catch (Exception e) {
-         System.out.println("persistenciaActualUsuario .actualAliasBD  :    Sali con errores");
+         log.fatal("persistenciaActualUsuario .actualAliasBD  :    Sali con errores");
          return null;
       }
    }
@@ -81,26 +77,23 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          alias = (String) query.getSingleResult();
          return alias;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaActualUsuario.actualAliasBD_EM() e: " + e);
-         //PropertyConfigurator.configure("log4j.properties");
-         //logger.error("Metodo: actualAliasBD_EM - PersistenciaActualUsuario - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+         log.fatal("Persistencia.PersistenciaActualUsuario.actualAliasBD_EM() e: " + e);
          return null;
       }
    }
 
    @Override
    public List<CambiosMasivos> consultarCambiosMasivos(EntityManager em) {
-      //         em.clear();
 //      try {
-      System.out.println("Persistencia.PersistenciaActualUsuario.consultarCambiosMasivos()");
+      log.warn("Persistencia.PersistenciaActualUsuario.consultarCambiosMasivos()");
 //         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
 //                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
-//         System.out.println("q : " + q);
+//         log.error("q : " + q);
 //         Query query = em.createNativeQuery(q, CambiosMasivos.class);
 //         List<CambiosMasivos> lista = query.getResultList();
 //         return lista;
 //      } catch (Exception e) {
-//         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
       return null;
 //      }
    }
@@ -109,14 +102,14 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
    public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
       //         em.clear();
 //      try {
-      System.out.println("Persistencia.PersistenciaActualUsuario.consultarParametroCambiosMasivos()");
+      log.warn("Persistencia.PersistenciaActualUsuario.consultarParametroCambiosMasivos()");
 //         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
 //         Query query = em.createNativeQuery(q);
-//         System.out.println("q : " + q);
+//         log.error("q : " + q);
 //         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
 //         return parametro;
 //      } catch (Exception e) {
-//         System.out.println("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
       return null;
 //      }
    }

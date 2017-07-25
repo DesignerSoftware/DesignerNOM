@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,11 +18,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -32,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -44,6 +44,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadCesantiasRC implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadCesantiasRC.class);
 
    @EJB
    AdministrarNovedadCesantiasRC administrarNovedadesPagoCesantias;
@@ -216,8 +218,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
          getListaNovedades();
          cambiarEmpleado();
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -305,7 +307,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
          listaEmpleadosNovedad.clear();
       }
       listaaux = administrarNovedadesPagoCesantias.empleadoscesantiasnoliquidados();
-      System.out.println("lista aux :" + listaaux);
+      log.info("lista aux :" + listaaux);
       if (listaaux != null) {
          for (int i = 0; i < listaaux.size(); i++) {
             listaEmpleadosNovedad.add(listaaux.get(i));
@@ -348,7 +350,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
       int pasa = 0;
       mensajeValidacion = new String();
       if (nuevaNovedad.getFechainicialdisfrute() == null) {
-         System.out.println("Entro a Fecha Inicial Disfrute");
+         log.info("Entro a Fecha Inicial Disfrute");
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial Disfrute\n";
          pasa++;
       }
@@ -364,21 +366,21 @@ public class ControlNovedadCesantiasRC implements Serializable {
          paraNuevaNovedad++;
          nuevaNovedad.setSecuencia(BigInteger.valueOf(paraNuevaNovedad));
          nuevaNovedad.setEmpleado(empleadoSeleccionado); //Envia empleado
-         System.out.println("Empleado enviado: " + empleadoSeleccionado.getPersona().getNombreCompleto());
+         log.info("Empleado enviado: " + empleadoSeleccionado.getPersona().getNombreCompleto());
          //-------Datos Ingresados    
-         System.out.println("empleado : " + empleadoSeleccionado);
-         System.out.println("fecha cesantias" + nuevaNovedad.getFechacortecesantia());
-         System.out.println("valor cesantias " + nuevaNovedad.getValorcesantia());
-         System.out.println("valor intereses cesantias " + nuevaNovedad.getValorinterescesantia());
-         System.out.println("valor solicitado " + nuevaNovedad.getValorsolicitado());
-         System.out.println("observaciones " + nuevaNovedad.getObservaciones());
-         System.out.println("beneficiario " + nuevaNovedad.getBeneficiario());
+         log.info("empleado : " + empleadoSeleccionado);
+         log.info("fecha cesantias" + nuevaNovedad.getFechacortecesantia());
+         log.info("valor cesantias " + nuevaNovedad.getValorcesantia());
+         log.info("valor intereses cesantias " + nuevaNovedad.getValorinterescesantia());
+         log.info("valor solicitado " + nuevaNovedad.getValorsolicitado());
+         log.info("observaciones " + nuevaNovedad.getObservaciones());
+         log.info("beneficiario " + nuevaNovedad.getBeneficiario());
          listaNovedadesCrear.add(nuevaNovedad);
          listaNovedades.add(nuevaNovedad);
          nuevaNovedad.setObservaciones(nuevaNovedad.getObservaciones());
          nuevaNovedad.setBeneficiario(nuevaNovedad.getBeneficiario());
-         System.out.println("agregarNuevaNovedadPagoParcialCesantias.observacion : " + nuevaNovedad.getObservaciones());
-         System.out.println("agregarNuevaNovedadPagoParcialCesantias.Beneficiario : " + nuevaNovedad.getBeneficiario());
+         log.info("agregarNuevaNovedadPagoParcialCesantias.observacion : " + nuevaNovedad.getObservaciones());
+         log.info("agregarNuevaNovedadPagoParcialCesantias.Beneficiario : " + nuevaNovedad.getBeneficiario());
          novedadSeleccionada = nuevaNovedad;
          contarRegistroMotivosNovedades();
          if (guardado == true) {
@@ -425,16 +427,16 @@ public class ControlNovedadCesantiasRC implements Serializable {
    public void confirmarDuplicar() {
       int pasa = 0;
       if (duplicarNovedad.getFechainicialdisfrute() == null) {
-         System.out.println("Entro a Fecha Inicial");
+         log.info("Entro a Fecha Inicial");
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
          pasa++;
       }
       if (duplicarNovedad.getEmpleado() == null) {
-         System.out.println("Entro a Empleado");
+         log.info("Entro a Empleado");
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
          pasa++;
       }
-      System.out.println("Valor Pasa: " + pasa);
+      log.info("Valor Pasa: " + pasa);
       if (pasa != 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
@@ -623,8 +625,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
    }
 
    public void autocompletarVlrCesantias() {
-      System.out.println("Entró a autocompletarVlrCesantias");
-      System.out.println("controlador valor cesantias : " + retornarprovisioncesantias());
+      log.info("Entró a autocompletarVlrCesantias");
+      log.info("controlador valor cesantias : " + retornarprovisioncesantias());
       if (retornarprovisioncesantias().toBigInteger().equals(BigInteger.ZERO)) {
          RequestContext.getCurrentInstance().execute("PF('validacionvlrcesantias').show()");
          nuevaNovedad.setValorcesantia(BigInteger.ZERO);
@@ -636,8 +638,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
    }
 
    public void autocompletarVlrIntCesantias() {
-      System.out.println("Entró a autocompletarVlrIntCesantias");
-      System.out.println("VlrIntCesantias del controlador " + retornarprovision());
+      log.info("Entró a autocompletarVlrIntCesantias");
+      log.info("VlrIntCesantias del controlador " + retornarprovision());
       if (retornarprovision().toBigInteger().equals(BigInteger.ZERO)) {
          RequestContext.getCurrentInstance().execute("PF('validacionvlrintcesantias').show()");
          nuevaNovedad.setValorinterescesantia(BigInteger.ZERO);
@@ -649,7 +651,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
    }
 
    public void autocompletarVlrSolicitado() {
-      System.out.println("Entró a autocompletarVlrSolicitado");
+      log.info("Entró a autocompletarVlrSolicitado");
       if (retornarprovision() != null && retornarprovisioncesantias() != null) {
          nuevaNovedad.setValorsolicitado(sumarvalorsolicitado(nuevaNovedad.getValorcesantia(), nuevaNovedad.getValorinterescesantia()));
          RequestContext.getCurrentInstance().update("formularioDialogos:vlrsolicitado");
@@ -659,19 +661,19 @@ public class ControlNovedadCesantiasRC implements Serializable {
    }
 
    public void autocompletarduplicarVlrSolicitado() {
-      System.out.println("Entró a autocompletarduplicarVlrSolicitado");
+      log.info("Entró a autocompletarduplicarVlrSolicitado");
       duplicarNovedad.setValorsolicitado(sumarvalorsolicitado(duplicarNovedad.getValorcesantia(), duplicarNovedad.getValorinterescesantia()));
       RequestContext.getCurrentInstance().update("formularioDialogos:duplicarvlrsolicitado");
    }
 
    public void autocompletarduplicarVlrIntCesantias() {
-      System.out.println("Entró a autocompletarduplicaVlrIntCesantias");
+      log.info("Entró a autocompletarduplicaVlrIntCesantias");
       duplicarNovedad.setValorinterescesantia(retornarprovision().toBigInteger());
       RequestContext.getCurrentInstance().update("formularioDialogos:duplicarvlrintcesantias");
    }
 
    public void autocompletarduplicarVlrCesantias() {
-      System.out.println("Entró a autocompletarduplicaVlrCesantias");
+      log.info("Entró a autocompletarduplicaVlrCesantias");
       duplicarNovedad.setValorcesantia(retornarprovisioncesantias().toBigInteger());
       RequestContext.getCurrentInstance().update("formularioDialogos:duplicarvlrcesantias");
    }
@@ -770,7 +772,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
       } else {
          valorsolicitado = valorcesantia.add(valorintcesantia);
       }
-      System.out.println("El valor solicitado es : " + valorsolicitado);
+      log.info("El valor solicitado es : " + valorsolicitado);
       return valorsolicitado;
    }
 
@@ -808,11 +810,11 @@ public class ControlNovedadCesantiasRC implements Serializable {
       try {
          Empleados emp = new Empleados();
          if (guardado == false) {
-            System.out.println("Realizando Operaciones Novedades");
+            log.info("Realizando Operaciones Novedades");
 
             if (!listaNovedadesBorrar.isEmpty()) {
                for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
-                  System.out.println("Borrando..." + listaNovedadesBorrar.size());
+                  log.info("Borrando..." + listaNovedadesBorrar.size());
                   if (listaNovedadesBorrar.get(i).getObservaciones() == null) {
                      listaNovedadesBorrar.get(i).setObservaciones(" ");
                   }
@@ -821,29 +823,29 @@ public class ControlNovedadCesantiasRC implements Serializable {
                   }
                   administrarNovedadesSistema.borrarNovedades(listaNovedadesBorrar.get(i));
                }
-               System.out.println("Entra");
+               log.info("Entra");
                listaNovedadesBorrar.clear();
             }
 
             if (!listaNovedadesCrear.isEmpty()) {
                for (int i = 0; i < listaNovedadesCrear.size(); i++) {
-                  System.out.println("Creando...");
+                  log.info("Creando...");
                   if (listaNovedadesCrear.get(i).getObservaciones() == null) {
                      listaNovedadesCrear.get(i).setObservaciones(" ");
                   }
                   if (listaNovedadesCrear.get(i).getBeneficiario() == null) {
                      listaNovedadesCrear.get(i).setBeneficiario(null);
                   }
-                  System.out.println(listaNovedadesCrear.get(i).getTipo());
+                  log.info(listaNovedadesCrear.get(i).getTipo());
                   administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
                }
-               System.out.println("LimpiaLista");
+               log.info("LimpiaLista");
                listaNovedadesCrear.clear();
             }
 
             if (!listaNovedadesModificar.isEmpty()) {
                for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-                  System.out.println(" modificando");
+                  log.info(" modificando");
 //                        if (listaNovedadesModificar.get(i).getObservaciones() == null) {
 //                            listaNovedadesModificar.get(i).setObservaciones(" ");
 //                        }
@@ -854,7 +856,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
                }
                listaNovedadesModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaNovedades = null;
             getListaNovedades();
             contarRegistrosNovedades();
@@ -868,9 +870,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;
          }
-         System.out.println("Valor k: " + k);
+         log.info("Valor k: " + k);
       } catch (Exception e) {
-         System.out.println("Error guardando datos : " + e.getMessage());
+         log.warn("Error guardando datos : " + e.getMessage());
          RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
          FacesMessage msg = new FacesMessage("Información", "Error en el guardado, Intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1028,10 +1030,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
    public void entrarNuevoRegistro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("entrarNuevoRegistro.empleadoSeleccionado : " + empleadoSeleccionado.getSecuencia());
+      log.info("entrarNuevoRegistro.empleadoSeleccionado : " + empleadoSeleccionado.getSecuencia());
 
       if (empleadoSeleccionado != null) {
-         System.out.println("empleadoSeleccionado : " + empleadoSeleccionado.getSecuencia());
+         log.info("empleadoSeleccionado : " + empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
          RequestContext.getCurrentInstance().execute("PF('nuevanovedadpagoparcialcesantias').show()");
       } else {

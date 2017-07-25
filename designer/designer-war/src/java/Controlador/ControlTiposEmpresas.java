@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposEmpresas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposEmpresas.class);
 
    @EJB
    AdministrarTiposEmpresasInterface administrarTiposEmpresas;
@@ -95,8 +98,8 @@ public class ControlTiposEmpresas implements Serializable {
          administrarTiposEmpresas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -145,7 +148,7 @@ public class ControlTiposEmpresas implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposEmpresas eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposEmpresas eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
@@ -233,10 +236,10 @@ public class ControlTiposEmpresas implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -271,7 +274,7 @@ public class ControlTiposEmpresas implements Serializable {
 
    public void borrandoTiposEmpresas() {
       if (tiposEmpresasSeleccionado != null) {
-         System.out.println("Entro a borrandoTiposEmpresas");
+         log.info("Entro a borrandoTiposEmpresas");
          if (!modificarTiposEmpresas.isEmpty() && modificarTiposEmpresas.contains(tiposEmpresasSeleccionado)) {
             int modIndex = modificarTiposEmpresas.indexOf(tiposEmpresasSeleccionado);
             modificarTiposEmpresas.remove(modIndex);
@@ -330,7 +333,7 @@ public class ControlTiposEmpresas implements Serializable {
             administrarTiposEmpresas.crearTiposEmpresas(crearTiposEmpresas);
             crearTiposEmpresas.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposEmpresas = null;
          RequestContext.getCurrentInstance().update("form:datosTiposEmpresas");
          k = 0;
@@ -361,7 +364,7 @@ public class ControlTiposEmpresas implements Serializable {
    }
 
    public void agregarNuevoTiposEmpresas() {
-      System.out.println("agregarNuevoTiposEmpresas");
+      log.info("agregarNuevoTiposEmpresas");
       int contador = 0;
       int duplicados = 0;
       Integer a = 0;
@@ -392,7 +395,7 @@ public class ControlTiposEmpresas implements Serializable {
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposEmpresas:descripcion");
@@ -425,13 +428,13 @@ public class ControlTiposEmpresas implements Serializable {
    }
 
    public void limpiarNuevoTiposEmpresas() {
-      System.out.println("limpiarNuevoTiposEmpresas");
+      log.info("limpiarNuevoTiposEmpresas");
       nuevoTiposEmpresas = new TiposEmpresas();
    }
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposEmpresas() {
-      System.out.println("duplicandoTiposEmpresas");
+      log.info("duplicandoTiposEmpresas");
       if (tiposEmpresasSeleccionado != null) {
          duplicarTiposEmpresas = new TiposEmpresas();
          k++;
@@ -454,8 +457,8 @@ public class ControlTiposEmpresas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposEmpresas.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposEmpresas.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarTiposEmpresas.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTiposEmpresas.getDescripcion());
 
       if (duplicarTiposEmpresas.getCodigo() == a) {
          mensajeValidacion = "El campo código no puede estar vacío";
@@ -477,7 +480,7 @@ public class ControlTiposEmpresas implements Serializable {
       } else if (duplicarTiposEmpresas.getDescripcion().isEmpty()) {
          mensajeValidacion = "El campo descripción no puede estar vacío";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
@@ -563,7 +566,7 @@ public class ControlTiposEmpresas implements Serializable {
 //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<TiposEmpresas> getListTiposEmpresas() {
       if (listTiposEmpresas == null) {
-         System.out.println("ControlTiposEmpresas getListTiposEmpresas");
+         log.info("ControlTiposEmpresas getListTiposEmpresas");
          listTiposEmpresas = administrarTiposEmpresas.consultarTiposEmpresas();
       }
       return listTiposEmpresas;

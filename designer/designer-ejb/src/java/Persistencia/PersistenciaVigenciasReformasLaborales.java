@@ -12,11 +12,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Clase Stateless.<br>
@@ -27,6 +25,8 @@ import org.apache.log4j.PropertyConfigurator;
  */
 @Stateless
 public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigenciasReformasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasReformasLaborales.class);
 
 //    private final static Logger logger = Logger.getLogger("connectionSout");
     private Date fechaDia;
@@ -99,7 +99,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             cq.select(cq.from(VigenciasReformasLaborales.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciasRefLab()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciasRefLab()" + e.getMessage());
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             List<VigenciasReformasLaborales> vigenciasRefLab = query.getResultList();
             return vigenciasRefLab;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciasReformasLaboralesEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciasReformasLaboralesEmpleado()" + e.getMessage());
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             VigenciasReformasLaborales vigenciaRefLab = (VigenciasReformasLaborales) query.getSingleResult();
             return vigenciaRefLab;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciaReformaLaboralSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciaReformaLaboralSecuencia()" + e.getMessage());
             return null;
         }
     }

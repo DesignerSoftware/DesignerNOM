@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlHvReferencias1 implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlHvReferencias1.class);
 
    @EJB
    AdministrarHvReferencias1Interface administrarHvReferencias1;
@@ -164,8 +167,8 @@ public class ControlHvReferencias1 implements Serializable {
          administrarHvReferencias1.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -181,7 +184,7 @@ public class ControlHvReferencias1 implements Serializable {
    }
 
    public void mostrarNuevo() {
-      System.err.println("nuevo Tipo Entrevista " + nuevoHvReferencia1.getTipo());
+      log.error("nuevo Tipo Entrevista " + nuevoHvReferencia1.getTipo());
    }
 
    public void cambiarIndice(HvReferencias hvReferencia, int celda) {
@@ -206,7 +209,7 @@ public class ControlHvReferencias1 implements Serializable {
 
    public void asignarIndex(HvReferencias hvReferencia, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlHvReferencias.asignarIndex \n");
+         log.info("\n ENTRE A ControlHvReferencias.asignarIndex \n");
          RequestContext context = RequestContext.getCurrentInstance();
 
          hvReferencia1Seleccionada = hvReferencia;
@@ -218,7 +221,7 @@ public class ControlHvReferencias1 implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlHvReferencias.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlHvReferencias.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -330,11 +333,11 @@ public class ControlHvReferencias1 implements Serializable {
          parentesco = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:parentesco");
          parentesco.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosHvReferencia");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          nombre = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:nombre");
          nombre.setFilterStyle("display: none; visibility: hidden;");
          cargo = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:cargo");
@@ -436,7 +439,7 @@ public class ControlHvReferencias1 implements Serializable {
    public void borrandoHvReferencias() {
 
       if (hvReferencia1Seleccionada != null) {
-         System.out.println("Entro a borrandoHvReferencias");
+         log.info("Entro a borrandoHvReferencias");
          if (!modificarHvReferencias1.isEmpty() && modificarHvReferencias1.contains(hvReferencia1Seleccionada)) {
             modificarHvReferencias1.remove(modificarHvReferencias1.indexOf(hvReferencia1Seleccionada));
             borrarHvReferencias1.add(hvReferencia1Seleccionada);
@@ -483,10 +486,10 @@ public class ControlHvReferencias1 implements Serializable {
 
    public void guardarHvReferencia() {
       if (guardado == false) {
-         System.out.println("Realizando guardarHvReferencia");
+         log.info("Realizando guardarHvReferencia");
          if (!borrarHvReferencias1.isEmpty()) {
             for (int i = 0; i < borrarHvReferencias1.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                if (borrarHvReferencias1.get(i).getParentesco().getSecuencia() == null) {
                   borrarHvReferencias1.get(i).setParentesco(null);
                }
@@ -505,7 +508,7 @@ public class ControlHvReferencias1 implements Serializable {
                   crearHvReferencias1.get(i).setParentesco(null);
                }
             }
-            System.out.println("Creando...");
+            log.info("Creando...");
             administrarHvReferencias1.crearHvReferencias(crearHvReferencias1);
             crearHvReferencias1.clear();
          }
@@ -518,7 +521,7 @@ public class ControlHvReferencias1 implements Serializable {
             administrarHvReferencias1.modificarHvReferencias(modificarHvReferencias1);
             modificarHvReferencias1.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listHvReferencias1 = null;
          getListHvReferencias1();
          contarRegistros();
@@ -545,7 +548,7 @@ public class ControlHvReferencias1 implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editNombre");
             RequestContext.getCurrentInstance().execute("PF('editNombre').show()");
@@ -585,7 +588,7 @@ public class ControlHvReferencias1 implements Serializable {
             nuevoParentesco = duplicarHvReferencia1.getParentesco().getTipo();
          }
       }
-      System.err.println("NUEVO PARENTESCO " + nuevoParentesco);
+      log.error("NUEVO PARENTESCO " + nuevoParentesco);
    }
 
    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -667,12 +670,12 @@ public class ControlHvReferencias1 implements Serializable {
             }
          } else if (tipoNuevo == 2) {
             duplicarHvReferencia1.setParentesco(new TiposFamiliares());
-            System.out.println("NUEVO PARENTESCO " + nuevoParentesco);
+            log.info("NUEVO PARENTESCO " + nuevoParentesco);
             if (tipoLista == 0) {
                if (hvReferencia1Seleccionada != null) {
                   hvReferencia1Seleccionada.getParentesco().setTipo(nuevoParentesco);
-                  System.err.println("tipo lista" + tipoLista);
-                  System.err.println("Secuencia Parentesco " + hvReferencia1Seleccionada.getParentesco().getSecuencia());
+                  log.error("tipo lista" + tipoLista);
+                  log.error("Secuencia Parentesco " + hvReferencia1Seleccionada.getParentesco().getSecuencia());
                }
             } else if (tipoLista == 1) {
                hvReferencia1Seleccionada.getParentesco().setTipo(nuevoParentesco);
@@ -698,7 +701,7 @@ public class ControlHvReferencias1 implements Serializable {
    }
 
    public void agregarNuevoHvRefencias() {
-      System.out.println("agregarNuevoHvRefencias");
+      log.info("agregarNuevoHvRefencias");
       int contador = 0;
       nuevoHvReferencia1.setHojadevida(new HVHojasDeVida());
       Short a = 0;
@@ -708,30 +711,30 @@ public class ControlHvReferencias1 implements Serializable {
 
       if (nuevoHvReferencia1.getNombrepersona() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
       listHvHojasDeVida = administrarHvReferencias1.consultarHvHojasDeVida(empleado.getPersona().getSecuencia());
       if (listHvHojasDeVida == null) {
-         System.err.println("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona().getSecuencia());
+         log.error("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona().getSecuencia());
       } else {
-         System.err.println("tamaño listHojasDeVida " + listHvHojasDeVida.size());
+         log.error("tamaño listHojasDeVida " + listHvHojasDeVida.size());
          hvHojasDeVida = listHvHojasDeVida.get(0);
-         System.err.println("Agregar nuevo HvHojasDeVida " + hvHojasDeVida.getSecuencia());
+         log.error("Agregar nuevo HvHojasDeVida " + hvHojasDeVida.getSecuencia());
          nuevoHvReferencia1.setHojadevida(hvHojasDeVida);
       }
       nuevoHvReferencia1.setTipo("FAMILIARES");
-      System.err.println("agregar tipo entrevista " + nuevoHvReferencia1.getTipo());
-      System.out.println("contador " + contador);
+      log.error("agregar tipo entrevista " + nuevoHvReferencia1.getTipo());
+      log.info("contador " + contador);
 
       if (contador == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:nombre");
             nombre.setFilterStyle("display: none; visibility: hidden;");
             cargo = (Column) c.getViewRoot().findComponent("form:datosHvReferencia:cargo");
@@ -748,17 +751,17 @@ public class ControlHvReferencias1 implements Serializable {
             filtrarHvReferencias1 = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
          nuevoHvReferencia1.setSecuencia(l);
-         System.err.println("---------------AGREGAR REGISTRO----------------");
-         System.err.println("nombre " + nuevoHvReferencia1.getNombrepersona());
-         System.err.println("cargo " + nuevoHvReferencia1.getCargo());
-         System.err.println("numero de telefono " + nuevoHvReferencia1.getTelefono());
-         System.err.println("numero de celular" + nuevoHvReferencia1.getCelular());
-         System.err.println("-----------------------------------------------");
+         log.error("---------------AGREGAR REGISTRO----------------");
+         log.error("nombre " + nuevoHvReferencia1.getNombrepersona());
+         log.error("cargo " + nuevoHvReferencia1.getCargo());
+         log.error("numero de telefono " + nuevoHvReferencia1.getTelefono());
+         log.error("numero de celular" + nuevoHvReferencia1.getCelular());
+         log.error("-----------------------------------------------");
 
          crearHvReferencias1.add(nuevoHvReferencia1);
          listHvReferencias1.add(nuevoHvReferencia1);
@@ -784,13 +787,13 @@ public class ControlHvReferencias1 implements Serializable {
    }
 
    public void limpiarNuevoHvReferencias() {
-      System.out.println("limpiarNuevoHvEntrevistas");
+      log.info("limpiarNuevoHvEntrevistas");
       nuevoHvReferencia1 = new HvReferencias();
    }
 
    //------------------------------------------------------------------------------
    public void duplicandoHvEntrevistas() {
-      System.out.println("duplicandoHvEntrevistas");
+      log.info("duplicandoHvEntrevistas");
       if (hvReferencia1Seleccionada != null) {
          duplicarHvReferencia1 = new HvReferencias();
          k++;
@@ -829,30 +832,30 @@ public class ControlHvReferencias1 implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR HVENTREVISTAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR HVENTREVISTAS");
       int contador = 0;
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
       if (duplicarHvReferencia1.getNombrepersona() == null) {
          mensajeValidacion = mensajeValidacion + "   *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarHvReferencia1.getTelefono() == null) {
          mensajeValidacion = mensajeValidacion + "*Telefono \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (contador == 2) {
 
          if (crearHvReferencias1.contains(duplicarHvReferencia1)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          } else {
             crearHvReferencias1.add(duplicarHvReferencia1);
          }
@@ -860,13 +863,13 @@ public class ControlHvReferencias1 implements Serializable {
          hvReferencia1Seleccionada = duplicarHvReferencia1;
          RequestContext.getCurrentInstance().update("form:datosHvReferencia");
 
-         System.err.println("---------------DUPLICAR REGISTRO----------------");
-         System.err.println("nombre  " + duplicarHvReferencia1.getNombrepersona());
-         System.err.println("cargo  " + duplicarHvReferencia1.getCargo());
-         System.err.println("numero de telefono  " + duplicarHvReferencia1.getTelefono());
-         System.err.println("numero de celular  " + duplicarHvReferencia1.getCelular());
-         System.err.println("numero de Parentesco  " + duplicarHvReferencia1.getParentesco().getTipo());
-         System.err.println("-----------------------------------------------");
+         log.error("---------------DUPLICAR REGISTRO----------------");
+         log.error("nombre  " + duplicarHvReferencia1.getNombrepersona());
+         log.error("cargo  " + duplicarHvReferencia1.getCargo());
+         log.error("numero de telefono  " + duplicarHvReferencia1.getTelefono());
+         log.error("numero de celular  " + duplicarHvReferencia1.getCelular());
+         log.error("numero de Parentesco  " + duplicarHvReferencia1.getParentesco().getTipo());
+         log.error("-----------------------------------------------");
          if (guardado == true) {
             guardado = false;
          }
@@ -929,11 +932,11 @@ public class ControlHvReferencias1 implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (hvReferencia1Seleccionada != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(hvReferencia1Seleccionada.getSecuencia(), "HVREFERENCIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -963,7 +966,7 @@ public class ControlHvReferencias1 implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlHvReferencias.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlHvReferencias.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -971,7 +974,7 @@ public class ControlHvReferencias1 implements Serializable {
          modificarInfoRegistro(filtrarHvReferencias1.size());
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlHvReferencias eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlHvReferencias eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

@@ -3,17 +3,15 @@
  */
 package Persistencia;
 
-import Entidades.Empleados;
-import Entidades.Papeles;
 import Entidades.VigenciasCargos;
 import InterfacePersistencia.PersistenciaVigenciasCargosInterface;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
@@ -30,6 +28,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Local
 @Stateless
 public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasCargos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -48,7 +48,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          em.merge(vigenciasCargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +67,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaVigenciasCargos.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCargos.editar: " + e.getMessage());
       }
    }
 
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
                tx.rollback();
             }
          } catch (Exception ex) {
-            System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCargos.borrar: " + e.getMessage());
          }
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          VigenciasCargos vigCargo = (VigenciasCargos) query.getSingleResult();
          return vigCargo;
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + "buscarVigenciaCargoXEmpleado catch() ERROR : " + e.getMessage());
+         log.error(this.getClass().getName() + "buscarVigenciaCargoXEmpleado catch() ERROR : " + e.getMessage());
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          List<VigenciasCargos> vigenciasCargos = (List<VigenciasCargos>) query2.getResultList();
          return vigenciasCargos;
       } catch (Exception e) {
-          System.out.println("error en buscarVigenciasCargosEmpleado : " + e.getMessage());
+          log.error("error en buscarVigenciasCargosEmpleado : " + e.getMessage());
          List<VigenciasCargos> vigenciasCargos = null;
          return vigenciasCargos;
       }
@@ -157,7 +157,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          query.setParameter(2, fechaCambio);
          query.execute();
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

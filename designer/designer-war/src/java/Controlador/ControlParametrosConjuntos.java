@@ -36,6 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -51,6 +52,8 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @SessionScoped
 public class ControlParametrosConjuntos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlParametrosConjuntos.class);
 
     @EJB
     AdministrarParametrosConjuntosInterface administrarParametrosConjuntos;
@@ -306,8 +309,8 @@ public class ControlParametrosConjuntos implements Serializable {
             cargarParametros();
             rellenarMapConjuntos();
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -452,43 +455,43 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+        log.info(this.getClass().getName() + ".reiniciarStreamedContent()");
         reporte = null;
     }
 
     public void cancelarReporte() {
-        System.out.println(".cancelarReporte()");
+        log.info(".cancelarReporte()");
         administarReportes.cancelarReporte();
     }
 
     public AsynchronousFilllListener listener() {
-        System.out.println(".listener()");
+        log.info(".listener()");
         return new AsynchronousFilllListener() {
             //RequestContext context = c;
 
             @Override
             public void reportFinished(JasperPrint jp) {
-                System.out.println(".listener().reportFinished()");
+                log.info(".listener().reportFinished()");
                 try {
                     estadoReporte = true;
                     resultadoReporte = "Exito";
                     //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
 //                    generarArchivoReporte(jp);
                 } catch (Exception e) {
-                    System.out.println(" reportFinished ERROR: " + e.toString());
+                    log.info(" reportFinished ERROR: " + e.toString());
                 }
             }
 
             @Override
             public void reportCancelled() {
-                System.out.println(".listener().reportCancelled()");
+                log.info(".listener().reportCancelled()");
                 estadoReporte = true;
                 resultadoReporte = "Cancelación";
             }
 
             @Override
             public void reportFillError(Throwable e) {
-                System.out.println(".listener().reportFillError()");
+                log.info(".listener().reportFillError()");
                 if (e.getCause() != null) {
                     pathReporteGenerado = " reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
                 } else {
@@ -502,19 +505,19 @@ public class ControlParametrosConjuntos implements Serializable {
 
     public void validarDescargaReporteResumido() {
         try {
-            System.out.println(this.getClass().getName() + ".validarDescargaReporteResumido()");
+            log.info(this.getClass().getName() + ".validarDescargaReporteResumido()");
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
             nombreReporte = "Estadis_nom_dimension";
             tipoReporte = "PDF";
-            System.out.println("nombre reporte : " + nombreReporte);
-            System.out.println("tipo reporte: " + tipoReporte);
+            log.info("nombre reporte : " + nombreReporte);
+            log.info("tipo reporte: " + tipoReporte);
             String tabla = parametrosActuales.getDimension();
             String tablaLB = parametrosActuales.getDimension() + "LB";
 
             Map paramGlobal = new HashMap();
-            System.out.println("TABLA: " + tabla);
-            System.out.println("TABLALB: " + tablaLB);
-            System.out.println("CONJUNTO: " + parametroConjunto);
+            log.info("TABLA: " + tabla);
+            log.info("TABLALB: " + tablaLB);
+            log.info("CONJUNTO: " + parametroConjunto);
             paramGlobal.put("TABLA", tabla);
             paramGlobal.put("TABLALB", tablaLB);
             paramGlobal.put("CONJUNTO", parametroConjunto);
@@ -522,34 +525,34 @@ public class ControlParametrosConjuntos implements Serializable {
             pathReporteGenerado = administarReportes.generarReporteResumido(nombreReporte, tipoReporte, paramGlobal);
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                System.out.println("validar descarga reporte - ingreso al if 1");
+                log.info("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
 
-                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    log.info("validar descarga reporte - ingreso al if 2 else");
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
-                        System.out.println("reporte despues de esto : " + reporte);
+                        log.info("reporte despues de esto : " + reporte);
                         cabezeraVisor = "Reporte - " + nombreReporte;
                         RequestContext.getCurrentInstance().update("form:verReportePDF");
                         RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                         pathReporteGenerado = null;
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        log.info("validar descarga reporte - ingreso al catch 1");
+                        log.info(ex);
                         reporte = null;
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                log.info("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().update("form:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en validar descargar Reporte");
+            log.warn("Error en validar descargar Reporte");
             RequestContext.getCurrentInstance().execute("PF('errorRutaEsp').show()");
         }
     }
@@ -557,69 +560,69 @@ public class ControlParametrosConjuntos implements Serializable {
     public void validarDescargaReporteGlobal() {
         try {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println(this.getClass().getName() + ".validarDescargaReporteGlobal()");
+            log.info(this.getClass().getName() + ".validarDescargaReporteGlobal()");
             nombreReporte = "Estadis_nom_global";
             tipoReporte = "PDF";
-            System.out.println("nombre reporte : " + nombreReporte);
-            System.out.println("tipo reporte: " + tipoReporte);
+            log.info("nombre reporte : " + nombreReporte);
+            log.info("tipo reporte: " + tipoReporte);
             String TABLA = parametrosActuales.getDimension();
             String TABLALB = parametrosActuales.getDimension() + "LB";
 
             Map paramGlobal = new HashMap();
-            System.out.println("TABLA: " + TABLA);
-            System.out.println("TABLALB: " + TABLALB);
+            log.info("TABLA: " + TABLA);
+            log.info("TABLALB: " + TABLALB);
             paramGlobal.put("TABLA", TABLA);
             paramGlobal.put("TABLALB", TABLALB);
 
             pathReporteGenerado = administarReportes.generarReporteGlobal(nombreReporte, tipoReporte, paramGlobal);
             context.execute("PF('generandoReporte').hide()");
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                System.out.println("validar descarga reporte - ingreso al if 1");
+                log.info("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    log.info("validar descarga reporte - ingreso al if 2 else");
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
-                        System.out.println("reporte despues de esto : " + reporte);
+                        log.info("reporte despues de esto : " + reporte);
                         cabezeraVisor = "Reporte - " + nombreReporte;
                         context.update("form:verReportePDF");
                         context.execute("PF('verReportePDF').show()");
                         pathReporteGenerado = null;
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        log.info("validar descarga reporte - ingreso al catch 1");
+                        log.info(ex);
                         reporte = null;
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                log.info("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().update("form:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en validar descargar Reporte");
+            log.warn("Error en validar descargar Reporte");
             RequestContext.getCurrentInstance().execute("PF('errorRutaEsp').show()");
         }
     }
 
     public void validarDescargaReporteDetalle() {
         try {
-            System.out.println(this.getClass().getName() + ".validarDescargaReporteResumido()");
+            log.info(this.getClass().getName() + ".validarDescargaReporteResumido()");
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
             nombreReporte = "Estadis_nom_dimension_detalle";
             tipoReporte = "PDF";
-            System.out.println("nombre reporte : " + nombreReporte);
-            System.out.println("tipo reporte: " + tipoReporte);
+            log.info("nombre reporte : " + nombreReporte);
+            log.info("tipo reporte: " + tipoReporte);
             String tabla = parametrosActuales.getDimension();
             String tablaLB = parametrosActuales.getDimension() + "LB";
 
             Map paramGlobal = new HashMap();
-            System.out.println("TABLA: " + tabla);
-            System.out.println("TABLALB: " + tablaLB);
-            System.out.println("CONJUNTO: " + parametroConjunto);
+            log.info("TABLA: " + tabla);
+            log.info("TABLALB: " + tablaLB);
+            log.info("CONJUNTO: " + parametroConjunto);
             paramGlobal.put("TABLA", tabla);
             paramGlobal.put("TABLALB", tablaLB);
             paramGlobal.put("CONJUNTO", parametroConjunto);
@@ -627,34 +630,34 @@ public class ControlParametrosConjuntos implements Serializable {
             pathReporteGenerado = administarReportes.generarReporteResumido(nombreReporte, tipoReporte, paramGlobal);
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-                System.out.println("validar descarga reporte - ingreso al if 1");
+                log.info("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
 
-                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    log.info("validar descarga reporte - ingreso al if 2 else");
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         reporte = new DefaultStreamedContent(fis, "application/pdf");
-                        System.out.println("reporte despues de esto : " + reporte);
+                        log.info("reporte despues de esto : " + reporte);
                         cabezeraVisor = "Reporte - " + nombreReporte;
                         RequestContext.getCurrentInstance().update("form:verReportePDF");
                         RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                         pathReporteGenerado = null;
                     } catch (FileNotFoundException ex) {
-                        System.out.println("validar descarga reporte - ingreso al catch 1");
-                        System.out.println(ex);
+                        log.info("validar descarga reporte - ingreso al catch 1");
+                        log.info(ex);
                         reporte = null;
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                log.info("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().update("form:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en validar descargar Reporte");
+            log.warn("Error en validar descargar Reporte");
             RequestContext.getCurrentInstance().execute("PF('errorRutaEsp').show()");
         }
     }
@@ -707,12 +710,12 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void cargarEstadisticas() {
-        System.out.println("ControlParametrosConjuntos.cargarEstadisticas()");
+        log.info("ControlParametrosConjuntos.cargarEstadisticas()");
         listaEstadisticas = administrarParametrosConjuntos.consultarDSolucionesNodosN(parametrosActuales.getDimension(), parametrosActuales.getFechaHasta());
         if (listaEstadisticas != null) {
-            System.out.println("listaEstadisticas.size()" + listaEstadisticas.size());
+            log.info("listaEstadisticas.size()" + listaEstadisticas.size());
         } else {
-            System.out.println("listaEstadisticas == null");
+            log.info("listaEstadisticas == null");
         }
         if (listaEstadisticas != null) {
             totales = new VWDSolucionesNodosN();
@@ -822,12 +825,12 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void cargarEstadisticasLB() {
-        System.out.println("ControlParametrosConjuntos.cargarEstadisticasLB()");
+        log.info("ControlParametrosConjuntos.cargarEstadisticasLB()");
         listaEstadisticasLB = administrarParametrosConjuntos.consultarDSolucionesNodosNLB(parametrosActuales.getDimension(), parametrosActuales.getFechaHasta());
         if (listaEstadisticasLB != null) {
-            System.out.println("listaEstadisticasLB.size()" + listaEstadisticasLB.size());
+            log.info("listaEstadisticasLB.size()" + listaEstadisticasLB.size());
         } else {
-            System.out.println("listaEstadisticasLB == null");
+            log.info("listaEstadisticasLB == null");
         }
         totalesLB = new VWDSolucionesNodosN();
         diferencia = new VWDSolucionesNodosN();
@@ -1680,9 +1683,9 @@ public class ControlParametrosConjuntos implements Serializable {
         estadisticaLBSeleccionada = null;
 //        RequestContext.getCurrentInstance().execute("PF('tablaEstadisticasLB').unselectAllRows()");
 //        RequestContext.getCurrentInstance().update("form:tablaEstadisticasLB");
-        System.out.println("Termino cambiarSeleccionDefault() :");
-        System.out.println("estadisticaSeleccionada : " + estadisticaSeleccionada);
-        System.out.println("estadisticaLBSeleccionada : " + estadisticaLBSeleccionada);
+        log.info("Termino cambiarSeleccionDefault() :");
+        log.info("estadisticaSeleccionada : " + estadisticaSeleccionada);
+        log.info("estadisticaLBSeleccionada : " + estadisticaLBSeleccionada);
     }
 
     public void cambiarSeleccionLBDefault() {
@@ -1690,9 +1693,9 @@ public class ControlParametrosConjuntos implements Serializable {
         estadisticaSeleccionada = null;
 //        RequestContext.getCurrentInstance().execute("PF('tablaEstadisticas').unselectAllRows()");
 //        RequestContext.getCurrentInstance().update("form:tablaEstadisticas");
-        System.out.println("Termino cambiarSeleccionLBDefault() :");
-        System.out.println("estadisticaSeleccionada : " + estadisticaSeleccionada);
-        System.out.println("estadisticaLBSeleccionada : " + estadisticaLBSeleccionada);
+        log.info("Termino cambiarSeleccionLBDefault() :");
+        log.info("estadisticaSeleccionada : " + estadisticaSeleccionada);
+        log.info("estadisticaLBSeleccionada : " + estadisticaLBSeleccionada);
     }
 
     public void posicionEstadisticas() {
@@ -1703,7 +1706,7 @@ public class ControlParametrosConjuntos implements Serializable {
 //        int indice = Integer.parseInt(type);
 //        String name = map.get("n"); // name attribute of node 
         cualCelda = Integer.parseInt(map.get("n"));
-        System.out.println("Termino posicionEstadisticas() cualCelda : " + cualCelda);
+        log.info("Termino posicionEstadisticas() cualCelda : " + cualCelda);
     }
 
     public void estadisticasDetalle() {
@@ -1717,11 +1720,11 @@ public class ControlParametrosConjuntos implements Serializable {
         if (estadisticaSeleccionada != null) {
             listaDetalles = administrarParametrosConjuntos.consultarDetalleN(parametrosActuales.getDimension(), cualCelda, estadisticaSeleccionada.getSecuenciaFiltro().toBigInteger());
             descripcionDetalle = estadisticaSeleccionada.getDimension();
-            System.out.println("Termino estadisticasDetalle() listaDetalles : " + listaDetalles);
+            log.info("Termino estadisticasDetalle() listaDetalles : " + listaDetalles);
         } else {
-            System.out.println("ERROR : estadisticasDetalle() estadisticaSeleccionada es NULL");
+            log.warn("Error : estadisticasDetalle() estadisticaSeleccionada es NULL");
         }
-        System.out.println("Termino estadisticasDetalle() cualCelda : " + cualCelda);
+        log.info("Termino estadisticasDetalle() cualCelda : " + cualCelda);
         if (listaDetalles != null) {
             for (int i = 0; i < listaDetalles.size(); i++) {
                 if (cualCelda > 0 && cualCelda < 46) {
@@ -1818,7 +1821,7 @@ public class ControlParametrosConjuntos implements Serializable {
                     }
                 }
             }
-            System.out.println("Ya Asigno las Unidades de Detalles");
+            log.info("Ya Asigno las Unidades de Detalles");
         }
         actualizarCosasDetalles();
     }
@@ -1827,18 +1830,18 @@ public class ControlParametrosConjuntos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         calcularTotalesDet();
         context.reset("form:lOVDetalles:globalFilter");
-        System.out.println("1");
+        log.info("1");
         RequestContext.getCurrentInstance().update("form:detallesDialogo");
-        System.out.println("2");
+        log.info("2");
         RequestContext.getCurrentInstance().update("form:lOVDetalles");
-        System.out.println("3");
+        log.info("3");
         contarRegistrosDetalles();
         RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
-        System.out.println("4");
+        log.info("4");
         RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
-        System.out.println("5");
+        log.info("5");
         RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
-        System.out.println("6");
+        log.info("6");
     }
 
     public void estadisticasDetalleLB() {
@@ -1851,11 +1854,11 @@ public class ControlParametrosConjuntos implements Serializable {
         if (estadisticaLBSeleccionada != null) {
             listaDetalles = administrarParametrosConjuntos.consultarDetalleNLB(parametrosActuales.getDimension(), cualCelda, estadisticaLBSeleccionada.getSecuenciaFiltro().toBigInteger());
             descripcionDetalle = estadisticaLBSeleccionada.getDimension();
-            System.out.println("Termino estadisticasDetalleLB() listaDetalles : " + listaDetalles);
+            log.info("Termino estadisticasDetalleLB() listaDetalles : " + listaDetalles);
         } else {
-            System.out.println("ERROR : estadisticasDetalleLB() estadisticaSeleccionada es NULL");
+            log.warn("Error : estadisticasDetalleLB() estadisticaSeleccionada es NULL");
         }
-        System.out.println("Termino estadisticasDetalleLB() cualCelda : " + cualCelda);
+        log.info("Termino estadisticasDetalleLB() cualCelda : " + cualCelda);
         if (listaDetalles != null) {
             for (int i = 0; i < listaDetalles.size(); i++) {
                 if (cualCelda > 0 && cualCelda < 46) {
@@ -1952,22 +1955,22 @@ public class ControlParametrosConjuntos implements Serializable {
                     }
                 }
             }
-            System.out.println("Ya Asigno las Unidades de Detalles");
+            log.info("Ya Asigno las Unidades de Detalles");
         }
 //      calcularTotalesDet();
 //      context.reset("form:lOVDetalles:globalFilter");
-//      System.out.println("1");
+//      log.info("1");
 //      RequestContext.getCurrentInstance().update("form:detallesDialogo");
-//      System.out.println("2");
+//      log.info("2");
 //      RequestContext.getCurrentInstance().update("form:lOVDetalles");
-//      System.out.println("3");
+//      log.info("3");
 //      contarRegistrosDetalles();
 //      RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
-//      System.out.println("4");
+//      log.info("4");
 //      RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
-//      System.out.println("5");
+//      log.info("5");
 //      RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
-//      System.out.println("6");
+//      log.info("6");
         actualizarCosasDetalles();
 
     }
@@ -1982,7 +1985,7 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void calcularTotalesDet() {
-        System.out.println("Entro en calcularTotalesDet()");
+        log.info("Entro en calcularTotalesDet()");
         valorTotalDetalles = new BigInteger("0");
         if (!listaDetalles.isEmpty()) {
             for (int i = 0; i < listaDetalles.size(); i++) {
@@ -1995,7 +1998,7 @@ public class ControlParametrosConjuntos implements Serializable {
                 totalUnidadesDetalles = listaDetalles.get(i).getUnidadesActivo().add(totalUnidadesDetalles);
             }
         }
-        System.out.println("Termino calcularTotalesDet()");
+        log.info("Termino calcularTotalesDet()");
     }
 
     public void activarFiltros() {
@@ -2479,7 +2482,7 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void contarRegistrosDetalles() {
-        System.out.println("Entro en contarRegistrosDetalles()");
+        log.info("Entro en contarRegistrosDetalles()");
         RequestContext.getCurrentInstance().update("form:infoRegistroDetalles");
     }
 
@@ -2488,9 +2491,9 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void cargarConceptosEspecificos(Short nConjunto) {
-        System.out.println("Entro en cargarConceptosEspecificos() con parametro Short : " + nConjunto);
+        log.info("Entro en cargarConceptosEspecificos() con parametro Short : " + nConjunto);
         cargarListaConceptos();
-        System.out.println("listaConceptos.size() : " + lovConceptos.size());
+        log.info("listaConceptos.size() : " + lovConceptos.size());
         lovConceptosEspecificos.clear();
         for (int i = 0; i < lovConceptos.size(); i++) {
             if (lovConceptos.get(i).getConjunto() != null) {
@@ -2499,7 +2502,7 @@ public class ControlParametrosConjuntos implements Serializable {
                 }
             }
         }
-        System.out.println("listaConceptosEspecificos.size() : " + lovConceptosEspecificos.size());
+        log.info("listaConceptosEspecificos.size() : " + lovConceptosEspecificos.size());
         RequestContext context = RequestContext.getCurrentInstance();
         conceptoSeleccionado = null;
         context.reset("form:LOVConceptos:globalFilter");
@@ -2509,9 +2512,9 @@ public class ControlParametrosConjuntos implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows()");
         RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
-        System.out.println("Va a contar Registros");
+        log.info("Va a contar Registros");
         contarRegistrosConceptos();
-        System.out.println("Ya hizo todo cargarConceptosEspecificos()");
+        log.info("Ya hizo todo cargarConceptosEspecificos()");
     }
 
     public void cargarListaConceptos() {
@@ -2522,8 +2525,8 @@ public class ControlParametrosConjuntos implements Serializable {
 
     public void modificarConjuntoConcepto(Conceptos concepto) {
         conceptoSeleccionado = concepto;
-        System.out.println("modificarConjuntoConcepto() conceptoSeleccionado.getDescripcion() : " + conceptoSeleccionado.getDescripcion());
-        System.out.println("modificarConjuntoConcepto() conceptoSeleccionado.getConjunto() : " + conceptoSeleccionado.getConjunto());
+        log.info("modificarConjuntoConcepto() conceptoSeleccionado.getDescripcion() : " + conceptoSeleccionado.getDescripcion());
+        log.info("modificarConjuntoConcepto() conceptoSeleccionado.getConjunto() : " + conceptoSeleccionado.getConjunto());
         administrarParametrosConjuntos.modificarConcepto(conceptoSeleccionado);
         lovConceptos.clear();
         cargarListaConceptos();
@@ -2745,7 +2748,7 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void seleccionPorcentajes() {
-//        System.out.println("seleccionPorcentajes() : " + seleccionPorcentajes);
+//        log.info("seleccionPorcentajes() : " + seleccionPorcentajes);
         seleccionPorcentajes = true;
         if (!listaEstadisticas.isEmpty() && !listaEstadisticasLB.isEmpty()) {
             VWDSolucionesNodosN obj = new VWDSolucionesNodosN();
@@ -2807,7 +2810,7 @@ public class ControlParametrosConjuntos implements Serializable {
 
     // Exportar
     public String nombreArchivoXML() {
-        System.out.println("porcentajesExportar : " + porcentajesExportar);
+        log.info("porcentajesExportar : " + porcentajesExportar);
         if (seleccionPorcentajes) {
             nombreXML = "PorcentajesXML";
         } else if (estadisticaLBSeleccionada != null) {
@@ -2830,7 +2833,7 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void exportPDF() throws IOException {
-        System.out.println("porcentajesExportar : " + porcentajesExportar);
+        log.info("porcentajesExportar : " + porcentajesExportar);
         if (seleccionPorcentajes) {
             FacesContext c = FacesContext.getCurrentInstance();
             DataTable tabla = (DataTable) c.getViewRoot().findComponent("formExportarPor:tablaPorcentajesExportar");
@@ -2858,7 +2861,7 @@ public class ControlParametrosConjuntos implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        System.out.println("porcentajesExportar : " + porcentajesExportar);
+        log.info("porcentajesExportar : " + porcentajesExportar);
         if (seleccionPorcentajes) {
             FacesContext c = FacesContext.getCurrentInstance();
             DataTable tabla = (DataTable) c.getViewRoot().findComponent("formExportarPor:tablaPorcentajesExportar");

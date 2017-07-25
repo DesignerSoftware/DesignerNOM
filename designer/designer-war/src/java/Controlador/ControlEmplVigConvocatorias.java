@@ -31,6 +31,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -43,6 +44,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlEmplVigConvocatorias")
 @SessionScoped
 public class ControlEmplVigConvocatorias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplVigConvocatorias.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -172,8 +175,8 @@ public class ControlEmplVigConvocatorias implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarResultadosConv.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -336,7 +339,7 @@ public class ControlEmplVigConvocatorias implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosConvocatorias");
          RequestContext.getCurrentInstance().update("form:datosResultados");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

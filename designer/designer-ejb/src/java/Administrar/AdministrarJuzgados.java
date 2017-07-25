@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarJuzgados.class);
 
     /**
      * CREACION EJB
@@ -54,7 +57,7 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
         try {
             return listaCiudades = persistenciaCiudades.consultarCiudades(em);
         } catch (Exception e) {
-            System.out.println("ADMINISTRARJUZGADOS BUSCARCIUDADES /n" + e.getMessage());
+            log.warn("ADMINISTRARJUZGADOS BUSCARCIUDADES /n" + e.getMessage());
             return listaCiudades = null;
         }
     }
@@ -63,11 +66,11 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
     public void modificarJuzgados(List<Juzgados> listaJuzgados) {
         try {
             for (int i = 0; i < listaJuzgados.size(); i++) {
-                System.out.println("Administrar Modificando");
+                log.warn("Administrar Modificando");
                 persistenciaJuzgados.editar(em, listaJuzgados.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarCentrosCostos: Falló al editar el CentroCosto /n" + e.getMessage());
+            log.warn("AdministrarCentrosCostos: Falló al editar el CentroCosto /n" + e.getMessage());
         }
     }
 
@@ -75,11 +78,11 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
     public void borrarJuzgados(List<Juzgados> listaJuzgados) {
         try {
             for (int i = 0; i < listaJuzgados.size(); i++) {
-                System.out.println("Administrar Borrando");
+                log.warn("Administrar Borrando");
                 persistenciaJuzgados.borrar(em, listaJuzgados.get(i));
             }
         } catch (Exception e) {
-            System.out.println("ERROR ADNUBUSTRARJUZGADOS BORRARJUZGADOS" + e.getMessage());
+            log.warn("ERROR ADNUBUSTRARJUZGADOS BORRARJUZGADOS" + e.getMessage());
         }
     }
 
@@ -87,11 +90,11 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
     public void crearJuzgados(List<Juzgados> listaJuzgados) {
         try {
             for (int i = 0; i < listaJuzgados.size(); i++) {
-                System.out.println("Administrar Creando");
+                log.warn("Administrar Creando");
                 persistenciaJuzgados.crear(em, listaJuzgados.get(i));
             }
         } catch (Exception e) {
-            System.out.println("ERROR ADMINISTRARJUZGADOS CREAR JUZGADO " + e.getMessage());
+            log.warn("ERROR ADMINISTRARJUZGADOS CREAR JUZGADO " + e.getMessage());
         }
     }
 
@@ -100,7 +103,7 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
         try {
             return listaJuzgados = persistenciaJuzgados.buscarJuzgadosPorCiudad(em, secCiudad);
         } catch (Exception e) {
-            System.out.println("Error en ADMINISTRARJUZGADOS BUSCARJUZGADOPORCIUDAD");
+            log.warn("Error en ADMINISTRARJUZGADOS BUSCARJUZGADOPORCIUDAD");
             listaJuzgados = null;
 
             return listaJuzgados;
@@ -113,7 +116,7 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
         try {
             return listaJuzgados = persistenciaJuzgados.buscarJuzgados(em);
         } catch (Exception e) {
-            System.out.println("Error en ADMINISTRARJUZGADOS BUSCARJUZGADOSPORCIUDADGENERAL " + e);
+            log.warn("Error en ADMINISTRARJUZGADOS BUSCARJUZGADOSPORCIUDADGENERAL " + e);
             listaJuzgados = null;
 
             return listaJuzgados;
@@ -124,10 +127,10 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
     public BigInteger verificarEerPrestamos(BigInteger secuenciaJuzgados) {
         BigInteger verificarBorradoEerPrestamos = null;
         try {
-            System.out.println("Administrar SecuenciaBorrar " + secuenciaJuzgados);
+            log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
             verificarBorradoEerPrestamos = persistenciaJuzgados.contadorEerPrestamos(em, secuenciaJuzgados);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARJUZGADOS VERIFICAREXTRASRECARGOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARJUZGADOS VERIFICAREXTRASRECARGOS ERROR :" + e);
         } finally {
             return verificarBorradoEerPrestamos;
         }

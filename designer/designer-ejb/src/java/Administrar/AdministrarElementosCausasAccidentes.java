@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarElementosCausasAccidentes implements AdministrarElementosCausasAccidentesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarElementosCausasAccidentes.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -55,7 +58,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
     public void modificarElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
         ElementosCausasAccidentes elementosCausasAccidentesSeleccionada;
         for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             elementosCausasAccidentesSeleccionada = listaElementosCausasAccidentes.get(i);
             persistenciaElementosCausasAccidentes.editar(em,elementosCausasAccidentesSeleccionada);
         }
@@ -64,7 +67,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
     @Override
     public void borrarElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
         for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             persistenciaElementosCausasAccidentes.borrar(em,listaElementosCausasAccidentes.get(i));
         }
     }
@@ -72,7 +75,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
     @Override
     public void crearElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
         for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
-            System.out.println("Creando...");
+            log.warn("Creando...");
             persistenciaElementosCausasAccidentes.crear(em,listaElementosCausasAccidentes.get(i));
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
         try {
             contadorSoAccidentes = persistenciaElementosCausasAccidentes.contadorSoAccidentes(em,secTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentes ERROR :" + e);
+            log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentes ERROR :" + e);
         } finally {
             return contadorSoAccidentes;
         }
@@ -107,7 +110,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
         try {
             contadorSoAccidentesMedicos = persistenciaElementosCausasAccidentes.contadorSoAccidentesMedicos(em,secTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos ERROR :" + e);
+            log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos ERROR :" + e);
         } finally {
             return contadorSoAccidentesMedicos;
         }
@@ -119,7 +122,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
         try {
             contadorSoIndicadoresFr = persistenciaElementosCausasAccidentes.contadorSoIndicadoresFr(em,secTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr ERROR :" + e);
+            log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr ERROR :" + e);
         } finally {
             return contadorSoIndicadoresFr;
         }

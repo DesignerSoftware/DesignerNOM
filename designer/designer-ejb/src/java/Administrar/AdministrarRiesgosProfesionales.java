@@ -12,8 +12,8 @@ import InterfacePersistencia.PersistenciaRiesgosProfesionalesInterface;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarRiesgosProfesionales implements AdministrarRiesgosProfesionalesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarRiesgosProfesionales.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -40,7 +42,7 @@ public class AdministrarRiesgosProfesionales implements AdministrarRiesgosProfes
             List<RiesgosProfesionales> listaRiesgos = persistenciaRiesgos.riesgosProfesionales(em);
             return listaRiesgos;
         } catch (Exception e) {
-            System.out.println("error en AdministrarRiesgosProfesionales.listRiesgoProfesional " + e.getMessage());
+            log.warn("error en AdministrarRiesgosProfesionales.listRiesgoProfesional " + e.getMessage());
             return null;
         }
     }
@@ -53,7 +55,7 @@ public class AdministrarRiesgosProfesionales implements AdministrarRiesgosProfes
             }
 
         } catch (Exception e) {
-            System.out.println("error en crearRiesgoProfesional administrar :" + e.getMessage());
+            log.warn("error en crearRiesgoProfesional administrar :" + e.getMessage());
         }
 
     }
@@ -65,7 +67,7 @@ public class AdministrarRiesgosProfesionales implements AdministrarRiesgosProfes
                 persistenciaRiesgos.editar(em, listaVD.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en editarRiesgoProfesional administrar :" + e.getMessage());
+            log.warn("error en editarRiesgoProfesional administrar :" + e.getMessage());
         }
     }
 
@@ -76,7 +78,7 @@ public class AdministrarRiesgosProfesionales implements AdministrarRiesgosProfes
                 persistenciaRiesgos.borrar(em, listaVD.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en borrarRiesgoProfesional administrar :" + e.getMessage());
+            log.warn("error en borrarRiesgoProfesional administrar :" + e.getMessage());
         }
     }
 

@@ -15,20 +15,20 @@ import Entidades.Terceros;
 import Entidades.TiposEntidades;
 import InterfaceAdministrar.AdministrarOdiCabeceraInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
-import InterfacePersistencia.PersistenciaNovedadesAutoLiquidacionInterface;
 import InterfacePersistencia.PersistenciaOdiCabeceraInterface;
-import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 @Local
 public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarOdiCabecera.class);
 
     @EJB
     PersistenciaOdiCabeceraInterface persistenciaOdicabecera;
@@ -48,7 +48,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
         try {
             persistenciaOdicabecera.borrar(em, odicabecera);
         } catch (Exception e) {
-            System.out.println("Error AdministrarOdiCabecera.borrar : " + e.toString());
+            log.warn("Error AdministrarOdiCabecera.borrar : " + e.toString());
         }
     }
 
@@ -57,7 +57,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
         try {
             persistenciaOdicabecera.crear(em, odicabecera);
         } catch (Exception e) {
-            System.out.println("Error AdministrarOdiCabecera.crear : " + e.toString());
+            log.warn("Error AdministrarOdiCabecera.crear : " + e.toString());
         }
     }
 
@@ -66,7 +66,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
         try {
             persistenciaOdicabecera.editar(em, odicabecera);
         } catch (Exception e) {
-            System.out.println("Error AdministrarOdiCabecera.editar : " + e.toString());
+            log.warn("Error AdministrarOdiCabecera.editar : " + e.toString());
         }
     }
 
@@ -110,7 +110,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
         try {
             persistenciaOdicabecera.borrarDetalle(em,odidetalle);
         } catch (Exception e) {
-            System.out.println("Error AdministrarOdiCabecera.borrarDetalle : " + e.toString());
+            log.warn("Error AdministrarOdiCabecera.borrarDetalle : " + e.toString());
         }
     }
 
@@ -119,7 +119,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
         try {
             persistenciaOdicabecera.crearDetalle(em, odidetalle);
         } catch (Exception e) {
-            System.out.println("Error AdministrarOdiCabecera.crearDetalle : " + e.toString());
+            log.warn("Error AdministrarOdiCabecera.crearDetalle : " + e.toString());
         }
     }
 
@@ -128,7 +128,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
         try {
             persistenciaOdicabecera.editarDetalle(em, odidetalle);
         } catch (Exception e) {
-            System.out.println("Error AdministrarOdiCabecera.editarDetalle : " + e.toString());
+            log.warn("Error AdministrarOdiCabecera.editarDetalle : " + e.toString());
         }
     }
 

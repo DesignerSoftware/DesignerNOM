@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposEmbargos.class);
 
     @Override
     public void crear(EntityManager em, TiposEmbargos tiposEmbargos) {
@@ -25,7 +27,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmbargos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmbargos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmbargos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmbargos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmbargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmbargos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.clear();
             return em.find(TiposEmbargos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEmbargos.buscarTipoEmbargo()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmbargos.buscarTipoEmbargo()" + e.getMessage());
             return null;
         }
     }
@@ -84,7 +86,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             List<TiposEmbargos> listaMotivosPrestamos = query.getResultList();
             return listaMotivosPrestamos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEmbargos.buscarTiposEmbargos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmbargos.buscarTiposEmbargos()" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEmbargos.contadorEerPrestamos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmbargos.contadorEerPrestamos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -117,7 +119,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEmbargos.contadorFormasDtos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmbargos.contadorFormasDtos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

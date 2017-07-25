@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesAfiliacionesSaludInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesAfiliacionesSalud implements PersistenciaVWActualesAfiliacionesSaludInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesAfiliacionesSalud.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -34,7 +36,7 @@ public class PersistenciaVWActualesAfiliacionesSalud implements PersistenciaVWAc
             VWActualesAfiliacionesSalud vwActualesAfiliacionesSalud = (VWActualesAfiliacionesSalud) query.getSingleResult();
             return vwActualesAfiliacionesSalud;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesAfiliacionesSalud.buscarAfiliacionSalud()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesAfiliacionesSalud.buscarAfiliacionSalud()" + e.getMessage());
             return null;
         }        
     }

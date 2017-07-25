@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplMvr implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplMvr.class);
 
    @EJB
    AdministrarEmplMvrsInterface administrarEmplMvrs;
@@ -236,8 +239,8 @@ public class ControlEmplMvr implements Serializable {
          administrarEmplMvrs.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -510,8 +513,8 @@ public class ControlEmplMvr implements Serializable {
 
    public void modificarEstado() {
       otroCertificadoSeleccionado.setEstado(hMapEstados.get(otroCertificadoSeleccionado.getSecuencia().intValue()));
-      System.out.println("otroCertificadoSeleccionado.getEstado(): " + otroCertificadoSeleccionado.getEstado());
-      System.out.println("hMapEstados.get(otro.getSecuencia().intValue()): " + hMapEstados.get(otroCertificadoSeleccionado.getSecuencia().intValue()));
+      log.info("otroCertificadoSeleccionado.getEstado(): " + otroCertificadoSeleccionado.getEstado());
+      log.info("hMapEstados.get(otro.getSecuencia().intValue()): " + hMapEstados.get(otroCertificadoSeleccionado.getSecuencia().intValue()));
 
       RequestContext.getCurrentInstance().update("form:datosOCEmpleado");
    }
@@ -737,7 +740,7 @@ public class ControlEmplMvr implements Serializable {
    }
 
    public void deseleccionarRow() {
-      System.out.println("entro en deseleccionarRow()");
+      log.info("entro en deseleccionarRow()");
       mvrSeleccionado = null;
       otroCertificadoSeleccionado = null;
       mvrSeleccionado = null;
@@ -1471,13 +1474,13 @@ public class ControlEmplMvr implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       mvrSeleccionado = mvr;
       tipoActualizacion = tipoAct;
-      System.out.println("entro en asignarIndex column : " + column + " , tipoAct : " + tipoAct);
+      log.info("entro en asignarIndex column : " + column + " , tipoAct : " + tipoAct);
       if (column == 0) {
          activarLOV = false;
          context.update("form:listaValores");
          contarRegistrosMVR();
          context.update("form:MotivoDialogo");
-         System.out.println("Va a hacer el .show() de MotivoDialogo");
+         log.info("Va a hacer el .show() de MotivoDialogo");
          RequestContext.getCurrentInstance().execute("PF('MotivoDialogo').show()");
       }
    }
@@ -1498,7 +1501,7 @@ public class ControlEmplMvr implements Serializable {
 
    public void asignarIndex(int column, int tipoAct, int tipoTab) {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("entro en asignarIndex2");
+      log.info("entro en asignarIndex2");
       if (tipoTab == 0) {
          tipoActualizacion = tipoAct;
          if (column == 0) {
@@ -1510,7 +1513,7 @@ public class ControlEmplMvr implements Serializable {
          }
       }
       if (tipoTab == 1) {
-         System.out.println("entro tt: " + tipoTab);
+         log.info("entro tt: " + tipoTab);
          tipoActualizacion = tipoAct;
          if (column == 0) {
             activarLOV = false;
@@ -1978,7 +1981,7 @@ public class ControlEmplMvr implements Serializable {
          }
          return listMvrsEmpleado;
       } catch (Exception e) {
-         System.out.println("Error getListMvrsEmpleado : " + e.toString());
+         log.warn("Error getListMvrsEmpleado : " + e.toString());
          return null;
       }
    }
@@ -2011,7 +2014,7 @@ public class ControlEmplMvr implements Serializable {
          }
          return listOCertificados;
       } catch (Exception e) {
-         System.out.println("Error getListOtrosCertificadosEmpleado : " + e.toString());
+         log.warn("Error getListOtrosCertificadosEmpleado : " + e.toString());
          return null;
       }
    }

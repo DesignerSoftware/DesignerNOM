@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesUbicacionesInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -17,7 +17,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaVWActualesUbicaciones implements PersistenciaVWActualesUbicacionesInterface{
+public class PersistenciaVWActualesUbicaciones implements PersistenciaVWActualesUbicacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesUbicaciones.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -33,7 +35,7 @@ public class PersistenciaVWActualesUbicaciones implements PersistenciaVWActuales
             VWActualesUbicaciones vWActualesUbicaciones = (VWActualesUbicaciones) query.getSingleResult();
             return vWActualesUbicaciones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesUbicaciones.buscarUbicacion()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesUbicaciones.buscarUbicacion()" + e.getMessage());
             return null;
         }
     }

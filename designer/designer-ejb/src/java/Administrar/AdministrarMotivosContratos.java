@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosContratos implements AdministrarMotivosContratosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosContratos.class);
 
     @EJB
     PersistenciaMotivosContratosInterface persistenciaMotivosContratos;
@@ -40,7 +43,7 @@ public class AdministrarMotivosContratos implements AdministrarMotivosContratosI
     @Override
     public void modificarMotivosContratos(List<MotivosContratos> listaMotivosContratos) {
         for (int i = 0; i < listaMotivosContratos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosContratos.editar(em, listaMotivosContratos.get(i));
         }
     }
@@ -48,7 +51,7 @@ public class AdministrarMotivosContratos implements AdministrarMotivosContratosI
     @Override
     public void borrarMotivosContratos(List<MotivosContratos> listaMotivosContratos) {
         for (int i = 0; i < listaMotivosContratos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosContratos.borrar(em, listaMotivosContratos.get(i));
         }
     }
@@ -56,7 +59,7 @@ public class AdministrarMotivosContratos implements AdministrarMotivosContratosI
     @Override
     public void crearMotivosContratos(List<MotivosContratos> listaMotivosContratos) {
         for (int i = 0; i < listaMotivosContratos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosContratos.crear(em, listaMotivosContratos.get(i));
         }
     }
@@ -82,7 +85,7 @@ public class AdministrarMotivosContratos implements AdministrarMotivosContratosI
         try {
             return verificadorVTC = persistenciaMotivosContratos.verificarBorradoVigenciasTiposContratos(em, secuenciaMovitoCambioCargo);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMotivosContratos contarVigenciasTiposContratosMotivoContrato ERROR :" + e);
+            log.error("ERROR AdministrarMotivosContratos contarVigenciasTiposContratosMotivoContrato ERROR :" + e);
             return null;
         }
     }

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposIndices implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposIndices.class);
 
    @EJB
    AdministrarTiposIndicesInterface administrarTiposIndices;
@@ -81,7 +84,7 @@ public class ControlTiposIndices implements Serializable {
       duplicarTiposIndices = new TiposIndices();
       guardado = true;
       tamano = 270;
-      System.out.println("controlTiposIndices Constructor");
+      log.info("controlTiposIndices Constructor");
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -92,14 +95,14 @@ public class ControlTiposIndices implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposIndices PostConstruct ");
+         log.info("ControlTiposIndices PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposIndices.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -143,7 +146,7 @@ public class ControlTiposIndices implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlTiposIndices.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlTiposIndices.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -151,12 +154,12 @@ public class ControlTiposIndices implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarTiposIndices.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposIndices eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposIndices eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -164,44 +167,44 @@ public class ControlTiposIndices implements Serializable {
          if (tipoLista == 0) {
             if (cualCelda == 0) {
                backUpCodigo = listTiposIndices.get(index).getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
             } else if (cualCelda == 1) {
                backUpDescripcion = listTiposIndices.get(index).getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
             }
             secRegistro = listTiposIndices.get(index).getSecuencia();
          } else {
             if (cualCelda == 0) {
                backUpCodigo = filtrarTiposIndices.get(index).getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
 
             } else if (cualCelda == 1) {
                backUpDescripcion = filtrarTiposIndices.get(index).getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
 
             }
             secRegistro = filtrarTiposIndices.get(index).getSecuencia();
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposIndices.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposIndices.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposIndices.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposIndices.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -288,10 +291,10 @@ public class ControlTiposIndices implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposIndices:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposIndices");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposIndices:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -305,7 +308,7 @@ public class ControlTiposIndices implements Serializable {
    }
 
    public void modificarTiposIndices(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0;
@@ -313,9 +316,9 @@ public class ControlTiposIndices implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposIndices.contains(listTiposIndices.get(indice))) {
                if (listTiposIndices.get(indice).getCodigo() == a) {
@@ -521,7 +524,7 @@ public class ControlTiposIndices implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoTiposIndices");
+            log.info("Entro a borrandoTiposIndices");
             if (!modificarTiposIndices.isEmpty() && modificarTiposIndices.contains(listTiposIndices.get(index))) {
                int modIndex = modificarTiposIndices.indexOf(listTiposIndices.get(index));
                modificarTiposIndices.remove(modIndex);
@@ -535,7 +538,7 @@ public class ControlTiposIndices implements Serializable {
             listTiposIndices.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoTiposIndices ");
+            log.info("borrandoTiposIndices ");
             if (!modificarTiposIndices.isEmpty() && modificarTiposIndices.contains(filtrarTiposIndices.get(index))) {
                int modIndex = modificarTiposIndices.indexOf(filtrarTiposIndices.get(index));
                modificarTiposIndices.remove(modIndex);
@@ -568,21 +571,21 @@ public class ControlTiposIndices implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarIndicesTipoIndice;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposIndices ");
+         log.error("Control Secuencia de ControlTiposIndices ");
          if (tipoLista == 0) {
             contarIndicesTipoIndice = administrarTiposIndices.contarIndicesTipoIndice(listTiposIndices.get(index).getSecuencia());
          } else {
             contarIndicesTipoIndice = administrarTiposIndices.contarIndicesTipoIndice(filtrarTiposIndices.get(index).getSecuencia());
          }
          if (contarIndicesTipoIndice.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposIndices();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -592,7 +595,7 @@ public class ControlTiposIndices implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposIndices verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposIndices verificarBorrado ERROR " + e);
       }
    }
 
@@ -610,7 +613,7 @@ public class ControlTiposIndices implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposIndices");
+         log.info("Realizando guardarTiposIndices");
          if (!borrarTiposIndices.isEmpty()) {
             administrarTiposIndices.borrarTiposIndices(borrarTiposIndices);
             //mostrarBorrados
@@ -627,7 +630,7 @@ public class ControlTiposIndices implements Serializable {
             administrarTiposIndices.crearTiposIndices(crearTiposIndices);
             crearTiposIndices.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposIndices = null;
          RequestContext.getCurrentInstance().update("form:datosTiposIndices");
          k = 0;
@@ -651,7 +654,7 @@ public class ControlTiposIndices implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -668,7 +671,7 @@ public class ControlTiposIndices implements Serializable {
    }
 
    public void agregarNuevoTiposIndices() {
-      System.out.println("agregarNuevoTiposIndices");
+      log.info("agregarNuevoTiposIndices");
       int contador = 0;
       int duplicados = 0;
 
@@ -678,46 +681,46 @@ public class ControlTiposIndices implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoTiposIndices.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTiposIndices.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoTiposIndices.getCodigo());
 
          for (int x = 0; x < listTiposIndices.size(); x++) {
             if (listTiposIndices.get(x).getCodigo() == nuevoTiposIndices.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoTiposIndices.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoTiposIndices.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposIndices:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposIndices:descripcion");
@@ -727,7 +730,7 @@ public class ControlTiposIndices implements Serializable {
             filtrarTiposIndices = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -758,7 +761,7 @@ public class ControlTiposIndices implements Serializable {
    }
 
    public void limpiarNuevoTiposIndices() {
-      System.out.println("limpiarNuevoTiposIndices");
+      log.info("limpiarNuevoTiposIndices");
       nuevoTiposIndices = new TiposIndices();
       secRegistro = null;
       index = -1;
@@ -767,7 +770,7 @@ public class ControlTiposIndices implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposIndices() {
-      System.out.println("duplicandoTiposIndices");
+      log.info("duplicandoTiposIndices");
       if (index >= 0) {
          duplicarTiposIndices = new TiposIndices();
          k++;
@@ -793,19 +796,19 @@ public class ControlTiposIndices implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposIndices.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposIndices.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarTiposIndices.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTiposIndices.getDescripcion());
 
       if (duplicarTiposIndices.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposIndices.size(); x++) {
             if (listTiposIndices.get(x).getCodigo() == duplicarTiposIndices.getCodigo()) {
@@ -814,32 +817,32 @@ public class ControlTiposIndices implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTiposIndices.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarTiposIndices.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Nombre \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTiposIndices.getSecuencia() + "  " + duplicarTiposIndices.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTiposIndices.getSecuencia() + "  " + duplicarTiposIndices.getCodigo());
          if (crearTiposIndices.contains(duplicarTiposIndices)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposIndices.add(duplicarTiposIndices);
          crearTiposIndices.add(duplicarTiposIndices);
@@ -901,12 +904,12 @@ public class ControlTiposIndices implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listTiposIndices.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSINDICES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -932,7 +935,7 @@ public class ControlTiposIndices implements Serializable {
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<TiposIndices> getListTiposIndices() {
       if (listTiposIndices == null) {
-         System.out.println("ControlTiposIndices getListTiposIndices");
+         log.info("ControlTiposIndices getListTiposIndices");
          listTiposIndices = administrarTiposIndices.consultarTiposIndices();
       }
       RequestContext context = RequestContext.getCurrentInstance();

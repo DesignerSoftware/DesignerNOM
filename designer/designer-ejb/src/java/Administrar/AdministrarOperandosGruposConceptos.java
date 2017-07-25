@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarOperandosGruposConceptos implements AdministrarOperandosGruposConceptosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarOperandosGruposConceptos.class);
 
     @EJB
     PersistenciaOperandosGruposConceptosInterface persistenciaOperandosGruposConceptos;
@@ -75,7 +78,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
             List<Procesos> actual = persistenciaProcesos.buscarProcesos(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasRetenciones: " + e.toString());
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
             return null;
         }
     }
@@ -85,7 +88,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
             List<Operandos> actual = persistenciaOperandos.buscarOperandos(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasRetenciones: " + e.toString());
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
             List<GruposConceptos> actual = persistenciaGruposConceptos.buscarGruposConceptos(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasRetenciones: " + e.toString());
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
             return null;
         }
     }
@@ -115,7 +118,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
     @Override
     public void modificarOperandosGrupos(List<OperandosGruposConceptos> listaOperandosGruposConceptosModificar) {
         for (int i = 0; i < listaOperandosGruposConceptosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
 
             persistenciaOperandosGruposConceptos.editar(em, listaOperandosGruposConceptosModificar.get(i));
         }
@@ -127,7 +130,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
             List<OperandosGruposConceptos> actual = persistenciaOperandosGruposConceptos.buscarOperandosGruposConceptosPorProcesoSecuencia(em, secProceso);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error conceptoActual Admi : " + e.toString());
+            log.warn("Error conceptoActual Admi : " + e.toString());
             return null;
         }
     }

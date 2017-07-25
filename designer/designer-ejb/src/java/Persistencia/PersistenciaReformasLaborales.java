@@ -12,7 +12,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -26,6 +25,8 @@ import org.apache.log4j.PropertyConfigurator;
  */
 @Stateless
 public class PersistenciaReformasLaborales implements PersistenciaReformasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaReformasLaborales.class);
 
     private final static Logger logger = Logger.getLogger("connectionSout");
     private Date fechaDia;
@@ -96,7 +97,7 @@ public class PersistenciaReformasLaborales implements PersistenciaReformasLabora
             List<ReformasLaborales> reformaLista = (List<ReformasLaborales>) query.getResultList();
             return reformaLista;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaReformasLaborales.buscarReformasLaborales()" + e.getMessage());
+            log.error("Persistencia.PersistenciaReformasLaborales.buscarReformasLaborales()" + e.getMessage());
             return null;
         }
     }

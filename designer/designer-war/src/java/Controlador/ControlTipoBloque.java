@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTipoBloque implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoBloque.class);
 
    @EJB
    AdministrarTiposBloquesInterface administrarTiposBloques;
@@ -132,8 +136,8 @@ public class ControlTipoBloque implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarTiposBloques.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -219,7 +223,7 @@ public class ControlTipoBloque implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editarFechasFinales').show()");
             cualCelda = -1;
          } else if (cualCelda == 3) {
-//            System.out.println("ControlTipoBloque.editarCelda() editarTiposBloques.bloqueplsql : " + editarTiposBloques.getBloqueplsql());
+//            log.info("ControlTipoBloque.editarCelda() editarTiposBloques.bloqueplsql : " + editarTiposBloques.getBloqueplsql());
             RequestContext.getCurrentInstance().update("formularioDialogos:editarSQL");
             RequestContext.getCurrentInstance().execute("PF('editarSQL').show()");
             cualCelda = -1;
@@ -289,8 +293,8 @@ public class ControlTipoBloque implements Serializable {
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
       altoTabla = "280";
-      System.out.println("Desactivar");
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("Desactivar");
+      log.info("TipoLista= " + tipoLista);
       tiposBloquesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesIniciales");
       tiposBloquesIniciales.setFilterStyle("display: none; visibility: hidden;");
       tiposBloquesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposBloques:tiposBloquesFinales");
@@ -367,7 +371,7 @@ public class ControlTipoBloque implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoBloqueSeleccionado != null) {
          int result = administrarRastros.obtenerTabla(tipoBloqueSeleccionado.getSecuencia(), "TIPOSCONSTANTES");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -394,7 +398,7 @@ public class ControlTipoBloque implements Serializable {
 
    public void guardarCambiosTiposBloques() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Novedades");
+         log.info("Realizando Operaciones Novedades");
          if (!listaTiposBloquesModificar.isEmpty()) {
             for (int i = 0; i < listaTiposBloquesModificar.size(); i++) {
                administrarTiposBloques.modificarTiposBloques(listaTiposBloquesModificar.get(i));
@@ -403,18 +407,18 @@ public class ControlTipoBloque implements Serializable {
          }
          if (!listaTiposBloquesBorrar.isEmpty()) {
             for (int i = 0; i < listaTiposBloquesBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaTiposBloquesBorrar.size());
+               log.info("Borrando..." + listaTiposBloquesBorrar.size());
                administrarTiposBloques.borrarTiposBloques(listaTiposBloquesBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaTiposBloquesBorrar.clear();
          }
          if (!listaTiposBloquesCrear.isEmpty()) {
             for (int i = 0; i < listaTiposBloquesCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                administrarTiposBloques.crearTiposBloques(listaTiposBloquesCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaTiposBloquesCrear.clear();
          }
          listaTiposBloques = null;
@@ -561,7 +565,7 @@ public class ControlTipoBloque implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoTipoBloque.setSecuencia(l);
-            System.out.println("Operando: " + operando);
+            log.info("Operando: " + operando);
             nuevoTipoBloque.setOperando(operando);
 
             cambiosPagina = false;
@@ -663,7 +667,7 @@ public class ControlTipoBloque implements Serializable {
          listaTiposBloques = administrarTiposBloques.buscarTiposBloques(operando.getSecuencia());
          if (listaTiposBloques != null) {
             if (listaTiposBloques.get(0) != null) {
-               System.out.println("ControlTipoBloque().getListaTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
+               log.info("ControlTipoBloque().getListaTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
             }
          }
       }

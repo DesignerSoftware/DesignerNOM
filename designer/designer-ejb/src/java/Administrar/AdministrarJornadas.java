@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarJornadas implements AdministrarJornadasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarJornadas.class);
 
     @EJB
     PersistenciaJornadasInterface persistenciaJornadas;
@@ -41,21 +44,21 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
     
     public void modificarJornadas(List<Jornadas> listaJornadas) {
         for (int i = 0; i < listaJornadas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaJornadas.editar(em, listaJornadas.get(i));
         }
     }
 
     public void borrarJornadas(List<Jornadas> listaJornadas) {
         for (int i = 0; i < listaJornadas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaJornadas.borrar(em, listaJornadas.get(i));
         }
     }
 
     public void crearJornadas(List<Jornadas> listaJornadas) {
         for (int i = 0; i < listaJornadas.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaJornadas.crear(em, listaJornadas.get(i));
         }
     }
@@ -79,7 +82,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
         try {
             return contarJornadasLaboralesJornada = persistenciaJornadas.contarJornadasLaboralesJornada(em, secJornadas);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarJornadas contarJornadasLaboralesJornada ERROR : " + e);
+            log.error("ERROR AdministrarJornadas contarJornadasLaboralesJornada ERROR : " + e);
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
         try {
             return contarTarifasEscalafonesJornada = persistenciaJornadas.contarTarifasEscalafonesJornada(em, secJornadas);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarJornadas contarTarifasEscalafonesJornada ERROR : " + e);
+            log.error("ERROR AdministrarJornadas contarTarifasEscalafonesJornada ERROR : " + e);
             return null;
         }
     }

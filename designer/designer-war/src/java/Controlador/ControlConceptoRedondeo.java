@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -33,6 +34,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlConceptoRedondeo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlConceptoRedondeo.class);
 
    @EJB
    AdministrarConceptosRedondeosInterface administrarConceptosRedondeos;
@@ -179,8 +182,8 @@ public class ControlConceptoRedondeo implements Serializable {
          administrarConceptosRedondeos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -204,7 +207,7 @@ public class ControlConceptoRedondeo implements Serializable {
       conceptoRedondeoSeleccionado = conceptoRed;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      System.out.println("Entro a Modificar ConceptosRedondeos");
+      log.info("Entro a Modificar ConceptosRedondeos");
 
       if (confirmarCambio.equalsIgnoreCase("N")) {
          if (!listaConceptosRedondeosCrear.contains(conceptoRedondeoSeleccionado)) {
@@ -285,7 +288,7 @@ public class ControlConceptoRedondeo implements Serializable {
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("form:datosConceptosRedondeos");
       } else if (tipoActualizacion == 1) {
-         System.out.println("Entro al Nuevo, como esperaba");
+         log.info("Entro al Nuevo, como esperaba");
          nuevoConceptoRedondeo.setConcepto(conceptoLovSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoConcepto");
       } else if (tipoActualizacion == 2) {
@@ -376,7 +379,7 @@ public class ControlConceptoRedondeo implements Serializable {
    }
 
    public void actualizarConceptosRedondeos() {
-      System.out.println("conceptosRedondeosSeleccionado : " + conceptoRedondeoLovSeleccionado.getConcepto().getDescripcion());
+      log.info("conceptosRedondeosSeleccionado : " + conceptoRedondeoLovSeleccionado.getConcepto().getDescripcion());
 
       if (!listaConceptosRedondeos.isEmpty()) {
          listaConceptosRedondeos.clear();
@@ -666,7 +669,7 @@ public class ControlConceptoRedondeo implements Serializable {
          duplicarConceptoRedondeo.setSecuencia(l);
          duplicarConceptoRedondeo.setConcepto(conceptoRedondeoSeleccionado.getConcepto());
          duplicarConceptoRedondeo.setTiporedondeo(conceptoRedondeoSeleccionado.getTiporedondeo());
-         System.out.println("Concepto Duplicar : " + conceptoRedondeoSeleccionado.getConcepto());
+         log.info("Concepto Duplicar : " + conceptoRedondeoSeleccionado.getConcepto());
 
          RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroConceptosRedondeos");
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroConceptosRedondeos').show()");
@@ -843,11 +846,11 @@ public class ControlConceptoRedondeo implements Serializable {
    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
    public void verificarRastro() {
-      System.out.println("lol");
+      log.info("lol");
       if (conceptoRedondeoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(conceptoRedondeoSeleccionado.getSecuencia(), "CONCEPTOSREDONDEOS");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -877,23 +880,23 @@ public class ControlConceptoRedondeo implements Serializable {
    //GUARDAR
    public void guardarCambiosConceptosRedondeos() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones ConceptosRedondeos");
+         log.info("Realizando Operaciones ConceptosRedondeos");
 
          if (!listaConceptosRedondeosBorrar.isEmpty()) {
             for (int i = 0; i < listaConceptosRedondeosBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaConceptosRedondeosBorrar.size());
+               log.info("Borrando..." + listaConceptosRedondeosBorrar.size());
                administrarConceptosRedondeos.borrarConceptosRedondeos(listaConceptosRedondeosBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaConceptosRedondeosBorrar.clear();
          }
 
          if (!listaConceptosRedondeosCrear.isEmpty()) {
             for (int i = 0; i < listaConceptosRedondeosCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                administrarConceptosRedondeos.crearConceptosRedondeos(listaConceptosRedondeosCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaConceptosRedondeosCrear.clear();
          }
          if (!listaConceptosRedondeosModificar.isEmpty()) {
@@ -901,7 +904,7 @@ public class ControlConceptoRedondeo implements Serializable {
             listaConceptosRedondeosModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaConceptosRedondeos = null;
 
          cambiosPagina = true;

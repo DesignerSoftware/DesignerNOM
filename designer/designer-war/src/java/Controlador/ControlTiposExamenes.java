@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposExamenes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposExamenes.class);
 
    @EJB
    AdministrarTiposExamenesInterface administrarTiposExamenes;
@@ -99,8 +102,8 @@ public class ControlTiposExamenes implements Serializable {
          administrarTiposExamenes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -144,7 +147,7 @@ public class ControlTiposExamenes implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlTiposExamenes.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlTiposExamenes.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -152,12 +155,12 @@ public class ControlTiposExamenes implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarTiposExamenes.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposExamenes eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposExamenes eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -178,24 +181,24 @@ public class ControlTiposExamenes implements Serializable {
             }
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposExamenes.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposExamenes.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposExamenes.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposExamenes.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -307,10 +310,10 @@ public class ControlTiposExamenes implements Serializable {
          diasRecurrencia = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:diasRecurrencia");
          diasRecurrencia.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTipoExamen");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -330,16 +333,16 @@ public class ControlTiposExamenes implements Serializable {
    }
 
    public void modificarTipoExamen(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR TIPO EXAMEN");
+      log.error("ENTRE A MODIFICAR TIPO EXAMEN");
       index = indice;
 
       int contador = 0, pass = 0;
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EXAMEN, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EXAMEN, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposExamenes.contains(listTiposExamenes.get(indice))) {
                if (listTiposExamenes.get(indice).getCodigo() == a) {
@@ -544,7 +547,7 @@ public class ControlTiposExamenes implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoTiposExamenes");
+            log.info("Entro a borrandoTiposExamenes");
             if (!modificarTiposExamenes.isEmpty() && modificarTiposExamenes.contains(listTiposExamenes.get(index))) {
                int modIndex = modificarTiposExamenes.indexOf(listTiposExamenes.get(index));
                modificarTiposExamenes.remove(modIndex);
@@ -558,7 +561,7 @@ public class ControlTiposExamenes implements Serializable {
             listTiposExamenes.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoTiposExamenes");
+            log.info("borrandoTiposExamenes");
             if (!modificarTiposExamenes.isEmpty() && modificarTiposExamenes.contains(filtrarTiposExamenes.get(index))) {
                int modIndex = modificarTiposExamenes.indexOf(filtrarTiposExamenes.get(index));
                modificarTiposExamenes.remove(modIndex);
@@ -594,9 +597,9 @@ public class ControlTiposExamenes implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       try {
-         System.err.println("Control Secuencia de ControlTiposExamenes ");
+         log.error("Control Secuencia de ControlTiposExamenes ");
          if (tipoLista == 0) {
             tiposExamenesCargos = administrarTiposExamenes.contarTiposExamenesCargosTipoExamen(listTiposExamenes.get(index).getSecuencia());
             vigenciasExamenesMedicos = administrarTiposExamenes.contarVigenciasExamenesMedicosTipoExamen(listTiposExamenes.get(index).getSecuencia());
@@ -605,10 +608,10 @@ public class ControlTiposExamenes implements Serializable {
             vigenciasExamenesMedicos = administrarTiposExamenes.contarVigenciasExamenesMedicosTipoExamen(filtrarTiposExamenes.get(index).getSecuencia());
          }
          if (tiposExamenesCargos.equals(new BigInteger("0")) && vigenciasExamenesMedicos.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposExamenes();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -619,7 +622,7 @@ public class ControlTiposExamenes implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposExamenes verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposExamenes verificarBorrado ERROR " + e);
       }
    }
 
@@ -637,7 +640,7 @@ public class ControlTiposExamenes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando ControlTiposExamenes");
+         log.info("Realizando ControlTiposExamenes");
          if (!borrarTiposExamenes.isEmpty()) {
             administrarTiposExamenes.borrarTiposExamenes(borrarTiposExamenes);
 
@@ -655,7 +658,7 @@ public class ControlTiposExamenes implements Serializable {
             administrarTiposExamenes.modificarTiposExamenes(modificarTiposExamenes);
             modificarTiposExamenes.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposExamenes = null;
          RequestContext.getCurrentInstance().update("form:datosTipoExamen");
          k = 0;
@@ -679,7 +682,7 @@ public class ControlTiposExamenes implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -709,7 +712,7 @@ public class ControlTiposExamenes implements Serializable {
    }
 
    public void agregarNuevoTiposExamenes() {
-      System.out.println("agregarNuevoTiposExamenes");
+      log.info("agregarNuevoTiposExamenes");
       int contador = 0;
       int duplicados = 0;
 
@@ -719,42 +722,42 @@ public class ControlTiposExamenes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoTipoExamen.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTipoExamen.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoTipoExamen.getCodigo());
 
          for (int x = 0; x < listTiposExamenes.size(); x++) {
             if (listTiposExamenes.get(x).getCodigo() == nuevoTipoExamen.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoTipoExamen.getNombre() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoExamen:descripcion");
@@ -770,7 +773,7 @@ public class ControlTiposExamenes implements Serializable {
             filtrarTiposExamenes = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -801,7 +804,7 @@ public class ControlTiposExamenes implements Serializable {
    }
 
    public void limpiarNuevoTiposExamenes() {
-      System.out.println("limpiarNuevoTiposExamenes");
+      log.info("limpiarNuevoTiposExamenes");
       nuevoTipoExamen = new TiposExamenes();
       secRegistro = null;
       index = -1;
@@ -810,7 +813,7 @@ public class ControlTiposExamenes implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposExamenes() {
-      System.out.println("duplicandoTiposExamenes");
+      log.info("duplicandoTiposExamenes");
       if (index >= 0) {
          duplicarTipoExamen = new TiposExamenes();
          k++;
@@ -836,19 +839,19 @@ public class ControlTiposExamenes implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EXAMENES");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EXAMENES");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTipoExamen.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTipoExamen.getNombre());
+      log.error("ConfirmarDuplicar codigo " + duplicarTipoExamen.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTipoExamen.getNombre());
 
       if (duplicarTipoExamen.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposExamenes.size(); x++) {
             if (listTiposExamenes.get(x).getCodigo() == duplicarTipoExamen.getCodigo()) {
@@ -857,27 +860,27 @@ public class ControlTiposExamenes implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *que NO existan codigo repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTipoExamen.getNombre().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTipoExamen.getSecuencia() + "  " + duplicarTipoExamen.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTipoExamen.getSecuencia() + "  " + duplicarTipoExamen.getCodigo());
          if (crearTiposExamenes.contains(duplicarTipoExamen)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposExamenes.add(duplicarTipoExamen);
          crearTiposExamenes.add(duplicarTipoExamen);
@@ -945,12 +948,12 @@ public class ControlTiposExamenes implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listTiposExamenes.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSEXAMENES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

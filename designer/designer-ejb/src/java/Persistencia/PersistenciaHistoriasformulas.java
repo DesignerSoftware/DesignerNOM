@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformulasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaHistoriasformulas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +40,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             em.merge(historiasformulas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e);
+            log.error("Error PersistenciaHistoriasformulas.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +56,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             em.merge(historiasformulas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.editar: " + e);
+            log.error("Error PersistenciaHistoriasformulas.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +76,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e);
+                log.error("Error PersistenciaHistoriasformulas.borrar: " + e);
         }
     }
 
@@ -83,7 +86,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             em.clear();
             return em.find(Historiasformulas.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en la PersistenciaHistoriasformulas  buscarHistoriaformula : " + e.toString());
+            log.error("Error en la PersistenciaHistoriasformulas  buscarHistoriaformula : " + e.toString());
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             List<Historiasformulas> historiasformulas = queryFinal.getResultList();
             return historiasformulas;
         } catch (Exception e) {
-            System.out.println("Error historiasFormulasParaFormulaSecuencia.formulasContratosParaFormulaSecuencia : " + e.toString());
+            log.error("Error historiasFormulasParaFormulaSecuencia.formulasContratosParaFormulaSecuencia : " + e.toString());
             return null;
         }
     }
@@ -121,7 +124,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             BigInteger secHistoriaFormula = secuencia.toBigIntegerExact();
             return secHistoriaFormula;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula" + e);
+            log.error("Error PersistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula" + e);
             return null;
         }
     }

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -18,7 +19,9 @@ import javax.persistence.EntityManager;
  * @author betelgeuse
  */
 @Stateful
-public class AdministrarAdiestramientosNF implements AdministrarAdiestramientosNFInterface{
+public class AdministrarAdiestramientosNF implements AdministrarAdiestramientosNFInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarAdiestramientosNF.class);
     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    

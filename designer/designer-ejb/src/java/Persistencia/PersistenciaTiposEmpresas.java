@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposEmpresas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +38,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.merge(tiposEmpresas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmpresas.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmpresas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +53,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.merge(tiposEmpresas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmpresas.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmpresas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +68,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.remove(em.merge(tiposEmpresas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmpresas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmpresas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.clear();
             return em.find(TiposEmpresas.class, secuenciaTE);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEmpresas.buscarTipoEmpresa()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmpresas.buscarTipoEmpresa()" + e.getMessage());
             return null;
         }
     }
@@ -91,7 +93,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
         List<TiposEmpresas> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaTiposEmpresas.buscarTiposEmpresas()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmpresas.buscarTiposEmpresas()" + e.getMessage());
             return null;
         }
     }
@@ -105,10 +107,10 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador TiposEmpresas contadorIdiomasPersonas persistencia " + retorno);
+            log.error("Contador TiposEmpresas contadorIdiomasPersonas persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposEmpresas.contadorSueldosMercados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposEmpresas.contadorSueldosMercados()" + e.getMessage());
             return retorno;
         }
     }

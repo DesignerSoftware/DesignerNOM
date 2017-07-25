@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.servlet.http.HttpSession;
 @ManagedBean
 @SessionScoped
 public class controlBienestar implements Serializable {
+
+   private static Logger log = Logger.getLogger(controlBienestar.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -47,8 +50,8 @@ public class controlBienestar implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -93,7 +96,7 @@ public class controlBienestar implements Serializable {
 
    public void recibirAtras(String atras) {
       paginaAnterior = atras;
-      System.out.println("ControlBienestar pagina anterior : " + paginaAnterior);
+      log.info("ControlBienestar pagina anterior : " + paginaAnterior);
    }
 
    public String redireccionarAtras() {

@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,17 +22,19 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaClavesSap.class);
+
    public void crear(EntityManager em, ClavesSap clavesap) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         System.out.println("PersitenciaClavesSap sencuencia " + clavesap.getSecuencia());
-         System.out.println("PersitenciaClavesSap Clave Ajuste sencuencia " + clavesap.getClaveAjuste().getSecuencia());
+         log.error("PersitenciaClavesSap sencuencia " + clavesap.getSecuencia());
+         log.error("PersitenciaClavesSap Clave Ajuste sencuencia " + clavesap.getClaveAjuste().getSecuencia());
          tx.begin();
          em.merge(clavesap);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClavesSap.crear: " + e);
+         log.error("Error PersistenciaClavesSap.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +49,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          em.merge(clavesap);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClavesSap.editar: " + e);
+         log.error("Error PersistenciaClavesSap.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -64,7 +67,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaClavesSap.borrar: " + e);
+         log.error("Error PersistenciaClavesSap.borrar: " + e);
       }
    }
 
@@ -76,7 +79,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          List<ClavesSap> claseP = query.getResultList();
          return claseP;
       } catch (Exception e) {
-         System.out.println("Error buscarClasePennsion PersistenciaClavesSap");
+         log.error("Error buscarClasePennsion PersistenciaClavesSap");
          List<ClavesSap> claseP = null;
          return claseP;
       }
@@ -89,10 +92,10 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.err.println("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
+         log.error("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
+         log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
          return retorno;
       }
    }
@@ -104,10 +107,10 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.err.println("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
+         log.error("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
+         log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
          return retorno;
       }
    }

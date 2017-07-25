@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarProyectos implements AdministrarProyectosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarProyectos.class);
 
     @EJB
     PersistenciaProyectosInterface persistenciaProyectos;
@@ -84,7 +87,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
                 persistenciaProyectos.crear(em, crearList.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearProyectos Admi : " + e.toString());
+            log.warn("Error crearProyectos Admi : " + e.toString());
         }
     }
 
@@ -107,7 +110,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
                 persistenciaProyectos.editar(em, editarList.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarProyectos Admi : " + e.toString());
+            log.warn("Error editarProyectos Admi : " + e.toString());
         }
     }
 
@@ -130,7 +133,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
                 persistenciaProyectos.borrar(em, borrarList.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarProyectos Admi : " + e.toString());
+            log.warn("Error borrarProyectos Admi : " + e.toString());
         }
     }
 
@@ -140,7 +143,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
             List<PryClientes> listPC = persistenciaPryCliente.buscarPryClientes(em);
             return listPC;
         } catch (Exception e) {
-            System.out.println("Error listPryClientes Admi : " + e.toString());
+            log.warn("Error listPryClientes Admi : " + e.toString());
             return null;
         }
     }
@@ -151,7 +154,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
             List<PryPlataformas> listPP = persistenciaPryPlataformas.buscarPryPlataformas(em);
             return listPP;
         } catch (Exception e) {
-            System.out.println("Error listPryPlataformas Admi : " + e.toString());
+            log.warn("Error listPryPlataformas Admi : " + e.toString());
             return null;
         }
     }
@@ -162,7 +165,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
             List<Empresas> listE = persistenciaEmpresas.consultarEmpresas(em);
             return listE;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Admi : " + e.toString());
+            log.warn("Error listEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -173,7 +176,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
             List<Monedas> listM = persistenciaMonedas.consultarMonedas(em);
             return listM;
         } catch (Exception e) {
-            System.out.println("Error listMonedas Admi : " + e.toString());
+            log.warn("Error listMonedas Admi : " + e.toString());
             return null;
         }
     }

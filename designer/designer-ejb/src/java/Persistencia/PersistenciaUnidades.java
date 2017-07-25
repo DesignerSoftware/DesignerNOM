@@ -8,12 +8,14 @@ import InterfacePersistencia.PersistenciaUnidadesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaUnidades.class);
 
 
     @Override
@@ -25,7 +27,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.merge(unidad);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUnidades.crear: " + e.getMessage());
+            log.error("Error PersistenciaUnidades.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.merge(unidad);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUnidades.editar: " + e.getMessage());
+            log.error("Error PersistenciaUnidades.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.remove(em.merge(unidad));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUnidades.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUnidades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             List<Unidades> listaUnidades = query.getResultList();
             return listaUnidades;
         } catch (Exception e) {
-            System.out.println("Error consultarUnidades PersistenciaUnidades : " + e.getMessage());
+            log.error("Error consultarUnidades PersistenciaUnidades : " + e.getMessage());
             return null;
         }
     }

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposExamenes.class);
 
     @EJB
     PersistenciaTiposExamenesInterface persistenciaTiposExamenes;
@@ -42,21 +45,21 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
     @Override
     public void modificarTiposExamenes(List<TiposExamenes> listaTiposExamenes) {
         for (int i = 0; i < listaTiposExamenes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposExamenes.editar(em, listaTiposExamenes.get(i));
         }
     }
 
     public void borrarTiposExamenes(List<TiposExamenes> listaTiposExamenes) {
         for (int i = 0; i < listaTiposExamenes.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposExamenes.borrar(em, listaTiposExamenes.get(i));
         }
     }
 
     public void crearTiposExamenes(List<TiposExamenes> listaTiposExamenes) {
         for (int i = 0; i < listaTiposExamenes.size(); i++) {
-            System.out.println("Administrar crear...");
+            log.warn("Administrar crear...");
             persistenciaTiposExamenes.crear(em, listaTiposExamenes.get(i));
         }
     }
@@ -76,10 +79,10 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
     public BigInteger contarTiposExamenesCargosTipoExamen(BigInteger secuenciaTiposExamenesCargos) {
         BigInteger verificadorTiposExamenesCargos;
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaTiposExamenesCargos);
+            log.error("Secuencia Borrado Elementos" + secuenciaTiposExamenesCargos);
             return verificadorTiposExamenesCargos = persistenciaTiposExamenes.contadorTiposExamenesCargos(em, secuenciaTiposExamenesCargos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposExamenes verificarBorradoTiposExamenesCargos ERROR :" + e);
+            log.error("ERROR AdministrarTiposExamenes verificarBorradoTiposExamenesCargos ERROR :" + e);
             return null;
         }
     }
@@ -87,10 +90,10 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
     public BigInteger contarVigenciasExamenesMedicosTipoExamen(BigInteger secuenciaVigenciasExamenesMedicos) {
         try {
             BigInteger verificadorVigenciasExamenesMedicos;
-            System.err.println("Secuencia Borrado Vigencias Tallas" + secuenciaVigenciasExamenesMedicos);
+            log.error("Secuencia Borrado Vigencias Tallas" + secuenciaVigenciasExamenesMedicos);
             return verificadorVigenciasExamenesMedicos = persistenciaTiposExamenes.contadorVigenciasExamenesMedicos(em, secuenciaVigenciasExamenesMedicos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposExamenes verificarBorradoVigenciasExamenesMedicos ERROR :" + e);
+            log.error("ERROR AdministrarTiposExamenes verificarBorradoVigenciasExamenesMedicos ERROR :" + e);
             return null;
         }
     }

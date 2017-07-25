@@ -16,13 +16,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarTiposFormulas implements AdministrarTiposFormulasInterface{
+public class AdministrarTiposFormulas implements AdministrarTiposFormulasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposFormulas.class);
     
     @EJB
     PersistenciaTiposFormulasInterface persistenciaTiposFormulas;

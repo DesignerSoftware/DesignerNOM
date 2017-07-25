@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposFamiliares implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposFamiliares.class);
 
    @EJB
    AdministrarTiposFamiliaresInterface administrarTiposFamiliares;
@@ -93,14 +96,14 @@ public class ControlTiposFamiliares implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposFamiliares PostConstruct ");
+         log.info("ControlTiposFamiliares PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposFamiliares.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -157,7 +160,7 @@ public class ControlTiposFamiliares implements Serializable {
    }
 
    public void cambiarIndice(TiposFamiliares tipoFamiliar, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          tiposFamiliaresSeleccionado = tipoFamiliar;
@@ -166,21 +169,21 @@ public class ControlTiposFamiliares implements Serializable {
             deshabilitarBotonLov();
             if (cualCelda == 0) {
                backUpCodigo = tiposFamiliaresSeleccionado.getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
             } else if (cualCelda == 1) {
                backUpDescripcion = tiposFamiliaresSeleccionado.getTipo();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
             }
             tiposFamiliaresSeleccionado.getSecuencia();
          } else {
             deshabilitarBotonLov();
             if (cualCelda == 0) {
                backUpCodigo = tiposFamiliaresSeleccionado.getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
 
             } else if (cualCelda == 1) {
                backUpDescripcion = tiposFamiliaresSeleccionado.getTipo();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
 
             }
             tiposFamiliaresSeleccionado.getSecuencia();
@@ -191,19 +194,19 @@ public class ControlTiposFamiliares implements Serializable {
 
    public void asignarIndex(TiposFamiliares tipoFamiliar, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposFamiliares.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposFamiliares.asignarIndex \n");
          tiposFamiliaresSeleccionado = tipoFamiliar;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposFamiliares.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposFamiliares.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -286,10 +289,10 @@ public class ControlTiposFamiliares implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -303,7 +306,7 @@ public class ControlTiposFamiliares implements Serializable {
    }
 
    public void modificarTiposFamiliares(TiposFamiliares tipoFamiliar, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       tiposFamiliaresSeleccionado = tipoFamiliar;
 
       int contador = 0;
@@ -311,9 +314,9 @@ public class ControlTiposFamiliares implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposFamiliares.contains(tiposFamiliaresSeleccionado)) {
                if (tiposFamiliaresSeleccionado.getCodigo() == a) {
@@ -510,7 +513,7 @@ public class ControlTiposFamiliares implements Serializable {
    public void borrandoTiposFamiliares() {
 
       if (tiposFamiliaresSeleccionado != null) {
-         System.out.println("Entro a borrandoTiposFamiliares");
+         log.info("Entro a borrandoTiposFamiliares");
          if (!modificarTiposFamiliares.isEmpty() && modificarTiposFamiliares.contains(tiposFamiliaresSeleccionado)) {
             int modIndex = modificarTiposFamiliares.indexOf(tiposFamiliaresSeleccionado);
             modificarTiposFamiliares.remove(modIndex);
@@ -541,21 +544,21 @@ public class ControlTiposFamiliares implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarHvReferenciasTipoFamiliar;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposFamiliares ");
+         log.error("Control Secuencia de ControlTiposFamiliares ");
          if (tipoLista == 0) {
             contarHvReferenciasTipoFamiliar = administrarTiposFamiliares.contarHvReferenciasTipoFamiliar(tiposFamiliaresSeleccionado.getSecuencia());
          } else {
             contarHvReferenciasTipoFamiliar = administrarTiposFamiliares.contarHvReferenciasTipoFamiliar(tiposFamiliaresSeleccionado.getSecuencia());
          }
          if (contarHvReferenciasTipoFamiliar.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposFamiliares();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -565,7 +568,7 @@ public class ControlTiposFamiliares implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
       }
    }
 
@@ -588,7 +591,7 @@ public class ControlTiposFamiliares implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposFamiliares");
+         log.info("Realizando guardarTiposFamiliares");
          if (!borrarTiposFamiliares.isEmpty()) {
             administrarTiposFamiliares.borrarTiposFamiliares(borrarTiposFamiliares);
             //mostrarBorrados
@@ -605,7 +608,7 @@ public class ControlTiposFamiliares implements Serializable {
             administrarTiposFamiliares.crearTiposFamiliares(crearTiposFamiliares);
             crearTiposFamiliares.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposFamiliares = null;
          getListTiposFamiliares();
          contarRegistros();
@@ -631,7 +634,7 @@ public class ControlTiposFamiliares implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -648,7 +651,7 @@ public class ControlTiposFamiliares implements Serializable {
    }
 
    public void agregarNuevoTiposFamiliares() {
-      System.out.println("agregarNuevoTiposFamiliares");
+      log.info("agregarNuevoTiposFamiliares");
       int contador = 0;
       int duplicados = 0;
 
@@ -675,7 +678,7 @@ public class ControlTiposFamiliares implements Serializable {
       } else if (nuevoTiposFamiliares.getTipo().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
@@ -683,7 +686,7 @@ public class ControlTiposFamiliares implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposFamiliares:descripcion");
@@ -719,14 +722,14 @@ public class ControlTiposFamiliares implements Serializable {
    }
 
    public void limpiarNuevoTiposFamiliares() {
-      System.out.println("limpiarNuevoTiposFamiliares");
+      log.info("limpiarNuevoTiposFamiliares");
       nuevoTiposFamiliares = new TiposFamiliares();
 
    }
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposFamiliares() {
-      System.out.println("duplicandoTiposFamiliares");
+      log.info("duplicandoTiposFamiliares");
       if (tiposFamiliaresSeleccionado != null) {
          duplicarTiposFamiliares = new TiposFamiliares();
          k++;
@@ -752,7 +755,7 @@ public class ControlTiposFamiliares implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
@@ -780,7 +783,7 @@ public class ControlTiposFamiliares implements Serializable {
       } else if (duplicarTiposFamiliares.getTipo().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
       if (contador == 2) {
@@ -868,7 +871,7 @@ public class ControlTiposFamiliares implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposFamiliares eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposFamiliares eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

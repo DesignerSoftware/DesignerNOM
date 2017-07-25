@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposFunciones.class);
 
    @EJB
    PersistenciaTiposFuncionesInterface persistenciaTiposFunciones;
@@ -59,7 +62,7 @@ public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInter
    @Override
    public void modificarTiposFunciones(List<TiposFunciones> listaTiposFuncionesModificar) {
       for (int i = 0; i < listaTiposFuncionesModificar.size(); i++) {
-         System.out.println("Modificando...");
+         log.warn("Modificando...");
          if (listaTiposFuncionesModificar.get(i).getFechafinal() == null) {
             listaTiposFuncionesModificar.get(i).setFechafinal(null);
          }

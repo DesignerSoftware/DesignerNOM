@@ -1,10 +1,10 @@
 package Persistencia;
 
-import Entidades.VWActualesFechas;
 import InterfacePersistencia.PersistenciaVWActualesFechasInterface;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -13,6 +13,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesFechas implements PersistenciaVWActualesFechasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesFechas.class);
 
     @Override
     public Date actualFechaHasta(EntityManager em) {
@@ -23,7 +25,7 @@ public class PersistenciaVWActualesFechas implements PersistenciaVWActualesFecha
             Date actualFechaHasta = (Date) query.getSingleResult();
             return actualFechaHasta;
         } catch (Exception e) {
-            System.out.println("Exepcion: PersistenciaVWActualesFechas.actualFechaHasta: " + e.getMessage());
+            log.error("Exepcion: PersistenciaVWActualesFechas.actualFechaHasta: " + e.getMessage());
             return null;
         }
     }
@@ -37,7 +39,7 @@ public class PersistenciaVWActualesFechas implements PersistenciaVWActualesFecha
             Date actualFechaHasta = (Date) query.getSingleResult();
             return actualFechaHasta;
         } catch (Exception e) {
-            System.out.println("Error actualFechaDesde PersistenciaVWActualesFechas : " + e.getMessage());
+            log.error("Error actualFechaDesde PersistenciaVWActualesFechas : " + e.getMessage());
             return null;
         }
     }

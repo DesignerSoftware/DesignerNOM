@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarATCuadrilla.class);
 
     @EJB
     PersistenciaCuadrillasInterface persistenciaCuadrillas;
@@ -51,7 +54,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
             List<Cuadrillas> lista = persistenciaCuadrillas.buscarCuadrillas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerCuadrillas Admi : " + e.toString());
+            log.warn("Error obtenerCuadrillas Admi : " + e.toString());
             return null;
         }
     }
@@ -63,7 +66,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaCuadrillas.crear(em, listaC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearCuadrillas Admi : " + e.toString());
+            log.warn("Error crearCuadrillas Admi : " + e.toString());
         }
     }
 
@@ -74,7 +77,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaCuadrillas.editar(em, listaC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearCuadrillas Admi : " + e.toString());
+            log.warn("Error crearCuadrillas Admi : " + e.toString());
         }
     }
 
@@ -85,7 +88,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaCuadrillas.borrar(em, listaC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearCuadrillas Admi : " + e.toString());
+            log.warn("Error crearCuadrillas Admi : " + e.toString());
         }
     }
 
@@ -95,7 +98,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
             List<Turnosrotativos> lista = persistenciaTurnosRotativos.buscarTurnosRotativosPorCuadrilla(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerTurnosRotativos Admi : " + e.toString());
+            log.warn("Error obtenerTurnosRotativos Admi : " + e.toString());
             return null;
         }
     }
@@ -107,7 +110,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaTurnosRotativos.crear(em, listaTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearTurnosRotativos Admi : " + e.toString());
+            log.warn("Error crearTurnosRotativos Admi : " + e.toString());
         }
     }
 
@@ -118,7 +121,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaTurnosRotativos.editar(em, listaTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarTurnosRotativos Admi : " + e.toString());
+            log.warn("Error editarTurnosRotativos Admi : " + e.toString());
         }
     }
 
@@ -129,7 +132,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaTurnosRotativos.borrar(em, listaTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarTurnosRotativos Admi : " + e.toString());
+            log.warn("Error borrarTurnosRotativos Admi : " + e.toString());
         }
     }
 
@@ -139,7 +142,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
             List<DetallesTurnosRotativos> lista = persistenciaDetallesTurnosRotativos.buscarDetallesTurnosRotativosPorTurnoRotativo(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerDetallesTurnosRotativos Admi : " + e.toString());
+            log.warn("Error obtenerDetallesTurnosRotativos Admi : " + e.toString());
             return null;
         }
     }
@@ -147,13 +150,13 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
     @Override
     public void crearDetallesTurnosRotativos(List<DetallesTurnosRotativos> listaDTR) {
         try {
-            System.out.println("Here");
+            log.warn("Here");
             for (int i = 0; i < listaDTR.size(); i++) {
-                System.out.println("Here Again For : " + i);
+                log.warn("Here Again For : " + i);
                 persistenciaDetallesTurnosRotativos.crear(em, listaDTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearDetallesTurnosRotativos Admi : " + e.toString());
+            log.warn("Error crearDetallesTurnosRotativos Admi : " + e.toString());
         }
     }
 
@@ -164,7 +167,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaDetallesTurnosRotativos.editar(em, listaDTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarDetallesTurnosRotativos Admi : " + e.toString());
+            log.warn("Error editarDetallesTurnosRotativos Admi : " + e.toString());
         }
     }
 
@@ -175,7 +178,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
                 persistenciaDetallesTurnosRotativos.borrar(em, listaDTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarDetallesTurnosRotativos Admi : " + e.toString());
+            log.warn("Error borrarDetallesTurnosRotativos Admi : " + e.toString());
         }
     }
 
@@ -185,7 +188,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
             List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpleados Admi : " + e.toString());
+            log.warn("Error lovEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -195,7 +198,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
         try {
             persistenciaCuadrillas.borrarProgramacionCompleta(em);
         } catch (Exception e) {
-            System.out.println("Error borrarProgramacionCompleta Admi : " + e.toString());
+            log.warn("Error borrarProgramacionCompleta Admi : " + e.toString());
         }
     }
 
@@ -205,7 +208,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
             List<Empleados> lista = persistenciaEmpleados.consultarEmpleadosCuadrillas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarEmpleadosProcesoBuscarEmpleadosCuadrillas Admi : " + e.toString());
+            log.warn("Error consultarEmpleadosProcesoBuscarEmpleadosCuadrillas Admi : " + e.toString());
             return null;
         }
     }
@@ -216,7 +219,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
             List<Cuadrillas> lista = persistenciaCuadrillas.buscarCuadrillasParaEmpleado(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerInfoCuadrillasPorEmpleado Admi : " + e.toString());
+            log.warn("Error obtenerInfoCuadrillasPorEmpleado Admi : " + e.toString());
             return null;
         }
     }

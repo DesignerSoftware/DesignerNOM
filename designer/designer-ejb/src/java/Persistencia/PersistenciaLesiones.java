@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaLesiones implements PersistenciaLesionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaLesiones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             em.merge(lesiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLesiones.crear: " + e.getMessage());
+            log.error("Error PersistenciaLesiones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             em.merge(lesiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLesiones.editar: " + e.getMessage());
+            log.error("Error PersistenciaLesiones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLesiones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaLesiones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +85,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             em.clear();
             return em.find(Lesiones.class, secuenciaL);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaLesiones.buscarLesion()" + e.getMessage());
+            log.error("Persistencia.PersistenciaLesiones.buscarLesion()" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             List<Lesiones> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaLesiones.buscarLesiones()" + e.getMessage());
+            log.error("Persistencia.PersistenciaLesiones.buscarLesiones()" + e.getMessage());
             return null;
         }
     }
@@ -113,7 +115,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaLesiones.contadorDetallesLicensias()"  + e.getMessage());
+            log.error("Persistencia.PersistenciaLesiones.contadorDetallesLicensias()"  + e.getMessage());
             return retorno;
         }
     }
@@ -129,7 +131,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaLesiones.contadorSoAccidentesDomesticos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaLesiones.contadorSoAccidentesDomesticos()" + e.getMessage());
             return retorno;
         }
     }

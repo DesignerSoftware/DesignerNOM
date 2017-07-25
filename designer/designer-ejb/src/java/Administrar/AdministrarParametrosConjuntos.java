@@ -22,6 +22,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,6 +30,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarParametrosConjuntos implements AdministrarParametrosConjuntosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarParametrosConjuntos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -53,7 +56,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             persistenciaParametrosConjuntos.crearParametros(em, parametrosConjuntos);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.crearParametros : " + e);
+            log.error("Error AdministrarParametrosConjuntos.crearParametros : " + e);
         }
     }
 
@@ -62,7 +65,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             persistenciaParametrosConjuntos.editarParametros(em, parametrosConjuntos);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.editarParametros : " + e);
+            log.error("Error AdministrarParametrosConjuntos.editarParametros : " + e);
         }
     }
 
@@ -71,7 +74,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             persistenciaParametrosConjuntos.borrarParametros(em, parametrosConjuntos);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.borrarParametros : " + e);
+            log.error("Error AdministrarParametrosConjuntos.borrarParametros : " + e);
         }
     }
 
@@ -80,7 +83,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             return persistenciaParametrosConjuntos.consultarParametros(em);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.consultarParametros : " + e);
+            log.error("Error AdministrarParametrosConjuntos.consultarParametros : " + e);
             return null;
         }
     }
@@ -92,11 +95,11 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
             if (lista != null) {
                 return lista;
             } else {
-                System.err.println("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : La consulta retorno Null");
+                log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : La consulta retorno Null");
                 return new ArrayList<VWDSolucionesNodosN>();
             }
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : " + e);
+            log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : " + e);
             return new ArrayList<VWDSolucionesNodosN>();
         }
     }
@@ -106,13 +109,13 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             List<VWDSolucionesNodosN> lista = persistenciaVWDSolucionesNodosN.consultarDSolucionesNodosNLB(em, vistaConsultar, fechaVig);
             if (lista != null) {
-                System.err.println("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : La consulta retorno Null");
+                log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : La consulta retorno Null");
                 return lista;
             } else {
                 return new ArrayList<VWDSolucionesNodosN>();
             }
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : " + e);
+            log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : " + e);
             return new ArrayList<VWDSolucionesNodosN>();
         }
     }
@@ -122,7 +125,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             return persistenciaVWDSolucionesNodosN.consultarDetalleN(em, vistaConsultar, numeroConjunto, secDescripcion);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.consultarDetalleN : " + e);
+            log.error("Error AdministrarParametrosConjuntos.consultarDetalleN : " + e);
             return null;
         }
     }
@@ -132,7 +135,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             return persistenciaVWDSolucionesNodosN.consultarDetalleNLB(em, vistaConsultar, numeroConjunto, secDescripcion);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.consultarDetalleNLB : " + e);
+            log.error("Error AdministrarParametrosConjuntos.consultarDetalleNLB : " + e);
             return null;
         }
     }
@@ -144,10 +147,10 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
 //            return persistenciaConceptos.buscarConceptos(em);
             List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
-            System.out.println("AdministrarParametrosConjuntos.consultarConceptos() retorno lista con tamaño: " + lista.size());
+            log.warn("AdministrarParametrosConjuntos.consultarConceptos() retorno lista con tamaño: " + lista.size());
             return lista;
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.consultarConceptos : " + e);
+            log.error("Error AdministrarParametrosConjuntos.consultarConceptos : " + e);
             return null;
         }
     }
@@ -157,7 +160,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
         try {
             persistenciaConceptos.editar(em, concepto);
         } catch (Exception e) {
-            System.err.println("Error AdministrarParametrosConjuntos.editarConcepto : " + e);
+            log.error("Error AdministrarParametrosConjuntos.editarConcepto : " + e);
         }
     }
 }

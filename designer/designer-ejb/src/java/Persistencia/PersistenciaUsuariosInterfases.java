@@ -4,6 +4,7 @@ import Entidades.UsuariosInterfases;
 import InterfacePersistencia.PersistenciaUsuariosInterfasesInterface;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -12,6 +13,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaUsuariosInterfases implements PersistenciaUsuariosInterfasesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosInterfases.class);
 
     @Override
     public UsuariosInterfases obtenerUsuarioInterfaseContabilidad(EntityManager em) {
@@ -22,7 +25,7 @@ public class PersistenciaUsuariosInterfases implements PersistenciaUsuariosInter
             UsuariosInterfases usuario = (UsuariosInterfases) query.getSingleResult();
             return usuario;
         } catch (Exception e) {
-            System.out.println("Error obtenerUsuarioInterfaseContabilidad PersistenciaUsuariosInterfases : " + e.getMessage());
+            log.error("Error obtenerUsuarioInterfaseContabilidad PersistenciaUsuariosInterfases : " + e.getMessage());
             return null;
         }
     }

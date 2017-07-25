@@ -19,9 +19,9 @@ import InterfacePersistencia.PersistenciaUsuariosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -29,7 +29,9 @@ import javax.persistence.EntityManager;
  * @author Administrador
  */
 @Stateful
-public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface{
+public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUsuariosClon.class);
     
     @EJB
     PersistenciaUsuariosInterface persistenciaUsuarios;
@@ -64,7 +66,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
     public void eliminarUsuariosBD(String alias) {        
         persistenciaUsuarios.borrarUsuario(em, alias);         
         persistenciaUsuarios.borrarUsuarioTotal(em, alias);
-        System.out.println("algo estará haciendo de eliminar");          
+        log.warn("algo estará haciendo de eliminar");          
     }
     @Override
     public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {        
@@ -73,12 +75,12 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
     @Override
     public void desbloquearUsuariosBD(String alias) {        
         persistenciaUsuarios.desbloquearUsuario(em, alias);
-        System.out.println("está haciendo algo de desbloquear");   
+        log.warn("está haciendo algo de desbloquear");   
     }
     @Override
     public void restaurarUsuariosBD(String alias, String fecha) {        
         persistenciaUsuarios.restaurarUsuario(em, alias, fecha);
-        System.out.println("está haciendo algo de restaurar");   
+        log.warn("está haciendo algo de restaurar");   
     }
 
     public List<Personas> consultarPersonas() {
@@ -120,7 +122,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
     @Override
     public void borrarUsuarios(List<Usuarios> listaUsuarios) {
         for (int i = 0; i < listaUsuarios.size(); i++) {
-            System.out.println("Borrando..Usuarios.");
+            log.warn("Borrando..Usuarios.");
             if (listaUsuarios.get(i).getAlias().equals(null)) {
                 listaUsuarios.get(i).setAlias(null);
                 persistenciaUsuarios.borrar(em, listaUsuarios.get(i));
@@ -139,7 +141,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
     @Override
     public void crearUsuarios(List<Usuarios> listaUsuarios) {
         for (int i = 0; i < listaUsuarios.size(); i++) {
-            System.out.println("Creando. Usuarios..");
+            log.warn("Creando. Usuarios..");
             if (listaUsuarios.get(i).getAlias().equals(null)) {
                 listaUsuarios.get(i).setAlias(null);
                 persistenciaUsuarios.crear(em, listaUsuarios.get(i));

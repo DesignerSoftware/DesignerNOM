@@ -7,6 +7,7 @@ package Persistencia;
 
 import InterfacePersistencia.PersistenciaEvalDimensionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import Entidades.EvalDimensiones;
 import java.math.BigInteger;
 import java.util.List;
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEvalDimensiones.class);
+
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
     */
@@ -34,7 +37,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          em.merge(evalDimensiones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalDimensiones.crear: " + e);
+         log.error("Error PersistenciaEvalDimensiones.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +52,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          em.merge(evalDimensiones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalDimensiones.editar: " + e);
+         log.error("Error PersistenciaEvalDimensiones.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +68,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          tx.commit();
 
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalDimensiones.borrar: " + e);
+         log.error("Error PersistenciaEvalDimensiones.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +80,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          em.clear();
          return em.find(EvalDimensiones.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaEvalDimensiones.buscarEvalDimension() e: " + e);
+         log.error("Persistencia.PersistenciaEvalDimensiones.buscarEvalDimension() e: " + e);
          return null;
       }
    }
@@ -90,7 +93,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          List<EvalDimensiones> evalDimensiones = query.getResultList();
          return evalDimensiones;
       } catch (Exception e) {
-         System.err.println("PERSISTENCIAEVALDIMENSIONES BUSCAREVALDIMENSIONES ERROR : " + e);
+         log.error("PERSISTENCIAEVALDIMENSIONES BUSCAREVALDIMENSIONES ERROR : " + e);
          return null;
       }
    }
@@ -103,10 +106,10 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas = " + retorno);
+         log.error("PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas = " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("ERROR PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas  ERROR = " + e);
+         log.error("ERROR PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas  ERROR = " + e);
          retorno = new BigInteger("-1");
          return retorno;
       }

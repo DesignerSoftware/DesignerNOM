@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesFormasDtosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDetallesFormasDtos.class);
 
    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -33,7 +36,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          em.merge(detallesFormasDtos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesFormasDtos.crear: " + e);
+         log.error("Error PersistenciaDetallesFormasDtos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +52,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          em.merge(detallesFormasDtos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesFormasDtos.editar: " + e);
+         log.error("Error PersistenciaDetallesFormasDtos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +72,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDetallesFormasDtos.borrar: " + e);
+         log.error("Error PersistenciaDetallesFormasDtos.borrar: " + e);
       }
    }
 
@@ -84,7 +87,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          List<DetallesFormasDtos> detallesFormasDtosResult = new ArrayList<DetallesFormasDtos>(detallesFormasDtos);
          return detallesFormasDtosResult;
       } catch (Exception e) {
-         System.out.println("Error: (eersPrestamos)" + e);
+         log.error("Error: (eersPrestamos)" + e);
          return null;
       }
    }

@@ -5,7 +5,6 @@
  */
 package Administrar;
 
-import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.NovedadesAutoLiquidaciones;
 import Entidades.SucursalesPila;
@@ -13,21 +12,21 @@ import Entidades.Terceros;
 import Entidades.TiposEntidades;
 import InterfaceAdministrar.AdministrarNovedadAutoLiquidacionInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
-import InterfacePersistencia.PersistenciaEmpleadoInterface;
-import InterfacePersistencia.PersistenciaMotivosCesantiasInterface;
 import InterfacePersistencia.PersistenciaNovedadesAutoLiquidacionInterface;
 import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
-import InterfacePersistencia.PersistenciaVigenciasTiposContratosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 @Local
 public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAutoLiquidacionInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadAutoLiquidacion.class);
 
     @EJB
     PersistenciaNovedadesAutoLiquidacionInterface persistenciaNovedadesAuto;
@@ -72,7 +71,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
         try {
             persistenciaNovedadesAuto.borrar(em, novedad);
         } catch (Exception e) {
-            System.out.println("Error borrarNovedades Admi : " + e.toString());
+            log.warn("Error borrarNovedades Admi : " + e.toString());
         }
     }
 
@@ -81,7 +80,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
         try {
             persistenciaNovedadesAuto.crear(em, novedad);
         } catch (Exception e) {
-            System.out.println("Error crearNovedades Admi : " + e.toString());
+            log.warn("Error crearNovedades Admi : " + e.toString());
         }
     }
 
@@ -90,7 +89,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
         try {
             persistenciaNovedadesAuto.editar(em, novedad);
         } catch (Exception e) {
-            System.out.println("Error editarNovedades Admi : " + e.toString());
+            log.warn("Error editarNovedades Admi : " + e.toString());
         }
     }
 }

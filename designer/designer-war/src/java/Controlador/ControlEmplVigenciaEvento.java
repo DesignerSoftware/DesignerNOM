@@ -6,7 +6,6 @@ package Controlador;
 
 import Entidades.Empleados;
 import Entidades.Eventos;
-import Entidades.VigenciasDeportes;
 import Entidades.VigenciasEventos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -28,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplVigenciaEvento implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplVigenciaEvento.class);
 
    @EJB
    AdministrarEmplVigenciaEventoInterface administrarEmplVigenciaEvento;
@@ -168,8 +170,8 @@ public class ControlEmplVigenciaEvento implements Serializable {
          administrarEmplVigenciaEvento.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -488,7 +490,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1041,7 +1043,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             return listVigenciasEventos;
          }
       } catch (Exception e) {
-         System.out.println("Error...!! getListVigenciasEventos : " + e.toString());
+         log.warn("Error...!! getListVigenciasEventos : " + e.toString());
          return null;
       }
    }

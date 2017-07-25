@@ -13,9 +13,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import InterfaceAdministrar.AdministrarPermisosObjetosJsfInterface;
 import InterfacePersistencia.PersistenciaPerfilesInterface;
-import InterfacePersistencia.PersistenciaUsuariosInterface;
 
 /**
  *
@@ -23,6 +23,8 @@ import InterfacePersistencia.PersistenciaUsuariosInterface;
  */
 @Stateful
 public class AdministrarPermisosObjetosJsf implements AdministrarPermisosObjetosJsfInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPermisosObjetosJsf.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

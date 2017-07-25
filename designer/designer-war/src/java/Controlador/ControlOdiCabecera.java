@@ -33,6 +33,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -45,6 +46,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlOdiCabecera implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlOdiCabecera.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -183,8 +186,8 @@ public class ControlOdiCabecera implements Serializable {
             administrarOdiCabecera.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct ControlOdiCabecera: " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct ControlOdiCabecera: " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -230,9 +233,9 @@ public class ControlOdiCabecera implements Serializable {
         anioParametro = BigInteger.valueOf(anio);
         mesParametro = BigInteger.valueOf(mes);
         secuenciaParametro = secuenciaEmpresa;
-        System.out.println("valor del año: " + anioParametro);
-        System.out.println("valor del mes : " + mesParametro);
-        System.out.println("secuencia de la empresa :" + secuenciaParametro);
+        log.info("valor del año: " + anioParametro);
+        log.info("valor del mes : " + mesParametro);
+        log.info("secuencia de la empresa :" + secuenciaParametro);
 //        listaNovedades = null;
 //        getListaNovedades();
 //        contarRegistros();
@@ -700,51 +703,51 @@ public class ControlOdiCabecera implements Serializable {
             if (guardado == false) {
                 if (!listaOdiCabeceraBorrar.isEmpty()) {
                     for (int i = 0; i < listaOdiCabeceraBorrar.size(); i++) {
-                        System.out.println("entra a borrar");
+                        log.info("entra a borrar");
                         administrarOdiCabecera.borrar(listaOdiCabeceraBorrar.get(i));
-                        System.out.println("sale de borrar");
+                        log.info("sale de borrar");
                     }
                     listaOdiCabeceraBorrar.clear();
                 }
                 if (!listaOdiCabeceraCrear.isEmpty()) {
-                    System.out.println("entra a crear");
+                    log.info("entra a crear");
                     for (int i = 0; i < listaOdiCabeceraCrear.size(); i++) {
                         administrarOdiCabecera.crear(listaOdiCabeceraCrear.get(i));
                     }
                     listaOdiCabeceraCrear.clear();
-                    System.out.println("sale de crear");
+                    log.info("sale de crear");
                 }
                 if (!listaOdiCabeceraModificar.isEmpty()) {
-                    System.out.println("entra a modificar");
+                    log.info("entra a modificar");
                     for (int i = 0; i < listaOdiCabeceraModificar.size(); i++) {
                         administrarOdiCabecera.editar(listaOdiCabeceraModificar.get(i));
                     }
-                    System.out.println("sale de modificar");
+                    log.info("sale de modificar");
                     listaOdiCabeceraModificar.clear();
                 }
 
                 if (!listaOdiDetallesBorrar.isEmpty()) {
                     for (int i = 0; i < listaOdiDetallesBorrar.size(); i++) {
-                        System.out.println("entra a borrar Detalles");
+                        log.info("entra a borrar Detalles");
                         administrarOdiCabecera.borrarDetalle(listaOdiDetallesBorrar.get(i));
-                        System.out.println("sale de borrar Detalles");
+                        log.info("sale de borrar Detalles");
                     }
                     listaOdiDetallesBorrar.clear();
                 }
                 if (!listaOdiDetallesCrear.isEmpty()) {
-                    System.out.println("entra a crear Detalles");
+                    log.info("entra a crear Detalles");
                     for (int i = 0; i < listaOdiDetallesCrear.size(); i++) {
                         administrarOdiCabecera.crearDetalle(listaOdiDetallesCrear.get(i));
                     }
                     listaOdiDetallesCrear.clear();
-                    System.out.println("sale de crear Detalles");
+                    log.info("sale de crear Detalles");
                 }
                 if (!listaOdiDetallesModificar.isEmpty()) {
-                    System.out.println("entra a modificar Detalles");
+                    log.info("entra a modificar Detalles");
                     for (int i = 0; i < listaOdiDetallesModificar.size(); i++) {
                         administrarOdiCabecera.editarDetalle(listaOdiDetallesModificar.get(i));
                     }
-                    System.out.println("sale de modificar Detalles");
+                    log.info("sale de modificar Detalles");
                     listaOdiDetallesModificar.clear();
                 }
                 listaOdiCabecera = null;
@@ -761,12 +764,12 @@ public class ControlOdiCabecera implements Serializable {
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
-                System.out.println("guarda datos con éxito");
+                log.info("guarda datos con éxito");
                 odiCabeceraSeleccionada = null;
 //                OdiDetallesSeleccionada = null;
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");

@@ -10,8 +10,8 @@ import InterfacePersistencia.PersistenciaVigenciasRetencionesMinimasInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -20,6 +20,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVigenciasRetencionesMinimasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasRetencionesMinimas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +38,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasRetencionesMinimas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasRetencionesMinimas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +70,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
             em.remove(em.merge(vretenciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasRetencionesMinimas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +86,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
         List<VigenciasRetencionesMinimas> setsLista = (List<VigenciasRetencionesMinimas>) query.getResultList();
         return setsLista;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaVigenciasRetencionesMinimas.buscarVigenciasRetencionesMinimas()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasRetencionesMinimas.buscarVigenciasRetencionesMinimas()" + e.getMessage());
          return null;   
         }
     }

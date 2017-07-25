@@ -12,11 +12,13 @@ import InterfacePersistencia.PersistenciaSoTiposAntecedentesInterface;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarSoTiposAntecedentes implements AdministrarSoTiposAntecedentesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoTiposAntecedentes.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -56,7 +58,7 @@ public class AdministrarSoTiposAntecedentes implements AdministrarSoTiposAnteced
          List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.listaTiposAntecedentes(em);
         return lovTiposAntecedentes;
         } catch(Exception e){
-            System.out.println("error en consultarTiposAntecedentes : " + e.toString());
+            log.warn("error en consultarTiposAntecedentes : " + e.toString());
             return null;
         }
     }

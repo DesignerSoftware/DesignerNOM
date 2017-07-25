@@ -44,6 +44,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -52,6 +53,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.UploadedFile;
 import javax.inject.Named;
+
 /**
  *
  * @author user
@@ -61,7 +63,9 @@ import javax.inject.Named;
 @SessionScoped
 public class CargarAusentismosArchivoPlano implements Serializable {
 
-@EJB
+   private static Logger log = Logger.getLogger(CargarAusentismosArchivoPlano.class);
+
+   @EJB
    AdministrarCargueArchivosInterface administrarCargueArchivos;
    private List<TempNovedades> listTempNovedades;
    private List<TempNovedades> filtrarListTempNovedades;
@@ -114,9 +118,9 @@ public class CargarAusentismosArchivoPlano implements Serializable {
    private Column columnaUnidadFraccion, columnaUnidadEntera, columnaSaldo, columnaTercero, columnaPeriodicidad, columnaValorTotal, columnaDocumentoSoporte, columnaFechaReporte, columnaFechaFinal, columnaFechaInicial, columnaEmpleado, columnaConcepto;
    //
    private int index, cualCelda;
-   
-    public CargarAusentismosArchivoPlano() {
-    novedadTablaSeleccionada = null;
+
+   public CargarAusentismosArchivoPlano() {
+      novedadTablaSeleccionada = null;
       cualCelda = -1;
       editarNovedad = new TempNovedades();
       bandera = 0;
@@ -137,10 +141,10 @@ public class CargarAusentismosArchivoPlano implements Serializable {
       documentosSoportes = null;
       documentosEscogidos = new ArrayList<String>();
       resultadoProceso = new ResultadoBorrarTodoNovedades();
-      elementosActualizar = new ArrayList<String>();    
-        
-    }
-    
+      elementosActualizar = new ArrayList<String>();
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {
@@ -151,8 +155,8 @@ public class CargarAusentismosArchivoPlano implements Serializable {
          getListTempNovedades();
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("Error postconstruct CargarArchivoPlano: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -275,7 +279,7 @@ public class CargarAusentismosArchivoPlano implements Serializable {
             context.execute("PF('errorNombreArchivo').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error transformarArchivo Controlador : " + e.toString());
+         log.warn("Error transformarArchivo Controlador : " + e.toString());
       }
    }
 
@@ -528,7 +532,7 @@ public class CargarAusentismosArchivoPlano implements Serializable {
             botones = true;
             cargue = false;
             /*context.update("form:tempNovedades");
-                 System.out.println("Actualizo tabla");
+                 log.info("Actualizo tabla");
                  context.update("form:FileUp");
                  context.update("form:nombreArchivo");
                  context.update("form:formula");
@@ -544,7 +548,7 @@ public class CargarAusentismosArchivoPlano implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         System.out.println("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt) " + e);
       }
    }
 
@@ -1444,13 +1448,13 @@ public class CargarAusentismosArchivoPlano implements Serializable {
 
 // Get the header attributes. Use them to retrieve the actual  
 // values.  
-      System.out.println(request.getHeaderNames());
+      log.info(request.getHeaderNames());
 
 // Get the IP-address of the client.  
-      System.out.println(request.getRemoteAddr());
+      log.info(request.getRemoteAddr());
 
 // Get the hostname of the client.  
-      System.out.println(request.getRemotePort());
+      log.info(request.getRemotePort());
 
       String equipo = null;
       java.net.InetAddress localMachine = null;
@@ -1461,7 +1465,7 @@ public class CargarAusentismosArchivoPlano implements Serializable {
          equipo = request.getRemoteAddr();
       }
       localMachine = java.net.InetAddress.getByName(equipo);
-      System.out.println(localMachine.getHostName());
+      log.info(localMachine.getHostName());
    }
 
    public List<TempNovedades> getFiltrarListTempNovedades() {
@@ -1528,6 +1532,6 @@ public class CargarAusentismosArchivoPlano implements Serializable {
 
    public void setEditarNovedad(TempNovedades editarNovedad) {
       this.editarNovedad = editarNovedad;
-   } 
-    
+   }
+
 }

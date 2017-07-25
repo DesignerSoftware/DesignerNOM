@@ -18,10 +18,13 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 @Local
 public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoProyectoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarArchivoPlanoProyecto.class);
 
    @EJB
    PersistenciaTempProrrateosProyInterface persistenciaTempProrrateosProy;
@@ -95,7 +98,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
          Generales general = persistenciaGenerales.obtenerRutas(em);
          return general.getUbicareportes();
       } catch (Exception e) {
-         System.out.println("ERROR AdministrarArchivoPlanoProyecto.consultarRuta() e : " + e);
+         log.warn("ERROR AdministrarArchivoPlanoProyecto.consultarRuta() e : " + e);
          return "C:\\DesignerRHN\\Reportes\\ArchivosPlanos\\";
       }
    }

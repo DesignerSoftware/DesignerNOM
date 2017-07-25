@@ -12,8 +12,8 @@ import InterfacePersistencia.PersistenciaUsuariosTiposSueldosInterface;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarUsuariosTiposSueldos implements AdministrarUsuariosTiposSueldosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUsuariosTiposSueldos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

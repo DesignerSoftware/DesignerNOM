@@ -16,7 +16,6 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -25,111 +24,112 @@ import org.apache.log4j.PropertyConfigurator;
 @Stateful
 public class AdministrarVigenciasReformasLaborales implements AdministrarVigenciasReformasLaboralesInterface {
 
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaReformasLaboralesInterface persistenciaReformasLaborales;
-    @EJB
-    PersistenciaVigenciasReformasLaboralesInterface persistenciaVigenciasReformasLaborales;
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   private static Logger log = Logger.getLogger(AdministrarVigenciasReformasLaborales.class);
 
-    List<VigenciasReformasLaborales> vigenciasRefLab;
-    VigenciasReformasLaborales vigenciaRefLab;
-    Empleados empleado;
-    List<ReformasLaborales> reformasLaborales;
-    private EntityManager em;
-    //LOGS//
-    private ActualUsuario actualUsuario;
-    private final static Logger logger = Logger.getLogger("connectionSout");
-    private Date fechaDia;
-    private final SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaReformasLaboralesInterface persistenciaReformasLaborales;
+   @EJB
+   PersistenciaVigenciasReformasLaboralesInterface persistenciaVigenciasReformasLaborales;
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    
-    private void configurarLog() {
-        //PropertyConfigurator.configure("log4j.properties");
-    }
+   List<VigenciasReformasLaborales> vigenciasRefLab;
+   VigenciasReformasLaborales vigenciaRefLab;
+   Empleados empleado;
+   List<ReformasLaborales> reformasLaborales;
+   private EntityManager em;
+   //LOGS//
+   private ActualUsuario actualUsuario;
+   private final static Logger logger = Logger.getLogger("connectionSout");
+   private Date fechaDia;
+   private final SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-        //configurarLog();
-    }
+   private void configurarLog() {
+      //PropertyConfigurator.configure("log4j.properties");
+   }
 
-    @Override
-    public List<VigenciasReformasLaborales> vigenciasReformasLaboralesEmpleado(BigInteger secEmpleado) {
-        try {
-            vigenciasRefLab = persistenciaVigenciasReformasLaborales.buscarVigenciasReformasLaboralesEmpleado(em, secEmpleado);
-        } catch (Exception e) {
-            logger.error("Metodo: vigenciasReformasLaboralesEmpleado - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
-            vigenciasRefLab = null;
-        }
-        return vigenciasRefLab;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      //configurarLog();
+   }
 
-    @Override
-    public void modificarVRL(List<VigenciasReformasLaborales> listVRLModificadas) {
-        for (int i = 0; i < listVRLModificadas.size(); i++) {
-            vigenciaRefLab = listVRLModificadas.get(i);
-            persistenciaVigenciasReformasLaborales.editar(em, vigenciaRefLab);
-        }
-    }
+   @Override
+   public List<VigenciasReformasLaborales> vigenciasReformasLaboralesEmpleado(BigInteger secEmpleado) {
+      try {
+         vigenciasRefLab = persistenciaVigenciasReformasLaborales.buscarVigenciasReformasLaboralesEmpleado(em, secEmpleado);
+      } catch (Exception e) {
+         logger.error("Metodo: vigenciasReformasLaboralesEmpleado - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
+         vigenciasRefLab = null;
+      }
+      return vigenciasRefLab;
+   }
 
-    @Override
-    public void borrarVRL(VigenciasReformasLaborales vigenciasReformasLaborales) {
-        persistenciaVigenciasReformasLaborales.borrar(em, vigenciasReformasLaborales);
-    }
+   @Override
+   public void modificarVRL(List<VigenciasReformasLaborales> listVRLModificadas) {
+      for (int i = 0; i < listVRLModificadas.size(); i++) {
+         vigenciaRefLab = listVRLModificadas.get(i);
+         persistenciaVigenciasReformasLaborales.editar(em, vigenciaRefLab);
+      }
+   }
 
-    @Override
-    public void crearVRL(VigenciasReformasLaborales vigenciasReformasLaborales) {
-        persistenciaVigenciasReformasLaborales.crear(em, vigenciasReformasLaborales);
-    }
+   @Override
+   public void borrarVRL(VigenciasReformasLaborales vigenciasReformasLaborales) {
+      persistenciaVigenciasReformasLaborales.borrar(em, vigenciasReformasLaborales);
+   }
 
-    @Override
-    public Empleados buscarEmpleado(BigInteger secuencia) {
-        try {
-            empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
-            return empleado;
-        } catch (Exception e) {
-            logger.error("Metodo: buscarEmpleado - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
-            empleado = null;
-            return empleado;
-        }
-    }
+   @Override
+   public void crearVRL(VigenciasReformasLaborales vigenciasReformasLaborales) {
+      persistenciaVigenciasReformasLaborales.crear(em, vigenciasReformasLaborales);
+   }
 
-    @Override
-    public List<ReformasLaborales> reformasLaborales() {
-        try {
-            reformasLaborales = persistenciaReformasLaborales.buscarReformasLaborales(em);
-            return reformasLaborales;
-        } catch (Exception e) {
-            logger.error("Metodo: reformasLaborales - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public Empleados buscarEmpleado(BigInteger secuencia) {
+      try {
+         empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
+         return empleado;
+      } catch (Exception e) {
+         logger.error("Metodo: buscarEmpleado - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
+         empleado = null;
+         return empleado;
+      }
+   }
 
-    @Override
-    public ActualUsuario obtenerActualUsuario() {
-        try {
-            actualUsuario = persistenciaActualUsuario.actualUsuarioBD(em);
-            return actualUsuario;
-        } catch (Exception e) {
-            logger.error("Metodo: obtenerActualUsuario - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<ReformasLaborales> reformasLaborales() {
+      try {
+         reformasLaborales = persistenciaReformasLaborales.buscarReformasLaborales(em);
+         return reformasLaborales;
+      } catch (Exception e) {
+         logger.error("Metodo: reformasLaborales - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
+         return null;
+      }
+   }
 
-    @Remove
-    @Override
-    public void salir() {
-        vigenciaRefLab = null;
-    }
+   @Override
+   public ActualUsuario obtenerActualUsuario() {
+      try {
+         actualUsuario = persistenciaActualUsuario.actualUsuarioBD(em);
+         return actualUsuario;
+      } catch (Exception e) {
+         logger.error("Metodo: obtenerActualUsuario - AdministrarVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Usuario : " + actualUsuario.getAlias() + " - Error : " + e.toString());
+         return null;
+      }
+   }
+
+   @Remove
+   @Override
+   public void salir() {
+      vigenciaRefLab = null;
+   }
 
 }

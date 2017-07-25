@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarConceptosRetroactivos implements AdministrarConceptosRetroactivosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarConceptosRetroactivos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

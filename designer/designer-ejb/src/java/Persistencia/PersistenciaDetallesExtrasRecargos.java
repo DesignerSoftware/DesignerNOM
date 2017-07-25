@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesExtrasRecargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDetallesExtrasRecargos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +39,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          em.merge(detallesExtrasRecargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesExtrasRecargos.crear: " + e);
+         log.error("Error PersistenciaDetallesExtrasRecargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          em.merge(detallesExtrasRecargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesExtrasRecargos.crear: " + e);
+         log.error("Error PersistenciaDetallesExtrasRecargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +75,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDetallesExtrasRecargos.borrar: " + e);
+         log.error("Error PersistenciaDetallesExtrasRecargos.borrar: " + e);
       }
    }
 
@@ -82,7 +85,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          em.clear();
          return em.find(DetallesExtrasRecargos.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesExtrasRecargos buscarDetalleExtraRecargo : " + e.toString());
+         log.error("Error PersistenciaDetallesExtrasRecargos buscarDetalleExtraRecargo : " + e.toString());
          return null;
       }
    }
@@ -96,7 +99,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          List<DetallesExtrasRecargos> extrasRecargos = query.getResultList();
          return extrasRecargos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargos : " + e.toString());
+         log.error("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargos : " + e.toString());
          return null;
       }
    }
@@ -111,7 +114,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          List<DetallesExtrasRecargos> extrasRecargos = query.getResultList();
          return extrasRecargos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargosPorSecuenciaExtraRecargo : " + e.toString());
+         log.error("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargosPorSecuenciaExtraRecargo : " + e.toString());
          return null;
       }
    }

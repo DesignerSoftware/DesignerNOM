@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEnfoques.class);
 
     @EJB
     PersistenciaEnfoquesInterface PersistenciaEnfoques;
@@ -41,21 +44,21 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
 
     public void modificarEnfoques(List<Enfoques> listEnfoques) {
         for (int i = 0; i < listEnfoques.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             PersistenciaEnfoques.editar(em,listEnfoques.get(i));
         }
     }
 
     public void borrarEnfoques(List<Enfoques> listEnfoques) {
         for (int i = 0; i < listEnfoques.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             PersistenciaEnfoques.borrar(em,listEnfoques.get(i));
         }
     }
 
     public void crearEnfoques(List<Enfoques> listEnfoques) {
         for (int i = 0; i < listEnfoques.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             PersistenciaEnfoques.crear(em,listEnfoques.get(i));
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
         try {
             verificarTiposDetalles = PersistenciaEnfoques.contadorTiposDetalles(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRAREVALPLANILLAS verificarTiposDetalles ERROR :" + e);
+            log.error("ERROR ADMINISTRAREVALPLANILLAS verificarTiposDetalles ERROR :" + e);
         } finally {
             return verificarTiposDetalles;
         }

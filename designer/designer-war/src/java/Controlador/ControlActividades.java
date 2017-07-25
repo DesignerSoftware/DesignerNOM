@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlActividades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlActividades.class);
 
    @EJB
    AdministrarActividadesInterface administrarActividades;
@@ -136,14 +139,14 @@ public class ControlActividades implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
 
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlActividades.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlActividades.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -151,13 +154,13 @@ public class ControlActividades implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarActividades.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlActividades eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlActividades eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
-      System.err.println("permitirIndex  " + permitirIndex);
+      log.error("TIPO LISTA = " + tipoLista);
+      log.error("permitirIndex  " + permitirIndex);
 
       if (permitirIndex == true) {
          index = indice;
@@ -171,24 +174,24 @@ public class ControlActividades implements Serializable {
             backupDescripcion = filtrarActividades.get(index).getDescripcion();
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlActividades.asignarIndex \n");
+         log.info("\n ENTRE A ControlActividades.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlActividades.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlActividades.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -280,10 +283,10 @@ public class ControlActividades implements Serializable {
          dimensiones = (Column) c.getViewRoot().findComponent("form:datosActividades:dimensiones");
          dimensiones.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosActividades");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosActividades:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -306,7 +309,7 @@ public class ControlActividades implements Serializable {
          cualCelda = celda;
          secRegistro = listActividades.get(index).getSecuencia();
          if (cualCelda == 2) {
-            System.out.println("CLASE ACTIVIDAD : " + listActividades.get(indice).getClaseactividad());
+            log.info("CLASE ACTIVIDAD : " + listActividades.get(indice).getClaseactividad());
          }
          if (tipoLista == 0) {
             if (modificarActividades.isEmpty()) {
@@ -326,12 +329,12 @@ public class ControlActividades implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosActividades");
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
 
    }
 
    public void modificarActividades(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0;
@@ -339,14 +342,14 @@ public class ControlActividades implements Serializable {
       boolean banderita1 = false;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearActividades.contains(listActividades.get(indice))) {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listActividades.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -404,8 +407,8 @@ public class ControlActividades implements Serializable {
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listActividades.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -579,7 +582,7 @@ public class ControlActividades implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoActividades");
+            log.info("Entro a borrandoActividades");
             if (!modificarActividades.isEmpty() && modificarActividades.contains(listActividades.get(index))) {
                int modIndex = modificarActividades.indexOf(listActividades.get(index));
                modificarActividades.remove(modIndex);
@@ -593,7 +596,7 @@ public class ControlActividades implements Serializable {
             listActividades.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoActividades ");
+            log.info("borrandoActividades ");
             if (!modificarActividades.isEmpty() && modificarActividades.contains(filtrarActividades.get(index))) {
                int modIndex = modificarActividades.indexOf(filtrarActividades.get(index));
                modificarActividades.remove(modIndex);
@@ -625,12 +628,12 @@ public class ControlActividades implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarBienNecesidadesActividad;
       BigInteger contarParametrosInformesActividad;
 
       try {
-         System.err.println("Control Secuencia de ControlActividades ");
+         log.error("Control Secuencia de ControlActividades ");
          if (tipoLista == 0) {
             contarBienNecesidadesActividad = administrarActividades.contarBienNecesidadesActividad(listActividades.get(index).getSecuencia());
             contarParametrosInformesActividad = administrarActividades.contarParametrosInformesActividad(listActividades.get(index).getSecuencia());
@@ -639,10 +642,10 @@ public class ControlActividades implements Serializable {
             contarParametrosInformesActividad = administrarActividades.contarParametrosInformesActividad(filtrarActividades.get(index).getSecuencia());
          }
          if (contarBienNecesidadesActividad.equals(new BigInteger("0")) && contarParametrosInformesActividad.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoActividades();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -653,7 +656,7 @@ public class ControlActividades implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlActividades verificarBorrado ERROR " + e);
+         log.error("ERROR ControlActividades verificarBorrado ERROR " + e);
       }
    }
 
@@ -671,7 +674,7 @@ public class ControlActividades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarActividades");
+         log.info("Realizando guardarActividades");
          if (!borrarActividades.isEmpty()) {
             administrarActividades.borrarActividades(borrarActividades);
             //mostrarBorrados
@@ -688,7 +691,7 @@ public class ControlActividades implements Serializable {
             administrarActividades.crearActividades(crearActividades);
             crearActividades.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listActividades = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -712,7 +715,7 @@ public class ControlActividades implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -729,7 +732,7 @@ public class ControlActividades implements Serializable {
    }
 
    public void agregarNuevoActividades() {
-      System.out.println("agregarNuevoActividades");
+      log.info("agregarNuevoActividades");
       int contador = 0;
       int duplicados = 0;
 
@@ -739,35 +742,35 @@ public class ControlActividades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoActividades.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoActividades.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoActividades.getCodigo());
 
          for (int x = 0; x < listActividades.size(); x++) {
             if (listActividades.get(x).getCodigo() == nuevoActividades.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoActividades.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoActividades.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
@@ -777,14 +780,14 @@ public class ControlActividades implements Serializable {
          nuevoActividades.setClaseactividad(null);
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
 
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosActividades:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosActividades:descripcion");
@@ -796,7 +799,7 @@ public class ControlActividades implements Serializable {
             filtrarActividades = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -826,7 +829,7 @@ public class ControlActividades implements Serializable {
    }
 
    public void limpiarNuevoActividades() {
-      System.out.println("limpiarNuevoActividades");
+      log.info("limpiarNuevoActividades");
       nuevoActividades = new Actividades();
       secRegistro = null;
       index = -1;
@@ -835,7 +838,7 @@ public class ControlActividades implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoActividades() {
-      System.out.println("duplicandoActividades");
+      log.info("duplicandoActividades");
       if (index >= 0) {
          duplicarActividades = new Actividades();
          k++;
@@ -863,19 +866,19 @@ public class ControlActividades implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarActividades.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarActividades.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarActividades.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarActividades.getDescripcion());
 
       if (duplicarActividades.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listActividades.size(); x++) {
             if (listActividades.get(x).getCodigo() == duplicarActividades.getCodigo()) {
@@ -884,23 +887,23 @@ public class ControlActividades implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarActividades.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarActividades.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
@@ -912,9 +915,9 @@ public class ControlActividades implements Serializable {
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarActividades.getSecuencia() + "  " + duplicarActividades.getCodigo());
+         log.info("Datos Duplicando: " + duplicarActividades.getSecuencia() + "  " + duplicarActividades.getCodigo());
          if (crearActividades.contains(duplicarActividades)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listActividades.add(duplicarActividades);
          crearActividades.add(duplicarActividades);
@@ -978,12 +981,12 @@ public class ControlActividades implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listActividades.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "ACTIVIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

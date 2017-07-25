@@ -33,9 +33,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmpleadosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesEmpleados.class);
 
    @EJB
    PersistenciaPruebaEmpleadosInterface persistenciaPruebaEmpleados;
@@ -78,7 +81,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaEmpleados.contarEmpleadosNovedad(em);
       } catch (Exception e) {
-         System.err.println("Error AdministrarNovedadesEmpleados.cuantosEmpleadosNovedad : " + e);
+         log.error("Error AdministrarNovedadesEmpleados.cuantosEmpleadosNovedad : " + e);
          return -1;
       }
    }
@@ -129,11 +132,11 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
 //        }
    @Override
    public List<PruebaEmpleados> empleadosNovedades() {
-      System.out.println("Administrar.AdministrarNovedadesEmpleados.empleadosNovedades()");
+      log.warn("Administrar.AdministrarNovedadesEmpleados.empleadosNovedades()");
       try {
          return persistenciaPruebaEmpleados.empleadosNovedadesEmple(em);
       } catch (Exception e) {
-         System.out.println("Error empleadosNovedad() e: " + e);
+         log.warn("Error empleadosNovedad() e: " + e);
       return null;
       }
    }
@@ -141,22 +144,22 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    //Trae las novedades del empleado cuya secuencia se envía como parametro//
    @Override
    public List<Novedades> novedadesEmpleado(BigInteger secuenciaEmpleado) {
-      System.out.println("novedadesEmpleado() secuenciaEmpleado: " + secuenciaEmpleado);
+      log.warn("novedadesEmpleado() secuenciaEmpleado: " + secuenciaEmpleado);
       try {
          return persistenciaNovedades.novedadesEmpleado(em, secuenciaEmpleado);
       } catch (Exception e) {
-         System.err.println("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
+         log.error("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
          return null;
       }
    }
 
    @Override
    public List<Novedades> todasNovedades(BigInteger secuenciaEmpleado) {
-      System.out.println("Administrar.AdministrarNovedadesEmpleados.todasNovedades() secuenciaEmpleado:" + secuenciaEmpleado);
+      log.warn("Administrar.AdministrarNovedadesEmpleados.todasNovedades() secuenciaEmpleado:" + secuenciaEmpleado);
       try {
          return persistenciaNovedades.todasNovedadesEmpleado(em, secuenciaEmpleado);
       } catch (Exception e) {
-         System.err.println("Error AdministrarNovedadesEmpleados.todasNovedades" + e);
+         log.error("Error AdministrarNovedadesEmpleados.todasNovedades" + e);
          return null;
       }
    }
@@ -239,7 +242,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    @Override
    public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
       for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-         System.out.println("Modificando...");
+         log.warn("Modificando...");
          if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
             listaNovedadesModificar.get(i).setTercero(null);
          }

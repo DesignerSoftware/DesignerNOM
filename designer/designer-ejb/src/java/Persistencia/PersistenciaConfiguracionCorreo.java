@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaConfiguracionCorreoInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -18,6 +19,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaConfiguracionCorreo implements PersistenciaConfiguracionCorreoInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaConfiguracionCorreo.class);
 
     @Override
     public ConfiguracionCorreo consultarConfiguracionServidorCorreo(EntityManager eManager, BigInteger secuenciaEmpresa) {
@@ -30,7 +33,7 @@ public class PersistenciaConfiguracionCorreo implements PersistenciaConfiguracio
             eManager.getTransaction().commit();
             return cc;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo: " + e);
+            log.error("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo: " + e);
             eManager.getTransaction().rollback();
             return null;
         }

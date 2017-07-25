@@ -5,12 +5,8 @@
  */
 package Administrar;
 
-import Entidades.CentrosCostos;
-import Entidades.Cuentas;
 import Entidades.Empleados;
-import Entidades.Formulas;
 import Entidades.Proyecciones;
-import Entidades.Terceros;
 import InterfaceAdministrar.AdministrarProyeccionesInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
@@ -20,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarProyecciones implements AdministrarProyeccionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarProyecciones.class);
 
     /**
      * Enterprise JavaBean.<br>
@@ -49,7 +48,7 @@ public class AdministrarProyecciones implements AdministrarProyeccionesInterface
     }
 
     public void borrarProyecciones(List<Proyecciones> lista) {
-        System.out.println("AdministrarProyecciones borrarProyecciones");
+        log.warn("AdministrarProyecciones borrarProyecciones");
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getCentroCosto().getSecuencia() == null) {
                 lista.get(i).setCentroCosto(null);

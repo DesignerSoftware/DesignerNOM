@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -18,6 +19,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaInterconDynamics implements PersistenciaInterconDynamicsInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaInterconDynamics.class);
+
     @Override
     public void crear(EntityManager em, InterconDynamics interconDynamics) {
         em.clear();
@@ -27,7 +30,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             em.merge(interconDynamics);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.crear: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.crear: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +46,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             em.merge(interconDynamics);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.editar: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.editar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +62,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             em.remove(em.merge(interconDynamics));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.borrar: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.borrar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +79,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             InterconDynamics intercon = (InterconDynamics) query.getSingleResult();
             return intercon;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.buscarInterconDynamicSecuencia: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.buscarInterconDynamicSecuencia: " + e.toString());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             List<InterconDynamics> intercon = query.getResultList();
             return intercon;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.buscarInterconDynamicParametroContable: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.buscarInterconDynamicParametroContable: " + e.toString());
             return null;
         }
     }
@@ -117,7 +120,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.contarProcesosContabilizadosInterconDynamics. " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.contarProcesosContabilizadosInterconDynamics. " + e.toString());
             return -1;
         }
     }
@@ -143,7 +146,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -172,7 +175,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion_PL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion_PL : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -196,7 +199,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -220,7 +223,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PACIFIC : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PACIFIC : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -244,7 +247,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PROLUB : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PROLUB : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -268,7 +271,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_VT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_VT : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -292,7 +295,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -316,7 +319,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_SX : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_SX : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -340,7 +343,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -364,7 +367,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -388,7 +391,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PL : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -407,7 +410,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGRecontabilizar : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGRecontabilizar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -445,7 +448,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.actualizarFlagContabilizacionDeshacerDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.actualizarFlagContabilizacionDeshacerDynamics : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -473,7 +476,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.deleteInterconDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.deleteInterconDynamics : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -512,7 +515,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.deleteInterconDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.deleteInterconDynamics : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -535,7 +538,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -558,7 +561,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS_PACIFIC : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS_PACIFIC : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -581,7 +584,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -604,7 +607,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -627,7 +630,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_YV : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_YV : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -650,7 +653,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PROLUB : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PROLUB : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -674,7 +677,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.anularComprobantesCerrados : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.anularComprobantesCerrados : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -698,7 +701,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.anularComprobantesCerrados_PL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.anularComprobantesCerrados_PL : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -715,7 +718,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.obtenerFechaContabilizacionMaxInterconDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.obtenerFechaContabilizacionMaxInterconDynamics : " + e.toString());
             return null;
         }
     }
@@ -736,7 +739,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -759,7 +762,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -779,7 +782,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             tx.commit();
             return cargo;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconDynamics.obtenerCargoDYNAMICSVT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.obtenerCargoDYNAMICSVT : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }

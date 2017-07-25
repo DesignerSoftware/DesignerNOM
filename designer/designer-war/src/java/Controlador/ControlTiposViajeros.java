@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposViajeros implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposViajeros.class);
 
     @EJB
     AdministrarTiposViajerosInterface administrarTiposViajeros;
@@ -81,7 +84,7 @@ public class ControlTiposViajeros implements Serializable {
         guardado = true;
         tamano = 320;
         mapParametros.put("paginaAnterior", paginaAnterior);
-        System.out.println("controlTiposViajeros Constructor");
+        log.info("controlTiposViajeros Constructor");
     }
 
     public void limpiarListasValor() {
@@ -91,14 +94,14 @@ public class ControlTiposViajeros implements Serializable {
     @PostConstruct
     public void inicializarAdministrador() {
         try {
-            System.out.println("ControlTiposViajeros PostConstruct ");
+            log.info("ControlTiposViajeros PostConstruct ");
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarTiposViajeros.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -162,10 +165,10 @@ public class ControlTiposViajeros implements Serializable {
             tiposViajeroSeleccionado.getSecuencia();
             if (cualCelda == 0) {
                 backUpCodigo = tiposViajeroSeleccionado.getCodigo();
-                System.out.println(" backUpCodigo : " + backUpCodigo);
+                log.info(" backUpCodigo : " + backUpCodigo);
             } else if (cualCelda == 1) {
                 backUpDescripcion = tiposViajeroSeleccionado.getNombre();
-                System.out.println(" backUpDescripcion : " + backUpDescripcion);
+                log.info(" backUpDescripcion : " + backUpDescripcion);
             }
 
         }
@@ -227,7 +230,7 @@ public class ControlTiposViajeros implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposViajeros:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -295,7 +298,7 @@ public class ControlTiposViajeros implements Serializable {
                 contarTiposLegalizaciones = new BigInteger("-1");
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlTiposViajeros verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposViajeros verificarBorrado ERROR " + e);
         }
     }
 
@@ -313,7 +316,7 @@ public class ControlTiposViajeros implements Serializable {
 
     public void guardarTiposViajeros() {
         if (guardado == false) {
-            System.out.println("Realizando guardarTiposViajeros");
+            log.info("Realizando guardarTiposViajeros");
             if (!borrarTiposViajeros.isEmpty()) {
                 administrarTiposViajeros.borrarTiposViajeros(borrarTiposViajeros);
                 registrosBorrados = borrarTiposViajeros.size();
@@ -357,7 +360,7 @@ public class ControlTiposViajeros implements Serializable {
     }
 
     public void agregarNuevoTiposViajeros() {
-        System.out.println("agregarNuevoTiposViajeros");
+        log.info("agregarNuevoTiposViajeros");
         int contador = 0;
         int duplicados = 0;
 
@@ -452,7 +455,7 @@ public class ControlTiposViajeros implements Serializable {
             if (duplicados > 0) {
                 mensajeValidacion = " Existe un registro con el código ingresado. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
@@ -463,12 +466,12 @@ public class ControlTiposViajeros implements Serializable {
         } else if (duplicarTiposViajeros.getNombre().isEmpty()) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
         }
         if (contador == 2) {
             if (crearTiposViajeros.contains(duplicarTiposViajeros)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listTiposViajeros.add(duplicarTiposViajeros);
             crearTiposViajeros.add(duplicarTiposViajeros);

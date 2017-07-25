@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 //import javax.persistence.PersistenceContext;
@@ -24,6 +25,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaDirecciones implements PersistenciaDireccionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaDirecciones.class);
+
     /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     /**
@@ -34,7 +37,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
      */
     @Override
     public boolean crear(EntityManager em, Direcciones direcciones) {
-        System.out.println(this.getClass().getName() + ".crear()");
+        log.error(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -43,19 +46,19 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("error en crear");
+            log.error("error en crear");
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerro la transaccion");
+            log.error("se cerro la transaccion");
             return false;
         }
     }
 
     @Override
     public void editar(EntityManager em, Direcciones direcciones) {
-        System.out.println(this.getClass().getName() + ".editar()");
+        log.error(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -63,18 +66,18 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             em.merge(direcciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("error en editar");
+            log.error("error en editar");
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerro la transaccion");
+            log.error("se cerro la transaccion");
         }
     }
 
     @Override
     public void borrar(EntityManager em, Direcciones direcciones) {
-        System.out.println(this.getClass().getName() + ".borrar()");
+        log.error(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -82,22 +85,22 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             em.remove(em.merge(direcciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("error en borrar");
+            log.error("error en borrar");
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerro la transaccion");
+            log.error("se cerro la transaccion");
         }
     }
 
     @Override
     public Direcciones buscarDireccion(EntityManager em, BigInteger secuencia) {
-        System.out.println(this.getClass().getName() + "buscarDireccion()");
+        log.error(this.getClass().getName() + "buscarDireccion()");
         try {
             em.clear();
             return em.find(Direcciones.class, secuencia);
         } catch (Exception e) {
-            System.out.println("error en buscarDireccion");
+            log.error("error en buscarDireccion");
             e.printStackTrace();
             return null;
         }
@@ -105,21 +108,21 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public List<Direcciones> buscarDirecciones(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".buscarDirecciones()");
+        log.error(this.getClass().getName() + ".buscarDirecciones()");
         try {
             em.clear();
             javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Direcciones.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("error en buscarDirecciones");
+            log.error("error en buscarDirecciones");
             e.printStackTrace();
             return null;
         }
     }
 
     private Long contarDireccionesPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName() + ".contarDireccionesPersona()");
+        log.error(this.getClass().getName() + ".contarDireccionesPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -129,7 +132,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("error en contarDireccionesPersona");
+            log.error("error en contarDireccionesPersona");
             e.printStackTrace();
             return resultado;
         }
@@ -138,7 +141,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
     @Override
     public List<Direcciones> direccionPersona(EntityManager em, BigInteger secuenciaPersona) {
         Long resultado = this.contarDireccionesPersona(em, secuenciaPersona);
-        System.out.println(this.getClass().getName() + ".direccionPersona()");
+        log.error(this.getClass().getName() + ".direccionPersona()");
         if (resultado != null && resultado > 0) {
             try {
                 /*em.clear();
@@ -152,18 +155,18 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
                 List<Direcciones> listaDirecciones = queryFinal.getResultList();
                 return listaDirecciones;
             } catch (Exception e) {
-                System.out.println("error en direccionPersona");
+                log.error("error en direccionPersona");
                 return null;
             }
         } else {
-            System.out.println("No hubo una respuesta de conteo exitosa");
+            log.error("No hubo una respuesta de conteo exitosa");
             return null;
         }
     }
 
     @Override
     public List<Direcciones> direccionesPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName() + ".direccionesPersona()");
+        log.error(this.getClass().getName() + ".direccionesPersona()");
         Long resultado = this.contarDireccionesPersona(em, secuenciaPersona);
         if (resultado != null && resultado > 0) {
             try {
@@ -178,12 +181,12 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
                 List<Direcciones> listaDirecciones = queryFinal.getResultList();
                 return listaDirecciones;
             } catch (Exception e) {
-                System.out.println("error en direccionesPersona");
+                log.error("error en direccionesPersona");
                 e.printStackTrace();
                 return null;
             }
         } else {
-            System.out.println("No hubo una respuesta de conteo exitosa");
+            log.error("No hubo una respuesta de conteo exitosa");
             return null;
         }
     }
@@ -198,7 +201,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             List<Direcciones> direccion = query.getResultList();
             return direccion;
         } catch (Exception e) {
-            System.out.println("Error en direccionActualPersona : " + e.toString());
+            log.error("Error en direccionActualPersona : " + e.toString());
             return null;
         }
     }
@@ -221,7 +224,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             } 
             return direccion;
         } catch (NoResultException e) {
-            System.out.println("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()" + e.getMessage());
+            log.error("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()" + e.getMessage());
             direccion = " ";
             return direccion;
         }
@@ -237,7 +240,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             List<Direcciones> direccion = query.getResultList();
             return direccion;
         } catch (Exception e) {
-            System.out.println("Error en direccionesBanco : " + e.toString());
+            log.error("Error en direccionesBanco : " + e.toString());
             return null;
         }
     }

@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaCirculares implements PersistenciaCircularesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCirculares.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +41,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             em.persist(circulares);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCentrosCostos.crear: " + e);
+            log.error("Error PersistenciaCentrosCostos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +57,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             em.merge(circulares);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCentrosCostos.editar: " + e);
+            log.error("Error PersistenciaCentrosCostos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +79,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaCentrosCostos.borrar: " + e);
+                log.error("Error PersistenciaCentrosCostos.borrar: " + e);
             }
         }
     }
@@ -90,7 +93,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             List<Circulares> circulares = query.getResultList();
             return circulares;
         } catch (Exception e) {
-            System.out.println("Error buscarCirculares PersistenciaCirculares : " + e.toString());
+            log.error("Error buscarCirculares PersistenciaCirculares : " + e.toString());
             return null;
         }
     }
@@ -105,7 +108,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             Circulares circulares = (Circulares) query.getSingleResult();
             return circulares;
         } catch (Exception e) {
-            System.out.println("Error buscarCircularSecuencia  PersistenciaCirculares : " + e.toString());
+            log.error("Error buscarCircularSecuencia  PersistenciaCirculares : " + e.toString());
             Circulares circulares = null;
             return circulares;
         }
@@ -121,7 +124,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             List<Circulares> circulares = query.getResultList();
             return circulares;
         } catch (Exception e) {
-            System.out.println("Error buscarCircularesPorSecuenciaEmpresa  PersistenciaCirculares : " + e.toString());
+            log.error("Error buscarCircularesPorSecuenciaEmpresa  PersistenciaCirculares : " + e.toString());
             List<Circulares> circulares = null;
             return circulares;
         }

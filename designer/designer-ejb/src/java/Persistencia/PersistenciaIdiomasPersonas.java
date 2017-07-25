@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-//import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaIdiomasPersonas.class);
 
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
@@ -40,7 +42,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             em.persist(idiomasPersonas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.crear: " + e.getMessage());
+            log.error("Error PersistenciaIdiomasPersonas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +58,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             em.merge(idiomasPersonas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.editar: " + e.getMessage());
+            log.error("Error PersistenciaIdiomasPersonas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaIdiomasPersonas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -90,7 +92,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("error en contarIdiomasPersona" + e.getMessage());
+            log.error("error en contarIdiomasPersona" + e.getMessage());
             e.printStackTrace();
             return resultado;
         }
@@ -105,7 +107,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             List<IdiomasPersonas> listaIdiomasPersonas = queryFinal.getResultList();
             return listaIdiomasPersonas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.idiomasPersona" + e.toString());
+            log.error("Error PersistenciaIdiomasPersonas.idiomasPersona" + e.toString());
             return null;
         }
     }
@@ -119,7 +121,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             List<IdiomasPersonas> resultado = (List<IdiomasPersonas>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas" + e.getMessage());
+            log.error("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas" + e.getMessage());
             return null;
         }
     }
@@ -142,7 +144,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             }
             return idioma;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaIdiomasPersonas.primerIdioma()" + e.getMessage());
+            log.error("Persistencia.PersistenciaIdiomasPersonas.primerIdioma()" + e.getMessage());
             idioma = "";
             return idioma;
         }

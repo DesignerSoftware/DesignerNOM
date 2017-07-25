@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEstructurasFormulas implements PersistenciaEstructurasFormulasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEstructurasFormulas.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -50,7 +53,7 @@ public class PersistenciaEstructurasFormulas implements PersistenciaEstructurasF
             List<EstructurasFormulas> listaEstructurasFormulas = query.getResultList();
             return listaEstructurasFormulas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEstructurasFormulas.estructurasFormulasParaHistoriaFormula. " + e.toString());
+            log.error("Error PersistenciaEstructurasFormulas.estructurasFormulasParaHistoriaFormula. " + e.toString());
             return null;
         }
     }

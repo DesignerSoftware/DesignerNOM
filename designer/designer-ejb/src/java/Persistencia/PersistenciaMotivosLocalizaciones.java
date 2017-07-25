@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLocalizacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosLocalizaciones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             em.merge(motivosLocalizaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosLocalizaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosLocalizaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             em.merge(motivosLocalizaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosLocalizaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosLocalizaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             em.remove(em.merge(motivosLocalizaciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosLocalizaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosLocalizaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +88,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             List<MotivosLocalizaciones> motivosL = (List<MotivosLocalizaciones>) query.getResultList();
             return motivosL;
         } catch (Exception e) {
-            System.out.println("Error buscarMotivosLocalizaciones PersistenciaMotivosLovalizaciones" + e.getMessage());
+            log.error("Error buscarMotivosLocalizaciones PersistenciaMotivosLovalizaciones" + e.getMessage());
             return null;
         }
     }
@@ -101,7 +103,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             MotivosLocalizaciones motivoL = (MotivosLocalizaciones) query.getSingleResult();
             return motivoL;
         } catch (Exception e) {
-            System.out.println("Error buscarMotivoLocalizacionSecuencia PersistenciaMotivosLocalizaciones" + e.getMessage());
+            log.error("Error buscarMotivoLocalizacionSecuencia PersistenciaMotivosLocalizaciones" + e.getMessage());
             MotivosLocalizaciones motivoL = null;
             return motivoL;
         }
@@ -117,7 +119,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIAMOTIVOSLOCALIZACIONES  contarVigenciasLocalizacionesMotivoLocalizacion. " + e.getMessage());
+            log.error("Error PERSISTENCIAMOTIVOSLOCALIZACIONES  contarVigenciasLocalizacionesMotivoLocalizacion. " + e.getMessage());
             return retorno;
         }
     }

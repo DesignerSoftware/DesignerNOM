@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReemplazosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosReemplazos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -35,7 +37,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             em.merge(motivoReemplazo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosReemplazos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosReemplazos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +52,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             em.merge(motivoReemplazo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosReemplazos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosReemplazos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +68,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosReemplazos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosReemplazos.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -82,7 +84,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             List<MotivosReemplazos> motivosReemplazos = query.getResultList();
             return motivosReemplazos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosReemplazos.motivosReemplazos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosReemplazos.motivosReemplazos()" + e.getMessage());
             return null;
         }
     }
@@ -95,10 +97,10 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.out.println("persistenciaMotivosReemplazos contarEncargaturasMotivoReemplazo retorno : " + retorno);
+            log.error("persistenciaMotivosReemplazos contarEncargaturasMotivoReemplazo retorno : " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR : " + e.getMessage());
+            log.error("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR : " + e.getMessage());
             return retorno;
         }
     }

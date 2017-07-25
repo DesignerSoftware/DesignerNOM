@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDetalleCuenta implements AdministrarDetalleCuentaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDetalleCuenta.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -66,7 +69,7 @@ public class AdministrarDetalleCuenta implements AdministrarDetalleCuentaInterfa
             List<VigenciasCuentas> listCCredito = persistenciaVigenciasCuentas.buscarVigenciasCuentasPorCredito(em,secuenciaC);
             return listCCredito;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasCuentasCredito Admi : " + e.toString());
+            log.warn("Error listVigenciasCuentasCredito Admi : " + e.toString());
             return null;
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarDetalleCuenta implements AdministrarDetalleCuentaInterfa
             List<VigenciasCuentas> listCDebito = persistenciaVigenciasCuentas.buscarVigenciasCuentasPorDebito(em,secuenciaC);
             return listCDebito;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasCuentasDebito Admi : " + e.toString());
+            log.warn("Error listVigenciasCuentasDebito Admi : " + e.toString());
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarDetalleCuenta implements AdministrarDetalleCuentaInterfa
             Cuentas cuentaActual = persistenciaCuentas.buscarCuentasSecuencia(em,secuencia);
             return cuentaActual;
         } catch (Exception e) {
-            System.out.println("Error cuentaActual Admi: " + e.toString());
+            log.warn("Error cuentaActual Admi: " + e.toString());
             return null;
         }
     }

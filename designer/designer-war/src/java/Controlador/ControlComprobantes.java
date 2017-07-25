@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -33,6 +34,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlComprobantes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlComprobantes.class);
 
    @EJB
    AdministrarComprobantesInterface administrarComprobantes;
@@ -121,8 +124,8 @@ public class ControlComprobantes implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarComprobantes.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -161,7 +164,7 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void refrescar() {
-      System.out.println("ControlComprobantes.refrescar()");
+      log.info("ControlComprobantes.refrescar()");
       solucionNodoEmpleadoSeleccionado = null;
       solucionNodoEmpleadorSeleccionado = null;
       listaParametros.clear();
@@ -234,7 +237,7 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void seleccionarEmpleado() {
-      System.out.println("ControlComprobantes.seleccionarEmpleado()");
+      log.info("ControlComprobantes.seleccionarEmpleado()");
       listaParametros.clear();
       listaParametros.add(parametroSeleccionado);
       parametroActual = parametroSeleccionado;
@@ -272,7 +275,7 @@ public class ControlComprobantes implements Serializable {
    }
 
    public void mostarTodosEmpleados() {
-      System.out.println("ControlComprobantes.mostarTodosEmpleados()");
+      log.info("ControlComprobantes.mostarTodosEmpleados()");
       registroActual = 0;
       listaParametros.clear();
       parametroActual = null;
@@ -291,7 +294,7 @@ public class ControlComprobantes implements Serializable {
 
    //CTRL + F11 ACTIVAR/DESACTIVAR
    public void activarCtrlF11() {
-      System.out.println("ControlComprobantes.activarCtrlF11()");
+      log.info("ControlComprobantes.activarCtrlF11()");
       if (bandera == 0) {
          //SOLUCIONES NODOS EMPLEADO
          codigoSNE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionesNodosEmpleado:codigoSNE");
@@ -829,7 +832,7 @@ public class ControlComprobantes implements Serializable {
          if (lovParametros == null) {
             lovParametros = new ArrayList<Parametros>();
          }
-         System.out.println("ControlComprobantes.getLovParametros() consulto parametros");
+         log.info("ControlComprobantes.getLovParametros() consulto parametros");
       }
       return lovParametros;
    }
@@ -866,7 +869,7 @@ public class ControlComprobantes implements Serializable {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleado.isEmpty()) {
             listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(parametroActual.getEmpleado().getSecuencia());
-            System.out.println("ControlComprobantes.getListaSolucionesNodosEmpleado() Consulto");
+            log.info("ControlComprobantes.getListaSolucionesNodosEmpleado() Consulto");
             if (listaSolucionesNodosEmpleado != null) {
                subtotalPago = new BigDecimal(0);
                subtotalDescuento = new BigDecimal(0);
@@ -906,7 +909,7 @@ public class ControlComprobantes implements Serializable {
          if (listaSolucionesNodosEmpleador.isEmpty()) {
             if (parametroActual.getEmpleado().getSecuencia() != null) {
                listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(parametroActual.getEmpleado().getSecuencia());
-               System.out.println("ControlComprobantes.getListaSolucionesNodosEmpleador() Consulto");
+               log.info("ControlComprobantes.getListaSolucionesNodosEmpleador() Consulto");
                if (listaSolucionesNodosEmpleador != null) {
                   subtotalPasivo = new BigDecimal(0);
                   subtotalGasto = new BigDecimal(0);
@@ -993,13 +996,13 @@ public class ControlComprobantes implements Serializable {
    }
 
    public List<DetallesFormulas> getListaDetallesFormulas() {
-      System.out.println("getListaDetallesFormulas() Entro index : " + index);
+      log.info("getListaDetallesFormulas() Entro index : " + index);
       if (listaDetallesFormulas == null) {
          BigInteger secEmpleado = null, secProceso = null, secHistoriaFormula, secFormula = null;
          String fechaDesde = null, fechaHasta = null;
          if (tablaActual == 0) {
             if (!listaSolucionesNodosEmpleado.isEmpty()) {
-               System.out.println("getListaDetallesFormulas() Entro listaSolucionesNodosEmpleado.get(index) : " + listaSolucionesNodosEmpleado.get(index));
+               log.info("getListaDetallesFormulas() Entro listaSolucionesNodosEmpleado.get(index) : " + listaSolucionesNodosEmpleado.get(index));
                secFormula = listaSolucionesNodosEmpleado.get(index).getFormula();//
                fechaDesde = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechadesde()); //
                fechaHasta = formatoFecha.format(listaSolucionesNodosEmpleado.get(index).getFechahasta()); //
@@ -1018,7 +1021,7 @@ public class ControlComprobantes implements Serializable {
          if (secFormula != null && fechaDesde != null) {
             secHistoriaFormula = administrarComprobantes.consultarHistoriaFormulaFormula(secFormula, fechaDesde);
             listaDetallesFormulas = administrarComprobantes.consultarDetallesFormulasEmpleado(secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
-            System.out.println("getListaDetallesFormulas() Consulto listaDetallesFormulas");
+            log.info("getListaDetallesFormulas() Consulto listaDetallesFormulas");
          }
       }
       return listaDetallesFormulas;

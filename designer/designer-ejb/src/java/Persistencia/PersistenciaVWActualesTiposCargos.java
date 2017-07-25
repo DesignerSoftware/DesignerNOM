@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesTiposContratosInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesTiposCargos implements PersistenciaVWActualesTiposContratosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesTiposCargos.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -33,7 +35,7 @@ public class PersistenciaVWActualesTiposCargos implements PersistenciaVWActuales
             VWActualesTiposContratos actualesTiposContratos = (VWActualesTiposContratos) query.getSingleResult();
             return actualesTiposContratos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVWActualesTiposCargos.buscarTiposContratosEmpleado: " + e.getMessage());
+            log.error("Error PersistenciaVWActualesTiposCargos.buscarTiposContratosEmpleado: " + e.getMessage());
             return null;
         }
     }

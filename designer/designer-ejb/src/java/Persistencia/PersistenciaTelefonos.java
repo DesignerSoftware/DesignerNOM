@@ -9,13 +9,15 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-//import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTelefonos.class);
 
     @Override
     public boolean crear(EntityManager em, Telefonos telefonos) {
@@ -27,7 +29,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTelefonos.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTelefonos.crear()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -45,7 +47,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             em.merge(telefonos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTelefonos.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTelefonos.editar()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -62,7 +64,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             em.remove(em.merge(telefonos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTelefonos.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTelefonos.borrar()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -76,7 +78,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             em.clear();
             return em.find(Telefonos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTelefonos.buscarTelefono()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTelefonos.buscarTelefono()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -90,7 +92,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             cq.select(cq.from(Telefonos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTelefonos.buscarTelefonos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTelefonos.buscarTelefonos()" + e.getMessage());
             return null;
         }
     }
@@ -109,7 +111,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             List<Telefonos> listaTelefonos = query.getResultList();
             return listaTelefonos;
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + "telefonosPersona()" + e.getMessage());
+            log.error(this.getClass().getName() + "telefonosPersona()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -125,7 +127,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             Telefonos telefono = (Telefonos) query.getSingleResult();
             return telefono;
         } catch (Exception e) {
-            System.out.println("Error en direccionActualPersona : " + e.toString());
+            log.error("Error en direccionActualPersona : " + e.toString());
             return null;
         }
     }
@@ -145,7 +147,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             telefono = (String) query.getSingleResult();
             return telefono;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTelefonos.consultarUltimoTelefono()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTelefonos.consultarUltimoTelefono()" + e.getMessage());
             telefono = "";
             return telefono;
         }

@@ -10,9 +10,9 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,6 +26,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaRetirados.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -41,7 +43,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             em.merge(retirados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetirados.crear: " + e.getMessage());
+            log.error("Error PersistenciaRetirados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             em.merge(retirados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetirados.editar: " + e.getMessage());
+            log.error("Error PersistenciaRetirados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             em.remove(em.merge(retirados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetirados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaRetirados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +90,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             cq.select(cq.from(Retirados.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetirados.buscarRetirados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetirados.buscarRetirados()" + e.getMessage());
             return null;
         }
     }
@@ -103,7 +105,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             List<Retirados> retiros = query.getResultList();
             return retiros;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Retirados " + e.getMessage());
+            log.error("Error en Persistencia Retirados " + e.getMessage());
             return null;
         }
     }
@@ -117,7 +119,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             Retirados retiro = (Retirados) query.getSingleResult();
             return retiro;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetirados.buscarRetiroSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetirados.buscarRetiroSecuencia()" + e.getMessage());
             return null;
         }
     }
@@ -133,7 +135,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             Retirados retiroVigencia = (Retirados) query.getSingleResult();
             return retiroVigencia;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetirados.buscarRetiroVigenciaSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetirados.buscarRetiroVigenciaSecuencia()" + e.getMessage());
             return new Retirados();
         }
     }
@@ -156,7 +158,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             query.setParameter(4, fechaCambio);
             query.execute();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetirados.adicionaRetiroCambiosMasivos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetirados.adicionaRetiroCambiosMasivos()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -184,7 +186,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             query.setParameter(4, fechaCambio);
             query.execute();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetirados.undoAdicionaRetiroCambiosMasivos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetirados.undoAdicionaRetiroCambiosMasivos()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -208,7 +210,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             query.setParameter(2, fechaFin);
             query.execute();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetirados.adicionaReingresoCambiosMasivos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetirados.adicionaReingresoCambiosMasivos()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();

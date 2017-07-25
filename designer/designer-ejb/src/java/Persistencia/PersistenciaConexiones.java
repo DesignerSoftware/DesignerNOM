@@ -8,6 +8,7 @@ import InterfacePersistencia.PersistenciaConexionesInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaConexiones implements PersistenciaConexionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaConexiones.class);
+
    @Override
    public void crear_Modificar(Conexiones conexion, EntityManager em) {
       em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaConexiones implements PersistenciaConexionesInterface {
          em.merge(conexion);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConexiones.crear_modificar: " + e);
+         log.error("Error PersistenciaConexiones.crear_modificar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +49,7 @@ public class PersistenciaConexiones implements PersistenciaConexionesInterface {
          BigInteger SID = new BigInteger(strSID);
          return SID;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConexiones.buscarSID: " + e);
+         log.error("Error PersistenciaConexiones.buscarSID: " + e);
          return null;
       }
    }
@@ -71,7 +74,7 @@ public class PersistenciaConexiones implements PersistenciaConexionesInterface {
             crear_Modificar(conexion, em);
          }
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConexiones.verificarSID: " + e);
+         log.error("Error PersistenciaConexiones.verificarSID: " + e);
       }
    }
 }

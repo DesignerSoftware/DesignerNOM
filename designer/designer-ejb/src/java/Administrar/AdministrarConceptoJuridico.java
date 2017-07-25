@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarConceptoJuridico implements AdministrarConceptoJuridicoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarConceptoJuridico.class);
     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    
@@ -59,7 +62,7 @@ public class AdministrarConceptoJuridico implements AdministrarConceptoJuridicoI
             List<ConceptosJuridicos> conceptos = persistenciaConceptosJuridicos.buscarConceptosJuridicosEmpresa(em,secuencia);
             return conceptos;
         } catch (Exception e) {
-            System.out.println("Error listConceptosJuridicosPorEmpresa Admi : " + e.toString());
+            log.warn("Error listConceptosJuridicosPorEmpresa Admi : " + e.toString());
             return null;
         }
     }
@@ -71,7 +74,7 @@ public class AdministrarConceptoJuridico implements AdministrarConceptoJuridicoI
                 persistenciaConceptosJuridicos.crear(em,listCJ.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearConceptosJuridicos Admi : " + e.toString());
+            log.warn("Error crearConceptosJuridicos Admi : " + e.toString());
         }
     }
 
@@ -82,7 +85,7 @@ public class AdministrarConceptoJuridico implements AdministrarConceptoJuridicoI
                 persistenciaConceptosJuridicos.editar(em,listCJ.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarConceptosJuridicos Admi : " + e.toString());
+            log.warn("Error editarConceptosJuridicos Admi : " + e.toString());
         }
     }
 
@@ -93,7 +96,7 @@ public class AdministrarConceptoJuridico implements AdministrarConceptoJuridicoI
                 persistenciaConceptosJuridicos.borrar(em,listCJ.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarConceptosJuridicos Admi : " + e.toString());
+            log.warn("Error borrarConceptosJuridicos Admi : " + e.toString());
         }
     }
 
@@ -103,7 +106,7 @@ public class AdministrarConceptoJuridico implements AdministrarConceptoJuridicoI
             List<Empresas> empresas = persistenciaEmpresas.consultarEmpresas(em);
             return empresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Admi : " + e.toString());
+            log.warn("Error listEmpresas Admi : " + e.toString());
             return null;
         }
     }

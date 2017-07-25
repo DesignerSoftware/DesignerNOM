@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposTallas.class);
 
     @EJB
     PersistenciaTiposTallasInterface persistenciaTiposTallas;
@@ -42,7 +45,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
     @Override
     public void modificarTiposTallas(List<TiposTallas> listTiposTallas) {
         for (int i = 0; i < listTiposTallas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposTallas.editar(em, listTiposTallas.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
     @Override
     public void borrarTiposTallas(List<TiposTallas> listTiposTallas) {
         for (int i = 0; i < listTiposTallas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposTallas.borrar(em, listTiposTallas.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
     @Override
     public void crearTiposTallas(List<TiposTallas> listTiposTallas) {
         for (int i = 0; i < listTiposTallas.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposTallas.crear(em, listTiposTallas.get(i));
         }
     }
@@ -81,10 +84,10 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
     public BigInteger contarElementosTipoTalla(BigInteger secuenciaElementos) {
         try {
             BigInteger verificadorElementos;
-            System.err.println("Secuencia Borrado Elementos" + secuenciaElementos);
+            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
             return verificadorElementos = persistenciaTiposTallas.contadorElementos(em, secuenciaElementos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposTallas verificarBorradoElementos ERROR :" + e);
+            log.error("ERROR AdministrarTiposTallas verificarBorradoElementos ERROR :" + e);
             return null;
         }
     }
@@ -93,10 +96,10 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
     public BigInteger contarVigenciasTallasTipoTalla(BigInteger secuenciaVigenciasTallas) {
         try {
             BigInteger verificadorVigenciasTallas;
-            System.err.println("Secuencia Borrado Vigencias Tallas" + secuenciaVigenciasTallas);
+            log.error("Secuencia Borrado Vigencias Tallas" + secuenciaVigenciasTallas);
             return verificadorVigenciasTallas = persistenciaTiposTallas.contadorVigenciasTallas(em, secuenciaVigenciasTallas);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposTallas verificarBorradoVigenciasTallas ERROR :" + e);
+            log.error("ERROR AdministrarTiposTallas verificarBorradoVigenciasTallas ERROR :" + e);
             return null;
         }
     }

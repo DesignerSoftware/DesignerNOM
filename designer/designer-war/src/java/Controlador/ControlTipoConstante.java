@@ -23,9 +23,11 @@ import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,8 +38,10 @@ import org.primefaces.context.RequestContext;
  * @author user
  */
 @Named(value = "controlTipoConstante")
-@javax.enterprise.context.SessionScoped
+@SessionScoped
 public class ControlTipoConstante implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoConstante.class);
 
    @EJB
    AdministrarTiposConstantesInterface administrarTiposConstantes;
@@ -128,8 +132,8 @@ public class ControlTipoConstante implements Serializable {
          administrarTiposConstantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -245,8 +249,8 @@ public class ControlTipoConstante implements Serializable {
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
       altoTabla = "286";
-      System.out.println("Desactivar");
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("Desactivar");
+      log.info("TipoLista= " + tipoLista);
       tiposConstantesTipos = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesTipos");
       tiposConstantesTipos.setFilterStyle("display: none; visibility: hidden;");
       tiposConstantesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesIniciales");
@@ -363,7 +367,7 @@ public class ControlTipoConstante implements Serializable {
    public void verificarRastro() {
       if (tipoConstanteSeleccionada != null) {
          int result = administrarRastros.obtenerTabla(tipoConstanteSeleccionada.getSecuencia(), "TIPOSCONSTANTES");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -624,7 +628,7 @@ public class ControlTipoConstante implements Serializable {
                k++;
                l = BigInteger.valueOf(k);
                nuevoTipoConstante.setSecuencia(l);
-               System.out.println("Operando: " + operando);
+               log.info("Operando: " + operando);
                nuevoTipoConstante.setOperando(operando);
 
                cambiosPagina = false;

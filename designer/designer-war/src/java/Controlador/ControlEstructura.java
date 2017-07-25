@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -45,6 +46,8 @@ import org.primefaces.model.TreeNode;
 @ManagedBean
 @SessionScoped
 public class ControlEstructura implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEstructura.class);
 
    @EJB
    AdministrarEstructurasInterface administrarEstructuras;
@@ -246,8 +249,8 @@ public class ControlEstructura implements Serializable {
          externalContext = x.getExternalContext();
          userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -274,7 +277,7 @@ public class ControlEstructura implements Serializable {
    }
 
    public void cambiarIndiceDefault() {
-      System.out.println("cambiarIndiceDefault()");
+      log.info("cambiarIndiceDefault()");
       if (permitirCambioBotonLov.equals("SoloHacerNull")) {
          anularBotonLOV();
       } else if (permitirCambioBotonLov.equals("SIapagarCelda")) {
@@ -328,10 +331,10 @@ public class ControlEstructura implements Serializable {
       } else if (column.equalsIgnoreCase("COD")) {
          organigramaSeleccionado.setCodigo(auxCodigo);
          Short cod = (Short) valor;
-         System.out.println(" modificar cod = " + cod);
+         log.info(" modificar cod = " + cod);
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getCodigo().equals(cod)) {
-               System.out.println(" modificar codigo 1 igual");
+               log.info(" modificar codigo 1 igual");
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -347,11 +350,11 @@ public class ControlEstructura implements Serializable {
       } else if (column.equalsIgnoreCase("F")) {
          organigramaSeleccionado.setFecha(auxFecha);
          Date fecha = (Date) valor;
-         System.out.println(" modificar fecha = " + fecha);
+         log.info(" modificar fecha = " + fecha);
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getFecha().equals(fecha)
                     && listaOrganigramas.get(i).getEmpresa().equals(organigramaSeleccionado.getEmpresa())) {
-               System.out.println(" modificar fecha 1 igual para Empresa");
+               log.info(" modificar fecha 1 igual para Empresa");
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -459,14 +462,14 @@ public class ControlEstructura implements Serializable {
          boolean continuar = true;
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getCodigo().equals(nuevoOrganigrama.getCodigo())) {
-               System.out.println(" nuevo codigo 1 igual");
+               log.info(" nuevo codigo 1 igual");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigoRepetido");
                RequestContext.getCurrentInstance().execute("PF('validacionCodigoRepetido').show()");
                continuar = false;
                break;
             } else if (listaOrganigramas.get(i).getFecha().equals(nuevoOrganigrama.getFecha())
                     && listaOrganigramas.get(i).getEmpresa().equals(nuevoOrganigrama.getEmpresa())) {
-               System.out.println(" nuevo fecha 1 igual para Empresa");
+               log.info(" nuevo fecha 1 igual para Empresa");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionFechaRepetida");
                RequestContext.getCurrentInstance().execute("PF('validacionFechaRepetida').show()");
                continuar = false;
@@ -532,14 +535,14 @@ public class ControlEstructura implements Serializable {
          boolean continuar = true;
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getCodigo().equals(duplicarOrganigrama.getCodigo())) {
-               System.out.println(" nuevo codigo 1 igual");
+               log.info(" nuevo codigo 1 igual");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigoRepetido");
                RequestContext.getCurrentInstance().execute("PF('validacionCodigoRepetido').show()");
                continuar = false;
                break;
             } else if (listaOrganigramas.get(i).getFecha().equals(duplicarOrganigrama.getFecha())
                     && listaOrganigramas.get(i).getEmpresa().equals(duplicarOrganigrama.getEmpresa())) {
-               System.out.println(" nuevo fecha 1 igual para Empresa");
+               log.info(" nuevo fecha 1 igual para Empresa");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionFechaRepetida");
                RequestContext.getCurrentInstance().execute("PF('validacionFechaRepetida').show()");
                continuar = false;
@@ -668,7 +671,7 @@ public class ControlEstructura implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosOrganigramas Controlador : " + e.toString());
+         log.warn("Error guardarCambiosOrganigramas Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -921,33 +924,33 @@ public class ControlEstructura implements Serializable {
 
    ///métodos para generar el reporte
    public AsynchronousFilllListener listener() {
-      System.out.println(this.getClass().getName() + ".listener()");
+      log.info(this.getClass().getName() + ".listener()");
       return new AsynchronousFilllListener() {
          //RequestContext context = c;
 
          @Override
          public void reportFinished(JasperPrint jp) {
-            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+            log.info(this.getClass().getName() + ".listener().reportFinished()");
             try {
                estadoReporte = true;
                resultadoReporte = "Exito";
                //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
 //                    generarArchivoReporte(jp);
             } catch (Exception e) {
-               System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+               log.info("ControlNReporteNomina reportFinished ERROR: " + e.toString());
             }
          }
 
          @Override
          public void reportCancelled() {
-            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+            log.info(this.getClass().getName() + ".listener().reportCancelled()");
             estadoReporte = true;
             resultadoReporte = "Cancelación";
          }
 
          @Override
          public void reportFillError(Throwable e) {
-            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+            log.info(this.getClass().getName() + ".listener().reportFillError()");
             if (e.getCause() != null) {
                pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -961,29 +964,29 @@ public class ControlEstructura implements Serializable {
 
    public void validarDescargaReporte() {
       try {
-         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+         log.info(this.getClass().getName() + ".validarDescargaReporte()");
          RequestContext context = RequestContext.getCurrentInstance();
          nombreReporte = "reportePlanta1";
          tipoReporte = "PDF";
-         System.out.println("nombre reporte : " + nombreReporte);
-         System.out.println("tipo reporte: " + tipoReporte);
+         log.info("nombre reporte : " + nombreReporte);
+         log.info("tipo reporte: " + tipoReporte);
          pathReporteGenerado = null;
          pathReporteGenerado = administarReportes.generarReportePlanta1(nombreReporte, tipoReporte);
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
          if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
+            log.info("validar descarga reporte - ingreso al if 1");
             if (tipoReporte.equals("PDF")) {
-               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               log.info("validar descarga reporte - ingreso al if 2 else");
                FileInputStream fis;
                try {
-                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  log.info("pathReporteGenerado : " + pathReporteGenerado);
                   fis = new FileInputStream(new File(pathReporteGenerado));
-                  System.out.println("fis : " + fis);
+                  log.info("fis : " + fis);
                   reporte = new DefaultStreamedContent(fis, "application/pdf");
-                  System.out.println("reporte despues de esto : " + reporte);
+                  log.info("reporte despues de esto : " + reporte);
                   if (reporte != null) {
-                     System.out.println("userAgent: " + userAgent);
-                     System.out.println("validar descarga reporte - ingreso al if 4");
+                     log.info("userAgent: " + userAgent);
+                     log.info("validar descarga reporte - ingreso al if 4");
                      if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                         context.update("formularioDialogos:descargarReporte");
                         context.execute("PF('descargarReporte').show();");
@@ -994,35 +997,35 @@ public class ControlEstructura implements Serializable {
                      }
                   }
                } catch (FileNotFoundException ex) {
-                  System.out.println("error en validar descargar reporte : " + ex.getMessage());
+                  log.warn("Error en validar descargar reporte : " + ex.getMessage());
                   RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
                   RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                   reporte = null;
                }
             }
          } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            log.info("validar descarga reporte - ingreso al if 1 else");
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error en validar descargar Reporte " + e.toString());
+         log.warn("Error en validar descargar Reporte " + e.toString());
       }
    }
 
    public void reiniciarStreamedContent() {
-      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+      log.info(this.getClass().getName() + ".reiniciarStreamedContent()");
       reporte = null;
    }
 
    public void cancelarReporte() {
-      System.out.println(this.getClass().getName() + ".cancelarReporte()");
+      log.info(this.getClass().getName() + ".cancelarReporte()");
       administarReportes.cancelarReporte();
    }
 
    public void exportarReporte() throws IOException {
       try {
-         System.out.println("Controlador.ControlEstructura.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("Controlador.ControlEstructura.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1047,7 +1050,7 @@ public class ControlEstructura implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("error en exportarReporte :" + e.getMessage());
+         log.warn("Error en exportarReporte :" + e.getMessage());
          RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
          RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
       }

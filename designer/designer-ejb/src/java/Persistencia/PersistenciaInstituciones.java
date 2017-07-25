@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaInstituciones implements PersistenciaInstitucionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaInstituciones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             em.merge(instituciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInstituciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaInstituciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             em.merge(instituciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInstituciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaInstituciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInstituciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaInstituciones.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -84,7 +86,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             BigInteger sec = new BigInteger(secuencia.toString());
             return em.find(Instituciones.class, sec);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaInstituciones.buscarInstitucion()" + e.getMessage());
+            log.error("Persistencia.PersistenciaInstituciones.buscarInstitucion()" + e.getMessage());
             return null;
         }
     }
@@ -98,7 +100,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             List<Instituciones> listaInstituciones = query.getResultList();
             return listaInstituciones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaInstituciones.instituciones()" + e.getMessage());
+            log.error("Persistencia.PersistenciaInstituciones.instituciones()" + e.getMessage());
             return null;
         }
     }
@@ -114,7 +116,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             List<Instituciones> listaInstituciones = query.getResultList();
             return listaInstituciones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaInstituciones.lovInstituciones()" + e.getMessage());
+            log.error("Persistencia.PersistenciaInstituciones.lovInstituciones()" + e.getMessage());
             return null;
         }
     }

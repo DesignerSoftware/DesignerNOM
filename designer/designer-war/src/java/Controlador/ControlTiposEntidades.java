@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposEntidades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposEntidades.class);
 
    @EJB
    AdministrarTiposEntidadesInterface administrarTipoEntidad;
@@ -113,8 +116,8 @@ public class ControlTiposEntidades implements Serializable {
          administrarTipoEntidad.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -214,11 +217,11 @@ public class ControlTiposEntidades implements Serializable {
          tipoActualizacion = 0;
       } else if (LND == 1) {
          tipoActualizacion = 1;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          tipoActualizacion = 2;
       }
-      System.out.println("dig: " + dig);
+      log.info("dig: " + dig);
 
       if (dig == 2) {
          contarRegistrosGrupo();
@@ -310,7 +313,7 @@ public class ControlTiposEntidades implements Serializable {
       Short a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
          activarLOV = true;
          if (!crearTiposEntidades.contains(tipoEntidadSeleccionada)) {
@@ -466,7 +469,7 @@ public class ControlTiposEntidades implements Serializable {
          grupoAsociado = (Column) c.getViewRoot().findComponent("form:datosTipoEntidad:grupoAsociado");
          grupoAsociado.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosTipoEntidad");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          cerrarFiltrado();
@@ -522,7 +525,7 @@ public class ControlTiposEntidades implements Serializable {
    }
 
    public void agregarNuevoTipoEntidad() {
-      System.out.println("Agregar nueva vigencia");
+      log.info("Agregar nueva vigencia");
       int contador = 0;
       int duplicados = 0;
       mensajeValidacion = " ";
@@ -530,41 +533,41 @@ public class ControlTiposEntidades implements Serializable {
 
       if (nuevoTipoEntidad.getCodigo() == null) {
          mensajeValidacion = "El campo código es obligatorio";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("tamaño lista de tipos de entidades en agregar  : " + listTiposEntidades.size());
-         System.out.println("codigo en tipo entidad: " + nuevoTipoEntidad.getCodigo());
+         log.info("tamaño lista de tipos de entidades en agregar  : " + listTiposEntidades.size());
+         log.info("codigo en tipo entidad: " + nuevoTipoEntidad.getCodigo());
 
          for (int x = 0; x < listTiposEntidades.size(); x++) {
             if (listTiposEntidades.get(x).getCodigo().equals(nuevoTipoEntidad.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " Ya existe un registro con el código ingresado. \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoTipoEntidad.getNombre() == null) {
          mensajeValidacion = "El campo Nombre es obligatorio \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
       if (nuevoTipoEntidad.getGrupo().getSecuencia() == null) {
          mensajeValidacion = "El campo Grupo Tipo Entidad es obligatorio ";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
          duplicados = 0;
 
@@ -599,7 +602,7 @@ public class ControlTiposEntidades implements Serializable {
    }
 
    public void limpiarNuevoTipoEntidad() {
-      System.out.println("LimpiarNuevoTipoEntidad");
+      log.info("LimpiarNuevoTipoEntidad");
       nuevoTipoEntidad = new TiposEntidades();
       nuevoTipoEntidad.setGrupo(new Grupostiposentidades());
       tipoEntidadSeleccionada = null;
@@ -610,7 +613,7 @@ public class ControlTiposEntidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoEntidadSeleccionada != null) {
          editarTipoEntidad = tipoEntidadSeleccionada;
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -645,17 +648,17 @@ public class ControlTiposEntidades implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       try {
          borrado = administrarTipoEntidad.contarVigenciasAfiliacionesTipoEntidad(tipoEntidadSeleccionada.getSecuencia());
          borradoFCE = administrarTipoEntidad.contarFormulasContratosEntidadesTipoEntidad(tipoEntidadSeleccionada.getSecuencia());
 
          if (borrado.equals(new BigInteger("0")) && borradoFCE.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrarTiposEntidades();
          } else {
-            System.out.println("VERIFICARBORRADO borrado : " + borrado);
-            System.out.println("VERIFICARBORRADO borradoFCE : " + borradoFCE);
+            log.info("VERIFICARBORRADO borrado : " + borrado);
+            log.info("VERIFICARBORRADO borradoFCE : " + borradoFCE);
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -663,7 +666,7 @@ public class ControlTiposEntidades implements Serializable {
             //tipoEntidadSeleccionada = null;
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
       }
    }
 
@@ -671,7 +674,7 @@ public class ControlTiposEntidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (tipoEntidadSeleccionada != null) {
-         System.out.println("Entro a borrarTiposEntidades");
+         log.info("Entro a borrarTiposEntidades");
          if (!modificarTiposEntidades.isEmpty() && modificarTiposEntidades.contains(tipoEntidadSeleccionada)) {
             int modIndex = modificarTiposEntidades.indexOf(tipoEntidadSeleccionada);
             modificarTiposEntidades.remove(modIndex);
@@ -703,7 +706,7 @@ public class ControlTiposEntidades implements Serializable {
    }
 
    public void duplicarTiposEntidades() {
-      System.out.println("DuplicarVigenciasFormasPagos");
+      log.info("DuplicarVigenciasFormasPagos");
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoEntidadSeleccionada != null) {
          duplicarTipoEntidad = new TiposEntidades();
@@ -732,7 +735,7 @@ public class ControlTiposEntidades implements Serializable {
 
       if (duplicarTipoEntidad.getCodigo() == a) {
          mensajeValidacion = "El campo código es obligatorio";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposEntidades.size(); x++) {
             if (listTiposEntidades.get(x).getCodigo().equals(duplicarTipoEntidad.getCodigo())) {
@@ -741,35 +744,35 @@ public class ControlTiposEntidades implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = "Ya existe un registro con el mismo código. ";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTipoEntidad.getNombre() == null) {
          mensajeValidacion = "El campo nombre es obligatorio";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarTipoEntidad.getGrupo().getNombre() == null) {
          mensajeValidacion = "El campo Grupo Tipo de Entidad es obligatorio";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          contador++;
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
 
       }
 
       if (contador == 3) {
 
-         System.out.println("Datos Duplicando: " + duplicarTipoEntidad.getSecuencia() + "  " + duplicarTipoEntidad.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTipoEntidad.getSecuencia() + "  " + duplicarTipoEntidad.getCodigo());
          if (crearTiposEntidades.contains(duplicarTipoEntidad)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposEntidades.add(duplicarTipoEntidad);
          crearTiposEntidades.add(duplicarTipoEntidad);
@@ -862,7 +865,7 @@ public class ControlTiposEntidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoEntidadSeleccionada != null) {
          int resultado = administrarRastros.obtenerTabla(tipoEntidadSeleccionada.getSecuencia(), "TIPOSENTIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

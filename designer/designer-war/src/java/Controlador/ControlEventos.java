@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEventos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEventos.class);
 
    @EJB
    AdministrarEventosInterface administrarEventos;
@@ -137,8 +140,8 @@ public class ControlEventos implements Serializable {
          administrarEventos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -157,7 +160,7 @@ public class ControlEventos implements Serializable {
    }
 
    public void cambiarIndice(Eventos evento, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          eventoSeleccionado = evento;
@@ -197,20 +200,20 @@ public class ControlEventos implements Serializable {
 
    public void asignarIndex(Eventos evento, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlEventos.asignarIndex \n");
+         log.info("\n ENTRE A ControlEventos.asignarIndex \n");
          eventoSeleccionado = evento;
          deshabilitarBotonLov();
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlEventos.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlEventos.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -309,11 +312,11 @@ public class ControlEventos implements Serializable {
          objetivo.setFilterStyle("width: 85% !important");
 
          RequestContext.getCurrentInstance().update("form:datosEvento");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosEvento:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEvento:descripcion");
@@ -330,16 +333,16 @@ public class ControlEventos implements Serializable {
    }
 
    public void modificarEventos(Eventos evento, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR Eventos");
+      log.error("ENTRE A MODIFICAR Eventos");
       eventoSeleccionado = evento;
 
       int contador = 0;
       boolean banderita = false;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR Eventos, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR Eventos, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearEventos.contains(eventoSeleccionado)) {
                if (eventoSeleccionado.getCodigo() == a) {
@@ -628,7 +631,7 @@ public class ControlEventos implements Serializable {
    public void borrarEventos() {
 
       if (eventoSeleccionado != null) {
-         System.out.println("Entro a borrarEventos");
+         log.info("Entro a borrarEventos");
          if (!modificarEventos.isEmpty() && modificarEventos.contains(eventoSeleccionado)) {
             int modIndex = modificarEventos.indexOf(eventoSeleccionado);
             modificarEventos.remove(modIndex);
@@ -662,16 +665,16 @@ public class ControlEventos implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       try {
-         System.err.println("Control Secuencia de verificarBorrado  a borrar");
+         log.error("Control Secuencia de verificarBorrado  a borrar");
          vigenciasEventos = administrarEventos.verificarVigenciasEventos(eventoSeleccionado.getSecuencia());
 
          if (vigenciasEventos.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrarEventos();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -682,7 +685,7 @@ public class ControlEventos implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlEstadosCiviles verificarBorrado ERROR " + e);
+         log.error("ERROR ControlEstadosCiviles verificarBorrado ERROR " + e);
       }
    }
 
@@ -702,7 +705,7 @@ public class ControlEventos implements Serializable {
 
       if (guardado == false) {
          if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvento:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvento:descripcion");
@@ -713,7 +716,7 @@ public class ControlEventos implements Serializable {
             objetivo.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosEvento");
          }
-         System.out.println("Realizando GruposInfAdicionales");
+         log.info("Realizando GruposInfAdicionales");
          if (!borrarEventos.isEmpty()) {
             administrarEventos.borrarEventos(borrarEventos);
             //mostrarBorrados
@@ -730,7 +733,7 @@ public class ControlEventos implements Serializable {
             administrarEventos.modificarEventos(modificarEventos);
             modificarEventos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listEventos = null;
          getListEventos();
          contarRegistros();
@@ -758,7 +761,7 @@ public class ControlEventos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -783,7 +786,7 @@ public class ControlEventos implements Serializable {
    }
 
    public void agregarNuevoEventos() {
-      System.out.println("Agregar GruposInfAdicionales");
+      log.info("Agregar GruposInfAdicionales");
       int contador = 0;
       int duplicados = 0;
 
@@ -792,7 +795,7 @@ public class ControlEventos implements Serializable {
       if (nuevoEvento.getCodigo() == a) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEvento.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoEvento.getCodigo());
 
          for (int x = 0; x < listEventos.size(); x++) {
             if (listEventos.get(x).getCodigo() == nuevoEvento.getCodigo()) {
@@ -802,23 +805,23 @@ public class ControlEventos implements Serializable {
 
          if (duplicados > 0) {
             mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoEvento.getDescripcion() == (null)) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
       if (nuevoEvento.getOrganizador() == (null)) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
@@ -826,7 +829,7 @@ public class ControlEventos implements Serializable {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
@@ -836,7 +839,7 @@ public class ControlEventos implements Serializable {
 
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvento:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvento:descripcion");
@@ -851,7 +854,7 @@ public class ControlEventos implements Serializable {
             tipoLista = 0;
             tamano = 270;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -881,14 +884,14 @@ public class ControlEventos implements Serializable {
    }
 
    public void limpiarNuevoEventos() {
-      System.out.println("limpiarNuevoEstadosCiviles");
+      log.info("limpiarNuevoEstadosCiviles");
       nuevoEvento = new Eventos();
 
    }
 
    //------------------------------------------------------------------------------
    public void duplicarEventos() {
-      System.out.println("duplicarEstadosCiviles");
+      log.info("duplicarEstadosCiviles");
       if (eventoSeleccionado != null) {
          duplicarEvento = new Eventos();
          k++;
@@ -933,9 +936,9 @@ public class ControlEventos implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = "El código ingresado ya está en uso.Por favor ingrese un código válido";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -943,27 +946,27 @@ public class ControlEventos implements Serializable {
       if (duplicarEvento.getDescripcion() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarEvento.getOrganizador() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarEvento.getObjetivo() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 4) {
 
-         System.out.println("Datos Duplicando: " + duplicarEvento.getSecuencia() + "  " + duplicarEvento.getCodigo());
+         log.info("Datos Duplicando: " + duplicarEvento.getSecuencia() + "  " + duplicarEvento.getCodigo());
          if (crearEventos.contains(duplicarEvento)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listEventos.add(duplicarEvento);
          crearEventos.add(duplicarEvento);
@@ -1028,11 +1031,11 @@ public class ControlEventos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (eventoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(eventoSeleccionado.getSecuencia(), "EVENTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -1058,7 +1061,7 @@ public class ControlEventos implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlEventos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlEventos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

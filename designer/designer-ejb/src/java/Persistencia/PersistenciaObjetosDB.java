@@ -4,12 +4,11 @@
 package Persistencia;
 
 import Entidades.ObjetosDB;
-import Entidades.Personas;
 import InterfacePersistencia.PersistenciaObjetosDBInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br>
@@ -18,7 +17,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface{
+public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaObjetosDB.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -43,7 +44,7 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface{
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Excepcion en verificarRastroTabla " + e.getMessage());
+            log.error("Excepcion en verificarRastroTabla " + e.getMessage());
             return null;
         }
     }
@@ -57,7 +58,7 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface{
             List<ObjetosDB> todosObjetos = query.getResultList();
             return todosObjetos;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaObjetosDB consultarObjetoDB ERROR " + e.getMessage());
+            log.error("Error: PersistenciaObjetosDB consultarObjetoDB ERROR " + e.getMessage());
             return null;
         }
         

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasArps.class);
 
    @EJB
    AdministrarSesionesInterface administrarSesiones;
@@ -59,14 +62,14 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
 
    @Override
    public String buscarPorcentaje(BigInteger estructura, BigInteger cargo, Date fecha) {
-      System.out.println("estructura : " + estructura);
-      System.out.println("cargo : " + cargo);
-      System.out.println("fecha : " + fecha);
+      log.warn("estructura : " + estructura);
+      log.warn("cargo : " + cargo);
+      log.warn("fecha : " + fecha);
       try {
          String resultado = persistenciaVigenciasArp.actualARP(em, estructura, cargo, fecha);
          return resultado;
       } catch (Exception e) {
-         System.out.println("error en AdministrarVigenciasArps.buscarPorcentaje() : " + e.toString());
+         log.warn("error en AdministrarVigenciasArps.buscarPorcentaje() : " + e.toString());
          return null;
       }
    }

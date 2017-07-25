@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFormulaConcepto.class);
 
    @EJB
    PersistenciaFormulasConceptosInterface persistenciaFormulasConceptos;
@@ -43,11 +46,11 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    @Override
    public List<FormulasConceptos> formulasConceptosParaFormula(BigInteger secuencia) {
       try {
-         System.out.println("Administrar.AdministrarFormulaConcepto.formulasConceptosParaFormula() secuencia : " + secuencia);
+         log.warn("Administrar.AdministrarFormulaConcepto.formulasConceptosParaFormula() secuencia : " + secuencia);
          List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosParaFormulaSecuencia(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error formulasConceptosParaFormula Admi : " + e.toString());
+         log.warn("Error formulasConceptosParaFormula Admi : " + e.toString());
          return null;
       }
    }
@@ -59,7 +62,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
             persistenciaFormulasConceptos.crear(em, lista.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearFormulasConceptos Admi : " + e.toString());
+         log.warn("Error crearFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -70,7 +73,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
             persistenciaFormulasConceptos.editar(em, lista.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarFormulasConceptos Admi : " + e.toString());
+         log.warn("Error editarFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -81,30 +84,30 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
             persistenciaFormulasConceptos.borrar(em, lista.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarFormulasConceptos Admi : " + e.toString());
+         log.warn("Error borrarFormulasConceptos Admi : " + e.toString());
       }
    }
 
    @Override
    public List<FormulasConceptos> listFormulasConceptos() {
-      System.out.println("listFormulasConceptos() : em" + em);
+      log.warn("listFormulasConceptos() : em" + em);
       try {
          List<FormulasConceptos> lista = persistenciaFormulasConceptos.buscarFormulasConceptos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listFormulasConceptos Admi : " + e.toString());
+         log.warn("Error listFormulasConceptos Admi : " + e.toString());
          return null;
       }
    }
 
    @Override
    public List<Conceptos> listConceptos() {
-      System.out.println("listConceptos() : em" + em);
+      log.warn("listConceptos() : em" + em);
       try {
          List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listConceptos Admi : " + e.toString());
+         log.warn("Error listConceptos Admi : " + e.toString());
          return null;
       }
    }
@@ -115,7 +118,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
          Formulas form = persistenciaFormulas.buscarFormula(em, secuencia);
          return form;
       } catch (Exception e) {
-         System.out.println("Error formulaActual Admi : " + e.toString());
+         log.warn("Error formulaActual Admi : " + e.toString());
          return null;
       }
    }
@@ -125,13 +128,13 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
       try {
          List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
          if (lista.isEmpty() || lista == null) {
-            System.out.println("Error cargarFormulasConcepto: formulasConcepto trae lista vacia o nula Admi");
+            log.warn("Error cargarFormulasConcepto: formulasConcepto trae lista vacia o nula Admi");
             return null;
          } else {
             return lista;
          }
       } catch (Exception e) {
-         System.out.println("Error cargarFormulasConcepto Admi : " + e.toString());
+         log.warn("Error cargarFormulasConcepto Admi : " + e.toString());
          return null;
       }
    }
@@ -141,14 +144,14 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
      * secConcepto) { try { boolean lista =
      * persistenciaFormulasConceptos.verificarExistenciaConceptoFormulasConcepto(em,
      * secConcepto); return lista; } catch (Exception e) {
-     * System.out.println("Error verificarExistenciaConceptoFormulasConcepto
+     * log.warn("Error verificarExistenciaConceptoFormulasConcepto
      * Admi : " + e.toString()); return false; } }
      *
      * @Override public boolean cargarFormulasConcepto(EntityManager em,
      * BigInteger secuencia, BigInteger secFormula) { try { boolean lista =
      * persistenciaFormulasConceptos.verificarFormulaCargue_Concepto(em,
      * secuencia, secFormula); return lista; } catch (Exception e) {
-     * System.out.println("Error cargarFormulaConcepto Admi : " + e.toString());
+     * log.warn("Error cargarFormulaConcepto Admi : " + e.toString());
      * return false; }
     }
     */

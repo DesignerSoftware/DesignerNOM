@@ -137,8 +137,6 @@ public class ConfiguracionCorreo implements Serializable {
     }
 
     public String getRemitente() {
-        System.out.println("Entidades.ConfiguracionCorreo.getRemitente()");
-        System.out.println("remitente: " + remitente);
         return remitente;
     }
 

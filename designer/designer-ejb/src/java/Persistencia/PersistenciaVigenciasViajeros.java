@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViajerosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasViajeros.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +38,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.merge(vigenciaViajero);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasViajeros.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasViajeros.crear()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +53,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.merge(vigenciaViajero);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasViajeros.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasViajeros.editar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +69,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.remove(em.merge(vigenciaViajero));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasViajeros.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasViajeros.borrar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +82,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.clear();
             return em.find(VigenciasViajeros.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasViajeros.consultarTipoExamen()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasViajeros.consultarTipoExamen()" + e.getMessage());
             return null;
         }
     }
@@ -93,11 +95,11 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<VigenciasViajeros> vigenciasViajeros = (List<VigenciasViajeros>) query.getResultList();
             if (vigenciasViajeros != null) {
-                System.out.println("TIPO VIAJERO: " + vigenciasViajeros.get(0).getTipoViajero().getNombre());
+                log.error("TIPO VIAJERO: " + vigenciasViajeros.get(0).getTipoViajero().getNombre());
             }
             return vigenciasViajeros;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado()" + e.getMessage());
             return null;
         }
     }
@@ -110,7 +112,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             List<VigenciasViajeros> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajeros()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajeros()" + e.getMessage());
             return null;
         }
     }

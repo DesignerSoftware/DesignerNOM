@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposFormulas.class);
 
    @Override
    public void crear(EntityManager em, TiposFormulas tiposFormulas) {
@@ -28,7 +30,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          em.merge(tiposFormulas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposFormulas.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposFormulas.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +46,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          em.merge(tiposFormulas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposFormulas.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFormulas.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +62,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          em.remove(em.merge(tiposFormulas));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposFormulas.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFormulas.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,10 +79,10 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          List<TiposFormulas> tiposFormulas = query.getResultList();
          List<TiposFormulas> tiposFormulasResult = new ArrayList<TiposFormulas>(tiposFormulas);
 
-         System.out.println("tiposFormulas" + tiposFormulasResult);
+         log.error("tiposFormulas" + tiposFormulasResult);
          return tiposFormulasResult;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTiposFormulas.tiposFormulas()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTiposFormulas.tiposFormulas()" + e.getMessage());
          return null;
       }
    }

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlIdiomas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlIdiomas.class);
 
    @EJB
    AdministrarIdiomasInterface administrarIdiomas;
@@ -107,25 +110,15 @@ public class ControlIdiomas implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "idioma";
-         
-         
-         
+       */
+      String pagActual = "idioma";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -154,8 +147,8 @@ String pagActual = "idioma";
          administrarIdiomas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -200,7 +193,7 @@ String pagActual = "idioma";
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlIdiomas.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlIdiomas.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -282,10 +275,10 @@ String pagActual = "idioma";
          descripcion = (Column) c.getViewRoot().findComponent("form:datosIdiomas:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosIdiomas");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosIdiomas:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -346,21 +339,21 @@ String pagActual = "idioma";
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger verificarBorradoIdiomasPersonas;
 
       try {
-         System.err.println("Control Secuencia de ControlIdiomas ");
+         log.error("Control Secuencia de ControlIdiomas ");
          if (tipoLista == 0) {
             verificarBorradoIdiomasPersonas = administrarIdiomas.verificarBorradoIdiomasPersonas(idiomaSeleccionado.getSecuencia());
          } else {
             verificarBorradoIdiomasPersonas = administrarIdiomas.verificarBorradoIdiomasPersonas(idiomaSeleccionado.getSecuencia());
          }
          if (verificarBorradoIdiomasPersonas.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoIdiomas();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -370,7 +363,7 @@ String pagActual = "idioma";
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlIdiomas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlIdiomas verificarBorrado ERROR " + e);
       }
    }
 
@@ -429,7 +422,7 @@ String pagActual = "idioma";
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -481,7 +474,7 @@ String pagActual = "idioma";
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosIdiomas:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosIdiomas:descripcion");
@@ -492,7 +485,7 @@ String pagActual = "idioma";
             tipoLista = 0;
             tamano = 270;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -524,7 +517,7 @@ String pagActual = "idioma";
 
    //------------------------------------------------------------------------------
    public void duplicandoIdiomas() {
-      System.out.println("duplicandoIdiomas");
+      log.info("duplicandoIdiomas");
       if (idiomaSeleccionado != null) {
          duplicarIdiomas = new Idiomas();
          k++;
@@ -580,7 +573,7 @@ String pagActual = "idioma";
 
       if (contador == 2) {
          if (crearIdiomas.contains(duplicarIdiomas)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listIdiomas.add(duplicarIdiomas);
          crearIdiomas.add(duplicarIdiomas);
@@ -639,11 +632,11 @@ String pagActual = "idioma";
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (idiomaSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(idiomaSeleccionado.getSecuencia(), "IDIOMAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -664,13 +657,13 @@ String pagActual = "idioma";
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlIdiomas.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlIdiomas.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlIdiomas eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlIdiomas eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

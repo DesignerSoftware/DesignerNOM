@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposFamiliares.class);
 
     @EJB
     PersistenciaTiposFamiliaresInterface persistenciaTiposFamiliares;
@@ -45,21 +48,21 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
     @Override
     public void modificarTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
         for (int i = 0; i < listTiposFamiliares.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposFamiliares.editar(em, listTiposFamiliares.get(i));
         }
     }
    @Override
     public void borrarTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
         for (int i = 0; i < listTiposFamiliares.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposFamiliares.borrar(em, listTiposFamiliares.get(i));
         }
     }
    @Override
     public void crearTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
         for (int i = 0; i < listTiposFamiliares.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposFamiliares.crear(em, listTiposFamiliares.get(i));
         }
     }
@@ -79,10 +82,10 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
         BigInteger verificadorHvReferencias = null;
 
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaTiposFamiliares);
+            log.error("Secuencia Borrado Elementos" + secuenciaTiposFamiliares);
             verificadorHvReferencias = persistenciaTiposFamiliares.contadorHvReferencias(em, secuenciaTiposFamiliares);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposFamiliares verificarBorradoElementos ERROR :" + e);
+            log.error("ERROR AdministrarTiposFamiliares verificarBorradoElementos ERROR :" + e);
         } finally {
             return verificadorHvReferencias;
         }

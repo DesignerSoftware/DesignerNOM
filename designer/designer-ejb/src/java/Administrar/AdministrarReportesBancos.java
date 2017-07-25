@@ -27,6 +27,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -34,6 +35,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarReportesBancos implements AdministrarReportesBancosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarReportesBancos.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -86,7 +89,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -97,7 +100,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioBanco(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e);
+            log.warn("Error listInforeportesUsuario " + e);
             return null;
         }
     }
@@ -107,7 +110,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
         try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosReportes : " + e.toString());
+            log.warn("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -117,7 +120,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Administrar : " + e.toString());
+            log.warn("Error listEmpresas Administrar : " + e.toString());
             return null;
         }
     }
@@ -128,7 +131,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
             return listEmpleados;
         } catch (Exception e) {
-            System.out.println("Error listEmpleados : " + e.toString());
+            log.warn("Error listEmpleados : " + e.toString());
             return null;
         }
     }
@@ -139,7 +142,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listTiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return listTiposTrabajadores;
         } catch (Exception e) {
-            System.out.println("Error listTiposTrabajadores : " + e.toString());
+            log.warn("Error listTiposTrabajadores : " + e.toString());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listProcesos = persistenciaProcesos.buscarProcesos(em);
             return listProcesos;
         } catch (Exception e) {
-            System.out.println("Error listProcesos : " + e.toString());
+            log.warn("Error listProcesos : " + e.toString());
             return null;
         }
     }
@@ -161,7 +164,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listBancos = persistenciaBancos.buscarBancos(em);
             return listBancos;
         } catch (Exception e) {
-            System.out.println("Error listBancos : " + e.toString());
+            log.warn("Error listBancos : " + e.toString());
             return null;
         }
     }
@@ -172,7 +175,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
             listCiudades = persistenciaCiudades.consultarCiudades(em);
             return listCiudades;
         } catch (Exception e) {
-            System.out.println("Error listCiudades : " + e.toString());
+            log.warn("Error listCiudades : " + e.toString());
             return null;
         }
     }
@@ -184,7 +187,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 }

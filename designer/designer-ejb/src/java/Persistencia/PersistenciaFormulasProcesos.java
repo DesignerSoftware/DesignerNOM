@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -20,7 +20,9 @@ import javax.persistence.Query;
  * @author Andres Pineda
  */
 @Stateless
-public class PersistenciaFormulasProcesos implements PersistenciaFormulasProcesosInterface{
+public class PersistenciaFormulasProcesos implements PersistenciaFormulasProcesosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormulasProcesos.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -36,7 +38,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             em.persist(formulasProcesos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFormulasProcesos.crear: " + e);
+            log.error("Error PersistenciaFormulasProcesos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             em.merge(formulasProcesos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFormulasProcesos.editar: " + e);
+            log.error("Error PersistenciaFormulasProcesos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +74,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaFormulasProcesos.borrar: " + e);
+                log.error("Error PersistenciaFormulasProcesos.borrar: " + e);
         }
     }
 
@@ -86,7 +88,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             List<FormulasProcesos> formulasProcesos = queryFinal.getResultList();
             return formulasProcesos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFormulasProcesos.formulasProcesosParaFormulaSecuencia : " + e.toString());
+            log.error("Error PersistenciaFormulasProcesos.formulasProcesosParaFormulaSecuencia : " + e.toString());
             return null;
         }
     }
@@ -101,7 +103,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             List<FormulasProcesos> formulasProcesos = queryFinal.getResultList();
             return formulasProcesos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFormulasProcesos.formulasProcesosParaProcesoSecuencia : " + e.toString());
+            log.error("Error PersistenciaFormulasProcesos.formulasProcesosParaProcesoSecuencia : " + e.toString());
             return null;
         }
     }

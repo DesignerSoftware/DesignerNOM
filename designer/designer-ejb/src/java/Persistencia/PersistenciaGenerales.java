@@ -5,10 +5,13 @@ import InterfacePersistencia.PersistenciaGeneralesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGenerales.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -16,19 +19,19 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     public Generales obtenerRutas(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".obtenerRutas()");
+        log.warn(this.getClass().getName() + ".obtenerRutas()");
         try {
             em.clear();
             Query query = em.createQuery("SELECT g FROM Generales g");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Generales> listaGenerales = query.getResultList();
             if (listaGenerales != null && !listaGenerales.isEmpty()) {
-                System.out.println("PersistenciaGenerales obtenerRutas Tamaño listaGenerales.getPathreportes : " + listaGenerales.get(0).getPathreportes());
+                log.warn("PersistenciaGenerales obtenerRutas Tamaño listaGenerales.getPathreportes : " + listaGenerales.get(0).getPathreportes());
                 return listaGenerales.get(0);
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaGenerales.obtenerRutas " + e);
+            log.error("Error PersistenciaGenerales.obtenerRutas " + e);
             return null;
         }
     }
@@ -41,7 +44,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String variable = (String) query.getSingleResult();
             return variable;
         } catch (Exception e) {
-            System.out.println("Error obtenerPreValidadContabilidad PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPreValidadContabilidad PersistenciaGenerales : " + e.toString());
             return null;
         }
     }
@@ -54,7 +57,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String variable = (String) query.getSingleResult();
             return variable;
         } catch (Exception e) {
-            System.out.println("Error obtenerPreValidaBloqueAIngreso PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPreValidaBloqueAIngreso PersistenciaGenerales : " + e.toString());
             return null;
         }
     }
@@ -70,7 +73,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             path = path + "\\";
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathServidorWeb PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPathServidorWeb PersistenciaGenerales : " + e.toString());
             return null;
         }
     }
@@ -85,7 +88,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String path = (String) query.getSingleResult();
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathProceso PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPathProceso PersistenciaGenerales : " + e.toString());
             return null;
         }
     }

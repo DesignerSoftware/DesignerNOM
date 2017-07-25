@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTiposEntidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGruposTiposEntidades.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          em.merge(gruposTiposEntidades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposTiposEntidades.crear: " + e);
+         log.error("Error PersistenciaGruposTiposEntidades.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +58,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposTiposEntidades.editar: " + e);
+         log.error("Error PersistenciaGruposTiposEntidades.editar: " + e);
       }
    }
 
@@ -72,7 +75,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposTiposEntidades.borrar: " + e);
+         log.error("Error PersistenciaGruposTiposEntidades.borrar: " + e);
       }
    }
 
@@ -82,7 +85,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          em.clear();
          return em.find(Grupostiposentidades.class, secuencia);
       } catch (Exception e) {
-         System.out.println("\n ERROR EN PersistenciaGruposTiposEntidades buscarGrupoTipoEntidad ERROR " + e);
+         log.error("\n ERROR EN PersistenciaGruposTiposEntidades buscarGrupoTipoEntidad ERROR " + e);
 
          return null;
       }
@@ -97,7 +100,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          List<Grupostiposentidades> todosGrupostiposentidades = query.getResultList();
          return todosGrupostiposentidades;
       } catch (Exception e) {
-         System.err.println("Error: PersistenciaGrupostiposentidades consultarGrupostiposentidades ERROR " + e);
+         log.error("Error: PersistenciaGrupostiposentidades consultarGrupostiposentidades ERROR " + e);
          return null;
       }
    }
@@ -110,10 +113,10 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("Contador PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad Retorno " + retorno);
+         log.error("Contador PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("Error PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
+         log.error("Error PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
          return retorno;
       }
    }
@@ -126,10 +129,10 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("Contador PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad Retorno " + retorno);
+         log.error("Contador PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("Error PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
+         log.error("Error PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
          return retorno;
       }
    }

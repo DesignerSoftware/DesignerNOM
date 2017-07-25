@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuridicosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaConceptosJuridicos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          em.merge(conceptosJuridicos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosJuridicos.crear: " + e);
+         log.error("Error PersistenciaConceptosJuridicos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +55,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          em.merge(conceptosJuridicos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosJuridicos.crear: " + e);
+         log.error("Error PersistenciaConceptosJuridicos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +75,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaConceptosJuridicos.borrar: " + e);
+         log.error("Error PersistenciaConceptosJuridicos.borrar: " + e);
       }
    }
 
@@ -84,7 +86,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          List<ConceptosJuridicos> conceptosJuridicos = (List<ConceptosJuridicos>) em.createQuery("SELECT c FROM ConceptosJuridicos c").getResultList();
          return conceptosJuridicos;
       } catch (Exception e) {
-         System.out.println("Error buscarConceptosJuridicos PersistenciaConceptosJuridicos : " + e.toString());
+         log.error("Error buscarConceptosJuridicos PersistenciaConceptosJuridicos : " + e.toString());
          return null;
       }
    }
@@ -99,7 +101,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          ConceptosJuridicos conceptosJuridicos = (ConceptosJuridicos) query.getSingleResult();
          return conceptosJuridicos;
       } catch (Exception e) {
-         System.out.println("Error buscarConceptosJuridicosSecuencia PersistenciaConceptosJuridicos : " + e.toString());
+         log.error("Error buscarConceptosJuridicosSecuencia PersistenciaConceptosJuridicos : " + e.toString());
          ConceptosJuridicos conceptosJuridicos = null;
          return conceptosJuridicos;
       }
@@ -115,7 +117,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          List<ConceptosJuridicos> conceptosJuridicos = (List<ConceptosJuridicos>) query.getResultList();
          return conceptosJuridicos;
       } catch (Exception e) {
-         System.out.println("Error buscarConceptosJuridicosEmpresa PersistenciaConceptosJuridicos : " + e.toString());
+         log.error("Error buscarConceptosJuridicosEmpresa PersistenciaConceptosJuridicos : " + e.toString());
          List<ConceptosJuridicos> conceptosJuridicos = null;
          return conceptosJuridicos;
       }

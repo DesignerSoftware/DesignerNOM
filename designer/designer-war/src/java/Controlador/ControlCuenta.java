@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlCuenta implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlCuenta.class);
 
    @EJB
    AdministrarCuentasInterface administrarCuentas;
@@ -216,8 +219,8 @@ public class ControlCuenta implements Serializable {
             }
          }
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -445,7 +448,7 @@ public class ControlCuenta implements Serializable {
          if (guardado == false) {
             if (!listCuentasBorrar.isEmpty()) {
 
-               System.out.println("entró al administrar de borrar");
+               log.info("entró al administrar de borrar");
                administrarCuentas.borrarCuentas(listCuentasBorrar);
                listCuentasBorrar.clear();
             }
@@ -454,7 +457,7 @@ public class ControlCuenta implements Serializable {
                listCuentasCrear.clear();
             }
             if (!listCuentasModificar.isEmpty()) {
-               System.out.println("entró a guardarCambiosCuenta.listCuentaModificar : " + listCuentasModificar.size());
+               log.info("entró a guardarCambiosCuenta.listCuentaModificar : " + listCuentasModificar.size());
                for (int i = 0; i < listCuentasModificar.size(); i++) {
                   if (listCuentasModificar.get(i).getRubropresupuestal().getDescripcion().equals("") || listCuentasModificar.get(i).getRubropresupuestal().getDescripcion().isEmpty()) {
                      listCuentasModificar.get(i).setRubropresupuestal(null);
@@ -483,7 +486,7 @@ public class ControlCuenta implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCuenta Controlador : " + e.toString());
+         log.warn("Error guardarCambiosCuenta Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -554,10 +557,10 @@ public class ControlCuenta implements Serializable {
 
    public void editarCelda() {
       if (cuentaTablaSeleccionada != null) {
-         System.out.println("entró a editar celda");
+         log.info("entró a editar celda");
          editarCuentas = cuentaTablaSeleccionada;
-         System.out.println("editarCuentas : " + editarCuentas.getDescripcion());
-         System.out.println("cual celda en editarCelda : " + cualCelda);
+         log.info("editarCuentas : " + editarCuentas.getDescripcion());
+         log.info("cual celda en editarCelda : " + cualCelda);
          RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCuentaD");
@@ -1055,7 +1058,7 @@ public class ControlCuenta implements Serializable {
    public void listaValoresBoton() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (cuentaTablaSeleccionada != null) {
-         System.out.println("cual celda en lista valores Boton : " + cualCelda);
+         log.info("cual celda en lista valores Boton : " + cualCelda);
          if (cualCelda == 5) {
             RequestContext.getCurrentInstance().update("form:ContracuentaDialogo");
             RequestContext.getCurrentInstance().execute("PF('ContracuentaDialogo').show()");
@@ -1559,7 +1562,7 @@ public class ControlCuenta implements Serializable {
          }
          return listCuentas;
       } catch (Exception e) {
-         System.out.println("Error getListCuentas " + e.toString());
+         log.warn("Error getListCuentas " + e.toString());
          return null;
       }
    }

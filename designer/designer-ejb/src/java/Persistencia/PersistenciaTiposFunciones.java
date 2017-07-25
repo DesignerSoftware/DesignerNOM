@@ -12,12 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposFunciones.class);
 
    @Override
    public void crear(EntityManager em, TiposFunciones tiposFunciones) {
@@ -28,7 +31,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          em.merge(tiposFunciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposFunciones.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposFunciones.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +47,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          em.merge(tiposFunciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposFunciones.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFunciones.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +63,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          em.remove(em.merge(tiposFunciones));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposFunciones.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFunciones.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +81,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          List<TiposFunciones> tiposFuncionesResult = new ArrayList<TiposFunciones>(tiposFunciones);
          return tiposFuncionesResult;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTiposFunciones.tiposFunciones()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTiposFunciones.tiposFunciones()" + e.getMessage());
          return null;
       }
    }

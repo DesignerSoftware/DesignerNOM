@@ -9,9 +9,9 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,6 +26,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaOperandos implements PersistenciaOperandosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaOperandos.class);
+
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
     */
@@ -35,28 +37,28 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
    public List<Operandos> buscarOperandos(EntityManager em) {
       try {
          em.clear();
-//         System.out.println("PersistenciaOperandos.buscarOperandos() 1");
+//         log.error("PersistenciaOperandos.buscarOperandos() 1");
 //         Query q = em.createNativeQuery("SELECT * FROM OPERANDOS", Operandos.class);
-//         System.out.println("PersistenciaOperandos.buscarOperandos() 2");
+//         log.error("PersistenciaOperandos.buscarOperandos() 2");
 //         List<Operandos> lista = q.getResultList();
 //         if (lista != null) {
-//            System.out.println("PersistenciaOperandos.buscarOperandos() lista.size() : " + lista.size());
+//            log.error("PersistenciaOperandos.buscarOperandos() lista.size() : " + lista.size());
 //         }
          CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-         System.out.println("PersistenciaOperandos.buscarOperandos() 1");
+         log.warn("PersistenciaOperandos.buscarOperandos() 1");
          cq.select(cq.from(Operandos.class));
-         System.out.println("PersistenciaOperandos.buscarOperandos() 2");
+         log.warn("PersistenciaOperandos.buscarOperandos() 2");
          List<Operandos> lista = em.createQuery(cq).getResultList();
          return lista;
       } catch (Exception e) {
-         System.out.println("Error buscarOperandos PersistenciaOperandos : " + e.toString());
+         log.error("Error buscarOperandos PersistenciaOperandos : " + e.toString());
          return null;
       }
    }
 
    public List<Operandos> operandoPorConceptoSoporte(EntityManager em, BigInteger secConcepto) {
       try {
-         System.out.println("Esta en la persistencia, operandoPorConceptoSoporte() secConcepto : " + secConcepto);
+         log.warn("Esta en la persistencia, operandoPorConceptoSoporte() secConcepto : " + secConcepto);
          em.clear();
          Query query = em.createNativeQuery("SELECT ALL OPERANDOS.* \n"
                  + "FROM OPERANDOS \n"
@@ -74,7 +76,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          List<Operandos> operandos = query.getResultList();
          return operandos;
       } catch (Exception e) {
-         System.out.println("Error Persistencia PersistenciaOperandos operandoPorConceptoSoporte : " + e.toString());
+         log.error("Error Persistencia PersistenciaOperandos operandoPorConceptoSoporte : " + e.toString());
          return null;
       }
    }
@@ -88,7 +90,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaOperandos.crear()" + e.getMessage());
+         log.error("Persistencia.PersistenciaOperandos.crear()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -104,7 +106,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaOperandos.editar()" + e.getMessage());
+         log.error("Persistencia.PersistenciaOperandos.editar()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -120,7 +122,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.remove(em.merge(operandos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaOperandos.borrar()" + e.getMessage());
+         log.error("Persistencia.PersistenciaOperandos.borrar()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -134,11 +136,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          String valor;
          Query query = em.createNativeQuery("SELECT DECODE(tc.tipo,'C',tc.valorstring,'N',to_char(tc.valorreal),to_char(tc.valordate,'DD/MM/YYYY')) FROM TIPOSCONSTANTES tc WHERE tc.operando=? AND tc.fechainicial=(select max(tci.fechainicial) from tiposconstantes tci WHERE tci.operando= tc.operando)");
          query.setParameter(1, secuenciaOperando);
-//         query.setParameter(2, secuenciaOperando);
          valor = (String) query.getSingleResult();
          return valor;
       } catch (Exception e) {
-//          System.out.println("Persistencia.PersistenciaOperandos.valores()" + e.getMessage());
+//          log.error("Persistencia.PersistenciaOperandos.valores()" + e.getMessage());
          return null;
       }
    }
@@ -153,7 +154,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          Operandos operandos = (Operandos) query.getSingleResult();
          return operandos;
       } catch (Exception e) {
-         System.out.println("Error Persistencia operandosPorSecuencia : " + e.toString());
+         log.error("Error Persistencia operandosPorSecuencia : " + e.toString());
          return null;
       }
    }
@@ -163,9 +164,9 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         System.out.println("codigoOrigen : " + codigoOrigen);
-         System.out.println("nombreDest : " + nombreDest);
-         System.out.println("descripcionDest : " + descripcionDest);
+         log.warn("codigoOrigen : " + codigoOrigen);
+         log.warn("nombreDest : " + nombreDest);
+         log.warn("descripcionDest : " + descripcionDest);
          StoredProcedureQuery query = em.createStoredProcedureQuery("OPERANDOS_PKG.ClonarOperando");
          query.registerStoredProcedureParameter(1, short.class, ParameterMode.IN);
          query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
@@ -177,7 +178,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          query.execute();
          return "BIEN";
       } catch (Exception e) {
-         System.err.println("ERROR: " + this.getClass().getName() + ".clonarOperando()");
+         log.error("ERROR: " + this.getClass().getName() + ".clonarOperando()");
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

@@ -25,6 +25,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlEmpleado")
 @SessionScoped
 public class ControlEmpleado implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmpleado.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -143,8 +146,8 @@ public class ControlEmpleado implements Serializable {
          administrarEmpleados.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -505,7 +508,7 @@ public class ControlEmpleado implements Serializable {
          }
          return listaEmpleados;
       } catch (Exception e) {
-         System.out.println("Error !! getListaEmpleados");
+         log.warn("Error !! getListaEmpleados");
          return null;
       }
    }
@@ -537,7 +540,7 @@ public class ControlEmpleado implements Serializable {
          }
          return lovEmpleados;
       } catch (Exception e) {
-         System.out.println("Error !! getLovEmpleados : " + e.toString());
+         log.warn("Error !! getLovEmpleados : " + e.toString());
          return null;
       }
 

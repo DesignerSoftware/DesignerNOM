@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -21,7 +21,9 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author AndresPineda
  */
 @Stateless
-public class PersistenciaParametrosReportes implements PersistenciaParametrosReportesInterface{
+public class PersistenciaParametrosReportes implements PersistenciaParametrosReportesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametrosReportes.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -37,7 +39,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.merge(parametrosInformes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosReportes.crear: " + e.getMessage());
+            log.error("Error PersistenciaParametrosReportes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +48,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
 
     @Override
     public void editar(EntityManager em, ParametrosReportes parametrosInformes) {
-        System.out.println("Persistencia.PersistenciaParametrosReportes.editar()");
+        log.error("Persistencia.PersistenciaParametrosReportes.editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -54,7 +56,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
          em.merge(parametrosInformes);
          tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosReportes.editar: " + e.getMessage());
+            log.error("Error PersistenciaParametrosReportes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.remove(em.merge(parametrosInformes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosReportes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaParametrosReportes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +85,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.clear();
             return em.find(ParametrosReportes.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error buscarParametroInforme Persistencia" + e.getMessage());
+            log.error("Error buscarParametroInforme Persistencia" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +98,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             cq.select(cq.from(ParametrosReportes.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error buscarParametrosReportes" + e.getMessage());
+            log.error("Error buscarParametrosReportes" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +113,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             ParametrosReportes parametrosInformes = (ParametrosReportes) query.getSingleResult();
             return parametrosInformes;
         } catch (Exception e) {
-            System.out.println("Error en buscarParametroInformeUsuario " + e.getMessage());
+            log.error("Error en buscarParametroInformeUsuario " + e.getMessage());
             return null;
         }
     }   

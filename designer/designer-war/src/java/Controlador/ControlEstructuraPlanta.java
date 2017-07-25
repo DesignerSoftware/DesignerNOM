@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEstructuraPlanta implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEstructuraPlanta.class);
 
    @EJB
    AdministrarEstructurasPlantasInterface administrarEstructuraPlanta;
@@ -254,8 +257,8 @@ public class ControlEstructuraPlanta implements Serializable {
          administrarEstructuraPlanta.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -268,7 +271,7 @@ public class ControlEstructuraPlanta implements Serializable {
             getListaEstructuras();
          }
       } else {
-         System.out.println("El getListaOrganigramas() no trajo datos");
+         log.info("El getListaOrganigramas() no trajo datos");
       }
    }
 
@@ -385,10 +388,10 @@ public class ControlEstructuraPlanta implements Serializable {
       } else if (column.equalsIgnoreCase("COD")) {
          organigramaSeleccionado.setCodigo(auxCodigo);
          Short cod = (Short) valor;
-         System.out.println(" modificar cod = " + cod);
+         log.info(" modificar cod = " + cod);
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getCodigo().equals(cod)) {
-               System.out.println(" modificar codigo 1 igual");
+               log.info(" modificar codigo 1 igual");
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -404,11 +407,11 @@ public class ControlEstructuraPlanta implements Serializable {
       } else if (column.equalsIgnoreCase("F")) {
          organigramaSeleccionado.setFecha(auxFecha);
          Date fecha = (Date) valor;
-         System.out.println(" modificar fecha = " + fecha);
+         log.info(" modificar fecha = " + fecha);
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getFecha().equals(fecha)
                     && listaOrganigramas.get(i).getEmpresa().equals(organigramaSeleccionado.getEmpresa())) {
-               System.out.println(" modificar fecha 1 igual para Empresa");
+               log.info(" modificar fecha 1 igual para Empresa");
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -671,7 +674,7 @@ public class ControlEstructuraPlanta implements Serializable {
    }
 
    public void cambiarIndiceDefault() {
-      System.out.println("cambiarIndiceDefault()");
+      log.info("cambiarIndiceDefault()");
       if (permitirCambioBotonLov.equals("SoloHacerNull")) {
          anularBotonLOV();
       } else if (permitirCambioBotonLov.equals("SIapagarCelda")) {
@@ -1123,14 +1126,14 @@ public class ControlEstructuraPlanta implements Serializable {
          boolean continuar = true;
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getCodigo().equals(nuevoOrganigrama.getCodigo())) {
-               System.out.println(" nuevo codigo 1 igual");
+               log.info(" nuevo codigo 1 igual");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigoRepetido");
                RequestContext.getCurrentInstance().execute("PF('validacionCodigoRepetido').show()");
                continuar = false;
                break;
             } else if (listaOrganigramas.get(i).getFecha().equals(nuevoOrganigrama.getFecha())
                     && listaOrganigramas.get(i).getEmpresa().equals(nuevoOrganigrama.getEmpresa())) {
-               System.out.println(" nuevo fecha 1 igual para Empresa");
+               log.info(" nuevo fecha 1 igual para Empresa");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionFechaRepetida");
                RequestContext.getCurrentInstance().execute("PF('validacionFechaRepetida').show()");
                continuar = false;
@@ -1192,14 +1195,14 @@ public class ControlEstructuraPlanta implements Serializable {
          boolean continuar = true;
          for (int i = 0; i < listaOrganigramas.size(); i++) {
             if (listaOrganigramas.get(i).getCodigo().equals(duplicarOrganigrama.getCodigo())) {
-               System.out.println(" nuevo codigo 1 igual");
+               log.info(" nuevo codigo 1 igual");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigoRepetido");
                RequestContext.getCurrentInstance().execute("PF('validacionCodigoRepetido').show()");
                continuar = false;
                break;
             } else if (listaOrganigramas.get(i).getFecha().equals(duplicarOrganigrama.getFecha())
                     && listaOrganigramas.get(i).getEmpresa().equals(duplicarOrganigrama.getEmpresa())) {
-               System.out.println(" nuevo fecha 1 igual para Empresa");
+               log.info(" nuevo fecha 1 igual para Empresa");
                RequestContext.getCurrentInstance().update("formularioDialogos:validacionFechaRepetida");
                RequestContext.getCurrentInstance().execute("PF('validacionFechaRepetida').show()");
                continuar = false;
@@ -1356,7 +1359,7 @@ public class ControlEstructuraPlanta implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosOrganigramas Controlador : " + e.toString());
+         log.warn("Error guardarCambiosOrganigramas Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1674,9 +1677,9 @@ public class ControlEstructuraPlanta implements Serializable {
    }
 
    public void actualizarCentroCosto() {
-      System.out.println("tipoActualizacion : " + tipoActualizacion);
-      System.out.println("centroCostoSeleccionado : " + centroCostoSeleccionado.getNombre());
-      System.out.println("estructuraSeleccionado : " + estructuraSeleccionada);
+      log.info("tipoActualizacion : " + tipoActualizacion);
+      log.info("centroCostoSeleccionado : " + centroCostoSeleccionado.getNombre());
+      log.info("estructuraSeleccionado : " + estructuraSeleccionada);
       if (tipoActualizacion == 0) {
          estructuraSeleccionada.setCentrocosto(centroCostoSeleccionado);
          if (!listEstructurasCrear.contains(estructuraSeleccionada)) {
@@ -2024,7 +2027,7 @@ public class ControlEstructuraPlanta implements Serializable {
          return listaOrganigramas;
 
       } catch (Exception e) {
-         System.out.println("Error...!! getListaOrganigramas " + e.toString());
+         log.warn("Error...!! getListaOrganigramas " + e.toString());
          return null;
       }
    }
@@ -2208,9 +2211,9 @@ public class ControlEstructuraPlanta implements Serializable {
    public List<CentrosCostos> getLovCentrosCostos() {
       if (lovCentrosCostos == null) {
          if (organigramaSeleccionado != null) {
-            System.out.println("organigramaSeleccionado : " + organigramaSeleccionado);
-            System.out.println("organigramaSeleccionado.getEmpresa() : " + organigramaSeleccionado.getEmpresa());
-            System.out.println("organigramaSeleccionado.getEmpresa().getSecuencia() : " + organigramaSeleccionado.getEmpresa().getSecuencia());
+            log.info("organigramaSeleccionado : " + organigramaSeleccionado);
+            log.info("organigramaSeleccionado.getEmpresa() : " + organigramaSeleccionado.getEmpresa());
+            log.info("organigramaSeleccionado.getEmpresa().getSecuencia() : " + organigramaSeleccionado.getEmpresa().getSecuencia());
             lovCentrosCostos = administrarEstructuraPlanta.lovCentrosCostos(organigramaSeleccionado.getEmpresa().getSecuencia());
          } else {
             lovCentrosCostos = new ArrayList<CentrosCostos>();

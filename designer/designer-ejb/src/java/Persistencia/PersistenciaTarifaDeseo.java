@@ -7,11 +7,10 @@ package Persistencia;
 
 import Entidades.TarifaDeseo;
 import InterfacePersistencia.PersistenciaTarifaDeseoInterface;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -19,7 +18,9 @@ import javax.persistence.Query;
  * @author user
  */
 @Stateless
-public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface{
+public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTarifaDeseo.class);
 
     @Override
     public List<TarifaDeseo> retenciones(EntityManager em) {
@@ -42,7 +43,7 @@ public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface
             return resultado;
 
         } catch (Exception e) {
-            System.out.println("Error: ( Persistencia Tarifa Deseo)" + e.getMessage());
+            log.error("Error: ( Persistencia Tarifa Deseo)" + e.getMessage());
             return null;
         }
     }

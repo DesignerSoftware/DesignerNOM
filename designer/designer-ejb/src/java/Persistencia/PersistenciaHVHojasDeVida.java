@@ -8,8 +8,8 @@ import InterfacePersistencia.PersistenciaHVHojasDeVidaInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-//import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaHVHojasDeVida.class);
+
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     /**
@@ -32,7 +34,7 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
      */
     @Override
     public void editar(EntityManager em, HVHojasDeVida hVHojasDeVida) {
-        System.out.println(this.getClass().getName() + ".hvHoaDeVidaPersona()");
+        log.error(this.getClass().getName() + ".hvHoaDeVidaPersona()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -43,14 +45,14 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("error en editar");
+            log.error("error en editar");
             e.printStackTrace();
         }
     }
 
     @Override
     public HVHojasDeVida hvHojaDeVidaPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName() + ".hvHojaDeVidaPersona()");
+        log.error(this.getClass().getName() + ".hvHojaDeVidaPersona()");
         HVHojasDeVida hVHojasDeVida = null;
         try {
             em.clear();
@@ -61,9 +63,9 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
             hVHojasDeVida = (HVHojasDeVida) query.getSingleResult();
             return hVHojasDeVida;
         } catch (Exception e) {
-            System.out.println("error en hvHojaDeVidaPersona");
+            log.error("error en hvHojaDeVidaPersona");
 //            e.printStackTrace();
-            System.out.println("Mensaje de excepcion: "+e.getMessage());
+            log.error("Mensaje de excepcion: "+e.getMessage());
             return hVHojasDeVida;
         }
     }

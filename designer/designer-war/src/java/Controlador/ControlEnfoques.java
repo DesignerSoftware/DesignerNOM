@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEnfoques implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEnfoques.class);
 
    @EJB
    AdministrarEnfoquesInterface administrarEnfoques;
@@ -134,8 +137,8 @@ public class ControlEnfoques implements Serializable {
          administrarEnfoques.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -224,10 +227,10 @@ public class ControlEnfoques implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosEnfoque");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosEnfoque:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
@@ -258,7 +261,7 @@ public class ControlEnfoques implements Serializable {
    public void borrandoEnfoques() {
 
       if (enfoqueSeleccionado != null) {
-         System.out.println("Entro a borrardatosEnfoques");
+         log.info("Entro a borrardatosEnfoques");
          if (!modificarEnfoques.isEmpty() && modificarEnfoques.contains(enfoqueSeleccionado)) {
             int modIndex = modificarEnfoques.indexOf(enfoqueSeleccionado);
             modificarEnfoques.remove(modIndex);
@@ -310,7 +313,7 @@ public class ControlEnfoques implements Serializable {
             administrarEnfoques.modificarEnfoques(modificarEnfoques);
             modificarEnfoques.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listEnfoques = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -365,7 +368,7 @@ public class ControlEnfoques implements Serializable {
       if (nuevoEnfoque.getDescripcion() == (null)) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
@@ -373,7 +376,7 @@ public class ControlEnfoques implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEnfoque:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
@@ -396,7 +399,7 @@ public class ControlEnfoques implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         System.out.println("Despues de la bandera guardado");
+         log.info("Despues de la bandera guardado");
 
          RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEnfoque').hide()");
       } else {
@@ -406,12 +409,12 @@ public class ControlEnfoques implements Serializable {
    }
 
    public void limpiarNuevoEnfoque() {
-      System.out.println("limpiarnuevoEnfoques");
+      log.info("limpiarnuevoEnfoques");
       nuevoEnfoque = new Enfoques();
    }
 
    public void duplicarEnfoques() {
-      System.out.println("duplicarEnfoques");
+      log.info("duplicarEnfoques");
       if (enfoqueSeleccionado != null) {
          duplicarEnfoque = new Enfoques();
          k++;
@@ -436,8 +439,8 @@ public class ControlEnfoques implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarEnfoque.getCodigo());
-      System.err.println("ConfirmarDuplicar descripcion " + duplicarEnfoque.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarEnfoque.getCodigo());
+      log.error("ConfirmarDuplicar descripcion " + duplicarEnfoque.getDescripcion());
 
       if (duplicarEnfoque.getCodigo() == a) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
@@ -450,7 +453,7 @@ public class ControlEnfoques implements Serializable {
          if (duplicados > 0) {
             mensajeValidacion = " El código ingresado ya existe. Por favor ingrese otro código";
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -458,7 +461,7 @@ public class ControlEnfoques implements Serializable {
       if (duplicarEnfoque.getDescripcion().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 

@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlUnidad implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUnidad.class);
 
    @EJB
    AdministrarUnidadesInterface administrarUnidades;
@@ -138,8 +141,8 @@ public class ControlUnidad implements Serializable {
          administrarUnidades.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -246,7 +249,7 @@ public class ControlUnidad implements Serializable {
          editarUnidad = unidadSeleccionada;
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             deshabilitarBotonLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
@@ -413,7 +416,7 @@ public class ControlUnidad implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          unidadesCodigos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesCodigos");
          unidadesCodigos.setFilterStyle("display: none; visibility: hidden;");
          unidadesNombres = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesNombres");
@@ -447,7 +450,7 @@ public class ControlUnidad implements Serializable {
       if (bandera == 1) {
          //CERRAR FILTRADO
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          unidadesCodigos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesCodigos");
          unidadesCodigos.setFilterStyle("display: none; visibility: hidden;");
          unidadesNombres = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesNombres");
@@ -459,7 +462,7 @@ public class ControlUnidad implements Serializable {
          bandera = 0;
          filtradoListaUnidades = null;
          tipoLista = 0;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       }
       listaUnidadesBorrar.clear();
       listaUnidadesCrear.clear();
@@ -542,7 +545,7 @@ public class ControlUnidad implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             unidadesCodigos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesCodigos");
             unidadesCodigos.setFilterStyle("display: none; visibility: hidden;");
             unidadesNombres = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesNombres");
@@ -553,7 +556,7 @@ public class ControlUnidad implements Serializable {
             altoTabla = "270";
             bandera = 0;
             filtradoListaUnidades = null;
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("TipoLista= " + tipoLista);
             tipoLista = 0;
          }
          //AGREGAR REGISTRO A LA LISTA CIUDADES.
@@ -641,7 +644,7 @@ public class ControlUnidad implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             unidadesCodigos = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesCodigos");
             unidadesCodigos.setFilterStyle("display: none; visibility: hidden;");
             unidadesNombres = (Column) c.getViewRoot().findComponent("form:datosUnidades:unidadesNombres");
@@ -652,7 +655,7 @@ public class ControlUnidad implements Serializable {
             altoTabla = "270";
             bandera = 0;
             filtradoListaUnidades = null;
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("TipoLista= " + tipoLista);
             tipoLista = 0;
          }
          listaUnidades.add(duplicarUnidad);
@@ -686,10 +689,10 @@ public class ControlUnidad implements Serializable {
    public void guardarCambiosUnidad() {
       try {
          if (guardado == false) {
-            System.out.println("Realizando Operaciones Unidades");
+            log.info("Realizando Operaciones Unidades");
             if (!listaUnidadesBorrar.isEmpty()) {
                administrarUnidades.borrarUnidades(listaUnidadesBorrar);
-               System.out.println("Entra");
+               log.info("Entra");
                listaUnidadesBorrar.clear();
             }
             if (!listaUnidadesCrear.isEmpty()) {
@@ -700,7 +703,7 @@ public class ControlUnidad implements Serializable {
                administrarUnidades.modificarUnidades(listaUnidadesModificar);
                listaUnidadesModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaUnidades = null;
             getListaUnidades();
             contarRegistros();

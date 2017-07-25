@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlElementosCausasAccidentes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlElementosCausasAccidentes.class);
 
    @EJB
    AdministrarElementosCausasAccidentesInterface administrarElementosCausasAccidentes;
@@ -110,26 +113,16 @@ public class ControlElementosCausasAccidentes implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
          
       } else {
-         */
-String pagActual = "elementocausaaccidente";
-         
-         
-         
+       */
+      String pagActual = "elementocausaaccidente";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
-fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -145,7 +138,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       limpiarListasValor();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -157,14 +150,14 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          administrarElementosCausasAccidentes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n EVENTO FILTRAR \n");
+         log.info("\n EVENTO FILTRAR \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -172,7 +165,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          infoRegistro = "Cantidad de registros: " + filtrarElementosCausasAccidentes.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR EVENTO FILTRAR ERROR===" + e.getMessage());
+         log.warn("Error EVENTO FILTRAR ERROR===" + e.getMessage());
       }
    }
 
@@ -180,7 +173,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    private String backUpDescripcion;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -202,24 +195,24 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          secRegistro = listElementosCausasAccidentes.get(index).getSecuencia();
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE CONTROLELEMENTOSCAUSASACCIDENTES  AsignarIndex \n");
+         log.info("\n ENTRE CONTROLELEMENTOSCAUSASACCIDENTES  AsignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLELEMENTOSCAUSASACCIDENTES asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error CONTROLELEMENTOSCAUSASACCIDENTES asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -265,7 +258,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext.getCurrentInstance().update("form:datosElementosCausasAccidentes");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
          //CERRAR FILTRADO
@@ -302,10 +296,10 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          descripcion = (Column) c.getViewRoot().findComponent("form:datosElementosCausasAccidentes:descripcion");
          descripcion.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosElementosCausasAccidentes");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosElementosCausasAccidentes:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -319,16 +313,16 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void modificandoElementosCausasAccidentes(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("MODIFICAR ELEMENTOS CAUSAS ACCIDENTES");
+      log.error("MODIFICAR ELEMENTOS CAUSAS ACCIDENTES");
       index = indice;
 
       int contador = 0;
       boolean banderita = false;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("MODIFICANDO ELEMENTOS CAUSAS ACCIDENTES  CONFIRMAR CAMBIO = N");
+         log.error("MODIFICANDO ELEMENTOS CAUSAS ACCIDENTES  CONFIRMAR CAMBIO = N");
          if (tipoLista == 0) {
             if (!crearElementosCausasAccidentes.contains(listElementosCausasAccidentes.get(indice))) {
                if (listElementosCausasAccidentes.get(indice).getCodigo() == a) {
@@ -537,7 +531,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       if (index >= 0) {
 
          if (tipoLista == 0) {
-            System.out.println("borrandoElementosCausasAccidentes");
+            log.info("borrandoElementosCausasAccidentes");
             if (!modificarElementosCausasAccidentes.isEmpty() && modificarElementosCausasAccidentes.contains(listElementosCausasAccidentes.get(index))) {
                int modIndex = modificarElementosCausasAccidentes.indexOf(listElementosCausasAccidentes.get(index));
                modificarElementosCausasAccidentes.remove(modIndex);
@@ -551,7 +545,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             listElementosCausasAccidentes.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoElementosCausasAccidentes");
+            log.info("borrandoElementosCausasAccidentes");
             if (!modificarElementosCausasAccidentes.isEmpty() && modificarElementosCausasAccidentes.contains(filtrarElementosCausasAccidentes.get(index))) {
                int modIndex = modificarElementosCausasAccidentes.indexOf(filtrarElementosCausasAccidentes.get(index));
                modificarElementosCausasAccidentes.remove(modIndex);
@@ -587,24 +581,24 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void verificarBorrado() {
       try {
-         System.out.println("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-         System.out.println("secuencia borrado : " + listElementosCausasAccidentes.get(index).getSecuencia());
+         log.info("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
+         log.info("secuencia borrado : " + listElementosCausasAccidentes.get(index).getSecuencia());
          if (tipoLista == 0) {
-            System.out.println("secuencia borrado : " + listElementosCausasAccidentes.get(index).getSecuencia());
+            log.info("secuencia borrado : " + listElementosCausasAccidentes.get(index).getSecuencia());
             contadorSoAccidentes = administrarElementosCausasAccidentes.contarSoAccidentesCausa(listElementosCausasAccidentes.get(index).getSecuencia());
             contadorSoAccidentesMedicos = administrarElementosCausasAccidentes.contarSoAccidentesMedicosElementoCausaAccidente(listElementosCausasAccidentes.get(index).getSecuencia());
             contadorSoIndicadoresFr = administrarElementosCausasAccidentes.contarSoIndicadoresFrElementoCausaAccidente(listElementosCausasAccidentes.get(index).getSecuencia());
          } else {
-            System.out.println("secuencia borrado : " + filtrarElementosCausasAccidentes.get(index).getSecuencia());
+            log.info("secuencia borrado : " + filtrarElementosCausasAccidentes.get(index).getSecuencia());
             contadorSoAccidentes = administrarElementosCausasAccidentes.contarSoAccidentesCausa(filtrarElementosCausasAccidentes.get(index).getSecuencia());
             contadorSoAccidentesMedicos = administrarElementosCausasAccidentes.contarSoAccidentesMedicosElementoCausaAccidente(filtrarElementosCausasAccidentes.get(index).getSecuencia());
             contadorSoIndicadoresFr = administrarElementosCausasAccidentes.contarSoIndicadoresFrElementoCausaAccidente(filtrarElementosCausasAccidentes.get(index).getSecuencia());
          }
-         System.out.println("contadorSoAccidentes " + contadorSoAccidentes.toString());
-         System.out.println("contadorSoAccidentesMedicos " + contadorSoAccidentesMedicos.toString());
-         System.out.println("contadorSoIndicadoresFr " + contadorSoIndicadoresFr.toString());
+         log.info("contadorSoAccidentes " + contadorSoAccidentes.toString());
+         log.info("contadorSoAccidentesMedicos " + contadorSoAccidentesMedicos.toString());
+         log.info("contadorSoIndicadoresFr " + contadorSoIndicadoresFr.toString());
          if (!contadorSoAccidentes.equals(new BigInteger("0")) || !contadorSoAccidentesMedicos.equals(new BigInteger("0")) || !contadorSoIndicadoresFr.equals(new BigInteger("0"))) {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -616,11 +610,11 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             contadorSoIndicadoresFr = new BigInteger("-1");
 
          } else {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoElementosCausasAccidentes();
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlDepotes verificarBorrado ERROR " + e);
+         log.error("ERROR ControlDepotes verificarBorrado ERROR " + e);
       }
    }
 
@@ -638,7 +632,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando ELEMENTOS CAUSAS ACCIDENTES");
+         log.info("Realizando ELEMENTOS CAUSAS ACCIDENTES");
          if (!borrarElementosCausasAccidentes.isEmpty()) {
             administrarElementosCausasAccidentes.borrarElementosCausasAccidentes(borrarElementosCausasAccidentes);
             registrosBorrados = borrarElementosCausasAccidentes.size();
@@ -654,7 +648,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             administrarElementosCausasAccidentes.modificarElementosCausasAccidentes(modificarElementosCausasAccidentes);
             modificarElementosCausasAccidentes.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listElementosCausasAccidentes = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -680,7 +674,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -697,7 +691,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void agregarNuevoElementoCausaAccidente() {
-      System.out.println("agregarNuevoElementoCausaAccidente");
+      log.info("agregarNuevoElementoCausaAccidente");
       int contador = 0;
       int duplicados = 0;
 
@@ -705,42 +699,42 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoElementoCausaAccidente.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoElementoCausaAccidente.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoElementoCausaAccidente.getCodigo());
 
          for (int x = 0; x < listElementosCausasAccidentes.size(); x++) {
             if (listElementosCausasAccidentes.get(x).getCodigo() == nuevoElementoCausaAccidente.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoElementoCausaAccidente.getDescripcion() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosElementosCausasAccidentes:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosElementosCausasAccidentes:descripcion");
@@ -750,7 +744,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             filtrarElementosCausasAccidentes = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -780,7 +774,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void limpiarNuevoElementoCausaAccidente() {
-      System.out.println("limpiarNuevoElementoCausaAccidente");
+      log.info("limpiarNuevoElementoCausaAccidente");
       nuevoElementoCausaAccidente = new ElementosCausasAccidentes();
       secRegistro = null;
       index = -1;
@@ -789,7 +783,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    //------------------------------------------------------------------------------
    public void duplicandoElementoCausaAccidente() {
-      System.out.println("duplicandoTiposCertificados");
+      log.info("duplicandoTiposCertificados");
       if (index >= 0) {
          duplicarElementoCausaAccidente = new ElementosCausasAccidentes();
          k++;
@@ -815,18 +809,18 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void confirmarDuplicar() {
-      System.err.println("CONFIRMAR DUPLICAR ELEMENTOS CAUSAS ACCIDENTES");
+      log.error("CONFIRMAR DUPLICAR ELEMENTOS CAUSAS ACCIDENTES");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
 
-      System.err.println("ConfirmarDuplicar codigo " + duplicarElementoCausaAccidente.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarElementoCausaAccidente.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarElementoCausaAccidente.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarElementoCausaAccidente.getDescripcion());
 
       if (duplicarElementoCausaAccidente.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listElementosCausasAccidentes.size(); x++) {
             if (listElementosCausasAccidentes.get(x).getCodigo() == duplicarElementoCausaAccidente.getCodigo()) {
@@ -835,27 +829,27 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarElementoCausaAccidente.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarElementoCausaAccidente.getSecuencia() + "  " + duplicarElementoCausaAccidente.getCodigo());
+         log.info("Datos Duplicando: " + duplicarElementoCausaAccidente.getSecuencia() + "  " + duplicarElementoCausaAccidente.getCodigo());
          if (crearElementosCausasAccidentes.contains(duplicarElementoCausaAccidente)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listElementosCausasAccidentes.add(duplicarElementoCausaAccidente);
          crearElementosCausasAccidentes.add(duplicarElementoCausaAccidente);
@@ -916,12 +910,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listElementosCausasAccidentes.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "ELEMENTOSCAUSASACCIDENTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

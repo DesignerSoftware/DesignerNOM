@@ -9,13 +9,15 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 
 @Stateless
 public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSueldosMercados.class);
 
    
     @Override
@@ -27,7 +29,7 @@ public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosI
             em.persist(sueldosMercados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSueldosMercados.crear: " + e.getMessage());
+            log.error("Error PersistenciaSueldosMercados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +45,7 @@ public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosI
             em.merge(sueldosMercados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSueldosMercados.editar: " + e.getMessage());
+            log.error("Error PersistenciaSueldosMercados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +61,7 @@ public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosI
             em.remove(em.merge(sueldosMercados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSueldosMercados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSueldosMercados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +77,7 @@ public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosI
             List<SueldosMercados> sueldosMercados = query.getResultList();
             return sueldosMercados;
         } catch (Exception e) {
-            System.out.println("Error buscarSueldosMercados PersistenciaSueldosMercados : " + e.getMessage());
+            log.error("Error buscarSueldosMercados PersistenciaSueldosMercados : " + e.getMessage());
             return null;
         }
     }
@@ -90,7 +92,7 @@ public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosI
             SueldosMercados sueldosMercados = (SueldosMercados) query.getSingleResult();
             return sueldosMercados;
         } catch (Exception e) {
-            System.out.println("Error buscarSueldosMercadosSecuencia PersistenciaSueldosMercados : " + e.getMessage());
+            log.error("Error buscarSueldosMercadosSecuencia PersistenciaSueldosMercados : " + e.getMessage());
             return null;
         }
     }
@@ -105,7 +107,7 @@ public class PersistenciaSueldosMercados implements PersistenciaSueldosMercadosI
             List<SueldosMercados> sueldosMercados = query.getResultList();
             return sueldosMercados;
         } catch (Exception e) {
-            System.out.println("Error buscarSueldosMercadosPorSecuenciaCargo PersistenciaSueldosMercados : " + e.getMessage());
+            log.error("Error buscarSueldosMercadosPorSecuenciaCargo PersistenciaSueldosMercados : " + e.getMessage());
             return null;
         }
     }

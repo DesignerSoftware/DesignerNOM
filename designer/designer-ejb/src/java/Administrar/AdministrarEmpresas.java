@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -30,6 +31,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmpresas implements AdministrarEmpresasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmpresas.class);
 
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -91,7 +94,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error listaEmpresas Admi : " + e.toString());
+         log.error("Error listaEmpresas Admi : " + e.toString());
          return null;
       }
    }
@@ -101,7 +104,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          Empresas lista = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error AdministrarEmpresas consultarEmpresaSecuencia : " + e.toString());
+         log.error("Error AdministrarEmpresas consultarEmpresaSecuencia : " + e.toString());
          return null;
       }
    }
@@ -112,7 +115,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          List<Empresas> lista = persistenciaEmpresas.buscarEmpresasLista(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error listaEmpresas Admi : " + e.toString());
+         log.error("Error listaEmpresas Admi : " + e.toString());
          return null;
       }
    }
@@ -127,7 +130,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaEmpresas.crear(em, listaE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearEmpresas Admi : " + e.toString());
+         log.warn("Error crearEmpresas Admi : " + e.toString());
       }
    }
 
@@ -141,7 +144,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaEmpresas.editar(em, listaE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarEmpresas Admi : " + e.toString());
+         log.warn("Error editarEmpresas Admi : " + e.toString());
       }
    }
 
@@ -155,7 +158,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaEmpresas.borrar(em, listaE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarEmpresas Admi : " + e.toString());
+         log.warn("Error borrarEmpresas Admi : " + e.toString());
       }
    }
 
@@ -165,7 +168,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          List<Circulares> lista = persistenciaCirculares.buscarCircularesPorSecuenciaEmpresa(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaCircularesParaEmpresa Admi : " + e.toString());
+         log.warn("Error listaCircularesParaEmpresa Admi : " + e.toString());
          return null;
       }
    }
@@ -177,7 +180,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaCirculares.crear(em, listaC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearEmpresas Admi : " + e.toString());
+         log.warn("Error crearEmpresas Admi : " + e.toString());
       }
    }
 
@@ -188,7 +191,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaCirculares.editar(em, listaC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarEmpresas Admi : " + e.toString());
+         log.warn("Error editarEmpresas Admi : " + e.toString());
       }
    }
 
@@ -199,7 +202,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaCirculares.borrar(em, listaC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarEmpresas Admi : " + e.toString());
+         log.warn("Error borrarEmpresas Admi : " + e.toString());
       }
    }
 
@@ -209,7 +212,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          List<VigenciasMonedasBases> lista = persistenciaVigenciasMonedasBases.buscarVigenciasMonedasBasesPorSecuenciaEmpresa(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaVigenciasMonedasBasesParaEmpresa Admi : " + e.toString());
+         log.warn("Error listaVigenciasMonedasBasesParaEmpresa Admi : " + e.toString());
          return null;
       }
    }
@@ -221,7 +224,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaVigenciasMonedasBases.crear(em, listaVMB.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearVigenciasMonedasBases Admi : " + e.toString());
+         log.warn("Error crearVigenciasMonedasBases Admi : " + e.toString());
       }
    }
 
@@ -232,7 +235,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaVigenciasMonedasBases.editar(em, listaVMB.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarVigenciasMonedasBases Admi : " + e.toString());
+         log.warn("Error editarVigenciasMonedasBases Admi : " + e.toString());
       }
    }
 
@@ -243,7 +246,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
             persistenciaVigenciasMonedasBases.borrar(em, listaVMB.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarVigenciasMonedasBases Admi : " + e.toString());
+         log.warn("Error borrarVigenciasMonedasBases Admi : " + e.toString());
       }
    }
 
@@ -253,7 +256,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          List<CentrosCostos> lista = persistenciaCentrosCostos.buscarCentrosCostos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCentrosCostos Admi : " + e.toString());
+         log.warn("Error lovCentrosCostos Admi : " + e.toString());
          return null;
       }
    }
@@ -264,7 +267,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
          List<Monedas> lista = persistenciaMonedas.consultarMonedas(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovMonedas Admi : " + e.toString());
+         log.warn("Error lovMonedas Admi : " + e.toString());
          return null;
       }
    }
@@ -273,7 +276,7 @@ public class AdministrarEmpresas implements AdministrarEmpresasInterface {
       try {
          return persistenciaEmpresas.clonarEmpresa(em, codOrigen, codDestino);
       } catch (Exception e) {
-         System.out.println("AdministrarEmpresas.clonarEmpresa() ERROR : " + e);
+         log.warn("AdministrarEmpresas.clonarEmpresa() ERROR : " + e);
          return "NO";
       }
    }

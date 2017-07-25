@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 
@@ -25,6 +26,8 @@ import org.primefaces.component.export.Exporter;
 @ManagedBean
 @SessionScoped
 public class ControlGeneraConsulta implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlGeneraConsulta.class);
 
    @EJB
    AdministrarGeneraConsultaInterface administrarGeneraConsulta;
@@ -82,24 +85,24 @@ public class ControlGeneraConsulta implements Serializable {
 
    @PostConstruct
    public void inicializarAdministrador() {
-      System.out.println("ControlGeneraConsulta.inicializarAdministrador");
+      log.info("ControlGeneraConsulta.inicializarAdministrador");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarGeneraConsulta.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e + " " + "Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e + " " + "Causa: " + e.getCause());
       }
    }
 
    public void obtieneConsulta() {
-      System.out.println("ControlGeneraConsulta.obtieneConsulta");
-      System.out.println("SECUENCIA: " + this.secuencia);
+      log.info("ControlGeneraConsulta.obtieneConsulta");
+      log.info("SECUENCIA: " + this.secuencia);
       listaConsultas = administrarGeneraConsulta.ejecutarConsulta(new BigInteger(this.secuencia));
       /*try {
             exportPDF();
         } catch (IOException ex) {
-            System.out.println("obtieneConsulta en "+this.getClass().getName());
+            log.info("obtieneConsulta en "+this.getClass().getName());
             ex.printStackTrace();
         }*/
    }
@@ -119,12 +122,12 @@ public class ControlGeneraConsulta implements Serializable {
    }
 
    public String getSecuencia() {
-      System.out.println("ControlGeneraConsulta.getSecuencia");
+      log.info("ControlGeneraConsulta.getSecuencia");
       return secuencia;
    }
 
    public void setSecuencia(String secuencia) {
-      System.out.println("ControlGeneraConsulta.setSecuencia");
+      log.info("ControlGeneraConsulta.setSecuencia");
       this.secuencia = secuencia;
    }
 

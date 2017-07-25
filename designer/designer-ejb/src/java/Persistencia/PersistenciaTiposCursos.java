@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposCursos.class);
 
     @Override
     public void crear(EntityManager em, TiposCursos tiposCursos) {
@@ -31,7 +33,7 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
             em.merge(tiposCursos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCursos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposCursos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +49,7 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
             em.merge(tiposCursos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCursos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposCursos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +65,7 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
             em.remove(em.merge(tiposCursos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCursos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposCursos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +82,7 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
             return listMotivosDemandas;
 
         } catch (Exception e) {
-            System.out.println("Error consultarTiposCursos PersistenciaTiposCursos : " + e.getMessage());
+            log.error("Error consultarTiposCursos PersistenciaTiposCursos : " + e.getMessage());
             return null;
         }
     }
@@ -95,7 +97,7 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
             TiposCursos tiposCursos = (TiposCursos) query.getSingleResult();
             return tiposCursos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCursos consultarTipoCurso : " + e.getMessage());
+            log.error("Error PersistenciaTiposCursos consultarTipoCurso : " + e.getMessage());
             TiposCursos tiposEntidades = null;
             return tiposEntidades;
         }
@@ -110,10 +112,10 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador TiposCursos contadorVigenciasIndicadores persistencia " + retorno);
+            log.error("Contador TiposCursos contadorVigenciasIndicadores persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposCursos.contarCursosTipoCurso()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposCursos.contarCursosTipoCurso()" + e.getMessage());
             return retorno;
         }
     }

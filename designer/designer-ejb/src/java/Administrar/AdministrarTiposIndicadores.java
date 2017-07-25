@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposIndicadores.class);
 
     @EJB
     PersistenciaTiposIndicadoresInterface persistenciaTiposIndicadores;
@@ -42,7 +45,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
     @Override
     public void modificarTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
         for (int i = 0; i < listTiposIndicadores.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposIndicadores.editar(em, listTiposIndicadores.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
     @Override
     public void borrarTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
         for (int i = 0; i < listTiposIndicadores.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposIndicadores.borrar(em, listTiposIndicadores.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
     @Override
     public void crearTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
         for (int i = 0; i < listTiposIndicadores.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposIndicadores.crear(em, listTiposIndicadores.get(i));
         }
     }
@@ -82,10 +85,10 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
         BigInteger verificadorVigenciasIndicadores = null;
 
         try {
-            System.err.println("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
+            log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
             verificadorVigenciasIndicadores = persistenciaTiposIndicadores.contadorVigenciasIndicadores(em, secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarTiposIndicadores verificarBorradoVigenciasIndicadores ERROR :" + e);
+            log.error("ERROR AdmnistrarTiposIndicadores verificarBorradoVigenciasIndicadores ERROR :" + e);
         } finally {
             return verificadorVigenciasIndicadores;
         }

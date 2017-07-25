@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasTallas.class);
+
     public void crear(EntityManager em, VigenciasTallas vigenciasTallas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -29,7 +32,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.merge(vigenciasTallas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasTallas.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasTallas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +47,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.merge(vigenciasTallas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasTallas.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasTallas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +62,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.remove(em.merge(vigenciasTallas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasTallas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasTallas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +79,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             return listMotivosDemandas;
 
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasTallas consultarVigenciasTallasPorPersona : " + e.getMessage());
+            log.error("Error consultarVigenciasTallas consultarVigenciasTallasPorPersona : " + e.getMessage());
             return null;
         }
     }

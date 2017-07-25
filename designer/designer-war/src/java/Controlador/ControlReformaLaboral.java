@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -30,6 +31,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlReformaLaboral implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlReformaLaboral.class);
 
     @EJB
     AdministrarReformasLaboralesInterface administrarReformaLaboral;
@@ -151,8 +154,8 @@ public class ControlReformaLaboral implements Serializable {
             administrarReformaLaboral.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -358,7 +361,7 @@ public class ControlReformaLaboral implements Serializable {
     }
 
     public void cambiarIndiceDetalle(DetallesReformasLaborales detalleRL, int celda) {
-        System.out.println("cambiarIndiceDetalle() detalleRL: " + detalleRL + ", celda: " + celda);
+        log.info("cambiarIndiceDetalle() detalleRL: " + detalleRL + ", celda: " + celda);
         detalleReformaLSeleccionado = detalleRL;
         cualCeldaDetalles = celda;
         auxFactorDetalle = detalleReformaLSeleccionado.getFactor();
@@ -419,7 +422,7 @@ public class ControlReformaLaboral implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosReformaLaboral : " + e.toString());
+            log.warn("Error guardarCambiosReformaLaboral : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Reforma Laboral, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -454,7 +457,7 @@ public class ControlReformaLaboral implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosDetalleReformaLaboral : " + e.toString());
+            log.warn("Error guardarCambiosDetalleReformaLaboral : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Detalle Reforma Laboral, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -648,7 +651,7 @@ public class ControlReformaLaboral implements Serializable {
     /**
      */
     public void verificarRegistroDuplicar() {
-        System.out.println("ControlReformaLaboral.verificarRegistroDuplicar() detalleReformaLSeleccionado : " + detalleReformaLSeleccionado);
+        log.info("ControlReformaLaboral.verificarRegistroDuplicar() detalleReformaLSeleccionado : " + detalleReformaLSeleccionado);
         if (detalleReformaLSeleccionado != null) {
             duplicarDetalleReformaLaboralM();
         } else if (reformaLaboralSeleccionada != null) {
@@ -1264,7 +1267,7 @@ public class ControlReformaLaboral implements Serializable {
                 return listaReformasLaborales;
             }
         } catch (Exception e) {
-            System.out.println("Error...!! getListaReformasLaborales " + e.toString());
+            log.warn("Error...!! getListaReformasLaborales " + e.toString());
             return null;
         }
     }

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -28,6 +27,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 
@@ -38,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlEnvioCorreos")
 @SessionScoped
 public class ControlEnvioCorreos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEnvioCorreos.class);
 
    @EJB
    AdministrarEnvioCorreosInterface administrarEnviosCorreos;
@@ -133,7 +135,7 @@ public class ControlEnvioCorreos implements Serializable {
 
    @PostConstruct
    public void iniciarAdministradores() {
-      System.out.println(this.getClass().getName() + ".iniciarAdministradores()");
+      log.info(this.getClass().getName() + ".iniciarAdministradores()");
       try {
          FacesContext contexto = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
@@ -143,31 +145,31 @@ public class ControlEnvioCorreos implements Serializable {
          administarReportes.obtenerConexion(ses.getId());
          getSecEmpresa();
          if (!validarConfigSMTP()) {
-            System.out.println("Configuración de Servidor SMTP inválida");
+            log.info("Configuración de Servidor SMTP inválida");
             FacesMessage msg = new FacesMessage("Error", "Configuración de Servidor SMTP inválida.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
 //                FacesContext.getCurrentInstance().addMessage(null,
 //                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "Configuración de Servidor SMTP inválida."));
          } else {
-            System.out.println("La configuración es valida");
+            log.info("La configuración es valida");
             FacesMessage msg = new FacesMessage("Informacion", "La configuración es valida.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
 //                FacesContext.getCurrentInstance().addMessage(null,
 //                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion: ", "La configuración es valida."));
          }
-         System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
+         log.info(this.getClass().getName() + " fin de iniciarAdministradores()");
       } catch (Exception e) {
-         System.out.println("Error postconstruct controlEnvioCorreos" + e);
-         System.out.println("Causa: " + e.getMessage());
+         log.error("Error postconstruct controlEnvioCorreos" + e);
+         log.info("Causa: " + e.getMessage());
       }
    }
 
    public void recibirPaginaEntrante(String pagina, BigInteger secReporte) {
-      System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
-      System.out.println("pagina: " + pagina);
-      System.out.println("secReporte: " + secReporte);
+      log.info("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
+      log.info("pagina: " + pagina);
+      log.info("secReporte: " + secReporte);
       paginaAnterior = pagina;
       Inforeportes reporte = administrarRegistroEnvio.consultarPorSecuencia(secReporte);
       reporteActual = reporte;
@@ -181,8 +183,8 @@ public class ControlEnvioCorreos implements Serializable {
                  new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion: ", "La configuración es valida."));
       }
 //        validarConfigSMTP();
-      System.out.println("NombreReporte: " + nombreReporte);
-      System.out.println("reporteActual: " + reporteActual);
+      log.info("NombreReporte: " + nombreReporte);
+      log.info("reporteActual: " + reporteActual);
    }
 
    public String redirigir() {
@@ -190,44 +192,44 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public boolean validarCorreo() {
-      System.out.println("Controlador.ControlEnvioCorreos.validarCorreo()");
+      log.info("Controlador.ControlEnvioCorreos.validarCorreo()");
       if (email != null) {
-         System.out.println("Ingrese a primer if");
+         log.info("Ingrese a primer if");
          String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                  + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
          Pattern pattern = Pattern.compile(PATTERN_EMAIL);
          Matcher matcher = pattern.matcher(email);
          if (matcher.matches()) {
-            System.out.println("Ingrese al segundo if");
+            log.info("Ingrese al segundo if");
             return true;
          } else {
-            System.out.println("Correo Invalido");
+            log.info("Correo Invalido");
 //                FacesMessage msg = new FacesMessage("Error", "Correo inválido, por favor verifique.");
 //                FacesContext.getCurrentInstance().addMessage(null, msg);
 //                RequestContext.getCurrentInstance().update("form:growl");
          }
       } else {
-         System.out.println("Ingrese segundo else");
+         log.info("Ingrese segundo else");
          return true;
       }
       return false;
    }
 
    public void envioMasivo() {
-      System.out.println("Controlador.ControlEnvioCorreos.envioMasivo()");
+      log.info("Controlador.ControlEnvioCorreos.envioMasivo()");
       if (reporteActual.isEstadoEnvioMasivo() == true) {
          getListCorreoCodigos();
          email = "";
          String tipoRespCorreo = "D";
          String mensaje = "";
-         System.out.println("listCorreoCodigos: " + listCorreoCodigos);
+         log.info("listCorreoCodigos: " + listCorreoCodigos);
          if (listCorreoCodigos != null) {
             if (!listCorreoCodigos.isEmpty()) {
                for (int i = 0; i < listCorreoCodigos.size(); i++) {
                   String[] msjResul = new String[1];
                   msjResul[0] = "";
                   if (validarCorreo()) {
-                     System.out.println("Entre if validar el correo");
+                     log.info("Entre if validar el correo");
                      Map paramEmpl = new HashMap();
                      paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
                      paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
@@ -245,11 +247,11 @@ public class ControlEnvioCorreos implements Serializable {
                      }
                   } else {
                      mensaje = mensaje + " Hubo error en los envíos." + "\n No olvide consultar el Registro de Envíos para verificar el envio." + msjResul[0];
-                     System.out.println("mensaje: " + mensaje);
+                     log.info("mensaje: " + mensaje);
                      tipoRespCorreo = "E";
                      ///Reportar error en el envio masivo para la tabla.
                      Date fecha = new Date();
-                     System.out.println("fecha: " + fecha);
+                     log.info("fecha: " + fecha);
                      registrofallocorreo.setFecha(fecha);
 
                      k++;
@@ -263,7 +265,7 @@ public class ControlEnvioCorreos implements Serializable {
                      registrofallocorreo.setReporte(reporteActual);
                      registrofallocorreo.setReenviar("N");
                      listRegistrosFallos.add(registrofallocorreo);
-                     System.out.println("listRegistrosFallos: " + listRegistrosFallos);
+                     log.info("listRegistrosFallos: " + listRegistrosFallos);
                      if (!listRegistrosFallos.isEmpty()) {
                         for (int j = 0; j < listRegistrosFallos.size(); j++) {
                            administrarEnviosCorreos.insertarRegistroEnvios(listRegistrosFallos.get(j));
@@ -272,12 +274,12 @@ public class ControlEnvioCorreos implements Serializable {
                      }
                   }
                }
-               System.out.println("Finalizó el ciclo de envío masivo.");
+               log.info("Finalizó el ciclo de envío masivo.");
             } else {
-               System.out.println("Lista vacia");
+               log.info("Lista vacia");
             }
          } else {
-            System.out.println("Lista null");
+            log.info("Lista null");
          }
 
          mostrarMensajes(tipoRespCorreo, mensaje);
@@ -287,16 +289,16 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    private String generaReporte(Map paramEmpl) {
-      System.out.println("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
+      log.info("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
       String pathReporteGeneradoLoc = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo(), paramEmpl);
-      System.out.println("adjunto: " + pathReporteGeneradoLoc);
+      log.info("adjunto: " + pathReporteGeneradoLoc);
       return pathReporteGeneradoLoc;
    }
 
    private String generaReporte() {
-      System.out.println("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
+      log.info("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
       String pathReporteGeneradoLoc = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
-      System.out.println("adjunto: " + pathReporteGeneradoLoc);
+      log.info("adjunto: " + pathReporteGeneradoLoc);
       return pathReporteGeneradoLoc;
    }
 
@@ -355,7 +357,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public boolean validarConfigSMTP() {
-      System.out.println("Controlador.ControlEnvioCorreos.validarConfigSMTP()");
+      log.info("Controlador.ControlEnvioCorreos.validarConfigSMTP()");
       return administrarEnviosCorreos.comprobarConfigCorreo(secEmpresa);
    }
 
@@ -372,7 +374,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public void activarAceptar() {
-      System.out.println(this.getClass().getName() + ".activarAceptar()");
+      log.info(this.getClass().getName() + ".activarAceptar()");
       aceptar = false;
    }
 
@@ -383,7 +385,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public void actualizarCorreoEmpl() {
-      System.out.println("Controlador.ControlEnvioCorreos.actualizarCorreoEmpl()");
+      log.info("Controlador.ControlEnvioCorreos.actualizarCorreoEmpl()");
 //        parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
 //        parametroModificacion = parametroDeReporte;
 //        cambiosReporte = false;
@@ -401,7 +403,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public void cancelarCambioCorreoEmpl() {
-      System.out.println("Controlador.ControlEnvioCorreos.cancelarCambioCorreoEmpl()");
+      log.info("Controlador.ControlEnvioCorreos.cancelarCambioCorreoEmpl()");
       empleadoSeleccionado = null;
       aceptar = true;
       filtrarListEmpleados = null;
@@ -419,7 +421,7 @@ public class ControlEnvioCorreos implements Serializable {
 
    public void salir() {
       limpiarListasValor();
-      System.out.println("Controlador.ControlRegistroEnvios.salir()");
+      log.info("Controlador.ControlRegistroEnvios.salir()");
       empleadoSeleccionado = null;
       email = "";
       navegar("atras");
@@ -439,7 +441,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public String getEmail() {
-      System.out.println("Controlador.ControlEnvioCorreos.getEmail(). email= " + email);
+      log.info("Controlador.ControlEnvioCorreos.getEmail(). email= " + email);
       if (email == null) {
          email = " ";
       }
@@ -475,7 +477,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public ParametrosReportes getCodigoParametros() {
-      System.out.println("Controlador.ControlEnvioCorreos.getCodigoParametros()");
+      log.info("Controlador.ControlEnvioCorreos.getCodigoParametros()");
       if (codigoParametros == null) {
          codigoParametros = new ParametrosReportes();
          codigoParametros = administrarNReporteNomina.parametrosDeReporte();
@@ -496,7 +498,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public String getPathReporteGenerado() {
-//        System.out.println("Controlador.ControlEnvioCorreos.getPathReporteGenerado()");
+//        log.info("Controlador.ControlEnvioCorreos.getPathReporteGenerado()");
 //        if (pathReporteGenerado == null || pathReporteGenerado.isEmpty()) {
 //            pathReporteGenerado = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
 //        }
@@ -550,7 +552,7 @@ public class ControlEnvioCorreos implements Serializable {
    }
 
    public BigInteger getSecEmpresa() {
-      System.out.println("Controlador.ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
+      log.info("Controlador.ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
       if (secEmpresa == null) {
          try {
             secEmpresa = codigoParametros.getEmpresa().getSecuencia();

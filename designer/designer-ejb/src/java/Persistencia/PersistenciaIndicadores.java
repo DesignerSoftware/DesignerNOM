@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaIndicadores.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             em.merge(indicadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIndicadores.crear: " + e.getMessage());
+            log.error("Error PersistenciaIndicadores.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             em.merge(indicadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIndicadores.editar: " + e.getMessage());
+            log.error("Error PersistenciaIndicadores.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +73,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             tx.commit();
 
         } catch (Exception e) {
-        System.out.println("Error PersistenciaIndicadores.borrar: " + e.getMessage());
+        log.error("Error PersistenciaIndicadores.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -87,7 +89,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             List<Indicadores> indicadores = (List<Indicadores>) query.getResultList();
             return indicadores;
         } catch (Exception e) {
-            System.out.println("Error buscarIndicadores PersistenciaIndicadores : " + e.toString());
+            log.error("Error buscarIndicadores PersistenciaIndicadores : " + e.toString());
             return null;
         }
     }
@@ -103,7 +105,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             Indicadores indicadores = (Indicadores) query.getSingleResult();
             return indicadores;
         } catch (Exception e) {
-            System.out.println("Error buscarIndicadoresSecuencia PersistenciaIndicadores : " + e.toString());
+            log.error("Error buscarIndicadoresSecuencia PersistenciaIndicadores : " + e.toString());
             Indicadores indicadores = null;
             return indicadores;
         }

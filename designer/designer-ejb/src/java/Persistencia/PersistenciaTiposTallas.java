@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposTallas.class);
 
     @Override
     public void crear(EntityManager em, TiposTallas tiposTallas) {
@@ -25,7 +27,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
             em.merge(tiposTallas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTallas.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposTallas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
             em.merge(tiposTallas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTallas.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposTallas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
             em.remove(em.merge(tiposTallas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTallas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposTallas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
         try {
             return em.find(TiposTallas.class, secuenciaTT);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposTallas.buscarTipoTalla()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposTallas.buscarTipoTalla()" + e.getMessage());
             return null;
         }
     }
@@ -83,7 +85,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
         List<TiposTallas> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaTiposTallas.buscarTiposTallas()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposTallas.buscarTiposTallas()" + e.getMessage());
             return null;
         }
     }
@@ -99,7 +101,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error contadorElementos. " + e.getMessage());
+            log.error("Error contadorElementos. " + e.getMessage());
             return retorno;
         }
     }
@@ -115,7 +117,7 @@ public class PersistenciaTiposTallas implements PersistenciaTiposTallasInterface
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTallas  contadorVigenciasTallas. " + e.getMessage());
+            log.error("Error PersistenciaTiposTallas  contadorVigenciasTallas. " + e.getMessage());
             return retorno;
         }
     }

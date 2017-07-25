@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesNormasEmpleadosInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesNormasEmpleados implements PersistenciaVWActualesNormasEmpleadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesNormasEmpleados.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -33,7 +35,7 @@ public class PersistenciaVWActualesNormasEmpleados implements PersistenciaVWActu
             VWActualesNormasEmpleados vwActualesNormasEmpleados = (VWActualesNormasEmpleados) query.getSingleResult();
             return vwActualesNormasEmpleados;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVWActualesNormasEmpleados.buscarNormaLaboral: " + e.getMessage());
+            log.error("Error PersistenciaVWActualesNormasEmpleados.buscarNormaLaboral: " + e.getMessage());
             return null;
         }
     }

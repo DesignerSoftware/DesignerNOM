@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,6 +21,7 @@ import org.w3c.dom.NodeList;
 @ManagedBean
 @RequestScoped
 public class Books {
+   private static Logger log = Logger.getLogger(Books.class);
 
     public ArrayList<Book> getBooks() {
 
@@ -58,7 +60,7 @@ public class Books {
             }
             return al;
         } catch (Exception e) {
-            System.out.println("\n** Parsing error" + ", line " + e.getMessage());
+            log.info("\n** Parsing error" + ", line " + e.getMessage());
             return null;
         }
     }
@@ -75,12 +77,12 @@ public class Books {
                 String titulo = sCadena.substring(0, 45).trim();
                 String author = sCadena.substring(46, 72).trim();
                 String price = sCadena.substring(73).trim();
-                System.out.println(titulo + "_");
-                System.out.println(author + "_");
-                System.out.println(price + "_");
+                log.info(titulo + "_");
+                log.info(author + "_");
+                log.info(price + "_");
             }
         } catch (Exception e) {
-            System.out.println("Excepcion: " + e);
+            log.warn("Excepcion: " + e);
         }
 
     }

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
@@ -26,6 +27,8 @@ import javax.persistence.StoredProcedureQuery;
 @LocalBean
 public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateosProyInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTempProrrateosProy.class);
+
    @Override
    public void crear(EntityManager em, TempProrrateosProy tempAusentismos) {
       em.clear();
@@ -35,7 +38,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempProrrateosProy.crear: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateosProy.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -51,7 +54,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempProrrateosProy.editar: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateosProy.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +70,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          em.remove(em.merge(tempAusentismos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempProrrateosProy.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateosProy.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -86,7 +89,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro en borrarRegistrosTempProrrateosProy() : " + e.toString());
+         log.error("No se pudo borrar el registro en borrarRegistrosTempProrrateosProy() : " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -130,7 +133,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          }
          return listTNovedades;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempProrrateosProy.obtenerTempProrrateosProy()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempProrrateosProy.obtenerTempProrrateosProy()" + e.getMessage());
          return null;
       }
    }
@@ -146,7 +149,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-         System.out.println("PersistenciaTempProrrateosProy.obtenerDocumentosSoporteCargados()" + e.getMessage());
+         log.error("PersistenciaTempProrrateosProy.obtenerDocumentosSoporteCargados()" + e.getMessage());
          return null;
       }
    }
@@ -162,7 +165,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          queryProcedure.execute();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempProrrateosProy.cargarTempProrrateosProy()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempProrrateosProy.cargarTempProrrateosProy()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -181,7 +184,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
                  + " AND ARCHIVO = ?");
          query.setParameter(1, documentoSoporte);
          Date fecha = (Date) query.getSingleResult();
-         System.out.println("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso1 Consulto fecha: " + fecha);
+         log.error("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso1 Consulto fecha: " + fecha);
          if (fecha != null) {
             em.clear();
             StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOSPROY");
@@ -194,12 +197,12 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
             queryProcedure.execute();
             queryProcedure.hasMoreResults();
             String strRetorno = (String) queryProcedure.getOutputParameterValue(1);
-            System.out.println("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso2 Consulto strRetorno: " + strRetorno);
+            log.error("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso2 Consulto strRetorno: " + strRetorno);
          }
          tx.commit();
          return 1;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempProrrateosProy.reversarTempProrrateosProy()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempProrrateosProy.reversarTempProrrateosProy()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }

@@ -612,8 +612,6 @@ public class Generales implements Serializable {
    }
 
    public String getUbicareportes() {
-      System.out.println(this.getClass().getName() + ".getUbicareportes()");
-      System.out.println("ubicareportes: " + ubicareportes);
       return ubicareportes;
    }
 

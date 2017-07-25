@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaParametrosCorreccionAutoLInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParametrosCorreccionAutoLInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaParametrosCorreccionAutoL.class);
+
     @Override
     public void crearCorreccion(EntityManager em, ParametrosCorreccionesAutoL correccion) {
         em.clear();
@@ -29,7 +32,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             em.persist(correccion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.crearCorreccion : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.crearCorreccion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +48,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             em.merge(correccion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.editarCorreccion : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.editarCorreccion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +64,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             em.remove(em.merge(correccion));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.borrarCorreccion : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.borrarCorreccion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +80,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             List<ParametrosCorreccionesAutoL> listaParametros = query.getResultList();
             return listaParametros;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas : " + e.toString());
             return null;
         }
     }

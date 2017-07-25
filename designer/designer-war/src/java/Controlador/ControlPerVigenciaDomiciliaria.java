@@ -56,6 +56,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -68,6 +69,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlPerVigenciaDomiciliaria")
 @SessionScoped
 public class ControlPerVigenciaDomiciliaria implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPerVigenciaDomiciliaria.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -457,8 +460,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             administrarVigDomiciliarias.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -501,7 +504,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger secuencia) {
-        System.out.println("secuencia del empleado en recibir empleado : " + secuencia);
+        log.info("secuencia del empleado en recibir empleado : " + secuencia);
         listVigenciasFormales = null;
         listDirecciones = null;
         listTelefonos = null;
@@ -757,14 +760,14 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         x = BigDecimal.valueOf(k);
         nuevoFamiliar.setSecuencia(x);
         listaFamiliaresCrear.add(nuevoFamiliar);
-        System.out.println("el familiar nuevo es : " + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
+        log.info("el familiar nuevo es : " + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
         if (listaFamiliares == null) {
             listaFamiliares = new ArrayList<Familiares>();
         }
         listaFamiliares.add(nuevoFamiliar);
         familiarSeleccionado = nuevoFamiliar;
-        System.out.println("Persona  :" + nuevoFamiliar.getPersona().getNombreCompleto());
-        System.out.println("nuevo FAMILIAR :" + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
+        log.info("Persona  :" + nuevoFamiliar.getPersona().getNombreCompleto());
+        log.info("nuevo FAMILIAR :" + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
         getListaFamiliares();
         contarRegistrosFamiliares();
         RequestContext context = RequestContext.getCurrentInstance();
@@ -956,14 +959,14 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevaPersona.setSecuencia(l);
-            System.out.println("nueva persona : " + nuevaPersona);
+            log.info("nueva persona : " + nuevaPersona);
             administrarVigDomiciliarias.crearPersona(nuevaPersona);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
             RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').hide()");
             RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
             lovPersonas = null;
         } catch (Exception e) {
-            System.out.println("error crear persona " + e.getMessage());
+            log.warn("Error crear persona " + e.getMessage());
         }
     }
 
@@ -1532,7 +1535,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         SoAntecedentes auxiliar = antecedentem.getAntecedente();
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
-        System.out.println("valor confirmar : " + antecedentem.getAntecedenteDescripcion());
+        log.info("valor confirmar : " + antecedentem.getAntecedenteDescripcion());
 
         if (!antecedentem.getAntecedenteDescripcion().isEmpty()) {
             antecedentemSeleccionado.setAntecedente(new SoAntecedentes());
@@ -1569,7 +1572,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         SoAntecedentes auxiliar = new SoAntecedentes();
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
-        System.out.println("valor confirmar : " + antecedentemnuevo.getAntecedenteDescripcion());
+        log.info("valor confirmar : " + antecedentemnuevo.getAntecedenteDescripcion());
 
         if (!antecedentemnuevo.getAntecedenteDescripcion().isEmpty()) {
             nuevoAntecedentem.setAntecedente(new SoAntecedentes());
@@ -1597,7 +1600,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         SoAntecedentes auxiliar = antecedentemduplicado.getAntecedente();
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
-        System.out.println("valor confirmar : " + antecedentemduplicado.getAntecedenteDescripcion());
+        log.info("valor confirmar : " + antecedentemduplicado.getAntecedenteDescripcion());
 
         if (!antecedentemduplicado.getAntecedenteDescripcion().isEmpty()) {
             duplicarAntecedenteM.setAntecedente(new SoAntecedentes());
@@ -1651,7 +1654,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (bandera == 1) {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
             fechaAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
             tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
@@ -1665,13 +1668,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             listAntecedentesMFiltrar = null;
             tipoLista = 0;
         }
-        System.out.println("Despues de la bandera");
+        log.info("Despues de la bandera");
 
         k++;
         l = BigInteger.valueOf(k);
-        System.out.println("agregar antecedente medico : " + persona.getNombreCompleto());
+        log.info("agregar antecedente medico : " + persona.getNombreCompleto());
         empleado = administrarVigDomiciliarias.buscarEmpleado(persona.getSecuencia());
-        System.out.println("insertar antecedente medico : empleado " + empleado);
+        log.info("insertar antecedente medico : empleado " + empleado);
         nuevoAntecedentem.setSecuencia(l);
         nuevoAntecedentem.setEmpleado(empleado);
         listAntecedentesMCrear.add(nuevoAntecedentem);
@@ -1694,7 +1697,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void borrarAntecedenteMedico() {
         if (antecedentemSeleccionado != null) {
-            System.out.println("Entro a borrandoEvalCompetencias");
+            log.info("Entro a borrandoEvalCompetencias");
             if (!listAntecedentesModificar.isEmpty() && listAntecedentesModificar.contains(antecedentemSeleccionado)) {
                 int modIndex = listAntecedentesModificar.indexOf(antecedentemSeleccionado);
                 listAntecedentesModificar.remove(modIndex);
@@ -1892,10 +1895,10 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             }
             guardado = false;
             permitirIndex = true;
-            System.out.println("tipo antecedente seleccionado : " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
+            log.info("tipo antecedente seleccionado : " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
             lovAntecedentes = null;
             lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(antecedentemSeleccionado.getTipoantecedente().getSecuencia());
-            System.out.println("actualizar tipo antecedente seleccionado" + antecedentemSeleccionado.getTipoantecedente().getDescripcion() + ", lov antecedentes : " + lovAntecedentes);
+            log.info("actualizar tipo antecedente seleccionado" + antecedentemSeleccionado.getTipoantecedente().getDescripcion() + ", lov antecedentes : " + lovAntecedentes);
             RequestContext.getCurrentInstance().update("form:datosAntecedentes");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
@@ -1907,7 +1910,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             lovAntecedentesDescripcion = new ArrayList<String>();
             lovAntecedentes = null;
             lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(nuevoAntecedentem.getTipoantecedente().getSecuencia());
-            System.out.println("actualizar nuevo tipo antecedente seleccionado" + nuevoAntecedentem.getTipoantecedente().getDescripcion() + ", lov antecedentes : " + lovAntecedentes);
+            log.info("actualizar nuevo tipo antecedente seleccionado" + nuevoAntecedentem.getTipoantecedente().getDescripcion() + ", lov antecedentes : " + lovAntecedentes);
             RequestContext.getCurrentInstance().update("formularioDialogos:editarNuevoAntecedente");
         } else if (tipoActualizacion == 2) {
             duplicarAntecedenteM.setTipoantecedente(tipoAntecedenteSeleccionado);
@@ -1916,7 +1919,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoAntecedente");
             lovAntecedentes = null;
             lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(duplicarAntecedenteM.getTipoantecedente().getSecuencia());
-            System.out.println("actualizar duplicar tipo antecedente seleccionado" + duplicarAntecedenteM.getTipoantecedente().getDescripcion() + ", lov antecedentes : " + lovAntecedentes);
+            log.info("actualizar duplicar tipo antecedente seleccionado" + duplicarAntecedenteM.getTipoantecedente().getDescripcion() + ", lov antecedentes : " + lovAntecedentes);
             lovAntecedentesDescripcion = new ArrayList<String>();
 //            RequestContext.getCurrentInstance().update("formularioDialogos:editarNuevoAntecedente");
         }
@@ -1934,7 +1937,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         for (int i = 0; i < lovAntecedentes.size(); i++) {
             lovAntecedentesDescripcion.add(lovAntecedentes.get(i).getDescripcion());
         }
-        System.out.println("lov antecedentes descripcion: " + lovAntecedentesDescripcion);
+        log.info("lov antecedentes descripcion: " + lovAntecedentesDescripcion);
     }
 
     public void cancelarCambioTipoAntecedente() {
@@ -2521,7 +2524,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             nuevaDireccion.setCiudad(ciudadDireccionSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
         } else if (tipoActualizacion == 2) {
-            System.out.println(ciudadDireccionSeleccionada.getNombre());
+            log.info(ciudadDireccionSeleccionada.getNombre());
             duplicarDireccion.setCiudad(ciudadDireccionSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
         }
@@ -2652,7 +2655,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             }
             listDirecciones.add(nuevaDireccion);
             System.out.print("Lista direcciones");
-            System.out.println(listDirecciones.size());
+            log.info(listDirecciones.size());
 
             direccionSeleccionada = nuevaDireccion;
             getListDirecciones();
@@ -2748,8 +2751,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
         }
 
-        System.out.println("fecha direccion " + duplicarDireccion.getFechavigencia() + "\n");
-        System.out.println("secuencia direccion " + duplicarDireccion.getSecuencia() + "\n");
+        log.info("fecha direccion " + duplicarDireccion.getFechavigencia() + "\n");
+        log.info("secuencia direccion " + duplicarDireccion.getSecuencia() + "\n");
         for (int i = 0; i < listDirecciones.size(); i++) {
             if ((listDirecciones.get(i).getSecuencia().equals(duplicarDireccion.getSecuencia())) && ((listDirecciones.get(i).getFechavigencia().equals(duplicarDireccion.getFechavigencia())))) {// && !(duplicarTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeDireccion");
@@ -2775,8 +2778,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
+                log.info("Desactivar");
+                log.info("TipoLista= " + tipoLista);
                 dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
                 dFecha.setFilterStyle("display: none; visibility: hidden;");
                 dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
@@ -2822,7 +2825,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //                administrarVigDomiciliarias.modificarDirecciones(listDireccionesModificar);
 //                listDireccionesModificar.clear();
 //            }
-//            System.out.println("Se guardaron los datos con exito");
+//            log.info("Se guardaron los datos con exito");
 //            listDirecciones = null;
 //            getListDirecciones();
 //            contarRegistrosDirecciones();
@@ -3253,18 +3256,18 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (duplicarTelefono.getFechavigencia() == null) {
-            System.out.println("Entro a Fecha");
+            log.info("Entro a Fecha");
             mensajeValidacion = " Campo fecha vacío \n";
             pasa++;
 
         }
         if (duplicarTelefono.getTipotelefono().getSecuencia() == null) {
-            System.out.println("Entro a TipoTelefono");
+            log.info("Entro a TipoTelefono");
             mensajeValidacion = mensajeValidacion + " Campo Tipo Teléfono vacío \n";
             pasa++;
         }
         if (duplicarTelefono.getNumerotelefono() == 0) {
-            System.out.println("Entro a Numero");
+            log.info("Entro a Numero");
             mensajeValidacion = mensajeValidacion + " * Campo Número Teléfono vacío \n";
             pasa++;
         }
@@ -3293,8 +3296,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
+                log.info("Desactivar");
+                log.info("TipoLista= " + tipoLista);
                 tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
                 tFecha.setFilterStyle("display: none; visibility: hidden;");
                 tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
@@ -3336,23 +3339,23 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (nuevoTelefono.getFechavigencia() == null && nuevoTelefono.getTipotelefono().getSecuencia() == null && nuevoTelefono.getNumerotelefono() == 0) {
-            System.out.println("Entro a Fecha");
+            log.info("Entro a Fecha");
             mensajeValidacion = " Existen campos vacíos \n";
             pasa++;
         }
 
         if (nuevoTelefono.getFechavigencia() == null) {
-            System.out.println("Entro a Fecha");
+            log.info("Entro a Fecha");
             mensajeValidacion = " Campo fecha vacío \n";
             pasa++;
         }
         if (nuevoTelefono.getTipotelefono().getSecuencia() == null) {
-            System.out.println("Entro a TipoTelefono");
+            log.info("Entro a TipoTelefono");
             mensajeValidacion = " Campo Tipo Teléfono vacío\n";
             pasa++;
         }
         if (nuevoTelefono.getNumerotelefono() == 0) {
-            System.out.println("Entro a Numero");
+            log.info("Entro a Numero");
             mensajeValidacion = " Campo Número de Teléfono vacío\n";
             pasa++;
         }
@@ -3488,7 +3491,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //
 //            if (!listTelefonosCrear.isEmpty()) {
 //                for (int i = 0; i < listTelefonosCrear.size(); i++) {
-//                    System.out.println("Creando...");
+//                    log.info("Creando...");
 //                    if (listTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
 //                        listTelefonosCrear.get(i).setTipotelefono(null);
 //                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
@@ -3606,7 +3609,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
-            System.out.println("MODIFICANDO ESTADO CIVIL : " + vigenciaEstadoCivilSeleccionado.getEstadocivil().getDescripcion());
+            log.info("MODIFICANDO ESTADO CIVIL : " + vigenciaEstadoCivilSeleccionado.getEstadocivil().getDescripcion());
             if (!vigenciaEstadoCivilSeleccionado.getEstadocivil().getDescripcion().equals("")) {
                 if (tipoLista == 0) {
                     vigenciaEstadoCivilSeleccionado.getEstadocivil().setDescripcion(vigenciaEstadoCivilSeleccionado.getEstadocivil().getDescripcion());
@@ -3831,7 +3834,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void limpiarNuevoEstadoCivil() {
-        System.out.println("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
+        log.info("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
         nuevaVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         nuevaVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
         vigenciaEstadoCivilSeleccionado = null;
@@ -3840,7 +3843,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void borrandoVigenciasEstadosCiviles() {
 
         if (vigenciaEstadoCivilSeleccionado != null) {
-            System.out.println("Entro a borrandoEvalCompetencias");
+            log.info("Entro a borrandoEvalCompetencias");
             if (!listVigenciaEstadoCivilModificar.isEmpty() && listVigenciaEstadoCivilModificar.contains(vigenciaEstadoCivilSeleccionado)) {
                 int modIndex = listVigenciaEstadoCivilModificar.indexOf(vigenciaEstadoCivilSeleccionado);
                 listVigenciaEstadoCivilModificar.remove(modIndex);
@@ -3873,10 +3876,10 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //        RequestContext context = RequestContext.getCurrentInstance();
 //
 //        if (guardado == false) {
-//            System.out.println("Realizando guardarEvalCompetencias");
+//            log.info("Realizando guardarEvalCompetencias");
 //            if (!listVigenciaEstadoCivilBorrar.isEmpty()) {
 //                for (int i = 0; i < listVigenciaEstadoCivilBorrar.size(); i++) {
-//                    System.out.println("Borrando...");
+//                    log.info("Borrando...");
 //                }
 //                administrarVigDomiciliarias.borrarVigenciasEstadosCiviles(listVigenciaEstadoCivilBorrar);
 //                //mostrarBorrados
@@ -3887,7 +3890,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //                listVigenciaEstadoCivilCrear.clear();
 //            }
 //            if (!listVigenciaEstadoCivilModificar.isEmpty()) {
-//                System.out.println("Modificando...");
+//                log.info("Modificando...");
 //                administrarVigDomiciliarias.modificarVigenciasEstadosCiviles(listVigenciaEstadoCivilModificar);
 //                listVigenciaEstadoCivilModificar.clear();
 //            }
@@ -3906,7 +3909,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //
 //    }
     public void agregarNuevoVigenciaEstadoCivil() {
-        System.out.println("agregarNuevoVigenciaEstadoCivil");
+        log.info("agregarNuevoVigenciaEstadoCivil");
         int contador = 0;
         //nuevaVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
         Short a = 0;
@@ -3932,17 +3935,17 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (nuevaVigenciaEstadoCivil.getEstadocivil().getSecuencia() == null || nuevaVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
             mensajeValidacion = "Campo Estado Civil vacío\n";
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
                 fecha.setFilterStyle("display: none; visibility: hidden;");
                 parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
@@ -4024,28 +4027,28 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         a = null;
         if (duplicarVigenciaEstadoCivil.getFechavigencia() == null) {
             mensajeValidacion = mensajeValidacion + "   * Fecha \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
 
             for (int j = 0; j < listVigenciaEstadoCivil.size(); j++) {
                 if (duplicarVigenciaEstadoCivil.getFechavigencia().equals(listVigenciaEstadoCivil.get(j).getFechavigencia())) {
-                    System.out.println("Se repiten");
+                    log.info("Se repiten");
                     fechas++;
                 }
             }
             if (fechas > 0) {
                 mensajeValidacion = "FECHAS REPETIDAS";
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
 
         }
         if (duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion() == null || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty() || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().equals(" ") || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
             mensajeValidacion = mensajeValidacion + "   * Estado Civil \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
@@ -4057,7 +4060,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             l = BigInteger.valueOf(k);
             duplicarVigenciaEstadoCivil.setSecuencia(l);
             if (listVigenciaEstadoCivilCrear.contains(duplicarVigenciaEstadoCivil)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listVigenciaEstadoCivil.add(duplicarVigenciaEstadoCivil);
             listVigenciaEstadoCivilCrear.add(duplicarVigenciaEstadoCivil);
@@ -4632,22 +4635,22 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             pasa++;
         }
         if (nuevaVigenciaFormal.getTipoeducacion().getSecuencia() == null) {
-            System.out.println("Entro a TipoEducacion");
+            log.info("Entro a TipoEducacion");
             mensajeValidacion = mensajeValidacion + " * Tipo de Educacion\n";
             pasa++;
         }
         if (nuevaVigenciaFormal.getProfesion().getSecuencia() == null) {
-            System.out.println("Entro a Profesion");
+            log.info("Entro a Profesion");
             mensajeValidacion = mensajeValidacion + " * Profesion\n";
             pasa++;
         }
         if (nuevaVigenciaFormal.getInstitucion().getSecuencia() == null) {
-            System.out.println("Entro a Institucion");
+            log.info("Entro a Institucion");
             mensajeValidacion = mensajeValidacion + " * Institucion \n";
             pasa++;
         }
         if (nuevaVigenciaFormal.getAdiestramientof().getSecuencia() == null) {
-            System.out.println("Entro a AdiestramientoF");
+            log.info("Entro a AdiestramientoF");
             mensajeValidacion = mensajeValidacion + " * Adiestramiento\n";
             pasa++;
         }
@@ -4656,8 +4659,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
 
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
+                log.info("Desactivar");
+                log.info("TipoLista= " + tipoLista);
                 pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
                 pEFechas.setFilterStyle("display: none; visibility: hidden;");
                 pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
@@ -4802,8 +4805,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
 
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
             pEFechas.setFilterStyle("display: none; visibility: hidden;");
             pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
@@ -4951,7 +4954,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //            permitirIndex = true;
 //            RequestContext.getCurrentInstance().update("form:ACEPTAR");
 //        } catch (Exception e) {
-//            System.out.println("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
+//            log.warn("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
 //            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Educación Formal, Por favor intente nuevamente.");
 //            FacesContext.getCurrentInstance().addMessage(null, msg);
 //            RequestContext.getCurrentInstance().update("form:growl");
@@ -6359,13 +6362,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
+        log.info("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
 
-            System.out.println("Activar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Activar");
+            log.info("TipoLista= " + tipoLista);
             dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
             dFecha.setFilterStyle("width: 85% !important");
             dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
@@ -6473,8 +6476,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
             dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
@@ -7146,54 +7149,54 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         try {
             if (guardado == false) {
                 if (!listAntecedentesMBorrar.isEmpty()) {
-                    System.out.println("entra a antecedentes borrar");
+                    log.info("entra a antecedentes borrar");
                     administrarVigDomiciliarias.borrarAntecedenteM(listAntecedentesMBorrar);
                     listAntecedentesMBorrar.clear();
                 }
                 if (!listAntecedentesMCrear.isEmpty()) {
-                    System.out.println("entra a antecedentes crear");
+                    log.info("entra a antecedentes crear");
                     administrarVigDomiciliarias.crearAntecedenteM(listAntecedentesMCrear);
                     listAntecedentesMCrear.clear();
                 }
                 if (!listAntecedentesModificar.isEmpty()) {
-                    System.out.println("Modificando...");
-                    System.out.println("entra a antecedentes modificar");
+                    log.info("Modificando...");
+                    log.info("entra a antecedentes modificar");
                     administrarVigDomiciliarias.modificarAntecedenteM(listAntecedentesModificar);
                     listAntecedentesModificar.clear();
                 }
                 if (!listaFamiliaresBorrar.isEmpty()) {
-                    System.out.println("entra a familiares borrar");
+                    log.info("entra a familiares borrar");
                     administrarVigDomiciliarias.borrarFamiliares(listaFamiliaresBorrar);
                     listaFamiliaresBorrar.clear();
                 }
                 if (!listaFamiliaresCrear.isEmpty()) {
-                    System.out.println("entra a familiares crear");
+                    log.info("entra a familiares crear");
                     administrarVigDomiciliarias.crearFamilares(listaFamiliaresCrear);
                     listaFamiliaresCrear.clear();
                 }
                 if (!listaFamiliaresModificar.isEmpty()) {
-                    System.out.println("entra a familiares modificar");
+                    log.info("entra a familiares modificar");
                     administrarVigDomiciliarias.modificarFamiliares(listaFamiliaresModificar);
                     listaFamiliaresModificar.clear();
                 }
                 if (!listDireccionesBorrar.isEmpty()) {
-                    System.out.println("entra a Direcciones borrar");
+                    log.info("entra a Direcciones borrar");
                     administrarVigDomiciliarias.borrarDirecciones(listDireccionesBorrar);
                     listDireccionesBorrar.clear();
                 }
                 if (!listDireccionesCrear.isEmpty()) {
-                    System.out.println("entra a direcciones crear");
+                    log.info("entra a direcciones crear");
                     administrarVigDomiciliarias.crearDirecciones(listDireccionesCrear);
                     listDireccionesCrear.clear();
                 }
                 if (!listDireccionesModificar.isEmpty()) {
-                    System.out.println("entra a direcciones modificar");
+                    log.info("entra a direcciones modificar");
                     administrarVigDomiciliarias.modificarDirecciones(listDireccionesModificar);
                     listDireccionesModificar.clear();
                 }
 
                 if (!listTelefonosBorrar.isEmpty()) {
-                    System.out.println("entra a telefonos borrar");
+                    log.info("entra a telefonos borrar");
                     for (int i = 0; i < listTelefonosBorrar.size(); i++) {
                         if (listTelefonosBorrar.get(i).getTipotelefono().getSecuencia() == null) {
                             listTelefonosBorrar.get(i).setTipotelefono(null);
@@ -7209,9 +7212,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 }
 
                 if (!listTelefonosCrear.isEmpty()) {
-                    System.out.println("entra a telefonos crear");
+                    log.info("entra a telefonos crear");
                     for (int i = 0; i < listTelefonosCrear.size(); i++) {
-                        System.out.println("Creando...");
+                        log.info("Creando...");
                         if (listTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
                             listTelefonosCrear.get(i).setTipotelefono(null);
                             administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
@@ -7225,88 +7228,88 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     listTelefonosCrear.clear();
                 }
                 if (!listTelefonosModificar.isEmpty()) {
-                    System.out.println("entra a telefonos modificar");
+                    log.info("entra a telefonos modificar");
                     administrarVigDomiciliarias.modificarTelefonos(listTelefonosModificar);
                     listTelefonosModificar.clear();
                 }
                 if (!listVigenciaEstadoCivilBorrar.isEmpty()) {
-                    System.out.println("entra a estado civil borrar");
+                    log.info("entra a estado civil borrar");
                     for (int i = 0; i < listVigenciaEstadoCivilBorrar.size(); i++) {
-                        System.out.println("Borrando...");
+                        log.info("Borrando...");
                     }
                     administrarVigDomiciliarias.borrarVigenciasEstadosCiviles(listVigenciaEstadoCivilBorrar);
                     listVigenciaEstadoCivilBorrar.clear();
                 }
                 if (!listVigenciaEstadoCivilCrear.isEmpty()) {
-                    System.out.println("entra a estado civil crear");
+                    log.info("entra a estado civil crear");
                     administrarVigDomiciliarias.crearVigenciasEstadosCiviles(listVigenciaEstadoCivilCrear);
                     listVigenciaEstadoCivilCrear.clear();
                 }
                 if (!listVigenciaEstadoCivilModificar.isEmpty()) {
-                    System.out.println("entra a estado civil modificar");
-                    System.out.println("Modificando...");
+                    log.info("entra a estado civil modificar");
+                    log.info("Modificando...");
                     administrarVigDomiciliarias.modificarVigenciasEstadosCiviles(listVigenciaEstadoCivilModificar);
                     listVigenciaEstadoCivilModificar.clear();
                 }
 
                 if (!listVigenciasFormalesBorrar.isEmpty()) {
-                    System.out.println("entra a educación borrar");
+                    log.info("entra a educación borrar");
                     administrarVigDomiciliarias.borrarVigenciaFormal(listVigenciasFormalesBorrar);
                     listVigenciasFormalesBorrar.clear();
                 }
                 if (!listVigenciasFormalesCrear.isEmpty()) {
-                    System.out.println("entra a educación crear");
+                    log.info("entra a educación crear");
                     administrarVigDomiciliarias.crearVigenciaFormal(listVigenciasFormalesCrear);
                     listVigenciasFormalesCrear.clear();
                 }
                 if (!listVigenciasFormalesModificar.isEmpty()) {
-                    System.out.println("entra a educación modificar");
+                    log.info("entra a educación modificar");
                     administrarVigDomiciliarias.modificarVigenciaFormal(listVigenciasFormalesModificar);
                     listVigenciasFormalesModificar.clear();
                 }
 
                 if (!listhvExpLaboralesBorrar.isEmpty()) {
-                    System.out.println("entra a exp laboral modificar");
+                    log.info("entra a exp laboral modificar");
                     administrarVigDomiciliarias.borrarExperienciaLaboral(listhvExpLaboralesBorrar);
                     listhvExpLaboralesBorrar.clear();
                 }
                 if (!listhvExpLaboralesCrear.isEmpty()) {
-                    System.out.println("entra a exp laboral crear");
+                    log.info("entra a exp laboral crear");
                     administrarVigDomiciliarias.crearExperienciaLaboral(listhvExpLaboralesCrear);
                     listhvExpLaboralesCrear.clear();
                 }
                 if (!listhvExpLaboralesModificar.isEmpty()) {
-                    System.out.println("entra a exp laboral modificar");
+                    log.info("entra a exp laboral modificar");
                     administrarVigDomiciliarias.editarExperienciaLaboral(listhvExpLaboralesModificar);
                     listhvExpLaboralesModificar.clear();
                 }
 
                 if (!listHojasdeVidaModificar.isEmpty()) {
-                    System.out.println("entra a hoja de vida modificar");
+                    log.info("entra a hoja de vida modificar");
                     administrarVigDomiciliarias.editarHojadeVida(listHojasdeVidaModificar);
                     listHojasdeVidaModificar.clear();
                 }
 
 //                if (!listPersonasModificar.isEmpty()) {
-//                    System.out.println("entra a personas modificar");
+//                    log.info("entra a personas modificar");
 //                    administrarVigDomiciliarias.editarPersona(listPersonasModificar);
 //                    listPersonasModificar.clear();
 //                }
                 if (!listVigenciasDomiciliariasBorrar.isEmpty()) {
-                    System.out.println("entra a visita domiciliaris borrar");
-                    System.out.println("tamaño lista visitas domiciliarias borrar " + listVigenciasDomiciliariasBorrar.size());
+                    log.info("entra a visita domiciliaris borrar");
+                    log.info("tamaño lista visitas domiciliarias borrar " + listVigenciasDomiciliariasBorrar.size());
                     administrarVigDomiciliarias.borrarVigencia(listVigenciasDomiciliariasBorrar);
                     listVigenciasDomiciliariasBorrar.clear();
                 }
                 if (!listVigenciasDomiciliariasCrear.isEmpty()) {
-                    System.out.println("entra a visita domiciliaris crear");
-                    System.out.println("tamaño lista visitas domiciliarias crear " + listVigenciasDomiciliariasCrear.size());
+                    log.info("entra a visita domiciliaris crear");
+                    log.info("tamaño lista visitas domiciliarias crear " + listVigenciasDomiciliariasCrear.size());
                     administrarVigDomiciliarias.crearVigencia(listVigenciasDomiciliariasCrear);
                     listVigenciasDomiciliariasCrear.clear();
                 }
                 if (!listVigenciasDomiciliariasModificar.isEmpty()) {
-                    System.out.println("entra a visita domiciliaris modificar");
-                    System.out.println("tamaño lista visitas domiciliarias modificar " + listVigenciasDomiciliariasModificar.size());
+                    log.info("entra a visita domiciliaris modificar");
+                    log.info("tamaño lista visitas domiciliarias modificar " + listVigenciasDomiciliariasModificar.size());
                     administrarVigDomiciliarias.modificarVigencia(listVigenciasDomiciliariasModificar);
                     listVigenciasDomiciliariasModificar.clear();
                 }
@@ -7340,13 +7343,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
                 RequestContext.getCurrentInstance().update("form:datosExperiencia");
                 RequestContext.getCurrentInstance().update("form:cargoPostulado");
-                System.out.println("entra a actualizar campos");
+                log.info("entra a actualizar campos");
                 actualizarCamposVigDomiciliaria();
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovBuscarVisita");
                 k = 0;
                 guardado = true;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                System.out.println("se guardaron los cambios");
+                log.info("se guardaron los cambios");
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
@@ -7361,7 +7364,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 cargarLovVisitas();
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.getMessage());
+            log.warn("Error guardarCambios : " + e.getMessage());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -7407,7 +7410,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void duplicarVigenciaDomiciliaria() {
 
-        System.out.println("entró a duplicar Vigencia Domiciliaria");
+        log.info("entró a duplicar Vigencia Domiciliaria");
 
         k++;
         x = BigDecimal.valueOf(k);
@@ -7461,7 +7464,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         duplicarVigenciaDomiciliaria.setServicioparabolica(vigenciasDomiciliariaSeleccionada.getServicioparabolica());
         duplicarVigenciaDomiciliaria.setServiciotelefono(vigenciasDomiciliariaSeleccionada.getServiciotelefono());
         duplicarVigenciaDomiciliaria.setServiciotransporte(vigenciasDomiciliariaSeleccionada.getServiciotransporte());
-        System.out.println("terminó de duplicar Campos visita");
+        log.info("terminó de duplicar Campos visita");
         listVigenciasDomiciliariasCrear.add(duplicarVigenciaDomiciliaria);
         vigenciasDomiciliariaSeleccionada = duplicarVigenciaDomiciliaria;
         actualizarCamposVigDomiciliaria();
@@ -7611,7 +7614,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         lovVisitas = null;
         cargarLovVisitas();
         contarRegistrosLovVisita();
-        System.out.println("lov visitas : " + lovVisitas);
+        log.info("lov visitas : " + lovVisitas);
         if (lovVisitas == null || lovVisitas.isEmpty()) {
             RequestContext.getCurrentInstance().execute("PF('sinVisitas').show()");
         } else {
@@ -8247,7 +8250,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             }
             return listhvExpLaborales;
         } catch (Exception e) {
-            System.out.println("Error en getListProyectos : " + e.toString());
+            log.warn("Error en getListProyectos : " + e.toString());
             return null;
         }
     }
@@ -9477,7 +9480,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroservicio() {
-        System.out.println("activarotroservicio" + activarotroservicio);
+        log.info("activarotroservicio" + activarotroservicio);
         return activarotroservicio;
     }
 
@@ -9486,7 +9489,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroegreso() {
-        System.out.println("activarotroegreso" + activarotroegreso);
+        log.info("activarotroegreso" + activarotroegreso);
         return activarotroegreso;
     }
 
@@ -9495,7 +9498,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroaporte() {
-        System.out.println("activarotroaporte" + activarotroaporte);
+        log.info("activarotroaporte" + activarotroaporte);
         return activarotroaporte;
     }
 

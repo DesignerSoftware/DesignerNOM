@@ -9,8 +9,8 @@ import Entidades.OpcionesKioskos;
 import InterfacePersistencia.PersistenciaOpcionesKioskosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -19,6 +19,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaOpcionesKioskos implements PersistenciaOpcionesKioskosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaOpcionesKioskos.class);
 
     @Override
     public List<OpcionesKioskos> consultarOpcionesKioskos(EntityManager em) {
@@ -30,7 +32,7 @@ public class PersistenciaOpcionesKioskos implements PersistenciaOpcionesKioskosI
             return lista;
 
         } catch (Exception e) {
-            System.out.println("Error consultarOpcionesKioskos PersistenciaOpcionesKioskos : " + e.getMessage());
+            log.error("Error consultarOpcionesKioskos PersistenciaOpcionesKioskos : " + e.getMessage());
             return null;
         }
     }

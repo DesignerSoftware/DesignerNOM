@@ -36,6 +36,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -43,6 +44,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNReportesNomina implements AdministrarNReportesNominaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNReportesNomina.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -111,7 +114,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             }
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -122,7 +125,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioNomina(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e);
+            log.warn("Error listInforeportesUsuario " + e);
             return null;
         }
     }
@@ -132,7 +135,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
         try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosReportes : " + e.toString());
+            log.warn("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -142,7 +145,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Administrar : " + e.toString());
+            log.warn("Error listEmpresas Administrar : " + e.toString());
             return null;
         }
     }
@@ -153,21 +156,21 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listGruposConceptos = persistenciaGruposConceptos.buscarGruposConceptos(em);
             return listGruposConceptos;
         } catch (Exception e) {
-            System.out.println("Error listGruposConcetos : " + e.toString());
+            log.warn("Error listGruposConcetos : " + e.toString());
             return null;
         }
     }
 
     @Override
     public List<Empleados> listEmpleados() {
-        System.out.println(this.getClass().getName() + ".listEmpleados()");
-        System.out.println(this.getClass().getName() + ".listEmpleados() entity manager" + em);
+        log.warn(this.getClass().getName() + ".listEmpleados()");
+        log.warn(this.getClass().getName() + ".listEmpleados() entity manager" + em);
         try {
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
-            System.out.println(this.getClass().getName() + ".listEmpleados() fin.");
+            log.warn(this.getClass().getName() + ".listEmpleados() fin.");
             return listEmpleados;
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error " + e.toString());
+            log.warn(this.getClass().getName() + " error " + e.toString());
             return null;
         }
     }
@@ -178,7 +181,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listUbicacionesGeograficas = persistenciaUbicacionesGeograficas.consultarUbicacionesGeograficas(em);
             return listUbicacionesGeograficas;
         } catch (Exception e) {
-            System.out.println("Error listUbicacionesGeograficas : " + e.toString());
+            log.warn("Error listUbicacionesGeograficas : " + e.toString());
             return null;
         }
     }
@@ -189,7 +192,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listTiposAsociaciones = persistenciaTiposAsociaciones.buscarTiposAsociaciones(em);
             return listTiposAsociaciones;
         } catch (Exception e) {
-            System.out.println("Error listTiposAsociaciones : " + e.toString());
+            log.warn("Error listTiposAsociaciones : " + e.toString());
             return null;
         }
     }
@@ -200,7 +203,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listEstructuras = persistenciaEstructuras.buscarEstructuras(em);
             return listEstructuras;
         } catch (Exception e) {
-            System.out.println("Error listEstructuras : " + e.toString());
+            log.warn("Error listEstructuras : " + e.toString());
             return null;
         }
     }
@@ -211,7 +214,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listTiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return listTiposTrabajadores;
         } catch (Exception e) {
-            System.out.println("Error listTiposTrabajadores : " + e.toString());
+            log.warn("Error listTiposTrabajadores : " + e.toString());
             return null;
         }
     }
@@ -223,7 +226,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listTerceros = persistenciaTerceros.lovTerceros(em, secEmpresa);
             return listTerceros;
         } catch (Exception e) {
-            System.out.println("Error listTerceros : " + e.toString());
+            log.warn("Error listTerceros : " + e.toString());
             return null;
         }
     }
@@ -235,7 +238,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
 //            listTerceros = persistenciaTerceros.lovTerceros(em, secEmpresa);
             return listTerceros;
         } catch (Exception e) {
-            System.out.println("Error listTerceros : " + e.toString());
+            log.warn("Error listTerceros : " + e.toString());
             return null;
         }
     }
@@ -246,7 +249,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listProcesos = persistenciaProcesos.buscarProcesos(em);
             return listProcesos;
         } catch (Exception e) {
-            System.out.println("Error listProcesos : " + e.toString());
+            log.warn("Error listProcesos : " + e.toString());
             return null;
         }
     }
@@ -257,7 +260,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             listAsociaciones = persistenciaAsociaciones.buscarAsociaciones(em);
             return listAsociaciones;
         } catch (Exception e) {
-            System.out.println("Error listAsociaciones : " + e.toString());
+            log.warn("Error listAsociaciones : " + e.toString());
             return null;
         }
     }
@@ -269,7 +272,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 

@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoliquidacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaIbcsAutoliquidaciones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             em.persist(autoliquidaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIbcsAutoliquidaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaIbcsAutoliquidaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             em.merge(autoliquidaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIbcsAutoliquidaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaIbcsAutoliquidaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +73,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIbcsAutoliquidaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaIbcsAutoliquidaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +89,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             List<IbcsAutoliquidaciones> autoliquidaciones = (List<IbcsAutoliquidaciones>) query.getResultList();
             return autoliquidaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarIbcsAutoliquidaciones PersistenciaIbcsAutoliquidaciones : " + e.toString());
+            log.error("Error buscarIbcsAutoliquidaciones PersistenciaIbcsAutoliquidaciones : " + e.toString());
             return null;
         }
     }
@@ -102,7 +104,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             IbcsAutoliquidaciones autoliquidaciones = (IbcsAutoliquidaciones) query.getSingleResult();
             return autoliquidaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarIbcAutoliquidacionSecuencia PersistenciaIbcsAutoliquidaciones : " + e.toString());
+            log.error("Error buscarIbcAutoliquidacionSecuencia PersistenciaIbcsAutoliquidaciones : " + e.toString());
             IbcsAutoliquidaciones autoliquidaciones = null;
             return autoliquidaciones;
         }
@@ -119,7 +121,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             List<IbcsAutoliquidaciones> autoliquidaciones = (List<IbcsAutoliquidaciones>) query.getResultList();
             return autoliquidaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarIbcsAutoliquidacionesTipoEntidadEmpleado PersistenciaIbcsAutoliquidaciones : " + e.toString());
+            log.error("Error buscarIbcsAutoliquidacionesTipoEntidadEmpleado PersistenciaIbcsAutoliquidaciones : " + e.toString());
             return null;
         }
     }

@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarFormulaContrato implements AdministrarFormulaContratoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFormulaContrato.class);
 
    @EJB
    PersistenciaFormulasContratosInterface persistenciaFormulasContratos;
@@ -56,7 +59,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
          List<Formulascontratos> lista = persistenciaFormulasContratos.formulasContratosParaFormulaSecuencia(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listFormulasContratosParaFormula Admi : " + e.toString());
+         log.warn("Error listFormulasContratosParaFormula Admi : " + e.toString());
          return null;
       }
    }
@@ -71,7 +74,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
             persistenciaFormulasContratos.crear(em, listaFC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearFormulasContratos Admi : " + e.toString());
+         log.warn("Error crearFormulasContratos Admi : " + e.toString());
       }
    }
 
@@ -85,7 +88,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
             persistenciaFormulasContratos.borrar(em, listaFC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarFormulasContratos Admi : " + e.toString());
+         log.warn("Error borrarFormulasContratos Admi : " + e.toString());
       }
    }
 
@@ -99,7 +102,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
             persistenciaFormulasContratos.editar(em, listaFC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarFormulasContratos Admi : " + e.toString());
+         log.warn("Error editarFormulasContratos Admi : " + e.toString());
       }
    }
 
@@ -109,7 +112,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
          List<Contratos> lista = persistenciaContratos.buscarContratos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listContratos Admi : " + e.toString());
+         log.warn("Error listContratos Admi : " + e.toString());
          return null;
       }
    }
@@ -120,7 +123,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
          List<Periodicidades> lista = persistenciaPeriodicidades.consultarPeriodicidades(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listPeriodicidades Admi : " + e.toString());
+         log.warn("Error listPeriodicidades Admi : " + e.toString());
          return null;
       }
    }
@@ -131,7 +134,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
          List<Terceros> lista = persistenciaTerceros.buscarTerceros(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listTerceros Admi : " + e.toString());
+         log.warn("Error listTerceros Admi : " + e.toString());
          return null;
       }
    }
@@ -141,7 +144,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
          Formulas form = persistenciaFormulas.buscarFormula(em, secuencia);
          return form;
       } catch (Exception e) {
-         System.out.println("Error actualFormula Admi : " + e.toString());
+         log.warn("Error actualFormula Admi : " + e.toString());
          return null;
       }
    }

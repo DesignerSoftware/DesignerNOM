@@ -12,8 +12,8 @@ import InterfacePersistencia.PersistenciaUsuariosInfoReportesInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -24,6 +24,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInfoReportesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosInfoReportes.class);
+
     @Override
     public void crear(EntityManager em, UsuariosInforeportes usuarioIR) {
         em.clear();
@@ -33,7 +35,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             em.merge(usuarioIR);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosInfoReportes.crear : " + e.getMessage());
+            log.error("Error PersistenciaUsuariosInfoReportes.crear : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +51,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             em.merge(usuarioIR);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosInfoReportes.editar : " + e.getMessage());
+            log.error("Error PersistenciaUsuariosInfoReportes.editar : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +67,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             em.remove(em.merge(usuarioIR));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosInfoReportes.borrar : " + e.getMessage());
+            log.error("Error PersistenciaUsuariosInfoReportes.borrar : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +84,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             List<UsuariosInforeportes> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersitenciaUsuariosInfoReportes.listaUsuariosIR() : " + e.getMessage());
+            log.error("Error PersitenciaUsuariosInfoReportes.listaUsuariosIR() : " + e.getMessage());
             return null;
         }
     }
@@ -96,7 +98,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             List<Inforeportes> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersitenciaUsuariosInfoReportes.lovIR() : " + e.getMessage());
+            log.error("Error PersitenciaUsuariosInfoReportes.lovIR() : " + e.getMessage());
             return null;
         }
     }
@@ -110,7 +112,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             List<Usuarios> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error Persitencia Usuarios InfoReportes.listaUsuarios() : " + e.getMessage());
+            log.error("Error Persitencia Usuarios InfoReportes.listaUsuarios() : " + e.getMessage());
             return null;
         }
     }

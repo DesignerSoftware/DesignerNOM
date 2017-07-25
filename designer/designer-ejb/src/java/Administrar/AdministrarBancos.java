@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarBancos implements AdministrarBancosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarBancos.class);
 
     @EJB
     PersistenciaBancosInterface persistenciaBancos;
@@ -55,7 +58,7 @@ public class AdministrarBancos implements AdministrarBancosInterface {
             persistenciaBancos.crear(em, listaCrear.get(i));
         }
         }catch(Exception e){
-            System.out.println("error en AdministrarBancos.crearBanco() " + e.toString());   
+            log.warn("error en AdministrarBancos.crearBanco() " + e.toString());   
         }
     }
 

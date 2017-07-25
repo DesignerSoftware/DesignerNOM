@@ -29,13 +29,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Administrador
  */
 @Stateful
-public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInterfaseContableDynamicsCPSInterface{
+public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInterfaseContableDynamicsCPSInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarInterfaseContableDynamicsCPS.class);
 
     @EJB
     PersistenciaParametrosContablesInterface persistenciaParametrosContables;
@@ -88,7 +91,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             }
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
+            log.warn("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
             return null;
         }
     }
@@ -101,7 +104,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
                 persistenciaParametrosContables.borrar(em, listPC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarParametroContable Admi : " + e.toString());
+            log.warn("Error borrarParametroContable Admi : " + e.toString());
         }
     }
 
@@ -128,7 +131,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             }
             persistenciaParametrosContables.crear(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -139,7 +142,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             List<SolucionesNodos> lista = persistenciaSolucionesNodos.buscarSolucionesNodosParaParametroContable_Dynamics(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             List<InterconDynamics> lista = persistenciaInterconDynamics.buscarInterconDynamicParametroContable(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerInterconDynamicsParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerInterconDynamicsParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -161,7 +164,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             List<Procesos> lista = persistenciaProcesos.buscarProcesos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovProcesos Admi : " + e.toString());
+            log.warn("Error lovProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -172,7 +175,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -183,7 +186,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             ActualUsuario user = persistenciaActualUsuario.actualUsuarioBD(em);
             return user;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -200,7 +203,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             Date objeto = persistenciaVWActualesFechas.actualFechaHasta(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -211,7 +214,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             Date objeto = persistenciaVWActualesFechas.actualFechaDesde(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -222,7 +225,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             String valor = persistenciaProcesos.obtenerDescripcionProcesoPorSecuencia(em, proceso);
             return valor;
         } catch (Exception e) {
-            System.out.println("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
+            log.warn("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
             return null;
         }
     }
@@ -233,7 +236,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             String path = persistenciaGenerales.obtenerPathServidorWeb(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathServidorWeb Admi : " + e.toString());
+            log.warn("Error obtenerPathServidorWeb Admi : " + e.toString());
             return null;
         }
     }
@@ -244,7 +247,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             String path = persistenciaGenerales.obtenerPathProceso(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathProceso Admi : " + e.toString());
+            log.warn("Error obtenerPathProceso Admi : " + e.toString());
             return null;
         }
     }
@@ -255,7 +258,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             int contador = persistenciaInterconDynamics.contarProcesosContabilizadosInterconDynamics(em, fechaInicial, fechaFinal);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error contarProcesosContabilizadosInterconDynamics Admi : " + e.toString());
+            log.warn("Error contarProcesosContabilizadosInterconDynamics Admi : " + e.toString());
             return -1;
         }
     }
@@ -265,7 +268,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.cerrarProcesoContabilizacion(em, fechaInicial, fechaFinal, proceso, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error cerrarProcesoContable Admi : " + e.toString());
+            log.warn("Error cerrarProcesoContable Admi : " + e.toString());
         }
     }
 
@@ -275,7 +278,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarEmpleadosEmpresa Admi : " + e.toString());
+            log.warn("Error buscarEmpleadosEmpresa Admi : " + e.toString());
             return null;
         }
     }
@@ -285,7 +288,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_CPS(em, fechaIni, fechaFin, proceso, descripcionProceso, nombreArchivo, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
+            log.warn("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
         }
     }
 
@@ -295,7 +298,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             Integer conteo = persistenciaContabilizaciones.obtenerContadorFlagGeneradoFechasDynamics(em, fechaIni, fechaFin);
             return conteo;
         } catch (Exception e) {
-            System.out.println("Error conteoContabilizacionesDynamics Admi : " + e.toString());
+            log.warn("Error conteoContabilizacionesDynamics Admi : " + e.toString());
             return null;
         }
     }
@@ -305,7 +308,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.ejecutarPKGRecontabilizar(em, fechaIni, fechaFin);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGRecontabilizar Admi : " + e.toString());
+            log.warn("Error ejecutarPKGRecontabilizar Admi : " + e.toString());
         }
     }
 
@@ -314,7 +317,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.actualizarFlagContabilizacionDeshacerDynamics(em, fechaIni, fechaFin, proceso, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagContabilizacionDeshacerDynamics Admi : " + e.toString());
+            log.warn("Error actualizarFlagContabilizacionDeshacerDynamics Admi : " + e.toString());
         }
     }
 
@@ -323,7 +326,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.deleteInterconDynamics(em, fechaIni, fechaFin, proceso, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error deleteInterconDynamics Admi : " + e.toString());
+            log.warn("Error deleteInterconDynamics Admi : " + e.toString());
         }
     }
     
@@ -332,7 +335,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.actualizarFlagContabilizacionDeshacerDynamics_NOT_EXITS(em, fechaIni, fechaFin, proceso, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagContabilizacionDeshacerDynamics Admi : " + e.toString());
+            log.warn("Error actualizarFlagContabilizacionDeshacerDynamics Admi : " + e.toString());
         }
     }
 
@@ -341,7 +344,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS(em, secuencia, fechaIni, fechaFin, proceso, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGUbicarnuevointercon_DYNAMICS Admi : " + e.toString());
+            log.warn("Error ejecutarPKGUbicarnuevointercon_DYNAMICS Admi : " + e.toString());
         }
     }
 
@@ -350,7 +353,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
         try {
             persistenciaInterconDynamics.anularComprobantesCerrados(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error anularComprobantesCerrados Admi : " + e.toString());
+            log.warn("Error anularComprobantesCerrados Admi : " + e.toString());
 
         }
     }
@@ -361,7 +364,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             Date fecha = persistenciaContabilizaciones.obtenerFechaMaximaContabilizaciones(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaMaxContabilizaciones Admi : " + e.toString());
+            log.warn("Error obtenerFechaMaxContabilizaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -372,7 +375,7 @@ public class AdministrarInterfaseContableDynamicsCPS implements AdministrarInter
             Date fecha = persistenciaInterconDynamics.obtenerFechaContabilizacionMaxInterconDynamics(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaMaxInterconDynamics Admi : " + e.toString());
+            log.warn("Error obtenerFechaMaxInterconDynamics Admi : " + e.toString());
             return null;
         }
     }

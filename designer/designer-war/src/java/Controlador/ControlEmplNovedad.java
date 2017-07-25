@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplNovedad implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplNovedad.class);
 
    @EJB
    AdministrarEmplNovedadInterface administrarEmplNovedad;
@@ -152,8 +155,8 @@ public class ControlEmplNovedad implements Serializable {
          administrarEmplNovedad.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -428,7 +431,7 @@ public class ControlEmplNovedad implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.getMessage());
+         log.warn("Error guardarCambios : " + e.getMessage());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -721,7 +724,7 @@ public class ControlEmplNovedad implements Serializable {
          }
          return listNovedadesEmpleado;
       } catch (Exception e) {
-         System.out.println("Error...!! getListNovedadesEmpleado : " + e.toString());
+         log.warn("Error...!! getListNovedadesEmpleado : " + e.toString());
          return null;
       }
    }

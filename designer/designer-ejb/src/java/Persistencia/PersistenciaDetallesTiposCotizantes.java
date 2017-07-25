@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -24,7 +25,9 @@ import javax.persistence.Query;
  * @author Victor Algarin
  */
 @Stateless
-public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetallesTiposCotizantesInterface{
+public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetallesTiposCotizantesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDetallesTiposCotizantes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -41,7 +44,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
             em.merge(detallesTiposCotizantes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesTiposCotizantes.crear: " + e);
+            log.error("Error PersistenciaDetallesTiposCotizantes.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +60,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
             em.merge(detallesTiposCotizantes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesTiposCotizantes.editar: " + e);
+            log.error("Error PersistenciaDetallesTiposCotizantes.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +82,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaDetallesTiposCotizantes.borrar: " + e);
+                log.error("Error PersistenciaDetallesTiposCotizantes.borrar: " + e);
             }
         }
     }
@@ -94,7 +97,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
             List<DetallesTiposCotizantes> listaDetalles = query.getResultList();
             return listaDetalles;
         } catch (Exception e) {
-            System.out.println("Exepcion en PersistenciaDetallesTiposCotizantes.detallesTiposCotizantes" + e);
+            log.error("Exepcion en PersistenciaDetallesTiposCotizantes.detallesTiposCotizantes" + e);
             return null;
         }
     }

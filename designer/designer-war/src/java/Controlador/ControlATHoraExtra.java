@@ -15,7 +15,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -26,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlATHoraExtra implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlATHoraExtra.class);
 
    @EJB
    AdministrarATHoraExtraInterface administrarATHoraExtra;
@@ -224,8 +226,8 @@ public class ControlATHoraExtra implements Serializable {
          administrarATHoraExtra.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -622,11 +624,11 @@ public class ControlATHoraExtra implements Serializable {
             if (listTurnosEmpleadosCrear.contains(turnoEmpleadoSeleccionado)) {
                listaVWEstadosExtras = null;
                RequestContext.getCurrentInstance().execute("PF('infoDetalleHoraExtra').show()");
-               System.out.println("Msn guardar");
+               log.info("Msn guardar");
             } else {
                listaVWEstadosExtras = null;
                getListaVWEstadosExtras();
-               System.out.println("Dato ya almacenado");
+               log.info("Dato ya almacenado");
             }
          }
          RequestContext.getCurrentInstance().update("form:datosDetalle");
@@ -1079,7 +1081,7 @@ public class ControlATHoraExtra implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosTurnoEmpleado Controlador : " + e.toString());
+         log.warn("Error guardarCambiosTurnoEmpleado Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Horas Extras");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1931,7 +1933,7 @@ public class ControlATHoraExtra implements Serializable {
          }
          return listaEmpleados;
       } catch (Exception e) {
-         System.out.println("Error listaEmpleados !!! Controlador : " + e.toString());
+         log.warn("Error listaEmpleados !!! Controlador : " + e.toString());
          return null;
       }
    }

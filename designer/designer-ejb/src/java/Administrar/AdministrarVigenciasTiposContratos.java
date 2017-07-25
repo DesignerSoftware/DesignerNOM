@@ -17,9 +17,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarVigenciasTiposContratos implements AdministrarVigenciasTiposContratosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasTiposContratos.class);
 
     @EJB
     PersistenciaVigenciasTiposContratosInterface persistenciaVigenciasTiposContratos;
@@ -57,7 +60,7 @@ public class AdministrarVigenciasTiposContratos implements AdministrarVigenciasT
         try {
             vigenciasTiposContratos = persistenciaVigenciasTiposContratos.buscarVigenciaTipoContratoEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error :/");
+            log.warn("Error :/");
             vigenciasTiposContratos = null;
         }
         return vigenciasTiposContratos;
@@ -66,7 +69,7 @@ public class AdministrarVigenciasTiposContratos implements AdministrarVigenciasT
     @Override
     public void modificarVTC(List<VigenciasTiposContratos> listVTCModificadas) {
         for (int i = 0; i < listVTCModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listVTCModificadas.get(i).getCiudad().getSecuencia() == null) {
                 listVTCModificadas.get(i).setCiudad(null);
                 vtc = listVTCModificadas.get(i);

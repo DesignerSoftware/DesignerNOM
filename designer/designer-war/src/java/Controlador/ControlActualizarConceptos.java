@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlActualizarConceptos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlActualizarConceptos.class);
 
    @EJB
    AdministrarConceptosInterface administrarConceptos;
@@ -162,20 +165,20 @@ public class ControlActualizarConceptos implements Serializable {
          administrarConceptos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void recibirEmpresa(BigInteger secEmpresa) {
-      System.out.println("ControlActualizarConceptos recibirEmpresas secEmpresa : " + secEmpresa);
+      log.info("ControlActualizarConceptos recibirEmpresas secEmpresa : " + secEmpresa);
       if (secEmpresa.equals(new BigInteger("0"))) {
          secEmpresa = null;
       }
       this.secuenciaEmpresa = secEmpresa;
       getEmpresaSeleccionada();
       getLovEmpresas();
-      System.out.println("Empresa seleccionada : " + empresaSeleccionada.getNombre());
+      log.info("Empresa seleccionada : " + empresaSeleccionada.getNombre());
       getListConceptos();
    }
 
@@ -215,7 +218,7 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlConceptos.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlConceptos.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -223,13 +226,13 @@ public class ControlActualizarConceptos implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarConceptos.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlConceptos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlConceptos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
    private Date backUpFechaCreacion;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -257,7 +260,7 @@ public class ControlActualizarConceptos implements Serializable {
             } else {
                backUpClaveDebito = filtrarConceptos.get(index).getClavecontabledebito().getClave();
             }
-            System.out.println("Cambiar Indice Actualizar Conceptos backUpClaveDebito: " + backUpClaveDebito);
+            log.info("Cambiar Indice Actualizar Conceptos backUpClaveDebito: " + backUpClaveDebito);
          }
          if (cualCelda == 3) {
             if (tipoLista == 0) {
@@ -265,7 +268,7 @@ public class ControlActualizarConceptos implements Serializable {
             } else {
                backUpClaveCredito = filtrarConceptos.get(index).getClavecontablecredito().getClave();
             }
-            System.out.println("Cambiar Indice Actualizar Conceptos backUpClaveCredito: " + backUpClaveCredito);
+            log.info("Cambiar Indice Actualizar Conceptos backUpClaveCredito: " + backUpClaveCredito);
          }
          if (cualCelda == 6) {
             if (tipoLista == 0) {
@@ -276,12 +279,12 @@ public class ControlActualizarConceptos implements Serializable {
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlConceptos.asignarIndex \n");
+         log.info("\n ENTRE A ControlConceptos.asignarIndex \n");
          RequestContext context = RequestContext.getCurrentInstance();
 
          index = indice;
@@ -289,7 +292,7 @@ public class ControlActualizarConceptos implements Serializable {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
@@ -305,7 +308,7 @@ public class ControlActualizarConceptos implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlConceptos.asignarIndex ERROR : ==" + e.getMessage());
+         log.warn("Error ControlConceptos.asignarIndex ERROR : ==" + e.getMessage());
       }
    }
 
@@ -328,7 +331,7 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void cancelarModificacion() {
       FacesContext c = FacesContext.getCurrentInstance();
-      System.out.println("ControlActualizarConceptos cancelarModificacion");
+      log.info("ControlActualizarConceptos cancelarModificacion");
       if (bandera == 1) {
          //CERRAR FILTRADO
          descripcion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:descripcion");
@@ -376,7 +379,7 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void cancelarModificacionCambioEmpresa() {
       FacesContext c = FacesContext.getCurrentInstance();
-      System.out.println("ControlActualizarConceptos cancelarModificacion");
+      log.info("ControlActualizarConceptos cancelarModificacion");
       if (bandera == 1) {
          //CERRAR FILTRADO
          descripcion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:descripcion");
@@ -403,14 +406,14 @@ public class ControlActualizarConceptos implements Serializable {
       filtradoEmpresas = null;
       empresaSeleccionadaMostrar = new Empresas();
       aceptar = true;
-      System.out.println("Realizando guardarConceptoCambioEmpresa empresaSeleccionada : " + empresaSeleccionada.getNombre());
+      log.info("Realizando guardarConceptoCambioEmpresa empresaSeleccionada : " + empresaSeleccionada.getNombre());
       getListConceptos();
       RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
       context.reset("formularioDialogos:lovEmpresas:globalFilter");
       RequestContext.getCurrentInstance().update("form:nombreEmpresa");
       RequestContext.getCurrentInstance().update("form:nitEmpresa");
       RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-      System.out.println("Se guardaron los datos con exito");
+      log.info("Se guardaron los datos con exito");
       RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
       k = 0;
 
@@ -428,7 +431,7 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void cancelarModificacionCambioConceptoEmpresa() {
       FacesContext c = FacesContext.getCurrentInstance();
-      System.out.println("ControlActualizarConceptos cancelarModificacion");
+      log.info("ControlActualizarConceptos cancelarModificacion");
       if (bandera == 1) {
          //CERRAR FILTRADO
          descripcion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:descripcion");
@@ -455,14 +458,14 @@ public class ControlActualizarConceptos implements Serializable {
       filtradoEmpresas = null;
       empresaSeleccionadaMostrar = new Empresas();
       aceptar = true;
-      System.out.println("Realizando guardarConceptoCambioEmpresa empresaSeleccionada : " + empresaSeleccionada.getNombre());
+      log.info("Realizando guardarConceptoCambioEmpresa empresaSeleccionada : " + empresaSeleccionada.getNombre());
       getListConceptos();
       RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
       context.reset("formularioDialogos:lovEmpresas:globalFilter");
       RequestContext.getCurrentInstance().update("form:nombreEmpresa");
       RequestContext.getCurrentInstance().update("form:nitEmpresa");
       RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-      System.out.println("Se guardaron los datos con exito");
+      log.info("Se guardaron los datos con exito");
       RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
       k = 0;
       listConceptos = null;
@@ -472,7 +475,7 @@ public class ControlActualizarConceptos implements Serializable {
       getListLOVConceptos();
       RequestContext.getCurrentInstance().update("formularioDialogos:lovConceptosPorEmpresa");
       RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').show()");
-      System.out.println("Se guardaron los datos con exito");
+      log.info("Se guardaron los datos con exito");
       RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
       index = -1;
       guardado = true;
@@ -550,11 +553,11 @@ public class ControlActualizarConceptos implements Serializable {
          fechaCreacion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:fechaCreacion");
          fechaCreacion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:descripcion");
          descripcion.setFilterStyle("display: none; visibility: hidden;");
          codigo = (Column) c.getViewRoot().findComponent("form:datosActualizarConceptos:codigo");
@@ -589,7 +592,7 @@ public class ControlActualizarConceptos implements Serializable {
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICARACTUALCONCEPTO, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICARACTUALCONCEPTO, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearConceptos.contains(listConceptos.get(indice))) {
 
@@ -650,7 +653,7 @@ public class ControlActualizarConceptos implements Serializable {
          }
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
       } else if (confirmarCambio.equalsIgnoreCase("CLAVESAPDEBITO")) {
-         System.out.println("controlActualizarConceptos.modificarActualizarConcepto CLAVESAPDEBITO");
+         log.info("controlActualizarConceptos.modificarActualizarConcepto CLAVESAPDEBITO");
 
          if (!listConceptos.get(indice).getClavecontabledebito().getClave().equals("")) {
             if (tipoLista == 0) {
@@ -684,7 +687,7 @@ public class ControlActualizarConceptos implements Serializable {
                tipoActualizacion = 0;
             }
          } else {
-            System.out.println("PUSE UN VACIO");
+            log.info("PUSE UN VACIO");
             listConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
             listConceptos.get(indice).setClavecontabledebito(new ClavesSap());
             coincidencias = 1;
@@ -726,7 +729,7 @@ public class ControlActualizarConceptos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
 
       } else if (confirmarCambio.equalsIgnoreCase("CLAVESAPCREDITO")) {
-         System.out.println("controlActualizarConceptos.modificarActualizarConcepto CLAVESSAPCREDITO");
+         log.info("controlActualizarConceptos.modificarActualizarConcepto CLAVESSAPCREDITO");
          if (!listConceptos.get(indice).getClavecontablecredito().getClave().equals("")) {
             if (tipoLista == 0) {
                listConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
@@ -759,7 +762,7 @@ public class ControlActualizarConceptos implements Serializable {
                tipoActualizacion = 0;
             }
          } else {
-            System.out.println("PUSE UN VACIO");
+            log.info("PUSE UN VACIO");
             listConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
             listConceptos.get(indice).setClavecontablecredito(new ClavesSap());
             coincidencias = 1;
@@ -812,7 +815,7 @@ public class ControlActualizarConceptos implements Serializable {
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("CONTROLACTUALIZARCONCEPTOS modificarActualConceptoCamposSinGuardar");
+         log.error("CONTROLACTUALIZARCONCEPTOS modificarActualConceptoCamposSinGuardar");
          if (tipoLista == 0) {
             if (!crearConceptos.contains(listConceptos.get(indice))) {
 
@@ -980,7 +983,7 @@ public class ControlActualizarConceptos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarConcepto");
+         log.info("Realizando guardarConcepto");
          if (!modificarConceptos.isEmpty()) {
             for (int i = 0; i < modificarConceptos.size(); i++) {
                if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
@@ -991,7 +994,7 @@ public class ControlActualizarConceptos implements Serializable {
             modificarConceptos.clear();
          }
          getListConceptos();
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listConceptos = null;
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -1027,14 +1030,14 @@ public class ControlActualizarConceptos implements Serializable {
          filtradoEmpresas = null;
          empresaSeleccionadaMostrar = new Empresas();
          aceptar = true;
-         System.out.println("Realizando guardarConceptoCambioEmpresa empresaSeleccionada : " + empresaSeleccionada.getNombre());
+         log.info("Realizando guardarConceptoCambioEmpresa empresaSeleccionada : " + empresaSeleccionada.getNombre());
          getListConceptos();
          RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
          context.reset("formularioDialogos:lovEmpresas:globalFilter");
          RequestContext.getCurrentInstance().update("form:nombreEmpresa");
          RequestContext.getCurrentInstance().update("form:nitEmpresa");
          RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1076,7 +1079,7 @@ public class ControlActualizarConceptos implements Serializable {
          index = -1;
          RequestContext.getCurrentInstance().update("formularioDialogos:lovConceptosPorEmpresa");
          RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').show()");
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
 
          k = 0;
@@ -1101,7 +1104,7 @@ public class ControlActualizarConceptos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
             RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
@@ -1137,7 +1140,7 @@ public class ControlActualizarConceptos implements Serializable {
    }
 
    public void limpiarNuevoConceptos() {
-      System.out.println("limpiarNuevoHvEntrevistas");
+      log.info("limpiarNuevoHvEntrevistas");
       nuevoConceptos = new Conceptos();
       secRegistro = null;
       index = -1;
@@ -1153,9 +1156,9 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void cambiarEmpresa() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("Cambiar empresa empresaSeleccionadaMostrar  GUARDADO = " + empresaSeleccionadaMostrar.getNombre());
+      log.error("Cambiar empresa empresaSeleccionadaMostrar  GUARDADO = " + empresaSeleccionadaMostrar.getNombre());
       empresaSeleccionada = empresaSeleccionadaMostrar;
-      System.err.println("1 Cambiar empresa empresaSeleccionada  GUARDADO = " + empresaSeleccionada.getNombre());
+      log.error("1 Cambiar empresa empresaSeleccionada  GUARDADO = " + empresaSeleccionada.getNombre());
       if (!modificarConceptos.isEmpty()) {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardarCambioEmpresa').show()");
       } else {
@@ -1163,7 +1166,7 @@ public class ControlActualizarConceptos implements Serializable {
          filtradoEmpresas = null;
          empresaSeleccionadaMostrar = new Empresas();
          aceptar = true;
-         System.err.println("2 Cambiar empresa empresaSeleccionada  GUARDADO = " + empresaSeleccionada.getNombre());
+         log.error("2 Cambiar empresa empresaSeleccionada  GUARDADO = " + empresaSeleccionada.getNombre());
          getListConceptos();
          //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
          RequestContext.getCurrentInstance().update("form:nombreEmpresa");
@@ -1173,7 +1176,7 @@ public class ControlActualizarConceptos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
       }
       RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
-      System.out.println("Terminó Cambiar Empresa");
+      log.info("Terminó Cambiar Empresa");
    }
 
    public void cancelarCambioEmpresa() {
@@ -1200,7 +1203,7 @@ public class ControlActualizarConceptos implements Serializable {
          }
 
       } catch (Exception e) {
-         System.err.println("ERROR CONTROLACTUALIZARCONCEPTOS llamadoDialogoBuscarConceptos ERROR " + e);
+         log.error("ERROR CONTROLACTUALIZARCONCEPTOS llamadoDialogoBuscarConceptos ERROR " + e);
       }
 
    }
@@ -1214,10 +1217,10 @@ public class ControlActualizarConceptos implements Serializable {
 
          if (guardado == true) {
             listConceptos.clear();
-            System.err.println("ControlActualizarConceptos seleccionConceptosPorEmpresa conceptoLOVSeleccionado : " + conceptoLOVSeleccionado.getDescripcion());
+            log.error("ControlActualizarConceptos seleccionConceptosPorEmpresa conceptoLOVSeleccionado : " + conceptoLOVSeleccionado.getDescripcion());
             listConceptos.add(conceptoLOVSeleccionado);
-            System.err.println("listConceptos tamaño " + listConceptos.size());
-            System.err.println("listConceptos nombre " + listConceptos.get(0).getDescripcion());
+            log.error("listConceptos tamaño " + listConceptos.size());
+            log.error("listConceptos nombre " + listConceptos.get(0).getDescripcion());
             conceptoLOVSeleccionado = null;
             filtrarLOVConceptos = null;
             aceptar = true;
@@ -1239,7 +1242,7 @@ public class ControlActualizarConceptos implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLACTUALIZARCONCEPTOS.seleccionaVigencia ERROR : " + e.getMessage());
+         log.warn("Error CONTROLACTUALIZARCONCEPTOS.seleccionaVigencia ERROR : " + e.getMessage());
       }
    }
 
@@ -1256,7 +1259,7 @@ public class ControlActualizarConceptos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('lovConceptosPorEmpresa').clearFilters()");
          RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').hide()");
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLACTUALIZARCONCEPTOS.cancelarSeleccionConceptosPorEmpresa ERROR : " + e.getMessage());
+         log.warn("Error CONTROLACTUALIZARCONCEPTOS.cancelarSeleccionConceptosPorEmpresa ERROR : " + e.getMessage());
       }
    }
 
@@ -1282,12 +1285,12 @@ public class ControlActualizarConceptos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listConceptos.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "CONCEPTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -1550,7 +1553,7 @@ public class ControlActualizarConceptos implements Serializable {
       //} else {
       if (lovEmpresas == null) {
          lovEmpresas = administrarConceptos.consultarEmpresaPorSecuencia(secuenciaEmpresa);
-         System.out.println("ControlActualizarConceptos getListaEmpresas Tamaño listaEmpresas : " + lovEmpresas.size());
+         log.info("ControlActualizarConceptos getListaEmpresas Tamaño listaEmpresas : " + lovEmpresas.size());
          empresaSeleccionada = lovEmpresas.get(0);
       }
 

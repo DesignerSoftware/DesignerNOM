@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDependenciasOperandos implements PersistenciaDependenciasOperandosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDependenciasOperandos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          em.merge(dependenciasOperandos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +55,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          em.merge(dependenciasOperandos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.editar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +75,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
       }
    }
 
@@ -88,7 +90,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          dependenciasOperandosResult = query.getResultList();
          return dependenciasOperandosResult;
       } catch (Exception e) {
-         System.out.println("Error: (dependenciasOperandos)" + e);
+         log.error("Error: (dependenciasOperandos)" + e);
          return null;
       }
    }
@@ -104,7 +106,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          nombre = (String) query.getSingleResult();
          return nombre;
       } catch (Exception e) {
-         System.out.println("Error: (nombreOperandos)" + e);
+         log.error("Error: (nombreOperandos)" + e);
          return null;
       }
    }

@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlRetencionMinima implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlRetencionMinima.class);
 
     @EJB
     AdministrarRetencionesMinimasInterface administrarRetencionesMinimas;
@@ -148,8 +151,8 @@ public class ControlRetencionMinima implements Serializable {
             administrarRetencionesMinimas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -348,7 +351,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     int CIndex = listaVigenciasRetenciones.indexOf(filtradoListaVigenciasRetenciones.get(index));
                     listaVigenciasRetenciones.remove(CIndex);
                     filtradoListaVigenciasRetenciones.remove(index);
-                    System.out.println("Realizado");
+                    log.info("Realizado");
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -362,7 +365,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
-                System.out.println("No se puede borrar porque tiene registros en la tabla de abajo");
+                log.info("No se puede borrar porque tiene registros en la tabla de abajo");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDialogos:registro");
                 RequestContext.getCurrentInstance().execute("PF('registro').show()");
@@ -397,7 +400,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 int CIndex = listaRetenciones.indexOf(filtradoListaRetenciones.get(indexD));
                 listaRetenciones.remove(CIndex);
                 filtradoListaRetenciones.remove(indexD);
-                System.out.println("Realizado");
+                log.info("Realizado");
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
@@ -415,24 +418,24 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void guardarTodo() {
         if (guardado == false) {
-            System.out.println("Realizando Operaciones retenciones");
+            log.info("Realizando Operaciones retenciones");
             if (!listaVigenciasRetencionesBorrar.isEmpty()) {
                 for (int i = 0; i < listaVigenciasRetencionesBorrar.size(); i++) {
-                    System.out.println("Borrando...");
+                    log.info("Borrando...");
                     administrarRetencionesMinimas.borrarVigenciaRetencion(listaVigenciasRetencionesBorrar.get(i));
-                    System.out.println("Entra");
+                    log.info("Entra");
                     listaVigenciasRetencionesBorrar.clear();
                 }
             }
             if (!listaVigenciasRetencionesCrear.isEmpty()) {
                 for (int i = 0; i < listaVigenciasRetencionesCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaVigenciasRetencionesCrear.size());
+                    log.info("Creando...");
+                    log.info(listaVigenciasRetencionesCrear.size());
 
                     administrarRetencionesMinimas.crearVigenciaRetencion(listaVigenciasRetencionesCrear.get(i));
                 }
 
-                System.out.println("LimpiaLista");
+                log.info("LimpiaLista");
                 listaVigenciasRetencionesCrear.clear();
             }
             if (!listaVigenciasRetencionesModificar.isEmpty()) {
@@ -440,7 +443,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 listaVigenciasRetencionesModificar.clear();
             }
 
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaVigenciasRetenciones = null;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
@@ -450,32 +453,32 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         index = -1;
         secRegistro = null;
 
         if (guardado == false) {
-            System.out.println("Realizando Operaciones VigenciasNoFormales");
+            log.info("Realizando Operaciones VigenciasNoFormales");
             if (!listaRetencionesBorrar.isEmpty()) {
                 for (int i = 0; i < listaRetencionesBorrar.size(); i++) {
-                    System.out.println("Borrando...");
+                    log.info("Borrando...");
                     administrarRetencionesMinimas.borrarRetencion(listaRetencionesBorrar.get(i));
                 }
 
-                System.out.println("Entra");
+                log.info("Entra");
                 listaRetencionesBorrar.clear();
             }
         }
         if (!listaRetencionesCrear.isEmpty()) {
             for (int i = 0; i < listaRetencionesCrear.size(); i++) {
-                System.out.println("Creando...");
-                System.out.println(listaRetencionesCrear.size());
+                log.info("Creando...");
+                log.info(listaRetencionesCrear.size());
 
                 administrarRetencionesMinimas.crearRetencion(listaRetencionesCrear.get(i));
 
             }
 
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaRetencionesCrear.clear();
         }
         if (!listaRetencionesModificar.isEmpty()) {
@@ -484,7 +487,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             listaRetencionesModificar.clear();
         }
 
-        System.out.println("Se guardaron los datos con exito");
+        log.info("Se guardaron los datos con exito");
         listaRetenciones = null;
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
@@ -496,7 +499,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         //  k = 0;
 
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         indexD = -1;
         cambiosPagina = true;
         secRegistro = null;
@@ -505,9 +508,9 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     //CTRL + F11 ACTIVAR/DESACTIVAR
     public void activarCtrlF11() {
-        System.out.println("cualTabla= " + cualTabla);
+        log.info("cualTabla= " + cualTabla);
         if (bandera == 0 && cualTabla == 0) {
-            System.out.println("Activa 1");
+            log.info("Activa 1");
             //Tabla Vigencias RetencionesMinimas
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
             vCodigo.setFilterStyle("width: 85% !important;");
@@ -519,7 +522,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             bandera = 1;
 
         } else if (bandera == 1 && cualTabla == 0) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
             vCodigo.setFilterStyle("display: none; visibility: hidden;");
             vFechaVigencia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vFechaVigencia");
@@ -531,7 +534,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             filtradoListaVigenciasRetenciones = null;
 
         } else if (bandera == 0 && cualTabla == 1) {
-            System.out.println("Activa 2");
+            log.info("Activa 2");
             rMensualizado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rMensualizado");
             rMensualizado.setFilterStyle("width: 85% !important;");
             rRetencion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRetencion");
@@ -548,7 +551,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
         } else if (bandera == 1 && cualTabla == 1) {
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 2");
+            log.info("Desactiva 2");
             rMensualizado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rMensualizado");
             rMensualizado.setFilterStyle("display: none; visibility: hidden;");
             rRetencion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRetencion");
@@ -568,7 +571,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
     public void salir() {  limpiarListasValor();
         if (bandera == 1) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
             vCodigo.setFilterStyle("display: none; visibility: hidden;");
             vFechaVigencia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vFechaVigencia");
@@ -587,7 +590,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
         if (bandera == 1) {
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 2");
+            log.info("Desactiva 2");
             rMensualizado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rMensualizado");
             rMensualizado.setFilterStyle("display: none; visibility: hidden;");
             rRetencion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRetencion");
@@ -632,7 +635,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     //CANCELAR MODIFICACIONES
     public void cancelarModificacion() {
         if (bandera == 1) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
             vCodigo.setFilterStyle("display: none; visibility: hidden;");
             vFechaVigencia = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vFechaVigencia");
@@ -651,7 +654,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 
         if (bandera == 1) {
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 2");
+            log.info("Desactiva 2");
             rMensualizado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rMensualizado");
             rMensualizado.setFilterStyle("display: none; visibility: hidden;");
             rRetencion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRetencion");
@@ -690,28 +693,28 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     //GUARDAR
     public void guardarCambiosRetenciones() {
         if (cualTabla == 0) {
-            System.out.println("Guardado: " + guardado);
+            log.info("Guardado: " + guardado);
             if (guardado == false) {
-                System.out.println("Realizando Operaciones RetencionesMinimas");
+                log.info("Realizando Operaciones RetencionesMinimas");
                 if (!listaVigenciasRetencionesBorrar.isEmpty()) {
                     for (int i = 0; i < listaVigenciasRetencionesBorrar.size(); i++) {
-                        System.out.println("Borrando...");
+                        log.info("Borrando...");
 
                         administrarRetencionesMinimas.borrarVigenciaRetencion(listaVigenciasRetencionesBorrar.get(i));
 
-                        System.out.println("Entra");
+                        log.info("Entra");
                         listaVigenciasRetencionesBorrar.clear();
                     }
                 }
                 if (!listaVigenciasRetencionesCrear.isEmpty()) {
                     for (int i = 0; i < listaVigenciasRetencionesCrear.size(); i++) {
-                        System.out.println("Creando...");
-                        System.out.println(listaVigenciasRetencionesCrear.size());
+                        log.info("Creando...");
+                        log.info(listaVigenciasRetencionesCrear.size());
 
                         administrarRetencionesMinimas.crearVigenciaRetencion(listaVigenciasRetencionesCrear.get(i));
                     }
 
-                    System.out.println("LimpiaLista");
+                    log.info("LimpiaLista");
                     listaVigenciasRetencionesCrear.clear();
                 }
                 if (!listaVigenciasRetencionesModificar.isEmpty()) {
@@ -719,7 +722,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                     listaVigenciasRetencionesModificar.clear();
                 }
 
-                System.out.println("Se guardaron los datos con exito");
+                log.info("Se guardaron los datos con exito");
                 listaVigenciasRetenciones = null;
                 RequestContext context = RequestContext.getCurrentInstance();
                 FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
@@ -731,38 +734,38 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 //  k = 0;
             }
-            System.out.println("Tamaño lista: " + listaVigenciasRetencionesCrear.size());
-            System.out.println("Valor k: " + k);
+            log.info("Tamaño lista: " + listaVigenciasRetencionesCrear.size());
+            log.info("Valor k: " + k);
             index = -1;
             secRegistro = null;
 
         } else {
 
-            System.out.println("Está en la Tabla de Abajo");
+            log.info("Está en la Tabla de Abajo");
 
             if (guardado == false) {
-                System.out.println("Realizando Operaciones VigenciasNoFormales");
+                log.info("Realizando Operaciones VigenciasNoFormales");
                 if (!listaRetencionesBorrar.isEmpty()) {
                     for (int i = 0; i < listaRetencionesBorrar.size(); i++) {
-                        System.out.println("Borrando...");
+                        log.info("Borrando...");
 
                         administrarRetencionesMinimas.borrarRetencion(listaRetencionesBorrar.get(i));
                     }
 
-                    System.out.println("Entra");
+                    log.info("Entra");
                     listaRetencionesBorrar.clear();
                 }
             }
             if (!listaRetencionesCrear.isEmpty()) {
                 for (int i = 0; i < listaRetencionesCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaRetencionesCrear.size());
+                    log.info("Creando...");
+                    log.info(listaRetencionesCrear.size());
 
                     administrarRetencionesMinimas.crearRetencion(listaRetencionesCrear.get(i));
 
                 }
 
-                System.out.println("LimpiaLista");
+                log.info("LimpiaLista");
                 listaRetencionesCrear.clear();
             }
             if (!listaRetencionesModificar.isEmpty()) {
@@ -771,7 +774,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 listaRetencionesModificar.clear();
             }
 
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaRetenciones = null;
             RequestContext context = RequestContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
@@ -783,7 +786,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         indexD = -1;
         secRegistro = null;
 
@@ -825,7 +828,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         if (pasa == 0 && pasar == 0) {
             if (bandera == 1) {
                 //SOLUCIONES NODOS EMPLEADO
-                System.out.println("Desactiva 2");
+                log.info("Desactiva 2");
                 rMensualizado = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rMensualizado");
                 rMensualizado.setFilterStyle("display: none; visibility: hidden;");
                 rRetencion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rRetencion");
@@ -844,7 +847,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             k++;
             l = BigInteger.valueOf(k);
             nuevoRetencion.setSecuencia(l);
-            System.out.println("vigenciaRetencionSeleccionado" + vigenciaRetencionSeleccionado.getCodigo());
+            log.info("vigenciaRetencionSeleccionado" + vigenciaRetencionSeleccionado.getCodigo());
             nuevoRetencion.setVigenciaretencionminima(vigenciaRetencionSeleccionado);
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -948,7 +951,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             index = -1;
             secRegistro = null;
         } else if (indexD >= 0 && cualTabla == 1) {
-            System.out.println("Entra Duplicar Detalle Embargo");
+            log.info("Entra Duplicar Detalle Embargo");
 
             duplicarRetencion = new RetencionesMinimas();
             m++;
@@ -993,7 +996,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoVR");
                 RequestContext.getCurrentInstance().execute("PF('editarCodigoVR').show()");
@@ -1012,8 +1015,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 editarRetenciones = filtradoListaRetenciones.get(indexD);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCeldaD);
-            System.out.println("Cual Tabla: " + cualTabla);
+            log.info("Entro a editar... valor celda: " + cualCeldaD);
+            log.info("Cual Tabla: " + cualTabla);
             if (cualCeldaD == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMensualizadoR");
                 RequestContext.getCurrentInstance().execute("PF('editarMensualizadoR').show()");
@@ -1092,7 +1095,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         }
 
         if (auxiliar.getFechavigencia() != null) {
-            System.out.println("Yay");
+            log.info("Yay");
             /*
              if (listaDeclarantes.get(index).getFechafinal().before(listaDeclarantes.get(index).getFechainicial())) {
              listaDeclarantes.get(index).setFechafinal(fechaFinal);
@@ -1126,7 +1129,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
         fechaParametro.setYear(0);
         fechaParametro.setMonth(1);
         fechaParametro.setDate(1);
-        System.err.println("fechaparametro : " + fechaParametro);
+        log.error("fechaparametro : " + fechaParametro);
         boolean retorno = true;
         if (i == 0) {
             VigenciasRetencionesMinimas auxiliar = null;
@@ -1241,7 +1244,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             cualTabla = 0;
             tablaImprimir = ":formExportar:datosVigenciasRetencionesExportar";
             nombreArchivo = "VigenciasRetencionesXML";
-            System.out.println("CualTabla = " + cualTabla);
+            log.info("CualTabla = " + cualTabla);
             fechaVigencia = listaVigenciasRetenciones.get(index).getFechavigencia();
             vigenciaRetencionSeleccionado = listaVigenciasRetenciones.get(index);
             cambiarVigencia();
@@ -1263,7 +1266,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             cualTabla = 1;
             tablaImprimir = ":formExportar:datosRetencionesExportar";
             nombreArchivo = "RetencionesXML";
-            System.out.println("CualTabla = " + cualTabla);
+            log.info("CualTabla = " + cualTabla);
             retencionSeleccionado = listaRetenciones.get(indexD);
             if (tipoLista == 0) {
                 secRegistro = listaRetenciones.get(indexD).getSecuencia();
@@ -1342,12 +1345,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     public void verificarRastro() {
         if (cualTabla == 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("lol");
+            log.info("lol");
             if (!listaVigenciasRetenciones.isEmpty()) {
                 if (secRegistro != null) {
-                    System.out.println("lol 2");
+                    log.info("lol 2");
                     int resultado = administrarRastros.obtenerTabla(secRegistro, "VIGENCIASRETENCIONES");
-                    System.out.println("resultado: " + resultado);
+                    log.info("resultado: " + resultado);
                     if (resultado == 1) {
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                     } else if (resultado == 2) {
@@ -1370,12 +1373,12 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             index = -1;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("D");
+            log.info("D");
             if (!listaRetenciones.isEmpty()) {
                 if (secRegistro != null) {
-                    System.out.println("NF2");
+                    log.info("NF2");
                     int resultadoNF = administrarRastros.obtenerTabla(secRegistro, "RETENCIONES");
-                    System.out.println("resultado: " + resultadoNF);
+                    log.info("resultado: " + resultadoNF);
                     if (resultadoNF == 1) {
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
                     } else if (resultadoNF == 2) {

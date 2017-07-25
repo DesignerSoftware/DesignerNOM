@@ -13,7 +13,6 @@ import Entidades.Enfermedades;
 import Entidades.Ibcs;
 import Entidades.Soaccidentes;
 import Entidades.Soausentismos;
-import Entidades.SoausentismosProrrogas;
 import Entidades.Terceros;
 import Entidades.Tiposausentismos;
 import InterfaceAdministrar.AdministrarSoausentismosInterface;
@@ -30,15 +29,17 @@ import InterfacePersistencia.PersistenciaSoausentismosInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaTiposAusentismosInterface;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarSoausentismos implements AdministrarSoausentismosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoausentismos.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;
@@ -92,7 +93,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
     @Override
     public void modificarAusentismos(List<Soausentismos> listaAusentismosModificar) {
         for (int i = 0; i < listaAusentismosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
 
                     if (listaAusentismosModificar.get(i).getDias() == null) {
                         listaAusentismosModificar.get(i).setDias(null);
@@ -158,7 +159,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
         try {
             return persistenciaSoausentismos.ausentismosEmpleado(em, secuenciaEmpleado);
         } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
+            log.error("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
             return null;
         }
     }
@@ -166,7 +167,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
     //Lista de Valores Empleados
     @Override
     public List<Empleados> lovEmpleados() {
-        System.out.println("Administrar.AdministrarSoausentismos.lovEmpleados()");
+        log.warn("Administrar.AdministrarSoausentismos.lovEmpleados()");
        List<Empleados> lovEmpleados = persistenciaEmpleados.empleadosAusentismos(em);
         return  lovEmpleados;
     }

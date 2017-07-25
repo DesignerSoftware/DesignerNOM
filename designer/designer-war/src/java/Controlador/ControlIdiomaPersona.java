@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlIdiomaPersona implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlIdiomaPersona.class);
 
    @EJB
    AdministrarIdiomaPersonaInterface administrarIdiomaPersona;
@@ -161,8 +164,8 @@ public class ControlIdiomaPersona implements Serializable {
          administrarIdiomaPersona.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -301,7 +304,7 @@ public class ControlIdiomaPersona implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosIdiomas");
          deshabilitarBotonLov();
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -708,7 +711,7 @@ public class ControlIdiomaPersona implements Serializable {
          if (!listIdiomasPersonas.isEmpty()) {
             for (int i = 0; i < listIdiomasPersonas.size(); i++) {
                if (nuevaIdiomaPersona.getIdioma().getSecuencia().equals(listIdiomasPersonas.get(i).getIdioma().getSecuencia())) {
-                  System.out.println("idioma repetido");
+                  log.info("idioma repetido");
                   retorno = false;
                   break;
                }
@@ -824,7 +827,7 @@ public class ControlIdiomaPersona implements Serializable {
          }
          return listIdiomasPersonas;
       } catch (Exception e) {
-         System.out.println("Error...!! getListIdiomasPersonas : " + e.toString());
+         log.warn("Error...!! getListIdiomasPersonas : " + e.toString());
 
          return null;
       }

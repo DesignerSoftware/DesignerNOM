@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEvalDimensiones implements AdministrarEvalDimensionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalDimensiones.class);
 
     @EJB
     PersistenciaEvalDimensionesInterface persistenciaTiposCentrosCostos;
@@ -42,7 +45,7 @@ public class AdministrarEvalDimensiones implements AdministrarEvalDimensionesInt
     @Override
     public void modificarEvalDimensiones(List<EvalDimensiones> listaEvalDimensiones) {
         for (int i = 0; i < listaEvalDimensiones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposCentrosCostos.editar(em,listaEvalDimensiones.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarEvalDimensiones implements AdministrarEvalDimensionesInt
     @Override
     public void borrarEvalDimensiones(List<EvalDimensiones> listaEvalDimensiones) {
         for (int i = 0; i < listaEvalDimensiones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposCentrosCostos.borrar(em,listaEvalDimensiones.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarEvalDimensiones implements AdministrarEvalDimensionesInt
     @Override
     public void crearEvalDimensiones(List<EvalDimensiones> listaEvalDimensiones) {
         for (int i = 0; i < listaEvalDimensiones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposCentrosCostos.crear(em,listaEvalDimensiones.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarEvalDimensiones implements AdministrarEvalDimensionesInt
         try {
             verificarEvalPlanillas = persistenciaTiposCentrosCostos.contradorEvalPlanillas(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRAREVALPLANILLAS verificarEvalPlanillas ERROR :" + e);
+            log.error("ERROR ADMINISTRAREVALPLANILLAS verificarEvalPlanillas ERROR :" + e);
         } finally {
             return verificarEvalPlanillas;
         }

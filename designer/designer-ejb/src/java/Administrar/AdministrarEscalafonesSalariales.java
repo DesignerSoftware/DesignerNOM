@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesSalarialesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEscalafonesSalariales.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -75,7 +78,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
             List<EscalafonesSalariales> lista = persistenciaEscalafonesSalariales.buscarEscalafones(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaEscalafonesSalariales Admi : " + e.toString());
+            log.warn("Error listaEscalafonesSalariales Admi : " + e.toString());
             return null;
         }
     }
@@ -87,7 +90,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
                 persistenciaEscalafonesSalariales.crear(em,listaES.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearEscalafonesSalariales Admi : " + e.toString());
+            log.warn("Error crearEscalafonesSalariales Admi : " + e.toString());
         }
     }
 
@@ -98,7 +101,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
                 persistenciaEscalafonesSalariales.editar(em,listaES.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarEscalafonesSalariales Admi : " + e.toString());
+            log.warn("Error editarEscalafonesSalariales Admi : " + e.toString());
         }
     }
 
@@ -109,7 +112,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
                 persistenciaEscalafonesSalariales.borrar(em,listaES.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarEscalafonesSalariales Admi : " + e.toString());
+            log.warn("Error borrarEscalafonesSalariales Admi : " + e.toString());
         }
     }
 
@@ -119,7 +122,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
             List<GruposSalariales> lista = persistenciaGruposSalariales.buscarGruposSalarialesParaEscalafonSalarial(em,secEscalafon);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaGruposSalarialesParaEscalafonSalarial Admi : " + e.toString());
+            log.warn("Error listaGruposSalarialesParaEscalafonSalarial Admi : " + e.toString());
             return null;
         }
     }
@@ -131,7 +134,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
                 persistenciaGruposSalariales.crear(em,listaGS.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearGruposSalariales Admi : " + e.toString());
+            log.warn("Error crearGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -142,7 +145,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
                 persistenciaGruposSalariales.editar(em,listaGS.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarGruposSalariales Admi : " + e.toString());
+            log.warn("Error editarGruposSalariales Admi : " + e.toString());
         }
     }
 
@@ -153,7 +156,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
                 persistenciaGruposSalariales.borrar(em,listaGS.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error persistenciaEscalafonesSalariales Admi : " + e.toString());
+            log.warn("Error persistenciaEscalafonesSalariales Admi : " + e.toString());
         }
     }
 
@@ -163,7 +166,7 @@ public class AdministrarEscalafonesSalariales implements AdministrarEscalafonesS
             List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposTrabajadores Admi : " + e.toString());
+            log.warn("Error lovTiposTrabajadores Admi : " + e.toString());
             return null;
         }
 

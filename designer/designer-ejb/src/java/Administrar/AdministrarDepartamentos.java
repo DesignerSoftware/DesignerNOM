@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDepartamentos implements AdministrarDepartamentosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDepartamentos.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -57,21 +60,21 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
 
     public void modificarDepartamentos(List<Departamentos> listaDepartamentos) {
         for (int i = 0; i < listaDepartamentos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaDepartamentos.editar(em,listaDepartamentos.get(i));
         }
     }
 
     public void borrarDepartamentos(List<Departamentos> listaDepartamentos) {
         for (int i = 0; i < listaDepartamentos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaDepartamentos.borrar(em,listaDepartamentos.get(i));
         }
     }
 
     public void crearDepartamentos(List<Departamentos> listaDepartamentos) {
         for (int i = 0; i < listaDepartamentos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaDepartamentos.crear(em,listaDepartamentos.get(i));
         }
     }
@@ -100,7 +103,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
         try {
             contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarBienProgramacionesDepartamento(em,secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarDepartamenos contarBienProgramacionesDepartamento ERROR :" + e);
+            log.error("ERROR AdministrarDepartamenos contarBienProgramacionesDepartamento ERROR :" + e);
         } finally {
             return contarBienProgramacionesDepartamento;
         }
@@ -111,7 +114,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
         try {
             contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarCapModulosDepartamento(em,secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarDepartamenos contarCapModulosDepartamento ERROR :" + e);
+            log.error("ERROR AdministrarDepartamenos contarCapModulosDepartamento ERROR :" + e);
         } finally {
             return contarBienProgramacionesDepartamento;
         }
@@ -122,7 +125,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
         try {
             contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarSoAccidentesMedicosDepartamento(em,secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarDepartamenos contarSoAccidentesMedicosDepartamento ERROR :" + e);
+            log.error("ERROR AdministrarDepartamenos contarSoAccidentesMedicosDepartamento ERROR :" + e);
         } finally {
             return contarBienProgramacionesDepartamento;
         }
@@ -133,7 +136,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
         try {
             contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarCiudadesDepartamento(em,secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarDepartamenos contarCiudadesDepartamento ERROR :" + e);
+            log.error("ERROR AdministrarDepartamenos contarCiudadesDepartamento ERROR :" + e);
         } finally {
             return contarBienProgramacionesDepartamento;
         }

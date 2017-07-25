@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposAuxilios.class);
 
     @EJB
     PersistenciaTiposAuxiliosInterface persistenciaTiposAuxilios;
@@ -42,7 +45,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
     @Override
     public void modificarTiposAuxilios(List<TiposAuxilios> listaTiposAuxilios) {
         for (int i = 0; i < listaTiposAuxilios.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposAuxilios.editar(em, listaTiposAuxilios.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
     @Override
     public void borrarTiposAuxilios(List<TiposAuxilios> listaTiposAuxilios) {
         for (int i = 0; i < listaTiposAuxilios.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposAuxilios.borrar(em, listaTiposAuxilios.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
     @Override
     public void crearTiposAuxilios(List<TiposAuxilios> listaTiposAuxilios) {
         for (int i = 0; i < listaTiposAuxilios.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposAuxilios.crear(em, listaTiposAuxilios.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
         try {
             return verificarTablasAuxilios = persistenciaTiposAuxilios.contadorTablasAuxilios(em, secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSAUXILIOS verificarTablasAuxilios ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSAUXILIOS verificarTablasAuxilios ERROR :" + e);
             return null;
         }
     }

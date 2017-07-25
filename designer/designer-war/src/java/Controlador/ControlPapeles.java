@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPapeles implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPapeles.class);
 
     @EJB
     AdministrarPapelesInterface administrarPapeles;
@@ -119,8 +122,8 @@ public class ControlPapeles implements Serializable {
             administrarPapeles.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -164,7 +167,7 @@ public class ControlPapeles implements Serializable {
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A CONTROLPAPELES.eventoFiltrar \n");
+            log.info("\n ENTRE A CONTROLPAPELES.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
@@ -172,7 +175,7 @@ public class ControlPapeles implements Serializable {
             infoRegistro = "Cantidad de registros: " + filtrarPapeles.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error CONTROLPAPELES eventoFiltrar ERROR===" + e.getMessage());
         }
     }
     private String backUpCodigo;
@@ -180,8 +183,8 @@ public class ControlPapeles implements Serializable {
     private String backUpCodigoAlternativo;
 
     public void cambiarIndice(int indice, int celda) {
-        System.err.println("BETA CENTRO COSTO TIPO LISTA = " + tipoLista);
-        System.err.println("PERMITIR INDEX = " + permitirIndex);
+        log.error("BETA CENTRO COSTO TIPO LISTA = " + tipoLista);
+        log.error("PERMITIR INDEX = " + permitirIndex);
 
         if (permitirIndex == true) {
             index = indice;
@@ -202,16 +205,16 @@ public class ControlPapeles implements Serializable {
                 backUpCodigoAlternativo = filtrarPapeles.get(indice).getCodigoalternativo();
             }
 
-            System.err.println("CAMBIAR INDICE CUALCELDA = " + cualCelda);
+            log.error("CAMBIAR INDICE CUALCELDA = " + cualCelda);
             secRegistro = listPapelesPorEmpresa.get(index).getSecuencia();
-            System.err.println("Sec Registro = " + secRegistro);
+            log.error("Sec Registro = " + secRegistro);
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
+        log.info("Indice: " + index + " Celda: " + cualCelda);
     }
 
     public void modificandoPapel(int indice, String confirmarCambio, String valorConfirmar) {
 
-        System.err.println("ENTRE A MODIFICAR CENTROCOSTO");
+        log.error("ENTRE A MODIFICAR CENTROCOSTO");
         index = indice;
         banderaModificacionEmpresa = 1;
         int coincidencias = 0;
@@ -222,9 +225,9 @@ public class ControlPapeles implements Serializable {
         Short a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR CENTROCOSTO, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR CENTROCOSTO, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 if (!crearPapeles.contains(listPapelesPorEmpresa.get(indice))) {
                     if (listPapelesPorEmpresa.get(indice).getCodigo().isEmpty()) {
@@ -358,7 +361,7 @@ public class ControlPapeles implements Serializable {
 
     public void cancelarModificacion() {
         try {
-            System.out.println("entre a CONTROLPAPELES.cancelarModificacion");
+            log.info("entre a CONTROLPAPELES.cancelarModificacion");
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -399,14 +402,14 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosPapeles");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLPAPELES.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLPAPELES.ModificarModificacion ERROR====================" + E.getMessage());
         }
     }
 
     public void salir() {
         limpiarListasValor();
         try {
-            System.out.println("entre a CONTROLPAPELES.cancelarModificacion");
+            log.info("entre a CONTROLPAPELES.cancelarModificacion");
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -447,13 +450,13 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosPapeles");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLPAPELES.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLPAPELES.ModificarModificacion ERROR====================" + E.getMessage());
         }
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE A CONTROLPAPELES.asignarIndex \n");
+            log.info("\n ENTRE A CONTROLPAPELES.asignarIndex \n");
             index = indice;
             RequestContext context = RequestContext.getCurrentInstance();
 
@@ -461,12 +464,12 @@ public class ControlPapeles implements Serializable {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -480,10 +483,10 @@ public class ControlPapeles implements Serializable {
 
             if (guardado == true) {
                 listPapelesPorEmpresa.clear();
-                System.err.println("seleccionPapelesPorEmpresa " + PapelesPorEmpresaSeleccionado.getDescripcion());
+                log.error("seleccionPapelesPorEmpresa " + PapelesPorEmpresaSeleccionado.getDescripcion());
                 listPapelesPorEmpresa.add(PapelesPorEmpresaSeleccionado);
-                System.err.println("listPapelesPorEmpresa tamaño " + listPapelesPorEmpresa.size());
-                System.err.println("listPapelesPorEmpresa nombre " + listPapelesPorEmpresa.get(0).getDescripcion());
+                log.error("listPapelesPorEmpresa tamaño " + listPapelesPorEmpresa.size());
+                log.error("listPapelesPorEmpresa nombre " + listPapelesPorEmpresa.get(0).getDescripcion());
                 PapelesPorEmpresaSeleccionado = null;
                 filterPapelesPorEmpresa = null;
                 aceptar = true;
@@ -493,13 +496,13 @@ public class ControlPapeles implements Serializable {
                 context.reset("formularioDialogos:lovPapeles:globalFilter");
             }
             /*else {
-             System.err.println("listPapelesPorEmpresa tamaño " + listPapelesPorEmpresa.size());
-             System.err.println("listPapelesPorEmpresa nombre " + listPapelesPorEmpresa.get(0).getDescripcion());
+             log.error("listPapelesPorEmpresa tamaño " + listPapelesPorEmpresa.size());
+             log.error("listPapelesPorEmpresa nombre " + listPapelesPorEmpresa.get(0).getDescripcion());
              banderaSeleccionPapelesPorEmpresa = true;
              RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
              PapelesPorEmpresaSeleccionado = null;
              listPapelesPorEmpresa.clear();
-             System.err.println("seleccionPapelesPorEmpresa " + PapelesPorEmpresaSeleccionado.getDescripcion());
+             log.error("seleccionPapelesPorEmpresa " + PapelesPorEmpresaSeleccionado.getDescripcion());
              listPapelesPorEmpresa.add(PapelesPorEmpresaSeleccionado);
              filterPapelesPorEmpresa = null;
              aceptar = true;
@@ -509,7 +512,7 @@ public class ControlPapeles implements Serializable {
              }*/
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.seleccionaVigencia ERROR====" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.seleccionaVigencia ERROR====" + e.getMessage());
         }
     }
 
@@ -524,22 +527,22 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTARNCC");
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.cancelarSeleccionVigencia ERROR====" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.cancelarSeleccionVigencia ERROR====" + e.getMessage());
         }
     }
 
     public void limpiarNuevoPapeles() {
-        System.out.println("\n ENTRE A CONTROLPAPELES.limpiarNuevoPapeles \n");
+        log.info("\n ENTRE A CONTROLPAPELES.limpiarNuevoPapeles \n");
         try {
             nuevoPapel = new Papeles();
             index = -1;
         } catch (Exception e) {
-            System.out.println("Error CONTROLPAPELES.LimpiarNuevoPapeles ERROR=============================" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.LimpiarNuevoPapeles ERROR=============================" + e.getMessage());
         }
     }
 
     public void agregarNuevoPapeles() {
-        System.out.println("\n ENTRE A CONTROLPAPELES.agregarNuevoPapeles \n");
+        log.info("\n ENTRE A CONTROLPAPELES.agregarNuevoPapeles \n");
         try {
             int contador = 0;
             mensajeValidacion = " ";
@@ -549,46 +552,46 @@ public class ControlPapeles implements Serializable {
             banderaModificacionEmpresa = 1;
             if (nuevoPapel.getCodigo() == null) {
                 mensajeValidacion = mensajeValidacion + "   * Un codigo \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
 
             } else if (nuevoPapel.getCodigo().isEmpty()) {
                 mensajeValidacion = mensajeValidacion + "   * Un codigo \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
 
             } else if (nuevoPapel.getCodigo().equals(" ")) {
                 mensajeValidacion = mensajeValidacion + "   * Un codigo \n";
 
             } else {
-                System.out.println("codigo en Motivo Cambio Cargo: " + nuevoPapel.getCodigo());
+                log.info("codigo en Motivo Cambio Cargo: " + nuevoPapel.getCodigo());
 
                 for (int x = 0; x < listPapelesPorEmpresa.size(); x++) {
                     if (listPapelesPorEmpresa.get(x).getCodigo().equals(nuevoPapel.getCodigo())) {
                         duplicados++;
                     }
                 }
-                System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+                log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
                 if (duplicados > 0) {
                     mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                    System.out.println("Mensaje validacion : " + mensajeValidacion);
+                    log.info("Mensaje validacion : " + mensajeValidacion);
                 } else {
-                    System.out.println("bandera");
+                    log.info("bandera");
                     contador++;
                 }
             }
             if (nuevoPapel.getDescripcion() == null) {
                 mensajeValidacion = mensajeValidacion + "   * una descripción \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
 
             } else if (nuevoPapel.getDescripcion().isEmpty()) {
                 mensajeValidacion = mensajeValidacion + "   * una descripción \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
 
             } else if (nuevoPapel.getDescripcion().equals(" ")) {
                 mensajeValidacion = mensajeValidacion + "   * una descripción \n";
 
             } else {
-                System.out.println("Bandera : ");
+                log.info("Bandera : ");
                 contador++;
             }
 
@@ -596,11 +599,11 @@ public class ControlPapeles implements Serializable {
                 k++;
                 l = BigInteger.valueOf(k);
                 nuevoPapel.setSecuencia(l);
-                System.err.println("AGREGAR CODIGO " + nuevoPapel.getCodigo());
-                System.err.println("AGREGAR DESCRIPCION" + nuevoPapel.getDescripcion());
+                log.error("AGREGAR CODIGO " + nuevoPapel.getCodigo());
+                log.error("AGREGAR DESCRIPCION" + nuevoPapel.getDescripcion());
                 nuevoPapel.setEmpresa(empresaSeleccionada);
                 if (crearPapeles.contains(nuevoPapel)) {
-                    System.out.println("Ya lo contengo.");
+                    log.info("Ya lo contengo.");
                 } else {
                     crearPapeles.add(nuevoPapel);
 
@@ -641,7 +644,7 @@ public class ControlPapeles implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.agregarNuevoPapeles ERROR===========================" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.agregarNuevoPapeles ERROR===========================" + e.getMessage());
         }
     }
 
@@ -654,10 +657,10 @@ public class ControlPapeles implements Serializable {
     public void duplicandoPapeles() {
         try {
             banderaModificacionEmpresa = 1;
-            System.out.println("\n ENTRE A CONTROLPAPELES.DUPLICARPAPELES INDEX : " + index);
+            log.info("\n ENTRE A CONTROLPAPELES.DUPLICARPAPELES INDEX : " + index);
 
             if (index >= 0) {
-                System.out.println("\n ENTRE A CONTROLPAPELES.DUPLICARPAPELES TIPOLISTA : " + tipoLista);
+                log.info("\n ENTRE A CONTROLPAPELES.DUPLICARPAPELES TIPOLISTA : " + tipoLista);
 
                 duplicarPapel = new Papeles();
                 k++;
@@ -685,22 +688,22 @@ public class ControlPapeles implements Serializable {
                 index = -1;
             }
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.DuplicarPapeles ERROR===============" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.DuplicarPapeles ERROR===============" + e.getMessage());
         }
     }
 
     public void limpiarDuplicarPapeles() {
-        System.out.println("\n ENTRE A CONTROLPAPELES.limpiarDuplicarPapeles \n");
+        log.info("\n ENTRE A CONTROLPAPELES.limpiarDuplicarPapeles \n");
         try {
             duplicarPapel = new Papeles();
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.limpiarDuplicarPapeles ERROR========" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.limpiarDuplicarPapeles ERROR========" + e.getMessage());
         }
 
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
+        log.error("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
@@ -710,48 +713,48 @@ public class ControlPapeles implements Serializable {
 
         if (duplicarPapel.getCodigo().isEmpty()) {
             mensajeValidacion = mensajeValidacion + "   * Un codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else if (duplicarPapel.getCodigo().equals(" ")) {
             mensajeValidacion = mensajeValidacion + "   * Un codigo \n";
 
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + duplicarPapel.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + duplicarPapel.getCodigo());
 
             for (int x = 0; x < listPapelesPorEmpresa.size(); x++) {
                 if (listPapelesPorEmpresa.get(x).getCodigo().equals(duplicarPapel.getCodigo())) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
 
         }
         if (duplicarPapel.getDescripcion().isEmpty()) {
             mensajeValidacion = mensajeValidacion + "   * una descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else if (duplicarPapel.getDescripcion().equals(" ")) {
             mensajeValidacion = mensajeValidacion + "   * una descripción \n";
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
-            System.err.println("DUPLICAR CODIGO " + duplicarPapel.getCodigo());
+            log.error("DUPLICAR CODIGO " + duplicarPapel.getCodigo());
 
-            System.err.println("DUPLICAR DESCRIPCION " + duplicarPapel.getDescripcion());
+            log.error("DUPLICAR DESCRIPCION " + duplicarPapel.getDescripcion());
             if (crearPapeles.contains(duplicarPapel)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             } else {
                 listPapelesPorEmpresa.add(duplicarPapel);
             }
@@ -796,8 +799,8 @@ public class ControlPapeles implements Serializable {
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
-        System.out.println("TIPOLISTA = " + tipoLista);
+        log.info("Estoy en verificarBorrado");
+        log.info("TIPOLISTA = " + tipoLista);
         BigInteger contarVigenciasCargosPapel;
 
         try {
@@ -808,11 +811,11 @@ public class ControlPapeles implements Serializable {
 
             }
             if (contarVigenciasCargosPapel.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoPapel();
             } else {
 
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
@@ -820,7 +823,7 @@ public class ControlPapeles implements Serializable {
                 contarVigenciasCargosPapel = new BigInteger("-1");
             }
         } catch (Exception e) {
-            System.err.println("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR " + e);
+            log.error("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR " + e);
         }
     }
 
@@ -844,17 +847,17 @@ public class ControlPapeles implements Serializable {
                 }
                 if (tipoLista == 1) {
                     if (!modificarPapeles.isEmpty() && modificarPapeles.contains(filtrarPapeles.get(index))) {
-                        System.out.println("\n 6 ENTRE A CONTROLPAPELES.borrarPapel tipolista==1 try if if if filtrarPapeles.get(index).getCodigo()" + filtrarPapeles.get(index).getCodigo());
+                        log.info("\n 6 ENTRE A CONTROLPAPELES.borrarPapel tipolista==1 try if if if filtrarPapeles.get(index).getCodigo()" + filtrarPapeles.get(index).getCodigo());
 
                         int modIndex = modificarPapeles.indexOf(filtrarPapeles.get(index));
                         modificarPapeles.remove(modIndex);
                         borrarPapeles.add(filtrarPapeles.get(index));
                     } else if (!crearPapeles.isEmpty() && crearPapeles.contains(filtrarPapeles.get(index))) {
-                        System.out.println("\n 7 ENTRE A CONTROLPAPELES.borrarPapel tipolista==1 try if if if filtrarPapeles.get(index).getCodigo()" + filtrarPapeles.get(index).getCodigo());
+                        log.info("\n 7 ENTRE A CONTROLPAPELES.borrarPapel tipolista==1 try if if if filtrarPapeles.get(index).getCodigo()" + filtrarPapeles.get(index).getCodigo());
                         int crearIndex = crearPapeles.indexOf(filtrarPapeles.get(index));
                         crearPapeles.remove(crearIndex);
                     } else {
-                        System.out.println("\n 8 ENTRE A CONTROLPAPELES.borrarPapel tipolista==1 try if if if filtrarPapeles.get(index).getCodigo()" + filtrarPapeles.get(index).getCodigo());
+                        log.info("\n 8 ENTRE A CONTROLPAPELES.borrarPapel tipolista==1 try if if if filtrarPapeles.get(index).getCodigo()" + filtrarPapeles.get(index).getCodigo());
                         borrarPapeles.add(filtrarPapeles.get(index));
                     }
                     int VCIndex = listPapelesPorEmpresa.indexOf(filtrarPapeles.get(index));
@@ -864,7 +867,7 @@ public class ControlPapeles implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 index = -1;
-                System.err.println("verificar Borrado " + guardado);
+                log.error("verificar Borrado " + guardado);
                 if (guardado == true) {
                     guardado = false;
                 }
@@ -874,7 +877,7 @@ public class ControlPapeles implements Serializable {
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
             }
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.BorrarPapel ERROR=====================" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.BorrarPapel ERROR=====================" + e.getMessage());
         }
     }
 
@@ -882,7 +885,7 @@ public class ControlPapeles implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Vigencias Localizacion");
+            log.info("Realizando Operaciones Vigencias Localizacion");
             if (!borrarPapeles.isEmpty()) {
                 administrarPapeles.borrarPapeles(borrarPapeles);
                 //mostrarBorrados
@@ -899,7 +902,7 @@ public class ControlPapeles implements Serializable {
                 administrarPapeles.modificarPapeles(modificarPapeles);
                 modificarPapeles.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listPapelesPorEmpresa = null;
             RequestContext.getCurrentInstance().update("form:datosTipoPapel");
             k = 0;
@@ -937,13 +940,13 @@ public class ControlPapeles implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("\n ENTRE A CONTROLPAPELES.activarCtrlF11 \n");
+        log.info("\n ENTRE A CONTROLPAPELES.activarCtrlF11 \n");
 
         try {
             FacesContext c = FacesContext.getCurrentInstance();
 
             if (bandera == 0) {
-                System.out.println("Activar");
+                log.info("Activar");
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPapeles:codigoCC");
                 codigoCC.setFilterStyle("width: 85% !important;");
                 nombrePapel = (Column) c.getViewRoot().findComponent("form:datosPapeles:nombrePapel");
@@ -955,7 +958,7 @@ public class ControlPapeles implements Serializable {
                 tamano = 250;
 
             } else if (bandera == 1) {
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 //0
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPapeles:codigoCC");
                 codigoCC.setFilterStyle("display: none; visibility: hidden;");
@@ -972,7 +975,7 @@ public class ControlPapeles implements Serializable {
             }
         } catch (Exception e) {
 
-            System.out.println("ERROR CONTROLPAPELES.activarCtrlF11 ERROR====================" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.activarCtrlF11 ERROR====================" + e.getMessage());
         }
     }
 
@@ -981,28 +984,28 @@ public class ControlPapeles implements Serializable {
     //--------------------------------------------------------------------------
     public void cambiarEmpresaSeleccionada(int updown) {
         try {
-            System.err.println("CONTROL CAMBIO EMPRESA BETA");
+            log.error("CONTROL CAMBIO EMPRESA BETA");
             if (banderaModificacionEmpresa == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('confirmarCambioEmpresa').show()");
             } else if (banderaModificacionEmpresa == 0) {
                 getLovEmpresas();
                 for (int i = 0; i < lovEmpresas.size(); i++) {
-                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresa: " + i + " nombre: " + lovEmpresas.get(i).getNombre());
+                    log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresa: " + i + " nombre: " + lovEmpresas.get(i).getNombre());
                 }
-                System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Entra a cambiar la empresa seleccionada");
+                log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: Entra a cambiar la empresa seleccionada");
                 int temp = indiceEmpresaMostrada;
-                System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: temp = " + temp);
+                log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: temp = " + temp);
                 if (updown == 1) {
                     temp--;
-                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Arriba_ temp = " + temp + " lista: " + lovEmpresas.size());
+                    log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: Arriba_ temp = " + temp + " lista: " + lovEmpresas.size());
                     if (temp >= 0 && temp < lovEmpresas.size()) {
                         indiceEmpresaMostrada = temp;
                         empresaSeleccionada = getLovEmpresas().get(indiceEmpresaMostrada);
                         getListPapelesPorEmpresaBoton();
-                        System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresaSeleccionada = " + empresaSeleccionada.getNombre());
+                        log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresaSeleccionada = " + empresaSeleccionada.getNombre());
                         listPapelesPorEmpresa = administrarPapeles.consultarPapelesPorEmpresa(empresaSeleccionada.getSecuencia());
-                        System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Empresa cambio a: " + empresaSeleccionada.getNombre());
+                        log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: Empresa cambio a: " + empresaSeleccionada.getNombre());
                         RequestContext context = RequestContext.getCurrentInstance();
                         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
                         RequestContext.getCurrentInstance().update("form:nitEmpresa");
@@ -1011,14 +1014,14 @@ public class ControlPapeles implements Serializable {
                     }
                 } else {
                     temp++;
-                    System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Abajo_ temp = " + temp + " lista: " + lovEmpresas.size());
+                    log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: Abajo_ temp = " + temp + " lista: " + lovEmpresas.size());
                     if (temp >= 0 && temp < lovEmpresas.size()) {
                         indiceEmpresaMostrada = temp;
                         empresaSeleccionada = getLovEmpresas().get(indiceEmpresaMostrada);
                         getListPapelesPorEmpresaBoton();
-                        System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresaSeleccionada = " + empresaSeleccionada.getNombre());
+                        log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: empresaSeleccionada = " + empresaSeleccionada.getNombre());
                         listPapelesPorEmpresa = administrarPapeles.consultarPapelesPorEmpresa(empresaSeleccionada.getSecuencia());
-                        System.out.println("CONTROLPAPELES.cambiarEmpresaSeleccionada: Empresa cambio a: " + empresaSeleccionada.getNombre());
+                        log.info("CONTROLPAPELES.cambiarEmpresaSeleccionada: Empresa cambio a: " + empresaSeleccionada.getNombre());
                         RequestContext context = RequestContext.getCurrentInstance();
                         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
                         RequestContext.getCurrentInstance().update("form:nitEmpresa");
@@ -1030,16 +1033,16 @@ public class ControlPapeles implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.cambiarEmpresaSeleccionada ERROR======" + e.getMessage());
+            log.warn("Error CONTROLPAPELES.cambiarEmpresaSeleccionada ERROR======" + e.getMessage());
         }
 
     }
 
     public void editarCelda() {
         try {
-            System.out.println("\n ENTRE A editarCelda INDEX  " + index);
+            log.info("\n ENTRE A editarCelda INDEX  " + index);
             if (index >= 0) {
-                System.out.println("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
+                log.info("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
                 if (tipoLista == 0) {
                     editarPapel = listPapelesPorEmpresa.get(index);
                 }
@@ -1047,7 +1050,7 @@ public class ControlPapeles implements Serializable {
                     editarPapel = filtrarPapeles.get(index);
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                System.out.println("CONTROLPAPELES: Entro a editar... valor celda: " + cualCelda);
+                log.info("CONTROLPAPELES: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCCC");
                     RequestContext.getCurrentInstance().execute("PF('editarCCC').show()");
@@ -1084,7 +1087,7 @@ public class ControlPapeles implements Serializable {
             }
             index = -1;
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLPAPELES.editarCelDa ERROR=====================" + E.getMessage());
+            log.warn("Error CONTROLPAPELES.editarCelDa ERROR=====================" + E.getMessage());
         }
     }
 
@@ -1115,12 +1118,12 @@ public class ControlPapeles implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listPapelesPorEmpresa.isEmpty()) {
             if (secRegistro != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CENTROSCOSTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
@@ -1152,8 +1155,8 @@ public class ControlPapeles implements Serializable {
 
     public void cambiarEmpresa() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("Cambiar empresa  GUARDADO = " + guardado);
-        System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
+        log.error("Cambiar empresa  GUARDADO = " + guardado);
+        log.error("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
         if (guardado == true) {
             RequestContext.getCurrentInstance().update("form:nombreEmpresa");
             RequestContext.getCurrentInstance().update("form:nitEmpresa");
@@ -1231,7 +1234,7 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
             return lovEmpresas;
         } catch (Exception e) {
-            System.out.println("ERRO LISTA EMPRESAS " + e);
+            log.info("ERRO LISTA EMPRESAS " + e);
             return null;
         }
     }
@@ -1255,7 +1258,7 @@ public class ControlPapeles implements Serializable {
                 return empresaSeleccionada;
             }
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPAPELES.getEmpresaSeleccionada ERROR " + e);
+            log.warn("Error CONTROLPAPELES.getEmpresaSeleccionada ERROR " + e);
         } finally {
             return empresaSeleccionada;
         }
@@ -1272,7 +1275,7 @@ public class ControlPapeles implements Serializable {
                 if (listPapelesPorEmpresa == null) {
                     listPapelesPorEmpresa = administrarPapeles.consultarPapelesPorEmpresa(empresaSeleccionada.getSecuencia());
                 } else {
-                    System.out.println(".-.");
+                    log.info(".-.");
                 }
             } else if (listPapelesPorEmpresa == null) {
                 listPapelesPorEmpresa = administrarPapeles.consultarPapelesPorEmpresa(empresaSeleccionada.getSecuencia());
@@ -1286,7 +1289,7 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             return listPapelesPorEmpresa;
         } catch (Exception e) {
-            System.err.println("ERROR CONTROLPAPELES GETLISTAPAPELESPOREMPRESA ERROR : " + e);
+            log.error("ERROR CONTROLPAPELES GETLISTAPAPELESPOREMPRESA ERROR : " + e);
             return null;
         }
     }
@@ -1299,7 +1302,7 @@ public class ControlPapeles implements Serializable {
             }
             return listPapelesPorEmpresaBoton;
         } catch (Exception e) {
-            System.out.println("ControlCentrosCosto: Error al recibir los Papeles de la empresa seleccionada /n" + e.getMessage());
+            log.info("ControlCentrosCosto: Error al recibir los Papeles de la empresa seleccionada /n" + e.getMessage());
             return null;
         }
     }

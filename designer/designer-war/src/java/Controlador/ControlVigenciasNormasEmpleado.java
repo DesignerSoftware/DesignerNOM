@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasNormasEmpleado implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasNormasEmpleado.class);
 
    /**
     * Creacion de los ejb
@@ -118,8 +121,8 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarVigenciaNormaLaboral.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -188,7 +191,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
       normasLaboralesPrueba = vigenciasNormasEmpleado.get(index).getNormalaboral();
 
       cualCelda = celda;
-      System.out.println(" ControlVigenciasNormasEmpleado CambiarIndice.......... Indice: " + index + " Celda: " + cualCelda);
+      log.info(" ControlVigenciasNormasEmpleado CambiarIndice.......... Indice: " + index + " Celda: " + cualCelda);
 
       if (index % 2 == 0) {//par no muestra
          banderaPruebas = "hidden";
@@ -219,18 +222,18 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
     */
    public void guardarCambiosVNE() {
       if (guardado == false) {
-         System.out.println("ControlVigenciasNormasEmpleado(GuardarCambiosVNE)+");
-         System.out.println("Realizando Operaciones Vigencias Tipos Contratos");
+         log.info("ControlVigenciasNormasEmpleado(GuardarCambiosVNE)+");
+         log.info("Realizando Operaciones Vigencias Tipos Contratos");
          if (!listVNEBorrar.isEmpty()) {
             for (int i = 0; i < listVNEBorrar.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                //  administrarVigenciaNormaLaboral.borrarVNE(listVNEBorrar.get(i));
             }
             listVNEBorrar.clear();
          }
          if (!listVNECrear.isEmpty()) {
             for (int i = 0; i < listVNECrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                //administrarVigenciaNormaLaboral.crearVNE(listVNECrear.get(i));
             }
             listVNECrear.clear();
@@ -239,7 +242,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             //    administrarVigenciaNormaLaboral.modificarVNE(listVNEModificar);
             listVNEModificar.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          vigenciasNormasEmpleado = null;
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVNEEmpleado");
@@ -287,7 +290,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
             RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
@@ -304,7 +307,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
    //CREAR VU
    public void agregarNuevaVNE() {
       if (bandera == 1) {
-         System.err.println("ControlVigenciasNormas AgregarNuevaVNE");
+         log.error("ControlVigenciasNormas AgregarNuevaVNE");
          //CERRAR FILTRADO
          vneFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneFecha");
          vneFecha.setFilterStyle("display: none; visibility: hidden;");
@@ -411,7 +414,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
                listVNEModificar.remove(modIndex);
                listVNEBorrar.add(vigenciasNormasEmpleado.get(index));
             } else if (!listVNECrear.isEmpty() && listVNECrear.contains(vigenciasNormasEmpleado.get(index))) {
-               System.out.println("Entro xD");
+               log.info("Entro xD");
                int crearIndex = listVNECrear.indexOf(vigenciasNormasEmpleado.get(index));
                listVNECrear.remove(crearIndex);
             } else {
@@ -449,7 +452,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
 
    public void activarCtrlF11() {
       if (bandera == 0) {
-         System.out.println("Activar");
+         log.info("Activar");
          vneFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneFecha");
          vneFecha.setFilterStyle("width: 85% !important;");
          vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
@@ -457,7 +460,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          vneFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneFecha");
          vneFecha.setFilterStyle("display: none; visibility: hidden;");
          vneNombreNormaLaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneNombreNormaLaboral");
@@ -501,7 +504,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          tipoActualizacion = 0;
       } else if (LND == 1) {
          tipoActualizacion = 1;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          tipoActualizacion = 2;
       }
@@ -595,7 +598,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    public void exportXLS() throws IOException {
       try {
-         System.out.println("En treControlVigenciasNormasEmpleado.exportXLS");
+         log.info("En treControlVigenciasNormasEmpleado.exportXLS");
          DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVNEmpleadoExportar");
          FacesContext context = FacesContext.getCurrentInstance();
          Exporter exporter = new ExportarXLS();
@@ -603,7 +606,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          context.responseComplete();
          index = -1;
       } catch (Exception e) {
-         System.out.println("Error: " + e);
+         log.warn("Error: " + e);
       }
    }
    //EVENTO FILTRAR
@@ -627,7 +630,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("Error...!! getVigenciasUbicacionsEmpleado ");
+         log.warn("Error...!! getVigenciasUbicacionsEmpleado ");
          return null;
       }
    }

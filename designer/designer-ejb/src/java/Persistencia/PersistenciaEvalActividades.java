@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEvalActividades implements PersistenciaEvalActividadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEvalActividades.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -34,7 +37,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             em.merge(evalCompetencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEvalActividades.crear: " + e);
+            log.error("Error PersistenciaEvalActividades.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +52,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             em.merge(evalCompetencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEvalActividades.editar: " + e);
+            log.error("Error PersistenciaEvalActividades.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +73,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaEvalActividades.borrar: " + e);
+                log.error("Error PersistenciaEvalActividades.borrar: " + e);
             }
         }
     }
@@ -83,7 +86,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             List<EvalActividades> evalActividades = query.getResultList();
             return evalActividades;
         } catch (Exception e) {
-            System.out.println("Error buscarEvalActividades ERROR" + e);
+            log.error("Error buscarEvalActividades ERROR" + e);
             return null;
         }
     }
@@ -97,7 +100,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             EvalActividades evalCompetencias = (EvalActividades) query.getSingleResult();
             return evalCompetencias;
         } catch (Exception e) {
-            System.out.println("Error buscarEvalActividadSecuencia");
+            log.error("Error buscarEvalActividadSecuencia");
             EvalActividades evalCompetencias = null;
             return evalCompetencias;
         }
@@ -111,10 +114,10 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaEvalActividades contarChequeosMedicosEvalActividad Retorno " + retorno);
+            log.error("Contador PersistenciaEvalActividades contarChequeosMedicosEvalActividad Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaEvalActividades contarChequeosMedicosEvalActividad ERROR : " + e);
+            log.error("Error PersistenciaEvalActividades contarChequeosMedicosEvalActividad ERROR : " + e);
             return retorno;
         }
     }
@@ -127,10 +130,10 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaEvalActividades contarCapNecesidadesEvalActividad Retorno " + retorno);
+            log.error("Contador PersistenciaEvalActividades contarCapNecesidadesEvalActividad Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaEvalActividades contarCapNecesidadesEvalActividad ERROR : " + e);
+            log.error("Error PersistenciaEvalActividades contarCapNecesidadesEvalActividad ERROR : " + e);
             return retorno;
         }
     }
@@ -143,10 +146,10 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaEvalActividades contarCapBuzonesEvalActividad Retorno " + retorno);
+            log.error("Contador PersistenciaEvalActividades contarCapBuzonesEvalActividad Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaEvalActividades contarCapBuzonesEvalActividad ERROR : " + e);
+            log.error("Error PersistenciaEvalActividades contarCapBuzonesEvalActividad ERROR : " + e);
             return retorno;
         }
     }

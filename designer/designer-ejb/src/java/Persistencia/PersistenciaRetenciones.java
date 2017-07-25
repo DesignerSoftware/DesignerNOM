@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaRetenciones implements PersistenciaRetencionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaRetenciones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +38,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetenciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaRetenciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetenciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaRetenciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +70,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.remove(em.merge(retenciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetenciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaRetenciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +86,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             List<Retenciones> setsLista = (List<Retenciones>) query.getResultList();
             return setsLista;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetenciones.buscarRetenciones()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetenciones.buscarRetenciones()" + e.getMessage());
             return null;
         }
     }
@@ -99,7 +101,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             List<Retenciones> retenciones = query.getResultList();
             return retenciones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaRetenciones.buscarRetencionesVig()" + e.getMessage());
+            log.error("Persistencia.PersistenciaRetenciones.buscarRetencionesVig()" + e.getMessage());
             return null;
         }
     }

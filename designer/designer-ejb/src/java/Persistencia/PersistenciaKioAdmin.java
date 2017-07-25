@@ -11,8 +11,8 @@ import InterfacePersistencia.PersistenciaKioAdminInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -23,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaKioAdmin.class);
 
     @Override
     public ConexionesKioskos conexionesKioskos(EntityManager em, BigInteger secEmpleado) {
@@ -35,7 +37,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             listaCK = (ConexionesKioskos) query.getSingleResult();
             return listaCK;
         } catch (NoResultException e) {
-            System.out.println(this.getClass().getName() + " error en conexionesKioskos()" + e.getMessage());
+            log.error(this.getClass().getName() + " error en conexionesKioskos()" + e.getMessage());
             return null;
         }
     }
@@ -52,7 +54,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             listaEmpleados = query.getResultList();
             return listaEmpleados;
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error en consultarEmpleadosCK()");
+            log.error(this.getClass().getName() + " error en consultarEmpleadosCK()");
             e.printStackTrace();
             return null;
         }
@@ -67,7 +69,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             em.merge(ck);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaKioAdmin.modificarck: " + e.getMessage());
+            log.error("Error PersistenciaKioAdmin.modificarck: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +88,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error en resetUsuario()");
+            log.error(this.getClass().getName() + " error en resetUsuario()");
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -105,7 +107,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + " error en unlockUsuario()");
+            log.error(this.getClass().getName() + " error en unlockUsuario()");
             if (tx.isActive()) {
                 tx.rollback();
             }

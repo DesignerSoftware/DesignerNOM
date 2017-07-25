@@ -5,10 +5,13 @@ import InterfacePersistencia.PersistenciaVWActualesIBCSInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaVWActualesIBCS implements PersistenciaVWActualesIBCSInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesIBCS.class);
 
     @Override
     public VWActualesIBCS buscarIbcEmpleado(EntityManager em, BigInteger secuencia) {
@@ -20,7 +23,7 @@ public class PersistenciaVWActualesIBCS implements PersistenciaVWActualesIBCSInt
             VWActualesIBCS actualIbc = (VWActualesIBCS) query.getSingleResult();
             return actualIbc;
         } catch (Exception e) {
-            System.out.println("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
+            log.error("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
             return null;
         }
     }

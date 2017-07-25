@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasEstadosCiviles implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasEstadosCiviles.class);
 
    @EJB
    AdministrarVigenciasEstadosCivilesInterface administrarVigenciaEstadosCiviles;
@@ -120,8 +123,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          administrarVigenciaEstadosCiviles.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -181,7 +184,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    }
 
    public void mostrarNuevo() {
-      System.err.println("NUEVA FECHA : " + nuevoVigenciaEstadoCivil.getFechavigencia());
+      log.error("NUEVA FECHA : " + nuevoVigenciaEstadoCivil.getFechavigencia());
    }
 
    public void mostrarInfo(VigenciasEstadosCiviles vigenciaEstadoCivil, int celda) {
@@ -194,7 +197,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       if (permitirIndex == true) {
          if (tipoLista == 0) {
             vigenciaSeleccionada.getSecuencia();
-            System.err.println("MODIFICAR FECHA \n Indice" + vigenciaSeleccionada + "Fecha " + vigenciaSeleccionada.getFechavigencia());
+            log.error("MODIFICAR FECHA \n Indice" + vigenciaSeleccionada + "Fecha " + vigenciaSeleccionada.getFechavigencia());
             if (vigenciaSeleccionada.getFechavigencia() == null) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                contador++;
@@ -299,7 +302,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          } else if (LND == 1) {
             deshabilitarBotonLov();
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             deshabilitarBotonLov();
             tipoActualizacion = 2;
@@ -312,7 +315,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             dig = -1;
          }
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLVIGENCIASESTADOSCIVILES.AsignarIndex ERROR======" + e.getMessage());
+         log.warn("Error CONTROLVIGENCIASESTADOSCIVILES.AsignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -409,10 +412,10 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          parentesco.setFilterStyle("width: 85% !important;");
          altoTabla = "250";
          RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
          fecha.setFilterStyle("display: none; visibility: hidden;");
          parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
@@ -510,13 +513,13 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    }
 
    public void valoresBackupAutocompletar(int tipoNuevo) {
-      System.out.println("1...");
+      log.info("1...");
       if (tipoNuevo == 1) {
          nuevoYduplicarCompletarEstadoCivil = nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion();
       } else if (tipoNuevo == 2) {
          nuevoYduplicarCompletarEstadoCivil = duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion();
       }
-      System.out.println(" valoresBackupAutocompletar nuevoYduplicarCompletarEstadoCivil " + nuevoYduplicarCompletarEstadoCivil);
+      log.info(" valoresBackupAutocompletar nuevoYduplicarCompletarEstadoCivil " + nuevoYduplicarCompletarEstadoCivil);
    }
 
    public void autocompletarNuevo(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -525,13 +528,13 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
-         System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
-         System.out.println("NOMBRE CENTRO COSTO: " + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
+         log.info(" nueva Ciudad    Entro al if 'Centro costo'");
+         log.info("NOMBRE CENTRO COSTO: " + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
 
          if (!nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCiudadCompletar: " + nuevoYduplicarCompletarEstadoCivil);
+            log.info("ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("valorConfirmar: " + valorConfirmar);
+            log.info("nuevoYduplicarCiudadCompletar: " + nuevoYduplicarCompletarEstadoCivil);
             nuevoVigenciaEstadoCivil.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
             getLovEstadosCiviles();
             for (int i = 0; i < lovEstadosCiviles.size(); i++) {
@@ -540,12 +543,12 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                nuevoVigenciaEstadoCivil.setEstadocivil(lovEstadosCiviles.get(indiceUnicoElemento));
                lovEstadosCiviles = null;
                getLovEstadosCiviles();
-               System.err.println("ESTADO CIVIL GUARDADA " + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
+               log.error("ESTADO CIVIL GUARDADA " + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
                RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
@@ -553,10 +556,10 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
          } else {
             nuevoVigenciaEstadoCivil.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("valorConfirmar cuando es vacio: " + valorConfirmar);
             nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
             nuevoVigenciaEstadoCivil.getEstadocivil().setDescripcion(" ");
-            System.out.println("NUEVA ESTADO CIVIL" + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
+            log.info("NUEVA ESTADO CIVIL" + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
          }
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
       }
@@ -576,25 +579,25 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    }
 
    public void limpiarNuevoEstadoCivil() {
-      System.out.println("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
+      log.info("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
       nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
       nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
       vigenciaSeleccionada = null;
    }
 
    public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-      System.out.println("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
+      log.info("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarEstadoCivil);
+         log.info("DUPLICAR valorConfirmar : " + valorConfirmar);
+         log.info("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarEstadoCivil);
 
          if (!duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().equals("") || !duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarEstadoCivil);
+            log.info("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("DUPLICAR valorConfirmar: " + valorConfirmar);
+            log.info("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarEstadoCivil);
             duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
             for (int i = 0; i < lovEstadosCiviles.size(); i++) {
                if (lovEstadosCiviles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -602,7 +605,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                duplicarVigenciaEstadoCivil.setEstadocivil(lovEstadosCiviles.get(indiceUnicoElemento));
                lovEstadosCiviles = null;
@@ -614,16 +617,16 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
          } else if (tipoNuevo == 2) {
             //duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(nuevoYduplicarCompletarNormaLaboral);
-            System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-            System.out.println("DUPLICAR INDEX : " + vigenciaSeleccionada);
+            log.info("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("DUPLICAR INDEX : " + vigenciaSeleccionada);
             duplicarVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
             duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(" ");
 
-            System.out.println("DUPLICAR Valor ESTADO CIVIL : " + duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion());
+            log.info("DUPLICAR Valor ESTADO CIVIL : " + duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion());
             if (tipoLista == 0) {
                vigenciaSeleccionada.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia EstadoCivil " + vigenciaSeleccionada.getEstadocivil().getSecuencia());
+               log.error("tipo lista" + tipoLista);
+               log.error("Secuencia EstadoCivil " + vigenciaSeleccionada.getEstadocivil().getSecuencia());
             } else if (tipoLista == 1) {
                vigenciaSeleccionada.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
             }
@@ -636,7 +639,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    public void borrandoVigenciasEstadosCiviles() {
 
       if (vigenciaSeleccionada != null) {
-         System.out.println("Entro a borrandoEvalCompetencias");
+         log.info("Entro a borrandoEvalCompetencias");
          if (!modificarVigenciaEstadoCivilPorEmplado.isEmpty() && modificarVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
             int modIndex = modificarVigenciaEstadoCivilPorEmplado.indexOf(vigenciaSeleccionada);
             modificarVigenciaEstadoCivilPorEmplado.remove(modIndex);
@@ -682,7 +685,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
    public void guardarVigenciaEstadoCivil() {
       if (guardado == false) {
-         System.out.println("Realizando guardarEvalCompetencias");
+         log.info("Realizando guardarEvalCompetencias");
          if (!borrarVigenciaEstadoCivilPorEmplado.isEmpty()) {
             administrarVigenciaEstadosCiviles.borrarVigenciasEstadosCiviles(borrarVigenciaEstadoCivilPorEmplado);
             //mostrarBorrados
@@ -696,7 +699,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             crearVigenciaEstadoCivilPorEmplado.clear();
          }
          if (!modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
-            System.out.println("Modificando...");
+            log.info("Modificando...");
             administrarVigenciaEstadosCiviles.modificarVigenciasEstadosCiviles(modificarVigenciaEstadoCivilPorEmplado);
             modificarVigenciaEstadoCivilPorEmplado.clear();
          }
@@ -743,7 +746,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    }
 
    public void agregarNuevoVigenciaEstadoCivil() {
-      System.out.println("agregarNuevoVigenciaEstadoCivil");
+      log.info("agregarNuevoVigenciaEstadoCivil");
       int contador = 0;
       //nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
       Short a = 0;
@@ -769,17 +772,17 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       if (nuevoVigenciaEstadoCivil.getEstadocivil().getSecuencia() == null || nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
          mensajeValidacion = "Campo Estado Civil vacío\n";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
             parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
@@ -790,7 +793,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             filtrarVigenciaEstadoCivilPorEmplado = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -818,7 +821,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    }
 
    public void limpiarNuevoVigenciaEstadoCivil() {
-      System.out.println("limpiarNuevoVigenciaEstadoCivil");
+      log.info("limpiarNuevoVigenciaEstadoCivil");
 
       nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
       nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
@@ -829,7 +832,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    //------------------------------------------------------------------------------
    public void duplicandoVigenciaEstadoCivil() {
       if (vigenciaSeleccionada != null) {
-         System.out.println("duplicandoVigenciaEstadoCivil");
+         log.info("duplicandoVigenciaEstadoCivil");
          duplicarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
          duplicarVigenciaEstadoCivil.setPersona(new Personas());
          duplicarVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
@@ -868,28 +871,28 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       a = null;
       if (duplicarVigenciaEstadoCivil.getFechavigencia() == null) {
          mensajeValidacion = mensajeValidacion + "   * Fecha \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
 
          for (int j = 0; j < listVigenciaEstadoCivilPorEmpleado.size(); j++) {
             if (duplicarVigenciaEstadoCivil.getFechavigencia().equals(listVigenciaEstadoCivilPorEmpleado.get(j).getFechavigencia())) {
-               System.out.println("Se repiten");
+               log.info("Se repiten");
                fechas++;
             }
          }
          if (fechas > 0) {
             mensajeValidacion = "FECHAS REPETIDAS";
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
 
       }
       if (duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion() == null || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty() || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().equals(" ") || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   * Estado Civil \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
@@ -900,9 +903,9 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          k++;
          l = BigInteger.valueOf(k);
          duplicarVigenciaEstadoCivil.setSecuencia(l);
-         System.out.println("Datos Duplicando: " + duplicarVigenciaEstadoCivil.getSecuencia() + "  " + duplicarVigenciaEstadoCivil.getFechavigencia());
+         log.info("Datos Duplicando: " + duplicarVigenciaEstadoCivil.getSecuencia() + "  " + duplicarVigenciaEstadoCivil.getFechavigencia());
          if (crearVigenciaEstadoCivilPorEmplado.contains(duplicarVigenciaEstadoCivil)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listVigenciaEstadoCivilPorEmpleado.add(duplicarVigenciaEstadoCivil);
          crearVigenciaEstadoCivilPorEmplado.add(duplicarVigenciaEstadoCivil);
@@ -962,11 +965,11 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (vigenciaSeleccionada != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

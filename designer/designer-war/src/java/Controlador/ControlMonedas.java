@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMonedas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMonedas.class);
 
     @EJB
     AdministrarMonedasInterface administrarMonedas;
@@ -135,20 +138,20 @@ public class ControlMonedas implements Serializable {
             administrarMonedas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A ControlMonedas.eventoFiltrar \n");
+            log.info("\n ENTRE A ControlMonedas.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
             contarRegistros();
         } catch (Exception e) {
-            System.out.println("ERROR ControlMonedas eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error ControlMonedas eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
@@ -157,7 +160,7 @@ public class ControlMonedas implements Serializable {
     }
 
     public void cambiarIndice(Monedas moneda, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         monedaSeleccionada = moneda;
         if (permitirIndex == true) {
             cualCelda = celda;
@@ -173,18 +176,18 @@ public class ControlMonedas implements Serializable {
     public void asignarIndex(Monedas moneda, int LND, int dig) {
         monedaSeleccionada = moneda;
         try {
-            System.out.println("\n ENTRE A ControlMonedas.asignarIndex \n");
+            log.info("\n ENTRE A ControlMonedas.asignarIndex \n");
             if (LND == 0) {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR ControlMonedas.asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error ControlMonedas.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -257,7 +260,7 @@ public class ControlMonedas implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMoneda:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMoneda");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             tamano = 220;
@@ -276,7 +279,7 @@ public class ControlMonedas implements Serializable {
         monedaSeleccionada = moneda;
         int contador = 0, pass = 0;
         if (campo.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR IDIOMA, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR IDIOMA, CONFIRMAR CAMBIO ES N");
             if (!crearMonedas.contains(monedaSeleccionada)) {
                 if (monedaSeleccionada.getCodigo() == null || monedaSeleccionada.getCodigo().isEmpty()) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -420,10 +423,10 @@ public class ControlMonedas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando guardarMonedas");
+            log.info("Realizando guardarMonedas");
             if (!borrarMonedas.isEmpty()) {
                 for (int i = 0; i < borrarMonedas.size(); i++) {
-                    System.out.println("Borrando...");
+                    log.info("Borrando...");
                     administrarMonedas.borrarMonedas(borrarMonedas.get(i));
                 }
                 registrosBorrados = borrarMonedas.size();
@@ -432,7 +435,7 @@ public class ControlMonedas implements Serializable {
             if (!crearMonedas.isEmpty()) {
                 for (int i = 0; i < crearMonedas.size(); i++) {
 
-                    System.out.println("Creando...");
+                    log.info("Creando...");
                     administrarMonedas.crearMonedas(crearMonedas.get(i));
 
                 }
@@ -499,7 +502,7 @@ public class ControlMonedas implements Serializable {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosMoneda:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMoneda:descripcion");

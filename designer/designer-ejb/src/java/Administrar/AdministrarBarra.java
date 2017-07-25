@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br> Clase encargada de realizar las operaciones lógicas para
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarBarra implements AdministrarBarraInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarBarra.class);
     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    
@@ -135,8 +138,8 @@ public class AdministrarBarra implements AdministrarBarraInterface {
 
     @Override
     public List<ConsultasLiquidaciones> liquidacionesCerradas(String fechaInicial, String fechaFinal) {
-        System.out.println("AdministrarBarra liquidacionesCerradas() fechaInicial : " + fechaInicial);
-        System.out.println("AdministrarBarra liquidacionesCerradas() fechaFinal : " + fechaFinal);
+        log.warn("AdministrarBarra liquidacionesCerradas() fechaInicial : " + fechaInicial);
+        log.warn("AdministrarBarra liquidacionesCerradas() fechaFinal : " + fechaFinal);
         return persistenciaConsultasLiquidaciones.liquidacionesCerradas(em, fechaInicial, fechaFinal);
     }
 

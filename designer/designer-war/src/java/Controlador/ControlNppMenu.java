@@ -8,6 +8,7 @@ package Controlador;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,22 +18,24 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControlNppMenu implements Serializable {
 
-    private String mensaje;
+   private static Logger log = Logger.getLogger(ControlNppMenu.class);
 
-    /**
-     * Creates a new instance of ControlNppMenu
-     */
-    public ControlNppMenu() {
+   private String mensaje;
 
-        mensaje = "El proceso indentifica los diferentes pagos generados por nomina por pagar acorde a los parametros propios de este proceso. Primero adicione un registro en el bloque de giros y despues de pagar, posteriormente haga click en ejectutar";
-    }
+   /**
+    * Creates a new instance of ControlNppMenu
+    */
+   public ControlNppMenu() {
 
-    public String getMensaje() {
-        return mensaje;
-    }
+      mensaje = "El proceso indentifica los diferentes pagos generados por nomina por pagar acorde a los parametros propios de este proceso. Primero adicione un registro en el bloque de giros y despues de pagar, posteriormente haga click en ejectutar";
+   }
 
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
+   public String getMensaje() {
+      return mensaje;
+   }
+
+   public void setMensaje(String mensaje) {
+      this.mensaje = mensaje;
+   }
 
 }

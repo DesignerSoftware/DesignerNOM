@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -16,6 +17,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEersCabeceras.class);
+
    @Override
    public void crear(EntityManager em, EersCabeceras eersCabeceras) {
       em.clear();
@@ -25,7 +28,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          em.persist(eersCabeceras);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEersCabeceras.crear: " + e.toString());
+         log.error("Error PersistenciaEersCabeceras.crear: " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -41,7 +44,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          em.merge(eersCabeceras);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEersCabeceras.crear: " + e.toString());
+         log.error("Error PersistenciaEersCabeceras.crear: " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +61,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          tx.commit();
 
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEersCabeceras.borrar: " + e.toString());
+         log.error("Error PersistenciaEersCabeceras.borrar: " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +92,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          List<EersCabeceras> eersCabeceras = query.getResultList();
          return eersCabeceras;
       } catch (Exception e) {
-         System.out.println("Error buscarEersCabecerasTotales PersistenciaEersCabeceras " + e.toString());
+         log.error("Error buscarEersCabecerasTotales PersistenciaEersCabeceras " + e.toString());
          e.printStackTrace();
          return null;
       }
@@ -121,7 +124,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          return eersCabeceras;
       } catch (Exception e) {
          e.printStackTrace();
-         System.out.println("Error buscarEersCabecerasTotalesPorEmpleado PersistenciaEersCabeceras " + e.toString());
+         log.error("Error buscarEersCabecerasTotalesPorEmpleado PersistenciaEersCabeceras " + e.toString());
          return null;
       }
    }

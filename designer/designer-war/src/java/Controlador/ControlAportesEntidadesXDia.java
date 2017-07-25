@@ -29,6 +29,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlAportesEntidadesXDia")
 @SessionScoped
 public class ControlAportesEntidadesXDia implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlAportesEntidadesXDia.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -105,8 +108,8 @@ public class ControlAportesEntidadesXDia implements Serializable {
          administrarAportesEntidades.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -520,7 +523,7 @@ public class ControlAportesEntidadesXDia implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios  Controlador : " + e.toString());
+         log.warn("Error guardarCambios  Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Aporte Entidad X Dia, Por favor intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

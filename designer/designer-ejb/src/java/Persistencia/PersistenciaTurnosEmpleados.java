@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -23,6 +24,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTurnosEmpleados.class);
+
     @Override
     public Date obtenerFechaInicialMinimaTurnosEmpleados(EntityManager em) {
         try {
@@ -32,7 +35,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados : " + e.getMessage());
             return null;
         }
     }
@@ -46,7 +49,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados : " + e.getMessage());
             return null;
         }
     }
@@ -66,7 +69,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             tx.commit();
             return dato;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.EjecutarPKG_CONTARNOVEDADESLIQ : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.EjecutarPKG_CONTARNOVEDADESLIQ : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +91,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.EjecutarPKG_ELIMINARLIQUIDACION : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.EjecutarPKG_ELIMINARLIQUIDACION : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -104,7 +107,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             em.persist(turnosEmpleados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.crear: " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -120,7 +123,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             em.merge(turnosEmpleados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.editar: " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -140,7 +143,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaTurnosEmpleados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.borrar: " + e.getMessage());
         }
     }
 
@@ -154,7 +157,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             List<TurnosEmpleados> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados PersistenciaEmpleados : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados PersistenciaEmpleados : " + e.getMessage());
             return null;
         }
     }

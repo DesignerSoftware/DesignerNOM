@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalEvaluadores.class);
 
     @EJB
     PersistenciaEvalEvaluadoresInterface persistenciaEvalEvaluadores;
@@ -46,7 +49,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
     @Override
     public void modificarEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
         for (int i = 0; i < listEvalEvaluadores.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaEvalEvaluadores.editar(em,listEvalEvaluadores.get(i));
         }
     }
@@ -54,7 +57,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
     @Override
     public void borrarEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
         for (int i = 0; i < listEvalEvaluadores.size(); i++) {
-            System.out.println("Administrar Borrar...");
+            log.warn("Administrar Borrar...");
             persistenciaEvalEvaluadores.borrar(em,listEvalEvaluadores.get(i));
         }
     }
@@ -62,7 +65,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
     @Override
     public void crearEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
         for (int i = 0; i < listEvalEvaluadores.size(); i++) {
-            System.out.println("Administrar Crear...");
+            log.warn("Administrar Crear...");
             persistenciaEvalEvaluadores.crear(em,listEvalEvaluadores.get(i));
         }
     }
@@ -85,7 +88,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
         try {
             verificadorVP = persistenciaEvalEvaluadores.verificarBorradoEvalPruebas(em,secuenciaMovitoCambioCargo);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEvalEvaluadores verificarBorradoVC ERROR :" + e);
+            log.error("ERROR AdministrarEvalEvaluadores verificarBorradoVC ERROR :" + e);
         } finally {
             return verificadorVP;
         }

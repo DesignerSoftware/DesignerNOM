@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEnvioCorreos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -47,16 +50,16 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
 
     @Override
     public List<Empleados> correoCodigoEmpleado(BigDecimal emplDesde, BigDecimal emplHasta) {
-        System.out.println("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
-        System.out.println("emplDesde: " + emplDesde);
-        System.out.println("emplHasta: " + emplHasta);
+        log.warn("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
+        log.warn("emplDesde: " + emplDesde);
+        log.warn("emplHasta: " + emplHasta);
         List<Empleados> correoEmpleados;
         try {
-            System.out.println("Ingrese al try");
+            log.warn("Ingrese al try");
             correoEmpleados = persistenciaEnvioCorreos.CorreoCodEmpleados(em, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Ingrese al catch");
-            System.out.println("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
+            log.warn("Ingrese al catch");
+            log.warn("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
             correoEmpleados = new ArrayList<>();
         }
         return correoEmpleados;
@@ -76,9 +79,9 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
         } catch (NullPointerException npe) {
             retorno = false;
         } catch (Exception e) {
-            System.out.println("Administrar.AdministrarEnvioCorreos.comprobarConfigCorreo()");
-            System.out.println("Error validando configuracion");
-            System.out.println("ex: " + e);
+            log.warn("Administrar.AdministrarEnvioCorreos.comprobarConfigCorreo()");
+            log.warn("Error validando configuracion");
+            log.warn("ex: " + e);
         }
         return retorno;
 
@@ -86,11 +89,11 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
 
     @Override
     public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto, String[] paramResultado) {
-        System.out.println("Administrar.AdministrarEnvioCorreos.enviarCorreo()");
+        log.warn("Administrar.AdministrarEnvioCorreos.enviarCorreo()");
         ConfiguracionCorreo cc = persistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo(em, secEmpresa);
         boolean res = EnvioCorreo.enviarCorreo(cc, destinatario, asunto, mensaje, pathAdjunto, paramResultado);
         if (paramResultado != null) {
-            System.out.println("resultado envio: " + paramResultado[0]);
+            log.warn("resultado envio: " + paramResultado[0]);
         }
         return res;
     }

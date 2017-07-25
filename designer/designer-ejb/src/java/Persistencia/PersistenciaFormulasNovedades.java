@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFormulasNovedades implements PersistenciaFormulasNovedadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormulasNovedades.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +40,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          em.merge(formulasNovedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulasNovedades.crear: " + e);
+         log.error("Error PersistenciaFormulasNovedades.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +59,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaFormulasNovedades.editar: " + e);
+         log.error("Error PersistenciaFormulasNovedades.editar: " + e);
       }
    }
 
@@ -73,13 +76,13 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
             if (tx.isActive()) {
                tx.rollback();
             }
-            System.out.println("Error PersistenciaFormulasNovedades.borrar: " + e);
+            log.error("Error PersistenciaFormulasNovedades.borrar: " + e);
       }
    }
 
    @Override
    public List<FormulasNovedades> formulasNovedadesParaFormulaSecuencia(EntityManager em, BigInteger secuencia) {
-      System.out.println("Persistencia.PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia() secuencia : " + secuencia);
+      log.error("Persistencia.PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia() secuencia : " + secuencia);
       String st = "";
       if (secuencia == null) {
          st = "SELECT fn FROM FormulasNovedades fn";
@@ -94,7 +97,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          formulasNovedades = query.getResultList();
          return formulasNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia : " + e.toString());
+         log.error("Error PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia : " + e.toString());
          return null;
       }
    }
@@ -109,7 +112,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          Long resultado = (Long) query.getSingleResult();
          return resultado > 0;
       } catch (Exception e) {
-         System.out.println("Exepcion: " + e);
+         log.error("Exepcion: " + e);
          return false;
       }
    }

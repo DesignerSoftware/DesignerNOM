@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @Local
 public class AdministrarCuentasBancos implements AdministrarCuentasBancosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCuentasBancos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

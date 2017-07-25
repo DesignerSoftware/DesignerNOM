@@ -25,6 +25,7 @@ import java.lang.reflect.Array;
 import java.util.Map;
 import org.primefaces.component.api.DynamicColumn;
 import org.primefaces.component.api.UIColumn;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.columns.Columns;
 import org.primefaces.util.Constants;

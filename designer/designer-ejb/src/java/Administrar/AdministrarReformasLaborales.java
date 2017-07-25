@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarReformasLaborales implements AdministrarReformasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarReformasLaborales.class);
 
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -63,7 +66,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
          List<ReformasLaborales> lista = persistenciaReformasLaborales.buscarReformasLaborales(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaReformasLaborales Admi : " + e.toString());
+         log.warn("Error listaReformasLaborales Admi : " + e.toString());
          return null;
       }
    }
@@ -75,7 +78,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
             persistenciaReformasLaborales.crear(em, listaRL.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearReformaLaboral Admi : " + e.toString());
+         log.warn("Error crearReformaLaboral Admi : " + e.toString());
       }
    }
 
@@ -86,7 +89,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
             persistenciaReformasLaborales.editar(em, listaRL.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarReformaLaboral Admi : " + e.toString());
+         log.warn("Error editarReformaLaboral Admi : " + e.toString());
       }
    }
 
@@ -97,7 +100,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
             persistenciaReformasLaborales.borrar(em, listaRL.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarReformaLaboral Admi : " + e.toString());
+         log.warn("Error borrarReformaLaboral Admi : " + e.toString());
       }
    }
 
@@ -107,7 +110,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
          List<DetallesReformasLaborales> lista = persistenciaDetallesReformasLaborales.buscarDetalleReformasParaReformaSecuencia(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaDetalleReformasLaborales Admi : " + e.toString());
+         log.warn("Error listaDetalleReformasLaborales Admi : " + e.toString());
          return null;
       }
    }
@@ -119,7 +122,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
             persistenciaDetallesReformasLaborales.crear(em, listaDRL.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearDetalleReformaLaboral Admi : " + e.toString());
+         log.warn("Error crearDetalleReformaLaboral Admi : " + e.toString());
       }
    }
 
@@ -130,7 +133,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
             persistenciaDetallesReformasLaborales.editar(em, listaDRL.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarDetalleReformaLaboral Admi : " + e.toString());
+         log.warn("Error editarDetalleReformaLaboral Admi : " + e.toString());
       }
    }
 
@@ -141,7 +144,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
             persistenciaDetallesReformasLaborales.borrar(em, listaDRL.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarDetalleReformaLaboral Admi : " + e.toString());
+         log.warn("Error borrarDetalleReformaLaboral Admi : " + e.toString());
       }
    }
 
@@ -149,7 +152,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
       try {
          return persistenciaDetallesReformasLaborales.clonarReformaLaboral(em, nuevoNombre, codigoNuevo, codOrigen);
       } catch (Exception e) {
-         System.out.println("ERROR clonarReformaLaboral Administrar e: " + e.toString());
+         log.warn("ERROR clonarReformaLaboral Administrar e: " + e.toString());
          return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
       }
    }

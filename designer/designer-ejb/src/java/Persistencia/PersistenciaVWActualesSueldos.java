@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -17,7 +17,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaVWActualesSueldos implements PersistenciaVWActualesSueldosInterface{
+public class PersistenciaVWActualesSueldos implements PersistenciaVWActualesSueldosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesSueldos.class);
 
     @Override
     public BigDecimal buscarSueldoActivo(EntityManager em, BigInteger secuencia) {
@@ -29,7 +31,7 @@ public class PersistenciaVWActualesSueldos implements PersistenciaVWActualesSuel
             BigDecimal vwActualesSueldosValor = (BigDecimal) query.getSingleResult();
             return vwActualesSueldosValor;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesSueldos.buscarSueldoActivo()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesSueldos.buscarSueldoActivo()" + e.getMessage());
             return null;
         }
     }

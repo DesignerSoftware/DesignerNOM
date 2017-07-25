@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplInformacionAdicional implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplInformacionAdicional.class);
 
    @EJB
    AdministrarEmplInformacionAdicionalInterface administrarEmplInformacionAdicional;
@@ -155,8 +158,8 @@ public class ControlEmplInformacionAdicional implements Serializable {
          administrarEmplInformacionAdicional.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -172,7 +175,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
 
    public void modificarInfoAd(InformacionesAdicionales informacionAdicional) {
       informacionTablaSeleccionada = informacionAdicional;
-      System.out.println("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
+      log.info("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
       if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
 
          if (listInfoAdicionalModificar.isEmpty()) {
@@ -190,7 +193,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
    public void modificarTipoDato(InformacionesAdicionales informacionAdicional, String valorConfirmar) {
 
       informacionTablaSeleccionada = informacionAdicional;
-      System.out.println("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
+      log.info("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
       if (valorConfirmar.equals("CARACTER")) {
          informacionTablaSeleccionada.setTipodato("C");
          activarCaracter = false;
@@ -509,7 +512,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1071,7 +1074,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
          return listInformacionAdicional;
 
       } catch (Exception e) {
-         System.out.println("Error...!! getListInformacionAdicional : " + e.toString());
+         log.warn("Error...!! getListInformacionAdicional : " + e.toString());
          return null;
       }
    }

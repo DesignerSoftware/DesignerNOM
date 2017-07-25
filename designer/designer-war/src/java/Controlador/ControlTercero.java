@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTercero implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTercero.class);
 
    @EJB
    AdministrarTerceroInterface administrarTercero;
@@ -200,8 +203,8 @@ public class ControlTercero implements Serializable {
          administrarTercero.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -628,7 +631,7 @@ public class ControlTercero implements Serializable {
             RequestContext.getCurrentInstance().update("form:infoRegistro");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosTercero Controlador : " + e.toString());
+         log.warn("Error guardarCambiosTercero Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Tercero, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -679,7 +682,7 @@ public class ControlTercero implements Serializable {
             RequestContext.getCurrentInstance().update("form:infoRegistroTerceroSucursal");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosTercero Controlador : " + e.toString());
+         log.warn("Error guardarCambiosTercero Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Tercero Sucursal, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -880,29 +883,29 @@ public class ControlTercero implements Serializable {
    }
 
    public boolean validarCamposNulosTerceroSucursal(int i) {
-      System.err.println("Estoy en validarCamposNulosTerceroSucursal()");
+      log.error("Estoy en validarCamposNulosTerceroSucursal()");
       boolean retorno = true;
-      System.out.println("El valor de i: " + i);
+      log.info("El valor de i: " + i);
       if (i == 0) {
-         System.out.println("Entre a if (i == 0)");
+         log.info("Entre a if (i == 0)");
          if (terceroSucursalTablaSeleccionado.getCodigosucursal() == null) {
             retorno = false;
          }
       }
       if (i == 1) {
-         System.out.println("Entre a if (i == 1)");
+         log.info("Entre a if (i == 1)");
          if (nuevoTerceroSucursal.getCodigosucursal() == null) {
             retorno = false;
          }
       }
       if (i == 2) {
-         System.out.println("Entre a if (i == 2)");
-         System.out.println("duplicarTerceroSucursal.getCodigosucursal(): " + duplicarTerceroSucursal.getCodigosucursal());
+         log.info("Entre a if (i == 2)");
+         log.info("duplicarTerceroSucursal.getCodigosucursal(): " + duplicarTerceroSucursal.getCodigosucursal());
          if (duplicarTerceroSucursal.getCodigosucursal() == null) {
             retorno = false;
          }
       }
-      System.out.println("retorno: " + retorno);
+      log.info("retorno: " + retorno);
       return retorno;
    }
 
@@ -1135,7 +1138,7 @@ public class ControlTercero implements Serializable {
     * la pagina
     */
    public void borrarTercero() {
-      System.err.println("Entre a borrarTercero()");
+      log.error("Entre a borrarTercero()");
       if (terceroTablaSeleccionado != null) {
          if (!listTerceroModificar.isEmpty() && listTerceroModificar.contains(terceroTablaSeleccionado)) {
             int modIndex = listTerceroModificar.indexOf(terceroTablaSeleccionado);
@@ -1147,22 +1150,22 @@ public class ControlTercero implements Serializable {
          } else {
             listTerceroBorrar.add(terceroTablaSeleccionado);
          }
-         System.out.println("ControlTercero.borrarTercero() 1");
+         log.info("ControlTercero.borrarTercero() 1");
          listTerceros.remove(terceroTablaSeleccionado);
-         System.out.println("ControlTercero.borrarTercero() 2");
+         log.info("ControlTercero.borrarTercero() 2");
          if (tipoLista == 1) {
             filtrarListTercero.remove(terceroTablaSeleccionado);
-            System.out.println("ControlTercero.borrarTercero() 3");
+            log.info("ControlTercero.borrarTercero() 3");
          }
          contarRegistrosTerc();
-         System.out.println("ControlTercero.borrarTercero() 4");
+         log.info("ControlTercero.borrarTercero() 4");
          RequestContext.getCurrentInstance().update("form:datosTerceros");
-         System.out.println("ControlTercero.borrarTercero() 5");
+         log.info("ControlTercero.borrarTercero() 5");
          cambiosTercero = true;
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            System.out.println("ControlTercero.borrarTercero() 6");
+            log.info("ControlTercero.borrarTercero() 6");
          }
       }
    }
@@ -1202,7 +1205,7 @@ public class ControlTercero implements Serializable {
     * medio de la tecla Crtl+F11
     */
    public void activarCtrlF11() {
-      System.err.println("Entre a filtradoTercero() bandera : " + bandera);
+      log.error("Entre a filtradoTercero() bandera : " + bandera);
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
          altoTablaTercero = "123";
@@ -1888,7 +1891,7 @@ public class ControlTercero implements Serializable {
    }
 
    public void mostrarTodos() {
-      System.out.println("ControlTercero.mostrarTodos()");
+      log.info("ControlTercero.mostrarTodos()");
       RequestContext context = RequestContext.getCurrentInstance();
       if (cambiosTercero == false && cambiosTerceroSucursal == false) {
          listTerceros = null;
@@ -2144,7 +2147,7 @@ public class ControlTercero implements Serializable {
          }
          return listTerceros;
       } catch (Exception e) {
-         System.out.println("Error getListTerceros " + e.toString());
+         log.warn("Error getListTerceros " + e.toString());
          return null;
       }
    }
@@ -2289,7 +2292,7 @@ public class ControlTercero implements Serializable {
          }
          return listTercerosSucursales;
       } catch (Exception e) {
-         System.out.println("Error en getListTercerosSucursales : " + e.toString());
+         log.warn("Error en getListTercerosSucursales : " + e.toString());
          return null;
       }
    }

@@ -9,13 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposAusentismos.class);
 
     @Override
     public void crear(EntityManager em, Tiposausentismos tiposAusentismos) {
@@ -26,7 +27,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAusentismos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -42,7 +43,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAusentismos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +59,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.remove(em.merge(tiposAusentismos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAusentismos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +75,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             List<Tiposausentismos> todosTiposAusentismos = query.getResultList();
             return todosTiposAusentismos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAusentismos.consultarTiposAusentismos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAusentismos.consultarTiposAusentismos()" + e.getMessage());
             return null;
         }
     }
@@ -88,7 +89,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             Tiposausentismos clasesCategorias = (Tiposausentismos) query.getSingleResult();
             return clasesCategorias;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAusentismos.consultarTipoAusentismo()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAusentismos.consultarTipoAusentismo()" + e.getMessage());
             return null;
         }
     }
@@ -101,10 +102,10 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo Retorno " + retorno);
+            log.error("Contador PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -117,10 +118,10 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo Retorno " + retorno);
+            log.error("Contador PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo ERROR : " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo ERROR : " + e.getMessage());
             return retorno;
         }
     }

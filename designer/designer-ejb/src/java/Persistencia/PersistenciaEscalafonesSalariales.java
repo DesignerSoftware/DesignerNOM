@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,7 +22,9 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author Andres Pineda
  */
 @Stateless
-public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafonesSalarialesInterface{
+public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafonesSalarialesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEscalafonesSalariales.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +41,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             em.merge(escalafonesSalariales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEscalafonesSalariales.crear: " + e);
+            log.error("Error PersistenciaEscalafonesSalariales.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +57,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             em.merge(escalafonesSalariales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEscalafonesSalariales.editar: " + e);
+            log.error("Error PersistenciaEscalafonesSalariales.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +76,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaEscalafonesSalariales.borrar: " + e);
+            log.error("Error PersistenciaEscalafonesSalariales.borrar: " + e);
         }
     }
 
@@ -95,7 +98,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             EscalafonesSalariales escalafonesSalariales = (EscalafonesSalariales) query.getSingleResult();
             return escalafonesSalariales;
         } catch (Exception e) {
-            System.err.println("Error buscarEscalafonSecuencia PersistenciaEscalafonesSalariales : "+e.toString());
+            log.error("Error buscarEscalafonSecuencia PersistenciaEscalafonesSalariales : "+e.toString());
             return null;
         }
     }

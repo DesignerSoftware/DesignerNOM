@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesCargosInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesCargos.class);
+
     @Override
     public VWActualesCargos buscarCargoEmpleado(EntityManager entity, BigInteger secuencia) {
         try {
@@ -31,7 +33,7 @@ public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargo
             VWActualesCargos vwActualesCargos = (VWActualesCargos) query.getSingleResult();
             return vwActualesCargos;
         } catch (Exception e) {
-            System.out.println("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado " + e.getMessage());
+            log.error("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado " + e.getMessage());
             return null;
         }
     }
@@ -46,7 +48,7 @@ public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargo
             Long conteo = (Long) query.getSingleResult();
             return conteo;
         } catch (Exception e) {
-            System.out.println("Error conteoCodigosEmpleados PersistenciaVWActualesCargos: " + e.getMessage());
+            log.error("Error conteoCodigosEmpleados PersistenciaVWActualesCargos: " + e.getMessage());
             return null;
         }
     }

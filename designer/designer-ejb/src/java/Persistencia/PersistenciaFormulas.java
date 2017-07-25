@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFormulas implements PersistenciaFormulasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormulas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          em.persist(formulas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulas.crear: " + e);
+         log.error("Error PersistenciaFormulas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +55,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          em.merge(formulas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulas.crear: " + e);
+         log.error("Error PersistenciaFormulas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +74,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaFormulas.borrar: " + e);
+         log.error("Error PersistenciaFormulas.borrar: " + e);
       }
    }
 
@@ -80,10 +82,10 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
    public Formulas buscarFormula(EntityManager em, BigInteger secuencia) {
       try {
          em.clear();
-         System.out.println("Entro en buscarFormula()");
+         log.error("Entro en buscarFormula()");
          return em.find(Formulas.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaFormulas.buscarFormula() e: " + e);
+         log.error("Persistencia.PersistenciaFormulas.buscarFormula() e: " + e);
          return null;
       }
    }
@@ -105,7 +107,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          List<Formulas> listaFormulas = query.getResultList();
          return listaFormulas;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaFormulas.buscarFormulasCarge() e: " + e);
+         log.error("Persistencia.PersistenciaFormulas.buscarFormulasCarge() e: " + e);
          return null;
       }
    }
@@ -119,7 +121,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          Formulas formulaInicial = (Formulas) query.getSingleResult();
          return formulaInicial;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaFormulas.buscarFormulaCargeInicial() e: " + e);
+         log.error("Persistencia.PersistenciaFormulas.buscarFormulaCargeInicial() e: " + e);
          return null;
       }
    }
@@ -133,7 +135,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          List<Formulas> listaFormulas = query.getResultList();
          return listaFormulas;
       } catch (Exception e) {
-         System.out.println("Error lovFormulas: " + e);
+         log.error("Error lovFormulas: " + e);
          return null;
       }
    }
@@ -154,7 +156,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          i = query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error en clonarFormulas: " + e);
+         log.error("Error en clonarFormulas: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -174,7 +176,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          i = query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error en oprandoFormulas: " + e);
+         log.error("Error en oprandoFormulas: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }

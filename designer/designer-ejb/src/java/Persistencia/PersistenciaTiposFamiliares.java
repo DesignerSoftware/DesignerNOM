@@ -7,13 +7,12 @@ package Persistencia;
 
 import InterfacePersistencia.PersistenciaTiposFamiliaresInterface;
 import Entidades.TiposFamiliares;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTiposFamiliares.class);
+
     public void crear(EntityManager em, TiposFamiliares tiposFamiliares) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -31,7 +32,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.merge(tiposFamiliares);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +47,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.merge(tiposFamiliares);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +62,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.remove(em.merge(tiposFamiliares));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +74,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.clear();
             return em.find(TiposFamiliares.class, secuenciaTF);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposFamiliares.buscarTiposFamiliares()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposFamiliares.buscarTiposFamiliares()" + e.getMessage());
             return null;
         }
     }
@@ -86,7 +87,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
         List<TiposFamiliares> listTiposFamiliares = query.getResultList();
         return listTiposFamiliares;
        } catch(Exception e){
-           System.out.println("error buscarTiposFamiliares.PersistenciaTiposFamiliares " + e.getMessage());
+           log.error("error buscarTiposFamiliares.PersistenciaTiposFamiliares " + e.getMessage());
            return null;
        }
 
@@ -100,10 +101,10 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PERSISTENCIATIPOSFAMILIARES contadorHvReferencias  " + retorno);
+            log.error("Contador PERSISTENCIATIPOSFAMILIARES contadorHvReferencias  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposFamiliares.contadorHvReferencias()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposFamiliares.contadorHvReferencias()" + e.getMessage());
             return retorno;
         }
     }

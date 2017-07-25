@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -28,6 +29,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlConcepto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlConcepto.class);
 
    @EJB
    AdministrarConceptosInterface administrarConceptos;
@@ -182,7 +185,7 @@ public class ControlConcepto implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          estadoConceptoEmpresa = "S";
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e + " " + "Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e + " " + "Causa: " + e.getCause());
       }
    }
 
@@ -264,11 +267,11 @@ public class ControlConcepto implements Serializable {
       lovConceptosEmpresa = null;
       backUpEstadoConceptoEmpresa = "S";
       if (lovEmpresas == null) {
-         System.out.println("listaEmpresas esta vacia");
+         log.info("listaEmpresas esta vacia");
          getLovEmpresas();
       }
       if (empresaActual == null) {
-         System.out.println("empresaActual esta vacia");
+         log.info("empresaActual esta vacia");
          empresaActual = lovEmpresas.get(0);
       }
       listaConceptosEmpresa = null;
@@ -1156,7 +1159,7 @@ public class ControlConcepto implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1747,7 +1750,7 @@ public class ControlConcepto implements Serializable {
          unaVez = true;
       }
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      System.out.println("conceptoSeleccionado: " + conceptoSeleccionado);
+      log.info("conceptoSeleccionado: " + conceptoSeleccionado);
    }
 
    public void verDetalle(Conceptos conceptoS) {

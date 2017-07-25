@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarClasesAccidentes.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -56,7 +59,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
     public void modificarClasesAccidentes(List<ClasesAccidentes> listClasesAccidentesModificada) {
         ClasesAccidentes clasesAccidentesSeleccionada;
         for (int i = 0; i < listClasesAccidentesModificada.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             clasesAccidentesSeleccionada = listClasesAccidentesModificada.get(i);
             persistenciaClasesAccidentes.editar(em,clasesAccidentesSeleccionada);
         }
@@ -65,7 +68,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
     @Override
     public void borrarClasesAccidentes(List<ClasesAccidentes> listaClasesAccidentes) {
         for (int i = 0; i < listaClasesAccidentes.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             persistenciaClasesAccidentes.borrar(em,listaClasesAccidentes.get(i));
         }
     }
@@ -73,7 +76,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
     @Override
     public void crearClasesAccidentes(List<ClasesAccidentes> listaClasesAccidentes) {
         for (int i = 0; i < listaClasesAccidentes.size(); i++) {
-            System.out.println("Creando...");
+            log.warn("Creando...");
             persistenciaClasesAccidentes.crear(em,listaClasesAccidentes.get(i));
         }
     }
@@ -94,10 +97,10 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
     public BigInteger verificarSoAccidentesMedicosClaseAccidente(BigInteger secuenciaElementos) {
         BigInteger verificarSoAccidtenesMedicos = null;
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaElementos);
+            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
             verificarSoAccidtenesMedicos = persistenciaClasesAccidentes.contadorSoAccidentesMedicos(em,secuenciaElementos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarClasesAccidentes verificarSoAccidtenesMedicos ERROR :" + e);
+            log.error("ERROR AdministrarClasesAccidentes verificarSoAccidtenesMedicos ERROR :" + e);
         } finally {
             return verificarSoAccidtenesMedicos;
         }

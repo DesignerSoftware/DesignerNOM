@@ -9,13 +9,15 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigenciasLocalizacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasLocalizaciones.class);
 
    @Override
    public boolean crear(EntityManager em, VigenciasLocalizaciones vigenciasLocalizaciones) {
@@ -27,7 +29,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          tx.commit();
          return true;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasLocalizaciones.crear()" + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasLocalizaciones.crear()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -44,7 +46,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          em.merge(vigenciasLocalizaciones);
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasLocalizaciones.editar() " + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasLocalizaciones.editar() " + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -60,13 +62,13 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          em.remove(em.merge(vigenciasLocalizaciones));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
          try {
             if (tx.isActive()) {
                tx.rollback();
             }
          } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
+            log.error("No se puede hacer rollback porque no hay una transacción");
          }
       }
    }
@@ -79,7 +81,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          cq.select(cq.from(VigenciasLocalizaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasLocalizaciones" + e.getMessage());
+         log.error("Error buscarVigenciasLocalizaciones" + e.getMessage());
          return null;
       }
    }
@@ -94,7 +96,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          List<VigenciasLocalizaciones> vigenciasLocalizaciones = query.getResultList();
          return vigenciasLocalizaciones;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia VigenciasLocalizaciones " + e.getMessage());
+         log.error("Error en Persistencia VigenciasLocalizaciones " + e.getMessage());
          return null;
       }
    }
@@ -108,7 +110,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          VigenciasLocalizaciones vigenciasLocalizaciones = (VigenciasLocalizaciones) query.getSingleResult();
          return vigenciasLocalizaciones;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasLocalizacionesSecuencia Persistencia VigenciasLocalizaciones" + e.getMessage());
+         log.error("Error buscarVigenciasLocalizacionesSecuencia Persistencia VigenciasLocalizaciones" + e.getMessage());
          return null;
       }
    }

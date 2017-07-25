@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplAcumulados implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplAcumulados.class);
 
    @EJB
    AdministrarEmplAcumuladosInterface administrarEmplAcumulados;
@@ -118,8 +121,8 @@ public class ControlEmplAcumulados implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarEmplAcumulados.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -184,7 +187,7 @@ public class ControlEmplAcumulados implements Serializable {
          motivoNovedad = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:motivoNovedad");
          motivoNovedad.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosEmplAcumulados");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          cerrarFiltrado();
@@ -216,7 +219,7 @@ public class ControlEmplAcumulados implements Serializable {
    }
 
    public void limpiarNuevaVigenciaFormpasPagos() {
-      System.out.println("LimpiarNuevaVWAcumulados");
+      log.info("LimpiarNuevaVWAcumulados");
       nuevaEmplAcumulados = new VWAcumulados();
 
       index = -1;
@@ -233,9 +236,9 @@ public class ControlEmplAcumulados implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
-            System.err.println("EditarCelda cualcelda = " + cualCelda);
+            log.error("EditarCelda cualcelda = " + cualCelda);
             RequestContext.getCurrentInstance().update("formularioDialogos:editConceptoCodigo");
             RequestContext.getCurrentInstance().execute("PF('editConceptoCodigo').show()");
             cualCelda = -1;
@@ -351,7 +354,7 @@ public class ControlEmplAcumulados implements Serializable {
       index = indice;
       cualCelda = celda;
       secRegistro = listVWAcumuladosPorEmpleado.get(index).getSecuencia();
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
 
    }
 
@@ -383,7 +386,7 @@ public class ControlEmplAcumulados implements Serializable {
 
    public void cerrarFiltrado() {
       FacesContext c = FacesContext.getCurrentInstance();
-      System.out.println("CancelarModificacion");
+      log.info("CancelarModificacion");
       conceptoCodigo = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:conceptoCodigo");
       conceptoCodigo.setFilterStyle("display: none; visibility: hidden;");
       conceptoDescripcion = (Column) c.getViewRoot().findComponent("form:datosEmplAcumulados:conceptoDescripcion");

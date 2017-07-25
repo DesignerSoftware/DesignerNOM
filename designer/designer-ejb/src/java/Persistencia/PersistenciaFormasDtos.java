@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormasDtos.class);
 
    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -34,7 +37,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          em.merge(formasDtos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormasDtos.crear: " + e);
+         log.error("Error PersistenciaFormasDtos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -50,7 +53,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          em.merge(formasDtos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormasDtos.editar: " + e);
+         log.error("Error PersistenciaFormasDtos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +70,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormasDtos.borrar: " + e);
+         log.error("Error PersistenciaFormasDtos.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +92,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          List<FormasDtos> formasDtosResult = new ArrayList<FormasDtos>(formasDtos);
          return formasDtosResult;
       } catch (Exception e) {
-         System.out.println("Error: (FormasDtos)" + e);
+         log.error("Error: (FormasDtos)" + e);
          return null;
       }
    }

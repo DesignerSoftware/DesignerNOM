@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosLocalizaciones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosLocalizaciones.class);
 
     @EJB
     AdministrarMotivosLocalizacionesInterface administrarMotivosLocalizaciones;
@@ -138,8 +141,8 @@ public class ControlMotivosLocalizaciones implements Serializable {
             administrarMotivosLocalizaciones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -180,13 +183,13 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR ControlMotiviosCambiosCargos.asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error ControlMotiviosCambiosCargos.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -268,11 +271,11 @@ public class ControlMotivosLocalizaciones implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
             descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             tamano = 340;
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
@@ -359,7 +362,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
+        log.info("Estoy en verificarBorrado");
         try {
             if (tipoLista == 0) {
                 contarVigenciasLocalizacionesMotivoLocalizacion = administrarMotivosLocalizaciones.contarVigenciasLocalizacionesMotivoLocalizacion(motivoLocalizacionSeleccionado.getSecuencia());
@@ -367,10 +370,10 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 contarVigenciasLocalizacionesMotivoLocalizacion = administrarMotivosLocalizaciones.contarVigenciasLocalizacionesMotivoLocalizacion(motivoLocalizacionSeleccionado.getSecuencia());
             }
             if (contarVigenciasLocalizacionesMotivoLocalizacion.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrarMotivosLocalizaciones();
             } else {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
@@ -378,7 +381,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
 
         } catch (Exception e) {
-            System.err.println("ERROR ControlMotivosLocalizaciones verificarBorrado ERROR " + e);
+            log.error("ERROR ControlMotivosLocalizaciones verificarBorrado ERROR " + e);
         }
     }
 
@@ -402,7 +405,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 administrarMotivosLocalizaciones.modificarMotivosLocalizaciones(modificarMotivoContrato);
                 modificarMotivoContrato.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosLocalizaciones = null;
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
@@ -427,7 +430,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -453,9 +456,9 @@ public class ControlMotivosLocalizaciones implements Serializable {
 
         if (nuevoMotivoContrato.getCodigo() == a) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivoContrato.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivoContrato.getCodigo());
 
             for (int x = 0; x < listMotivosLocalizaciones.size(); x++) {
                 if (listMotivosLocalizaciones.get(x).getCodigo() == nuevoMotivoContrato.getCodigo()) {
@@ -464,31 +467,31 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " No puede haber códigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivoContrato.getDescripcion() == (null)) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else if (nuevoMotivoContrato.getDescripcion().isEmpty()) {
             mensajeValidacion = " Los campos marcados con asterisco son obligatorios \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
         }
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoContrato:descripcion");
@@ -499,7 +502,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 tipoLista = 0;
                 tamano = 340;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             //AGREGAR REGISTRO A LA LISTA VIGENCIAS CARGOS EMPLEADO.
             k++;
@@ -525,7 +528,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
     }
 
     public void limpiarNuevoMotivosLocalizaciones() {
-        System.out.println("limpiarnuevoMotivoContrato");
+        log.info("limpiarnuevoMotivoContrato");
         nuevoMotivoContrato = new MotivosLocalizaciones();
     }
 
@@ -561,12 +564,12 @@ public class ControlMotivosLocalizaciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarMotivoContrato.getCodigo());
-        System.err.println("ConfirmarDuplicar nombre " + duplicarMotivoContrato.getDescripcion());
+        log.error("ConfirmarDuplicar codigo " + duplicarMotivoContrato.getCodigo());
+        log.error("ConfirmarDuplicar nombre " + duplicarMotivoContrato.getDescripcion());
 
         if (duplicarMotivoContrato.getCodigo() == a) {
             mensajeValidacion = "Ya existe un registro con el código ingresado \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listMotivosLocalizaciones.size(); x++) {
                 if (listMotivosLocalizaciones.get(x).getCodigo() == duplicarMotivoContrato.getCodigo()) {
@@ -575,16 +578,16 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " No puede haber códigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarMotivoContrato.getDescripcion() == null) {
             mensajeValidacion = "Ya existe un registro con el código ingresado \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
             contador++;
@@ -592,7 +595,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarMotivoContrato.getSecuencia() + "  " + duplicarMotivoContrato.getCodigo());
+            log.info("Datos Duplicando: " + duplicarMotivoContrato.getSecuencia() + "  " + duplicarMotivoContrato.getCodigo());
             if (crearMotivosLocalizaciones.contains(duplicarMotivoContrato)) {
             }
             listMotivosLocalizaciones.add(duplicarMotivoContrato);
@@ -660,7 +663,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (motivoLocalizacionSeleccionado != null) {
             resultado = administrarRastros.obtenerTabla(motivoLocalizacionSeleccionado.getSecuencia(), "MOTIVOSLOCALIZACIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

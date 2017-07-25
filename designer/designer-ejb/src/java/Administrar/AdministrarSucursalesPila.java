@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSucursalesPila.class);
 
     @EJB
     PersistenciaSucursalesPilaInterface persistenciaSucursalesPila;
@@ -50,28 +53,28 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             List<Empresas> listaEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("AdministrarCentroCostos: Falló al buscar las empresas /n" + e.getMessage());
+            log.warn("AdministrarCentroCostos: Falló al buscar las empresas /n" + e.getMessage());
             return null;
         }
     }
 
     public void modificarSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
         for (int i = 0; i < listaSucursalesPila.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaSucursalesPila.editar(em, listaSucursalesPila.get(i));
         }
     }
 
     public void borrarSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
         for (int i = 0; i < listaSucursalesPila.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSucursalesPila.borrar(em, listaSucursalesPila.get(i));
         }
     }
 
     public void crearSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
         for (int i = 0; i < listaSucursalesPila.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaSucursalesPila.crear(em, listaSucursalesPila.get(i));
         }
     }
@@ -94,7 +97,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
         try {
             return contarNovedadesAutoLiquidacionesSucursal_Pila = persistenciaSucursalesPila.contarNovedadesAutoLiquidacionesSucursal_Pila(em, secSucursalesPila);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSucursalesPila contarNovedadesAutoLiquidacionesSucursal_Pila ERROR : " + e);
+            log.error("ERROR AdministrarSucursalesPila contarNovedadesAutoLiquidacionesSucursal_Pila ERROR : " + e);
             return null;
         }
     }
@@ -105,7 +108,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
         try {
             return contarNovedadesCorreccionesAutolSucursal_Pila = persistenciaSucursalesPila.contarNovedadesCorreccionesAutolSucursal_Pila(em, secSucursalesPila);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e);
+            log.error("ERROR AdministrarSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e);
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
         try {
             return contarOdisCabecerasSucursal_Pila = persistenciaSucursalesPila.contarOdisCabecerasSucursal_Pila(em, secSucursalesPila);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSucursalesPila contarOdisCabecerasSucursal_Pila ERROR : " + e);
+            log.error("ERROR AdministrarSucursalesPila contarOdisCabecerasSucursal_Pila ERROR : " + e);
             return null;
         }
     }
@@ -127,7 +130,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
         try {
             return contarOdiscorReaccionesCabSucursal_Pila = persistenciaSucursalesPila.contarOdiscorReaccionesCabSucursal_Pila(em, secSucursalesPila);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);
+            log.error("ERROR AdministrarSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);
             return null;
         }
     }
@@ -138,7 +141,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
         try {
             return contarParametrosInformesSucursal_Pila = persistenciaSucursalesPila.contarParametrosInformesSucursal_Pila(em, secSucursalesPila);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSucursalesPila contarParametrosInformesSucursal_Pila ERROR : " + e);
+            log.error("ERROR AdministrarSucursalesPila contarParametrosInformesSucursal_Pila ERROR : " + e);
             return null;
         }
     }
@@ -149,7 +152,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
         try {
             contarUbicacionesGeograficasSucursal_Pila = persistenciaSucursalesPila.contarUbicacionesGeograficasSucursal_Pila(em, secSucursalesPila);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSucursalesPila contarUbicacionesGeograficasSucursal_Pila ERROR : " + e);
+            log.error("ERROR AdministrarSucursalesPila contarUbicacionesGeograficasSucursal_Pila ERROR : " + e);
             contarUbicacionesGeograficasSucursal_Pila = null;
         }
         finally{

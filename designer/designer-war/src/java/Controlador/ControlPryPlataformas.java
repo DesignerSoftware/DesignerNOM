@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPryPlataformas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPryPlataformas.class);
 
     @EJB
     AdministrarPryPlataformasInterface administrarPryPlataformas;
@@ -149,8 +152,8 @@ public class ControlPryPlataformas implements Serializable {
             administrarPryPlataformas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -246,10 +249,10 @@ public class ControlPryPlataformas implements Serializable {
             observacion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:observacion");
             observacion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -286,7 +289,7 @@ public class ControlPryPlataformas implements Serializable {
     public void borrandoPryPlataformas() {
 
         if (pryPlataformaSeleccionada != null) {
-            System.out.println("Entro a borrandoPryPlataformas");
+            log.info("Entro a borrandoPryPlataformas");
             if (!modificarPryPlataformas.isEmpty() && modificarPryPlataformas.contains(pryPlataformaSeleccionada)) {
                 int modIndex = modificarPryPlataformas.indexOf(pryPlataformaSeleccionada);
                 modificarPryPlataformas.remove(modIndex);
@@ -316,21 +319,21 @@ public class ControlPryPlataformas implements Serializable {
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
+        log.info("Estoy en verificarBorrado");
 
         BigInteger proyectos;
         try {
-            System.err.println("Control Secuencia de ControlEvalCompetencias ");
+            log.error("Control Secuencia de ControlEvalCompetencias ");
             if (tipoLista == 0) {
                 proyectos = administrarPryPlataformas.contarProyectosPryPlataformas(pryPlataformaSeleccionada.getSecuencia());
             } else {
                 proyectos = administrarPryPlataformas.contarProyectosPryPlataformas(pryPlataformaSeleccionada.getSecuencia());
             }
             if (proyectos.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoPryPlataformas();
             } else {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
@@ -338,7 +341,7 @@ public class ControlPryPlataformas implements Serializable {
 
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlPryPlataformas verificarBorrado ERROR " + e);
+            log.error("ERROR ControlPryPlataformas verificarBorrado ERROR " + e);
         }
     }
 
@@ -361,7 +364,7 @@ public class ControlPryPlataformas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando guardarPryPlataformas");
+            log.info("Realizando guardarPryPlataformas");
             if (!borrarPryPlataformas.isEmpty()) {
                 administrarPryPlataformas.borrarPryPlataformas(borrarPryPlataformas);
 
@@ -379,7 +382,7 @@ public class ControlPryPlataformas implements Serializable {
                 administrarPryPlataformas.modificarPryPlataformas(modificarPryPlataformas);
                 modificarPryPlataformas.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listPryPlataformas = null;
             RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -404,7 +407,7 @@ public class ControlPryPlataformas implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -441,14 +444,14 @@ public class ControlPryPlataformas implements Serializable {
             if (duplicados > 0) {
                 mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoPryPlataforma.getDescripcion() == (null)) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
@@ -457,7 +460,7 @@ public class ControlPryPlataformas implements Serializable {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosPrtPlataforma:descripcion");
@@ -469,7 +472,7 @@ public class ControlPryPlataformas implements Serializable {
                 filtrarPryPlataformas = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -495,7 +498,7 @@ public class ControlPryPlataformas implements Serializable {
     }
 
     public void limpiarNuevoPryPlataformas() {
-        System.out.println("limpiarNuevoPryPlataformas");
+        log.info("limpiarNuevoPryPlataformas");
         nuevoPryPlataforma = new PryPlataformas();
         pryPlataformaSeleccionada = null;
 
@@ -504,7 +507,7 @@ public class ControlPryPlataformas implements Serializable {
     //------------------------------------------------------------------------------
     public void duplicandoPryPlataformas() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("duplicandoPryPlataformas");
+        log.info("duplicandoPryPlataformas");
         if (pryPlataformaSeleccionada != null) {
             duplicarPryPlataforma = new PryPlataformas();
             k++;
@@ -548,7 +551,7 @@ public class ControlPryPlataformas implements Serializable {
             if (duplicados > 0) {
                 mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
@@ -557,14 +560,14 @@ public class ControlPryPlataformas implements Serializable {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarPryPlataforma.getSecuencia() + "  " + duplicarPryPlataforma.getCodigo());
+            log.info("Datos Duplicando: " + duplicarPryPlataforma.getSecuencia() + "  " + duplicarPryPlataforma.getCodigo());
             if (crearPryPlataformas.contains(duplicarPryPlataforma)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listPryPlataformas.add(duplicarPryPlataforma);
             crearPryPlataformas.add(duplicarPryPlataforma);
@@ -625,7 +628,7 @@ public class ControlPryPlataformas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pryPlataformaSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(pryPlataformaSeleccionada.getSecuencia(), "PRY_PLATAFORMAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -646,13 +649,13 @@ public class ControlPryPlataformas implements Serializable {
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A ControlPryPlataformas.eventoFiltrar \n");
+            log.info("\n ENTRE A ControlPryPlataformas.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
             contarRegistros();
         } catch (Exception e) {
-            System.out.println("ERROR ControlPryPlataformas eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error ControlPryPlataformas eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 

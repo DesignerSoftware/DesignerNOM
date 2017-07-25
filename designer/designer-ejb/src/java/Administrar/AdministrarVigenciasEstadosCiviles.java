@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasEstadosCivilesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasEstadosCiviles.class);
 
     /**
      * CREACION DE LOS EJB
@@ -59,7 +62,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
         try {
             vigenciasEstadosCiviles = persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
+            log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
             vigenciasEstadosCiviles = null;
         }
         return vigenciasEstadosCiviles;
@@ -71,7 +74,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
         try {
             vigenciasEstadosCiviles = persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles(em);
         } catch (Exception e) {
-            System.out.println("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
+            log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
             vigenciasEstadosCiviles = null;
         }
         return vigenciasEstadosCiviles;
@@ -80,7 +83,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
     @Override
     public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
         for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             persistenciaVigenciasEstadosCiviles.editar(em, listaVigenciasEstadosCiviles.get(i));
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
     @Override
     public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
         for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
-            System.out.println("borrar...");
+            log.warn("borrar...");
             persistenciaVigenciasEstadosCiviles.borrar(em, listaVigenciasEstadosCiviles.get(i));
         }
     }
@@ -96,7 +99,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
     @Override
     public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
         for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
-            System.out.println("crear...");
+            log.warn("crear...");
             persistenciaVigenciasEstadosCiviles.crear(em, listaVigenciasEstadosCiviles.get(i));
         }
     }
@@ -121,7 +124,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
             normasLaborales = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
             return normasLaborales;
         } catch (Exception e) {
-            System.err.println("ERROR EN AdministrarVigencianormaLaboral en NormasLabolares ERROR " + e);
+            log.error("ERROR EN AdministrarVigencianormaLaboral en NormasLabolares ERROR " + e);
             return null;
         }
     }

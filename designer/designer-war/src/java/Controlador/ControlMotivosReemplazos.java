@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosReemplazos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosReemplazos.class);
 
     @EJB
     AdministrarMotivosReemplazosInterface administrarMotivosReemplazos;
@@ -81,7 +84,7 @@ public class ControlMotivosReemplazos implements Serializable {
         duplicarMotivosReemplazos = new MotivosReemplazos();
         guardado = true;
         tamano = 270;
-        System.out.println("controlMotivosReemplazos Constructor");
+        log.info("controlMotivosReemplazos Constructor");
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
@@ -130,30 +133,30 @@ public class ControlMotivosReemplazos implements Serializable {
     @PostConstruct
     public void inicializarAdministrador() {
         try {
-            System.out.println("ControlMotivosReemplazos PostConstruct ");
+            log.info("ControlMotivosReemplazos PostConstruct ");
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarMotivosReemplazos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
     public void recibirPaginaAnterior(String pagina) {
         paginaAnterior = pagina;
-        System.out.println("ControlMotivosReemplazos recibirPaginaAnterior paginaAnterior : " + paginaAnterior);
+        log.info("ControlMotivosReemplazos recibirPaginaAnterior paginaAnterior : " + paginaAnterior);
     }
 
     public String redirigirPaginaAnterior() {
-        System.out.println("ControlMotivosReemplazos redirigirPaginaAnterior paginaAnterior : " + paginaAnterior);
+        log.info("ControlMotivosReemplazos redirigirPaginaAnterior paginaAnterior : " + paginaAnterior);
         return paginaAnterior;
     }
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A ControlMotivosReemplazos.eventoFiltrar \n");
+            log.info("\n ENTRE A ControlMotivosReemplazos.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
@@ -161,12 +164,12 @@ public class ControlMotivosReemplazos implements Serializable {
             infoRegistro = "Cantidad de registros: " + filtrarMotivosReemplazos.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
-            System.out.println("ERROR ControlMotivosReemplazos eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error ControlMotivosReemplazos eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
     public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
 
         if (permitirIndex == true) {
             index = indice;
@@ -174,44 +177,44 @@ public class ControlMotivosReemplazos implements Serializable {
             if (tipoLista == 0) {
                 if (cualCelda == 0) {
                     backUpCodigo = listMotivosReemplazos.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
+                    log.info(" backUpCodigo : " + backUpCodigo);
                 } else if (cualCelda == 1) {
                     backUpDescripcion = listMotivosReemplazos.get(index).getNombre();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
+                    log.info(" backUpDescripcion : " + backUpDescripcion);
                 }
                 secRegistro = listMotivosReemplazos.get(index).getSecuencia();
             } else {
                 if (cualCelda == 0) {
                     backUpCodigo = filtrarMotivosReemplazos.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
+                    log.info(" backUpCodigo : " + backUpCodigo);
 
                 } else if (cualCelda == 1) {
                     backUpDescripcion = filtrarMotivosReemplazos.get(index).getNombre();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
+                    log.info(" backUpDescripcion : " + backUpDescripcion);
 
                 }
                 secRegistro = filtrarMotivosReemplazos.get(index).getSecuencia();
             }
 
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
+        log.info("Indice: " + index + " Celda: " + cualCelda);
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE A ControlMotivosReemplazos.asignarIndex \n");
+            log.info("\n ENTRE A ControlMotivosReemplazos.asignarIndex \n");
             index = indice;
             if (LND == 0) {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR ControlMotivosReemplazos.asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error ControlMotivosReemplazos.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -298,10 +301,10 @@ public class ControlMotivosReemplazos implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivosReemplazos:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMotivosReemplazos");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivosReemplazos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -315,7 +318,7 @@ public class ControlMotivosReemplazos implements Serializable {
     }
 
     public void modificarMotivosReemplazos(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+        log.error("ENTRE A MODIFICAR SUB CATEGORIA");
         index = indice;
 
         int contador = 0;
@@ -323,9 +326,9 @@ public class ControlMotivosReemplazos implements Serializable {
         Integer a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 if (!crearMotivosReemplazos.contains(listMotivosReemplazos.get(indice))) {
                     if (listMotivosReemplazos.get(indice).getCodigo() == a) {
@@ -531,7 +534,7 @@ public class ControlMotivosReemplazos implements Serializable {
 
         if (index >= 0) {
             if (tipoLista == 0) {
-                System.out.println("Entro a borrandoMotivosReemplazos");
+                log.info("Entro a borrandoMotivosReemplazos");
                 if (!modificarMotivosReemplazos.isEmpty() && modificarMotivosReemplazos.contains(listMotivosReemplazos.get(index))) {
                     int modIndex = modificarMotivosReemplazos.indexOf(listMotivosReemplazos.get(index));
                     modificarMotivosReemplazos.remove(modIndex);
@@ -545,7 +548,7 @@ public class ControlMotivosReemplazos implements Serializable {
                 listMotivosReemplazos.remove(index);
             }
             if (tipoLista == 1) {
-                System.out.println("borrandoMotivosReemplazos ");
+                log.info("borrandoMotivosReemplazos ");
                 if (!modificarMotivosReemplazos.isEmpty() && modificarMotivosReemplazos.contains(filtrarMotivosReemplazos.get(index))) {
                     int modIndex = modificarMotivosReemplazos.indexOf(filtrarMotivosReemplazos.get(index));
                     modificarMotivosReemplazos.remove(modIndex);
@@ -578,21 +581,21 @@ public class ControlMotivosReemplazos implements Serializable {
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
+        log.info("Estoy en verificarBorrado");
         BigInteger contarEncargaturasMotivoReemplazo;
 
         try {
-            System.err.println("Control Secuencia de ControlMotivosReemplazos ");
+            log.error("Control Secuencia de ControlMotivosReemplazos ");
             if (tipoLista == 0) {
                 contarEncargaturasMotivoReemplazo = administrarMotivosReemplazos.contarEncargaturasMotivoReemplazo(listMotivosReemplazos.get(index).getSecuencia());
             } else {
                 contarEncargaturasMotivoReemplazo = administrarMotivosReemplazos.contarEncargaturasMotivoReemplazo(filtrarMotivosReemplazos.get(index).getSecuencia());
             }
             if (contarEncargaturasMotivoReemplazo.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoMotivosReemplazos();
             } else {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -602,7 +605,7 @@ public class ControlMotivosReemplazos implements Serializable {
 
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlMotivosReemplazos verificarBorrado ERROR " + e);
+            log.error("ERROR ControlMotivosReemplazos verificarBorrado ERROR " + e);
         }
     }
 
@@ -620,7 +623,7 @@ public class ControlMotivosReemplazos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando guardarMotivosReemplazos");
+            log.info("Realizando guardarMotivosReemplazos");
             if (!borrarMotivosReemplazos.isEmpty()) {
                 administrarMotivosReemplazos.borrarMotivosReemplazos(borrarMotivosReemplazos);
                 //mostrarBorrados
@@ -637,7 +640,7 @@ public class ControlMotivosReemplazos implements Serializable {
                 administrarMotivosReemplazos.crearMotivosReemplazos(crearMotivosReemplazos);
                 crearMotivosReemplazos.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosReemplazos = null;
             RequestContext.getCurrentInstance().update("form:datosMotivosReemplazos");
             k = 0;
@@ -661,7 +664,7 @@ public class ControlMotivosReemplazos implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -678,7 +681,7 @@ public class ControlMotivosReemplazos implements Serializable {
     }
 
     public void agregarNuevoMotivosReemplazos() {
-        System.out.println("agregarNuevoMotivosReemplazos");
+        log.info("agregarNuevoMotivosReemplazos");
         int contador = 0;
         int duplicados = 0;
 
@@ -688,46 +691,46 @@ public class ControlMotivosReemplazos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoMotivosReemplazos.getCodigo() == a) {
             mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivosReemplazos.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivosReemplazos.getCodigo());
 
             for (int x = 0; x < listMotivosReemplazos.size(); x++) {
                 if (listMotivosReemplazos.get(x).getCodigo() == nuevoMotivosReemplazos.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivosReemplazos.getNombre() == null) {
             mensajeValidacion = mensajeValidacion + " *Motivo Reemplazo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else if (nuevoMotivosReemplazos.getNombre().isEmpty()) {
             mensajeValidacion = mensajeValidacion + " *Motivo Reemplazo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosMotivosReemplazos:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivosReemplazos:descripcion");
@@ -737,7 +740,7 @@ public class ControlMotivosReemplazos implements Serializable {
                 filtrarMotivosReemplazos = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -768,7 +771,7 @@ public class ControlMotivosReemplazos implements Serializable {
     }
 
     public void limpiarNuevoMotivosReemplazos() {
-        System.out.println("limpiarNuevoMotivosReemplazos");
+        log.info("limpiarNuevoMotivosReemplazos");
         nuevoMotivosReemplazos = new MotivosReemplazos();
         secRegistro = null;
         index = -1;
@@ -777,7 +780,7 @@ public class ControlMotivosReemplazos implements Serializable {
 
     //------------------------------------------------------------------------------
     public void duplicandoMotivosReemplazos() {
-        System.out.println("duplicandoMotivosReemplazos");
+        log.info("duplicandoMotivosReemplazos");
         if (index >= 0) {
             duplicarMotivosReemplazos = new MotivosReemplazos();
             k++;
@@ -803,19 +806,19 @@ public class ControlMotivosReemplazos implements Serializable {
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+        log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarMotivosReemplazos.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarMotivosReemplazos.getNombre());
+        log.error("ConfirmarDuplicar codigo " + duplicarMotivosReemplazos.getCodigo());
+        log.error("ConfirmarDuplicar Descripcion " + duplicarMotivosReemplazos.getNombre());
 
         if (duplicarMotivosReemplazos.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listMotivosReemplazos.size(); x++) {
                 if (listMotivosReemplazos.get(x).getCodigo() == duplicarMotivosReemplazos.getCodigo()) {
@@ -824,32 +827,32 @@ public class ControlMotivosReemplazos implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarMotivosReemplazos.getNombre() == null) {
             mensajeValidacion = mensajeValidacion + " *Motivo Reemplazo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else if (duplicarMotivosReemplazos.getNombre().isEmpty()) {
             mensajeValidacion = mensajeValidacion + " *Motivo Reemplazo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarMotivosReemplazos.getSecuencia() + "  " + duplicarMotivosReemplazos.getCodigo());
+            log.info("Datos Duplicando: " + duplicarMotivosReemplazos.getSecuencia() + "  " + duplicarMotivosReemplazos.getCodigo());
             if (crearMotivosReemplazos.contains(duplicarMotivosReemplazos)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listMotivosReemplazos.add(duplicarMotivosReemplazos);
             crearMotivosReemplazos.add(duplicarMotivosReemplazos);
@@ -911,12 +914,12 @@ public class ControlMotivosReemplazos implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listMotivosReemplazos.isEmpty()) {
             if (secRegistro != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "MOTIVOSREEMPLEAZOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
@@ -942,7 +945,7 @@ public class ControlMotivosReemplazos implements Serializable {
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
     public List<MotivosReemplazos> getListMotivosReemplazos() {
         if (listMotivosReemplazos == null) {
-            System.out.println("ControlMotivosReemplazos getListMotivosReemplazos");
+            log.info("ControlMotivosReemplazos getListMotivosReemplazos");
             listMotivosReemplazos = administrarMotivosReemplazos.MotivosReemplazos();
         }
         RequestContext context = RequestContext.getCurrentInstance();

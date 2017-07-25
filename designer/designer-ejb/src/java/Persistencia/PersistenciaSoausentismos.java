@@ -5,16 +5,14 @@ package Persistencia;
 
 import Entidades.Soausentismos;
 import InterfacePersistencia.PersistenciaSoausentismosInterface;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 
@@ -27,6 +25,8 @@ import javax.persistence.StoredProcedureQuery;
  */
 @Stateless
 public class PersistenciaSoausentismos implements PersistenciaSoausentismosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSoausentismos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -42,7 +42,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.merge(soausentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaSoausentismos.crear: " + e.getMessage());
+         log.error("Error PersistenciaSoausentismos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.merge(soausentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaSoausentismos.editar: " + e.getMessage());
+         log.error("Error PersistenciaSoausentismos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.remove(em.merge(soausentismos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaSoausentismos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSoausentismos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          List<Soausentismos> todosAusentismos = query.getResultList();
          return todosAusentismos;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaSoausentismos.ausentismosEmpleado()" + e.getMessage());
+          log.error("Persistencia.PersistenciaSoausentismos.ausentismosEmpleado()" + e.getMessage());
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          List<Soausentismos> prorrogas = query.getResultList();
          return prorrogas;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaSoausentismos.prorrogas()" + e.getMessage());
+          log.error("Persistencia.PersistenciaSoausentismos.prorrogas()" + e.getMessage());
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          String resultado = (String) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaSoausentismos.prorrogaMostrar()" + e.getMessage());
+          log.error("Persistencia.PersistenciaSoausentismos.prorrogaMostrar()" + e.getMessage());
          return null;
       }
    }
@@ -171,7 +171,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          query.setParameter(13, forma);
          query.execute();
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -206,7 +206,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          query.setParameter(6, fechaFinAusen);
          query.execute();
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

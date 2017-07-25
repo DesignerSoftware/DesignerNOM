@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDiagnosticosCategorias implements AdministrarDiagnosticosCategoriasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDiagnosticosCategorias.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -35,7 +38,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
         try{
         em = administrarSesiones.obtenerConexionSesion(idSesion);
         } catch(Exception e){
-            System.out.println("error AdministrarDiagnosticosCategorias.obtenerConexion : " + e.toString());
+            log.warn("error AdministrarDiagnosticosCategorias.obtenerConexion : " + e.toString());
         }
     }
 
@@ -46,7 +49,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.crear(em,categorias.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.crearDiagnosticoCategoria :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.crearDiagnosticoCategoria :" + e.toString());
         }
     }
 
@@ -57,7 +60,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.editar(em,categorias.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.editarDiagnosticoCategoria :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.editarDiagnosticoCategoria :" + e.toString());
         }
     }
 
@@ -68,7 +71,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.borrar(em,categorias.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.borrarDiagnosticoCategoria :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.borrarDiagnosticoCategoria :" + e.toString());
         }
     }
 
@@ -92,7 +95,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.crearCapitulo(em,capitulo.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.crearDiagnosticoCapitulo :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.crearDiagnosticoCapitulo :" + e.toString());
         }
     }
 
@@ -103,7 +106,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.editarCapitulo(em,capitulo.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.editarDiagnosticoCapitulo :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.editarDiagnosticoCapitulo :" + e.toString());
         }
     }
 
@@ -114,7 +117,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.borrarCapitulo(em,capitulo.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.borrarDiagnosticoCapitulo :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.borrarDiagnosticoCapitulo :" + e.toString());
         }
     }
 
@@ -131,7 +134,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.crearSeccion(em,seccion.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.crearDiagnosticoSección :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.crearDiagnosticoSección :" + e.toString());
         }
     }
 
@@ -142,7 +145,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.editarSeccion(em,seccion.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.editarDiagnosticoSección :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.editarDiagnosticoSección :" + e.toString());
         }
     }
 
@@ -153,7 +156,7 @@ public class AdministrarDiagnosticosCategorias implements AdministrarDiagnostico
                 persistenciaDiagnosticos.borrarSeccion(em,seccion.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error AdministrarDiagnosticosCategorias.borrarDiagnosticoSección :" + e.toString());
+            log.warn("Error AdministrarDiagnosticosCategorias.borrarDiagnosticoSección :" + e.toString());
         }
     }
 

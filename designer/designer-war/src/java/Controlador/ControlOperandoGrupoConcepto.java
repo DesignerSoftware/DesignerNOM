@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlOperandoGrupoConcepto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlOperandoGrupoConcepto.class);
 
     @EJB
     AdministrarOperandosGruposConceptosInterface administrarOperandosGruposConceptos;
@@ -148,8 +151,8 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             administrarOperandosGruposConceptos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -239,7 +242,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 int CIndex = listaOperandosGruposConceptos.indexOf(filtradoListaOperandosGruposConceptos.get(index));
                 listaOperandosGruposConceptos.remove(CIndex);
                 filtradoListaOperandosGruposConceptos.remove(index);
-                System.out.println("Realizado");
+                log.info("Realizado");
             }
 
             RequestContext.getCurrentInstance().update("form:datosOperandosGruposConceptos");
@@ -263,7 +266,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             tipoActualizacion = 1;
             index = -1;
             secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
         } else if (LND == 2) {
             index = -1;
             secRegistro = null;
@@ -422,25 +425,25 @@ public class ControlOperandoGrupoConcepto implements Serializable {
 
     public void guardarTodo() {
         if (guardado == false) {
-            System.out.println("Realizando Operaciones retenciones");
+            log.info("Realizando Operaciones retenciones");
             if (!listaOperandosGruposConceptosBorrar.isEmpty()) {
                 for (int i = 0; i < listaOperandosGruposConceptosBorrar.size(); i++) {
-                    System.out.println("Borrando...");
+                    log.info("Borrando...");
 
                     administrarOperandosGruposConceptos.borrarOperandosGrupos(listaOperandosGruposConceptosBorrar.get(i));
-                    System.out.println("Entra");
+                    log.info("Entra");
                     listaOperandosGruposConceptosBorrar.clear();
                 }
             }
             if (!listaOperandosGruposConceptosCrear.isEmpty()) {
                 for (int i = 0; i < listaOperandosGruposConceptosCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaOperandosGruposConceptosCrear.size());
+                    log.info("Creando...");
+                    log.info(listaOperandosGruposConceptosCrear.size());
 
                     administrarOperandosGruposConceptos.crearOperandosGrupos(listaOperandosGruposConceptosCrear.get(i));
                 }
 
-                System.out.println("LimpiaLista");
+                log.info("LimpiaLista");
                 listaOperandosGruposConceptosCrear.clear();
             }
             if (!listaOperandosGruposConceptosModificar.isEmpty()) {
@@ -448,7 +451,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 listaOperandosGruposConceptosModificar.clear();
             }
 
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaProcesos = null;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosOperandosGruposConceptos");
@@ -462,7 +465,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
-        System.out.println("Valor k: " + k);
+        log.info("Valor k: " + k);
         index = -1;
         secRegistro = null;
     }
@@ -480,7 +483,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
     //CTRL + F11 ACTIVAR/DESACTIVAR
     public void activarCtrlF11() {
         if (bandera == 0) {
-            System.out.println("Activa 1");
+            log.info("Activa 1");
             //Tabla Vigencias OperandosGruposConceptos
             oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
             oOperando.setFilterStyle("width: 85% !important;");
@@ -492,7 +495,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             bandera = 1;
 
         } else if (bandera == 1) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
             oOperando.setFilterStyle("display: none; visibility: hidden;");
             oGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oGrupo");
@@ -508,7 +511,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
     public void salir() {
         limpiarListasValor();
         if (bandera == 1) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
             oOperando.setFilterStyle("display: none; visibility: hidden;");
             oGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oGrupo");
@@ -535,7 +538,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
     //CANCELAR MODIFICACIONES
     public void cancelarModificacion() {
         if (bandera == 1) {
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
             oOperando.setFilterStyle("display: none; visibility: hidden;");
             oGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oGrupo");
@@ -670,7 +673,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         if (pasa == 0) {
             if (bandera == 1) {
                 //SOLUCIONES NODOS EMPLEADO
-                System.out.println("Desactiva 1");
+                log.info("Desactiva 1");
                 oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
                 oOperando.setFilterStyle("display: none; visibility: hidden;");
                 oGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oGrupo");
@@ -718,7 +721,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         }
         if (bandera == 1) {
             //SOLUCIONES NODOS EMPLEADO
-            System.out.println("Desactiva 1");
+            log.info("Desactiva 1");
             oOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oOperando");
             oOperando.setFilterStyle("display: none; visibility: hidden;");
             oGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperandosGruposConceptos:oGrupo");
@@ -741,7 +744,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
     //DUPLICAR VIGENCIAS RETENCIONES/RETENCIONES
     public void duplicarE() {
         if (index >= 0) {
-            System.out.println("Entra Duplicar Detalle Embargo");
+            log.info("Entra Duplicar Detalle Embargo");
 
             duplicarOperando = new OperandosGruposConceptos();
             m++;
@@ -778,7 +781,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 editarOperandosGruposConceptos = filtradoListaOperandosGruposConceptos.get(index);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarOperando");
                 RequestContext.getCurrentInstance().execute("PF('editarOperando').show()");
@@ -976,7 +979,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         if (!listaOperandosGruposConceptos.isEmpty()) {
             if (secRegistro != null) {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "OPERANDOSGRUPOSCONCEPTOS");
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {

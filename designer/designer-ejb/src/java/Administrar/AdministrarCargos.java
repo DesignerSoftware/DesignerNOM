@@ -31,9 +31,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarCargos implements AdministrarCargosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCargos.class);
 
    @EJB
    PersistenciaCargosInterface persistenciaCargos;
@@ -74,7 +77,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
       try {
          return persistenciaCargos.consultarCargos(em);
       } catch (Exception e) {
-         System.out.println("Error consultarCargos Admi : " + e.toString());
+         log.warn("Error consultarCargos Admi : " + e.toString());
          return null;
       }
    }
@@ -95,7 +98,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<Cargos> lista = persistenciaCargos.buscarCargosPorSecuenciaEmpresa(em, secEmpresa);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaCargosParaEmpresa Admi : " + e.toString());
+         log.warn("Error listaCargosParaEmpresa Admi : " + e.toString());
          return null;
       }
    }
@@ -116,7 +119,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaCargos.crear(em, listaC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearCargos Admi : " + e.toString());
+         log.warn("Error crearCargos Admi : " + e.toString());
       }
    }
 
@@ -136,7 +139,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaCargos.editar(em, listaC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarCargos Admi : " + e.toString());
+         log.warn("Error editarCargos Admi : " + e.toString());
       }
    }
 
@@ -156,7 +159,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaCargos.borrar(em, listaC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarCargos Admi : " + e.toString());
+         log.warn("Error borrarCargos Admi : " + e.toString());
       }
    }
 
@@ -166,7 +169,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<SueldosMercados> lista = persistenciaSueldosMercados.buscarSueldosMercadosPorSecuenciaCargo(em, secCargo);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaSueldosMercadosParaCargo Admi : " + e.toString());
+         log.warn("Error listaSueldosMercadosParaCargo Admi : " + e.toString());
          return null;
       }
    }
@@ -178,7 +181,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaSueldosMercados.crear(em, listaSM.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearSueldosMercados Admi : " + e.toString());
+         log.warn("Error crearSueldosMercados Admi : " + e.toString());
       }
    }
 
@@ -189,7 +192,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaSueldosMercados.editar(em, listaSM.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarSueldosMercados Admi : " + e.toString());
+         log.warn("Error editarSueldosMercados Admi : " + e.toString());
       }
    }
 
@@ -200,7 +203,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaSueldosMercados.borrar(em, listaSM.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarSueldosMercados Admi : " + e.toString());
+         log.warn("Error borrarSueldosMercados Admi : " + e.toString());
       }
    }
 
@@ -210,7 +213,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<Competenciascargos> lista = persistenciaCompetenciasCargos.buscarCompetenciasCargosParaSecuenciaCargo(em, secCargo);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaCompetenciasCargosParaCargo Admi : " + e.toString());
+         log.warn("Error listaCompetenciasCargosParaCargo Admi : " + e.toString());
          return null;
       }
    }
@@ -222,7 +225,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaCompetenciasCargos.crear(em, listaCC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearCompetenciasCargos Admi : " + e.toString());
+         log.warn("Error crearCompetenciasCargos Admi : " + e.toString());
       }
    }
 
@@ -233,7 +236,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaCompetenciasCargos.editar(em, listaCC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarCompetenciasCargos Admi : " + e.toString());
+         log.warn("Error editarCompetenciasCargos Admi : " + e.toString());
       }
    }
 
@@ -244,7 +247,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaCompetenciasCargos.borrar(em, listaCC.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarCompetenciasCargos Admi : " + e.toString());
+         log.warn("Error borrarCompetenciasCargos Admi : " + e.toString());
       }
    }
 
@@ -254,7 +257,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<TiposDetalles> lista = persistenciaTiposDetalles.buscarTiposDetalles(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaTiposDetalles Admi : " + e.toString());
+         log.warn("Error listaTiposDetalles Admi : " + e.toString());
          return null;
       }
    }
@@ -266,7 +269,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaTiposDetalles.crear(em, listaTD.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearTiposDetalles Admi : " + e.toString());
+         log.warn("Error crearTiposDetalles Admi : " + e.toString());
       }
    }
 
@@ -277,7 +280,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaTiposDetalles.editar(em, listaTD.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarTiposDetalles Admi : " + e.toString());
+         log.warn("Error editarTiposDetalles Admi : " + e.toString());
       }
    }
 
@@ -288,7 +291,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
             persistenciaTiposDetalles.borrar(em, listaTD.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarTiposDetalles Admi : " + e.toString());
+         log.warn("Error borrarTiposDetalles Admi : " + e.toString());
       }
    }
 
@@ -298,7 +301,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          DetallesCargos detalle = persistenciaDetallesCargos.buscarDetalleCargoParaSecuenciaTipoDetalle(em, secTipoDetalle, secCargo);
          return detalle;
       } catch (Exception e) {
-         System.out.println("Error detalleDelCargo Admi : " + e.toString());
+         log.warn("Error detalleDelCargo Admi : " + e.toString());
          return null;
       }
    }
@@ -308,7 +311,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
       try {
          persistenciaDetallesCargos.crear(em, detalleCargo);
       } catch (Exception e) {
-         System.out.println("Error crearDetalleCargo Admi : " + e.toString());
+         log.warn("Error crearDetalleCargo Admi : " + e.toString());
       }
    }
 
@@ -317,7 +320,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
       try {
          persistenciaDetallesCargos.editar(em, detalleCargo);
       } catch (Exception e) {
-         System.out.println("Error editarDetalleCargo Admi : " + e.toString());
+         log.warn("Error editarDetalleCargo Admi : " + e.toString());
       }
    }
 
@@ -326,7 +329,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
       try {
          persistenciaDetallesCargos.borrar(em, detalleCargo);
       } catch (Exception e) {
-         System.out.println("Error borrarDetalleCargo Admi : " + e.toString());
+         log.warn("Error borrarDetalleCargo Admi : " + e.toString());
       }
    }
 
@@ -336,7 +339,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<DetallesCargos> detalle = persistenciaDetallesCargos.buscarDetallesCargosDeCargoSecuencia(em, secCargo);
          return detalle.size();
       } catch (Exception e) {
-         System.out.println("Error validarExistenciaCargoDetalleCargos Admi : " + e.toString());
+         log.warn("Error validarExistenciaCargoDetalleCargos Admi : " + e.toString());
          return -1;
       }
    }
@@ -347,7 +350,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<GruposSalariales> lista = persistenciaGruposSalariales.buscarGruposSalariales(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovGruposSalariales Admi : " + e.toString());
+         log.warn("Error lovGruposSalariales Admi : " + e.toString());
          return null;
       }
    }
@@ -358,7 +361,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<GruposViaticos> lista = persistenciaGruposViaticos.buscarGruposViaticos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovGruposViaticos Admi : " + e.toString());
+         log.warn("Error lovGruposViaticos Admi : " + e.toString());
          return null;
       }
    }
@@ -369,7 +372,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<ProcesosProductivos> lista = persistenciaProcesosProductivos.consultarProcesosProductivos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovProcesosProductivos Admi : " + e.toString());
+         log.warn("Error lovProcesosProductivos Admi : " + e.toString());
          return null;
       }
    }
@@ -380,7 +383,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<TiposEmpresas> lista = persistenciaTiposEmpresas.buscarTiposEmpresas(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovTiposEmpresas Admi : " + e.toString());
+         log.warn("Error lovTiposEmpresas Admi : " + e.toString());
          return null;
       }
    }
@@ -391,7 +394,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<EvalCompetencias> lista = persistenciaEvalCompetencias.buscarEvalCompetencias(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEvalCompetencias Admi : " + e.toString());
+         log.warn("Error lovEvalCompetencias Admi : " + e.toString());
          return null;
       }
    }
@@ -402,7 +405,7 @@ public class AdministrarCargos implements AdministrarCargosInterface {
          List<Enfoques> lista = persistenciaEnfoques.buscarEnfoques(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEnfoques Admi : " + e.toString());
+         log.warn("Error lovEnfoques Admi : " + e.toString());
          return null;
       }
    }

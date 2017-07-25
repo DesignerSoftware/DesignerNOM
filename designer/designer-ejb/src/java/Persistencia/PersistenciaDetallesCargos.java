@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDetallesCargos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +39,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          em.persist(detallesCargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          em.merge(detallesCargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.editar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +75,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
       }
    }
 
@@ -85,7 +88,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          List<DetallesCargos> detallesCargos = query.getResultList();
          return detallesCargos;
       } catch (Exception e) {
-         System.out.println("Error buscarDetallesCargos PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetallesCargos PersistenciaDetallesCargos : " + e.toString());
          return null;
       }
    }
@@ -100,7 +103,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          DetallesCargos detallesCargos = (DetallesCargos) query.getSingleResult();
          return detallesCargos;
       } catch (Exception e) {
-         System.out.println("Error buscarDetallesCargosSecuencia PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetallesCargosSecuencia PersistenciaDetallesCargos : " + e.toString());
          DetallesCargos detallesCargos = null;
          return detallesCargos;
       }
@@ -117,7 +120,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          DetallesCargos detallesCargos = (DetallesCargos) query.getSingleResult();
          return detallesCargos;
       } catch (Exception e) {
-         System.out.println("Error buscarDetalleCargoParaSecuenciaTipoDetalle PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetalleCargoParaSecuenciaTipoDetalle PersistenciaDetallesCargos : " + e.toString());
          return null;
       }
    }
@@ -132,7 +135,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          List<DetallesCargos> detallesCargos = query.getResultList();
          return detallesCargos;
       } catch (Exception e) {
-         System.out.println("Error buscarDetallesCargosDeCargoSecuencia PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetallesCargosDeCargoSecuencia PersistenciaDetallesCargos : " + e.toString());
          List<DetallesCargos> detallesCargos = null;
          return detallesCargos;
       }

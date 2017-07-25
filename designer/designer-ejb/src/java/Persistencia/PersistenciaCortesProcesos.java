@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -30,6 +31,8 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 @Stateless
 public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaCortesProcesos.class);
+
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
     */
@@ -45,7 +48,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCortesProcesos.crear: " + e);
+         log.error("Error PersistenciaCortesProcesos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +65,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          em.merge(corteProceso);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCortesProcesos.editar: " + e);
+         log.error("Error PersistenciaCortesProcesos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -82,7 +85,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCortesProcesos.borrar: " + e);
+         log.error("Error PersistenciaCortesProcesos.borrar: " + e);
       }
    }
 
@@ -110,7 +113,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          List<CortesProcesos> listCortesProcesos = query.getResultList();
          return listCortesProcesos;
       } catch (Exception e) {
-         System.out.println("Error: (PersistenciaCortesProcesos.cortesProcesosComprobante)" + e);
+         log.error("Error: (PersistenciaCortesProcesos.cortesProcesosComprobante)" + e);
          return null;
       }
    }
@@ -133,7 +136,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          Integer conteoLiquidacionCerradas = conteo.intValueExact();
          return conteoLiquidacionCerradas;
       } catch (Exception e) {
-         System.out.println("Error contarLiquidacionesCerradas. " + e);
+         log.error("Error contarLiquidacionesCerradas. " + e);
          return null;
       }
    }
@@ -153,7 +156,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          tx.commit();
          return "BIEN";
       } catch (Exception e) {
-         System.out.println("Error cerrarLiquidacion. " + e.toString());
+         log.error("Error cerrarLiquidacion. " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -171,15 +174,15 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         System.out.println(this.getClass().getName() + " Entro en eliminarCPconUndoCierre()");
-         System.out.println("proceso : " + proceso);
-         System.out.println("rfEmpleado : " + rfEmpleado);
-         System.out.println("fechaCorte : " + fechaCorte);
+         log.error(this.getClass().getName() + " Entro en eliminarCPconUndoCierre()");
+         log.error("proceso : " + proceso);
+         log.error("rfEmpleado : " + rfEmpleado);
+         log.error("fechaCorte : " + fechaCorte);
          DateFormat formatoF = new SimpleDateFormat("ddMMyyyy");
          String fecha = formatoF.format(fechaCorte);
-         System.out.println("fecha : " + fecha);
+         log.error("fecha : " + fecha);
          String sqlQuery = "call CORTESPROCESOS_PKG.UndoCierre(" + proceso + ", " + rfEmpleado + ", To_date( '" + fecha + "', 'ddMMyyyy'))";
-         System.out.println("sqlQuery : " + sqlQuery);
+         log.error("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery);
 //            query.setParameter(1, proceso);
 //            query.setParameter(2, rfEmpleado);
@@ -188,7 +191,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println(this.getClass().getName() + " Error eliminarCPconUndoCierre() : " + e);
+         log.error(this.getClass().getName() + " Error eliminarCPconUndoCierre() : " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -212,7 +215,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          CortesProcesos actualComprobante = (CortesProcesos) query.getSingleResult();
          return actualComprobante;
       } catch (Exception e) {
-         System.out.println("Error: (PersistenciaCortesProcesos.buscarComprobante)" + e);
+         log.error("Error: (PersistenciaCortesProcesos.buscarComprobante)" + e);
          return null;
       }
    }

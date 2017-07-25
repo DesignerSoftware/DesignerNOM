@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterface {
+
+   private static Logger log = Logger.getLogger(PersitenciaTiposExamenes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +40,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.merge(tiposExamenes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersitenciaTiposExamenes.crear: " + e.getMessage());
+            log.error("Error PersitenciaTiposExamenes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +55,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.merge(tiposExamenes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersitenciaTiposExamenes.editar: " + e.getMessage());
+            log.error("Error PersitenciaTiposExamenes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +70,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.remove(em.merge(tiposExamenes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersitenciaTiposExamenes.borrar: " + e.getMessage());
+            log.error("Error PersitenciaTiposExamenes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +83,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.clear();
             return em.find(TiposExamenes.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersitenciaTiposExamenes.buscarTipoExamen()" + e.getMessage());
+            log.error("Persistencia.PersitenciaTiposExamenes.buscarTipoExamen()" + e.getMessage());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             List<TiposExamenes> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersitenciaTiposExamenes.buscarTiposExamenes()" + e.getMessage());
+            log.error("Persistencia.PersitenciaTiposExamenes.buscarTiposExamenes()" + e.getMessage());
             return null;
         }
     }
@@ -109,10 +112,10 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador contadorTiposExamenesCargos persistencia " + retorno);
+            log.error("Contador contadorTiposExamenesCargos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposExamenes contadorTiposExamenesCargos. " + e.getMessage());
+            log.error("Error PersistenciaTiposExamenes contadorTiposExamenesCargos. " + e.getMessage());
             return retorno;
         }
     }
@@ -128,7 +131,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposExamenes   contadorVigenciasExamenesMedicos. " + e.getMessage());
+            log.error("Error PersistenciaTiposExamenes   contadorVigenciasExamenesMedicos. " + e.getMessage());
             return retorno;
         }
     }

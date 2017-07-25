@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarFestivos implements AdministrarFestivosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFestivos.class);
 
     @EJB
     PersistenciaPaisesInterface persistenciaPaises;
@@ -45,21 +48,21 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
 
     public void modificarFestivos(List<Festivos> listaFestivos) {
         for (int i = 0; i < listaFestivos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaFestivos.editar(em,listaFestivos.get(i));
         }
     }
 
     public void borrarFestivos(List<Festivos> listaFestivos) {
         for (int i = 0; i < listaFestivos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaFestivos.borrar(em,listaFestivos.get(i));
         }
     }
 
     public void crearFestivos(List<Festivos> listaFestivos) {
         for (int i = 0; i < listaFestivos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaFestivos.crear(em,listaFestivos.get(i));
         }
     }

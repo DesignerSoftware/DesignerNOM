@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposTallas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposTallas.class);
 
    @EJB
    AdministrarTiposTallasInterface administrarTiposTallas;
@@ -86,14 +89,14 @@ public class ControlTiposTallas implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposTallas PostConstruct ");
+         log.info("ControlTiposTallas PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposTallas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -230,7 +233,7 @@ public class ControlTiposTallas implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposTallas:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposTallas");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 330;
@@ -261,7 +264,7 @@ public class ControlTiposTallas implements Serializable {
 
    public void borrandoTiposTallas() {
       if (tiposTallasSeleccionado != null) {
-         System.out.println("Entro a borrandoTiposTallas");
+         log.info("Entro a borrandoTiposTallas");
          if (!modificarTiposTallas.isEmpty() && modificarTiposTallas.contains(tiposTallasSeleccionado)) {
             int modIndex = modificarTiposTallas.indexOf(tiposTallasSeleccionado);
             modificarTiposTallas.remove(modIndex);
@@ -302,7 +305,7 @@ public class ControlTiposTallas implements Serializable {
             contarElementosTipoTalla = new BigInteger("-1");
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposTallas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposTallas verificarBorrado ERROR " + e);
       }
    }
 
@@ -320,7 +323,7 @@ public class ControlTiposTallas implements Serializable {
 
    public void guardarTiposTallas() {
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposTallas");
+         log.info("Realizando guardarTiposTallas");
          if (!borrarTiposTallas.isEmpty()) {
             administrarTiposTallas.borrarTiposTallas(borrarTiposTallas);
             registrosBorrados = borrarTiposTallas.size();
@@ -396,7 +399,7 @@ public class ControlTiposTallas implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposTallas:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposTallas:descripcion");

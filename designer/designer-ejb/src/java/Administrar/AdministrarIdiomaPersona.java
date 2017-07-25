@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarIdiomaPersona.class);
 
     @EJB
     PersistenciaIdiomasPersonasInterface persistenciaIdiomasPersonas;
@@ -54,7 +57,7 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
                 persistenciaIdiomasPersonas.crear(em, listaID.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearIdiomarPersonas Admi : " + e.toString());
+            log.warn("Error crearIdiomarPersonas Admi : " + e.toString());
         }
     }
 
@@ -68,7 +71,7 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
                 persistenciaIdiomasPersonas.borrar(em, listaID.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearIdiomarPersonas Admi : " + e.toString());
+            log.warn("Error crearIdiomarPersonas Admi : " + e.toString());
         }
     }
 
@@ -82,7 +85,7 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
                 persistenciaIdiomasPersonas.editar(em, listaID.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearIdiomarPersonas Admi : " + e.toString());
+            log.warn("Error crearIdiomarPersonas Admi : " + e.toString());
         }
     }
 
@@ -92,7 +95,7 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
             List<IdiomasPersonas> lista = persistenciaIdiomasPersonas.idiomasPersona(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listIdiomasPersonas Admi : " + e.toString());
+            log.warn("Error listIdiomasPersonas Admi : " + e.toString());
             return null;
         }
     }
@@ -103,7 +106,7 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
             List<Idiomas> lista = persistenciaIdiomas.buscarIdiomas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lisIdiomas Admi : " + e.toString());
+            log.warn("Error lisIdiomas Admi : " + e.toString());
             return null;
         }
     }
@@ -113,7 +116,7 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
             Empleados empl = persistenciaEmpleado.buscarEmpleado(em, secuencia);
             return empl;
         }catch(Exception e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+            log.warn("Error empleadoActual Admi : "+e.toString());
             return null;
         }
     }

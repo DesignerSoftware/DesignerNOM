@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPreguntasKioscos.class);
 
     @EJB
     PersistenciaPreguntasKioscosInterface persistenciaPreguntasKioskos;
@@ -41,7 +44,7 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
                 persistenciaPreguntasKioskos.editar(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en modificarPreguntasKioskos admi : " + e.getMessage());
+            log.warn("error en modificarPreguntasKioskos admi : " + e.getMessage());
         }
     }
 
@@ -52,7 +55,7 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
                 persistenciaPreguntasKioskos.borrar(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en borrarPreguntasKioskos admi : " + e.getMessage());
+            log.warn("error en borrarPreguntasKioskos admi : " + e.getMessage());
         }
     }
 
@@ -63,7 +66,7 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
                 persistenciaPreguntasKioskos.crear(em, lista.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en crearPreguntasKioskos admi : " + e.getMessage());
+            log.warn("error en crearPreguntasKioskos admi : " + e.getMessage());
         }
     }
 
@@ -73,7 +76,7 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
             List<PreguntasKioskos> listPreguntasK = persistenciaPreguntasKioskos.consultarPreguntasKioskos(em);
             return listPreguntasK;
         } catch (Exception e) {
-            System.out.println("error en consultarPreguntasKioskos  admi : " + e.getMessage());
+            log.warn("error en consultarPreguntasKioskos  admi : " + e.getMessage());
             return null;
         }
     }
@@ -84,7 +87,7 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
             PreguntasKioskos preguntaK = persistenciaPreguntasKioskos.consultarPreguntaKiosko(em, secPreguntaKiosko);
             return preguntaK;
         } catch (Exception e) {
-            System.out.println("error en consultarPreguntasKiosko : " + e.getMessage());
+            log.warn("error en consultarPreguntasKiosko : " + e.getMessage());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
             BigInteger conteo = persistenciaPreguntasKioskos.contarPreguntasKioskos(em, secuencia);
             return conteo;
         } catch (Exception e) {
-            System.out.println("error en consultarPreguntasKiosko : " + e.getMessage());
+            log.warn("error en consultarPreguntasKiosko : " + e.getMessage());
             return null;
         }
     }

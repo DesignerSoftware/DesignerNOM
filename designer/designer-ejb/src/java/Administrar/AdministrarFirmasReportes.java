@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarFirmasReportes implements AdministrarFirmasReportesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFirmasReportes.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -65,29 +68,29 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
 
     public void modificarFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
         for (int i = 0; i < listaFirmasReportes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaFirmasReportes.editar(em,listaFirmasReportes.get(i));
         }
     }
 
     public void borrarFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
         for (int i = 0; i < listaFirmasReportes.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaFirmasReportes.borrar(em,listaFirmasReportes.get(i));
         }
     }
 
     public void crearFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
         for (int i = 0; i < listaFirmasReportes.size(); i++) {
-            System.out.println("Administrar Creando...");
-            System.out.println("--------------DUPLICAR------------------------");
-            System.out.println("CODIGO : " + listaFirmasReportes.get(i).getCodigo());
-            System.out.println("NOMBRE: " + listaFirmasReportes.get(i).getDescripcion());
-            System.out.println("EMPRESA: " + listaFirmasReportes.get(i).getEmpresa().getNombre());
-            System.out.println("SUBTITULO : " + listaFirmasReportes.get(i).getSubtitulofirma());
-            System.out.println("PERSONA : " + listaFirmasReportes.get(i).getPersonafirma().getNombre());
-            System.out.println("CARGO : " + listaFirmasReportes.get(i).getCargofirma().getNombre());
-            System.out.println("--------------DUPLICAR------------------------");
+            log.warn("Administrar Creando...");
+            log.warn("--------------DUPLICAR------------------------");
+            log.warn("CODIGO : " + listaFirmasReportes.get(i).getCodigo());
+            log.warn("NOMBRE: " + listaFirmasReportes.get(i).getDescripcion());
+            log.warn("EMPRESA: " + listaFirmasReportes.get(i).getEmpresa().getNombre());
+            log.warn("SUBTITULO : " + listaFirmasReportes.get(i).getSubtitulofirma());
+            log.warn("PERSONA : " + listaFirmasReportes.get(i).getPersonafirma().getNombre());
+            log.warn("CARGO : " + listaFirmasReportes.get(i).getCargofirma().getNombre());
+            log.warn("--------------DUPLICAR------------------------");
             persistenciaFirmasReportes.crear(em,listaFirmasReportes.get(i));
         }
     }

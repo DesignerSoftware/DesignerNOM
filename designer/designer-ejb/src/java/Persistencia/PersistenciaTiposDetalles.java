@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposDetalles.class);
 
     @Override
     public void crear(EntityManager em, TiposDetalles tiposDetalles) {
@@ -25,7 +27,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             em.persist(tiposDetalles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDetalles.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDetalles.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             em.merge(tiposDetalles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDetalles.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDetalles.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             em.remove(em.merge(tiposDetalles));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDetalles.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDetalles.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             List<TiposDetalles> tiposDetalles = query.getResultList();
             return tiposDetalles;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDetalles PersistenciaTiposDetalles : " + e.getMessage());
+            log.error("Error buscarTiposDetalles PersistenciaTiposDetalles : " + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             TiposDetalles tiposDetalles = (TiposDetalles) query.getSingleResult();
             return tiposDetalles;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDetallesSecuencia PersistenciaTiposDetalles : " + e.getMessage());
+            log.error("Error buscarTiposDetallesSecuencia PersistenciaTiposDetalles : " + e.getMessage());
             TiposDetalles tiposDetalles = null;
             return tiposDetalles;
         }

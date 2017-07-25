@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -33,6 +34,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlBancos")
 @SessionScoped
 public class ControlBancos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlBancos.class);
 
    @EJB
    AdministrarBancosInterface administrarBancos;
@@ -94,8 +97,8 @@ public class ControlBancos implements Serializable {
          administrarBancos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -376,9 +379,9 @@ public class ControlBancos implements Serializable {
    public void guardarCambiosBancos() {
       try {
          if (guardado == false) {
-            System.out.println("tamaño lista crear : " + listaBancosCrear.size());
-            System.out.println("tamaño lista borrar : " + listaBancosBorrar.size());
-            System.out.println("tamaño lista modificar : " + listaBancosModificar.size());
+            log.info("tamaño lista crear : " + listaBancosCrear.size());
+            log.info("tamaño lista borrar : " + listaBancosBorrar.size());
+            log.info("tamaño lista modificar : " + listaBancosModificar.size());
             if (!listaBancosBorrar.isEmpty()) {
                administrarBancos.borrarBanco(listaBancosBorrar);
                registrosBorrados = listaBancosBorrar.size();
@@ -408,7 +411,7 @@ public class ControlBancos implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosBancos");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -418,9 +421,9 @@ public class ControlBancos implements Serializable {
    public void guardarCambiosBancosSalir() {
       try {
          if (guardado == false) {
-            System.out.println("tamaño lista crear : " + listaBancosCrear.size());
-            System.out.println("tamaño lista borrar : " + listaBancosBorrar.size());
-            System.out.println("tamaño lista modificar : " + listaBancosModificar.size());
+            log.info("tamaño lista crear : " + listaBancosCrear.size());
+            log.info("tamaño lista borrar : " + listaBancosBorrar.size());
+            log.info("tamaño lista modificar : " + listaBancosModificar.size());
             if (!listaBancosBorrar.isEmpty()) {
                administrarBancos.borrarBanco(listaBancosBorrar);
                registrosBorrados = listaBancosBorrar.size();
@@ -450,7 +453,7 @@ public class ControlBancos implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosBancos");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -681,7 +684,7 @@ public class ControlBancos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (bancoSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(bancoSeleccionado.getSecuencia(), "BANCOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -707,7 +710,7 @@ public class ControlBancos implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposCursos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposCursos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaEmpresasOpcionesKioskosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresasOpcionesKioskosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEmpresasOpcionesKioskos.class);
+
     @Override
     public void crear(EntityManager em, EmpresasOpcionesKioskos empresaok) {
         em.clear();
@@ -29,7 +32,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             em.merge(empresaok);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
+            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +48,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             em.merge(empresaok);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
+            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +64,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             em.remove(em.merge(empresaok));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
+            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +80,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             List< EmpresasOpcionesKioskos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos : " + e.getMessage());
+            log.error("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos : " + e.getMessage());
             return null;
         }
     }

@@ -53,7 +53,6 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaCargosInterface;
 import InterfacePersistencia.PersistenciaCiudadesInterface;
 import InterfacePersistencia.PersistenciaComprobantesInterface;
-import InterfacePersistencia.PersistenciaContratosInterface;
 import InterfacePersistencia.PersistenciaCortesProcesosInterface;
 import InterfacePersistencia.PersistenciaDetallesEmpresasInterface;
 import InterfacePersistencia.PersistenciaDireccionesInterface;
@@ -68,7 +67,6 @@ import InterfacePersistencia.PersistenciaMotivosCambiosCargosInterface;
 import InterfacePersistencia.PersistenciaMotivosCambiosSueldosInterface;
 import InterfacePersistencia.PersistenciaMotivosContratosInterface;
 import InterfacePersistencia.PersistenciaMotivosLocalizacionesInterface;
-import InterfacePersistencia.PersistenciaNormasLaboralesInterface;
 import InterfacePersistencia.PersistenciaPapelesInterface;
 import InterfacePersistencia.PersistenciaPeriodicidadesInterface;
 import InterfacePersistencia.PersistenciaPersonasInterface;
@@ -80,10 +78,8 @@ import InterfacePersistencia.PersistenciaSucursalesInterface;
 import InterfacePersistencia.PersistenciaTelefonosInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaTercerosSucursalesInterface;
-import InterfacePersistencia.PersistenciaTiposContratosInterface;
 import InterfacePersistencia.PersistenciaTiposDocumentosInterface;
 import InterfacePersistencia.PersistenciaTiposEntidadesInterface;
-import InterfacePersistencia.PersistenciaTiposSueldosInterface;
 import InterfacePersistencia.PersistenciaTiposTelefonosInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaUbicacionesGeograficasInterface;
@@ -111,6 +107,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -119,6 +116,8 @@ import javax.persistence.EntityManager;
 @Local
 @Stateful
 public class AdministrarPersonaIndividual implements AdministrarPersonaIndividualInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPersonaIndividual.class);
 
    @EJB
    PersistenciaEmpresasInterface persistenciaEmpresas;
@@ -241,7 +240,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEmpresas AdministrarPersonaIndividualPersona : " + e.toString());
+         log.warn("Error lovEmpresas AdministrarPersonaIndividualPersona : " + e.toString());
          return null;
       }
    }
@@ -264,7 +263,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<TiposDocumentos> lista = persistenciaTiposDocumentos.consultarTiposDocumentos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovTiposDocumentos Admi : " + e.toString());
+         log.warn("Error lovTiposDocumentos Admi : " + e.toString());
          return null;
       }
    }
@@ -275,7 +274,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Ciudades> lista = persistenciaCiudades.consultarCiudades(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCiudades Admi : " + e.toString());
+         log.warn("Error lovCiudades Admi : " + e.toString());
          return null;
       }
    }
@@ -286,7 +285,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Cargos> lista = persistenciaCargos.consultarCargos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCargos Admi : " + e.toString());
+         log.warn("Error lovCargos Admi : " + e.toString());
          return null;
       }
    }
@@ -297,7 +296,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Cargos> lista = persistenciaCargos.buscarCargosPorSecuenciaEmpresa(em, secEmpresa);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCargos Admi : " + e.toString());
+         log.warn("Error lovCargos Admi : " + e.toString());
          return null;
       }
    }
@@ -308,7 +307,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<MotivosCambiosCargos> lista = persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovMotivosCambiosCargos Admi : " + e.toString());
+         log.warn("Error lovMotivosCambiosCargos Admi : " + e.toString());
          return null;
       }
    }
@@ -319,7 +318,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPorEmpresaFechaIngreso(em, secEmpresa, fechaIngreso);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEstructurasModCargos Admi : " + e.toString());
+         log.warn("Error lovEstructurasModCargos Admi : " + e.toString());
          return null;
       }
    }
@@ -330,7 +329,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPorEmpresa(em, secEmpresa);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEstructurasModCentroCosto Admi : " + e.toString());
+         log.warn("Error lovEstructurasModCentroCosto Admi : " + e.toString());
          return null;
       }
    }
@@ -341,7 +340,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<MotivosLocalizaciones> lista = persistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovMotivosLocalizaciones Admi : " + e.toString());
+         log.warn("Error lovMotivosLocalizaciones Admi : " + e.toString());
          return null;
       }
    }
@@ -352,7 +351,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<UbicacionesGeograficas> lista = persistenciaUbicacionesGeograficas.consultarUbicacionesGeograficasPorEmpresa(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovUbicacionesGeograficas Admi : " + e.toString());
+         log.warn("Error lovUbicacionesGeograficas Admi : " + e.toString());
          return null;
       }
    }
@@ -363,7 +362,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<JornadasLaborales> lista = persistenciaJornadasLaborales.buscarJornadasLaborales(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovJornadasLaborales Admi : " + e.toString());
+         log.warn("Error lovJornadasLaborales Admi : " + e.toString());
          return null;
       }
    }
@@ -374,7 +373,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<MotivosContratos> lista = persistenciaMotivosContratos.buscarMotivosContratos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovMotivosContratos Admi : " + e.toString());
+         log.warn("Error lovMotivosContratos Admi : " + e.toString());
          return null;
       }
    }
@@ -385,7 +384,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error AdministrarP..I.. lovTiposTrabajadores() : " + e.toString());
+         log.error("Error AdministrarP..I.. lovTiposTrabajadores() : " + e.toString());
          return null;
       }
    }
@@ -396,7 +395,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<TiposSueldos> lista = PersistenciaPlantillasTT.consultarTiposSueldosValidos(em, secTT);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error lovTiposSueldosValidos : " + e.toString());
+         log.error("Error lovTiposSueldosValidos : " + e.toString());
          return null;
       }
    }
@@ -407,7 +406,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Contratos> lista = PersistenciaPlantillasTT.consultarContratosValidos(em, secTT);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error lovContratosValidos : " + e.toString());
+         log.error("Error lovContratosValidos : " + e.toString());
          return null;
       }
    }
@@ -418,7 +417,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<NormasLaborales> lista = PersistenciaPlantillasTT.consultarNormasLaboralesValidas(em, secTT);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error lovNormasLaboralesValidos : " + e.toString());
+         log.error("Error lovNormasLaboralesValidos : " + e.toString());
          return null;
       }
    }
@@ -429,7 +428,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<ReformasLaborales> lista = PersistenciaPlantillasTT.consultarReformasLaboralesValidas(em, secTT);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error lovReformasLaboralesValidos : " + e.toString());
+         log.error("Error lovReformasLaboralesValidos : " + e.toString());
          return null;
       }
    }
@@ -440,7 +439,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<TiposContratos> lista = PersistenciaPlantillasTT.consultarTiposContratosValidos(em, secTT);
          return lista;
       } catch (Exception e) {
-         System.err.println("Error lovTiposContratosValidos : " + e.toString());
+         log.error("Error lovTiposContratosValidos : " + e.toString());
          return null;
       }
    }
@@ -451,7 +450,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<MotivosCambiosSueldos> lista = persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovMotivosCambiosSueldos Admi : " + e.toString());
+         log.warn("Error lovMotivosCambiosSueldos Admi : " + e.toString());
          return null;
       }
    }
@@ -462,7 +461,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Unidades> lista = persistenciaUnidades.consultarUnidades(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovUnidades Admi : " + e.toString());
+         log.warn("Error lovUnidades Admi : " + e.toString());
          return null;
       }
    }
@@ -473,7 +472,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Periodicidades> lista = persistenciaPeriodicidades.consultarPeriodicidades(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovPeriodicidades Admi : " + e.toString());
+         log.warn("Error lovPeriodicidades Admi : " + e.toString());
          return null;
       }
    }
@@ -484,7 +483,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Sucursales> lista = persistenciaSucursales.consultarSucursales(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovSucursales Admi : " + e.toString());
+         log.warn("Error lovSucursales Admi : " + e.toString());
          return null;
       }
    }
@@ -495,7 +494,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<MetodosPagos> lista = persistenciaMetodosPagos.buscarMetodosPagos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovMetodosPagos Admi : " + e.toString());
+         log.warn("Error lovMetodosPagos Admi : " + e.toString());
          return null;
       }
    }
@@ -506,7 +505,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<TercerosSucursales> lista = persistenciaTercerosSucursales.buscarTercerosSucursalesPorEmpresa(em, secuencia);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovTercerosSucursales Admi : " + e.toString());
+         log.warn("Error lovTercerosSucursales Admi : " + e.toString());
          return null;
       }
    }
@@ -517,7 +516,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<EstadosCiviles> lista = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEstadosCiviles Admi : " + e.toString());
+         log.warn("Error lovEstadosCiviles Admi : " + e.toString());
          return null;
       }
    }
@@ -528,7 +527,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<TiposTelefonos> lista = persistenciaTiposTelefonos.tiposTelefonos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovTiposTelefonos Admi : " + e.toString());
+         log.warn("Error lovTiposTelefonos Admi : " + e.toString());
          return null;
       }
    }
@@ -539,7 +538,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Empleados> lista = persistenciaEmpleado.buscarEmpleados(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEmpleados Admi : " + e.toString());
+         log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;
       }
    }
@@ -549,7 +548,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          persistenciaPersonas.crear(em, persona);
       } catch (Exception e) {
-         System.out.println("Error crearPersona Admi : " + e.toString());
+         log.warn("Error crearPersona Admi : " + e.toString());
       }
    }
 
@@ -559,7 +558,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          List<Papeles> lista = persistenciaPapeles.consultarPapeles(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovPapeles Admi : " + e.toString());
+         log.warn("Error lovPapeles Admi : " + e.toString());
          return null;
       }
    }
@@ -570,7 +569,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          TiposEntidades entidad = persistenciaTiposEntidades.buscarTipoEntidadPorCodigo(em, codigo);
          return entidad;
       } catch (Exception e) {
-         System.out.println("Error buscarTipoEntidadPorCodigo Admi : " + e.toString());
+         log.warn("Error buscarTipoEntidadPorCodigo Admi : " + e.toString());
          return null;
       }
    }
@@ -581,7 +580,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          String codigo = persistenciaTerceros.buscarCodigoSSPorSecuenciaTercero(em, secuencia);
          return codigo;
       } catch (Exception e) {
-         System.out.println("Error buscarCodigoSSTercero Admi : " + e.toString());
+         log.warn("Error buscarCodigoSSTercero Admi : " + e.toString());
          return null;
       }
    }
@@ -592,7 +591,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          String codigo = persistenciaTerceros.buscarCodigoSPPorSecuenciaTercero(em, secuencia);
          return codigo;
       } catch (Exception e) {
-         System.out.println("Error buscarCodigoSPTercero Admi : " + e.toString());
+         log.warn("Error buscarCodigoSPTercero Admi : " + e.toString());
          return null;
       }
    }
@@ -603,7 +602,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          String codigo = persistenciaTerceros.buscarCodigoSCPorSecuenciaTercero(em, secuencia);
          return codigo;
       } catch (Exception e) {
-         System.out.println("Error buscarCodigoSCTercero Admi : " + e.toString());
+         log.warn("Error buscarCodigoSCTercero Admi : " + e.toString());
          return null;
       }
    }
@@ -615,7 +614,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          BigInteger valor = persistenciaEmpresas.calcularControlEmpleadosEmpresa(em, secuencia);
          return valor;
       } catch (Exception e) {
-         System.out.println("Error calcularNumeroEmpleadosEmpresa Admi : " + e.toString());
+         log.warn("Error calcularNumeroEmpleadosEmpresa Admi : " + e.toString());
          return null;
       }
    }
@@ -627,7 +626,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          BigInteger valor = persistenciaEmpresas.obtenerMaximoEmpleadosEmpresa(em, secuencia);
          return valor;
       } catch (Exception e) {
-         System.out.println("Error obtenerMaximoEmpleadosEmpresa Admi : " + e.toString());
+         log.warn("Error obtenerMaximoEmpleadosEmpresa Admi : " + e.toString());
          return null;
       }
    }
@@ -637,7 +636,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          Empleados empl = persistenciaEmpleado.buscarEmpleadoPorCodigoyEmpresa(em, codigo, empresa);
          return empl;
       } catch (Exception e) {
-         System.out.println("Error buscarEmpleadoPorCodigoyEmpresa Admi : " + e.toString());
+         log.warn("Error buscarEmpleadoPorCodigoyEmpresa Admi : " + e.toString());
          return null;
       }
    }
@@ -648,7 +647,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          Personas persona = persistenciaPersonas.buscarPersonaPorNumeroDocumento(em, numeroDocumento);
          return persona;
       } catch (Exception e) {
-         System.out.println("Error buscarPersonaPorNumeroDocumento Admi : " + e.toString());
+         log.warn("Error buscarPersonaPorNumeroDocumento Admi : " + e.toString());
          return null;
       }
    }
@@ -659,7 +658,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          String variable = persistenciaGenerales.obtenerPreValidadContabilidad(em);
          return variable;
       } catch (Exception e) {
-         System.out.println("Error obtenerPreValidadContabilidad Admi : " + e.toString());
+         log.warn("Error obtenerPreValidadContabilidad Admi : " + e.toString());
          return null;
       }
    }
@@ -670,7 +669,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          String variable = persistenciaGenerales.obtenerPreValidaBloqueAIngreso(em);
          return variable;
       } catch (Exception e) {
-         System.out.println("Error obtenerPreValidaBloqueAIngreso Admi : " + e.toString());
+         log.warn("Error obtenerPreValidaBloqueAIngreso Admi : " + e.toString());
          return null;
       }
    }
@@ -681,7 +680,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          VWValidaBancos valida = persistenciaVWValidaBancos.validarDocumentoVWValidaBancos(em, documento);
          return valida;
       } catch (Exception e) {
-         System.out.println("Error validarCodigoPrimarioVWValidaBancos Admi : " + e.toString());
+         log.warn("Error validarCodigoPrimarioVWValidaBancos Admi : " + e.toString());
          return null;
       }
    }
@@ -696,7 +695,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          }
          return validar;
       } catch (Exception e) {
-         System.out.println("Error validarTipoTrabajadorReformaLaboral Admi : " + e.toString());
+         log.warn("Error validarTipoTrabajadorReformaLaboral Admi : " + e.toString());
          return " ";
       }
    }
@@ -711,7 +710,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          }
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error validarTipoTrabajadorTipoSueldo Admi : " + e.toString());
+         log.warn("Error validarTipoTrabajadorTipoSueldo Admi : " + e.toString());
          return " ";
       }
    }
@@ -726,7 +725,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          }
          return validar;
       } catch (Exception e) {
-         System.out.println("Error validarTipoTrabajadorTipoContrato Admi : " + e.toString());
+         log.warn("Error validarTipoTrabajadorTipoContrato Admi : " + e.toString());
          return " ";
       }
    }
@@ -741,7 +740,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          }
          return validar;
       } catch (Exception e) {
-         System.out.println("Error validarTipoTrabajadorNormaLaboral Admi : " + e.toString());
+         log.warn("Error validarTipoTrabajadorNormaLaboral Admi : " + e.toString());
          return " ";
       }
    }
@@ -756,7 +755,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          }
          return validar;
       } catch (Exception e) {
-         System.out.println("Error validarTipoTrabajadorContrato Admi : " + e.toString());
+         log.warn("Error validarTipoTrabajadorContrato Admi : " + e.toString());
          return " ";
       }
    }
@@ -768,7 +767,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          String variable = persistenciaReformasLaborales.obtenerCheckIntegralReformaLaboral(em, reformaLaboral);
          return variable;
       } catch (Exception e) {
-         System.out.println("Error obtenerCheckIntegralReformaLaboral Admi : " + e.toString());
+         log.warn("Error obtenerCheckIntegralReformaLaboral Admi : " + e.toString());
          return null;
       }
 
@@ -779,7 +778,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          persistenciaPersonas.crear(em, persona);
       } catch (Exception e) {
-         System.out.println("Error crearNuevaPersona Admi : " + e.toString());
+         log.warn("Error crearNuevaPersona Admi : " + e.toString());
       }
    }
 
@@ -789,7 +788,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          Personas persona = persistenciaPersonas.obtenerUltimaPersonaAlmacenada(em, documento);
          return persona;
       } catch (Exception e) {
-         System.out.println("Error obtenerUltimoRegistroPersona Admi : " + e.toString());
+         log.warn("Error obtenerUltimoRegistroPersona Admi : " + e.toString());
          return null;
       }
    }
@@ -802,7 +801,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secEmpleado);
          return empleado;
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + " Error crearConVCargo() : " + e.toString());
+         log.error(this.getClass().getName() + " Error crearConVCargo() : " + e.toString());
          return null;
       }
    }
@@ -813,7 +812,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          VigenciasCargos vCargo = persistenciaVigenciasCargos.buscarVigenciaCargoXEmpleado(em, secEmpleado, empresa);
          return vCargo;
       } catch (Exception e) {
-         System.out.println("Error obtenerUltimoRegistroEmpleado Admi : " + e.toString());
+         log.warn("Error obtenerUltimoRegistroEmpleado Admi : " + e.toString());
          return null;
       }
    }
@@ -823,7 +822,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          persistenciaVigenciasCargos.editar(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error modificarVigenciaCargo Admi : " + e.toString());
+         log.warn("Error modificarVigenciaCargo Admi : " + e.toString());
       }
    }
 
@@ -832,7 +831,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasLocalizaciones.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaLocalizacion Admi : " + e.toString());
+         log.warn("Error crearVigenciaLocalizacion Admi : " + e.toString());
          return false;
       }
    }
@@ -842,7 +841,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasTiposTrabajadores.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaTipoTrabajador Admi : " + e.toString());
+         log.warn("Error crearVigenciaTipoTrabajador Admi : " + e.toString());
          return false;
       }
    }
@@ -852,7 +851,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasReformasLaborales.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaReformaLaboral Admi : " + e.toString());
+         log.warn("Error crearVigenciaReformaLaboral Admi : " + e.toString());
          return false;
       }
    }
@@ -862,7 +861,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasSueldos.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaSueldo Admi : " + e.toString());
+         log.warn("Error crearVigenciaSueldo Admi : " + e.toString());
          return false;
       }
    }
@@ -872,7 +871,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasTiposContratos.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaTipoContrato Admi : " + e.toString());
+         log.warn("Error crearVigenciaTipoContrato Admi : " + e.toString());
          return false;
       }
    }
@@ -882,7 +881,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasNormasEmpleados.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaNormaEmpleado Admi : " + e.toString());
+         log.warn("Error crearVigenciaNormaEmpleado Admi : " + e.toString());
          return false;
       }
    }
@@ -892,7 +891,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasContratos.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaContrato Admi : " + e.toString());
+         log.warn("Error crearVigenciaContrato Admi : " + e.toString());
          return false;
       }
    }
@@ -902,7 +901,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasUbicaciones.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaUbicacion Admi : " + e.toString());
+         log.warn("Error crearVigenciaUbicacion Admi : " + e.toString());
          return false;
       }
    }
@@ -912,7 +911,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasJornadas.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaJornada Admi : " + e.toString());
+         log.warn("Error crearVigenciaJornada Admi : " + e.toString());
          return false;
       }
    }
@@ -922,7 +921,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasFormasPagos.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaFormaPago Admi : " + e.toString());
+         log.warn("Error crearVigenciaFormaPago Admi : " + e.toString());
          return false;
       }
    }
@@ -937,7 +936,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVigenciasAfiliaciones.crear(em, vigencia);
       } catch (Exception e) {
-         System.out.println("Error crearVigenciaAfiliacion Admi : " + e.toString());
+         log.warn("Error crearVigenciaAfiliacion Admi : " + e.toString());
          return false;
       }
    }
@@ -953,7 +952,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          boolean b = persistenciaVigenciasEstadosCiviles.crear(em, estado);
          return b;
       } catch (Exception e) {
-         System.out.println("Error crearEstadoCivil Admi : " + e.toString());
+         log.warn("Error crearEstadoCivil Admi : " + e.toString());
          return false;
       }
    }
@@ -963,7 +962,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaDirecciones.crear(em, direccion);
       } catch (Exception e) {
-         System.out.println("Error crearDireccion Admi : " + e.toString());
+         log.warn("Error crearDireccion Admi : " + e.toString());
          return false;
       }
    }
@@ -973,7 +972,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaTelefonos.crear(em, telefono);
       } catch (Exception e) {
-         System.out.println("Error crearTelefono Admi : " + e.toString());
+         log.warn("Error crearTelefono Admi : " + e.toString());
          return false;
       }
    }
@@ -983,7 +982,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaSets.crear(em, set);
       } catch (Exception e) {
-         System.out.println("Error crearSets Admi : " + e.toString());
+         log.warn("Error crearSets Admi : " + e.toString());
          return false;
       }
    }
@@ -994,7 +993,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          Procesos proceso = persistenciaProcesos.buscarProcesosPorCodigo(em, codigo);
          return proceso;
       } catch (Exception e) {
-         System.out.println("Error buscarProcesoPorCodigo Admi : " + e.toString());
+         log.warn("Error buscarProcesoPorCodigo Admi : " + e.toString());
          return null;
       }
    }
@@ -1005,7 +1004,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          BigDecimal valor = persistenciaComprobantes.buscarValorNumeroMaximo(em);
          return valor;
       } catch (Exception e) {
-         System.out.println("Error obtenerNumeroMaximoComprobante Admi : " + e.toString());
+         log.warn("Error obtenerNumeroMaximoComprobante Admi : " + e.toString());
          return null;
       }
    }
@@ -1015,7 +1014,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaComprobantes.crear(em, comprobante);
       } catch (Exception e) {
-         System.out.println("Error crearComprobante Admi : " + e.toString());
+         log.warn("Error crearComprobante Admi : " + e.toString());
          return false;
       }
    }
@@ -1026,7 +1025,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          Comprobantes comprobante = persistenciaComprobantes.buscarComprobanteParaPrimerRegistroEmpleado(em, secEmpleado);
          return comprobante;
       } catch (Exception e) {
-         System.out.println("Error buscarComprobanteParaPrimerRegistroEmpleado Admi : " + e.toString());
+         log.warn("Error buscarComprobanteParaPrimerRegistroEmpleado Admi : " + e.toString());
          return null;
       }
    }
@@ -1041,7 +1040,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaCortesProcesos.crear(em, corte);
       } catch (Exception e) {
-         System.out.println("Error crearCortesProcesos Admi : " + e.toString());
+         log.warn("Error crearCortesProcesos Admi : " + e.toString());
          return false;
       }
    }
@@ -1052,7 +1051,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          TiposTrabajadores tipo = persistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort(em, codigo);
          return tipo;
       } catch (Exception e) {
-         System.out.println("Error buscarTipoTrabajadorPorCodigo Admi : " + e.toString());
+         log.warn("Error buscarTipoTrabajadorPorCodigo Admi : " + e.toString());
          return null;
       }
    }
@@ -1063,7 +1062,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          TercerosSucursales sucursal = persistenciadetallesEmpresas.buscarARLPorEmpresa(em, secEmpresa);
          return sucursal;
       } catch (Exception e) {
-         System.out.println("Error consultarARL Admin : " + e.toString());
+         log.warn("Error consultarARL Admin : " + e.toString());
          return null;
       }
    }
@@ -1073,7 +1072,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaVWActualesFechas.actualFechaHasta(em);
       } catch (Exception e) {
-         System.out.println("Error consultando fecha en : " + this.getClass().getName());
+         log.warn("Error consultando fecha en : " + this.getClass().getName());
          return null;
       }
    }

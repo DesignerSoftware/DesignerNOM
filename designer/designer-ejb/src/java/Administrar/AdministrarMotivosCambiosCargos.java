@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambiosCargosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosCambiosCargos.class);
 
     @EJB
     PersistenciaMotivosCambiosCargosInterface persistenciaMotivosCambiosCargos;
@@ -41,9 +44,9 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
             motivosCambiosCargos = persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(em);
         } catch (Exception e) {
             motivosCambiosCargos = null;
-            System.out.println("AdministrarMotivosCambiosCargos.consultarMotivosCambiosCargos.");
-            System.out.println("Excepcion.");
-            System.out.println(e);
+            log.warn("AdministrarMotivosCambiosCargos.consultarMotivosCambiosCargos.");
+            log.warn("Excepcion.");
+            log.warn(e);
         } finally {
             return motivosCambiosCargos;
         }
@@ -64,7 +67,7 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
     @Override
     public void modificarMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
         for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
-            System.out.println("Administrar Modificando");
+            log.warn("Administrar Modificando");
             persistenciaMotivosCambiosCargos.editar(em, listaMotivosCambiosCargos.get(i));
         }
     }
@@ -72,7 +75,7 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
     @Override
     public void borrarMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
         for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
-            System.out.println("Administrar Borrando");
+            log.warn("Administrar Borrando");
             persistenciaMotivosCambiosCargos.borrar(em, listaMotivosCambiosCargos.get(i));
         }
     }
@@ -80,7 +83,7 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
     @Override
     public void crearMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
         for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
-            System.out.println("Administrar Creando");
+            log.warn("Administrar Creando");
             persistenciaMotivosCambiosCargos.crear(em, listaMotivosCambiosCargos.get(i));
         }
     }
@@ -91,9 +94,9 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
         try {
             verificadorVC = persistenciaMotivosCambiosCargos.verificarBorradoVigenciasCargos(em, secuenciaMovitoCambioCargo);
         } catch (Exception e) {
-            System.out.println("AdministrarMotivosCambiosCargos.verificarBorradoVC.");
-            System.err.println("Excepcion.");
-            System.out.println(e);
+            log.warn("AdministrarMotivosCambiosCargos.verificarBorradoVC.");
+            log.error("Excepcion.");
+            log.warn(e);
         } finally {
             return verificadorVC;
         }

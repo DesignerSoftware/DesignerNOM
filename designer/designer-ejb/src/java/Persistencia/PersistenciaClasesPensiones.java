@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaClasesPensiones.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          em.merge(clasesPensiones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesPensiones.crear: " + e);
+         log.error("Error PersistenciaClasesPensiones.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +55,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          em.merge(clasesPensiones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesPensiones.editar: " + e);
+         log.error("Error PersistenciaClasesPensiones.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +75,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaClasesPensiones.borrar: " + e);
+         log.error("Error PersistenciaClasesPensiones.borrar: " + e);
       }
    }
 
@@ -82,12 +84,12 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
       try {
          em.clear();
          String sql = "SELECT *  FROM ClasesPensiones";
-         //System.out.println("PersistenciaClasesPensiones consultarClasesPensiones ");
+         //log.error("PersistenciaClasesPensiones consultarClasesPensiones ");
          Query query = em.createNativeQuery(sql, ClasesPensiones.class);
          List<ClasesPensiones> clasesPensionesLista = query.getResultList();
          return clasesPensionesLista;
       } catch (Exception e) {
-         System.out.println("Error consultarClasesPensiones PersistenciaClasesPensiones");
+         log.error("Error consultarClasesPensiones PersistenciaClasesPensiones");
          return null;
       }
    }
@@ -104,7 +106,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          ClasesPensiones claseP = (ClasesPensiones) query.getSingleResult();
          return claseP;
       } catch (Exception e) {
-         System.out.println("Error buscarClasePennsion PersistenciaClasesPensiones");
+         log.error("Error buscarClasePennsion PersistenciaClasesPensiones");
          ClasesPensiones claseP = null;
          return claseP;
       }
@@ -119,10 +121,10 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.err.println("Contador PersistenciaMotivosRetiros  contarRetiradosClasePension  " + retorno);
+         log.error("Contador PersistenciaMotivosRetiros  contarRetiradosClasePension  " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e);
+         log.error("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e);
          return retorno;
       }
    }

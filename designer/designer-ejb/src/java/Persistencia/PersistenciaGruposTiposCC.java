@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -21,6 +22,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGruposTiposCC.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +40,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          em.merge(gruposTiposCC);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposTiposCC.crear: " + e);
+         log.error("Error PersistenciaGruposTiposCC.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +56,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          em.merge(gruposTiposCC);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposTiposCC.editar: " + e);
+         log.error("Error PersistenciaGruposTiposCC.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +76,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposTiposCC.borrar: " + e);
+         log.error("Error PersistenciaGruposTiposCC.borrar: " + e);
       }
    }
 
@@ -83,7 +86,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          em.clear();
          return em.find(GruposTiposCC.class, secuencia);
       } catch (Exception e) {
-         System.err.println("ERROR PersistenciaGruposTiposCC buscarGruposTiposCC ERROR " + e);
+         log.error("ERROR PersistenciaGruposTiposCC buscarGruposTiposCC ERROR " + e);
          return null;
       }
    }
@@ -96,7 +99,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          cq.select(cq.from(GruposTiposCC.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("\n ERROR EN PersistenciaGruposTiposCC buscarGruposTiposCC ERROR" + e);
+         log.error("\n ERROR EN PersistenciaGruposTiposCC buscarGruposTiposCC ERROR" + e);
          return null;
       }
    }

@@ -10,10 +10,13 @@ import InterfacePersistencia.PersistenciaTiposRedondeosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class PersistenciaTiposRedondeos implements PersistenciaTiposRedondeosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposRedondeos.class);
 
    @Override
    public List<TiposRedondeos> buscarTiposRedondeos(EntityManager em) {
@@ -23,7 +26,7 @@ public class PersistenciaTiposRedondeos implements PersistenciaTiposRedondeosInt
          cq.select(cq.from(TiposRedondeos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarTiposRedondeos PersistenciaTiposRedondeos : " + e.getMessage());
+         log.error("Error buscarTiposRedondeos PersistenciaTiposRedondeos : " + e.getMessage());
          return null;
       }
    }

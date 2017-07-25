@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposAccidentes.class);
 
     @EJB
     PersistenciaTiposAccidentesInterface persistenciaTiposAccidentes;
@@ -42,21 +45,21 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
     @Override
     public void modificarTiposAccidentes(List<TiposAccidentes> listaTiposAccidentes) {
         for (int i = 0; i < listaTiposAccidentes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposAccidentes.editar(em, listaTiposAccidentes.get(i));
         }
     }
     @Override
     public void borrarTiposAccidentes(List<TiposAccidentes> listaTiposAccidentes) {
         for (int i = 0; i < listaTiposAccidentes.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposAccidentes.borrar(em, listaTiposAccidentes.get(i));
         }
     }
     @Override
     public void crearTiposAccidentes(List<TiposAccidentes> listaTiposAccidentes) {
         for (int i = 0; i < listaTiposAccidentes.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposAccidentes.crear(em, listaTiposAccidentes.get(i));
         }
     }
@@ -79,7 +82,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
         try {
             return verificarSoAccidentesMedicos = persistenciaTiposAccidentes.contadorSoAccidentesMedicos(em, secuenciaTiposAccidentes);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSACCIDENTES verificarSoAccidentesMedicos ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSACCIDENTES verificarSoAccidentesMedicos ERROR :" + e);
             return null;
         } finally {
         }
@@ -90,7 +93,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
         try {
             verificarBorradoAccidentes = persistenciaTiposAccidentes.contadorAccidentes(em, secuenciaTiposAccidentes);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSACCIDENTES verificarBorradoAccidentes ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSACCIDENTES verificarBorradoAccidentes ERROR :" + e);
             verificarBorradoAccidentes = null;
         } finally {
             return verificarBorradoAccidentes;

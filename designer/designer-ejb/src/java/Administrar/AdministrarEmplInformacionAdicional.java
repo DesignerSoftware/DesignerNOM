@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEmplInformacionAdicional implements AdministrarEmplInformacionAdicionalInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplInformacionAdicional.class);
 
     @EJB
     PersistenciaInformacionesAdicionalesInterface persistenciaInformacionesAdicionales;
@@ -53,7 +56,7 @@ public class AdministrarEmplInformacionAdicional implements AdministrarEmplInfor
             List<InformacionesAdicionales> listEmpleado = persistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia(em,secuencia);
             return listEmpleado;
         } catch (Exception e) {
-            System.out.println("Error listInformacionesAdicionalesEmpleado Admi : " + e.toString());
+            log.warn("Error listInformacionesAdicionalesEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -68,7 +71,7 @@ public class AdministrarEmplInformacionAdicional implements AdministrarEmplInfor
                 persistenciaInformacionesAdicionales.borrar(em,listInfoA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarInformacionAdicional Admi : " + e.toString());
+            log.warn("Error borrarInformacionAdicional Admi : " + e.toString());
         }
     }
 
@@ -82,7 +85,7 @@ public class AdministrarEmplInformacionAdicional implements AdministrarEmplInfor
                 persistenciaInformacionesAdicionales.crear(em,listInfoA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearInformacionAdicional Admi : " + e.toString());
+            log.warn("Error crearInformacionAdicional Admi : " + e.toString());
         }
     }
 
@@ -96,7 +99,7 @@ public class AdministrarEmplInformacionAdicional implements AdministrarEmplInfor
                 persistenciaInformacionesAdicionales.editar(em,listInfoA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error modificarInformacionAdicional Admi : " + e.toString());
+            log.warn("Error modificarInformacionAdicional Admi : " + e.toString());
         }
     }
 
@@ -106,7 +109,7 @@ public class AdministrarEmplInformacionAdicional implements AdministrarEmplInfor
             List<GruposInfAdicionales> listGrupos = persistenciaGruposInfAdicionales.buscarGruposInfAdicionales(em);
             return listGrupos;
         } catch (Exception e) {
-            System.out.println("Error listGruposInfAdicionales Admi : " + e.toString());
+            log.warn("Error listGruposInfAdicionales Admi : " + e.toString());
             return null;
         }
     }
@@ -117,7 +120,7 @@ public class AdministrarEmplInformacionAdicional implements AdministrarEmplInfor
             Empleados empl = persistenciaEmpleado.buscarEmpleadoSecuencia(em,secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

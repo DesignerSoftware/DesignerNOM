@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTipoFormula implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoFormula.class);
 
    @EJB
    AdministrarTiposFormulasInterface administrarTiposFormulas;
@@ -123,8 +126,8 @@ public class ControlTipoFormula implements Serializable {
          administrarTiposFormulas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -529,7 +532,7 @@ public class ControlTipoFormula implements Serializable {
    public void verificarRastro() {
       if (tipoFormulaSeleccionada != null) {
          int result = administrarRastros.obtenerTabla(tipoFormulaSeleccionada.getSecuencia(), "TIPOSFUNCIONES");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -600,7 +603,7 @@ public class ControlTipoFormula implements Serializable {
    }
 
    public boolean hayTraslaposFechas(Date fecha1Ini, Date fecha1Fin, Date fecha2Ini, Date fecha2Fin) {
-      System.out.println("ControlTipoFormula.hayTraslaposFechas() fecha1Ini: " + fecha1Ini + ", fecha1Fin: " + fecha1Fin + ", fecha2Ini: " + fecha2Ini + ", fecha2Fin: " + fecha2Fin);
+      log.info("ControlTipoFormula.hayTraslaposFechas() fecha1Ini: " + fecha1Ini + ", fecha1Fin: " + fecha1Fin + ", fecha2Ini: " + fecha2Ini + ", fecha2Fin: " + fecha2Fin);
       boolean hayTraslapos;
       if ((fecha1Fin.after(fecha2Fin) && fecha1Ini.before(fecha2Fin))
               || (fecha1Ini.before(fecha2Ini) && fecha1Fin.after(fecha2Ini))
@@ -663,7 +666,7 @@ public class ControlTipoFormula implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoTipoFormula.setSecuencia(l);
-            System.out.println("Operando: " + operando);
+            log.info("Operando: " + operando);
             nuevoTipoFormula.setOperando(operando);
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -690,8 +693,8 @@ public class ControlTipoFormula implements Serializable {
       //CERRAR FILTRADO
       FacesContext c = FacesContext.getCurrentInstance();
       altoTabla = "285";
-      System.out.println("Desactivar");
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("Desactivar");
+      log.info("TipoLista= " + tipoLista);
       tiposFormulasIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasIniciales");
       tiposFormulasIniciales.setFilterStyle("display: none; visibility: hidden;");
       tiposFormulasFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFinales");

@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarRetenciones implements AdministrarRetencionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarRetenciones.class);
 
     @EJB
     PersistenciaRetencionesInterface persistenciaRetenciones;
@@ -57,7 +60,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
     @Override
     public void modificarVigenciaRetencion(List<VigenciasRetenciones> listaVigenciasRetencionesModificar) {
         for (int i = 0; i < listaVigenciasRetencionesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasRetencionesModificar.get(i).getUvt() == null) {
                 listaVigenciasRetencionesModificar.get(i).setUvt(null);
             }
@@ -71,7 +74,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
             List<VigenciasRetenciones> actual = persistenciaVigenciasRetenciones.buscarVigenciasRetenciones(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasRetenciones: " + e.toString());
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
     @Override
     public void modificarRetencion(List<Retenciones> listaRetencionesModificar) {
         for (int i = 0; i < listaRetencionesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaRetencionesModificar.get(i).getAdicionauvt()== null) {
                 listaRetencionesModificar.get(i).setAdicionauvt(null);
             }
@@ -104,7 +107,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
             List<Retenciones> actual = persistenciaRetenciones.buscarRetencionesVig(em, secRetencion);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error conceptoActual Admi : " + e.toString());
+            log.warn("Error conceptoActual Admi : " + e.toString());
             return null;
         }
     }

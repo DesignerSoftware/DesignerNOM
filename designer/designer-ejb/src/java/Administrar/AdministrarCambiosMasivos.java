@@ -56,9 +56,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCambiosMasivos.class);
 
    private EntityManager em;
    @EJB
@@ -120,19 +123,19 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    @Override
    public void obtenerConexion(String idSesion) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.obtenerConexion()");
+      log.warn("Administrar.AdministrarCambiosMasivos.obtenerConexion()");
       em = administrarSesiones.obtenerConexionSesion(idSesion);
    }
 
    @Override
    public List<Parametros> consultarEmpleadosParametros() {
-      System.out.println("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
+      log.warn("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
       try {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
          return persistenciaParametros.empleadosParametros(em, usuarioBD);
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
-         System.out.println("ERROR : " + e);
+         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
+         log.warn("ERROR : " + e);
          return null;
       }
    }
@@ -142,15 +145,15 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaParametros.listcambiosmasivos(em);
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
-         System.out.println("ERROR : " + e);
+         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
+         log.warn("ERROR : " + e);
          return null;
       }
    }
 
    @Override
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
-      System.out.println("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
+      log.warn("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
          ParametrosCambiosMasivos parametro = persistenciaParametros.parametrosCambiosMasivos(em, usuarioBD);
@@ -175,8 +178,8 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          }
          return parametro;
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
-         System.out.println("ERROR : " + e);
+         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
+         log.warn("ERROR : " + e);
          return null;
       }
    }
@@ -281,62 +284,62 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    @Override
    public void adicionaEstructuraCM2(BigInteger secEstructura, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaEstructuraCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaEstructuraCM2()");
       persistenciaEstructuras.adicionaEstructuraCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
    public void undoAdicionaEstructuraCM2(BigInteger secEstructura, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaEstructuraCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaEstructuraCM2()");
       persistenciaEstructuras.undoAdicionaEstructuraCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
    public void adicionaVacacionCM2(BigInteger ndias, Date fechaCambio, Date fechaPago) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaVacacionCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaVacacionCM2()");
       persistenciaVacaciones.adicionaVacacionCambiosMasivos(em, ndias, fechaCambio, fechaPago);
    }
 
    public void undoAdicionaVacacionCM2(BigInteger ndias, Date fechaCambio, Date fechaPago) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaVacacionCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaVacacionCM2()");
       persistenciaVacaciones.undoAdicionaVacacionCambiosMasivos(em, ndias, fechaCambio, fechaPago);
    }
 
    public void adicionaRetiroCM2(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaRetiroCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaRetiroCM2()");
       persistenciaRetirados.adicionaRetiroCambiosMasivos(em, indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
    }
 
    public void undoAdicionaRetiroCM2(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaRetiroCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaRetiroCM2()");
       persistenciaRetirados.undoAdicionaRetiroCambiosMasivos(em, indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
    }
 
    public void adicionaAfiliacionCM2(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaAfiliacionCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaAfiliacionCM2()");
       persistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos(em, secTipoEntidad, secTerceroSuc, fechaCambio);
    }
 
    public void undoAdicionaAfiliacionCM2(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaAfiliacionCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAfiliacionCM2()");
       persistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos(em, secTipoEntidad, secTerceroSuc, fechaCambio);
    }
 
    public void adicionaLocalizacionCM2(BigInteger secEstructura, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaLocalizacionCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaLocalizacionCM2()");
       persistenciaEstructuras.adicionaLocalizacionCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
    public void undoAdicionaLocalizacionCM2(BigInteger secEstructura, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaLocalizacionCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaLocalizacionCM2()");
       persistenciaEstructuras.undoAdicionaLocalizacionCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
    public void adicionaSueldoCM2(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaSueldoCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaSueldoCM2()");
       persistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos(em, secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
    }
 
    public void undoAdicionaSueldoCM2(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaSueldoCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaSueldoCM2()");
       persistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos(em, secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
    }
 
@@ -344,41 +347,41 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
            BigInteger secTercero, BigInteger secFormula, BigInteger valor,
            BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal,
            BigInteger unidadParteEntera, BigInteger unidadParteFraccion) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaNovedadCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaNovedadCM2()");
       persistenciaNovedadesSistema.adicionaNovedadCambiosMasivos(em, tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal, unidadParteEntera, unidadParteFraccion);
    }
 
    public void undoAdicionaNovedadCM2(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
            BigInteger secTercero, BigInteger secFormula, BigInteger valor,
            BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaNovedadCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaNovedadCM2()");
       persistenciaNovedadesSistema.undoAdicionaNovedadCambiosMasivos(em, tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal);
    }
 
    public void adicionaReingresoCM2(Date fechaIni, Date fechaFin) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaReingresoCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaReingresoCM2()");
       persistenciaRetirados.adicionaReingresoCambiosMasivos(em, fechaIni, fechaFin);
    }
 
    public void adicionaEmplJefeCM2(BigInteger secEmpleado, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaEmplJefeCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaEmplJefeCM2()");
       persistenciaVigenciasCargos.adicionaEmplJefeCambiosMasivos(em, secEmpleado, fechaCambio);
    }
 
    public void adicionaPapelCM2(BigInteger secPapel, Date fechaCambio) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaPapelCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaPapelCM2()");
       persistenciaPapeles.adicionaPapelCambiosMasivos(em, secPapel, fechaCambio);
    }
 
    public void adicionaAusentismoCM2(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias,
            BigInteger horas, Date fechaIniAusen, Date fechaFinAusen, Date fechaExpedicion,
            Date fechaIpago, Date fechaPago, BigInteger porcent, BigInteger baseliq, String forma) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaAusentismoCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.adicionaAusentismoCM2()");
       persistenciaSoausentismos.adicionaAusentismoCambiosMasivos(em, secTipo, secClase, secCausa, dias, horas, fechaIniAusen, fechaFinAusen, fechaExpedicion, fechaIpago, fechaPago, porcent, baseliq, forma);
    }
 
    public void undoAdicionaAusentismoCM2(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias, Date fechaIniAusen, Date fechaFinAusen) {
-      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaAusentismoCM2()");
+      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAusentismoCM2()");
       persistenciaSoausentismos.undoAdicionaAusentismoCambiosMasivos(em, secTipo, secClase, secCausa, dias, fechaIniAusen, fechaFinAusen);
    }
 

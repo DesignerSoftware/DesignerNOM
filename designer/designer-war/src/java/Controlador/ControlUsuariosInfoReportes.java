@@ -27,6 +27,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlUsuariosInfoReportes")
 @SessionScoped
 public class ControlUsuariosInfoReportes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUsuariosInfoReportes.class);
 
     @EJB
     AdministrarUsuariosInfoReportesInterface administrarUsuariosIR;
@@ -139,8 +142,8 @@ public class ControlUsuariosInfoReportes implements Serializable {
             getListaUsuariosIR();
 
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -532,7 +535,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosUsuariosIR");
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -881,7 +884,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (usuarioIRSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(usuarioIRSeleccionado.getSecuencia(), "UsuariosInfoReportes");
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -942,7 +945,7 @@ public class ControlUsuariosInfoReportes implements Serializable {
     }
 
     public List<UsuariosInforeportes> getListaUsuariosIR() {
-        System.out.println("usuarioIRS");
+        log.info("usuarioIRS");
         if (usuarioSeleccionado != null) {
             if (listaUsuariosIR == null) {
                 listaUsuariosIR = administrarUsuariosIR.listaUsuariosIR(usuarioSeleccionado.getSecuencia());

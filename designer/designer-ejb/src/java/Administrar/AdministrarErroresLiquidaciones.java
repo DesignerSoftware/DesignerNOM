@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquidacionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarErroresLiquidaciones.class);
 
    @EJB
    PersistenciaErroresLiquidacionesInterface persistenciaErroresLiquidacionesInterface;
@@ -38,7 +41,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
    }
 
    public List<ErroresLiquidacion> consultarErroresLiquidacion() {
-      System.out.println("AdministrarErroresLiquidaciones.consultarErroresLiquidacion()");
+      log.warn("AdministrarErroresLiquidaciones.consultarErroresLiquidacion()");
       return persistenciaErroresLiquidacionesInterface.consultarErroresLiquidacion(em);
    }
 
@@ -56,7 +59,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
    }
 
    public void borrarErroresLiquidaciones(List<ErroresLiquidacion> listaErroresLiquidacion) {
-      System.out.println("ADMINISTRARLIQUDACIONES listaErroresLiquidacion : " + listaErroresLiquidacion.size());
+      log.warn("ADMINISTRARLIQUDACIONES listaErroresLiquidacion : " + listaErroresLiquidacion.size());
       for (int i = 0; i < listaErroresLiquidacion.size(); i++) {
          persistenciaErroresLiquidacionesInterface.borrar(em, listaErroresLiquidacion.get(i));
       }

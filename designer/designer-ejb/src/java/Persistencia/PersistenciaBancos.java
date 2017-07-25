@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaBancos implements PersistenciaBancosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaBancos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +40,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             em.merge(bancos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaBancos.crear: " + e);
+            log.error("Error PersistenciaBancos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +56,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             em.merge(bancos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaBancos.editar: " + e);
+            log.error("Error PersistenciaBancos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +72,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             em.remove(em.merge(bancos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaBancos.borrar: " + e);
+            log.error("Error PersistenciaBancos.borrar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +88,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             List<Bancos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarBancos persistencia bancos : " + e.toString());
+            log.error("Error buscarBancos persistencia bancos : " + e.toString());
             return null;
         }
     }
@@ -100,7 +103,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             Bancos banco = (Bancos) query.getSingleResult();
             return banco;
         }catch(Exception e){
-            System.out.println("error en BuscarBancosPorSecuencia persistencia bancos : " + e.toString());
+            log.error("error en BuscarBancosPorSecuencia persistencia bancos : " + e.toString());
             return null;
         }
     }

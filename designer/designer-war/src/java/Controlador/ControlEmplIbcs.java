@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplIbcs implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplIbcs.class);
 
    @EJB
    AdministrarIBCSInterface administrarIBCS;
@@ -126,8 +129,8 @@ public class ControlEmplIbcs implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarIBCS.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -298,7 +301,7 @@ public class ControlEmplIbcs implements Serializable {
       } else {
          ibcSeleccionado = null;
       }
-      System.out.println("ibcSeleccionado: " + ibcSeleccionado);
+      log.info("ibcSeleccionado: " + ibcSeleccionado);
    }
 
    //datosIbcsExportar

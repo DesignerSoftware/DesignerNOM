@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposCursos.class);
 
     @EJB
     PersistenciaTiposCursosInterface persistenciaTiposCursos;
@@ -79,10 +82,10 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
         BigInteger contarCursosTipoCurso = null;
 
         try {
-            System.err.println("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
+            log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
             contarCursosTipoCurso = persistenciaTiposCursos.contarCursosTipoCurso(em, secuenciaVigenciasIndicadores);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarTiposCursos contarCursosTipoCurso ERROR :" + e);
+            log.error("ERROR AdmnistrarTiposCursos contarCursosTipoCurso ERROR :" + e);
         } finally {
             return contarCursosTipoCurso;
         }

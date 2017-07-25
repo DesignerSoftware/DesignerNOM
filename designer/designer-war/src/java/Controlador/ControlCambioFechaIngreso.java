@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -30,6 +31,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlCambioFechaIngreso implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlCambioFechaIngreso.class);
 
    @EJB
    AdministrarCambiosFechasIngresosInterface administrarVigenciasTiposContratos;
@@ -104,13 +107,13 @@ public class ControlCambioFechaIngreso implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarVigenciasTiposContratos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void recibirEmpleado(BigInteger sec, VigenciasTiposContratos vigencia) {
-      System.out.println("Recibe Empleado");
+      log.info("Recibe Empleado");
       RequestContext context = RequestContext.getCurrentInstance();
       secuenciaEmpleado = sec;
       vigenciaTipoContrato = vigencia;
@@ -146,7 +149,7 @@ public class ControlCambioFechaIngreso implements Serializable {
          fechaOld = formato.format(vigenciaTipoContrato.getFechavigencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
          RequestContext.getCurrentInstance().execute("PF('paso1').show()");
-         System.out.println("Fecha Nueva: " + fechaNew + " Fecha Vieja: " + fechaOld);
+         log.info("Fecha Nueva: " + fechaNew + " Fecha Vieja: " + fechaOld);
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionCambio");
          RequestContext.getCurrentInstance().execute("PF('validacionCambio').show()");
@@ -165,7 +168,7 @@ public class ControlCambioFechaIngreso implements Serializable {
          RequestContext.getCurrentInstance().update("form:fechaNueva");
          RequestContext.getCurrentInstance().update("form:PanelTotal");
       } catch (Exception e) {
-         System.out.println("Error al realizar el cambio de fecha de ingreso al empleado");
+         log.warn("Error al realizar el cambio de fecha de ingreso al empleado");
          RequestContext.getCurrentInstance().update("formularioDialogos:error");
          RequestContext.getCurrentInstance().execute("PF('error').show()");
       }

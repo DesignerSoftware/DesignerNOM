@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -33,6 +34,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlUsuariosVistas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUsuariosVistas.class);
 
    @EJB
    AdministrarUsuariosVistasInterface administrarUsuarioVistas;
@@ -110,8 +113,8 @@ public class ControlUsuariosVistas implements Serializable {
          administrarUsuarioVistas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -348,7 +351,7 @@ public class ControlUsuariosVistas implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
       RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-      System.out.println("Subtipo: " + usuariosVistasSeleccionado.getBaseestructura());
+      log.info("Subtipo: " + usuariosVistasSeleccionado.getBaseestructura());
    }
 
    public void seleccionarNuevoBaseEstructura(String estadoBaseEstructura, int tipoNuevo) {
@@ -380,7 +383,7 @@ public class ControlUsuariosVistas implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
+         log.info("Activar");
          usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
          usuariovistaDescripcion.setFilterStyle("width: 85% !important");
          usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
@@ -401,9 +404,9 @@ public class ControlUsuariosVistas implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
          bandera = 1;
          tipoLista = 1;
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("TipoLista= " + tipoLista);
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
          usuariovistaDescripcion.setFilterStyle("display: none; visibility: hidden;");
          usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
@@ -592,7 +595,7 @@ public class ControlUsuariosVistas implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
             usuariovistaDescripcion.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
@@ -780,7 +783,7 @@ public class ControlUsuariosVistas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('crearVistaUsuario').show()");
          }
       } catch (Exception e) {
-         System.out.println("error ControlUsuariosEstructuras.crearVistaUsuario() : " + e.getMessage());
+         log.warn("Error ControlUsuariosEstructuras.crearVistaUsuario() : " + e.getMessage());
          RequestContext.getCurrentInstance().execute("PF('errorCrearVistaUsuario').show()");
       }
    }

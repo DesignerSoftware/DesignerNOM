@@ -5,6 +5,7 @@ import InterfacePersistencia.PersistenciaIbcsPersonaInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -13,6 +14,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaIbcsPersona implements PersistenciaIbcsPersonaInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaIbcsPersona.class);
 
     @Override
     public IbcsPersona buscarIbcPersona(EntityManager em, BigInteger secuencia) {
@@ -24,7 +27,7 @@ public class PersistenciaIbcsPersona implements PersistenciaIbcsPersonaInterface
             IbcsPersona ibcPersona = (IbcsPersona) query.getSingleResult();
             return ibcPersona;
         } catch (Exception e) {
-            System.out.println("Error: (PersistenciaIbcsPersona.buscarIbcPersona)" + e.getMessage());
+            log.error("Error: (PersistenciaIbcsPersona.buscarIbcPersona)" + e.getMessage());
             return null;
         }
     }

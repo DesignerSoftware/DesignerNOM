@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -24,6 +25,8 @@ import javax.persistence.Query;
  */
 @Stateful
 public class PersistenciaCuentas implements PersistenciaCuentasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCuentas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -39,7 +42,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          em.persist(cuentas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCuentas.crear: " + e);
+         log.error("Error PersistenciaCuentas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +61,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCuentas.editar: " + e);
+         log.error("Error PersistenciaCuentas.editar: " + e);
       }
    }
 
@@ -75,7 +78,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCuentas.borrar: " + e);
+         log.error("Error PersistenciaCuentas.borrar: " + e);
       }
    }
 
@@ -86,7 +89,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          List<Cuentas> cuentas = (List<Cuentas>) em.createQuery("SELECT c FROM Cuentas c").getResultList();
          return cuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarCuentas PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentas PersistenciaCuentas : " + e.toString());
          return null;
       }
    }
@@ -101,7 +104,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          Cuentas cuentas = (Cuentas) query.getSingleResult();
          return cuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarCuentasSecuencia PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentasSecuencia PersistenciaCuentas : " + e.toString());
          Cuentas cuentas = null;
          return cuentas;
       }
@@ -117,7 +120,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          List<Cuentas> cuentas = (List<Cuentas>) query.getResultList();
          return cuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarCuentasSecuenciaEmpresa PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentasSecuenciaEmpresa PersistenciaCuentas : " + e.toString());
          List<Cuentas> cuentas = null;
          return cuentas;
       }
@@ -139,7 +142,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
             return 0;
          }
       } catch (Exception e) {
-         System.out.println("Error contarVigCuentasPorTipoccConceptoYCuentac PersistenciaCuentas : " + e.toString());
+         log.error("Error contarVigCuentasPorTipoccConceptoYCuentac PersistenciaCuentas : " + e.toString());
          return 0;
       }
    }
@@ -160,7 +163,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
             return 0;
          }
       } catch (Exception e) {
-         System.out.println("Error contarVigCuentasPorTipoccConceptoYCuentad PersistenciaCuentas : " + e.toString());
+         log.error("Error contarVigCuentasPorTipoccConceptoYCuentad PersistenciaCuentas : " + e.toString());
          return 0;
       }
    }
@@ -174,7 +177,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          CentrosCostos cc = (CentrosCostos) query.getSingleResult();
          return cc;
       } catch (Exception e) {
-         System.out.println("Error centroCostoLocalizacionTrabajador PersistenciaCuentas : " + e.toString());
+         log.error("Error centroCostoLocalizacionTrabajador PersistenciaCuentas : " + e.toString());
          return null;
       }
    }
@@ -188,7 +191,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          CentrosCostos cc = (CentrosCostos) query.getSingleResult();
          return cc;
       } catch (Exception e) {
-         System.out.println("Error centroCostoContabilidad PersistenciaCuentas : " + e.toString());
+         log.error("Error centroCostoContabilidad PersistenciaCuentas : " + e.toString());
          return null;
       }
    }
@@ -202,7 +205,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          List<Cuentas> cc = query.getResultList();
          return cc;
       } catch (Exception e) {
-         System.out.println("Error cuenta2505 PersistenciaCuentas : " + e.toString());
+         log.error("Error cuenta2505 PersistenciaCuentas : " + e.toString());
          return null;
       }
    }

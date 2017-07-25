@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFamiliares.class);
 
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -48,7 +51,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFamiliares.familiaresPersona" + e);
+            log.error("Error PersistenciaFamiliares.familiaresPersona" + e);
             return null;
         }
     }
@@ -62,7 +65,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             em.merge(familiar);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFamiliares.crear: " + e);
+            log.error("Error PersistenciaFamiliares.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +81,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             em.merge(familiar);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFamiliares.editar: " + e);
+            log.error("Error PersistenciaFamiliares.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -94,7 +97,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             em.remove(em.merge(familiar));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFamiliares.borrar: " + e);
+            log.error("Error PersistenciaFamiliares.borrar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -115,8 +118,8 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             Query query = em.createNativeQuery(consulta);
             resultado = (String) query.getSingleResult();
         } catch (Exception e) {
-            System.out.println(this.getClass().getName() + ".consultaFamiliar()");
-            System.out.println("error: " + e.getMessage());
+            log.error(this.getClass().getName() + ".consultaFamiliar()");
+            log.error("error: " + e.getMessage());
         }
         return resultado;
     }
@@ -137,7 +140,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             familiar = (String) query.getSingleResult();
             return familiar;
         } catch (Exception e) {
-           System.out.println("Persistencia.PersistenciaFamiliares.consultarPrimerFamiliar() e: " + e);
+           log.error("Persistencia.PersistenciaFamiliares.consultarPrimerFamiliar() e: " + e);
             familiar = "";
             return familiar;
         }

@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaJornadasLaborales implements PersistenciaJornadasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaJornadasLaborales.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -35,12 +37,12 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-           System.out.println("Entro a crear en la persistencia");
+           log.error("Entro a crear en la persistencia");
             tx.begin();
             em.merge(jornadasLaborales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
+            log.error("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,12 +55,12 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            System.out.println("Va a Modificar JornadasLaborales");
+            log.error("Va a Modificar JornadasLaborales");
             em.merge(jornadasLaborales);
             tx.commit();
-            System.out.println("Ya Modifico JornadasLaborales");
+            log.error("Ya Modifico JornadasLaborales");
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
+            log.error("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +76,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             em.remove(em.merge(jornadasLaborales));
             tx.commit();
         } catch (Exception e) {
-        System.out.println("Error PersistenciaJornadasLaborales.borrar: " + e.getMessage());
+        log.error("Error PersistenciaJornadasLaborales.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -90,7 +92,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             List<JornadasLaborales> jornadasLaborales = (List<JornadasLaborales>) query.getResultList();
             return jornadasLaborales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadasLaborales PersistenciaJornadasLaborales" + e.getMessage());
+            log.error("Error buscarJornadasLaborales PersistenciaJornadasLaborales" + e.getMessage());
             return null;
         }
     }
@@ -105,7 +107,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             JornadasLaborales jornadasLaborales = (JornadasLaborales) query.getSingleResult();
             return jornadasLaborales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadaLaboralSecuencia PersistenciaJornadasLaborales" + e.getMessage());
+            log.error("Error buscarJornadaLaboralSecuencia PersistenciaJornadasLaborales" + e.getMessage());
             JornadasLaborales jornadasLaborales = null;
             return jornadasLaborales;
         }

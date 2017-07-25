@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPerDirecciones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPerDirecciones.class);
 
     @EJB
     AdministrarDireccionesInterface administrarDirecciones;
@@ -125,8 +128,8 @@ public class ControlPerDirecciones implements Serializable {
             administrarCiudades.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -294,7 +297,7 @@ public class ControlPerDirecciones implements Serializable {
             }
             listaDirecciones.add(nuevaDireccion);
             System.out.print("Lista direcciones");
-            System.out.println(listaDirecciones.size());
+            log.info(listaDirecciones.size());
 
             direccionSeleccionada = nuevaDireccion;
             getListaDirecciones();
@@ -368,7 +371,7 @@ public class ControlPerDirecciones implements Serializable {
             nuevaDireccion.setCiudad(seleccionCiudades);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
         } else if (tipoActualizacion == 2) {
-            System.out.println(seleccionCiudades.getNombre());
+            log.info(seleccionCiudades.getNombre());
             duplicarDireccion.setCiudad(seleccionCiudades);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
         }
@@ -386,13 +389,13 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
+        log.info("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
 
-            System.out.println("Activar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Activar");
+            log.info("TipoLista= " + tipoLista);
             dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
             dFecha.setFilterStyle("width: 85% !important");
             dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
@@ -418,8 +421,8 @@ public class ControlPerDirecciones implements Serializable {
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
             dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
@@ -497,7 +500,7 @@ public class ControlPerDirecciones implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
@@ -591,8 +594,8 @@ public class ControlPerDirecciones implements Serializable {
 
         }
 
-        System.out.println("fecha direccion " + duplicarDireccion.getFechavigencia() + "\n");
-        System.out.println("secuencia direccion " + duplicarDireccion.getSecuencia() + "\n");
+        log.info("fecha direccion " + duplicarDireccion.getFechavigencia() + "\n");
+        log.info("secuencia direccion " + duplicarDireccion.getSecuencia() + "\n");
         for (int i = 0; i < listaDirecciones.size(); i++) {
             if ((listaDirecciones.get(i).getSecuencia().equals(duplicarDireccion.getSecuencia())) && ((listaDirecciones.get(i).getFechavigencia().equals(duplicarDireccion.getFechavigencia())))) {// && !(duplicarTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeDireccion");
@@ -620,8 +623,8 @@ public class ControlPerDirecciones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
+                log.info("Desactivar");
+                log.info("TipoLista= " + tipoLista);
                 dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
                 dFecha.setFilterStyle("display: none; visibility: hidden;");
                 dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
@@ -673,7 +676,7 @@ public class ControlPerDirecciones implements Serializable {
                 administrarDirecciones.modificarDirecciones(listaDireccionesModificar);
                 listaDireccionesModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaDirecciones = null;
             getListaDirecciones();
             contarRegistros();

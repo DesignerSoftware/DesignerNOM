@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarGruposViaticos implements AdministrarGruposViaticosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGruposViaticos.class);
 
     @EJB
     PersistenciaGruposViaticosInterface persistenciaGruposViaticos;
@@ -42,7 +45,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     @Override
     public void modificarGruposViaticos(List<GruposViaticos> listGruposViaticos) {
         for (int i = 0; i < listGruposViaticos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaGruposViaticos.editar(em, listGruposViaticos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     @Override
     public void borrarGruposViaticos(List<GruposViaticos> listGruposViaticos) {
         for (int i = 0; i < listGruposViaticos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaGruposViaticos.borrar(em, listGruposViaticos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     @Override
     public void crearGruposViaticos(List<GruposViaticos> listGruposViaticos) {
         for (int i = 0; i < listGruposViaticos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaGruposViaticos.crear(em, listGruposViaticos.get(i));
         }
     }
@@ -81,10 +84,10 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     public BigInteger verificarCargos(BigInteger secuenciaCargos) {
         BigInteger verificadorCargos = null;
         try {
-            System.err.println("Secuencia Borrado  Cargos" + secuenciaCargos);
+            log.error("Secuencia Borrado  Cargos" + secuenciaCargos);
             verificadorCargos = persistenciaGruposViaticos.contadorCargos(em, secuenciaCargos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposViativos verificarBorradoCargos ERROR :" + e);
+            log.error("ERROR AdministrarGruposViativos verificarBorradoCargos ERROR :" + e);
         } finally {
             return verificadorCargos;
         }
@@ -94,10 +97,10 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     public BigInteger verificarPlantas(BigInteger secuenciaCargos) {
         BigInteger verificadorPlantas = null;
         try {
-            System.err.println("Secuencia Borrado  Plantas" + secuenciaCargos);
+            log.error("Secuencia Borrado  Plantas" + secuenciaCargos);
             verificadorPlantas = persistenciaGruposViaticos.contadorPlantas(em, secuenciaCargos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposViativos verificarBorradoPlantas ERROR :" + e);
+            log.error("ERROR AdministrarGruposViativos verificarBorradoPlantas ERROR :" + e);
         } finally {
             return verificadorPlantas;
         }
@@ -107,10 +110,10 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     public BigInteger verificarTablasViaticos(BigInteger secuenciaCargos) {
         BigInteger verificadorTablasViaticos = null;
         try {
-            System.err.println("Secuencia Borrado  Tablas Viaticos" + secuenciaCargos);
+            log.error("Secuencia Borrado  Tablas Viaticos" + secuenciaCargos);
             verificadorTablasViaticos = persistenciaGruposViaticos.contadorTablasViaticos(em, secuenciaCargos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposViativos verificarTablasViaticos ERROR :" + e);
+            log.error("ERROR AdministrarGruposViativos verificarTablasViaticos ERROR :" + e);
         } finally {
             return verificadorTablasViaticos;
         }
@@ -120,10 +123,10 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
     public BigInteger verificarEersViaticos(BigInteger secuenciaCargos) {
         BigInteger verificadorErsViaticos = null;
         try {
-            System.err.println("Secuencia Borrado  Tablas ErsViaticos" + secuenciaCargos);
+            log.error("Secuencia Borrado  Tablas ErsViaticos" + secuenciaCargos);
             verificadorErsViaticos = persistenciaGruposViaticos.contadorEersViaticos(em, secuenciaCargos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposViativos verificarEersViaticos ERROR :" + e);
+            log.error("ERROR AdministrarGruposViativos verificarEersViaticos ERROR :" + e);
         } finally {
             return verificadorErsViaticos;
         }

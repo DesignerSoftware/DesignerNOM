@@ -9,11 +9,11 @@ import Entidades.Evalvigconvocatorias;
 import InterfaceAdministrar.AdministrarEvalVigConvocatoriasInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEvalVigConvocatoriasInterface;
-import Persistencia.PersistenciaEvalVigConvocatorias;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEvalVigConvocatorias implements AdministrarEvalVigConvocatoriasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalVigConvocatorias.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -40,7 +42,7 @@ public class AdministrarEvalVigConvocatorias implements AdministrarEvalVigConvoc
                 persistenciaevalvigconv.crear(em, listCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalVigConvocatorias.crear : " + e.toString());
+            log.warn("AdministrarEvalVigConvocatorias.crear : " + e.toString());
         }
     }
 
@@ -51,7 +53,7 @@ public class AdministrarEvalVigConvocatorias implements AdministrarEvalVigConvoc
                 persistenciaevalvigconv.borrar(em, listBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalVigConvocatorias.borrar : " + e.toString());
+            log.warn("AdministrarEvalVigConvocatorias.borrar : " + e.toString());
         }
 
     }
@@ -63,7 +65,7 @@ public class AdministrarEvalVigConvocatorias implements AdministrarEvalVigConvoc
                 persistenciaevalvigconv.editar(em, listModificar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalVigConvocatorias.editar : " + e.toString());
+            log.warn("AdministrarEvalVigConvocatorias.editar : " + e.toString());
         }
     }
 

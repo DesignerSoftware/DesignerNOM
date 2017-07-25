@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTiposDias.class);
+
     @Override
     public void crear(EntityManager em, TiposDias tiposDias) {
         em.clear();
@@ -31,7 +34,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.merge(tiposDias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDias.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +50,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.merge(tiposDias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDias.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +66,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.remove(em.merge(tiposDias));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDias.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +79,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.clear();
             return em.find(TiposDias.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias buscarTipoDia : " + e.getMessage());
+            log.error("Error PersistenciaTiposDias buscarTipoDia : " + e.getMessage());
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             List<TiposDias> tiposDias = query.getResultList();
             return tiposDias;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias buscarTiposDias : " + e.getMessage());
+            log.error("Error PersistenciaTiposDias buscarTiposDias : " + e.getMessage());
             return null;
         }
     }
@@ -106,7 +109,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposDias.contadorDiasLaborales() + e.getMessage()");
+            log.error("Persistencia.PersistenciaTiposDias.contadorDiasLaborales() + e.getMessage()");
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -123,7 +126,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposDias.contadorExtrasRecargos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposDias.contadorExtrasRecargos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

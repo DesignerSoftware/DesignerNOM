@@ -29,13 +29,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Administrador
  */
 @Stateful
-public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfaseContableTotalGEOInterface{
+public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfaseContableTotalGEOInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarInterfaseContableTotalGEO.class);
 
     @EJB
     PersistenciaParametrosContablesInterface persistenciaParametrosContables;
@@ -88,7 +91,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             }
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
+            log.warn("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
             return null;
         }
     }
@@ -101,7 +104,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
                 persistenciaParametrosContables.borrar(em, listPC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarParametroContable Admi : " + e.toString());
+            log.warn("Error borrarParametroContable Admi : " + e.toString());
         }
     }
 
@@ -128,7 +131,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             }
             persistenciaParametrosContables.crear(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -139,7 +142,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             List<SolucionesNodos> lista = persistenciaSolucionesNodos.buscarSolucionesNodosParaParametroContable(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             List<InterconTotal> lista = persistenciaInterconTotal.buscarInterconTotalParaParametroContable(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerInterconTotalParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerInterconTotalParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -161,7 +164,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             List<Procesos> lista = persistenciaProcesos.buscarProcesos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovProcesos Admi : " + e.toString());
+            log.warn("Error lovProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -172,7 +175,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -183,7 +186,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             ActualUsuario user = persistenciaActualUsuario.actualUsuarioBD(em);
             return user;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -194,7 +197,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             Date fecha = persistenciaContabilizaciones.obtenerFechaMaximaContabilizaciones(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaMaxContabilizaciones Admi : " + e.toString());
+            log.warn("Error obtenerFechaMaxContabilizaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -205,7 +208,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             Date fecha = persistenciaInterconTotal.obtenerFechaContabilizacionMaxInterconTotal(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaMaxInterconTotal Admi : " + e.toString());
+            log.warn("Error obtenerFechaMaxInterconTotal Admi : " + e.toString());
             return null;
         }
     }
@@ -221,7 +224,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.actualizarFlagInterconTotal(em, fechaInicial, fechaFinal, empresa);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagInterconTotal Admi : " + e.toString());
+            log.warn("Error actualizarFlagInterconTotal Admi : " + e.toString());
         }
     }
 
@@ -230,7 +233,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.actualizarFlagInterconTotalProcesoDeshacer(em, fechaInicial, fechaFinal, proceso);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagInterconTotalProcesoDeshacer Admi : " + e.toString());
+            log.warn("Error actualizarFlagInterconTotalProcesoDeshacer Admi : " + e.toString());
         }
     }
 
@@ -240,7 +243,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             Date objeto = persistenciaVWActualesFechas.actualFechaHasta(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -251,7 +254,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             Date objeto = persistenciaVWActualesFechas.actualFechaDesde(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -261,7 +264,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.ejecutarPKGUbicarnuevointercon_total(em, secuencia, fechaInicial, fechaFinal, proceso);
         } catch (Exception e) {
-            System.out.println("Error ejcutarPKGUbicarnuevointercon_total Admi : " + e.toString());
+            log.warn("Error ejcutarPKGUbicarnuevointercon_total Admi : " + e.toString());
         }
     }
 
@@ -270,7 +273,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.eliminarInterconTotal(em, fechaInicial, fechaFinal, empresa, proceso);
         } catch (Exception e) {
-            System.out.println("Error eliminarInterconTotal Admi : " + e.toString());
+            log.warn("Error eliminarInterconTotal Admi : " + e.toString());
         }
     }
 
@@ -280,7 +283,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             int contador = persistenciaInterconTotal.contarProcesosContabilizadosInterconTotal(em, fechaInicial, fechaFinal);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error contarProcesosContabilizadosInterconTotal Admi : " + e.toString());
+            log.warn("Error contarProcesosContabilizadosInterconTotal Admi : " + e.toString());
             return -1;
         }
     }
@@ -290,7 +293,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.cerrarProcesoContabilizacion(em, fechaInicial, fechaFinal, empresa, proceso);
         } catch (Exception e) {
-            System.out.println("Error cerrarProcesoContabilizacion Admi : " + e.toString());
+            log.warn("Error cerrarProcesoContabilizacion Admi : " + e.toString());
         }
     }
 
@@ -300,7 +303,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             Integer contador = persistenciaContabilizaciones.obtenerContadorFlagGeneradoFechasTotal(em, fechaIni, fechaFin);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error obtenerContadorFlagGeneradoFechasTotal Admi : " + e.toString());
+            log.warn("Error obtenerContadorFlagGeneradoFechasTotal Admi : " + e.toString());
             return null;
         }
     }
@@ -310,7 +313,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.ejecutarPKGRecontabilizacion(em, fechaIni, fechaFin);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGRecontabilizacion Admi : " + e.toString());
+            log.warn("Error ejecutarPKGRecontabilizacion Admi : " + e.toString());
         }
     }
 
@@ -320,7 +323,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             String valor = persistenciaProcesos.obtenerDescripcionProcesoPorSecuencia(em, proceso);
             return valor;
         } catch (Exception e) {
-            System.out.println("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
+            log.warn("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
             return null;
         }
     }
@@ -331,7 +334,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             String path = persistenciaGenerales.obtenerPathServidorWeb(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathServidorWeb Admi : " + e.toString());
+            log.warn("Error obtenerPathServidorWeb Admi : " + e.toString());
             return null;
         }
     }
@@ -342,7 +345,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             String path = persistenciaGenerales.obtenerPathProceso(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathProceso Admi : " + e.toString());
+            log.warn("Error obtenerPathProceso Admi : " + e.toString());
             return null;
         }
     }
@@ -352,7 +355,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
         try {
             persistenciaInterconTotal.ejecutarPKGCrearArchivoPlano_GEO(em, tipoArchivo, fechaIni, fechaFin, proceso, nombreArchivo);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
+            log.warn("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
         }
     }
 
@@ -362,7 +365,7 @@ public class AdministrarInterfaseContableTotalGEO implements AdministrarInterfas
             UsuariosInterfases usuario = persistenciaUsuariosInterfases.obtenerUsuarioInterfaseContabilidad(em);
             return usuario;
         } catch (Exception e) {
-            System.out.println("Error obtenerUsuarioInterfaseContabilizacion Admi : " + e.toString());
+            log.warn("Error obtenerUsuarioInterfaseContabilizacion Admi : " + e.toString());
             return null;
         }
     }

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondicionesAmbientalesPInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoCondicionesAmbientalesP.class);
 
     @EJB
     PersistenciaSoCondicionesAmbientalesPInterface persistenciaSoCondicionesAmbientalesP;
@@ -42,7 +45,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
     @Override
     public void modificarSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
         for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaSoCondicionesAmbientalesP.editar(em, listSoCondicionesAmbientalesP.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
     @Override
     public void borrarSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
         for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSoCondicionesAmbientalesP.borrar(em, listSoCondicionesAmbientalesP.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
     @Override
     public void crearSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
         for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaSoCondicionesAmbientalesP.crear(em, listSoCondicionesAmbientalesP.get(i));
         }
     }
@@ -81,10 +84,10 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
     public BigInteger verificarSoAccidentesMedicos(BigInteger secuenciaElementos) {
         BigInteger verificarSoAccidtenesMedicos;
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaElementos);
+            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
             return verificarSoAccidtenesMedicos = persistenciaSoCondicionesAmbientalesP.contadorSoAccidentesMedicos(em, secuenciaElementos);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARSOCONDICIONSEAMBIENTALESP verificarSoAccidtenesMedicos ERROR :" + e);
+            log.error("ERROR ADMINISTRARSOCONDICIONSEAMBIENTALESP verificarSoAccidtenesMedicos ERROR :" + e);
             return null;
         }
     }

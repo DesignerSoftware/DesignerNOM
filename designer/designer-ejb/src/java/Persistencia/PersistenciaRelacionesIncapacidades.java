@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless. <br> 
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaRelacionesIncapacidades implements PersistenciaRelacionesIncapacidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaRelacionesIncapacidades.class);
     
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -45,7 +47,7 @@ public class PersistenciaRelacionesIncapacidades implements PersistenciaRelacion
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Error: ( Relaciones)" + e.toString());
+            log.error("Error: ( Relaciones)" + e.toString());
             return null;
         }
     }

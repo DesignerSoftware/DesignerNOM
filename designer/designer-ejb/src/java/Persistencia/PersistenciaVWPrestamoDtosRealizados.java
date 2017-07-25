@@ -6,14 +6,13 @@
 
 package Persistencia;
 
-import Entidades.VWActualesJornadas;
 import Entidades.VWPrestamoDtosRealizados;
 import InterfacePersistencia.PersistenciaVWPrestamoDtosRealizadosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWPrestamoDtosRealizados implements PersistenciaVWPrestamoDtosRealizadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWPrestamoDtosRealizados.class);
 
     @Override
     public List<VWPrestamoDtosRealizados> buscarPrestamosDtos(EntityManager em, BigInteger secuencia) {
@@ -33,7 +34,7 @@ public class PersistenciaVWPrestamoDtosRealizados implements PersistenciaVWPrest
             List<VWPrestamoDtosRealizados> listaPrestamos =  query.getResultList();
             return listaPrestamos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWPrestamoDtosRealizados.buscarPrestamosDtos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWPrestamoDtosRealizados.buscarPrestamosDtos()" + e.getMessage());
             return null;
         }
     }

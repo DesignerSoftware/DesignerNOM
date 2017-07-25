@@ -32,6 +32,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -44,6 +45,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadAutoLiquidacion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadAutoLiquidacion.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -182,8 +185,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             administrarNovedadAutoLiquidaciones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct ControlNovedadAutoLiquidacion: " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct ControlNovedadAutoLiquidacion: " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 //
@@ -191,9 +194,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 //        anioParametro = BigInteger.valueOf(anio);
 //        mesParametro = BigInteger.valueOf(mes);
 //        secuenciaParametro = secuenciaEmpresa;
-//        System.out.println("valor del año: " + anioParametro);
-//        System.out.println("valor del mes : " + mesParametro);
-//        System.out.println("secuencia de la empresa :" + secuenciaEmpresa);
+//        log.info("valor del año: " + anioParametro);
+//        log.info("valor del mes : " + mesParametro);
+//        log.info("secuencia de la empresa :" + secuenciaEmpresa);
 //        listaNovedades = null;
 //        getListaNovedades();
 //        contarRegistros();
@@ -215,9 +218,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         anioParametro = BigInteger.valueOf(anio);
         mesParametro = BigInteger.valueOf(mes);
         secuenciaParametro = secuenciaEmpresa;
-        System.out.println("valor del año: " + anioParametro);
-        System.out.println("valor del mes : " + mesParametro);
-        System.out.println("secuencia de la empresa :" + secuenciaEmpresa);
+        log.info("valor del año: " + anioParametro);
+        log.info("valor del mes : " + mesParametro);
+        log.info("secuencia de la empresa :" + secuenciaEmpresa);
         listaNovedades = null;
         getListaNovedades();
     }
@@ -558,11 +561,11 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
-                System.out.println("guarda datos con éxito");
+                log.info("guarda datos con éxito");
                 novedadSeleccionada = null;
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -601,7 +604,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
+        log.info("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {

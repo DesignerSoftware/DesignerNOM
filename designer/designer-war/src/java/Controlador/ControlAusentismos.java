@@ -36,6 +36,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.datatable.DataTable;
@@ -49,6 +50,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlAusentismos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlAusentismos.class);
 
    @EJB
    AdministrarSoausentismosInterface administrarAusentismos;
@@ -314,8 +317,8 @@ public class ControlAusentismos implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -1113,9 +1116,9 @@ public class ControlAusentismos implements Serializable {
    //RASTROS 
    public void verificarRastro() {
       if (ausentismoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int result = administrarRastros.obtenerTabla(ausentismoSeleccionado.getSecuencia(), "SOAUSENTISMOS");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -1138,7 +1141,7 @@ public class ControlAusentismos implements Serializable {
    //AUTOCOMPLETAR
    public void modificarAusentismos(Soausentismos ausentismo, String confirmarCambio, String valorConfirmar) {
       ausentismoSeleccionado = ausentismo;
-      System.out.println("modificarAusentismos");
+      log.info("modificarAusentismos");
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -1450,7 +1453,7 @@ public class ControlAusentismos implements Serializable {
 //    }
    //Ubicacion Celda Indice Abajo. //Van los que no son NOT NULL.
    public void cambiarIndice(Soausentismos ausentismo, int celda) {
-      System.out.println("Cambiar Indice");
+      log.info("Cambiar Indice");
       if (permitirIndex == true) {
          ausentismoSeleccionado = ausentismo;
          cualCelda = celda;
@@ -1601,7 +1604,7 @@ public class ControlAusentismos implements Serializable {
    public void editarCelda() {
       if (ausentismoSeleccionado != null) {
          editarAusentismos = ausentismoSeleccionado;
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarTiposAusentismos");
             RequestContext.getCurrentInstance().execute("PF('editarTiposAusentismos').show()");
@@ -2155,7 +2158,7 @@ public class ControlAusentismos implements Serializable {
       nuevoAusentismo.setTipo(new Tiposausentismos());
       nuevoAusentismo.setCausa(new Causasausentismos());
       nuevoAusentismo.setClase(new Clasesausentismos());
-      System.out.println("Entro a Bandera B. 1");
+      log.info("Entro a Bandera B. 1");
    }
 
 //Salir NUEVO AUSENTISMO
@@ -2362,8 +2365,8 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void experimento(Date aux) {
-      System.out.println("experimento Valor experimento : " + aux);
-      System.out.println("experimento Nuevo Ausentismo Fecha Inicial: " + nuevoAusentismo.getFecha());
+      log.info("experimento Valor experimento : " + aux);
+      log.info("experimento Nuevo Ausentismo Fecha Inicial: " + nuevoAusentismo.getFecha());
    }
 
    //CREAR NOVEDADES
@@ -2373,7 +2376,7 @@ public class ControlAusentismos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (nuevoAusentismo.getFecha() == null) {
-         System.out.println("Entro a Fecha ");
+         log.info("Entro a Fecha ");
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
          pasa++;
       }
@@ -2516,7 +2519,7 @@ public class ControlAusentismos implements Serializable {
       duplicarAusentismo.setClase(new Clasesausentismos());
       ausentismoSeleccionado = null;
       FacesContext c = FacesContext.getCurrentInstance();
-      System.out.println("Entro a Bandera B. 1");
+      log.info("Entro a Bandera B. 1");
       botonLimpiarD = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:limpiarDuplicado");
       botonLimpiarD.setStyle("position: absolute; left: 50px; top: 400px;");
       botonAgregarD = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:agregarNADuplicado");
@@ -2538,11 +2541,11 @@ public class ControlAusentismos implements Serializable {
 
    public void guardarCambiosAusentismos() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Ausentismos");
+         log.info("Realizando Operaciones Ausentismos");
 
          if (!listaAusentismosBorrar.isEmpty()) {
             for (int i = 0; i < listaAusentismosBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaAusentismosBorrar.size());
+               log.info("Borrando..." + listaAusentismosBorrar.size());
 
                if (listaAusentismosBorrar.get(i).getDias() == null) {
                   listaAusentismosBorrar.get(i).setDias(null);
@@ -2602,13 +2605,13 @@ public class ControlAusentismos implements Serializable {
                }
                administrarAusentismos.borrarAusentismos(listaAusentismosBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaAusentismosBorrar.clear();
          }
 
          if (!listaAusentismosCrear.isEmpty()) {
             for (int i = 0; i < listaAusentismosCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
 
                if (listaAusentismosCrear.get(i).getDias() == null) {
                   listaAusentismosCrear.get(i).setDias(null);
@@ -2666,7 +2669,7 @@ public class ControlAusentismos implements Serializable {
                }
                administrarAusentismos.crearAusentismos(listaAusentismosCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaAusentismosCrear.clear();
          }
          if (!listaAusentismosModificar.isEmpty()) {
@@ -2674,7 +2677,7 @@ public class ControlAusentismos implements Serializable {
             listaAusentismosModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaAusentismos = null;
          getListaAusentismos();
          contarRegistroAusentismos();
@@ -2691,8 +2694,8 @@ public class ControlAusentismos implements Serializable {
          RequestContext.getCurrentInstance().update("form:growl");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
-      System.out.println("Tamaño lista: " + listaAusentismos.size());
-      System.out.println("Valor k: " + k);
+      log.info("Tamaño lista: " + listaAusentismos.size());
+      log.info("Valor k: " + k);
    }
 
    public void cancelarYSalir() {
@@ -2745,10 +2748,10 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void cambiosToggle() {
-      System.out.println("cambiosToggle");
+      log.info("cambiosToggle");
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaBotones == 0) {
-         System.out.println("Entro a Bandera B. 0");
+         log.info("Entro a Bandera B. 0");
          botonLimpiar = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:limpiar");
          botonLimpiar.setStyle("position: absolute; left: 50px; top: 570px;");
          botonAgregar = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:agregarNA");
@@ -2758,7 +2761,7 @@ public class ControlAusentismos implements Serializable {
          altoDialogoNuevo = "600";
          banderaBotones = 1;
       } else if (banderaBotones == 1) {
-         System.out.println("Entro a Bandera B. 1");
+         log.info("Entro a Bandera B. 1");
          botonLimpiar = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:limpiar");
          botonLimpiar.setStyle("position: absolute; left: 50px; top: 400px;");
          botonAgregar = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:agregarNA");
@@ -2774,10 +2777,10 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void cambiosToggleD() {
-      System.out.println("cambiosToggle");
+      log.info("cambiosToggle");
       FacesContext c = FacesContext.getCurrentInstance();
       if (banderaBotonesD == 0) {
-         System.out.println("Entro a Bandera B. 0");
+         log.info("Entro a Bandera B. 0");
          botonLimpiarD = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:limpiarDuplicado");
          botonLimpiarD.setStyle("position: absolute; left: 50px; top: 570px;");
          botonAgregarD = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:agregarNADuplicado");
@@ -2787,7 +2790,7 @@ public class ControlAusentismos implements Serializable {
          altoDialogoDuplicar = "530";
          banderaBotonesD = 1;
       } else if (banderaBotonesD == 1) {
-         System.out.println("Entro a Bandera B. 1");
+         log.info("Entro a Bandera B. 1");
          botonLimpiarD = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:limpiarDuplicado");
          botonLimpiarD.setStyle("position: absolute; left: 50px; top: 400px;");
          botonAgregarD = (CommandButton) c.getViewRoot().findComponent("formularioDialogos:agregarNADuplicado");
@@ -2920,14 +2923,14 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void autocompletarFechas(Date fechaInicial, BigInteger dias, int tipo) {
-      System.out.println("Controlador.ControlAusentismos.autocompletarFechas()");
-      System.out.println("fecha Inicial : " + fechaInicial);
-      System.out.println("dias : " + dias);
+      log.info("Controlador.ControlAusentismos.autocompletarFechas()");
+      log.info("fecha Inicial : " + fechaInicial);
+      log.info("dias : " + dias);
       Calendar cd = Calendar.getInstance();
       cd.setTime(fechaInicial);
       cd.add(Calendar.DAY_OF_MONTH, (dias.subtract(BigInteger.ONE).intValue()));
       Date fechaH = cd.getTime();
-      System.out.println("fecha Hasta : " + fechaH);
+      log.info("fecha Hasta : " + fechaH);
       if (tipo == 1) {
          nuevoAusentismo.setFechafinaus(fechaH);
          nuevoAusentismo.setFechaexpedicion(fechaInicial);
@@ -2942,12 +2945,12 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void autocompletarFechapago(Date fechaInicioPago, BigInteger dias, int tipo) {
-      System.out.println("Controlador.ControlAusentismos.autocompletarFechapago()");
+      log.info("Controlador.ControlAusentismos.autocompletarFechapago()");
       Calendar aux = Calendar.getInstance();
       aux.setTime(fechaInicioPago);
       aux.add(Calendar.DAY_OF_MONTH, (dias.subtract(BigInteger.ONE).intValue()));
       Date fechaH = aux.getTime();
-      System.out.println("fecha Hasta : " + fechaH);
+      log.info("fecha Hasta : " + fechaH);
       if (tipo == 1) {
          nuevoAusentismo.setFechafinpago(fechaH);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaFinalPago");

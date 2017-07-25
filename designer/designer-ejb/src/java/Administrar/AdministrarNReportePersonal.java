@@ -31,6 +31,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -38,6 +39,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarNReportePersonal implements AdministrarNReportePersonalInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNReportePersonal.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -104,7 +107,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -115,7 +118,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioPersonal(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e);
+            log.warn("Error listInforeportesUsuario " + e);
             return null;
         }
     }
@@ -125,7 +128,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
         try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosReportes : " + e.toString());
+            log.warn("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -135,7 +138,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listEmpresas;
         } catch (Exception e) {
-            System.out.println("Error listEmpresas Administrar : " + e.toString());
+            log.warn("Error listEmpresas Administrar : " + e.toString());
             return null;
         }
     }
@@ -146,7 +149,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listIdiomas = persistenciaIdiomas.buscarIdiomas(em);
             return listIdiomas;
         } catch (Exception e) {
-            System.out.println("Error listIdiomas Administrar : " + e.toString());
+            log.warn("Error listIdiomas Administrar : " + e.toString());
             return null;
         }
     }
@@ -157,7 +160,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listAficiones = persistenciaAficiones.buscarAficiones(em);
             return listAficiones;
         } catch (Exception e) {
-            System.out.println("Error listAficiones Administrar : " + e.toString());
+            log.warn("Error listAficiones Administrar : " + e.toString());
             return null;
         }
     }
@@ -168,7 +171,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listDeportes = persistenciaDeportes.buscarDeportes(em);
             return listDeportes;
         } catch (Exception e) {
-            System.out.println("Error listDeportes Administrar : " + e.toString());
+            log.warn("Error listDeportes Administrar : " + e.toString());
             return null;
         }
     }
@@ -179,7 +182,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listCiudades = persistenciaCiudades.consultarCiudades(em);
             return listCiudades;
         } catch (Exception e) {
-            System.out.println("Error listCiudades Administrar : " + e.toString());
+            log.warn("Error listCiudades Administrar : " + e.toString());
             return null;
         }
     }
@@ -190,7 +193,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listTiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return listTiposTrabajadores;
         } catch (Exception e) {
-            System.out.println("Error listTiposTrabajadores Administrar : " + e.toString());
+            log.warn("Error listTiposTrabajadores Administrar : " + e.toString());
             return null;
         }
     }
@@ -201,7 +204,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listEstructuras = persistenciaEstructuras.buscarEstructuras(em);
             return listEstructuras;
         } catch (Exception e) {
-            System.out.println("Error listEstructuras Administrar : " + e.toString());
+            log.warn("Error listEstructuras Administrar : " + e.toString());
             return null;
         }
     }
@@ -212,7 +215,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
             return listEmpleados;
         } catch (Exception e) {
-            System.out.println("Error listEmpleados Administrar : " + e.toString());
+            log.warn("Error listEmpleados Administrar : " + e.toString());
             return null;
         }
     }
@@ -223,7 +226,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listTiposTelefonos = persistenciaTiposTelefonos.tiposTelefonos(em);
             return listTiposTelefonos;
         } catch (Exception e) {
-            System.out.println("Error listTiposTelefonos Administrar : " + e.toString());
+            log.warn("Error listTiposTelefonos Administrar : " + e.toString());
             return null;
         }
     }
@@ -234,22 +237,22 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             listEstadosCiviles = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
             return listEstadosCiviles;
         } catch (Exception e) {
-            System.out.println("Error listEstadosCiviles Administrar : " + e.toString());
+            log.warn("Error listEstadosCiviles Administrar : " + e.toString());
             return null;
         }
     }
 
     @Override
     public void guardarCambiosInfoReportes(List<Inforeportes> listaIR) {
-        System.out.println("Administrar.AdministrarNReportePersonal.guardarCambiosInfoReportes().listaIR: " + listaIR);
+        log.warn("Administrar.AdministrarNReportePersonal.guardarCambiosInfoReportes().listaIR: " + listaIR);
         try {
             for (int i = 0; i < listaIR.size(); i++) {
-                System.out.println("AdministrarNReportePersonal.Tipo Reporte: " + listaIR.get(i).getTipo());
+                log.warn("AdministrarNReportePersonal.Tipo Reporte: " + listaIR.get(i).getTipo());
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
-            System.out.println("Sali try AdministrarNReportePersonal.guardarCambiosInfoReportes()");
+            log.warn("Sali try AdministrarNReportePersonal.guardarCambiosInfoReportes()");
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 }

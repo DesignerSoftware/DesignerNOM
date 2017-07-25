@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosDtosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEersPrestamosDtos.class);
 
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -35,7 +38,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
             em.merge(eersPrestamosDtos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEersPrestamosDtos.crear: " + e);
+            log.error("Error PersistenciaEersPrestamosDtos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +54,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
             em.merge(eersPrestamosDtos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEersPrestamosDtos.editar: " + e);
+            log.error("Error PersistenciaEersPrestamosDtos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +74,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaEersPrestamosDtos.borrar: " + e);
+                log.error("Error PersistenciaEersPrestamosDtos.borrar: " + e);
         }
     }
 
@@ -86,7 +89,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
             List<EersPrestamosDtos> eersPrestamosDtosResult = new ArrayList<EersPrestamosDtos>(eersPrestamosDtos);
             return eersPrestamosDtosResult;
         } catch (Exception e) {
-            System.out.println("Error: (eersPrestamosDtos)" + e);
+            log.error("Error: (eersPrestamosDtos)" + e);
             return null;
         }
     }

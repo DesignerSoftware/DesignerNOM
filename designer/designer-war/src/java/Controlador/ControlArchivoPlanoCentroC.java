@@ -41,6 +41,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -56,6 +57,8 @@ import org.primefaces.model.UploadedFile;
 @Named(value = "controlArchivoPlanoCentroC")
 @SessionScoped
 public class ControlArchivoPlanoCentroC implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlArchivoPlanoCentroC.class);
 
    @EJB
    AdministrarArchivoPlanoCentroCostoInterface AdministrarArchivoPlanoCentroCosto;
@@ -153,8 +156,8 @@ public class ControlArchivoPlanoCentroC implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          AdministrarArchivoPlanoCentroCosto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct CargarArchivoPlano: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -304,12 +307,12 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    public void cargarArchivo(FileUploadEvent event) throws IOException {
       if (event.getFile().getFileName().substring(event.getFile().getFileName().lastIndexOf(".") + 1).equalsIgnoreCase("prn")) {
          nombreArchivoPlano = event.getFile().getFileName();
-         System.out.println("CargarArchivoPlano.cargarArchivo()");
-         System.out.println("event.getFile().getSize() : " + event.getFile().getSize());
-         System.out.println("event.getFile().getContentType() : " + event.getFile().getContentType());
-         System.out.println("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
-         System.out.println("event.getFile().getFileName() : " + event.getFile().getFileName());
-         System.out.println("event.getFile().getInputstream() : " + event.getFile().getInputstream());
+         log.info("CargarArchivoPlano.cargarArchivo()");
+         log.info("event.getFile().getSize() : " + event.getFile().getSize());
+         log.info("event.getFile().getContentType() : " + event.getFile().getContentType());
+         log.info("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
+         log.info("event.getFile().getFileName() : " + event.getFile().getFileName());
+         log.info("event.getFile().getInputstream() : " + event.getFile().getInputstream());
 
          transformarArchivo(event.getFile().getSize(), event.getFile().getInputstream(), event.getFile().getFileName());
          contarRegistros();
@@ -325,7 +328,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
          if (nombreArchivo.length() <= 30) {
 //            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
             String destino = AdministrarArchivoPlanoCentroCosto.consultarRuta() + nombreArchivo;
-            System.out.println("transformarArchivo() destino : _" + destino + "_");
+            log.info("transformarArchivo() destino : _" + destino + "_");
             OutputStream out = new FileOutputStream(new File(destino));
             int reader = 0;
             byte[] bytes = new byte[(int) size];
@@ -342,7 +345,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
             context.execute("PF('errorNombreArchivo').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error transformarArchivo Controlador : " + e.toString());
+         log.warn("Error transformarArchivo Controlador : " + e.toString());
       }
    }
 ///PROYECTO
@@ -365,7 +368,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
 //v_vcSUBPorcentaje:= substr((LINEBUF),71,5);
 
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
-      System.out.println("Cargue.CargarArchivoPlano.leerTxt()");
+      log.info("Cargue.CargarArchivoPlano.leerTxt()");
       try {
          File archivo = new File(locArchivo);
          FileReader fr = new FileReader(archivo);
@@ -378,13 +381,13 @@ public class ControlArchivoPlanoCentroC implements Serializable {
          while ((sCadena = bf.readLine()) != null) {
             tNovedades = new TempProrrateos();
             String sEmpleado = sCadena.substring(0, 15).trim();
-            System.out.println("sEmpleado: _" + sEmpleado + "_");
+            log.info("sEmpleado: _" + sEmpleado + "_");
             if (!sEmpleado.equals("")) {
                try {
                   BigInteger codEmpleado = new BigInteger(sEmpleado);
                   tNovedades.setCodigoEmpleado(codEmpleado);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando codEmpleado : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codEmpleado : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -393,13 +396,13 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                tNovedades.setCodigoEmpleado(null);
             }
             String sCentrocosto = sCadena.substring(15, 30).trim();
-            System.out.println("sCentrocosto: _" + sCentrocosto + "_");
+            log.info("sCentrocosto: _" + sCentrocosto + "_");
             if (!sCentrocosto.equals("")) {
                try {
                   BigInteger codCentroCosto = new BigInteger(sCentrocosto);
                   tNovedades.setCodigoCentrocosto(codCentroCosto);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando codCentroCosto : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codCentroCosto : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -408,7 +411,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                tNovedades.setCodigoCentrocosto(null);
             }
             String fechaIni = sCadena.substring(30, 40).trim();
-            System.out.println("fechaIni: _" + fechaIni + "_");
+            log.info("fechaIni: _" + fechaIni + "_");
             if (!fechaIni.equals("")) {
                if (fechaIni.indexOf("-") > 0) {
                   fechaIni = fechaIni.replaceAll("-", "/");
@@ -417,7 +420,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   Date fechaInicial = formato.parse(fechaIni);
                   tNovedades.setFechaInicial(fechaInicial);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaInicial : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaInicial : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -426,7 +429,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                tNovedades.setFechaInicial(null);
             }
             String fechaFin = sCadena.substring(40, 50).trim();
-            System.out.println("fechaFin: _" + fechaFin + "_");
+            log.info("fechaFin: _" + fechaFin + "_");
             if (!fechaFin.equals("")) {
                if (fechaFin.indexOf("-") > 0) {
                   fechaFin = fechaFin.replaceAll("-", "/");
@@ -435,7 +438,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   Date fechaFinal = formato.parse(fechaFin);
                   tNovedades.setFechaFinal(fechaFinal);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaFinal : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaFinal : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -444,13 +447,13 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                tNovedades.setFechaFinal(null);
             }
             String sPorcentaje = sCadena.substring(50, 55).trim();
-            System.out.println("sPorcentaje: _" + sPorcentaje + "_");
+            log.info("sPorcentaje: _" + sPorcentaje + "_");
             if (!sPorcentaje.equals("")) {
                try {
                   BigDecimal porcentaje = new BigDecimal(sPorcentaje);
                   tNovedades.setPorcentaje(porcentaje);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando porcentaje : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando porcentaje : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -459,13 +462,13 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                tNovedades.setPorcentaje(null);
             }
             String sProyecto = sCadena.substring(55, 70).trim();
-            System.out.println("sProyecto: _" + sProyecto + "_");
+            log.info("sProyecto: _" + sProyecto + "_");
             if (!sProyecto.equals("")) {
                try {
                   BigInteger codProyecto = new BigInteger(sProyecto);
                   tNovedades.setCodigoProyecto(codProyecto);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando codProyecto : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codProyecto : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -474,13 +477,13 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                tNovedades.setCodigoProyecto(null);
             }
             String sSubPorcentaje = sCadena.substring(70, 75).trim();
-            System.out.println("sSubPorcentaje: _" + sSubPorcentaje + "_");
+            log.info("sSubPorcentaje: _" + sSubPorcentaje + "_");
             if (!sSubPorcentaje.equals("")) {
                try {
                   BigDecimal subporcentaje = new BigDecimal(sSubPorcentaje);
                   tNovedades.setSubPorcentaje(subporcentaje);
                } catch (Exception e) {
-                  System.out.println("ControlArchivoPlanoCentroC.leerTxt() Error capturando subporcentaje : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando subporcentaje : " + e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -518,7 +521,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         System.out.println("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt) " + e);
       }
    }
 
@@ -555,7 +558,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    }
 
    public void revisarNovedad(BigInteger secnovedad) {
-      System.out.println("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
+      log.info("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
       erroresNovedad = null;
       for (int i = 0; i < listErrores.size(); i++) {
          BigInteger secuencia = listErrores.get(i).getSecNovedad();
@@ -686,7 +689,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
 
    public void insertarNovedadTempProrrateos() {
       if (!listTempProrrateos.isEmpty()) {
-         System.out.println("ControlArchivoPlanoCentroC.insertarNovedadTempProrrateos() listTempProrrateos.get(0).getEstado(): " + listTempProrrateos.get(0).getEstado());
+         log.info("ControlArchivoPlanoCentroC.insertarNovedadTempProrrateos() listTempProrrateos.get(0).getEstado(): " + listTempProrrateos.get(0).getEstado());
          AdministrarArchivoPlanoCentroCosto.crear(listTempProrrateos);
       }
    }
@@ -855,7 +858,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    }
 
    public void borrarRegistrosNoCargados() {
-      System.out.println("ControlArchivoPlanoCentroC.borrarRegistrosNoCargados()");
+      log.info("ControlArchivoPlanoCentroC.borrarRegistrosNoCargados()");
       AdministrarArchivoPlanoCentroCosto.borrarRegistrosTempProrrateos(UsuarioBD.getAlias());
       listTempProrrateos = AdministrarArchivoPlanoCentroCosto.obtenerTempProrrateos(UsuarioBD.getAlias());
       contarRegistros();
@@ -917,7 +920,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
       if (!documentosSoportes.getTarget().isEmpty()) {
          RequestContext context = RequestContext.getCurrentInstance();
 //         resultadoProceso = AdministrarArchivoPlanoCentroCosto.BorrarTodo(UsuarioBD, documentosSoportes.getTarget());
-         System.out.println("NO ESTA BORRANDO TODO");
+         log.info("NO ESTA BORRANDO TODO");
          documentosSoportes = null;
          context.execute("PF('borrarTodoDialogo').hide()");
          context.update("form:pickListDocumentosSoporte");
@@ -1186,9 +1189,9 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    public List<NombresEmpleadosAux> getLovNombresEmpleados() {
       if (lovNombresEmpleados == null) {
          lovNombresEmpleados = AdministrarArchivoPlanoCentroCosto.consultarNombresEmpleados();
-         System.out.println("ControlArchivoPlanoCentroC.getLovNombresEmpleados() ya consulto");
+         log.info("ControlArchivoPlanoCentroC.getLovNombresEmpleados() ya consulto");
          if (lovNombresEmpleados != null) {
-            System.out.println("lovNombresEmpleados.size() : " + lovNombresEmpleados.size());
+            log.info("lovNombresEmpleados.size() : " + lovNombresEmpleados.size());
          }
       }
       return lovNombresEmpleados;

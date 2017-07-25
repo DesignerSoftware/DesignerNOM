@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlSucursales implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlSucursales.class);
 
    @EJB
    AdministrarSucursalesInterface administrarSucursales;
@@ -113,8 +116,8 @@ public class ControlSucursales implements Serializable {
          administrarSucursales.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -295,10 +298,10 @@ public class ControlSucursales implements Serializable {
          ciudad = (Column) c.getViewRoot().findComponent("form:datosSucursales:ciudad");
          ciudad.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosSucursales");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosSucursales:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -496,7 +499,7 @@ public class ControlSucursales implements Serializable {
       try {
          RequestContext context = RequestContext.getCurrentInstance();
          if (guardado == false) {
-            System.out.println("Realizando guardarSucursales");
+            log.info("Realizando guardarSucursales");
             if (!borrarSucursales.isEmpty()) {
                administrarSucursales.borrarSucursales(borrarSucursales);
                registrosBorrados = borrarSucursales.size();
@@ -522,7 +525,7 @@ public class ControlSucursales implements Serializable {
          }
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("error en el guardado de sucursales : " + e.toString());
+         log.warn("Error en el guardado de sucursales : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Hubo un error en el guardaro. Por favor intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -583,7 +586,7 @@ public class ControlSucursales implements Serializable {
       if (nuevoSucursales.getBanco().getNombre() == null) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
       if (nuevoSucursales.getCiudad().getNombre() == null) {
@@ -595,7 +598,7 @@ public class ControlSucursales implements Serializable {
       if (contador == 4) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosSucursales:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosSucursales:descripcion");
@@ -785,13 +788,13 @@ public class ControlSucursales implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlSucursales.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlSucursales.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlSucursales eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlSucursales eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposConstantes.class);
 
    @Override
    public void crear(EntityManager em, TiposConstantes tiposConstantes) {
@@ -28,7 +30,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          em.merge(tiposConstantes);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposConstantes.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposConstantes.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +46,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          em.merge(tiposConstantes);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposConstantes.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposConstantes.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +62,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          em.remove(em.merge(tiposConstantes));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTiposConstantes.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposConstantes.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +80,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          List<TiposConstantes> tiposConstantesResult = new ArrayList<TiposConstantes>(tiposConstantes);
          return tiposConstantesResult;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTiposConstantes.tiposConstantes()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTiposConstantes.tiposConstantes()" + e.getMessage());
          return null;
       }
    }

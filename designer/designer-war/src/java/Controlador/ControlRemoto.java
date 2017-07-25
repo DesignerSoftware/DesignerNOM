@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.tabview.Tab;
@@ -34,6 +35,8 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class ControlRemoto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlRemoto.class);
 
    @EJB
    AdministrarCarpetaPersonalInterface administrarCarpetaPersonal;
@@ -213,9 +216,9 @@ public class ControlRemoto implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         controlListaNavegacion = (ControlListaNavegacion) x.getApplication().evaluateExpressionGet(x, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         FacesContext fc = FacesContext.getCurrentInstance();
+         controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+         HttpSession ses = (HttpSession) fc.getExternalContext().getSession(false);
          administrarCarpetaPersonal.obtenerConexion(ses.getId());
          administrarCarpetaDesigner.obtenerConexion(ses.getId());
          administrarPermisosObjetosJsf.obtenerConexion(ses.getId());
@@ -224,8 +227,7 @@ public class ControlRemoto implements Serializable {
          try {
             valorInputText();
          } catch (ParseException ex) {
-            System.out.println("error en primerTipoTrabajador");
-            System.out.println("ControlRemoto.inicializarAdministrador() 7 CATCH");
+            log.error("Error en primerTipoTrabajador ControlRemoto.inicializarAdministrador() CATCH ERROR: " + ex);
          }
          llenarListaDeshavilitados();
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
@@ -242,8 +244,8 @@ public class ControlRemoto implements Serializable {
          ListObjetosJSF = null;
          getListObjetosJSF();
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -373,9 +375,9 @@ public class ControlRemoto implements Serializable {
             for (int i = 0; i < listaSecEmpleados.size(); i++) {
                try {
                   listaBusquedaAvanzada.add(administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(listaSecEmpleados.get(i)));
-                  System.out.println("Controlador.ControlRemoto.recibirBusquedaAvansada()");
+                  log.info("Controlador.ControlRemoto.recibirBusquedaAvansada()");
                } catch (Exception e) {
-                  System.out.println("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e : " + e);
+                  log.info("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e : " + e);
                }
             }
             if (!listaBusquedaAvanzada.isEmpty()) {
@@ -389,7 +391,7 @@ public class ControlRemoto implements Serializable {
                      }
                   }
                }
-               System.out.println("ControlRemoto.recibirBusquedaAvansada() lovBuscarEmplTipo.size(): " + lovBuscarEmplTipo.size());
+               log.info("ControlRemoto.recibirBusquedaAvansada() lovBuscarEmplTipo.size(): " + lovBuscarEmplTipo.size());
             }
             totalRegistros = listaBusquedaAvanzada.size();
             tipoPersonal = "activos";
@@ -397,7 +399,7 @@ public class ControlRemoto implements Serializable {
             tipo = "ACTIVO";
             posicion = 0;
             vwActualesTiposTrabajadoresPosicion = listaBusquedaAvanzada.get(0);
-            System.out.println("vwActualesTiposTrabajadoresPosicion : " + vwActualesTiposTrabajadoresPosicion);
+            log.info("vwActualesTiposTrabajadoresPosicion : " + vwActualesTiposTrabajadoresPosicion);
             if (vwActualesTiposTrabajadoresPosicion == null) {
                vwActualesTiposTrabajadoresPosicion = backup;
                Mensaje = "Activo";
@@ -423,12 +425,12 @@ public class ControlRemoto implements Serializable {
                try {
                   valorInputText();
                } catch (ParseException ex) {
-                  System.out.println(this.getClass().getName() + "activos() error ");
+                  log.info(this.getClass().getName() + "activos() error ");
                   ex.printStackTrace();
                }
                mostrarT2 = false;
                mostrarT = true;
-               System.out.println("Ya termino de entrar  :)");
+               log.info("Ya termino de entrar  :)");
                actualizarInformacionTipoTrabajador();
                controlListaNavegacion.quitarPagina("busquedaavanzada");
             }
@@ -472,7 +474,7 @@ public class ControlRemoto implements Serializable {
          try {
             valorInputText();
          } catch (ParseException ex) {
-            System.out.println(this.getClass().getName() + "activos() error ");
+            log.info(this.getClass().getName() + "activos() error ");
             ex.printStackTrace();
          }
          lovBuscarEmplTipo.clear();
@@ -520,8 +522,10 @@ public class ControlRemoto implements Serializable {
          mostrarT2 = true;
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+            log.info(ControlRemoto.class
+                    .getName() + " error en la entrada");
          }
          lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
@@ -568,8 +572,10 @@ public class ControlRemoto implements Serializable {
          mostrarT2 = true;
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+            log.info(ControlRemoto.class
+                    .getName() + " error en la entrada");
          }
          lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
@@ -616,8 +622,10 @@ public class ControlRemoto implements Serializable {
          mostrarT2 = true;
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+            log.info(ControlRemoto.class
+                    .getName() + " error en la entrada");
          }
          lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
@@ -634,7 +642,7 @@ public class ControlRemoto implements Serializable {
       BigDecimal x = BigDecimal.valueOf(0);
       if (tipoPersonal.equals("activos")) {
          result = administrarCarpetaPersonal.borrarActivo(secuencia);
-         System.out.println("result : " + result);
+         log.info("result : " + result);
          if (result == null) {
             result = BigDecimal.valueOf(0);
          }
@@ -703,7 +711,7 @@ public class ControlRemoto implements Serializable {
                try {
                   valorInputText();
                } catch (ParseException ex) {
-                  System.out.println(this.getClass().getName() + "activos() 'resultadoBusquedaAv' error ");
+                  log.info(this.getClass().getName() + "activos() 'resultadoBusquedaAv' error ");
                   ex.printStackTrace();
                }
                lovBuscarEmplTipo.clear();
@@ -716,12 +724,12 @@ public class ControlRemoto implements Serializable {
             }
          }
       } catch (Exception e) {
-         System.out.println("Error en borrar al empleado");
+         log.warn("Error en borrar al empleado");
       }
    }
 
    public void busquedaRapida() {
-      System.out.println("Entro en busqueda Rapida()");
+      log.info("Entro en busqueda Rapida()");
       filterBusquedaRapida = null;
       VWActualesTiposTrabajadores empleadoSeleccionado = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(emplSeleccionado.getRfEmpleado());
       resultadoBusquedaAv = false;
@@ -820,7 +828,8 @@ public class ControlRemoto implements Serializable {
          valorInputText();
 
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         log.info(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       actualizarNavegacion();
@@ -851,8 +860,8 @@ public class ControlRemoto implements Serializable {
    }
 
    public void buscarEmpleado() {
-      System.out.println("Entro en buscarEmpleado();");
-      System.out.println("emplSeleccionadoBE : " + emplSeleccionadoBE);
+      log.info("Entro en buscarEmpleado();");
+      log.info("emplSeleccionadoBE : " + emplSeleccionadoBE);
       filterBuscarEmpleado = null;
       resultadoBusquedaAv = false;
       VWActualesTiposTrabajadores empleadoSeleccionado = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(emplSeleccionadoBE.getRfEmpleado());
@@ -877,7 +886,8 @@ public class ControlRemoto implements Serializable {
          valorInputText();
 
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         log.info(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       actualizarNavegacion();
@@ -906,8 +916,10 @@ public class ControlRemoto implements Serializable {
       requerirTipoTrabajador(0);
       try {
          valorInputText();
+
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         log.info(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       actualizarNavegacion();
@@ -977,7 +989,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void cambiarTablas() {
-      //System.out.println("ControlRemoto.cambiarTablas() moduloSeleccionado : " + moduloSeleccionado);
+      //log.info("ControlRemoto.cambiarTablas() moduloSeleccionado : " + moduloSeleccionado);
       if (moduloSeleccionado != null) {
          listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
          if (listaTablas != null) {
@@ -1030,11 +1042,11 @@ public class ControlRemoto implements Serializable {
       tablaSeleccionada = tabla;
       if (tablaSeleccionada != null) {
          String pag = administrarCarpetaDesigner.consultarNombrePantalla(tablaSeleccionada.getSecuencia());
-         System.out.println("ControlRemoto.redireccion() pag : " + pag);
+         log.info("ControlRemoto.redireccion() pag : " + pag);
          if (pag != null) {
             pag = pag.toLowerCase();
             FacesContext fc = FacesContext.getCurrentInstance();
-            System.out.println("ControlRemoto.redireccion() pag : " + pag);
+            log.info("ControlRemoto.redireccion() pag : " + pag);
             pag = controlListaNavegacion.guardarNavegacion("nominaf", pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
@@ -1075,13 +1087,13 @@ public class ControlRemoto implements Serializable {
 
    public void primerTipoTrabajador() {
       posicion = 0;
-      System.out.println("Esta en primerTipoTrabajador()");
-      System.out.println("resultadoBusquedaAv : " + resultadoBusquedaAv);
+      log.info("Esta en primerTipoTrabajador()");
+      log.info("resultadoBusquedaAv : " + resultadoBusquedaAv);
       requerirTipoTrabajador(posicion);
       try {
          valorInputText();
       } catch (ParseException ex) {
-         System.out.println("error en primerTipoTrabajador");
+         log.warn("Error en primerTipoTrabajador");
       }
       actualizarInformacionTipoTrabajador();
       RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -1093,8 +1105,10 @@ public class ControlRemoto implements Serializable {
          requerirTipoTrabajador(posicion);
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada.");
+            log.info(ControlRemoto.class
+                    .getName() + " error en la entrada.");
          }
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -1107,8 +1121,10 @@ public class ControlRemoto implements Serializable {
          requerirTipoTrabajador(posicion);
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+            log.info(ControlRemoto.class
+                    .getName() + " error en la entrada");
          }
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -1122,7 +1138,8 @@ public class ControlRemoto implements Serializable {
          valorInputText();
 
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         log.info(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -1708,7 +1725,8 @@ public class ControlRemoto implements Serializable {
       mapParametros.put("paginaAnterior", "nominaf");
       mapParametros.put("automatico", automatico);
       FacesContext fc = FacesContext.getCurrentInstance();
-      ControlParametro controlParametro = (ControlParametro) fc.getApplication().evaluateExpressionGet(fc, "#{controlParametro}", ControlParametro.class);
+      ControlParametro controlParametro = (ControlParametro) fc.getApplication().evaluateExpressionGet(fc, "#{controlParametro}", ControlParametro.class
+      );
       controlParametro.recibirParametros(mapParametros);
 //      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       controlListaNavegacion.guardarNavegacion("nominaf", "parametro");
@@ -1838,7 +1856,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void redireccionPersonaIndividual() {
-      System.out.println("Va a Redireccionar la pagina");
+      log.info("Va a Redireccionar la pagina");
       FacesContext fc = FacesContext.getCurrentInstance();
 //      anularBotonEmpresas();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "personaindividual");
@@ -1871,25 +1889,25 @@ public class ControlRemoto implements Serializable {
    }
 
    public void activarAceptarEmp() {
-      System.out.println("Entro en activarAceptarEmp()");
+      log.info("Entro en activarAceptarEmp()");
       activarAceptarEmpresas = false;
       RequestContext.getCurrentInstance().update("formulariodialogos:aceptaremp");
    }
 
    public void asignarUnicaEmpresa() {
-      System.out.println("Entro en asignarUnicaEmpresa() lovEmpresas : " + lovEmpresas);
+      log.info("Entro en asignarUnicaEmpresa() lovEmpresas : " + lovEmpresas);
       if (lovEmpresas == null) {
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
       }
       RequestContext.getCurrentInstance().update("formulariodialogos:LovEmpresasDialogo");
       RequestContext.getCurrentInstance().update("formulariodialogos:LovEmpresasTabla");
-      System.out.println("Despues de getLovEmpresas lovEmpresas : " + lovEmpresas);
+      log.info("Despues de getLovEmpresas lovEmpresas : " + lovEmpresas);
       if (lovEmpresas != null) {
          if (lovEmpresas.size() >= 1) {
             unicaEmpresa = lovEmpresas.get(0);
          }
 //         } else {
-//            System.out.println("Va a abrir la lista de empresas");
+//            log.info("Va a abrir la lista de empresas");
 ////            RequestContext.getCurrentInstance().reset("formulariodialogos:LovEmpresasDialogo");
 ////            RequestContext.getCurrentInstance().reset("formulariodialogos:LovEmpresasTabla");
 //            RequestContext.getCurrentInstance().execute("PF('LovEmpresasDialogo').show()");
@@ -1900,11 +1918,11 @@ public class ControlRemoto implements Serializable {
 //         }
       }
       redireccionPersonaIndividual();
-      System.out.println("Unica Empresa : " + unicaEmpresa);
+      log.info("Unica Empresa : " + unicaEmpresa);
    }
 
    public void actualizarLOVEmpresas() {
-      System.out.println("Entro en actualizarLOVEmpresas()");
+      log.info("Entro en actualizarLOVEmpresas()");
       if (lovEmpresas == null) {
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
       }
@@ -1973,7 +1991,7 @@ public class ControlRemoto implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('errorInterfaz').show()");
          nombrepantalla = " ";
       }
-      System.out.println("nombre pantalla : " + nombrepantalla.toLowerCase());
+      log.info("nombre pantalla : " + nombrepantalla.toLowerCase());
       if (!nombrepantalla.equalsIgnoreCase(" ")) {
          FacesContext fc = FacesContext.getCurrentInstance();
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, nombrepantalla.toLowerCase());
@@ -2071,7 +2089,7 @@ public class ControlRemoto implements Serializable {
          valorInputText();
 //         RequestContext.getCurrentInstance().update("formulario:info:VCargoDesempeñado");
       } catch (Exception e) {
-         System.out.println("ERROR getInformacionTiposTrabajadores() : " + e.getCause());
+         log.warn("Error getInformacionTiposTrabajadores() : " + e.getCause());
       }
       return informacionTiposTrabajadores;
    }

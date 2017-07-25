@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlDetallesPeriodicidades")
 @SessionScoped
 public class ControlDetallesPeriodicidades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDetallesPeriodicidades.class);
 
    @EJB
    AdministrarDetallesPeriodicidadesInterface administrarDetallesPeriodicidades;
@@ -142,8 +145,8 @@ public class ControlDetallesPeriodicidades implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarDetallesPeriodicidades.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -351,7 +354,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
                administrarDetallesPeriodicidades.modificarDetallePeriodicidad(listaDetallesPModificar);
                listaDetallesPModificar.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listaDetallesP = null;
             getListaDetallesP();
             contarRegistros();
@@ -365,7 +368,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
          }
          detallePSeleccionado = null;
       } catch (Exception e) {
-         System.out.println("entró al catch... error en el guardado de detalles periodicidades " + e.toString());
+         log.info("entró al catch... error en el guardado de detalles periodicidades " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Error en el guardado, por favor intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

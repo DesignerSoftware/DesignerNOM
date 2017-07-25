@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
@@ -50,6 +51,8 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @SessionScoped
 public class ControlNReporteBienestar implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNReporteBienestar.class);
 
     @EJB
     AdministrarNReporteBienestarInterface administrarNReporteBienestar;
@@ -210,8 +213,8 @@ public class ControlNReporteBienestar implements Serializable {
             administrarNReporteBienestar.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -256,7 +259,7 @@ public class ControlNReporteBienestar implements Serializable {
                 decoracion2 = "underline";
                 RequestContext.getCurrentInstance().update("formParametros");
             }
-            System.out.println("reporteSeleccionado.getEmdesde(): " + inforreporteSeleccionado.getEmdesde());
+            log.info("reporteSeleccionado.getEmdesde(): " + inforreporteSeleccionado.getEmdesde());
             if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
                 empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
                 //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
@@ -267,7 +270,7 @@ public class ControlNReporteBienestar implements Serializable {
                 try {
                     if (empleadoDesdeParametroL.getStyle().contains(" color: red;")) {
 
-                        System.out.println("reeemplazarr " + empleadoDesdeParametroL.getStyle().replace(" color: red;", ""));
+                        log.info("reeemplazarr " + empleadoDesdeParametroL.getStyle().replace(" color: red;", ""));
                         empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle().replace(" color: red;", ""));
                     }
                 } catch (Exception e) {
@@ -275,7 +278,7 @@ public class ControlNReporteBienestar implements Serializable {
                 }
             }
             RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-            System.out.println("inforreporteSeleccionado.getEmhasta(): " + inforreporteSeleccionado.getEmhasta());
+            log.info("inforreporteSeleccionado.getEmhasta(): " + inforreporteSeleccionado.getEmhasta());
             if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
                 empleadoDesdeParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
                 empleadoDesdeParametroL.setStyle(empleadoDesdeParametroL.getStyle() + "color: red;");
@@ -288,7 +291,7 @@ public class ControlNReporteBienestar implements Serializable {
                 RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametroL");
             }
         } catch (Exception ex) {
-            System.out.println("Error en selecccion Registro : " + ex.getMessage());
+            log.warn("Error en selecccion Registro : " + ex.getMessage());
         }
     }
 
@@ -334,7 +337,7 @@ public class ControlNReporteBienestar implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("Error en guardar Cambios Controlador : " + e.toString());
+            log.warn("Error en guardar Cambios Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -426,7 +429,7 @@ public class ControlNReporteBienestar implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
             generarDocumentoReporte();
         } catch (Exception e) {
-            System.out.println("error en generarReporte : " + e.getMessage());
+            log.warn("Error en generarReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -451,10 +454,10 @@ public class ControlNReporteBienestar implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }
             } else {
-                System.out.println("Reporte Seleccionado es nulo");
+                log.info("Reporte Seleccionado es nulo");
             }
         } catch (Exception e) {
-            System.out.println("Error en generarDocumentoReporte : " + e.getMessage());
+            log.warn("Error en generarDocumentoReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -482,7 +485,7 @@ public class ControlNReporteBienestar implements Serializable {
                     }
                     if (reporte != null) {
                         if (inforreporteSeleccionado != null) {
-                            System.out.println("userAgent " + userAgent);
+                            log.info("userAgent " + userAgent);
                             if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                                 context.update("formDialogos:descargarReporte");
                                 context.execute("PF('descargarReporte').show();");
@@ -497,13 +500,13 @@ public class ControlNReporteBienestar implements Serializable {
                     }
                 }
             } else {
-                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                log.info("validar descarga reporte - ingreso al if 1 else");
                 RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("error en validarDescargarReporte : " + e.getMessage());
+            log.warn("Error en validarDescargarReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -511,23 +514,23 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+        log.info(this.getClass().getName() + ".reiniciarStreamedContent()");
         reporte = null;
     }
 
     public void cancelarReporte() {
-        System.out.println(this.getClass().getName() + ".cancelarReporte()");
+        log.info(this.getClass().getName() + ".cancelarReporte()");
         administarReportes.cancelarReporte();
     }
 
     public AsynchronousFilllListener listener() {
-        System.out.println(this.getClass().getName() + ".listener()");
+        log.info(this.getClass().getName() + ".listener()");
         return new AsynchronousFilllListener() {
             //RequestContext context = c;
 
             @Override
             public void reportFinished(JasperPrint jp) {
-                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+                log.info(this.getClass().getName() + ".listener().reportFinished()");
                 try {
                     estadoReporte = true;
                     resultadoReporte = "Exito";
@@ -540,20 +543,20 @@ public class ControlNReporteBienestar implements Serializable {
                     // RequestContext.getCurrentInstance().execute("PF('formDialogos:generandoReporte");
                     //generarArchivoReporte(jp);
                 } catch (Exception e) {
-                    System.out.println("ControlNReportePersonal reportFinished ERROR: " + e.toString());
+                    log.info("ControlNReportePersonal reportFinished ERROR: " + e.toString());
                 }
             }
 
             @Override
             public void reportCancelled() {
-                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+                log.info(this.getClass().getName() + ".listener().reportCancelled()");
                 estadoReporte = true;
                 resultadoReporte = "Cancelación";
             }
 
             @Override
             public void reportFillError(Throwable e) {
-                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+                log.info(this.getClass().getName() + ".listener().reportFillError()");
                 if (e.getCause() != null) {
                     pathReporteGenerado = "ControlNReportePersonal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
                 } else {
@@ -567,7 +570,7 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void generarArchivoReporte(JasperPrint print) {
-        System.out.println(this.getClass().getName() + ".generarArchivoReporte()");
+        log.info(this.getClass().getName() + ".generarArchivoReporte()");
         if (print != null && tipoReporte != null) {
             pathReporteGenerado = administarReportes.crearArchivoReporte(print, tipoReporte);
             validarDescargaReporte();
@@ -586,9 +589,9 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void mostrarDialogoBuscarReporte() {
-        System.out.println("Controlador.ControlNReporteBienestar.mostrarDialogoBuscarReporte()");
+        log.info("Controlador.ControlNReporteBienestar.mostrarDialogoBuscarReporte()");
         try {
-            System.out.println("Ingrese al try");
+            log.info("Ingrese al try");
             if (cambiosReporte == true) {
                 contarRegistrosLovReportes();
                 contarRegistros();
@@ -598,7 +601,7 @@ public class ControlNReporteBienestar implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
+            log.warn("Error mostrarDialogoBuscarReporte : " + e.toString());
         }
     }
 
@@ -607,12 +610,12 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void contarRegistros() {
-        System.out.println("Controlador.ControlNReporteBienestar.contarRegistros()");
+        log.info("Controlador.ControlNReporteBienestar.contarRegistros()");
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void contarRegistrosLovReportes() {
-        System.out.println("Controlador.ControlNReporteBienestar.contarRegistrosLovReportes()");
+        log.info("Controlador.ControlNReporteBienestar.contarRegistrosLovReportes()");
         RequestContext.getCurrentInstance().update("formDialogos:infoRegistroReportes");
     }
 
@@ -921,7 +924,7 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void reporteSeleccionado(int i) {
-        System.out.println("Posicion del reporte : " + i);
+        log.info("Posicion del reporte : " + i);
     }
 
     public void defaultPropiedadesParametrosReporte() {
@@ -934,12 +937,12 @@ public class ControlNReporteBienestar implements Serializable {
     public void modificarParametroInforme() {
         if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
             if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
-                System.out.println("Entre al segundo if");
+                log.info("Entre al segundo if");
                 parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                System.out.println("entre a else del segundo if");
+                log.info("entre a else del segundo if");
                 cambiosReporte = true;
             }
         }
@@ -984,11 +987,11 @@ public class ControlNReporteBienestar implements Serializable {
                 }
                 out.flush();
                 out.close();
-                System.out.println("\nDescargado\n");
+                log.info("\nDescargado\n");
                 ctx.responseComplete();
             }
         } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            log.info("validar descarga reporte - ingreso al if 1 else");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -1047,7 +1050,7 @@ public class ControlNReporteBienestar implements Serializable {
             }
             return parametroDeReporte;
         } catch (Exception e) {
-            System.out.println("Error getParametroDeInforme : " + e);
+            log.warn("Error getParametroDeInforme : " + e);
             return null;
         }
     }
@@ -1063,7 +1066,7 @@ public class ControlNReporteBienestar implements Serializable {
             }
             return listaIR;
         } catch (Exception e) {
-            System.out.println("Error getListInforeportesUsuario : " + e);
+            log.warn("Error getListInforeportesUsuario : " + e);
             return null;
         }
     }

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarPryPlataformas implements AdministrarPryPlataformasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPryPlataformas.class);
 
     @EJB
     PersistenciaPryPlataformasInterface persistenciaPryPlataformas;
@@ -45,7 +48,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
     @Override
     public void modificarPryPlataformas(List<PryPlataformas> listaPryClientes) {
         for (int i = 0; i < listaPryClientes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaPryPlataformas.editar(em, listaPryClientes.get(i));
         }
     }
@@ -53,7 +56,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
     @Override
     public void borrarPryPlataformas(List<PryPlataformas> listaPryClientes) {
         for (int i = 0; i < listaPryClientes.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaPryPlataformas.borrar(em, listaPryClientes.get(i));
         }
     }
@@ -61,7 +64,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
     @Override
     public void crearPryPlataformas(List<PryPlataformas> listaPryClientes) {
         for (int i = 0; i < listaPryClientes.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaPryPlataformas.crear(em, listaPryClientes.get(i));
         }
     }
@@ -79,10 +82,10 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
     public BigInteger contarProyectosPryPlataformas(BigInteger secuenciaProyectos) {
         BigInteger verificadorProyectos;
         try {
-            System.err.println("Secuencia Borrado Competencias Cargos" + secuenciaProyectos);
+            log.error("Secuencia Borrado Competencias Cargos" + secuenciaProyectos);
             return verificadorProyectos = persistenciaPryPlataformas.contadorProyectos(em, secuenciaProyectos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPryPlataformas verificarBorradoProyecto ERROR :" + e);
+            log.error("ERROR AdministrarPryPlataformas verificarBorradoProyecto ERROR :" + e);
             return null;
         }
     }

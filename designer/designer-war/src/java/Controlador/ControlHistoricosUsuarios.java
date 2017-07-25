@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -53,6 +54,8 @@ import org.primefaces.model.StreamedContent;
 @Named(value = "controlHistoricosUsuarios")
 @SessionScoped
 public class ControlHistoricosUsuarios implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlHistoricosUsuarios.class);
 
    @EJB
    AdministrarHistoricosUsuariosInterface administrarHistoricosUsuarios;
@@ -115,8 +118,8 @@ public class ControlHistoricosUsuarios implements Serializable {
          externalContext = x.getExternalContext();
          userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -891,33 +894,33 @@ public class ControlHistoricosUsuarios implements Serializable {
    }
 
    public AsynchronousFilllListener listener() {
-      System.out.println(this.getClass().getName() + ".listener()");
+      log.info(this.getClass().getName() + ".listener()");
       return new AsynchronousFilllListener() {
          //RequestContext context = c;
 
          @Override
          public void reportFinished(JasperPrint jp) {
-            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+            log.info(this.getClass().getName() + ".listener().reportFinished()");
             try {
                estadoReporte = true;
                resultadoReporte = "Exito";
                //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
 //                    generarArchivoReporte(jp);
             } catch (Exception e) {
-               System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+               log.info("ControlNReporteNomina reportFinished ERROR: " + e.toString());
             }
          }
 
          @Override
          public void reportCancelled() {
-            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+            log.info(this.getClass().getName() + ".listener().reportCancelled()");
             estadoReporte = true;
             resultadoReporte = "Cancelación";
          }
 
          @Override
          public void reportFillError(Throwable e) {
-            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+            log.info(this.getClass().getName() + ".listener().reportFillError()");
             if (e.getCause() != null) {
                pathReporteGenerado = "ControlUsuarios reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -931,33 +934,33 @@ public class ControlHistoricosUsuarios implements Serializable {
 
    public void validarDescargaReporte() {
       try {
-         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+         log.info(this.getClass().getName() + ".validarDescargaReporte()");
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
          RequestContext context = RequestContext.getCurrentInstance();
          BigDecimal aux = new BigDecimal(UsuarioAux.getSecuencia());
          nombreReporte = "HistoricoUsuario";
          tipoReporte = "PDF";
-         System.out.println("nombre reporte : " + nombreReporte);
-         System.out.println("tipo reporte: " + tipoReporte);
+         log.info("nombre reporte : " + nombreReporte);
+         log.info("tipo reporte: " + tipoReporte);
          Map param = new HashMap();
          param.put("secuenciaUsuario", aux);
          pathReporteGenerado = administarReportes.generarReporteHistoricosUsuarios(nombreReporte, tipoReporte, param);
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
          if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
+            log.info("validar descarga reporte - ingreso al if 1");
             if (tipoReporte.equals("PDF")) {
 
-               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               log.info("validar descarga reporte - ingreso al if 2 else");
                FileInputStream fis;
                try {
-                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  log.info("pathReporteGenerado : " + pathReporteGenerado);
                   fis = new FileInputStream(new File(pathReporteGenerado));
-                  System.out.println("fis : " + fis);
+                  log.info("fis : " + fis);
                   reporte = new DefaultStreamedContent(fis, "application/pdf");
-                  System.out.println("reporte despues de esto : " + reporte);
+                  log.info("reporte despues de esto : " + reporte);
                   if (reporte != null) {
-                     System.out.println("userAgent: " + userAgent);
-                     System.out.println("validar descarga reporte - ingreso al if 4");
+                     log.info("userAgent: " + userAgent);
+                     log.info("validar descarga reporte - ingreso al if 4");
                      if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                         context.update("formularioDialogos:descargarReporte");
                         context.execute("PF('descargarReporte').show();");
@@ -968,35 +971,35 @@ public class ControlHistoricosUsuarios implements Serializable {
                      }
                   }
                } catch (FileNotFoundException ex) {
-                  System.out.println("Error en validar descargar reporte : " + ex.getMessage());
+                  log.warn("Error en validar descargar reporte : " + ex.getMessage());
                   RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
                   RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                   reporte = null;
                }
             }
          } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            log.info("validar descarga reporte - ingreso al if 1 else");
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error en validar descargar Reporte " + e.toString());
+         log.warn("Error en validar descargar Reporte " + e.toString());
       }
    }
 
    public void reiniciarStreamedContent() {
-      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+      log.info(this.getClass().getName() + ".reiniciarStreamedContent()");
       reporte = null;
    }
 
    public void cancelarReporte() {
-      System.out.println(this.getClass().getName() + ".cancelarReporte()");
+      log.info(this.getClass().getName() + ".cancelarReporte()");
       administarReportes.cancelarReporte();
    }
 
    public void exportarReporte() throws IOException {
       try {
-         System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1021,7 +1024,7 @@ public class ControlHistoricosUsuarios implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("error en exportarReporte :" + e.getMessage());
+         log.warn("Error en exportarReporte :" + e.getMessage());
          RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
          RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
       }

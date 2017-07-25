@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEmpresasBancos implements AdministrarEmpresasBancosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmpresasBancos.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -64,14 +67,14 @@ public class AdministrarEmpresasBancos implements AdministrarEmpresasBancosInter
 
     public void modificarEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
         for (int i = 0; i < listaEmpresasBancos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaEmpresasBancos.editar(em,listaEmpresasBancos.get(i));
         }
     }
 
     public void borrarEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
         for (int i = 0; i < listaEmpresasBancos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaEmpresasBancos.borrar(em,listaEmpresasBancos.get(i));
         }
     }

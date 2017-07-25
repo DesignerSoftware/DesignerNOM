@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDemandas implements PersistenciaDemandasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDemandas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          em.merge(demandas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDemandas.crear: " + e);
+         log.error("Error PersistenciaDemandas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          em.merge(demandas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDemandas.crear: " + e);
+         log.error("Error PersistenciaDemandas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +74,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDemandas.borrar: " + e);
+         log.error("Error PersistenciaDemandas.borrar: " + e);
       }
    }
 
@@ -86,7 +89,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          return listaDemandas;
 //            }
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDemandas.demandasPersona" + e);
+         log.error("Error PersistenciaDemandas.demandasPersona" + e);
          return null;
       }
    }
@@ -108,7 +111,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
           return demanda;
          }
       } catch (Exception e) {
-          System.out.println("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
+          log.error("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
          demanda = "";
       }
       return demanda;

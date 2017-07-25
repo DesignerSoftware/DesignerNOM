@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesJornadasInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesJornadas implements PersistenciaVWActualesJornadasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesJornadas.class);
 
 
     public VWActualesJornadas buscarJornada(EntityManager em, BigInteger secuencia) {
@@ -29,7 +31,7 @@ public class PersistenciaVWActualesJornadas implements PersistenciaVWActualesJor
             VWActualesJornadas actualesJornadas = (VWActualesJornadas) query.getSingleResult();
             return actualesJornadas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesJornadas.buscarJornada()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesJornadas.buscarJornada()" + e.getMessage());
             return null;
         }
     }

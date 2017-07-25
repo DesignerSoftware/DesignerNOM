@@ -12,12 +12,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposUnidades.class);
 
     @Override
     public void crear(EntityManager em, TiposUnidades tiposUnidades) {
@@ -28,7 +30,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.merge(tiposUnidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +46,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.merge(tiposUnidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +62,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.remove(em.merge(tiposUnidades));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +78,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             List< TiposUnidades> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.out.println("Error consultarTiposUnidades PersistenciaTiposUnidades : " + e.getMessage());
+            log.error("Error consultarTiposUnidades PersistenciaTiposUnidades : " + e.getMessage());
             return null;
         }
     }
@@ -91,7 +93,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             TiposUnidades tiposUnidades = (TiposUnidades) query.getSingleResult();
             return tiposUnidades;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades consultarTipoUnidad : " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades consultarTipoUnidad : " + e.getMessage());
             TiposUnidades tiposEntidades = null;
             return tiposEntidades;
         }
@@ -106,10 +108,10 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador TiposUnidades contadorVigenciasIndicadores persistencia " + retorno);
+            log.error("Contador TiposUnidades contadorVigenciasIndicadores persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error TiposUnidades contadorVigenciasIndicadores. " + e.getMessage());
+            log.error("Error TiposUnidades contadorVigenciasIndicadores. " + e.getMessage());
             return retorno;
         }
     }

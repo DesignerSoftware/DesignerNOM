@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -25,104 +25,106 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCambiosSueldosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
+   private static Logger log = Logger.getLogger(PersistenciaMotivosCambiosSueldos.class);
+
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos.
+    */
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
-    @Override
-    public void crear(EntityManager em, MotivosCambiosSueldos motivosCambiosSueldos) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(motivosCambiosSueldos);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.crear: " + e.getMessage());
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void crear(EntityManager em, MotivosCambiosSueldos motivosCambiosSueldos) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(motivosCambiosSueldos);
+         tx.commit();
+      } catch (Exception e) {
+         log.error("Error PersistenciaMotivosCambiosSueldos.crear: " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em, MotivosCambiosSueldos motivosCambiosSueldos) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(motivosCambiosSueldos);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void editar(EntityManager em, MotivosCambiosSueldos motivosCambiosSueldos) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(motivosCambiosSueldos);
+         tx.commit();
+      } catch (Exception e) {
+         log.error("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, MotivosCambiosSueldos motivosCambiosSueldos) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(motivosCambiosSueldos));
-            tx.commit();
+   @Override
+   public void borrar(EntityManager em, MotivosCambiosSueldos motivosCambiosSueldos) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(motivosCambiosSueldos));
+         tx.commit();
 
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+      } catch (Exception e) {
+         log.error("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public List<MotivosCambiosSueldos> buscarMotivosCambiosSueldos(EntityManager em) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT m FROM MotivosCambiosSueldos m");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<MotivosCambiosSueldos> motivosCambiosSueldos = (List<MotivosCambiosSueldos>) query.getResultList();
-            return motivosCambiosSueldos;
-        } catch (Exception e) {
-            System.out.println("Error buscarMotivosCambiosSueldos PersistenciaMotivoCambioSueldo : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<MotivosCambiosSueldos> buscarMotivosCambiosSueldos(EntityManager em) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT m FROM MotivosCambiosSueldos m");
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<MotivosCambiosSueldos> motivosCambiosSueldos = (List<MotivosCambiosSueldos>) query.getResultList();
+         return motivosCambiosSueldos;
+      } catch (Exception e) {
+         log.error("Error buscarMotivosCambiosSueldos PersistenciaMotivoCambioSueldo : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public MotivosCambiosSueldos buscarMotivoCambioSueldoSecuencia(EntityManager em, BigInteger secuencia) {
+   @Override
+   public MotivosCambiosSueldos buscarMotivoCambioSueldoSecuencia(EntityManager em, BigInteger secuencia) {
 
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT mcs FROM MotivosCambiosSueldos mcs WHERE mcs.secuencia = :secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            MotivosCambiosSueldos motivosCambiosSueldos = (MotivosCambiosSueldos) query.getSingleResult();
-            return motivosCambiosSueldos;
-        } catch (Exception e) {
-            System.out.println("Error buscarMotivoCambioSueldoSecuencia" + e.getMessage());
-            MotivosCambiosSueldos motivosCambiosSueldos = null;
-            return motivosCambiosSueldos;
-        }
-    }
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT mcs FROM MotivosCambiosSueldos mcs WHERE mcs.secuencia = :secuencia");
+         query.setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         MotivosCambiosSueldos motivosCambiosSueldos = (MotivosCambiosSueldos) query.getSingleResult();
+         return motivosCambiosSueldos;
+      } catch (Exception e) {
+         log.error("Error buscarMotivoCambioSueldoSecuencia" + e.getMessage());
+         MotivosCambiosSueldos motivosCambiosSueldos = null;
+         return motivosCambiosSueldos;
+      }
+   }
 
-    @Override
-    public BigInteger verificarBorradoVigenciasSueldos(EntityManager em, BigInteger secuencia) {
-        BigInteger retorno = new BigInteger("-1");
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT count(vs) FROM VigenciasSueldos vs WHERE vs.motivocambiosueldo.secuencia =:secMotivosCambiosSueldos ");
-            query.setParameter("secMotivosCambiosSueldos", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            retorno = new BigInteger(query.getSingleResult().toString());
-        } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
-        } finally {
-            return retorno;
-        }
-    }
+   @Override
+   public BigInteger verificarBorradoVigenciasSueldos(EntityManager em, BigInteger secuencia) {
+      BigInteger retorno = new BigInteger("-1");
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT count(vs) FROM VigenciasSueldos vs WHERE vs.motivocambiosueldo.secuencia =:secMotivosCambiosSueldos ");
+         query.setParameter("secMotivosCambiosSueldos", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         retorno = new BigInteger(query.getSingleResult().toString());
+      } catch (Exception e) {
+         log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
+      } finally {
+         return retorno;
+      }
+   }
 }

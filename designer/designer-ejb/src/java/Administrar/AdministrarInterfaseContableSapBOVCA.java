@@ -29,6 +29,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -36,6 +37,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfaseContableSapBOVCAInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarInterfaseContableSapBOVCA.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -88,7 +91,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             }
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error obtenerParametrosContablesUsuarioBD Admi : " + e.toString());
+            log.warn("Error obtenerParametrosContablesUsuarioBD Admi : " + e.toString());
             return null;
         }
     }
@@ -101,7 +104,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
                 persistenciaParametrosContables.borrar(em, listPC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarParametroContable Admi : " + e.toString());
+            log.warn("Error borrarParametroContable Admi : " + e.toString());
         }
     }
 
@@ -128,7 +131,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             }
             persistenciaParametrosContables.crear(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -139,7 +142,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             List<SolucionesNodos> lista = persistenciaSolucionesNodos.buscarSolucionesNodosParaParametroContable_SAP(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             List<InterconSapBO> lista = persistenciaInterconSap.buscarInterconSAPBOParametroContable(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerInterconSapBOVCAParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerInterconSapBOVCAParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -161,7 +164,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             List<Procesos> lista = persistenciaProcesos.buscarProcesos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovProcesos Admi : " + e.toString());
+            log.warn("Error lovProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -172,7 +175,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -183,7 +186,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             ActualUsuario user = persistenciaActualUsuario.actualUsuarioBD(em);
             return user;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -194,7 +197,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             Date fecha = persistenciaContabilizaciones.obtenerFechaMaximaContabilizacionesSAPBOV8(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerMaxFechaContabilizaciones Admi : " + e.toString());
+            log.warn("Error obtenerMaxFechaContabilizaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -205,7 +208,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             Date fecha = persistenciaInterconSap.obtenerFechaMaxInterconSAPBO(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerMaxFechaIntercoSapBO Admi : " + e.toString());
+            log.warn("Error obtenerMaxFechaIntercoSapBO Admi : " + e.toString());
             return null;
         }
     }
@@ -221,7 +224,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaInterconSap.actualizarFlagProcesoAnularInterfaseContableSAPBOV8(em, fechaIni, fechaFin);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagProcesoAnularInterfaseContableSAPBOVCA Admi : " + e.toString());
+            log.warn("Error actualizarFlagProcesoAnularInterfaseContableSAPBOVCA Admi : " + e.toString());
         }
     }
 
@@ -231,7 +234,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             Date objeto = persistenciaVWActualesFechas.actualFechaHasta(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -242,7 +245,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             Date objeto = persistenciaVWActualesFechas.actualFechaDesde(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -252,7 +255,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaInterconSap.cerrarProcesoLiquidacion(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error cerrarProcesoLiquidacion Admi : " + e.toString());
+            log.warn("Error cerrarProcesoLiquidacion Admi : " + e.toString());
         }
     }
 
@@ -261,7 +264,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaContabilizaciones.actualizarFlahInterconContableSAPBOV8(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error cambiarFlagInterconContableSAPBOVCA Admi : " + e.toString());
+            log.warn("Error cambiarFlagInterconContableSAPBOVCA Admi : " + e.toString());
         }
     }
 
@@ -270,7 +273,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaInterconSap.ejecutarDeleteInterconSAPBOV8(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error ejecutarDeleteInterconSAP Admi : " + e.toString());
+            log.warn("Error ejecutarDeleteInterconSAP Admi : " + e.toString());
         }
     }
 
@@ -279,7 +282,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaInterconSap.ejeuctarPKGUbicarnuevointercon_SAPBO_VCA(em, secuencia, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error ejeuctarPKGUbicarnuevointercon_SAPBO_VCA Admi : " + e.toString());
+            log.warn("Error ejeuctarPKGUbicarnuevointercon_SAPBO_VCA Admi : " + e.toString());
         }
     }
 
@@ -289,7 +292,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             int contador = persistenciaInterconSap.contarProcesosContabilizadosInterconSAPBO(em, fechaInicial, fechaFinal);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error contarProcesosContabilizadosInterconSAPBO Admi : " + e.toString());
+            log.warn("Error contarProcesosContabilizadosInterconSAPBO Admi : " + e.toString());
             return -1;
         }
     }
@@ -300,7 +303,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             Integer contador = persistenciaContabilizaciones.obtenerContadorFlagGeneradoFechasSAP(em, fechaIni, fechaFin);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error obtenerContadorFlagGeneradoFechasSAP Admi : " + e.toString());
+            log.warn("Error obtenerContadorFlagGeneradoFechasSAP Admi : " + e.toString());
             return null;
         }
     }
@@ -310,7 +313,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaInterconSap.ejecutarPKGRecontabilizacion(em, fechaIni, fechaFin);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGRecontabilizacion Admi : " + e.toString());
+            log.warn("Error ejecutarPKGRecontabilizacion Admi : " + e.toString());
         }
     }
 
@@ -320,7 +323,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             String valor = persistenciaProcesos.obtenerDescripcionProcesoPorSecuencia(em, proceso);
             return valor;
         } catch (Exception e) {
-            System.out.println("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
+            log.warn("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
             return null;
         }
     }
@@ -331,7 +334,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             String path = persistenciaGenerales.obtenerPathServidorWeb(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathServidorWeb Admi : " + e.toString());
+            log.warn("Error obtenerPathServidorWeb Admi : " + e.toString());
             return null;
         }
     }
@@ -342,7 +345,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             String path = persistenciaGenerales.obtenerPathProceso(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathProceso Admi : " + e.toString());
+            log.warn("Error obtenerPathProceso Admi : " + e.toString());
             return null;
         }
     }
@@ -352,7 +355,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
         try {
             persistenciaInterconSap.ejecutarPKGCrearArchivoPlanoSAPVCA(em, fechaIni, fechaFin, proceso, descripcionProceso, nombreArchivo);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
+            log.warn("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
         }
     }
 
@@ -363,7 +366,7 @@ public class AdministrarInterfaseContableSapBOVCA implements AdministrarInterfas
             UsuariosInterfases usuario = persistenciaUsuariosInterfases.obtenerUsuarioInterfaseContabilidad(em);
             return usuario;
         } catch (Exception e) {
-            System.out.println("Error obtenerUsuarioInterfaseContabilizacion Admi : " + e.toString());
+            log.warn("Error obtenerUsuarioInterfaseContabilizacion Admi : " + e.toString());
             return null;
         }
     }

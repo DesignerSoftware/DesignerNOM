@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKioscosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaPreguntasKioscos.class);
+
     @Override
     public void crear(EntityManager em, PreguntasKioskos pregunta) {
         em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             em.merge(pregunta);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPreguntasKioscos.crear: " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +49,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             em.merge(pregunta);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPreguntasKioscos.editar: " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +65,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             em.remove(em.merge(pregunta));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPreguntasKioscos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +82,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             return lista;
 
         } catch (Exception e) {
-            System.out.println("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos : " + e.getMessage());
+            log.error("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos : " + e.getMessage());
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             PreguntasKioskos preguntaK = (PreguntasKioskos) query.getSingleResult();
             return preguntaK;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPreguntasKioscos consultarPreguntaKiosko : " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos consultarPreguntaKiosko : " + e.getMessage());
             PreguntasKioskos preguntaK = null;
             return preguntaK;
         }
@@ -109,10 +112,10 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             query.setParameter(1, secuencia);
             query.setParameter(2, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PreguntasKioskos  persistencia " + retorno);
+            log.error("Contador PreguntasKioskos  persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPreguntasKioscos.contarPreguntasKioskos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPreguntasKioscos.contarPreguntasKioskos()" + e.getMessage());
             return retorno;
         }
     }

@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 //import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -26,6 +27,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaDetallesEmpresas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -43,7 +46,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          em.merge(detallesEmpresas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesEmpresas.crear: " + e);
+         log.error("Error PersistenciaDetallesEmpresas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,12 +59,10 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         System.out.println("PersistenciaDetallesEmpresas.editar()");
          em.merge(detallesEmpresas);
          tx.commit();
-         System.out.println("PersistenciaDetallesEmpresas.editar() luego del merge() y commit()");
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesEmpresas.editar: " + e);
+         log.error("Error PersistenciaDetallesEmpresas.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +82,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDetallesEmpresas.borrar: " + e);
+         log.error("Error PersistenciaDetallesEmpresas.borrar: " + e);
       }
    }
 
@@ -92,7 +93,6 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          Query q = em.createNativeQuery("SELECT de.* FROM DetallesEmpresas de, empresas e WHERE de.empresa = e.secuencia and e.codigo = " + codigoEmpresa, DetallesEmpresas.class);
          DetallesEmpresas detalleEmpresa = (DetallesEmpresas) q.getSingleResult();
          if (detalleEmpresa != null) {
-//            System.out.println("PersistenciaDetallesEmpresas.buscarDetalleEmpresa() detallesEmpresas : " + detalleEmpresa);
             em.clear();
             Query query = em.createNativeQuery("SELECT D.SECUENCIA,\n"
                     + " P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE_PERSONAFIRMACONSTANCIA,\n"
@@ -122,7 +122,6 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                     + " AND CA.SECUENCIA(+) = D.CARGOFIRMACONSTANCIA", DetallesEmpresasAux.class);
             DetallesEmpresasAux detalleAux = (DetallesEmpresasAux) query.getSingleResult();
             if (detalleAux != null) {
-//               System.out.println("PersistenciaDetallesEmpresas.buscarDetalleEmpresa() detalleAux : " + detalleAux);
                if (detalleEmpresa.getSecuencia().equals(detalleAux.getSecuencia())) {
                   detalleEmpresa.setNombre_arquitecto(detalleAux.getNombre_arquitecto());
                   detalleEmpresa.setNombre_cargofirmaconstancia(detalleAux.getNombre_cargofirmaconstancia());
@@ -140,8 +139,8 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          }
          return detalleEmpresa;
       } catch (Exception e) {
-         System.out.println("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. ");
-         System.out.println(e.getMessage());
+         log.error("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. ");
+         log.error(e.getMessage());
          return null;
       }
    }
@@ -157,7 +156,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
          return detallesEmpresas;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia. " + e.toString());
+         log.error("Error PersistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia. " + e.toString());
          return null;
       }
    }
@@ -169,7 +168,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          Query cq = em.createNativeQuery("SELECT D.* FROM DETALLESEMPRESAS D, EMPRESAS E WHERE E.SECUENCIA = D.EMPRESA", DetallesEmpresas.class);
          List<DetallesEmpresas> listaResultado = cq.getResultList();
          if (listaResultado != null) {
-            System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
+            log.warn("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaResultado : " + listaResultado);
             if (!listaResultado.isEmpty()) {
                em.clear();
                Query query = em.createNativeQuery("SELECT D.SECUENCIA,\n"
@@ -199,7 +198,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
                        + " AND CA.SECUENCIA(+) = D.CARGOFIRMACONSTANCIA", DetallesEmpresasAux.class);
                List<DetallesEmpresasAux> listaAux = query.getResultList();
                if (listaAux != null) {
-                  System.out.println("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaAux : " + listaAux);
+                  log.warn("PersistenciaDetallesEmpresas.buscarDetallesEmpresas() listaAux : " + listaAux);
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaResultado.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {
@@ -226,7 +225,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          }
          return listaResultado;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesEmpresas.buscarDetallesEmpresas : " + e.toString());
+         log.error("Error PersistenciaDetallesEmpresas.buscarDetallesEmpresas : " + e.toString());
          return null;
       }
    }
@@ -242,7 +241,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          TercerosSucursales tercerosArl = (TercerosSucursales) query.getSingleResult();
          return tercerosArl;
       } catch (Exception e) {
-         System.out.println("PersistenciaDetallesEmpresas ERROR buscarARLPorEmpresa() : " + e.toString());
+         log.error("PersistenciaDetallesEmpresas ERROR buscarARLPorEmpresa() : " + e.toString());
          return null;
       }
    }

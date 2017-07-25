@@ -23,6 +23,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -33,6 +34,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDetallesEmpresas.class);
 
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -109,17 +112,17 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          return lista;
 
       } catch (Exception e) {
-         System.out.println("Error listaDetallesEmpresasPorSecuencia Admi : " + e.toString());
+         log.warn("Error listaDetallesEmpresasPorSecuencia Admi : " + e.toString());
          return null;
       }
    }
 
    public List<DetallesEmpresas> listaDetallesEmpresas() {
       try {
-         System.out.println("AdministrarDetallesEmpresas.listaDetallesEmpresas() em: " + em);
+         log.warn("AdministrarDetallesEmpresas.listaDetallesEmpresas() em: " + em);
          return persistenciaDetallesEmpresas.buscarDetallesEmpresas(em);
       } catch (Exception e) {
-         System.out.println("Error listaDetallesEmpresas Admi : " + e.toString());
+         log.warn("Error listaDetallesEmpresas Admi : " + e.toString());
          return null;
       }
    }
@@ -152,19 +155,19 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
             persistenciaDetallesEmpresas.crear(em, listaDE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearDetalleEmpresa Admi : " + e.toString());
+         log.warn("Error crearDetalleEmpresa Admi : " + e.toString());
       }
    }
 
    @Override
    public void editarDetalleEmpresa(List<DetallesEmpresas> listaDE) {
       try {
-         System.out.println("AdministrarDetallesEmpresas.editarDetalleEmpresa()");
+         log.warn("AdministrarDetallesEmpresas.editarDetalleEmpresa()");
          for (int i = 0; i < listaDE.size(); i++) {
             persistenciaDetallesEmpresas.editar(em, listaDE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarDetalleEmpresa Admi : " + e.toString());
+         log.warn("Error editarDetalleEmpresa Admi : " + e.toString());
       }
    }
 
@@ -196,7 +199,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
             persistenciaDetallesEmpresas.borrar(em, listaDE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarDetalleEmpresa Admi : " + e.toString());
+         log.warn("Error borrarDetalleEmpresa Admi : " + e.toString());
       }
    }
 
@@ -206,7 +209,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          List<Ciudades> lista = persistenciaCiudades.consultarCiudades(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCiudades Admi : " + e.toString());
+         log.warn("Error lovCiudades Admi : " + e.toString());
          return null;
       }
    }
@@ -217,7 +220,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovEmpleados Admi : " + e.toString());
+         log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;
       }
    }
@@ -228,7 +231,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          List<Personas> lista = persistenciaPersonas.consultarPersonas(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovPersonas Admi : " + e.toString());
+         log.warn("Error lovPersonas Admi : " + e.toString());
          return null;
       }
    }
@@ -239,7 +242,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          List<Cargos> lista = persistenciaCargos.consultarCargos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovCargos Admi : " + e.toString());
+         log.warn("Error lovCargos Admi : " + e.toString());
          return null;
       }
    }
@@ -250,7 +253,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          List<Empresas> lista = persistenciaEmpresas.consultarEmpresas(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovPersonas Admi : " + e.toString());
+         log.warn("Error lovPersonas Admi : " + e.toString());
          return null;
       }
    }
@@ -261,7 +264,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
          Empresas empr = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
          return empr;
       } catch (Exception e) {
-         System.out.println("Error empresaActual Admi : " + e.toString());
+         log.warn("Error empresaActual Admi : " + e.toString());
          return null;
       }
    }

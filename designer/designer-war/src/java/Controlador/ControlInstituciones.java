@@ -26,6 +26,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlInstituciones")
 @SessionScoped
 public class ControlInstituciones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlInstituciones.class);
 
    @EJB
    AdministrarRastrosInterface administrarRastros;
@@ -111,25 +114,15 @@ public class ControlInstituciones implements Serializable {
          controlListaNavegacion.quitarPagina(pagActual);
 
       } else {
-         */
-String pagActual = "instituciones";
-         
-         
-         
+       */
+      String pagActual = "instituciones";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -158,8 +151,8 @@ String pagActual = "instituciones";
          administrarRastros.obtenerConexion(ses.getId());
          administrarInstituciones.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -229,7 +222,7 @@ String pagActual = "instituciones";
          RequestContext.getCurrentInstance().update("form:datosInstituciones");
          deshabilitarBotonLov();
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -239,7 +232,7 @@ String pagActual = "instituciones";
    public void salir() {
       limpiarListasValor();
       if (bandera == 1) {
-         System.out.println("desactivar");
+         log.info("desactivar");
          FacesContext c = FacesContext.getCurrentInstance();
          codigo = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionCodigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -275,7 +268,7 @@ String pagActual = "instituciones";
       }
 
       for (int i = 0; i < listaInstituciones.size(); i++) {
-         System.out.println("Codigos: " + listaInstituciones.get(i).getCodigo());
+         log.info("Codigos: " + listaInstituciones.get(i).getCodigo());
          if (listaInstituciones.get(i).getCodigo().compareTo(nuevoInstitucion.getCodigo()) == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
             RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
@@ -291,7 +284,7 @@ String pagActual = "instituciones";
       if (pasa == 0 && pasaA == 0) {
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionCodigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -332,8 +325,8 @@ String pagActual = "instituciones";
 
    public void activarCtrlF11() {
       if (bandera == 0) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          FacesContext c = FacesContext.getCurrentInstance();
          codigo = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionCodigo");
          codigo.setFilterStyle("width: 85% !important");
@@ -348,8 +341,8 @@ String pagActual = "instituciones";
          bandera = 1;
          tipoLista = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          FacesContext c = FacesContext.getCurrentInstance();
          codigo = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionCodigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -494,7 +487,7 @@ String pagActual = "instituciones";
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionCodigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -584,7 +577,7 @@ String pagActual = "instituciones";
       RequestContext context = RequestContext.getCurrentInstance();
       if (institucionSeleccionada != null) {
          int resultado = administrarRastros.obtenerTabla(institucionSeleccionada.getSecuencia(), "INSTITUCIONES");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

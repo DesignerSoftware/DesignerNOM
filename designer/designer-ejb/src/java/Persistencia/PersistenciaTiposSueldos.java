@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposSueldos.class);
 
     @Override
     public void crear(EntityManager em, TiposSueldos tiposSueldos) {
@@ -25,7 +27,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             em.persist(tiposSueldos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposSueldos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposSueldos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -42,7 +44,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             em.merge(tiposSueldos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposSueldos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +60,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             em.remove(em.merge(tiposSueldos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposSueldos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposSueldos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +76,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             List<TiposSueldos> tiposSueldos = (List<TiposSueldos>) query.getResultList();
             return tiposSueldos;
         } catch (Exception e) {
-            System.out.println("Error buscar lista tipos sueldos" + e.getMessage());
+            log.error("Error buscar lista tipos sueldos" + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             List<TiposSueldos> tiposSueldos = query.getResultList();
             return tiposSueldos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposSueldosParaUsuarioConectado PersistenciaTiposSueldos : " + e.toString());
+            log.error("Error buscarTiposSueldosParaUsuarioConectado PersistenciaTiposSueldos : " + e.toString());
             return null;
         }
     }
@@ -103,7 +105,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             TiposSueldos tiposSueldos = (TiposSueldos) query.getSingleResult();
             return tiposSueldos;
         } catch (Exception e) {
-            System.out.println("Error buscar tipo sueldo por secuencia" + e.getMessage());
+            log.error("Error buscar tipo sueldo por secuencia" + e.getMessage());
             TiposSueldos tiposSueldos = null;
             return tiposSueldos;
         }

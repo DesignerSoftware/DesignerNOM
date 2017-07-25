@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposViajeros.class);
 
     @EJB
     PersistenciaTiposViajerosInterface persistenciaTiposViajeros;
@@ -42,8 +45,8 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
     @Override
     public void modificarTiposViajeros(List<Tiposviajeros> listaTiposViajeros) {
         for (int i = 0; i < listaTiposViajeros.size(); i++) {
-            System.out.println("Administrar Modificando...");
-            System.out.println("Nombre " + listaTiposViajeros.get(i).getNombre() + " Codigo " + listaTiposViajeros.get(i).getCodigo());
+            log.warn("Administrar Modificando...");
+            log.warn("Nombre " + listaTiposViajeros.get(i).getNombre() + " Codigo " + listaTiposViajeros.get(i).getCodigo());
             persistenciaTiposViajeros.editar(em, listaTiposViajeros.get(i));
         }
     }
@@ -51,8 +54,8 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
     @Override
     public void borrarTiposViajeros(List<Tiposviajeros> listaTiposViajeros) {
         for (int i = 0; i < listaTiposViajeros.size(); i++) {
-            System.out.println("Administrar Borrando...");
-            System.out.println("Nombre " + listaTiposViajeros.get(i).getNombre() + " Codigo " + listaTiposViajeros.get(i).getCodigo());
+            log.warn("Administrar Borrando...");
+            log.warn("Nombre " + listaTiposViajeros.get(i).getNombre() + " Codigo " + listaTiposViajeros.get(i).getCodigo());
             persistenciaTiposViajeros.borrar(em, listaTiposViajeros.get(i));
         }
     }
@@ -60,8 +63,8 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
     @Override
     public void crearTiposViajeros(List<Tiposviajeros> listaTiposViajeros) {
         for (int i = 0; i < listaTiposViajeros.size(); i++) {
-            System.out.println("Administrar Creando...");
-            System.out.println("Nombre " + listaTiposViajeros.get(i).getNombre() + " Codigo " + listaTiposViajeros.get(i).getCodigo());
+            log.warn("Administrar Creando...");
+            log.warn("Nombre " + listaTiposViajeros.get(i).getNombre() + " Codigo " + listaTiposViajeros.get(i).getCodigo());
             persistenciaTiposViajeros.crear(em, listaTiposViajeros.get(i));
         }
     }
@@ -87,7 +90,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
         try {
             return contarTiposLegalizaciones = persistenciaTiposViajeros.contarTiposLegalizacionesTipoViajero(em, secTiposViajeros);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposViajeros contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarTiposViajeros contarEscalafones ERROR : " + e);
             return null;
         }
     }
@@ -99,7 +102,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
         try {
             return contarVigenciasViajeros = persistenciaTiposViajeros.contarVigenciasViajerosTipoViajero(em, secTiposViajeros);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposViajeros contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarTiposViajeros contarEscalafones ERROR : " + e);
             return null;
         }
     }

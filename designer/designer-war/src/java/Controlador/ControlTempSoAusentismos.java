@@ -35,6 +35,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -46,6 +47,8 @@ import org.primefaces.model.UploadedFile;
 @Named(value = "controlTempSoAusentismos")
 @SessionScoped
 public class ControlTempSoAusentismos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTempSoAusentismos.class);
 
    @EJB
    AdministrarTempSoAusentismosInterface administrarCargueArchivos;
@@ -143,8 +146,8 @@ public class ControlTempSoAusentismos implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCargueArchivos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct CargarArchivoPlano: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -327,7 +330,7 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void modificarTempNovedad(TempSoAusentismos tempNovedad, int celda, String valor) {
-      System.out.println("Cargue.CargarArchivoPlano.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
+      log.info("Cargue.CargarArchivoPlano.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
       tempSoAusentismoSeleccionada = tempNovedad;
       cualCelda = celda;
       if (cualCelda == 0) {
@@ -378,12 +381,12 @@ public class ControlTempSoAusentismos implements Serializable {
    public void cargarArchivo(FileUploadEvent event) throws IOException {
       if (event.getFile().getFileName().substring(event.getFile().getFileName().lastIndexOf(".") + 1).equalsIgnoreCase("prn")) {
          nombreArchivoPlano = event.getFile().getFileName();
-         System.out.println("CargarArchivoPlano.cargarArchivo()");
-         System.out.println("event.getFile().getSize() : " + event.getFile().getSize());
-         System.out.println("event.getFile().getContentType() : " + event.getFile().getContentType());
-         System.out.println("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
-         System.out.println("event.getFile().getFileName() : " + event.getFile().getFileName());
-         System.out.println("event.getFile().getInputstream() : " + event.getFile().getInputstream());
+         log.info("CargarArchivoPlano.cargarArchivo()");
+         log.info("event.getFile().getSize() : " + event.getFile().getSize());
+         log.info("event.getFile().getContentType() : " + event.getFile().getContentType());
+         log.info("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
+         log.info("event.getFile().getFileName() : " + event.getFile().getFileName());
+         log.info("event.getFile().getInputstream() : " + event.getFile().getInputstream());
 
          transformarArchivo(event.getFile().getSize(), event.getFile().getInputstream(), event.getFile().getFileName());
          contarRegistros();
@@ -399,7 +402,7 @@ public class ControlTempSoAusentismos implements Serializable {
          if (nombreArchivo.length() <= 30) {
 //            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
             String destino = administrarCargueArchivos.consultarRuta() + nombreArchivo;
-            System.out.println("transformarArchivo() destino : _" + destino + "_");
+            log.info("transformarArchivo() destino : _" + destino + "_");
             OutputStream out = new FileOutputStream(new File(destino));
             int reader = 0;
             byte[] bytes = new byte[(int) size];
@@ -416,12 +419,12 @@ public class ControlTempSoAusentismos implements Serializable {
             context.execute("PF('errorNombreArchivo').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error transformarArchivo Controlador : " + e.toString());
+         log.warn("Error transformarArchivo Controlador : " + e.toString());
       }
    }
 
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
-      System.out.println("Cargue.CargarArchivoPlano.leerTxt()");
+      log.info("Cargue.CargarArchivoPlano.leerTxt()");
       try {
          File archivo = new File(locArchivo);
          FileReader fr = new FileReader(archivo);
@@ -653,7 +656,7 @@ public class ControlTempSoAusentismos implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         System.out.println("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt) " + e);
       }
    }
 
@@ -698,7 +701,7 @@ public class ControlTempSoAusentismos implements Serializable {
    }
 
    public void revisarNovedad(BigInteger secnovedad) {
-      System.out.println("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
+      log.info("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
       erroresNovedad = null;
       for (int i = 0; i < listErrores.size(); i++) {
          BigInteger secuencia = listErrores.get(i).getSecNovedad();
@@ -1025,7 +1028,7 @@ public class ControlTempSoAusentismos implements Serializable {
       if (!documentosSoportes.getTarget().isEmpty()) {
          RequestContext context = RequestContext.getCurrentInstance();
 //         resultadoProceso = administrarCargueArchivos.borrarTodo(UsuarioBD, documentosSoportes.getTarget());
-         System.out.println("NO ESTA BORRANDO TODO");
+         log.info("NO ESTA BORRANDO TODO");
          documentosSoportes = null;
          context.execute("PF('borrarTodoDialogo').hide()");
          context.update("form:pickListDocumentosSoporte");

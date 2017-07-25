@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarHvReferencias implements AdministrarHvReferenciasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarHvReferencias.class);
 
     @EJB
     PersistenciaHvReferenciasInterface persistenciaHvReferencias;
@@ -57,7 +60,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
     @Override
     public void borrarHvReferencias(List<HvReferencias> listaHvReferencias) {
         for (int i = 0; i < listaHvReferencias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaHvReferencias.borrar(em, listaHvReferencias.get(i));
         }
     }
@@ -65,7 +68,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
     @Override
     public void crearHvReferencias(List<HvReferencias> listaHvReferencias) {
         for (int i = 0; i < listaHvReferencias.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaHvReferencias.crear(em, listaHvReferencias.get(i));
         }
     }
@@ -73,7 +76,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
     @Override
     public void modificarHvReferencias(List<HvReferencias> listaHvReferencias) {
         for (int i = 0; i < listaHvReferencias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaHvReferencias.editar(em, listaHvReferencias.get(i));
         }
     }
@@ -84,10 +87,10 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
         try {
             listHvReferencias = persistenciaHvReferencias.consultarHvReferenciasPersonalesPorPersona(em, secEmpleado);
             if (listHvReferencias != null) {
-                System.out.println("AdministrarHvReferencias Tamaño listHvReferencias : " + listHvReferencias.size());
+                log.warn("AdministrarHvReferencias Tamaño listHvReferencias : " + listHvReferencias.size());
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarHvReferencias hvEntrevistasPorEmplado");
+            log.warn("Error en AdministrarHvReferencias hvEntrevistasPorEmplado");
             listHvReferencias = null;
         }
         return listHvReferencias;
@@ -99,7 +102,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
         try {
             listHvReferencias = persistenciaHvReferencias.consultarHvReferenciasFamiliarPorPersona(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en AdministrarHvReferencias hvEntrevistasPorEmplado");
+            log.warn("Error en AdministrarHvReferencias hvEntrevistasPorEmplado");
             listHvReferencias = null;
         }
         return listHvReferencias;
@@ -119,7 +122,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
             return persona;
         } catch (Exception e) {
             persona = null;
-            System.out.println("ERROR AdministrarHvReferencias  consultarPersonas ERROR =====" + e);
+            log.warn("ERROR AdministrarHvReferencias  consultarPersonas ERROR =====" + e);
             return persona;
         }
     }
@@ -131,7 +134,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
             return hvHojasDeVida;
         } catch (Exception e) {
             hvHojasDeVida = null;
-            System.out.println("ERROR AdministrarHvReferencias  buscarHvHojasDeVida ERROR =====" + e);
+            log.warn("ERROR AdministrarHvReferencias  buscarHvHojasDeVida ERROR =====" + e);
             return hvHojasDeVida;
         }
     }
@@ -143,7 +146,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
             listTiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em);
             return listTiposFamiliares;
         } catch (Exception e) {
-            System.err.println("ERROR EN ADMINISTRAR HV REFERENCIAS 1 ERROR " + e);
+            log.error("ERROR EN ADMINISTRAR HV REFERENCIAS 1 ERROR " + e);
             return null;
         }
     }
@@ -154,7 +157,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
         Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
         return retorno;
         }catch(Exception  e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+            log.warn("Error empleadoActual Admi : "+e.toString());
             return null;
         }
     }

@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlHistoriaFormula implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlHistoriaFormula.class);
 
    @EJB
    AdministrarHistoriaFormulaInterface administrarHistoriaFormula;
@@ -247,8 +250,8 @@ public class ControlHistoriaFormula implements Serializable {
          administrarHistoriaFormula.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -419,13 +422,13 @@ public class ControlHistoriaFormula implements Serializable {
          cargarDatosParaNodos();
          indexNodoSeleecionado = -1;
          indexEstructuraFormula = -1;
-         System.out.println("Controlador.ControlHistoriaFormula.cambiarIndiceHistoriaFormula()");
-         System.out.println("historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
+         log.info("Controlador.ControlHistoriaFormula.cambiarIndiceHistoriaFormula()");
+         log.info("historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
          getListEstructurasFormulas();
          if (listEstructurasFormulas != null) {
-            System.out.println("listEstructurasFormulas.size() : " + listEstructurasFormulas.size());
+            log.info("listEstructurasFormulas.size() : " + listEstructurasFormulas.size());
          } else {
-            System.out.println("listEstructurasFormulas : " + listEstructurasFormulas);
+            log.info("listEstructurasFormulas : " + listEstructurasFormulas);
          }
          RequestContext.getCurrentInstance().update("form:datosEstructuraFormula");
       } else {
@@ -501,12 +504,12 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public void guardarCambiosHistoriaFormula() {
-      System.out.println("Controlador.ControlHistoriaFormula.guardarCambiosHistoriaFormula()");
+      log.info("Controlador.ControlHistoriaFormula.guardarCambiosHistoriaFormula()");
       FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
       if (!listHistoriasFormulasBorrar.isEmpty()) {
-         System.out.println("listHistoriasFormulasBorrar : " + listHistoriasFormulasBorrar);
+         log.info("listHistoriasFormulasBorrar : " + listHistoriasFormulasBorrar);
          administrarHistoriaFormula.borrarHistoriasFormulas(listHistoriasFormulasBorrar);
          listHistoriasFormulasBorrar.clear();
       }
@@ -613,7 +616,7 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public void darSeleccion() {
-      System.out.println("Controlador.ControlHistoriaFormula.darSeleccion() historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
+      log.info("Controlador.ControlHistoriaFormula.darSeleccion() historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
       if (historiaFormulaSeleccionada != null) {
          if (listHistoriasFormulas.contains(historiaFormulaSeleccionada)) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -2278,7 +2281,7 @@ public class ControlHistoriaFormula implements Serializable {
          }
          return listHistoriasFormulas;
       } catch (Exception e) {
-         System.out.println("Error getListHistoriasFormulas " + e.toString());
+         log.warn("Error getListHistoriasFormulas " + e.toString());
          return null;
       }
    }
@@ -2421,7 +2424,7 @@ public class ControlHistoriaFormula implements Serializable {
       }
       if (listNodosHistoriaFormula != null) {
          if (!listNodosHistoriaFormula.isEmpty()) {
-            System.out.println("Controlador.ControlHistoriaFormula.getListNodosHistoriaFormula() listNodosHistoriaFormula.size() : " + listNodosHistoriaFormula.size());
+            log.info("Controlador.ControlHistoriaFormula.getListNodosHistoriaFormula() listNodosHistoriaFormula.size() : " + listNodosHistoriaFormula.size());
             if (listNodosHistoriaFormula.size() <= 16) {
                visibilidadBtnS = true;
                visibilidadBtnP = true;

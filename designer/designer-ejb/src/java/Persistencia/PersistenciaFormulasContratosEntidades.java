@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFormulasContratosEntidades implements PersistenciaFormulasContratosEntidadesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormulasContratosEntidades.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -34,7 +37,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
             em.merge(formulasAseguradas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaFormulasContratosEntidades.crear: " + e);
+            log.error("Error PersistenciaFormulasContratosEntidades.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +55,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaFormulasContratosEntidades.editar: " + e);
+            log.error("Error PersistenciaFormulasContratosEntidades.editar: " + e);
         }
     }
 
@@ -67,7 +70,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaFormulasContratosEntidades.borrar: " + e);
+                log.error("Error PersistenciaFormulasContratosEntidades.borrar: " + e);
         }
     }
 
@@ -79,7 +82,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
             List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
             return formulasAseguradas;
         } catch (Exception e) {
-            System.out.println("Error consultarFormulasContratosEntidades ERROR : " + e);
+            log.error("Error consultarFormulasContratosEntidades ERROR : " + e);
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
             List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
             return formulasAseguradas;
         } catch (Exception e) {
-            System.out.println("Error consultarFormulasContratosEntidadesPorFormulaContrato ERROR : " + e);
+            log.error("Error consultarFormulasContratosEntidadesPorFormulaContrato ERROR : " + e);
             return null;
         }
     }
@@ -107,7 +110,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
             FormulasContratosEntidades formulasAseguradas = (FormulasContratosEntidades) query.getSingleResult();
             return formulasAseguradas;
         } catch (Exception e) {
-            System.out.println("Error consultarFormulasContratosEntidades");
+            log.error("Error consultarFormulasContratosEntidades");
             FormulasContratosEntidades formulasAseguradas = null;
             return formulasAseguradas;
         }

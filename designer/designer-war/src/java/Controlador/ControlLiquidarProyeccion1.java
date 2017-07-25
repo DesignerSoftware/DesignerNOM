@@ -5,11 +5,9 @@
 package Controlador;
 
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -19,6 +17,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlLiquidarProyeccion1 implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlLiquidarProyeccion1.class);
 
     private String tipo;
     private boolean b1;
@@ -45,7 +45,7 @@ public class ControlLiquidarProyeccion1 implements Serializable {
 
 //    public void mostrar(int num) {
 //        this.numero = num;
-//        System.out.println("numero seleccionado =" + numero);
+//        log.info("numero seleccionado =" + numero);
 //        if (numero == 1) {
 //            titulo = "Aumentos Salariales";
 //            tituloBoton = "Listar Retroactivos";

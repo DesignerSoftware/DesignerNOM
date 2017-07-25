@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCostosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposCentrosCostos.class);
 
     @EJB
     PersistenciaTiposCentrosCostosInterface persistenciaTiposCentrosCostos;
@@ -45,7 +48,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
     @Override
     public void modificarTipoCentrosCostos(List<TiposCentrosCostos> listaTiposCentrosCostos) {
         for (int i = 0; i < listaTiposCentrosCostos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposCentrosCostos.editar(em, listaTiposCentrosCostos.get(i));
         }
     }
@@ -53,7 +56,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
     @Override
     public void borrarTiposCentrosCostos(List<TiposCentrosCostos> listaTiposCentrosCostos) {
         for (int i = 0; i < listaTiposCentrosCostos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposCentrosCostos.borrar(em, listaTiposCentrosCostos.get(i));
         }
     }
@@ -61,7 +64,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
     @Override
     public void crearTiposCentrosCostos(List<TiposCentrosCostos> listaTiposCentrosCostos) {
         for (int i = 0; i < listaTiposCentrosCostos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposCentrosCostos.crear(em, listaTiposCentrosCostos.get(i));
         }
     }
@@ -93,7 +96,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
         try {
             return verificadorCC = persistenciaTiposCentrosCostos.verificarBorradoCentrosCostos(em, secuenciaTipoEntidad);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposCentrosCostos verificarBorradoCC ERROR :" + e);
+            log.error("ERROR AdministrarTiposCentrosCostos verificarBorradoCC ERROR :" + e);
             return null;
         }
     }
@@ -104,7 +107,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
         try {
             return verificadorVC = persistenciaTiposCentrosCostos.verificarBorradoVigenciasCuentas(em, secuenciaTipoEntidad);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposCentrosCostos verificarBorradoVC ERROR :" + e);
+            log.error("ERROR AdministrarTiposCentrosCostos verificarBorradoVC ERROR :" + e);
             return null;
         }
     }
@@ -115,7 +118,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
         try {
             return verificadorRP = persistenciaTiposCentrosCostos.verificarBorradoRiesgosProfesionales(em, secuenciaTipoEntidad);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTipoEntidad verificarBorrado ERROR :" + e);
+            log.error("ERROR AdministrarTipoEntidad verificarBorrado ERROR :" + e);
             return null;
         }
     }

@@ -46,6 +46,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
@@ -60,6 +61,8 @@ import org.primefaces.event.TabCloseEvent;
 @Named(value = "controlCambiosMasivos")
 @SessionScoped
 public class ControlCambiosMasivos {
+
+   private static Logger log = Logger.getLogger(ControlCambiosMasivos.class);
 
    @EJB
    AdministrarCambiosMasivosInterface administrarCambiosMasivos;
@@ -293,7 +296,7 @@ public class ControlCambiosMasivos {
 
    @PostConstruct
    public void inicializarAdministrador() {
-      System.out.println("ControlCambiosMasivos.inicializarAdministrador()");
+      log.info("ControlCambiosMasivos.inicializarAdministrador()");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -301,8 +304,8 @@ public class ControlCambiosMasivos {
          administrarRastros.obtenerConexion(ses.getId());
          administrarFormulaConcepto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Error: " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.warn("Error: " + e);
       }
    }
 
@@ -318,7 +321,7 @@ public class ControlCambiosMasivos {
 
    public void procesarCargo() {
       if (parametroCambioMasivoActual.getCargoEstructura() != null && parametroCambioMasivoActual.getFechaCargoCambio() != null) {
-         System.out.println("ControlCambiosMasivos.procesarCargo() parametroCambioMasivoActual.getCargoEstructura(): " + parametroCambioMasivoActual.getCargoEstructura()
+         log.info("ControlCambiosMasivos.procesarCargo() parametroCambioMasivoActual.getCargoEstructura(): " + parametroCambioMasivoActual.getCargoEstructura()
                  + "  y parametroCambioMasivoActual.getFechaCargoCambio() + " + parametroCambioMasivoActual.getFechaCargoCambio());
          administrarCambiosMasivos.adicionaEstructuraCM2(parametroCambioMasivoActual.getCargoEstructura(), parametroCambioMasivoActual.getFechaCargoCambio());
          cambiosMasivosHechos();
@@ -348,7 +351,7 @@ public class ControlCambiosMasivos {
 
    public void deshacerVacaciones() {
       if (parametroCambioMasivoActual.getVacaDias() != null && parametroCambioMasivoActual.getFechaVacaCambio() != null && parametroCambioMasivoActual.getFechaVacaPago() != null) {
-         System.out.println("ControlCambiosMasivos.DeshacerVacaciones() parametroCambioMasivoActual.getVacaDias(): " + parametroCambioMasivoActual.getVacaDias());
+         log.info("ControlCambiosMasivos.DeshacerVacaciones() parametroCambioMasivoActual.getVacaDias(): " + parametroCambioMasivoActual.getVacaDias());
          administrarCambiosMasivos.undoAdicionaVacacionCM2(parametroCambioMasivoActual.getVacaDias(),
                  parametroCambioMasivoActual.getFechaVacaCambio(), parametroCambioMasivoActual.getFechaVacaPago());
          cambiosMasivosHechos();
@@ -425,7 +428,7 @@ public class ControlCambiosMasivos {
          boolean continuar = false;
          if (administrarCambiosMasivos.comprobarConceptoManual(parametroCambioMasivoActual.getNoveConcepto())) {
             if (parametroCambioMasivoActual.getNoveValor() != null) {
-               System.out.println("ControlCambiosMasivos.procesarNovedades() parametroCambioMasivoActual.getNoveValor(): " + parametroCambioMasivoActual.getNoveValor());
+               log.info("ControlCambiosMasivos.procesarNovedades() parametroCambioMasivoActual.getNoveValor(): " + parametroCambioMasivoActual.getNoveValor());
             }
             if (parametroCambioMasivoActual.getNoveValor().intValue() > 0) {
                continuar = true;
@@ -612,7 +615,7 @@ public class ControlCambiosMasivos {
     */
    public void autocompletarEstructura(String t) {
       aceptar = true;
-      System.out.println("ControlCambiosMasivos.autocompletarEstructura() t: _" + t + "_   y panelActivo : " + panelActivo);
+      log.info("ControlCambiosMasivos.autocompletarEstructura() t: _" + t + "_   y panelActivo : " + panelActivo);
       if (panelActivo == 1) {
          if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
             parametroCambioMasivoActual.setCargoEstructura(null);
@@ -2193,7 +2196,7 @@ public class ControlCambiosMasivos {
    }
 
    public void seleccionarCampo(int camp) {
-      System.out.println("ControlCambiosMasivos.seleccionarCampo() camp: " + camp);
+      log.info("ControlCambiosMasivos.seleccionarCampo() camp: " + camp);
       campo = camp;
    }
 
@@ -2260,7 +2263,7 @@ public class ControlCambiosMasivos {
    }
 
    public void editar() {
-      System.out.println("Controlador.ControlCambiosMasivos.editar() campo: " + campo + ",  panelActivo: " + panelActivo);
+      log.info("Controlador.ControlCambiosMasivos.editar() campo: " + campo + ",  panelActivo: " + panelActivo);
       if (panelActivo == 1) {
          //Estructura Cargo Desempeñado
          switch (campo) {
@@ -2740,9 +2743,9 @@ public class ControlCambiosMasivos {
 
    public ParametrosCambiosMasivos getParametroCambioMasivoActual() {
       if (parametroCambioMasivoActual == null) {
-         System.out.println("ControlCambiosMasivos.getParametroCambioMasivoActual()");
+         log.info("ControlCambiosMasivos.getParametroCambioMasivoActual()");
          parametroCambioMasivoActual = administrarCambiosMasivos.consultarParametrosCambiosMasivos();
-         System.out.println("Ya consulto parametroCambioMasivoActual : " + parametroCambioMasivoActual);
+         log.info("Ya consulto parametroCambioMasivoActual : " + parametroCambioMasivoActual);
       }
       return parametroCambioMasivoActual;
    }

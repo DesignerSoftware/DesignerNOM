@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarEstructuras implements AdministrarEstructurasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEstructuras.class);
 
     //------------------------------------------------------------------------------------------
     //EJB
@@ -102,7 +105,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
             estructurasLOV = persistenciaEstructuras.buscarlistaValores(em, fechaVigencia);
             return estructurasLOV;
         } catch (Exception ex) {
-            System.out.println("Administrar: Fallo al consultar el nativeQuery");
+            log.warn("Administrar: Fallo al consultar el nativeQuery");
             return estructurasLOV = null;
         }
     }
@@ -155,22 +158,22 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
 
         List<Empresas> listaEmpresas = consultarEmpresas();
         List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
-        System.out.println("listaEmpresas : " + listaEmpresas);
-        System.out.println("em : " + em);
+        log.warn("listaEmpresas : " + listaEmpresas);
+        log.warn("em : " + em);
 
         if (listaEmpresas != null) {
-            System.out.println("listaEmpresas.size() : " + listaEmpresas.size());
+            log.warn("listaEmpresas.size() : " + listaEmpresas.size());
 
             for (int i = 0; i < listaEmpresas.size(); i++) {
                 try {
                     List<Organigramas> lista = persistenciaOrganigramas.buscarOrganigramasEmpresa(em, listaEmpresas.get(i).getSecuencia());
                     listaOrganigramas.addAll(lista);
                 } catch (Exception e) {
-                    System.out.println("Error listaOrganigramas Empresa: " + listaEmpresas.get(i).getSecuencia() + " ex: " + e.toString());
+                    log.warn("Error listaOrganigramas Empresa: " + listaEmpresas.get(i).getSecuencia() + " ex: " + e.toString());
                 }
             }
         } else {
-            System.out.println("listaEmpresas = null");
+            log.warn("listaEmpresas = null");
         }
         return listaOrganigramas;
     }
@@ -181,7 +184,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
             listaEmpresas = persistenciaEmpresas.buscarEmpresas(em);
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
+            log.warn("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
             e.printStackTrace();
             return listaEmpresas;
         }
@@ -197,7 +200,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
     @Override
     public void modificarOrganigrama(List<Organigramas> listOrganigramasModificados) {
         for (int i = 0; i < listOrganigramasModificados.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             org = listOrganigramasModificados.get(i);
             persistenciaOrganigramas.editar(em, org);
         }

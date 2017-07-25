@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
@@ -24,6 +25,8 @@ import javax.persistence.StoredProcedureQuery;
  */
 @Stateless
 public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVacaciones.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -48,7 +51,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          listaPeriodos = query.getResultList();
          return listaPeriodos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVacaciones.periodoVacaciones" + e.getMessage());
+         log.error("Error PersistenciaVacaciones.periodoVacaciones" + e.getMessage());
          return null;
       }
    }
@@ -65,7 +68,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.adelantarPeriodo " + e.getMessage());
+         log.error("Error persistenciaNovedadesSistema.adelantarPeriodo " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -91,7 +94,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          diaspendientes = (int) query.getSingleResult();
          return diaspendientes;
       } catch (Exception e) {
-         System.out.println("error en diasPendientes : " + e.getMessage());
+         log.error("error en diasPendientes : " + e.getMessage());
          return 0;
       }
 
@@ -113,11 +116,11 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(1, secEmpleado);
          query.setParameter(2, fechainicialDisfrute);
          jornada = (BigDecimal) query.getSingleResult();
-         System.out.println("el codigo de la jornada es : " + jornada);
+         log.error("el codigo de la jornada es : " + jornada);
          return jornada;
 
       } catch (Exception e) {
-         System.out.println("error en consultarJornadaVacaciones :" + e.getMessage());
+         log.error("error en consultarJornadaVacaciones :" + e.getMessage());
          return BigDecimal.valueOf(1);
       }
    }
@@ -143,7 +146,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          }
          return esfesitvo;
       } catch (Exception e) {
-         System.out.println("Error en validarFestivoVacaciones : " + e.getMessage());
+         log.error("Error en validarFestivoVacaciones : " + e.getMessage());
          return esfesitvo;
       }
    }
@@ -163,7 +166,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(2, dia);
          String diaresultado;
          diaresultado = query.getSingleResult().toString();
-         System.out.println("diasdasi" + diaresultado);
+         log.error("diasdasi" + diaresultado);
          if (diaresultado.isEmpty()) {
             eslaboral = true;
          } else {
@@ -172,7 +175,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          return eslaboral;
 
       } catch (Exception e) {
-         System.out.println("error en validarDiaLaboralVacaciones : " + e.getMessage());
+         log.error("error en validarDiaLaboralVacaciones : " + e.getMessage());
          return true;
       }
    }
@@ -195,7 +198,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          return siguienteDia;
 
       } catch (Exception e) {
-         System.out.println("error en siguiente dia: " + e.getMessage());
+         log.error("error en siguiente dia: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -213,7 +216,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          BigInteger secPeriodicidad = (BigInteger) query.getSingleResult();
          return secPeriodicidad;
       } catch (Exception e) {
-         System.out.println("error en periodicidadEmpleado" + e.getMessage());
+         log.error("error en periodicidadEmpleado" + e.getMessage());
          return null;
       }
 
@@ -234,7 +237,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          tx.commit();
          return anteriorFechaLimite;
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.anteriorFechaLimiteCalendario " + e.getMessage());
+         log.error("Error persistenciaNovedadesSistema.anteriorFechaLimiteCalendario " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -257,7 +260,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          tx.commit();
          return despuesFechaLimite;
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.despuesFechaLimiteCalendario " + e.getMessage());
+         log.error("Error persistenciaNovedadesSistema.despuesFechaLimiteCalendario " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -279,10 +282,10 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          fechaUltimoCorte = (Date) query.getSingleResult();
          query.executeUpdate();
          tx.commit();
-         System.out.println("fechaUltimoCorte : " + fechaUltimoCorte);
+         log.error("fechaUltimoCorte : " + fechaUltimoCorte);
          return fechaUltimoCorte;
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.fechaUltimoCorte " + e.getMessage());
+         log.error("Error persistenciaNovedadesSistema.fechaUltimoCorte " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -306,7 +309,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(3, fechaPago);
          query.execute();
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaVacacionCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaVacacionCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -332,7 +335,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(3, fechaPago);
          query.execute();
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".undoAdicionaVacacionCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".undoAdicionaVacacionCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

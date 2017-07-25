@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFestivos implements PersistenciaFestivosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFestivos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -34,7 +37,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          em.merge(festivos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFestivos.crear: " + e);
+         log.error("Error PersistenciaFestivos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaFestivos.editar: " + e);
+         log.error("Error PersistenciaFestivos.editar: " + e);
       }
    }
 
@@ -65,8 +68,8 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFestivos.borrar: " + e);
-         System.out.println("Persistencia.PersistenciaFestivos.borrar() e: " + e);
+         log.error("Error PersistenciaFestivos.borrar: " + e);
+         log.error("Persistencia.PersistenciaFestivos.borrar() e: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -82,7 +85,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          List<Festivos> listFestivos = query.getResultList();
          return listFestivos;
       } catch (Exception e) {
-         System.err.println("Error en PERSISTENCIAFESTIVOS CONSULTARFESTIVOSPAIS : " + e);
+         log.error("Error en PERSISTENCIAFESTIVOS CONSULTARFESTIVOSPAIS : " + e);
          return null;
       }
    }
@@ -92,7 +95,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          em.clear();
          return em.find(Festivos.class, secPais);
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaFestivos.consultarPais() e: " + e);
+         log.error("Persistencia.PersistenciaFestivos.consultarPais() e: " + e);
          return null;
       }
    }

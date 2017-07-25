@@ -26,6 +26,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,6 +34,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenciasTiposTrabajadoresInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasTiposTrabajadores.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;
@@ -95,7 +98,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             vigenciasTiposTrabajadores = persistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Tipos Trabajadores (vigenciasTiposTrabajadoresEmpleado) : " + e.toString());
+            log.warn("Error en Administrar Vigencias Tipos Trabajadores (vigenciasTiposTrabajadoresEmpleado) : " + e.toString());
             vigenciasTiposTrabajadores = null;
         }
         return vigenciasTiposTrabajadores;
@@ -104,7 +107,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
     @Override
     public void modificarVTT(List<VigenciasTiposTrabajadores> listVTTModificadas) {
         for (int i = 0; i < listVTTModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             vigenciaTipoTrabajador = listVTTModificadas.get(i);
             persistenciaVigenciasTiposTrabajadores.editar(em, vigenciaTipoTrabajador);
         }
@@ -120,7 +123,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaVigenciasTiposTrabajadores.crear(em, vigenciasTiposTrabajadores);
         } catch (Exception e) {
-            System.out.println("Error crearVTT AdministrarVIgenciasTipoTrabajador : " + e.toString());
+            log.warn("Error crearVTT AdministrarVIgenciasTipoTrabajador : " + e.toString());
         }
     }
 
@@ -131,7 +134,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             return empleado;
         } catch (Exception e) {
             empleado = null;
-            System.out.println("Error buscarEmpleado Admi : " + e.toString());
+            log.warn("Error buscarEmpleado Admi : " + e.toString());
             return empleado;
         }
     }
@@ -142,7 +145,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             tiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return tiposTrabajadores;
         } catch (Exception e) {
-            System.out.println("Error tiposTrabajadores Admi : " + e.toString());
+            log.warn("Error tiposTrabajadores Admi : " + e.toString());
             return null;
         }
     }
@@ -152,7 +155,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             tipoTrabajadorCodigo = persistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort(em, codTipoTrabajador);
             return tipoTrabajadorCodigo;
         } catch (Exception e) {
-            System.out.println("Error tipoTrabajadorCodigo Admi : " + e.toString());
+            log.warn("Error tipoTrabajadorCodigo Admi : " + e.toString());
             return null;
         }
     }
@@ -162,7 +165,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaRetirados.crear(em, retirado);
         } catch (Exception e) {
-            System.out.println("Error crearRetirado Admi : " + e.toString());
+            log.warn("Error crearRetirado Admi : " + e.toString());
         }
     }
 
@@ -171,7 +174,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaRetirados.editar(em, retirado);
         } catch (Exception e) {
-            System.out.println("Error editarRetirado !!");
+            log.warn("Error editarRetirado !!");
         }
     }
 
@@ -180,7 +183,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaRetirados.borrar(em, retirado);
         } catch (Exception e) {
-            System.out.println("Error borrarRetirado Admi : " + e.toString());
+            log.warn("Error borrarRetirado Admi : " + e.toString());
         }
     }
 
@@ -190,7 +193,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             retiradosEmpleado = persistenciaRetirados.buscarRetirosEmpleado(em, secEmpleado);
             return retiradosEmpleado;
         } catch (Exception e) {
-            System.out.println("Error retiradosEmpleado Admi : " + e.toString());
+            log.warn("Error retiradosEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -201,7 +204,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             retiradoVigencia = persistenciaRetirados.buscarRetiroVigenciaSecuencia(em, secVigencia);
             return retiradoVigencia;
         } catch (Exception e) {
-            System.out.println("Error retiroPorSecuenciaVigencia Admi : " + e.toString());
+            log.warn("Error retiroPorSecuenciaVigencia Admi : " + e.toString());
             return new Retirados();
         }
     }
@@ -212,7 +215,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             motivosRetiros = persistenciaMotivosRetiros.consultarMotivosRetiros(em);
             return motivosRetiros;
         } catch (Exception e) {
-            System.out.println("Error motivosRetiros Admi : " + e.toString());
+            log.warn("Error motivosRetiros Admi : " + e.toString());
             return null;
         }
     }
@@ -223,7 +226,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             motivoRetiroCodigo = persistenciaMotivosRetiros.consultarMotivoRetiro(em, codMotivoRetiro);
             return motivoRetiroCodigo;
         } catch (Exception e) {
-            System.out.println("Error motivoRetiroCodigo Admi : " + e.toString());
+            log.warn("Error motivoRetiroCodigo Admi : " + e.toString());
             return null;
         }
     }
@@ -235,7 +238,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             tiposPensionados = persistenciaTiposPensionados.consultarTiposPensionados(em);
             return tiposPensionados;
         } catch (Exception e) {
-            System.out.println("Error tiposPensionados Admi : " + e.toString());
+            log.warn("Error tiposPensionados Admi : " + e.toString());
             return null;
         }
     }
@@ -246,7 +249,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             clasesPensiones = persistenciaClasesPensiones.consultarClasesPensiones(em);
             return clasesPensiones;
         } catch (Exception e) {
-            System.out.println("Error clasesPensiones Admi : " + e.toString());
+            log.warn("Error clasesPensiones Admi : " + e.toString());
             return null;
         }
     }
@@ -257,7 +260,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             clasePension = persistenciaClasesPensiones.consultarClasePension(em, codClasePension);
             return clasePension;
         } catch (Exception e) {
-            System.out.println("Error AdministrarVigenciaTipoTrabajador clasePensionCodigo : " + e.toString());
+            log.warn("Error AdministrarVigenciaTipoTrabajador clasePensionCodigo : " + e.toString());
             return null;
         }
     }
@@ -268,7 +271,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             listaPersonas = persistenciaPersonas.consultarPersonas(em);
             return listaPersonas;
         } catch (Exception e) {
-            System.out.println("Error listaPersonas Admi : " + e.toString());
+            log.warn("Error listaPersonas Admi : " + e.toString());
             return null;
         }
     }
@@ -279,7 +282,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             persona = persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
             return persona;
         } catch (Exception e) {
-            System.out.println("Error personaSecuencia Admi : " + e.toString());
+            log.warn("Error personaSecuencia Admi : " + e.toString());
             return null;
         }
     }
@@ -289,7 +292,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaPensionados.crear(em, pension);
         } catch (Exception e) {
-            System.out.println("Error crearPensionado AdministrarVigenciaTiposTrabajadores : " + e.toString());
+            log.warn("Error crearPensionado AdministrarVigenciaTiposTrabajadores : " + e.toString());
         }
     }
 
@@ -298,7 +301,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaPensionados.editar(em, pension);
         } catch (Exception e) {
-            System.out.println("Error editarPensionado Admi : " + e.toString());
+            log.warn("Error editarPensionado Admi : " + e.toString());
         }
     }
 
@@ -307,7 +310,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         try {
             persistenciaPensionados.borrar(em, pension);
         } catch (Exception e) {
-            System.out.println("Error borrarPensionado Admi : " + e.toString());
+            log.warn("Error borrarPensionado Admi : " + e.toString());
         }
     }
 
@@ -317,7 +320,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             listaPensionesEmpleado = persistenciaPensionados.buscarPensionadosEmpleado(em, secEmpleado);
             return listaPensionesEmpleado;
         } catch (Exception e) {
-            System.out.println("Error pensionadoEmpleado Admi : " + e.toString());
+            log.warn("Error pensionadoEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -328,7 +331,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             listaPensionados = persistenciaPensionados.buscarPensionados(em);
             return listaPensionados;
         } catch (Exception e) {
-            System.out.println("Error listaPensionados Admi : " + e.toString());
+            log.warn("Error listaPensionados Admi : " + e.toString());
             return null;
         }
     }
@@ -339,7 +342,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             pensionVigencia = persistenciaPensionados.buscarPensionVigenciaSecuencia(em, secVigencia);
             return pensionVigencia;
         } catch (Exception e) {
-            System.out.println("Error pensionPorSecuenciaVigencia Admi : " + e.toString());
+            log.warn("Error pensionPorSecuenciaVigencia Admi : " + e.toString());
             return new Pensionados();
         }
     }

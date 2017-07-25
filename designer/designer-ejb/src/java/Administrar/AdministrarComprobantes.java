@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -30,6 +31,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarComprobantes implements AdministrarComprobantesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarComprobantes.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -99,7 +102,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
     public List<Parametros> consultarParametrosComprobantesActualUsuario() {
         String usuarioBD;
         usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-        System.out.println("administrarcomprobantes consultarParametrosComprobantesActualUsuario()  actualUsuario: " + usuarioBD );
+        log.warn("administrarcomprobantes consultarParametrosComprobantesActualUsuario()  actualUsuario: " + usuarioBD );
         return persistenciaParametros.parametrosComprobantes(em,usuarioBD);
     }
 

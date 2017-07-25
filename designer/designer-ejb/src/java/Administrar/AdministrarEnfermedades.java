@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEnfermedades.class);
 
     @EJB
     PersistenciaEnfermedadesInterface persistenciaEnfermedades;
@@ -42,21 +45,21 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
 
     public void modificarEnfermedades(List<Enfermedades> listDeportesModificadas) {
         for (int i = 0; i < listDeportesModificadas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaEnfermedades.editar(em,listDeportesModificadas.get(i));
         }
     }
 
     public void borrarEnfermedades(List<Enfermedades> listDeportesModificadas) {
         for (int i = 0; i < listDeportesModificadas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaEnfermedades.borrar(em,listDeportesModificadas.get(i));
         }
     }
 
     public void crearEnfermedades(List<Enfermedades> listDeportesModificadas) {
         for (int i = 0; i < listDeportesModificadas.size(); i++) {
-            System.out.println("Administrar Crear...");
+            log.warn("Administrar Crear...");
             persistenciaEnfermedades.crear(em,listDeportesModificadas.get(i));
         }
     }
@@ -78,7 +81,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
         try {
             contadorAusentimos = persistenciaEnfermedades.contadorAusentimos(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARENFERMEDADES contadorAusentimos ERROR :" + e);
+            log.error("ERROR ADMINISTRARENFERMEDADES contadorAusentimos ERROR :" + e);
         } finally {
             return contadorAusentimos;
         }
@@ -89,7 +92,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
         try {
             contadorDetallesLicencias = persistenciaEnfermedades.contadorDetallesLicencias(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARENFERMEDADES contadorDetallesLicencias ERROR :" + e);
+            log.error("ERROR ADMINISTRARENFERMEDADES contadorDetallesLicencias ERROR :" + e);
         } finally {
             return contadorDetallesLicencias;
         }
@@ -100,7 +103,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
         try {
             contadorEnfermedadesPadecidas = persistenciaEnfermedades.contadorEnfermedadesPadecidas(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARENFERMEDADES contadorEnfermedadesPadecidas ERROR :" + e);
+            log.error("ERROR ADMINISTRARENFERMEDADES contadorEnfermedadesPadecidas ERROR :" + e);
         } finally {
             return contadorEnfermedadesPadecidas;
         }
@@ -111,7 +114,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
         try {
             contadorSoausentismos = persistenciaEnfermedades.contadorSoausentismos(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARENFERMEDADES contadorSoausentismos ERROR :" + e);
+            log.error("ERROR ADMINISTRARENFERMEDADES contadorSoausentismos ERROR :" + e);
         } finally {
             return contadorSoausentismos;
         }
@@ -122,7 +125,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
         try {
             contadorSorevisionessSistemas = persistenciaEnfermedades.contadorSorevisionessSistemas(em,secuenciaTiposAuxilios);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARENFERMEDADES contadorSorevisionessSistemas ERROR :" + e);
+            log.error("ERROR ADMINISTRARENFERMEDADES contadorSorevisionessSistemas ERROR :" + e);
         } finally {
             return contadorSorevisionessSistemas;
         }

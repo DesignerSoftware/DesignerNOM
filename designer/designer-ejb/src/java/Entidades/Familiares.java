@@ -228,7 +228,6 @@ public class Familiares implements Serializable {
         } else {
             this.serviciomedico = "N";
         }
-        System.out.println("servicio medico : " + sm + " " + serviciomedico);
     }
 
     public boolean isSf() {
@@ -247,7 +246,6 @@ public class Familiares implements Serializable {
         } else {
             this.subsidiofamiliar = "N";
         }
-        System.out.println("subsidioFamiliar : " + sf + " " + subsidiofamiliar);
     }
 
     public boolean isBe() {
@@ -266,7 +264,6 @@ public class Familiares implements Serializable {
         } else {
             this.beneficiario = "N";
         }
-        System.out.println("beneficiiario : " + be + " " + beneficiario);
     }
 
     public boolean isUpcad() {
@@ -285,7 +282,6 @@ public class Familiares implements Serializable {
         } else {
             this.upcadicional = "N";
         }
-        System.out.println("upc adicional : " + upcad + " " + upcadicional);
     }
 
     @Override

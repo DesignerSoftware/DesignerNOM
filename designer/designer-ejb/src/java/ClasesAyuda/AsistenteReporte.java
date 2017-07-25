@@ -3,31 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ClasesAyuda;
 
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Administrador
  */
-public class AsistenteReporte implements AsynchronousFilllListener{
+public class AsistenteReporte implements AsynchronousFilllListener {
 
-    @Override
-    public void reportFinished(JasperPrint jp) {
-        System.out.println("El reporte finalizó correctamente.");
-    }
+   private static Logger log = Logger.getLogger(AsistenteReporte.class);
 
-    @Override
-    public void reportCancelled() {
-        System.out.println("El reporte fue cancelado.");
-    }
+   @Override
+   public void reportFinished(JasperPrint jp) {
+      log.warn("El reporte finalizó correctamente.");
+   }
 
-    @Override
-    public void reportFillError(Throwable thrwbl) {
-        System.out.println("El reporte generó errores.");
-    }
-    
+   @Override
+   public void reportCancelled() {
+      log.warn("El reporte fue cancelado.");
+   }
+
+   @Override
+   public void reportFillError(Throwable thrwbl) {
+      log.warn("El reporte generó errores.");
+   }
+
 }

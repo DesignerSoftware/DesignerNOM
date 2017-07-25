@@ -18,6 +18,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornadasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasJornadas.class);
 
     @EJB
     PersistenciaVigenciasJornadasInterface persistenciaVigenciasJornadas;
@@ -68,7 +71,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             listVigenciasJornadas = persistenciaVigenciasJornadas.buscarVigenciasJornadasEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Jornadas (VigenciasJornadasEmpleado) : " + e.toString());
+            log.warn("Error en Administrar Vigencias Jornadas (VigenciasJornadasEmpleado) : " + e.toString());
             listVigenciasJornadas = null;
         }
         return listVigenciasJornadas;
@@ -88,7 +91,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
                 persistenciaVigenciasJornadas.editar(em, vigenciaJornada);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVJ AdmiVigJor : " + e.toString());
+            log.warn("Error modificarVJ AdmiVigJor : " + e.toString());
         }
     }
 
@@ -97,7 +100,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             persistenciaVigenciasJornadas.borrar(em, vigenciasJornadas);
         } catch (Exception e) {
-            System.out.println("Error borrarVJ AdmiVigJor : " + e.toString());
+            log.warn("Error borrarVJ AdmiVigJor : " + e.toString());
         }
     }
 
@@ -106,7 +109,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             persistenciaVigenciasJornadas.crear(em, vigenciasJornadas);
         } catch (Exception e) {
-            System.out.println("Error crearVJ AdmiVigJor : " + e.toString());
+            log.warn("Error crearVJ AdmiVigJor : " + e.toString());
         }
     }
 
@@ -115,7 +118,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             listVigenciasCompensaciones = persistenciaVigenciasCompensaciones.buscarVigenciasCompensacionesVigenciayCompensacion(em, tipoC, secVigencia);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Jornadas (VigenciasCompensacionesSecVigenciaTipoComp) : " + e.toString());
+            log.warn("Error en Administrar Vigencias Jornadas (VigenciasCompensacionesSecVigenciaTipoComp) : " + e.toString());
             listVigenciasCompensaciones = null;
         }
         return listVigenciasCompensaciones;
@@ -126,7 +129,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             listVigenciasCompensaciones = persistenciaVigenciasCompensaciones.buscarVigenciasCompensacionesVigenciaSecuencia(em, secVigencia);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Jornadas (VigenciasCompensacionesSecVigenciaTipoComp) : " + e.toString());
+            log.warn("Error en Administrar Vigencias Jornadas (VigenciasCompensacionesSecVigenciaTipoComp) : " + e.toString());
             listVigenciasCompensaciones = null;
         }
         return listVigenciasCompensaciones;
@@ -140,7 +143,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
                 persistenciaVigenciasCompensaciones.editar(em, vigenciaCompensacion);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVC AdmiVigJor : " + e.toString());
+            log.warn("Error modificarVC AdmiVigJor : " + e.toString());
         }
     }
 
@@ -149,7 +152,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             persistenciaVigenciasCompensaciones.borrar(em, vigenciasCompensaciones);
         } catch (Exception e) {
-            System.out.println("Error borrarVC AdmiVigJor : " + e.toString());
+            log.warn("Error borrarVC AdmiVigJor : " + e.toString());
         }
     }
 
@@ -158,7 +161,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
         try {
             persistenciaVigenciasCompensaciones.crear(em, vigenciasCompensaciones);
         } catch (Exception e) {
-            System.out.println("Error crearVC AdmiVigJor : " + e.toString());
+            log.warn("Error crearVC AdmiVigJor : " + e.toString());
         }
     }
 
@@ -168,7 +171,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
             listTiposDescansos = persistenciaTiposDescansos.consultarTiposDescansos(em);
             return listTiposDescansos;
         } catch (Exception e) {
-            System.out.println("Error tiposDescansos Admi : " + e.toString());
+            log.warn("Error tiposDescansos Admi : " + e.toString());
             return null;
         }
     }
@@ -179,7 +182,7 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
             listJornadasLaborales = persistenciaJornadasLaborales.buscarJornadasLaborales(em);
             return listJornadasLaborales;
         } catch (Exception e) {
-            System.out.println("Error jornadasLaborales Admi : " + e.toString());
+            log.warn("Error jornadasLaborales Admi : " + e.toString());
             return null;
         }
     }
@@ -195,10 +198,10 @@ public class AdministrarVigenciasJornadas implements AdministrarVigenciasJornada
     public Empleados buscarEmpleado(BigInteger secuencia) {
         try {
             empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
-            System.out.println("Empleado : " + empleado.getPersona().getNombre());
+            log.warn("Empleado : " + empleado.getPersona().getNombre());
             return empleado;
         } catch (Exception e) {
-            System.out.println("Error buscarEmpleado Adm : " + e.toString());
+            log.warn("Error buscarEmpleado Adm : " + e.toString());
             empleado = null;
             return empleado;
         }

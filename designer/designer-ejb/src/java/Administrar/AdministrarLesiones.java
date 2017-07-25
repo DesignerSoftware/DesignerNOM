@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarLesiones implements AdministrarLesionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarLesiones.class);
 
     @EJB
     PersistenciaLesionesInterface persistenciaLesiones;
@@ -42,7 +45,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
     @Override
     public void modificarLesiones(List<Lesiones> listaLesiones) {
         for (int i = 0; i < listaLesiones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaLesiones.editar(em, listaLesiones.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
     @Override
     public void borrarLesiones(List<Lesiones> listaLesiones) {
         for (int i = 0; i < listaLesiones.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaLesiones.borrar(em, listaLesiones.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
     @Override
     public void crearLesiones(List<Lesiones> listaLesiones) {
         for (int i = 0; i < listaLesiones.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaLesiones.crear(em, listaLesiones.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
             BigInteger verificarBorradoDetallesLicensias;
             return verificarBorradoDetallesLicensias = persistenciaLesiones.contadorDetallesLicensias(em, secuenciaLesiones);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarLesiones verificarBorradoDetallesLicensias ERROR :" + e);
+            log.error("ERROR AdministrarLesiones verificarBorradoDetallesLicensias ERROR :" + e);
             return null;
         }
     }
@@ -94,7 +97,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
             BigInteger verificadorVigenciasExamenesMedicos;
             return verificadorVigenciasExamenesMedicos = persistenciaLesiones.contadorSoAccidentesDomesticos(em, secuenciaVigenciasExamenesMedicos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarLesiones verificarBorradoSoAccidentesDomesticos ERROR :" + e);
+            log.error("ERROR AdministrarLesiones verificarBorradoSoAccidentesDomesticos ERROR :" + e);
             return null;
         }
     }

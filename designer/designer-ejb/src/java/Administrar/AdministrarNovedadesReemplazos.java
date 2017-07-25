@@ -23,6 +23,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -30,6 +31,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemplazosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesReemplazos.class);
 
     @EJB
     PersistenciaEncargaturasInterface persistenciaEncargaturas;
@@ -64,7 +67,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
         try {
             return persistenciaEncargaturas.encargaturasEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesReemplazos.encargaturasEmpleado" + e);
+            log.error("Error AdministrarNovedadesReemplazos.encargaturasEmpleado" + e);
             return null;
         }
     }
@@ -108,7 +111,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
     @Override
     public void modificarEncargatura(List<Encargaturas> listaEncargaturasModificar) {
         for (int i = 0; i < listaEncargaturasModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaEncargaturasModificar.get(i).getCargo().getSecuencia() == null) {
                 listaEncargaturasModificar.get(i).setCargo(null);
             }

@@ -26,9 +26,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarParametros implements AdministrarParametrosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarParametros.class);
 
    @EJB
    PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
@@ -121,8 +124,8 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          persistenciaParametrosEstructuras.adicionarEmpleados(em, secParametroEstructura);
       } catch (Exception e) {
-         System.out.println(this.getClass().getName() + " adicionarEmpleados() Entro al Catch");
-         System.out.println("Error : " + e);
+         log.warn(this.getClass().getName() + " adicionarEmpleados() Entro al Catch");
+         log.warn("Error : " + e);
       }
    }
 
@@ -146,39 +149,39 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    // Para Cambios Masivos : 
 //   @Override
 //   public List<Parametros> consultarEmpleadosParametros() {
-//      System.out.println("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
+//      log.warn("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
 //      try {
 //         String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
 //         return persistenciaParametros.empleadosParametros(em, usuarioBD);
 //      } catch (Exception e) {
-//         System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
-//         System.out.println("ERROR : " + e);
+//         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
+//         log.warn("ERROR : " + e);
 //         return null;
 //      }
 //   }
    @Override
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
-      System.out.println("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
+      log.warn("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
       try {
 //         return persistenciaCambiosMasivos.consultarCambiosMasivos(em);
          return new ArrayList<CambiosMasivos>();
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
-         System.out.println("ERROR : " + e);
+         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
+         log.warn("ERROR : " + e);
          return null;
       }
    }
 
    @Override
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
-      System.out.println("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
+      log.warn("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
 //         String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
 //         return persistenciaCambiosMasivos.consultarParametroCambiosMasivos(em, usuarioBD);
          return new ParametrosCambiosMasivos();
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
-         System.out.println("ERROR : " + e);
+         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
+         log.warn("ERROR : " + e);
          return null;
       }
    }

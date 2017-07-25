@@ -39,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlVigenciasReformasLaborales implements Serializable {
 
+   private static Logger log = Logger.getLogger(ControlVigenciasReformasLaborales.class);
+
    @EJB
    AdministrarVigenciasReformasLaboralesInterface administrarVigenciasReformasLaborales;
    @EJB

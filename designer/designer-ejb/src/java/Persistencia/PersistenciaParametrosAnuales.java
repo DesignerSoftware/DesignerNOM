@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -19,6 +20,8 @@ import javax.persistence.Query;
 @Stateless
 @Local
 public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnualesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametrosAnuales.class);
 
     @Override
     public BigDecimal consultarSMLV(EntityManager em) {
@@ -39,7 +42,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal smlv = (BigDecimal) query.getSingleResult();
             return smlv;
         } catch (Exception e) {
-            System.out.println("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
             return null;
         }
     }
@@ -63,7 +66,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal auxtrans = (BigDecimal) query.getSingleResult();
             return auxtrans;
         } catch (Exception e) {
-            System.out.println("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
             return null;
         }
     }
@@ -85,7 +88,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal valoruvt = (BigDecimal) query.getSingleResult();
             return valoruvt;
         } catch (Exception e) {
-            System.out.println("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
             return null;
         }
     }
@@ -109,7 +112,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal valorminibc = (BigDecimal) query.getSingleResult();
             return valorminibc;
         } catch (Exception e) {
-            System.out.println("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
             return null;
         }
     }
@@ -133,7 +136,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal topesegsocial = (BigDecimal) query.getSingleResult();
             return topesegsocial;
         } catch (Exception e) {
-            System.out.println("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
             return null;
         }
     }

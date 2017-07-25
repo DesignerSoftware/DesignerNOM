@@ -12,15 +12,17 @@ import InterfacePersistencia.PersistenciaUsuariosContratosInterface;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarUsuariosContratos implements AdministrarUsuariosContratosInterface{
+public class AdministrarUsuariosContratos implements AdministrarUsuariosContratosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUsuariosContratos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

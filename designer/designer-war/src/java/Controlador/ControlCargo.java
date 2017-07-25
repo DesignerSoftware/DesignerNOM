@@ -31,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -43,6 +44,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlCargo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlCargo.class);
 
    @EJB
    AdministrarCargosInterface administrarCargos;
@@ -304,8 +307,8 @@ public class ControlCargo implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          inicializarCosas();
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -349,7 +352,7 @@ public class ControlCargo implements Serializable {
    public void inicializarCosas() {
       lovEmpresas = administrarCargos.listaEmpresas();
       if (lovEmpresas.size() > 0) {
-         System.out.println("listaEmpresas : " + lovEmpresas);
+         log.info("listaEmpresas : " + lovEmpresas);
          empresaActual = lovEmpresas.get(0);
          empresaSeleccionada = empresaActual;
          listaCargos = null;
@@ -358,7 +361,7 @@ public class ControlCargo implements Serializable {
             cargoTablaSeleccionado = listaCargos.get(0);
             listaSueldosMercados = null;
             getListaSueldosMercados();
-            System.out.println("listaSueldosMercados : " + listaSueldosMercados);
+            log.info("listaSueldosMercados : " + listaSueldosMercados);
             if (listaSueldosMercados != null) {
                if (listaSueldosMercados.size() > 0) {
                   sueldoMercadoSeleccionado = listaSueldosMercados.get(0);
@@ -374,7 +377,7 @@ public class ControlCargo implements Serializable {
          }
          listaTiposDetalles = null;
          getListaTiposDetalles();
-         System.out.println("listaTiposDetalles : " + listaTiposDetalles);
+         log.info("listaTiposDetalles : " + listaTiposDetalles);
          activoDetalleCargo = true;
       }
    }
@@ -1143,7 +1146,7 @@ public class ControlCargo implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCargos : " + e.toString());
+         log.warn("Error guardarCambiosCargos : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Cargos, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1175,7 +1178,7 @@ public class ControlCargo implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCargos : " + e.toString());
+         log.warn("Error guardarCambiosCargos : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Sueldos Mercados, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1209,7 +1212,7 @@ public class ControlCargo implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCargos : " + e.toString());
+         log.warn("Error guardarCambiosCargos : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Competencias, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1240,7 +1243,7 @@ public class ControlCargo implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCargos : " + e.toString());
+         log.warn("Error guardarCambiosCargos : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Propiedades Cargo, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -3607,7 +3610,7 @@ public class ControlCargo implements Serializable {
          detalleCargo = null;
          getDetalleCargo();
       } catch (Exception e) {
-         System.out.println("Error crearDetalleCargo : " + e.toString());
+         log.warn("Error crearDetalleCargo : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Detalle, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

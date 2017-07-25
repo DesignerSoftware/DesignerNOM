@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlClasesAusentismos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlClasesAusentismos.class);
 
    @EJB
    AdministrarClasesAusentismosInterface administrarClasesAusentismos;
@@ -164,8 +167,8 @@ public class ControlClasesAusentismos implements Serializable {
          administrarClasesAusentismos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -174,7 +177,7 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void cambiarIndice(Clasesausentismos clase, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          clasesAusentismoSeleccionado = clase;
@@ -209,7 +212,7 @@ public class ControlClasesAusentismos implements Serializable {
    public void asignarIndex(Clasesausentismos clase, int LND, int dig) {
       try {
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("\n ENTRE A ControlClasesAusentismos.asignarIndex \n");
+         log.info("\n ENTRE A ControlClasesAusentismos.asignarIndex \n");
          clasesAusentismoSeleccionado = clase;
          tipoActualizacion = LND;
          if (dig == 2) {
@@ -218,7 +221,7 @@ public class ControlClasesAusentismos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
          }
       } catch (Exception e) {
-         System.out.println("ERROR ControlClasesAusentismos.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlClasesAusentismos.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -310,10 +313,10 @@ public class ControlClasesAusentismos implements Serializable {
          personafir = (Column) c.getViewRoot().findComponent("form:datosClasesAusentismos:personafir");
          personafir.setFilterStyle("width:85% !important");
          RequestContext.getCurrentInstance().update("form:datosClasesAusentismos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosClasesAusentismos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -330,9 +333,9 @@ public class ControlClasesAusentismos implements Serializable {
 
    public void actualizarTiposausentismos() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("centrocosto seleccionado : " + centrocostoSeleccionado.getDescripcion());
-      System.out.println("tipo Actualizacion : " + tipoActualizacion);
-      System.out.println("tipo Lista : " + tipoLista);
+      log.info("centrocosto seleccionado : " + centrocostoSeleccionado.getDescripcion());
+      log.info("tipo Actualizacion : " + tipoActualizacion);
+      log.info("tipo Lista : " + tipoLista);
 
       if (tipoActualizacion == 0) {
          if (tipoLista == 0) {
@@ -360,15 +363,15 @@ public class ControlClasesAusentismos implements Serializable {
             guardado = false;
          }
          permitirIndex = true;
-         System.out.println("ACTUALIZAR PAIS PAIS SELECCIONADO : " + centrocostoSeleccionado.getDescripcion());
+         log.info("ACTUALIZAR PAIS PAIS SELECCIONADO : " + centrocostoSeleccionado.getDescripcion());
          RequestContext.getCurrentInstance().update("form:datosClasesAusentismos");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (tipoActualizacion == 1) {
-         System.out.println("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + centrocostoSeleccionado.getDescripcion());
+         log.info("ACTUALIZAR PAIS NUEVO DEPARTAMENTO: " + centrocostoSeleccionado.getDescripcion());
          nuevoClasesAusentismos.setTipo(centrocostoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
       } else if (tipoActualizacion == 2) {
-         System.out.println("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + centrocostoSeleccionado.getDescripcion());
+         log.info("ACTUALIZAR PAIS DUPLICAR DEPARTAMENO: " + centrocostoSeleccionado.getDescripcion());
          duplicarClasesAusentismos.setTipo(centrocostoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
       }
@@ -403,7 +406,7 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void modificarClasesAusentismos(Clasesausentismos clase, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       clasesAusentismoSeleccionado = clase;
       int coincidencias = 0;
       int contador = 0;
@@ -425,15 +428,13 @@ public class ControlClasesAusentismos implements Serializable {
                //                                contador++;
                //                            }
                //                        }
-               {
-                  if (contador > 0) {
+                if (contador > 0) {
                      mensajeValidacion = "CODIGOS REPETIDOS";
                      banderita = false;
                      clasesAusentismoSeleccionado.setCodigo(backupCodigo);
                   } else {
                      banderita = true;
                   }
-               }
                if (clasesAusentismoSeleccionado.getDescripcion().isEmpty()) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                   banderita1 = false;
@@ -477,15 +478,13 @@ public class ControlClasesAusentismos implements Serializable {
                //                                contador++;
                //                            }
                //                        }
-               {
-                  if (contador > 0) {
+                if (contador > 0) {
                      mensajeValidacion = "CODIGOS REPETIDOS";
                      banderita = false;
                      clasesAusentismoSeleccionado.setCodigo(backupCodigo);
                   } else {
                      banderita = true;
                   }
-               }
                if (clasesAusentismoSeleccionado.getDescripcion().isEmpty()) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                   banderita1 = false;
@@ -524,8 +523,7 @@ public class ControlClasesAusentismos implements Serializable {
             //                                contador++;
             //                            }
             //                        }
-            {
-               if (contador > 0) {
+             if (contador > 0) {
                   mensajeValidacion = "CODIGOS REPETIDOS";
                   banderita = false;
                   clasesAusentismoSeleccionado.setCodigo(backupCodigo);
@@ -533,7 +531,6 @@ public class ControlClasesAusentismos implements Serializable {
                } else {
                   banderita = true;
                }
-            }
 
             if (clasesAusentismoSeleccionado.getDescripcion().isEmpty()) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -615,7 +612,7 @@ public class ControlClasesAusentismos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosClasesAusentismos");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (confirmarCambio.equalsIgnoreCase("PERSONAS")) {
-         System.out.println("MODIFICANDO NORMA LABORAL : " + clasesAusentismoSeleccionado.getTipo().getDescripcion());
+         log.info("MODIFICANDO NORMA LABORAL : " + clasesAusentismoSeleccionado.getTipo().getDescripcion());
          if (!clasesAusentismoSeleccionado.getTipo().getDescripcion().equals("")) {
             if (tipoLista == 0) {
                clasesAusentismoSeleccionado.getTipo().setDescripcion(backupTipo);
@@ -655,7 +652,7 @@ public class ControlClasesAusentismos implements Serializable {
                }
             }
             tipoActualizacion = 0;
-            System.out.println("PAIS ANTES DE MOSTRAR DIALOGO PERSONA : " + backupTipo);
+            log.info("PAIS ANTES DE MOSTRAR DIALOGO PERSONA : " + backupTipo);
             RequestContext.getCurrentInstance().update("form:tiposAusentismosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
          }
@@ -702,9 +699,9 @@ public class ControlClasesAusentismos implements Serializable {
       BigInteger contarSoAusentismosClaseAusentismo;
       BigInteger contarCausasAusentismosClaseAusentismo;
 
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       try {
-         System.err.println("Control Secuencia de ControlTiposFamiliares ");
+         log.error("Control Secuencia de ControlTiposFamiliares ");
          if (tipoLista == 0) {
             contarCausasAusentismosClaseAusentismo = administrarClasesAusentismos.contarCausasAusentismosClaseAusentismo(clasesAusentismoSeleccionado.getSecuencia());
             contarSoAusentismosClaseAusentismo = administrarClasesAusentismos.contarSoAusentismosClaseAusentismo(clasesAusentismoSeleccionado.getSecuencia());
@@ -713,10 +710,10 @@ public class ControlClasesAusentismos implements Serializable {
             contarSoAusentismosClaseAusentismo = administrarClasesAusentismos.contarSoAusentismosClaseAusentismo(clasesAusentismoSeleccionado.getSecuencia());
          }
          if (contarCausasAusentismosClaseAusentismo.equals(new BigInteger("0")) && contarSoAusentismosClaseAusentismo.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoClasesAusentismos();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -728,14 +725,14 @@ public class ControlClasesAusentismos implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
       }
    }
 
    public void borrandoClasesAusentismos() {
 
       if (clasesAusentismoSeleccionado != null) {
-         System.out.println("Entro a borrandoClasesAusentismos");
+         log.info("Entro a borrandoClasesAusentismos");
          if (!modificarClasesAusentismos.isEmpty() && modificarClasesAusentismos.contains(clasesAusentismoSeleccionado)) {
             int modIndex = modificarClasesAusentismos.indexOf(clasesAusentismoSeleccionado);
             modificarClasesAusentismos.remove(modIndex);
@@ -767,7 +764,7 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void valoresBackupAutocompletar(int tipoNuevo, String valorCambio) {
-      System.out.println("1...");
+      log.info("1...");
       if (valorCambio.equals("PERSONA")) {
          if (tipoNuevo == 1) {
             nuevoYduplicarCompletarPersona = nuevoClasesAusentismos.getTipo().getDescripcion();
@@ -775,7 +772,7 @@ public class ControlClasesAusentismos implements Serializable {
             nuevoYduplicarCompletarPersona = duplicarClasesAusentismos.getTipo().getDescripcion();
          }
 
-         System.out.println("PERSONA : " + nuevoYduplicarCompletarPersona);
+         log.info("PERSONA : " + nuevoYduplicarCompletarPersona);
       }
    }
 
@@ -785,13 +782,13 @@ public class ControlClasesAusentismos implements Serializable {
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
-         System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
-         System.out.println("NUEVO PERSONA :-------> " + nuevoClasesAusentismos.getTipo().getDescripcion());
+         log.info(" nueva Ciudad    Entro al if 'Centro costo'");
+         log.info("NUEVO PERSONA :-------> " + nuevoClasesAusentismos.getTipo().getDescripcion());
 
          if (!nuevoClasesAusentismos.getTipo().getDescripcion().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarPersona);
+            log.info("ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("valorConfirmar: " + valorConfirmar);
+            log.info("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarPersona);
             nuevoClasesAusentismos.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
             getLovTiposausentismos();
             for (int i = 0; i < lovTiposausentismos.size(); i++) {
@@ -800,11 +797,11 @@ public class ControlClasesAusentismos implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                nuevoClasesAusentismos.setTipo(lovTiposausentismos.get(indiceUnicoElemento));
                lovTiposausentismos = null;
-               System.err.println("PERSONA GUARDADA :-----> " + nuevoClasesAusentismos.getTipo().getDescripcion());
+               log.error("PERSONA GUARDADA :-----> " + nuevoClasesAusentismos.getTipo().getDescripcion());
             } else {
                RequestContext.getCurrentInstance().update("form:tiposAusentismosDialogo");
                RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
@@ -812,10 +809,10 @@ public class ControlClasesAusentismos implements Serializable {
             }
          } else {
             nuevoClasesAusentismos.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("valorConfirmar cuando es vacio: " + valorConfirmar);
             nuevoClasesAusentismos.setTipo(new Tiposausentismos());
             nuevoClasesAusentismos.getTipo().setDescripcion(" ");
-            System.out.println("NUEVA NORMA LABORAL" + nuevoClasesAusentismos.getTipo().getDescripcion());
+            log.info("NUEVA NORMA LABORAL" + nuevoClasesAusentismos.getTipo().getDescripcion());
          }
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
       }
@@ -850,13 +847,13 @@ public class ControlClasesAusentismos implements Serializable {
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarPersona);
+         log.info("DUPLICAR valorConfirmar : " + valorConfirmar);
+         log.info("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarPersona);
 
          if (!duplicarClasesAusentismos.getTipo().getDescripcion().equals("")) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarPersona);
+            log.info("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("DUPLICAR valorConfirmar: " + valorConfirmar);
+            log.info("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarPersona);
             duplicarClasesAusentismos.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
             for (int i = 0; i < lovTiposausentismos.size(); i++) {
                if (lovTiposausentismos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -864,7 +861,7 @@ public class ControlClasesAusentismos implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                duplicarClasesAusentismos.setTipo(lovTiposausentismos.get(indiceUnicoElemento));
                lovTiposausentismos = null;
@@ -877,12 +874,12 @@ public class ControlClasesAusentismos implements Serializable {
             duplicarClasesAusentismos.setTipo(new Tiposausentismos());
             duplicarClasesAusentismos.getTipo().setDescripcion(" ");
 
-            System.out.println("DUPLICAR PERSONA  : " + duplicarClasesAusentismos.getTipo().getDescripcion());
-            System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
+            log.info("DUPLICAR PERSONA  : " + duplicarClasesAusentismos.getTipo().getDescripcion());
+            log.info("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
             if (tipoLista == 0) {
                clasesAusentismoSeleccionado.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia Parentesco " + clasesAusentismoSeleccionado.getTipo().getSecuencia());
+               log.error("tipo lista" + tipoLista);
+               log.error("Secuencia Parentesco " + clasesAusentismoSeleccionado.getTipo().getSecuencia());
             } else if (tipoLista == 1) {
                clasesAusentismoSeleccionado.getTipo().setDescripcion(nuevoYduplicarCompletarPersona);
             }
@@ -906,7 +903,7 @@ public class ControlClasesAusentismos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarClasesAusentismos");
+         log.info("Realizando guardarClasesAusentismos");
          if (!borrarClasesAusentismos.isEmpty()) {
             administrarClasesAusentismos.borrarClasesAusentismos(borrarClasesAusentismos);
             //mostrarBorrados
@@ -923,7 +920,7 @@ public class ControlClasesAusentismos implements Serializable {
             administrarClasesAusentismos.crearClasesAusentismos(crearClasesAusentismos);
             crearClasesAusentismos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listClasesAusentismos = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -947,7 +944,7 @@ public class ControlClasesAusentismos implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
             RequestContext.getCurrentInstance().execute("PF('editPais').show()");
@@ -972,7 +969,7 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void agregarNuevoClasesAusentismos() {
-      System.out.println("agregarNuevoClasesAusentismos");
+      log.info("agregarNuevoClasesAusentismos");
       int contador = 0;
       int duplicados = 0;
 
@@ -982,58 +979,58 @@ public class ControlClasesAusentismos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoClasesAusentismos.getCodigo() == null) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoClasesAusentismos.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoClasesAusentismos.getCodigo());
 
          for (int x = 0; x < listClasesAusentismos.size(); x++) {
             if (listClasesAusentismos.get(x).getCodigo().equals(nuevoClasesAusentismos.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;//1
          }
       }
       if (nuevoClasesAusentismos.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoClasesAusentismos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (nuevoClasesAusentismos.getTipo().getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Tipo Ausentismo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoClasesAusentismos.getTipo().getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Tipo Ausentismo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 3) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosClasesAusentismos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosClasesAusentismos:descripcion");
@@ -1044,7 +1041,7 @@ public class ControlClasesAusentismos implements Serializable {
             filtrarClasesAusentismos = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -1074,7 +1071,7 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void limpiarNuevoClasesAusentismos() {
-      System.out.println("limpiarNuevoClasesAusentismos");
+      log.info("limpiarNuevoClasesAusentismos");
       nuevoClasesAusentismos = new Clasesausentismos();
       nuevoClasesAusentismos.setTipo(new Tiposausentismos());
 
@@ -1082,7 +1079,7 @@ public class ControlClasesAusentismos implements Serializable {
 
    //------------------------------------------------------------------------------
    public void cargarNuevoClasesAusentismos() {
-      System.out.println("cargarNuevoClasesAusentismos");
+      log.info("cargarNuevoClasesAusentismos");
 
       duplicarClasesAusentismos = new Clasesausentismos();
       duplicarClasesAusentismos.setTipo(new Tiposausentismos());
@@ -1092,7 +1089,7 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void duplicandoClasesAusentismos() {
-      System.out.println("duplicandoClasesAusentismos");
+      log.info("duplicandoClasesAusentismos");
       if (clasesAusentismoSeleccionado != null) {
          duplicarClasesAusentismos = new Clasesausentismos();
          duplicarClasesAusentismos.setTipo(new Tiposausentismos());
@@ -1120,18 +1117,18 @@ public class ControlClasesAusentismos implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarClasesAusentismos.getCodigo());
+      log.error("ConfirmarDuplicar codigo " + duplicarClasesAusentismos.getCodigo());
 
       if (duplicarClasesAusentismos.getCodigo() == null) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listClasesAusentismos.size(); x++) {
             if (listClasesAusentismos.get(x).getCodigo().equals(duplicarClasesAusentismos.getCodigo())) {
@@ -1140,9 +1137,9 @@ public class ControlClasesAusentismos implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -1150,35 +1147,35 @@ public class ControlClasesAusentismos implements Serializable {
 
       if (duplicarClasesAusentismos.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarClasesAusentismos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (duplicarClasesAusentismos.getTipo().getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Tipo Ausentismo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarClasesAusentismos.getTipo().getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Tipo Ausentismo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 3) {
 
-         System.out.println("Datos Duplicando: " + duplicarClasesAusentismos.getSecuencia() + "  " + duplicarClasesAusentismos.getCodigo());
+         log.info("Datos Duplicando: " + duplicarClasesAusentismos.getSecuencia() + "  " + duplicarClasesAusentismos.getCodigo());
          if (crearClasesAusentismos.contains(duplicarClasesAusentismos)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listClasesAusentismos.add(duplicarClasesAusentismos);
          crearClasesAusentismos.add(duplicarClasesAusentismos);
@@ -1240,11 +1237,11 @@ public class ControlClasesAusentismos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (clasesAusentismoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(clasesAusentismoSeleccionado.getSecuencia(), "CLASESAUSENTISMOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -1269,14 +1266,14 @@ public class ControlClasesAusentismos implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlClasesAusentismos.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlClasesAusentismos.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
          RequestContext context = RequestContext.getCurrentInstance();
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlClasesAusentismos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlClasesAusentismos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

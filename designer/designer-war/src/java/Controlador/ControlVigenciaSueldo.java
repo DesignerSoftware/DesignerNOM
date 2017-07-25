@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciaSueldo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciaSueldo.class);
 
    @EJB
    AdministrarVigenciasSueldosInterface administrarVigenciasSueldos;
@@ -226,8 +229,8 @@ public class ControlVigenciaSueldo implements Serializable {
          administrarVigenciasSueldos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -1641,7 +1644,7 @@ public class ControlVigenciaSueldo implements Serializable {
       }
       listVigenciasSueldos.remove(vigenciaSueldoSeleccionada);
       if (tipoLista == 1) {
-         System.out.println("Entro a borrar de la lista filtrada");
+         log.info("Entro a borrar de la lista filtrada");
          filtrarVigenciasSueldos.remove(vigenciaSueldoSeleccionada);
       }
       contarRegistrosS();
@@ -1664,7 +1667,7 @@ public class ControlVigenciaSueldo implements Serializable {
     * Metodo que borra una vigencia prorrateo
     */
    public void borrarVA() {
-      System.out.println("entro en borrarVA()");
+      log.info("entro en borrarVA()");
       cambioVigenciaA = true;
       if (!listVAModificar.isEmpty() && listVAModificar.contains(vigenciaAfiliacioneSeleccionada)) {
          int modIndex = listVAModificar.indexOf(vigenciaAfiliacioneSeleccionada);
@@ -2057,7 +2060,7 @@ public class ControlVigenciaSueldo implements Serializable {
     * Metodo que actualiza el proyecto seleccionado (vigencia localizacion)
     */
    public void actualizarTerceros() {
-      System.out.println("terceroSeleccionado : " + terceroSeleccionado);
+      log.info("terceroSeleccionado : " + terceroSeleccionado);
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {//No se crea ni se duplica ningun registro
          vigenciaAfiliacioneSeleccionada.setTercerosucursal(new TercerosSucursales());
@@ -2065,27 +2068,27 @@ public class ControlVigenciaSueldo implements Serializable {
          int posicion = -1;
          List<TercerosSucursales> listTercerosSucursales = administrarVigenciasSueldos.listTercerosSucursales();
          if (listTercerosSucursales != null) {
-            System.out.println("listTercerosSucursales.size() : " + listTercerosSucursales.size());
+            log.info("listTercerosSucursales.size() : " + listTercerosSucursales.size());
          } else {
-            System.out.println("listTercerosSucursales = null");
+            log.info("listTercerosSucursales = null");
          }
          //Se recorre la lista de tercerosSucursales para buscar los datos del tercero seleccionado
-         System.out.println("terceroSeleccionado.getNombre() : " + terceroSeleccionado.getNombre());
+         log.info("terceroSeleccionado.getNombre() : " + terceroSeleccionado.getNombre());
          for (int i = 0; i < listTercerosSucursales.size(); i++) {
             if (listTercerosSucursales.get(i).getTercero() != null) {
                if (listTercerosSucursales.get(i).getTercero().getSecuencia() != null) {
                   if (listTercerosSucursales.get(i).getTercero().getSecuencia().equals(terceroSeleccionado.getSecuencia())) {
                      posicion = i;
-                     System.out.println("Entro en el i : " + i);
+                     log.info("Entro en el i : " + i);
                   }
                } else {
-                  System.out.println("listTercerosSucursales.get(" + i + ").getTercero() == null");
+                  log.info("listTercerosSucursales.get(" + i + ").getTercero() == null");
                }
             } else {
-               System.out.println("listTercerosSucursales.get(" + i + ").getTercero() == null");
+               log.info("listTercerosSucursales.get(" + i + ").getTercero() == null");
             }
          }
-         System.out.println("posicion : " + posicion);
+         log.info("posicion : " + posicion);
          if (posicion != -1) {
             vigenciaAfiliacioneSeleccionada.setTercerosucursal(listTercerosSucursales.get(posicion));
          }
@@ -2104,7 +2107,7 @@ public class ControlVigenciaSueldo implements Serializable {
          cambioVigenciaA = true;
          permitirIndexVA = true;
          RequestContext.getCurrentInstance().update("form:datosVAVigencia");
-         System.out.println("llego al  final de la funcion");
+         log.info("llego al  final de la funcion");
       } else if (tipoActualizacion == 1) {//Para crear un registro
          boolean banderaEncuentra = false;
          int posicion = -1;
@@ -2596,7 +2599,7 @@ public class ControlVigenciaSueldo implements Serializable {
          }
          return listVigenciasSueldos;
       } catch (Exception e) {
-         System.out.println("Error getVigenciaLocalizaciones " + e.toString());
+         log.warn("Error getVigenciaLocalizaciones " + e.toString());
          return null;
       }
    }
@@ -2760,7 +2763,7 @@ public class ControlVigenciaSueldo implements Serializable {
    }
 
    public void setTerceroSeleccionado(Terceros terceroSeleccionado) {
-      System.out.println("Entro en setTerceroSeleccionado terceroSeleccionado : " + terceroSeleccionado);
+      log.info("Entro en setTerceroSeleccionado terceroSeleccionado : " + terceroSeleccionado);
       this.terceroSeleccionado = terceroSeleccionado;
    }
 

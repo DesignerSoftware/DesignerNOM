@@ -11,6 +11,7 @@ import InterfacePersistencia.PersistenciaVwTiposEmpleadosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -18,7 +19,9 @@ import javax.persistence.Query;
  * @author user
  */
 @Stateless
-public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleadosInterface{
+public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVwTiposEmpleados.class);
     @Override
     public List<VwTiposEmpleados> buscarTiposEmpleadosPorTipo (EntityManager em, String tipo) {
         try {
@@ -29,7 +32,7 @@ public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleado
             List<VwTiposEmpleados> VwTiposEmpleadosPorTipo = query.getResultList();
             return VwTiposEmpleadosPorTipo;
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo " + e.getMessage());
+            log.error("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo " + e.getMessage());
             return null;
         }
     }
@@ -42,7 +45,7 @@ public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleado
             List<VwTiposEmpleados> VwTiposEmpleados = query.getResultList();
             return VwTiposEmpleados;
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleados " + e.getMessage());
+            log.error("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleados " + e.getMessage());
             return null;
         }
     }

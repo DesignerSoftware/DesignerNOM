@@ -45,6 +45,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -55,6 +56,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarCargueArchivos implements AdministrarCargueArchivosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCargueArchivos.class);
    //--------------------------------------------------------------------------
    //ATRIBUTOS
    //--------------------------------------------------------------------------    
@@ -337,7 +340,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
          }
          return validarZonaT;
       } catch (Exception e) {
-         System.out.println("Error verificarZonaT: " + e);
+         log.warn("Error verificarZonaT: " + e);
          return false;
       }
    }
@@ -429,7 +432,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
          Generales general = persistenciaGenerales.obtenerRutas(em);
          return general.getUbicareportes();
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarCargueArchivos.consultarRuta() e : " + e);
+         log.warn("ERROR Administrar.AdministrarCargueArchivos.consultarRuta() e : " + e);
          return "C:\\DesignerRHN\\Reportes\\ArchivosPlanos\\";
       }
    }

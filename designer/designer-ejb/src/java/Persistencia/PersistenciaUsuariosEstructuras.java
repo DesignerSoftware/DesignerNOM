@@ -6,16 +6,13 @@
 package Persistencia;
 
 import Entidades.UsuariosEstructuras;
-import InterfacePersistencia.PersistenciaEmpresasInterface;
-import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaUsuariosEstructurasInterface;
-import InterfacePersistencia.PersistenciaUsuariosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -26,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstructurasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosEstructuras.class);
+
     @Override
     public void crear(EntityManager em, UsuariosEstructuras usuarioEstructura) {
         em.clear();
@@ -35,7 +34,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             em.merge(usuarioEstructura);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosEstructuras.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +50,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             em.merge(usuarioEstructura);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosEstructuras.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +66,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             em.remove(em.merge(usuarioEstructura));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosEstructuras.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +83,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             List<UsuariosEstructuras> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosEstructuras.consultarUsuariosEstructuras: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.consultarUsuariosEstructuras: " + e.getMessage());
             return null;
         }
 
@@ -100,7 +99,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             BigDecimal count = (BigDecimal)query.getSingleResult();
             return count;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosEstructuras.contarUsuariosEstructuras: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.contarUsuariosEstructuras: " + e.getMessage());
             return null;
         }
 
@@ -119,7 +118,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosEstructuras.crearVistaUsuarioEstructura: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.crearVistaUsuarioEstructura: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

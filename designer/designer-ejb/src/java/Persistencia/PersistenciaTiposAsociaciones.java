@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacionesInterface{
+public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposAsociaciones.class);
 
     @Override
     public void crear(EntityManager em, TiposAsociaciones tiposAsociaciones) {
@@ -25,7 +27,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAsociaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAsociaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAsociaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAsociaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAsociaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAsociaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             List<TiposAsociaciones> tiposAsociaciones = (List<TiposAsociaciones>) query.getResultList();
             return tiposAsociaciones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociaciones()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociaciones()" + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             TiposAsociaciones tiposAsociaciones = (TiposAsociaciones) query.getSingleResult();
             return tiposAsociaciones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociacionesSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociacionesSecuencia()" + e.getMessage());
             return null;
         }
     }

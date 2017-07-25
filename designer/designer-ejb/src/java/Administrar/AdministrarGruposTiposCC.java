@@ -12,8 +12,8 @@ import InterfacePersistencia.PersistenciaGruposTiposCCInterface;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGruposTiposCC implements AdministrarGruposTiposCCInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGruposTiposCC.class);
 
     @EJB
     PersistenciaGruposTiposCCInterface persistenciaGrupos;
@@ -40,7 +42,7 @@ public class AdministrarGruposTiposCC implements AdministrarGruposTiposCCInterfa
                 persistenciaGrupos.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error Administrar.AdministrarGruposTiposCC.crearGrupo() : " + e.toString());
+            log.warn("Error Administrar.AdministrarGruposTiposCC.crearGrupo() : " + e.toString());
         }
 
     }
@@ -52,7 +54,7 @@ public class AdministrarGruposTiposCC implements AdministrarGruposTiposCCInterfa
                 persistenciaGrupos.editar(em, listaEditar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error Administrar.AdministrarGruposTiposCC.editarGrupo() : " + e.toString());
+            log.warn("Error Administrar.AdministrarGruposTiposCC.editarGrupo() : " + e.toString());
         }
     }
 
@@ -63,7 +65,7 @@ public class AdministrarGruposTiposCC implements AdministrarGruposTiposCCInterfa
                 persistenciaGrupos.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error Administrar.AdministrarGruposTiposCC.borrarGrupo() : " + e.toString());
+            log.warn("Error Administrar.AdministrarGruposTiposCC.borrarGrupo() : " + e.toString());
         }
     }
 

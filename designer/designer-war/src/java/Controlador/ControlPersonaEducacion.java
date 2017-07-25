@@ -31,6 +31,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPersonaEducacion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPersonaEducacion.class);
 
    @EJB
    AdministrarVigenciasNoFormalesInterface administrarVigenciasNoFormales;
@@ -207,8 +210,8 @@ public class ControlPersonaEducacion implements Serializable {
          administrarVigenciasFormales.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -838,7 +841,7 @@ public class ControlPersonaEducacion implements Serializable {
    public void editarCelda() {
       if (CualTabla == 0) {
          editarVigenciasFormales = vigenciaFormalSeleccionada;
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
             RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
@@ -888,8 +891,8 @@ public class ControlPersonaEducacion implements Serializable {
             editarVigenciasNoFormales = vigenciaNoFormalSeleccionada;
          }
 
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
-         System.out.println("Cual Tabla: " + CualTabla);
+         log.info("Entro a editar... valor celda: " + cualCelda);
+         log.info("Cual Tabla: " + CualTabla);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaNF");
             RequestContext.getCurrentInstance().execute("PF('editarFechaNF').show()");
@@ -985,11 +988,11 @@ public class ControlPersonaEducacion implements Serializable {
 
    //FILTRADO
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0 || banderaNF == 0) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
          pEFechas.setFilterStyle("width: 85% !important");
          pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
@@ -1015,8 +1018,8 @@ public class ControlPersonaEducacion implements Serializable {
          bandera = 1;
 
          ////////////
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          pEFechasNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEFechasNF");
          pEFechasNF.setFilterStyle("width: 85% !important");
          pECursosNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pECursosNF");
@@ -1036,8 +1039,8 @@ public class ControlPersonaEducacion implements Serializable {
          banderaNF = 1;
 
       } else if (bandera == 1 || banderaNF == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
          pEFechas.setFilterStyle("display: none; visibility: hidden;");
          pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
@@ -1065,8 +1068,8 @@ public class ControlPersonaEducacion implements Serializable {
          tipoLista = 0;
 
          //////
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          pEFechasNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEFechasNF");
          pEFechasNF.setFilterStyle("display: none; visibility: hidden;");
          pECursosNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pECursosNF");
@@ -1149,22 +1152,22 @@ public class ControlPersonaEducacion implements Serializable {
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevaVigenciaFormal.getFechavigencia() == null) {
-         System.out.println("Entro a FechaNF");
+         log.info("Entro a FechaNF");
          mensajeValidacion = " * Fecha \n";
          pasa++;
       }
       if (nuevaVigenciaFormal.getTipoeducacion().getSecuencia() == null) {
-         System.out.println("Entro a TipoEducacion");
+         log.info("Entro a TipoEducacion");
          mensajeValidacion = mensajeValidacion + " * Tipo de Educacion\n";
          pasa++;
       }
       if (nuevaVigenciaFormal.getProfesion().getSecuencia() == null) {
-         System.out.println("Entro a Profesion");
+         log.info("Entro a Profesion");
          mensajeValidacion = mensajeValidacion + " * Profesion\n";
          pasa++;
       }
       if (nuevaVigenciaFormal.getInstitucion().getSecuencia() == null) {
-         System.out.println("Entro a Institucion");
+         log.info("Entro a Institucion");
          mensajeValidacion = mensajeValidacion + " * Institucion \n";
          pasa++;
       }
@@ -1173,8 +1176,8 @@ public class ControlPersonaEducacion implements Serializable {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
 
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
             pEFechas.setFilterStyle("display: none; visibility: hidden;");
             pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
@@ -1203,7 +1206,7 @@ public class ControlPersonaEducacion implements Serializable {
 
          }
          //AGREGAR REGISTRO A LA LISTA VIGENCIAS FORMALES.
-         System.out.println("entra a agregar");
+         log.info("entra a agregar");
          k++;
          l = BigInteger.valueOf(k);
          nuevaVigenciaFormal.setSecuencia(l);
@@ -1250,7 +1253,7 @@ public class ControlPersonaEducacion implements Serializable {
          listaVigenciasFormales.remove(vigenciaFormalSeleccionada);
          if (tipoLista == 1) {
             filtradosListaVigenciasFormales.remove(vigenciaFormalSeleccionada);
-            System.out.println("Realizado");
+            log.info("Realizado");
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
@@ -1279,7 +1282,7 @@ public class ControlPersonaEducacion implements Serializable {
 
          if (tipoListaNF == 1) {
             filtradosListaVigenciasNoFormales.remove(vigenciaNoFormalSeleccionada);
-            System.out.println("Realizado");
+            log.info("Realizado");
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
@@ -1335,7 +1338,7 @@ public class ControlPersonaEducacion implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigenciaFormal').show()");
          } else if (CualTabla == 1) {
-            System.out.println("Entra Duplicar NF");
+            log.info("Entra Duplicar NF");
 
             duplicarVigenciaNoFormal = new VigenciasNoFormales();
             m++;
@@ -1384,8 +1387,8 @@ public class ControlPersonaEducacion implements Serializable {
       if (bandera == 1) {
          FacesContext c = FacesContext.getCurrentInstance();
 
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
          pEFechas.setFilterStyle("display: none; visibility: hidden;");
          pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
@@ -1429,12 +1432,12 @@ public class ControlPersonaEducacion implements Serializable {
    public void verificarRastro() {
       if (CualTabla == 0) {
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("lol");
+         log.info("lol");
 
          if (vigenciaFormalSeleccionada != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(vigenciaFormalSeleccionada.getSecuencia(), "VIGENCIASFORMALES");
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -1454,11 +1457,11 @@ public class ControlPersonaEducacion implements Serializable {
          vigenciaFormalSeleccionada = null;
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("NF");
+         log.info("NF");
          if (vigenciaNoFormalSeleccionada != null) {
-            System.out.println("NF2");
+            log.info("NF2");
             int resultadoNF = administrarRastros.obtenerTabla(vigenciaNoFormalSeleccionada.getSecuencia(), "VIGENCIASNOFORMALES");
-            System.out.println("resultado: " + resultadoNF);
+            log.info("resultado: " + resultadoNF);
             if (resultadoNF == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
             } else if (resultadoNF == 2) {
@@ -1627,7 +1630,7 @@ public class ControlPersonaEducacion implements Serializable {
             }
 
             if (!listaVigenciasFormalesBorrar.isEmpty()) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                administrarVigenciasFormales.borrarVigenciaFormal(listaVigenciasFormalesBorrar);
                listaVigenciasFormalesBorrar.clear();
             }
@@ -1657,7 +1660,7 @@ public class ControlPersonaEducacion implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("Error ControlPersonaEducacion.guardarTodo() : " + e.toString());
+         log.warn("Error ControlPersonaEducacion.guardarTodo() : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, Por favor intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2207,21 +2210,21 @@ public class ControlPersonaEducacion implements Serializable {
       CualTabla = 1;
       mensajeValidacionNF = " ";
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("Tamaño Lista Vigencias NF Modificar" + listaVigenciasNoFormalesModificar.size());
+      log.info("Tamaño Lista Vigencias NF Modificar" + listaVigenciasNoFormalesModificar.size());
 
       if (nuevaVigenciaNoFormal.getFechavigencia() == null) {
-         System.out.println("Entro a Fecha");
+         log.info("Entro a Fecha");
          mensajeValidacionNF = " * Fecha \n";
          pasa++;
       }
       if (nuevaVigenciaNoFormal.getCurso().getSecuencia() == null) {
-         System.out.println("Entro a Curso");
+         log.info("Entro a Curso");
          mensajeValidacionNF = mensajeValidacionNF + " * Curso \n";
          pasa++;
       }
 
       if (nuevaVigenciaNoFormal.getInstitucion().getSecuencia() == null) {
-         System.out.println("Entro a Institucion");
+         log.info("Entro a Institucion");
          mensajeValidacionNF = mensajeValidacionNF + " * Institucion \n";
          pasa++;
       }
@@ -2251,7 +2254,7 @@ public class ControlPersonaEducacion implements Serializable {
             }
          }
          //AGREGAR REGISTRO A LA LISTA VIGENCIAS NO FORMALES.
-         System.out.println("entro a AGREGAR");
+         log.info("entro a AGREGAR");
          k++;
          l = BigInteger.valueOf(k);
          nuevaVigenciaNoFormal.setSecuencia(l);

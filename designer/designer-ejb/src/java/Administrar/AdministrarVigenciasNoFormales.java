@@ -23,9 +23,12 @@ import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFormalesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasNoFormales.class);
 
     @EJB
     PersistenciaVigenciasNoFormalesInterface persistenciaVigenciasNoFormales;
@@ -60,7 +63,7 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
         try {
             return persistenciaVigenciasNoFormales.vigenciasNoFormalesPersona(em, secPersona);
         } catch (Exception e) {
-            System.err.println("Error AdministrarVigenciasNoFormales.vigenciasNoFormalesPersona " + e);
+            log.error("Error AdministrarVigenciasNoFormales.vigenciasNoFormalesPersona " + e);
             return null;
         }
     }
@@ -89,7 +92,7 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
     @Override
     public void modificarVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesModificar) {
         for (int i = 0; i < listaVigenciasNoFormalesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasNoFormalesModificar.get(i).getCurso().getSecuencia() == null) {
                 listaVigenciasNoFormalesModificar.get(i).setCurso(null);
             }
@@ -106,7 +109,7 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
     @Override
     public void borrarVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesBorrar) {
         for (int i = 0; i < listaVigenciasNoFormalesBorrar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasNoFormalesBorrar.get(i).getCurso().getSecuencia() == null) {
                 listaVigenciasNoFormalesBorrar.get(i).setCurso(null);
             }
@@ -123,7 +126,7 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
     @Override
     public void crearVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesCrear) {
         for (int i = 0; i < listaVigenciasNoFormalesCrear.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaVigenciasNoFormalesCrear.get(i).getCurso().getSecuencia() == null) {
                 listaVigenciasNoFormalesCrear.get(i).setCurso(null);
             }
@@ -146,7 +149,7 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
             Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

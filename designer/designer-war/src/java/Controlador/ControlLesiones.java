@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlLesiones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlLesiones.class);
 
     @EJB
     AdministrarLesionesInterface administrarLesiones;
@@ -134,14 +137,14 @@ public class ControlLesiones implements Serializable {
             administrarLesiones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A ControlLesiones.eventoFiltrar \n");
+            log.info("\n ENTRE A ControlLesiones.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
@@ -149,13 +152,13 @@ public class ControlLesiones implements Serializable {
             infoRegistro = "Cantidad de registros: " + filtrarLesiones.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
-            System.out.println("ERROR ControlLesiones eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error ControlLesiones eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
     public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
-        System.err.println("permitirIndex  " + permitirIndex);
+        log.error("TIPO LISTA = " + tipoLista);
+        log.error("permitirIndex  " + permitirIndex);
 
         if (permitirIndex == true) {
             index = indice;
@@ -169,24 +172,24 @@ public class ControlLesiones implements Serializable {
                 backupDescripcion = filtrarLesiones.get(index).getDescripcion();
             }
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
+        log.info("Indice: " + index + " Celda: " + cualCelda);
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE A ControlLesiones.asignarIndex \n");
+            log.info("\n ENTRE A ControlLesiones.asignarIndex \n");
             index = indice;
             if (LND == 0) {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR ControlLesiones.asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error ControlLesiones.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -277,10 +280,10 @@ public class ControlLesiones implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosLesiones:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosLesiones");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosLesiones:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -294,7 +297,7 @@ public class ControlLesiones implements Serializable {
     }
 
     public void modificarLesiones(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+        log.error("ENTRE A MODIFICAR SUB CATEGORIA");
         index = indice;
 
         int contador = 0;
@@ -302,14 +305,14 @@ public class ControlLesiones implements Serializable {
         boolean banderita1 = false;
 
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 if (!crearLesiones.contains(listLesiones.get(indice))) {
 
-                    System.out.println("backupCodigo : " + backupCodigo);
-                    System.out.println("backupDescripcion : " + backupDescripcion);
+                    log.info("backupCodigo : " + backupCodigo);
+                    log.info("backupDescripcion : " + backupDescripcion);
 
                     if (listLesiones.get(indice).getCodigo() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -367,8 +370,8 @@ public class ControlLesiones implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
 
-                    System.out.println("backupCodigo : " + backupCodigo);
-                    System.out.println("backupDescripcion : " + backupDescripcion);
+                    log.info("backupCodigo : " + backupCodigo);
+                    log.info("backupDescripcion : " + backupDescripcion);
 
                     if (listLesiones.get(indice).getCodigo() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -542,7 +545,7 @@ public class ControlLesiones implements Serializable {
 
         if (index >= 0) {
             if (tipoLista == 0) {
-                System.out.println("Entro a borrandoLesiones");
+                log.info("Entro a borrandoLesiones");
                 if (!modificarLesiones.isEmpty() && modificarLesiones.contains(listLesiones.get(index))) {
                     int modIndex = modificarLesiones.indexOf(listLesiones.get(index));
                     modificarLesiones.remove(modIndex);
@@ -556,7 +559,7 @@ public class ControlLesiones implements Serializable {
                 listLesiones.remove(index);
             }
             if (tipoLista == 1) {
-                System.out.println("borrandoLesiones ");
+                log.info("borrandoLesiones ");
                 if (!modificarLesiones.isEmpty() && modificarLesiones.contains(filtrarLesiones.get(index))) {
                     int modIndex = modificarLesiones.indexOf(filtrarLesiones.get(index));
                     modificarLesiones.remove(modIndex);
@@ -588,12 +591,12 @@ public class ControlLesiones implements Serializable {
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
+        log.info("Estoy en verificarBorrado");
         BigInteger contarDetallesLicensiasLesion;
         BigInteger contarSoAccidentesDomesticosLesion;
 
         try {
-            System.err.println("Control Secuencia de ControlLesiones ");
+            log.error("Control Secuencia de ControlLesiones ");
             if (tipoLista == 0) {
                 contarDetallesLicensiasLesion = administrarLesiones.contarDetallesLicensiasLesion(listLesiones.get(index).getSecuencia());
                 contarSoAccidentesDomesticosLesion = administrarLesiones.contarSoAccidentesDomesticosLesion(listLesiones.get(index).getSecuencia());
@@ -602,10 +605,10 @@ public class ControlLesiones implements Serializable {
                 contarSoAccidentesDomesticosLesion = administrarLesiones.contarSoAccidentesDomesticosLesion(filtrarLesiones.get(index).getSecuencia());
             }
             if (contarDetallesLicensiasLesion.equals(new BigInteger("0")) && contarSoAccidentesDomesticosLesion.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
+                log.info("Borrado==0");
                 borrandoLesiones();
             } else {
-                System.out.println("Borrado>0");
+                log.info("Borrado>0");
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -616,7 +619,7 @@ public class ControlLesiones implements Serializable {
 
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlLesiones verificarBorrado ERROR " + e);
+            log.error("ERROR ControlLesiones verificarBorrado ERROR " + e);
         }
     }
 
@@ -634,7 +637,7 @@ public class ControlLesiones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando guardarLesiones");
+            log.info("Realizando guardarLesiones");
             if (!borrarLesiones.isEmpty()) {
                 administrarLesiones.borrarLesiones(borrarLesiones);
                 //mostrarBorrados
@@ -651,7 +654,7 @@ public class ControlLesiones implements Serializable {
                 administrarLesiones.crearLesiones(crearLesiones);
                 crearLesiones.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listLesiones = null;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -675,7 +678,7 @@ public class ControlLesiones implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -692,7 +695,7 @@ public class ControlLesiones implements Serializable {
     }
 
     public void agregarNuevoLesiones() {
-        System.out.println("agregarNuevoLesiones");
+        log.info("agregarNuevoLesiones");
         int contador = 0;
         int duplicados = 0;
 
@@ -702,42 +705,42 @@ public class ControlLesiones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoLesiones.getCodigo() == a) {
             mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoLesiones.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoLesiones.getCodigo());
 
             for (int x = 0; x < listLesiones.size(); x++) {
                 if (listLesiones.get(x).getCodigo() == nuevoLesiones.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoLesiones.getDescripcion() == null || nuevoLesiones.getDescripcion().isEmpty()) {
             mensajeValidacion = mensajeValidacion + " *Descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosLesiones:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosLesiones:descripcion");
@@ -747,7 +750,7 @@ public class ControlLesiones implements Serializable {
                 filtrarLesiones = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -777,7 +780,7 @@ public class ControlLesiones implements Serializable {
     }
 
     public void limpiarNuevoLesiones() {
-        System.out.println("limpiarNuevoLesiones");
+        log.info("limpiarNuevoLesiones");
         nuevoLesiones = new Lesiones();
         secRegistro = null;
         index = -1;
@@ -786,7 +789,7 @@ public class ControlLesiones implements Serializable {
 
     //------------------------------------------------------------------------------
     public void duplicandoLesiones() {
-        System.out.println("duplicandoLesiones");
+        log.info("duplicandoLesiones");
         if (index >= 0) {
             duplicarLesiones = new Lesiones();
             k++;
@@ -812,19 +815,19 @@ public class ControlLesiones implements Serializable {
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+        log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarLesiones.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarLesiones.getDescripcion());
+        log.error("ConfirmarDuplicar codigo " + duplicarLesiones.getCodigo());
+        log.error("ConfirmarDuplicar Descripcion " + duplicarLesiones.getDescripcion());
 
         if (duplicarLesiones.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listLesiones.size(); x++) {
                 if (listLesiones.get(x).getCodigo() == duplicarLesiones.getCodigo()) {
@@ -833,27 +836,27 @@ public class ControlLesiones implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarLesiones.getDescripcion() == null || duplicarLesiones.getDescripcion().isEmpty()) {
             mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarLesiones.getSecuencia() + "  " + duplicarLesiones.getCodigo());
+            log.info("Datos Duplicando: " + duplicarLesiones.getSecuencia() + "  " + duplicarLesiones.getCodigo());
             if (crearLesiones.contains(duplicarLesiones)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listLesiones.add(duplicarLesiones);
             crearLesiones.add(duplicarLesiones);
@@ -914,12 +917,12 @@ public class ControlLesiones implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listLesiones.isEmpty()) {
             if (secRegistro != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "LESIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {

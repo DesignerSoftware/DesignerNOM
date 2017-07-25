@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
@@ -17,6 +18,8 @@ import javax.persistence.StoredProcedureQuery;
 
 @Stateless
 public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucursalesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTercerosSucursales.class);
 
    @Override
    public void crear(EntityManager em, TercerosSucursales tercerosSucursales) {
@@ -27,7 +30,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          em.persist(tercerosSucursales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTercerosSucursales.crear: " + e.getMessage());
+         log.error("Error PersistenciaTercerosSucursales.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +46,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          em.merge(tercerosSucursales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTercerosSucursales.editar: " + e.getMessage());
+         log.error("Error PersistenciaTercerosSucursales.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +62,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          em.remove(em.merge(tercerosSucursales));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTercerosSucursales.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTercerosSucursales.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +78,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          List<TercerosSucursales> tercerosSucursales = query.getResultList();
          return tercerosSucursales;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTercerosSucursales.buscarTercerosSucursales()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTercerosSucursales.buscarTercerosSucursales()" + e.getMessage());
          return null;
       }
    }
@@ -90,7 +93,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          TercerosSucursales tercerosSucursales = (TercerosSucursales) query.getSingleResult();
          return tercerosSucursales;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTercerosSucursales.buscarTercerosSucursalesSecuencia()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTercerosSucursales.buscarTercerosSucursalesSecuencia()" + e.getMessage());
          return null;
       }
    }
@@ -105,7 +108,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          List<TercerosSucursales> listTercerosS = query.getResultList();
          return listTercerosS;
       } catch (Exception e) {
-         System.out.println("Error buscarTercerosSucursalesPorTerceroSecuencia PersistenciaTerceroSurcusal : " + e.getMessage());
+         log.error("Error buscarTercerosSucursalesPorTerceroSecuencia PersistenciaTerceroSurcusal : " + e.getMessage());
          return null;
       }
    }
@@ -120,7 +123,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          List<TercerosSucursales> listTercerosS = query.getResultList();
          return listTercerosS;
       } catch (Exception e) {
-         System.out.println("Error buscarTercerosSucursalesPorEmpresa PersistenciaTerceroSurcusal : " + e.getMessage());
+         log.error("Error buscarTercerosSucursalesPorEmpresa PersistenciaTerceroSurcusal : " + e.getMessage());
          return null;
       }
    }
@@ -141,7 +144,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          query.setParameter(3, fechaCambio);
          query.execute();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos()" + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -167,7 +170,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          query.setParameter(3, fechaCambio);
          query.execute();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos()" + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

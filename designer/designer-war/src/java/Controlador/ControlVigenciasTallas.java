@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasTallas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasTallas.class);
 
    @EJB
    AdministrarVigenciasTallasInterface administrarVigenciasTallas;
@@ -114,8 +117,8 @@ public class ControlVigenciasTallas implements Serializable {
          administrarVigenciasTallas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -158,10 +161,10 @@ public class ControlVigenciasTallas implements Serializable {
    }
 
    public void recibirEmpleado(Empleados empleado, String pagina) {
-      System.out.println("empleados" + empleado);
+      log.info("empleados" + empleado);
       paginaAnterior = pagina;
       secuenciaEmpleado = empleado.getSecuencia();
-      System.out.println("secuenciaEmpleado " + secuenciaEmpleado);
+      log.info("secuenciaEmpleado " + secuenciaEmpleado);
       empleadoSeleccionado = empleado;
       listVigenciasTallas = null;
       getEmpleadoSeleccionado();
@@ -180,7 +183,7 @@ public class ControlVigenciasTallas implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlVigenciasTallas eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlVigenciasTallas eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
@@ -324,11 +327,11 @@ public class ControlVigenciasTallas implements Serializable {
          idObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idObservaciones");
          idObservaciones.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosVigenciasTallas");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 290;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:fecha");
          fecha.setFilterStyle("display: none; visibility: hidden;");
          idTipoTalla = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idTipoTalla");
@@ -365,7 +368,7 @@ public class ControlVigenciasTallas implements Serializable {
          nuevoVigenciaTalla.setTipoTalla(tipoTallaSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoTalla");
       } else if (tipoActualizacion == 2) {
-         System.out.println(tipoTallaSeleccionado.getDescripcion());
+         log.info(tipoTallaSeleccionado.getDescripcion());
          duplicarVigenciaTalla.setTipoTalla(tipoTallaSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcionTipoTallas");
       }
@@ -402,7 +405,7 @@ public class ControlVigenciasTallas implements Serializable {
    public void borrandoVigenciasTallas() {
 
       if (vigenciaTallaSeleccionada != null) {
-         System.out.println("Entro a borrandoVigenciasTallas");
+         log.info("Entro a borrandoVigenciasTallas");
          if (!modificarVigenciasTallas.isEmpty() && modificarVigenciasTallas.contains(vigenciaTallaSeleccionada)) {
             int modIndex = modificarVigenciasTallas.indexOf(vigenciaTallaSeleccionada);
             modificarVigenciasTallas.remove(modIndex);
@@ -444,10 +447,10 @@ public class ControlVigenciasTallas implements Serializable {
    public void guardarVigenciasTallas() {
       try {
          if (guardado == false) {
-            System.out.println("Realizando guardarVigenciasTallas");
+            log.info("Realizando guardarVigenciasTallas");
             if (!borrarVigenciasTallas.isEmpty()) {
                for (int i = 0; i < borrarVigenciasTallas.size(); i++) {
-                  System.out.println("Borrando...");
+                  log.info("Borrando...");
                   if (borrarVigenciasTallas.get(i).getTipoTalla().getSecuencia() == null) {
                      borrarVigenciasTallas.get(i).setTipoTalla(new TiposTallas());
                   }
@@ -464,7 +467,7 @@ public class ControlVigenciasTallas implements Serializable {
                      crearVigenciasTallas.get(i).setTipoTalla(new TiposTallas());
                   }
                }
-               System.out.println("Creando...");
+               log.info("Creando...");
                administrarVigenciasTallas.crearVigenciasTallas(crearVigenciasTallas);
                crearVigenciasTallas.clear();
             }
@@ -540,7 +543,7 @@ public class ControlVigenciasTallas implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
             idTipoTalla = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:idTipoTalla");

@@ -24,6 +24,7 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -31,6 +32,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocalizacionInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciaLocalizacion.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleado;
@@ -84,7 +87,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             vigenciasLocalizaciones = persistenciaVigenciasLocalizaciones.buscarVigenciasLocalizacionesEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Localizaciones (VigenciasLocalizacionesEmpleado) : " + e.toString());
+            log.warn("Error en Administrar Vigencias Localizaciones (VigenciasLocalizacionesEmpleado) : " + e.toString());
             vigenciasLocalizaciones = null;
         }
         return vigenciasLocalizaciones;
@@ -107,7 +110,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
                 persistenciaVigenciasLocalizaciones.editar(em, vigenciaLocalizacion);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVL AdmiVigLoc : " + e.toString());
+            log.warn("Error modificarVL AdmiVigLoc : " + e.toString());
         }
     }
 
@@ -116,7 +119,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             persistenciaVigenciasLocalizaciones.borrar(em, vigenciasLocalizaciones);
         } catch (Exception e) {
-            System.out.println("Error borrarVL AdmiVigLoc : " + e.toString());
+            log.warn("Error borrarVL AdmiVigLoc : " + e.toString());
         }
     }
 
@@ -125,7 +128,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             persistenciaVigenciasLocalizaciones.crear(em, vigenciasLocalizaciones);
         } catch (Exception e) {
-            System.out.println("Error crearVL AdmiVigLoc : " + e.toString());
+            log.warn("Error crearVL AdmiVigLoc : " + e.toString());
         }
     }
 
@@ -135,7 +138,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
             empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
             return empleado;
         } catch (Exception e) {
-            System.out.println("Error buscarEmpleado Adm: " + e.toString());
+            log.warn("Error buscarEmpleado Adm: " + e.toString());
             empleado = null;
             return empleado;
         }
@@ -147,7 +150,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
             motivosLocalizaciones = persistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(em);
             return motivosLocalizaciones;
         } catch (Exception e) {
-            System.out.println("Error motivosLocalizaciones AdministrarVigenciasdLocalizaciones: " + e.toString());
+            log.warn("Error motivosLocalizaciones AdministrarVigenciasdLocalizaciones: " + e.toString());
             return null;
         }
     }
@@ -158,7 +161,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
             estructuras = persistenciaEstructuras.buscarEstructuras(em);
             return estructuras;
         } catch (Exception e) {
-            System.out.println("Error estructuras AdministrarVigenciasdLocalizaciones: " + e.toString());
+            log.warn("Error estructuras AdministrarVigenciasdLocalizaciones: " + e.toString());
             return null;
         }
     }
@@ -169,7 +172,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
             proyectos = persistenciaProyectos.proyectos(em);
             return proyectos;
         } catch (Exception e) {
-            System.out.println("Error proyectos AdministrarVigenciasdLocalizaciones: " + e.toString());
+            log.warn("Error proyectos AdministrarVigenciasdLocalizaciones: " + e.toString());
             return null;
         }
     }
@@ -179,7 +182,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             vigenciasProrrateos = persistenciaVigenciasProrrateos.buscarVigenciasProrrateosVigenciaSecuencia(em, secVigencia);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Localizaciones (VigenciasProrrateosVigencia): " + e.toString());
+            log.warn("Error en Administrar Vigencias Localizaciones (VigenciasProrrateosVigencia): " + e.toString());
             vigenciasProrrateos = null;
         }
         return vigenciasProrrateos;
@@ -202,7 +205,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
                 persistenciaVigenciasProrrateos.editar(em, vigenciaProrrateo);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVP AdmiVigLoc: " + e.toString());
+            log.warn("Error modificarVP AdmiVigLoc: " + e.toString());
         }
     }
 
@@ -211,7 +214,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             persistenciaVigenciasProrrateos.borrar(em, vigenciasProrrateos);
         } catch (Exception e) {
-            System.out.println("Error borrarVP AdmiVigLoc: " + e.toString());
+            log.warn("Error borrarVP AdmiVigLoc: " + e.toString());
         }
     }
 
@@ -220,7 +223,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             persistenciaVigenciasProrrateos.crear(em, vigenciasProrrateos);
         } catch (Exception e) {
-            System.out.println("Error crearVP AdmiVigLoc: " + e.toString());
+            log.warn("Error crearVP AdmiVigLoc: " + e.toString());
         }
     }
 
@@ -230,7 +233,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
             centrosCostos = persistenciaCentrosCostos.buscarCentrosCostos(em);
             return centrosCostos;
         } catch (Exception e) {
-            System.out.println("Error centrosCostos Admi: " + e.toString());
+            log.warn("Error centrosCostos Admi: " + e.toString());
             return null;
         }
     }
@@ -241,7 +244,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
             vigenciasProrrateosProyectos = persistenciaVigenciasProrrateosProyectos.buscarVigenciasProrrateosProyectosVigenciaSecuencia(em, secVigencia);
         } catch (Exception e) {
             vigenciasProrrateosProyectos = null;
-            System.out.println("Error VigenciasProrrateosProyectosVigencia Admi : " + e.toString());
+            log.warn("Error VigenciasProrrateosProyectosVigencia Admi : " + e.toString());
         }
         return vigenciasProrrateosProyectos;
     }
@@ -260,7 +263,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
                 persistenciaVigenciasProrrateosProyectos.editar(em, vigenciaProrrateoProyecto);
             }
         } catch (Exception e) {
-            System.out.println("Error modificarVPP AdmiVigLoc: " + e.toString());
+            log.warn("Error modificarVPP AdmiVigLoc: " + e.toString());
         }
     }
 
@@ -269,7 +272,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             persistenciaVigenciasProrrateosProyectos.borrar(em, vigenciasProrrateosProyectos);
         } catch (Exception e) {
-            System.out.println("Error borrarVPP AdmiVigLoc: " + e.toString());
+            log.warn("Error borrarVPP AdmiVigLoc: " + e.toString());
         }
     }
 
@@ -278,7 +281,7 @@ public class AdministrarVigenciaLocalizacion implements AdministrarVigenciaLocal
         try {
             persistenciaVigenciasProrrateosProyectos.crear(em, vigenciasProrrateosProyectos);
         } catch (Exception e) {
-            System.out.println("Error crearVPP AdmiVigLoc: " + e.toString());
+            log.warn("Error crearVPP AdmiVigLoc: " + e.toString());
         }
     }
 

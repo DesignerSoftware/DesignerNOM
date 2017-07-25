@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposPensionados implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposPensionados.class);
 
    @EJB
    AdministrarTiposPensionadosInterface administrarTiposPensionados;
@@ -93,8 +96,8 @@ public class ControlTiposPensionados implements Serializable {
          administrarTiposPensionados.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -138,7 +141,7 @@ public class ControlTiposPensionados implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlTiposPensionados.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlTiposPensionados.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -146,12 +149,12 @@ public class ControlTiposPensionados implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarTiposPensionados.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposPensionados eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposPensionados eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -159,43 +162,43 @@ public class ControlTiposPensionados implements Serializable {
          if (tipoLista == 0) {
             if (cualCelda == 0) {
                backUpCodigo = listTiposPensionados.get(index).getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
             } else if (cualCelda == 1) {
                backUpDescripcion = listTiposPensionados.get(index).getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
             }
             secRegistro = listTiposPensionados.get(index).getSecuencia();
          } else {
             if (cualCelda == 0) {
                backUpCodigo = filtrarTiposPensionados.get(index).getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
 
             } else if (cualCelda == 1) {
                backUpDescripcion = filtrarTiposPensionados.get(index).getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
 
             }
             secRegistro = filtrarTiposPensionados.get(index).getSecuencia();
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposPensionados.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposPensionados.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposPensionados.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposPensionados.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -286,10 +289,10 @@ public class ControlTiposPensionados implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -303,7 +306,7 @@ public class ControlTiposPensionados implements Serializable {
    }
 
    public void modificarTiposPensionados(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
 
       int contador = 0;
@@ -311,9 +314,9 @@ public class ControlTiposPensionados implements Serializable {
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposPensionados.contains(listTiposPensionados.get(indice))) {
                if (listTiposPensionados.get(indice).getCodigo() == a) {
@@ -520,7 +523,7 @@ public class ControlTiposPensionados implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoTiposPensionados");
+            log.info("Entro a borrandoTiposPensionados");
             if (!modificarTiposPensionados.isEmpty() && modificarTiposPensionados.contains(listTiposPensionados.get(index))) {
                int modIndex = modificarTiposPensionados.indexOf(listTiposPensionados.get(index));
                modificarTiposPensionados.remove(modIndex);
@@ -534,7 +537,7 @@ public class ControlTiposPensionados implements Serializable {
             listTiposPensionados.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoTiposPensionados ");
+            log.info("borrandoTiposPensionados ");
             if (!modificarTiposPensionados.isEmpty() && modificarTiposPensionados.contains(filtrarTiposPensionados.get(index))) {
                int modIndex = modificarTiposPensionados.indexOf(filtrarTiposPensionados.get(index));
                modificarTiposPensionados.remove(modIndex);
@@ -570,21 +573,21 @@ public class ControlTiposPensionados implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarRetiradosTipoPensionado;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposPensionados ");
+         log.error("Control Secuencia de ControlTiposPensionados ");
          if (tipoLista == 0) {
             contarRetiradosTipoPensionado = administrarTiposPensionados.contarRetiradosTipoPensionado(listTiposPensionados.get(index).getSecuencia());
          } else {
             contarRetiradosTipoPensionado = administrarTiposPensionados.contarRetiradosTipoPensionado(filtrarTiposPensionados.get(index).getSecuencia());
          }
          if (contarRetiradosTipoPensionado.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposPensionados();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -594,7 +597,7 @@ public class ControlTiposPensionados implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposPensionados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposPensionados verificarBorrado ERROR " + e);
       }
    }
 
@@ -612,7 +615,7 @@ public class ControlTiposPensionados implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposPensionados");
+         log.info("Realizando guardarTiposPensionados");
          if (!borrarTiposPensionados.isEmpty()) {
             administrarTiposPensionados.borrarTiposPensionados(borrarTiposPensionados);
             //mostrarBorrados
@@ -629,7 +632,7 @@ public class ControlTiposPensionados implements Serializable {
             administrarTiposPensionados.crearTiposPensionados(crearTiposPensionados);
             crearTiposPensionados.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposPensionados = null;
          RequestContext.getCurrentInstance().update("form:datosTiposPensionados");
          k = 0;
@@ -653,7 +656,7 @@ public class ControlTiposPensionados implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -670,7 +673,7 @@ public class ControlTiposPensionados implements Serializable {
    }
 
    public void agregarNuevoTiposPensionados() {
-      System.out.println("agregarNuevoTiposPensionados");
+      log.info("agregarNuevoTiposPensionados");
       int contador = 0;
       int duplicados = 0;
 
@@ -680,42 +683,42 @@ public class ControlTiposPensionados implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoTiposPensionados.getCodigo() == a) {
          mensajeValidacion = " *Codigo";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTiposPensionados.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoTiposPensionados.getCodigo());
 
          for (int x = 0; x < listTiposPensionados.size(); x++) {
             if (listTiposPensionados.get(x).getCodigo().equals(nuevoTiposPensionados.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoTiposPensionados.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposPensionados:descripcion");
@@ -725,7 +728,7 @@ public class ControlTiposPensionados implements Serializable {
             filtrarTiposPensionados = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -755,7 +758,7 @@ public class ControlTiposPensionados implements Serializable {
    }
 
    public void limpiarNuevoTiposPensionados() {
-      System.out.println("limpiarNuevoTiposPensionados");
+      log.info("limpiarNuevoTiposPensionados");
       nuevoTiposPensionados = new TiposPensionados();
       secRegistro = null;
       index = -1;
@@ -764,7 +767,7 @@ public class ControlTiposPensionados implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoTiposPensionados() {
-      System.out.println("duplicandoTiposPensionados");
+      log.info("duplicandoTiposPensionados");
       if (index >= 0) {
          duplicarTiposPensionados = new TiposPensionados();
          k++;
@@ -790,19 +793,19 @@ public class ControlTiposPensionados implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposPensionados.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposPensionados.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarTiposPensionados.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTiposPensionados.getDescripcion());
 
       if (duplicarTiposPensionados.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposPensionados.size(); x++) {
             if (listTiposPensionados.get(x).getCodigo().equals(duplicarTiposPensionados.getCodigo())) {
@@ -811,27 +814,27 @@ public class ControlTiposPensionados implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTiposPensionados.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTiposPensionados.getSecuencia() + "  " + duplicarTiposPensionados.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTiposPensionados.getSecuencia() + "  " + duplicarTiposPensionados.getCodigo());
          if (crearTiposPensionados.contains(duplicarTiposPensionados)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposPensionados.add(duplicarTiposPensionados);
          crearTiposPensionados.add(duplicarTiposPensionados);
@@ -892,12 +895,12 @@ public class ControlTiposPensionados implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listTiposPensionados.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSPENSIONADOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

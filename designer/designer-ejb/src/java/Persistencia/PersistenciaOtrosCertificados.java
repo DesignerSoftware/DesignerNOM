@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertificadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaOtrosCertificados.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             em.merge(certificados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOtrosCertificados.crear: " + e.getMessage());
+            log.error("Error PersistenciaOtrosCertificados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             em.merge(certificados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOtrosCertificados.editar: " + e.getMessage());
+            log.error("Error PersistenciaOtrosCertificados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             em.remove(em.merge(certificados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOtrosCertificados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaOtrosCertificados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +87,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             List<OtrosCertificados> certificados = (List<OtrosCertificados>) query.getResultList();
             return certificados;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaOtrosCertificados.buscarOtrosCertificados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaOtrosCertificados.buscarOtrosCertificados()" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             OtrosCertificados certificados = (OtrosCertificados) query.getResultList();
             return certificados;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaOtrosCertificados.buscarOtroCertificadoSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaOtrosCertificados.buscarOtroCertificadoSecuencia()" + e.getMessage());
             OtrosCertificados certificados = null;
             return certificados;
         }
@@ -116,7 +118,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             List<OtrosCertificados> certificados = (List<OtrosCertificados>) query.getResultList();
             return certificados;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaOtrosCertificados.buscarOtrosCertificadosEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaOtrosCertificados.buscarOtrosCertificadosEmpleado()" + e.getMessage());
             List<OtrosCertificados> certificados = null;
             return certificados;
         }

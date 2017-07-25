@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlProceso implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlProceso.class);
 
    @EJB
    AdministrarProcesosInterface administrarProcesos;
@@ -228,8 +231,8 @@ public class ControlProceso implements Serializable {
          administrarProcesos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -689,7 +692,7 @@ String pagActual = "proceso";
          cambiosPagina = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosProceso : " + e.toString());
+         log.warn("Error guardarCambiosProceso : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Procesos, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -721,7 +724,7 @@ String pagActual = "proceso";
          cambiosPagina = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosFormulaProceso : " + e.toString());
+         log.warn("Error guardarCambiosFormulaProceso : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Formulas, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -753,7 +756,7 @@ String pagActual = "proceso";
          cambiosPagina = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosFormulaProceso : " + e.toString());
+         log.warn("Error guardarCambiosFormulaProceso : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Operandos, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -837,7 +840,7 @@ String pagActual = "proceso";
    }
 
    public void editarCelda() {
-      System.out.println("Controlador.ControlProceso.editarCelda() tablaActiva: " + tablaActiva);
+      log.info("Controlador.ControlProceso.editarCelda() tablaActiva: " + tablaActiva);
       if (tablaActiva == 2) {
          editarFormulaProceso = formulaProcesoSeleccionada;
          if (cualCeldaFormulaProceso == 0) {

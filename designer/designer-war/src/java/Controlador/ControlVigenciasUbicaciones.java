@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -31,6 +32,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasUbicaciones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasUbicaciones.class);
 
    @EJB
    AdministrarVigenciasUbicacionesInterface administrarVigenciasUbicaciones;
@@ -130,8 +133,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
          administrarVigenciasUbicaciones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -192,7 +195,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("N")) {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
-         System.out.println("valor Confirmar: " + valorConfirmar);
+         log.info("valor Confirmar: " + valorConfirmar);
          if (!valorConfirmar.isEmpty()) {
             int control = 0;
             for (int i = 0; i < vigenciasUbicaciones.size(); i++) {
@@ -362,17 +365,17 @@ public class ControlVigenciasUbicaciones implements Serializable {
    //GUARDAR
    public void guardarCambiosVU() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Vigencias Tipos Contratos");
+         log.info("Realizando Operaciones Vigencias Tipos Contratos");
          if (!listVUBorrar.isEmpty()) {
             for (int i = 0; i < listVUBorrar.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                administrarVigenciasUbicaciones.borrarVU(listVUBorrar.get(i));
             }
             listVUBorrar.clear();
          }
          if (!listVUCrear.isEmpty()) {
             for (int i = 0; i < listVUCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                administrarVigenciasUbicaciones.crearVU(listVUCrear.get(i));
             }
             listVUCrear.clear();
@@ -381,7 +384,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             administrarVigenciasUbicaciones.modificarVU(listVUModificar);
             listVUModificar.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
 //            vigenciasUbicaciones = null;
          getVigenciasUbicaciones();
          contarRegistrosUbicaciones();
@@ -437,9 +440,9 @@ public class ControlVigenciasUbicaciones implements Serializable {
    //RASTROS 
    public void verificarRastro() {
       if (vigenciaSeleccionada != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int result = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASUBICACIONES");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -643,7 +646,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         System.out.println("Activar");
+         log.info("Activar");
          vuFecha = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuFecha");
          vuFecha.setFilterStyle("width: 85% !important;");
          vuDescripcion = (Column) c.getViewRoot().findComponent("form:datosVUEmpleado:vuDescripcion");
@@ -686,7 +689,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
          tipoActualizacion = 0;
       } else if (LND == 1) {
          tipoActualizacion = 1;
-         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         log.info("Tipo Actualizacion: " + tipoActualizacion);
       } else if (LND == 2) {
          tipoActualizacion = 2;
       }
@@ -826,7 +829,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
          return vigenciasUbicaciones;
 
       } catch (Exception e) {
-         System.out.println("Error...!! getVigenciasUbicacionsEmpleado ");
+         log.warn("Error...!! getVigenciasUbicacionsEmpleado ");
          return null;
       }
    }
@@ -861,7 +864,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
    public List<UbicacionesGeograficas> getLovUbicaciones() {
       if (lovUbicaciones == null || lovUbicaciones.isEmpty()) {
-         System.out.println("Aviso " + this.getClass().getName() + " getListaUbicaciones() va a traer la lista de Ubicaciones");
+         log.info("Aviso " + this.getClass().getName() + " getListaUbicaciones() va a traer la lista de Ubicaciones");
          lovUbicaciones = administrarVigenciasUbicaciones.ubicacionesGeograficas();
       }
       return lovUbicaciones;

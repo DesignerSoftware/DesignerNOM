@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
@@ -49,6 +50,8 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean
 @SessionScoped
 public class ControlNReporteContabilidad implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNReporteContabilidad.class);
 
     @EJB
     AdministrarNReporteContabilidadInterface administrarNReporteContabilidad;
@@ -226,8 +229,8 @@ public class ControlNReporteContabilidad implements Serializable {
             administarReportes.obtenerConexion(ses.getId());
             administrarInforeportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Controlador.ControlNReporteContabilidad.inicializarAdministrador()");
-            System.out.println("Causa: " + e.getCause());
+            log.info("Controlador.ControlNReporteContabilidad.inicializarAdministrador()");
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -272,15 +275,15 @@ public class ControlNReporteContabilidad implements Serializable {
             } else if (parametroDeReporte.getFechadesde().after(parametroDeReporte.getFechahasta())) {
                 fechaDesde = parametroDeReporte.getFechadesde();
                 fechaHasta = parametroDeReporte.getFechahasta();
-                System.out.println("parametroDeReporte.getFechadesde: " + parametroDeReporte.getFechadesde());
-                System.out.println("parametroDeReporte.getFechahasta: " + parametroDeReporte.getFechahasta());
+                log.info("parametroDeReporte.getFechadesde: " + parametroDeReporte.getFechadesde());
+                log.info("parametroDeReporte.getFechahasta: " + parametroDeReporte.getFechahasta());
                 parametroDeReporte.setFechadesde(fechaDesde);
                 parametroDeReporte.setFechahasta(fechaHasta);
                 RequestContext.getCurrentInstance().update("formParametros");
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error en guardar Cambios Controlador : " + e.toString());
+            log.warn("Error en guardar Cambios Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "ha ocurrido un error en el guardado, intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -519,7 +522,7 @@ public class ControlNReporteContabilidad implements Serializable {
             }
             RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametroL");
 
-            System.out.println("reporteSeleccionado.getEmhasta(): " + inforreporteSeleccionado.getEmhasta());
+            log.info("reporteSeleccionado.getEmhasta(): " + inforreporteSeleccionado.getEmhasta());
             if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
                 empleadoHastaParametroL = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametroL");
                 empleadoHastaParametroL.setStyle(empleadoHastaParametroL.getStyle() + "color: red;");
@@ -528,7 +531,7 @@ public class ControlNReporteContabilidad implements Serializable {
             RequestContext.getCurrentInstance().update("formParametros");
             // RequestContext.getCurrentInstance().update("form:reportesContabilidad");
         } catch (Exception ex) {
-            System.out.println("Error en selecccion Registro : " + ex.getMessage());
+            log.warn("Error en selecccion Registro : " + ex.getMessage());
         }
     }
 
@@ -572,20 +575,20 @@ public class ControlNReporteContabilidad implements Serializable {
             seleccionRegistro();
             generarDocumentoReporte();
         } catch (Exception e) {
-            System.out.println("error en generarReporte : " + e.getMessage());
+            log.warn("Error en generarReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
     public AsynchronousFilllListener listener() {
-        System.out.println(this.getClass().getName() + ".listener()");
+        log.info(this.getClass().getName() + ".listener()");
         return new AsynchronousFilllListener() {
             //RequestContext context = c;
 
             @Override
             public void reportFinished(JasperPrint jp) {
-                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+                log.info(this.getClass().getName() + ".listener().reportFinished()");
                 try {
                     estadoReporte = true;
                     resultadoReporte = "Exito";
@@ -598,20 +601,20 @@ public class ControlNReporteContabilidad implements Serializable {
                     // RequestContext.getCurrentInstance().execute("PF('formDialogos:generandoReporte");
                     //generarArchivoReporte(jp);
                 } catch (Exception e) {
-                    System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+                    log.info("ControlNReporteNomina reportFinished ERROR: " + e.toString());
                 }
             }
 
             @Override
             public void reportCancelled() {
-                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+                log.info(this.getClass().getName() + ".listener().reportCancelled()");
                 estadoReporte = true;
                 resultadoReporte = "Cancelación";
             }
 
             @Override
             public void reportFillError(Throwable e) {
-                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+                log.info(this.getClass().getName() + ".listener().reportFillError()");
                 if (e.getCause() != null) {
                     pathReporteGenerado = "ControlNReportePersonal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
                 } else {
@@ -650,7 +653,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("error en exportarReporte :" + e.getMessage());
+            log.warn("Error en exportarReporte :" + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -675,10 +678,10 @@ public class ControlNReporteContabilidad implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                 }
             } else {
-                System.out.println("Reporte Seleccionado es nulo");
+                log.info("Reporte Seleccionado es nulo");
             }
         } catch (Exception e) {
-            System.out.println("error en generarDocumentoReporte : " + e.getMessage());
+            log.warn("Error en generarDocumentoReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -695,9 +698,9 @@ public class ControlNReporteContabilidad implements Serializable {
                 } else {
                     FileInputStream fis;
                     try {
-                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        log.info("pathReporteGenerado : " + pathReporteGenerado);
                         fis = new FileInputStream(new File(pathReporteGenerado));
-                        System.out.println("fis : " + fis);
+                        log.info("fis : " + fis);
                         file = new DefaultStreamedContent(fis, "application/pdf");
                     } catch (FileNotFoundException ex) {
                         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
@@ -705,9 +708,9 @@ public class ControlNReporteContabilidad implements Serializable {
                         file = null;
                     }
                     if (file != null) {
-                        System.out.println("userAgent: " + userAgent);
+                        log.info("userAgent: " + userAgent);
                         if (inforreporteSeleccionado != null) {
-                            System.out.println("validar descarga reporte - ingreso al if 4");
+                            log.info("validar descarga reporte - ingreso al if 4");
                             if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                                 context.update("formDialogos:descargarReporte");
                                 context.execute("PF('descargarReporte').show();");
@@ -727,7 +730,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
         } catch (Exception e) {
-            System.out.println("error en validarDescargarReporte : " + e.getMessage());
+            log.warn("Error en validarDescargarReporte : " + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -740,7 +743,7 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void cancelarReporte() {
-        System.out.println(this.getClass().getName() + ".cancelarReporte()");
+        log.info(this.getClass().getName() + ".cancelarReporte()");
         administarReportes.cancelarReporte();
     }
 
@@ -752,7 +755,7 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+        log.info(this.getClass().getName() + ".reiniciarStreamedContent()");
         file = null;
     }
 
@@ -768,7 +771,7 @@ public class ControlNReporteContabilidad implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
             }
         } catch (Exception e) {
-            System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
+            log.warn("Error mostrarDialogoBuscarReporte : " + e.toString());
         }
     }
 
@@ -807,7 +810,7 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void actualizarEmpresa() {
-        System.out.println(this.getClass().getName() + ".actualizarEmpresa()");
+        log.info(this.getClass().getName() + ".actualizarEmpresa()");
         permitirIndex = true;
         parametroDeReporte.setEmpresa(empresaSeleccionada);
         parametroModificacion = parametroDeReporte;
@@ -826,7 +829,7 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void cancelarEmpresa() {
-        System.out.println(this.getClass().getName() + ".cancelarEmpresa()");
+        log.info(this.getClass().getName() + ".cancelarEmpresa()");
         empresaSeleccionada = null;
         aceptar = true;
         lovEmpresasFiltrar = null;
@@ -919,7 +922,7 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void actualizarSeleccionInforeporte() {
-        System.out.println(this.getClass().getName() + ".actualizarSeleccionInforeporte()");
+        log.info(this.getClass().getName() + ".actualizarSeleccionInforeporte()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (bandera == 1) {
             cerrarFiltrado();
@@ -944,7 +947,7 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void cancelarSeleccionInforeporte() {
-        System.out.println(this.getClass().getName() + ".cancelarSeleccionInforeporte()");
+        log.info(this.getClass().getName() + ".cancelarSeleccionInforeporte()");
         filtrarListInforeportesUsuario = null;
         reporteLovSeleccionado = null;
         aceptar = true;
@@ -1076,8 +1079,8 @@ public class ControlNReporteContabilidad implements Serializable {
     }
 
     public void modificarParametroInforme() {
-        System.out.println("parametroDeReporte.getFechadesde(): " + parametroDeReporte.getFechadesde());
-        System.out.println("parametroDeReporte.getFechahasta(): " + parametroDeReporte.getFechahasta());
+        log.info("parametroDeReporte.getFechadesde(): " + parametroDeReporte.getFechadesde());
+        log.info("parametroDeReporte.getFechahasta(): " + parametroDeReporte.getFechahasta());
         if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
             if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
                 parametroModificacion = parametroDeReporte;
@@ -1186,7 +1189,7 @@ public class ControlNReporteContabilidad implements Serializable {
             }
             return parametroDeReporte;
         } catch (Exception e) {
-            System.out.println("Error getParametroDeInforme : " + e);
+            log.warn("Error getParametroDeInforme : " + e);
             return null;
         }
     }
@@ -1202,7 +1205,7 @@ public class ControlNReporteContabilidad implements Serializable {
             }
             return listaIR;
         } catch (Exception e) {
-            System.out.println("Error getListInforeportesUsuario : " + e);
+            log.warn("Error getListInforeportesUsuario : " + e);
             return null;
         }
     }

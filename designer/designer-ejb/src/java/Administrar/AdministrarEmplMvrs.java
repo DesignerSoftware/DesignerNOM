@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplMvrs.class);
 
     @EJB
     PersistenciaOtrosCertificadosInterface persistenciaOtrosCertificados;
@@ -61,7 +64,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
             listOtrosCertificados = persistenciaOtrosCertificados.buscarOtrosCertificadosEmpleado(em,secuencia);
             return listOtrosCertificados;
         } catch (Exception e) {
-            System.out.println("Error listOtrosCertificadosEmpleado Admi : " + e.toString());
+            log.warn("Error listOtrosCertificadosEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -73,7 +76,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
             listMvrs = persistenciaMvrs.buscarMvrsEmpleado(em,secuenciaEmpl);
             return listMvrs;
         } catch (Exception e) {
-            System.out.println("Error listMvrsEmpleado Admi : " + e.toString());
+            log.warn("Error listMvrsEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
                 persistenciaOtrosCertificados.crear(em,crearOtrosCertificados.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en crearOtrosCertificados Admi : " + e.toString());
+            log.warn("Error en crearOtrosCertificados Admi : " + e.toString());
         }
     }
 
@@ -102,7 +105,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
                 persistenciaOtrosCertificados.editar(em,modificarOtrosCertificados.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en modificarOtrosCertificados Admi : " + e.toString());
+            log.warn("Error en modificarOtrosCertificados Admi : " + e.toString());
         }
     }
 
@@ -116,7 +119,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
                 persistenciaOtrosCertificados.borrar(em,borrarOtrosCertificados.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en borrarOtrosCertificados Admi : " + e.toString());
+            log.warn("Error en borrarOtrosCertificados Admi : " + e.toString());
         }
     }
 
@@ -130,7 +133,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
                 persistenciaMvrs.crear(em,crearMvrs.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en crearMvrs Admi : " + e.toString());
+            log.warn("Error en crearMvrs Admi : " + e.toString());
         }
     }
 
@@ -144,7 +147,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
                 persistenciaMvrs.editar(em,modificarMvrs.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en modificarMvrs Admi : " + e.toString());
+            log.warn("Error en modificarMvrs Admi : " + e.toString());
         }
     }
 
@@ -158,7 +161,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
                 persistenciaMvrs.borrar(em,borrarMvrs.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en borrarMvrs Admi : " + e.toString());
+            log.warn("Error en borrarMvrs Admi : " + e.toString());
         }
     }
 
@@ -169,7 +172,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
             listMotivos = persistenciaMotivos.buscarMotivosMvrs(em);
             return listMotivos;
         } catch (Exception e) {
-            System.out.println("Error listMotivos Admi : " + e.toString());
+            log.warn("Error listMotivos Admi : " + e.toString());
             return null;
         }
     }
@@ -181,7 +184,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
             listTiposCertificados = persistenciaTiposCertificados.buscarTiposCertificados(em);
             return listTiposCertificados;
         } catch (Exception e) {
-            System.out.println("Error listTiposCertificados Admi : " + e.toString());
+            log.warn("Error listTiposCertificados Admi : " + e.toString());
             return null;
         }
     }
@@ -192,7 +195,7 @@ public class AdministrarEmplMvrs implements AdministrarEmplMvrsInterface {
             Empleados empl = persistenciaEmpleados.buscarEmpleado(em,secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

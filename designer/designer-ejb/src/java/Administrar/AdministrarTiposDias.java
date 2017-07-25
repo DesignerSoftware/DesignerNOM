@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposDias.class);
 
     @EJB
     PersistenciaTiposDiasInterface persistenciaTiposDias;
@@ -42,7 +45,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
     @Override
     public void modificarTiposDias(List<TiposDias> listaTiposDias) {
         for (int i = 0; i < listaTiposDias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposDias.editar(em, listaTiposDias.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
     @Override
     public void borrarTiposDias(List<TiposDias> listaTiposDias) {
         for (int i = 0; i < listaTiposDias.size(); i++) {
-            System.out.println("Administrar Borrar...");
+            log.warn("Administrar Borrar...");
             persistenciaTiposDias.borrar(em, listaTiposDias.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
     @Override
     public void crearTiposDias(List<TiposDias> listaTiposDias) {
         for (int i = 0; i < listaTiposDias.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposDias.crear(em, listaTiposDias.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
         try {
             return verificarBorradoDiasLaborales = persistenciaTiposDias.contadorDiasLaborales(em, secuenciaTiposDias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSDIAS VERIFICARDIASLABORALES ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSDIAS VERIFICARDIASLABORALES ERROR :" + e);
             return null;
         }
     }
@@ -94,7 +97,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
         try {
             verificarBorradoExtrasRecargos = persistenciaTiposDias.contadorExtrasRecargos(em, secuenciaTiposDias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSDIAS VERIFICAREXTRASRECARGOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSDIAS VERIFICAREXTRASRECARGOS ERROR :" + e);
             verificarBorradoExtrasRecargos = null;
         }
         finally{

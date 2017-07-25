@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -21,6 +22,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfiliacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEstadosAfiliaciones.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +40,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          em.merge(afiliaciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEstadosAfiliaciones.crear: " + e);
+         log.error("Error PersistenciaEstadosAfiliaciones.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +59,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEstadosAfiliaciones.editar: " + e);
+         log.error("Error PersistenciaEstadosAfiliaciones.editar: " + e);
       }
    }
 
@@ -75,7 +78,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
                tx.rollback();
             }
          } catch (Exception ex) {
-            System.out.println("Error PersistenciaEstadosAfiliaciones.borrar: " + e);
+            log.error("Error PersistenciaEstadosAfiliaciones.borrar: " + e);
          }
       }
    }
@@ -86,7 +89,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          em.clear();
          return em.find(EstadosAfiliaciones.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error buscarbanco persistencia bancos : " + e.toString());
+         log.error("Error buscarbanco persistencia bancos : " + e.toString());
          return null;
       }
    }
@@ -99,7 +102,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          cq.select(cq.from(EstadosAfiliaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarBancos persistencia bancos");
+         log.error("Error buscarBancos persistencia bancos");
          return null;
       }
    }

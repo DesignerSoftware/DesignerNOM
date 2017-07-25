@@ -22,6 +22,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.NoResultException;
 
 /**
@@ -33,6 +34,8 @@ import javax.persistence.NoResultException;
  */
 @Stateful
 public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCarpetaDesigner.class);
 
    @EJB
    PersistenciaModulosInterface persistenciaModulos;
@@ -157,7 +160,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          listaempresas = persistenciaEmpresas.consultarEmpresas(em);
       } catch (NoResultException nre) {
-         System.err.println("Error: AdministrarCarpetaDesigner consultarNombrePantallaPorEmpresa " + nre.getMessage());
+         log.error("Error: AdministrarCarpetaDesigner consultarNombrePantallaPorEmpresa " + nre.getMessage());
          //return " ";
          throw new Exception("No hay empresas disponibles para el usuario.");
       }

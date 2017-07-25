@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +35,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTipoContrato implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoContrato.class);
 
    @EJB
    AdministrarTiposContratosInterface administrarTipoContrato;
@@ -209,8 +212,8 @@ public class ControlTipoContrato implements Serializable {
          administrarTipoContrato.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -383,7 +386,7 @@ public class ControlTipoContrato implements Serializable {
    }
 
    public void cambiarIndice(TiposContratos tiposContratos, int celda) {
-      System.out.println("tipoContratoTablaSeleccionado antes : " + tipoContratoSeleccionado);
+      log.info("tipoContratoTablaSeleccionado antes : " + tipoContratoSeleccionado);
       tipoContratoSeleccionado = tiposContratos;
       diaLaborableSeleccionado = null;
       cualCelda = celda;
@@ -395,9 +398,9 @@ public class ControlTipoContrato implements Serializable {
       } else if (cualCelda == 2) {
          tipoContratoSeleccionado.getDuracionperiodoprueba();
       }
-      System.out.println("Secuencia : " + tipoContratoSeleccionado.getSecuencia());
+      log.info("Secuencia : " + tipoContratoSeleccionado.getSecuencia());
       listaDiasLaborables = administrarTipoContrato.listaDiasLaborablesParaTipoContrato(tipoContratoSeleccionado.getSecuencia());
-      System.out.println("cambiarIndice. listaDiasLaborables : " + listaDiasLaborables);
+      log.info("cambiarIndice. listaDiasLaborables : " + listaDiasLaborables);
 
       contarRegistrosTipoD();
       RequestContext.getCurrentInstance().update("form:datosDiasLaborables");
@@ -478,7 +481,7 @@ public class ControlTipoContrato implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosTipoContrato : " + e.toString());
+         log.warn("Error guardarCambiosTipoContrato : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Tipo Contrato, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -512,7 +515,7 @@ public class ControlTipoContrato implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosDiasLaborables : " + e.toString());
+         log.warn("Error guardarCambiosDiasLaborables : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado de Dias Laborables, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1642,7 +1645,7 @@ public class ControlTipoContrato implements Serializable {
             return listaTiposContratos;
          }
       } catch (Exception e) {
-         System.out.println("Error...!! getListaTiposContratos " + e.toString());
+         log.warn("Error...!! getListaTiposContratos " + e.toString());
          return null;
       }
    }

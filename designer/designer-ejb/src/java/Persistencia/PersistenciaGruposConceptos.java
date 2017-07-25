@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGruposConceptos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +40,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          em.merge(gruposConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +56,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          em.merge(gruposConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +75,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
       }
    }
 
@@ -86,7 +88,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          List<GruposConceptos> gruposConceptos = (List<GruposConceptos>) query.getResultList();
          return gruposConceptos;
       } catch (Exception e) {
-         System.out.println("error buscarGruposConceptos PersistenciaGruposConceptos");
+         log.error("error buscarGruposConceptos PersistenciaGruposConceptos");
          return null;
       }
    }
@@ -103,7 +105,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          return gruposConceptos;
       } catch (Exception e) {
          gruposConceptos = null;
-         System.out.println("Error buscarGruposConceptosSecuencia PersistenciaGruposConceptos");
+         log.error("Error buscarGruposConceptosSecuencia PersistenciaGruposConceptos");
          return gruposConceptos;
       }
    }

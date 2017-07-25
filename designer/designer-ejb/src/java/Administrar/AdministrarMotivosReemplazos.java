@@ -13,9 +13,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosReemplazos.class);
 
     @EJB
     PersistenciaMotivosReemplazosInterface persistenciaMotivosReemplazos;
@@ -49,21 +52,21 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
 
     public void modificarMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
         for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosReemplazos.editar(em, listaMotivosReemplazos.get(i));
         }
     }
 
     public void borrarMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
         for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosReemplazos.borrar(em, listaMotivosReemplazos.get(i));
         }
     }
 
     public void crearMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
         for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosReemplazos.crear(em, listaMotivosReemplazos.get(i));
         }
     }

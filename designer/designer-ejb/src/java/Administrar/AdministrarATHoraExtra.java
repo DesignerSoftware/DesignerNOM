@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarATHoraExtra.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleado;
@@ -55,7 +58,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
             List<Empleados> lista = persistenciaEmpleado.buscarEmpleadosATHoraExtra(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarEmpleados Admi : " + e.toString());
+            log.warn("Error buscarEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -66,7 +69,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
             List<TurnosEmpleados> lista = persistenciaTurnosEmpleados.buscarTurnosEmpleadosPorEmpleado(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarTurnosEmpleadosPorEmpleado Admi : " + e.toString());
+            log.warn("Error buscarTurnosEmpleadosPorEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -84,7 +87,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
                 persistenciaTurnosEmpleados.crear(em, listaTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearTurnosEmpleados Admi : " + e.toString());
+            log.warn("Error crearTurnosEmpleados Admi : " + e.toString());
         }
     }
 
@@ -101,7 +104,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
                 persistenciaTurnosEmpleados.editar(em, listaTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarTurnosEmpleados Admi : " + e.toString());
+            log.warn("Error editarTurnosEmpleados Admi : " + e.toString());
         }
     }
 
@@ -118,7 +121,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
                 persistenciaTurnosEmpleados.borrar(em, listaTR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarTurnosEmpleados Admi : " + e.toString());
+            log.warn("Error borrarTurnosEmpleados Admi : " + e.toString());
         }
     }
 
@@ -128,7 +131,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
             List<VWEstadosExtras> lista = persistenciaVWEstadosExtras.buscarVWEstadosExtras(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarDetallesHorasExtrasPorTurnoEmpleado Admi : " + e.toString());
+            log.warn("Error buscarDetallesHorasExtrasPorTurnoEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -139,7 +142,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
             List<MotivosTurnos> lista = persistenciaMotivosTurnos.consultarMotivosTurnos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovMotivosTurnos Admi : " + e.toString());
+            log.warn("Error lovMotivosTurnos Admi : " + e.toString());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class AdministrarATHoraExtra implements AdministrarATHoraExtraInterface {
             List<Estructuras> lista = persistenciaEstructuras.consultarEstructurasTurnoEmpleado(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEstructuras Admi : " + e.toString());
+            log.warn("Error lovEstructuras Admi : " + e.toString());
             return null;
         }
     }

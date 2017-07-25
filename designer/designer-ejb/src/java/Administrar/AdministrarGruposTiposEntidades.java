@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEntidadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGruposTiposEntidades.class);
 
     @EJB
     PersistenciaGruposTiposEntidadesInterface persistenciaGruposTiposEntidades;
@@ -43,7 +46,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
     @Override
     public void modificarGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
         for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaGruposTiposEntidades.editar(em, listaGruposTiposEntidades.get(i));
         }
     }
@@ -51,7 +54,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
     @Override
     public void borrarGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
         for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaGruposTiposEntidades.borrar(em, listaGruposTiposEntidades.get(i));
         }
     }
@@ -59,7 +62,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
     @Override
     public void crearGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
         for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaGruposTiposEntidades.crear(em, listaGruposTiposEntidades.get(i));
         }
     }
@@ -85,7 +88,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
         try {
             return contarTSgruposTiposEntidadesTipoEntidad = persistenciaGruposTiposEntidades.contarTSgruposTiposEntidadesTipoEntidad(em, secGruposTiposEntidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposTiposEntidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
+            log.error("ERROR AdministrarGruposTiposEntidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
             return null;
         }
     }
@@ -97,7 +100,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
         try {
             return contarTiposEntidadesGrupoTipoEntidad = persistenciaGruposTiposEntidades.contarTiposEntidadesGrupoTipoEntidad(em, secGruposTiposEntidades);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposTiposEntidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
+            log.error("ERROR AdministrarGruposTiposEntidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
             return null;
         }
     }

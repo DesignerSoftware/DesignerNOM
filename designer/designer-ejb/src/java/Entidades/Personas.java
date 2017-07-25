@@ -191,7 +191,6 @@ public class Personas implements Serializable {
     }
 
     public void setPrimerapellido(String primerapellido) {
-        System.out.println("setPrimerapellido primerapellido : " + primerapellido);
         this.primerapellido = primerapellido.toUpperCase();
     }
 

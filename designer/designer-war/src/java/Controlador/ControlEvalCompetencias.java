@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEvalCompetencias implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEvalCompetencias.class);
 
    @EJB
    AdministrarEvalCompetenciasInterface administrarEvalCompetencias;
@@ -136,8 +139,8 @@ public class ControlEvalCompetencias implements Serializable {
          administrarEvalCompetencias.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -239,10 +242,10 @@ public class ControlEvalCompetencias implements Serializable {
          descripcionCompetencia = (Column) c.getViewRoot().findComponent("form:datosEvalCompetencia:descripcionCompetencia");
          descripcionCompetencia.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosEvalCompetencia");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosEvalCompetencia:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -276,7 +279,7 @@ public class ControlEvalCompetencias implements Serializable {
    public void borrandoEvalCompetencias() {
 
       if (evalCompetenciaSeleccionada != null) {
-         System.out.println("Entro a borrandoEvalCompetencias");
+         log.info("Entro a borrandoEvalCompetencias");
          if (!modificarEvalCompetencias.isEmpty() && modificarEvalCompetencias.contains(evalCompetenciaSeleccionada)) {
             int modIndex = modificarEvalCompetencias.indexOf(evalCompetenciaSeleccionada);
             modificarEvalCompetencias.remove(modIndex);
@@ -304,14 +307,14 @@ public class ControlEvalCompetencias implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       try {
-         System.err.println("Control Secuencia de ControlEvalCompetencias ");
+         log.error("Control Secuencia de ControlEvalCompetencias ");
          competenciasCargos = administrarEvalCompetencias.verificarCompetenciasCargos(evalCompetenciaSeleccionada.getSecuencia());
          if (competenciasCargos.equals(new BigInteger("0"))) {
             borrandoEvalCompetencias();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
             RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
@@ -319,7 +322,7 @@ public class ControlEvalCompetencias implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlEvalCompetencias verificarBorrado ERROR " + e);
+         log.error("ERROR ControlEvalCompetencias verificarBorrado ERROR " + e);
       }
    }
 
@@ -337,7 +340,7 @@ public class ControlEvalCompetencias implements Serializable {
 
    public void guardarEvalCompetencias() {
       if (guardado == false) {
-         System.out.println("Realizando guardarEvalCompetencias");
+         log.info("Realizando guardarEvalCompetencias");
          if (!borrarEvalCompetencias.isEmpty()) {
             administrarEvalCompetencias.borrarEvalCompetencias(borrarEvalCompetencias);
             registrosBorrados = borrarEvalCompetencias.size();
@@ -353,7 +356,7 @@ public class ControlEvalCompetencias implements Serializable {
             administrarEvalCompetencias.modificarEvalCompetencias(modificarEvalCompetencias);
             modificarEvalCompetencias.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listEvalCompetencias = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -371,7 +374,7 @@ public class ControlEvalCompetencias implements Serializable {
          editarEvalCompetencia = evalCompetenciaSeleccionada;
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -392,7 +395,7 @@ public class ControlEvalCompetencias implements Serializable {
    }
 
    public void agregarNuevoEvalCompetencias() {
-      System.out.println("agregarNuevoEvalCompetencias");
+      log.info("agregarNuevoEvalCompetencias");
       int contador = 0;
       int duplicados = 0;
 
@@ -416,14 +419,14 @@ public class ControlEvalCompetencias implements Serializable {
       if (nuevoEvalCompetencia.getDescripcion() == (null)) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvalCompetencia:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalCompetencia:descripcion");
@@ -494,7 +497,7 @@ public class ControlEvalCompetencias implements Serializable {
          if (duplicados > 0) {
             mensajeValidacion = "El código ingresado ya existe. Por favor ingrese otro código";
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -564,7 +567,7 @@ public class ControlEvalCompetencias implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (evalCompetenciaSeleccionada != null) {
          int resultado = administrarRastros.obtenerTabla(evalCompetenciaSeleccionada.getSecuencia(), "EVALCOMPETENCIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlGruposInfAdicionales implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlGruposInfAdicionales.class);
 
    @EJB
    AdministrarGruposInfAdicionalesInterface administrarGruposInfAdicionales;
@@ -136,8 +139,8 @@ public class ControlGruposInfAdicionales implements Serializable {
          administrarGruposInfAdicionales.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -185,13 +188,13 @@ public class ControlGruposInfAdicionales implements Serializable {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlGruposInfAdicionales.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlGruposInfAdicionales.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -280,10 +283,10 @@ public class ControlGruposInfAdicionales implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
          estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
          estado.setFilterStyle("width: 85% !important");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -316,7 +319,7 @@ public class ControlGruposInfAdicionales implements Serializable {
    public void borrandoGruposInfAdicionales() {
 
       if (grupoInfAdSeleccionado != null) {
-         System.out.println("Entro a borrandoGruposInfAdicionales");
+         log.info("Entro a borrandoGruposInfAdicionales");
          if (!modificarGruposInfAdicionales.isEmpty() && modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
             int modIndex = modificarGruposInfAdicionales.indexOf(grupoInfAdSeleccionado);
             modificarGruposInfAdicionales.remove(modIndex);
@@ -349,21 +352,21 @@ public class ControlGruposInfAdicionales implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger verificarInformacionesAdicionales;
 
       try {
-         System.err.println("Control Secuencia de ControlGruposInfAdicionales ");
+         log.error("Control Secuencia de ControlGruposInfAdicionales ");
          if (tipoLista == 0) {
             verificarInformacionesAdicionales = administrarGruposInfAdicionales.verificarInformacionesAdicionales(grupoInfAdSeleccionado.getSecuencia());
          } else {
             verificarInformacionesAdicionales = administrarGruposInfAdicionales.verificarInformacionesAdicionales(grupoInfAdSeleccionado.getSecuencia());
          }
          if (verificarInformacionesAdicionales.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoGruposInfAdicionales();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -372,7 +375,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             verificarInformacionesAdicionales = new BigInteger("-1");
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlGruposInfAdicionales verificarBorrado ERROR " + e);
+         log.error("ERROR ControlGruposInfAdicionales verificarBorrado ERROR " + e);
       }
    }
 
@@ -390,7 +393,7 @@ public class ControlGruposInfAdicionales implements Serializable {
 
    public void guardarGruposInfAdicionales() {
       if (guardado == false) {
-         System.out.println("Realizando guardarGruposInfAdicionales");
+         log.info("Realizando guardarGruposInfAdicionales");
          if (!borrarGruposInfAdicionales.isEmpty()) {
             administrarGruposInfAdicionales.borrarGruposInfAdicionales(borrarGruposInfAdicionales);
             //mostrarBorrados
@@ -407,7 +410,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             administrarGruposInfAdicionales.crearGruposInfAdicionales(crearGruposInfAdicionales);
             crearGruposInfAdicionales.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listGruposInfAdicionales = null;
          getListGruposInfAdicionales();
          contarRegistros();
@@ -428,7 +431,7 @@ public class ControlGruposInfAdicionales implements Serializable {
          editarGruposInfAdicionales = grupoInfAdSeleccionado;
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -485,13 +488,13 @@ public class ControlGruposInfAdicionales implements Serializable {
          contador++;
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 3) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
@@ -504,7 +507,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             tamano = 270;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -536,7 +539,7 @@ public class ControlGruposInfAdicionales implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoGruposInfAdicionales() {
-      System.out.println("duplicandoGruposInfAdicionales");
+      log.info("duplicandoGruposInfAdicionales");
       if (grupoInfAdSeleccionado != null) {
          duplicarGruposInfAdicionales = new GruposInfAdicionales();
          k++;
@@ -593,7 +596,7 @@ public class ControlGruposInfAdicionales implements Serializable {
          mensajeValidacion = "Campo Descripción vacío \n";
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarGruposInfAdicionales.getEstado() == null || duplicarGruposInfAdicionales.getEstado().isEmpty()) {
@@ -605,9 +608,9 @@ public class ControlGruposInfAdicionales implements Serializable {
 
       if (contador == 3) {
 
-         System.out.println("Datos Duplicando: " + duplicarGruposInfAdicionales.getSecuencia() + "  " + duplicarGruposInfAdicionales.getCodigo());
+         log.info("Datos Duplicando: " + duplicarGruposInfAdicionales.getSecuencia() + "  " + duplicarGruposInfAdicionales.getCodigo());
          if (crearGruposInfAdicionales.contains(duplicarGruposInfAdicionales)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listGruposInfAdicionales.add(duplicarGruposInfAdicionales);
          crearGruposInfAdicionales.add(duplicarGruposInfAdicionales);
@@ -669,7 +672,7 @@ public class ControlGruposInfAdicionales implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (grupoInfAdSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(grupoInfAdSeleccionado.getSecuencia(), "GRUPOSINFADICIONALES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

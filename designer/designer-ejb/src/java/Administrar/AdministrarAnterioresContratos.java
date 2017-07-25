@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @Local
 public class AdministrarAnterioresContratos implements AdministrarAnterioresContratosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarAnterioresContratos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -46,7 +49,7 @@ public class AdministrarAnterioresContratos implements AdministrarAnterioresCont
                 persistenciaAnterioresContrato.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Errror crearAnteriorContrato admi : " + e.toString());
+            log.warn("Errror crearAnteriorContrato admi : " + e.toString());
         }
     }
 
@@ -57,7 +60,7 @@ public class AdministrarAnterioresContratos implements AdministrarAnterioresCont
                 persistenciaAnterioresContrato.editar(em, listaModificar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Errror editarAnteriorContrato admi : " + e.toString());
+            log.warn("Errror editarAnteriorContrato admi : " + e.toString());
         }
     }
 
@@ -68,7 +71,7 @@ public class AdministrarAnterioresContratos implements AdministrarAnterioresCont
                 persistenciaAnterioresContrato.borrar(em, listaBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Errror borrarAnteriorContrato admi : " + e.toString());
+            log.warn("Errror borrarAnteriorContrato admi : " + e.toString());
         }
     }
 
@@ -78,7 +81,7 @@ public class AdministrarAnterioresContratos implements AdministrarAnterioresCont
             List<AnterioresContratos> listaAC = persistenciaAnterioresContrato.anterioresContratosPersona(em, secPersona);
             return listaAC;
         } catch (Exception e) {
-            System.out.println("Error listaAnterioresContratos.admi :" + e.toString());
+            log.warn("Error listaAnterioresContratos.admi :" + e.toString());
             return null;
         }
     }
@@ -89,7 +92,7 @@ public class AdministrarAnterioresContratos implements AdministrarAnterioresCont
             List<Cargos> lovCargos = persistenciaCargos.consultarCargos(em);
             return lovCargos;
         } catch (Exception e) {
-            System.out.println("Error lovCargos Admi " + e.getMessage());
+            log.warn("Error lovCargos Admi " + e.getMessage());
             return null;
         }
     }

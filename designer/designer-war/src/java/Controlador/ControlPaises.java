@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPaises implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPaises.class);
 
     @EJB
     AdministrarPaisesInterface administrarPaises;
@@ -120,8 +123,8 @@ public class ControlPaises implements Serializable {
             administrarPaises.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -176,7 +179,7 @@ public class ControlPaises implements Serializable {
             }
             contarRegistros();
         } catch (Exception e) {
-            System.out.println("ERROR ControlPaises eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error ControlPaises eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
@@ -332,7 +335,7 @@ public class ControlPaises implements Serializable {
                 contarFestivosPais = new BigInteger("-1");
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlPaises verificarBorrado ERROR " + e);
+            log.error("ERROR ControlPaises verificarBorrado ERROR " + e);
         }
     }
 
@@ -347,7 +350,7 @@ public class ControlPaises implements Serializable {
     public void guardarPaises() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == false) {
-            System.out.println("Realizando guardarPaises");
+            log.info("Realizando guardarPaises");
             if (!borrarPaises.isEmpty()) {
                 administrarPaises.borrarPaises(borrarPaises);
                 //mostrarBorrados
@@ -437,7 +440,7 @@ public class ControlPaises implements Serializable {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosPaises:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosPaises:descripcion");
@@ -511,7 +514,7 @@ public class ControlPaises implements Serializable {
         } else if (duplicarPaises.getNombre().isEmpty()) {
             mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
         }
         if (contador == 2) {
@@ -646,7 +649,7 @@ public class ControlPaises implements Serializable {
 
     public void seleccionarDepartamento() {
         deptoaux = deptoSeleccionado;
-        System.out.println("Departamento seleccionado " + deptoaux.getNombre());
+        log.info("Departamento seleccionado " + deptoaux.getNombre());
     }
 
     //*/*/*/*/*/*/*/*/GETS Y SETS*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/

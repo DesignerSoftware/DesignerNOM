@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposDocumentos.class);
 
     @EJB
     PersistenciaTiposDocumentosInterface persistenciaTiposDocumentos;
@@ -42,7 +45,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
     @Override
     public void modificarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
         for (int i = 0; i < listaTiposDocumentos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposDocumentos.editar(em, listaTiposDocumentos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
     @Override
     public void borrarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
         for (int i = 0; i < listaTiposDocumentos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposDocumentos.borrar(em, listaTiposDocumentos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
     @Override
     public void crearTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
         for (int i = 0; i < listaTiposDocumentos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposDocumentos.crear(em, listaTiposDocumentos.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
         try {
             return contarRetiradosTipoDocumento = persistenciaTiposDocumentos.contarCodeudoresTipoDocumento(em, secTiposDocumentos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposDocumentos contarCodeudoresTipoDocumento ERROR : " + e);
+            log.error("ERROR AdministrarTiposDocumentos contarCodeudoresTipoDocumento ERROR : " + e);
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
         try {
             return contarPersonasTipoDocumento = persistenciaTiposDocumentos.contarPersonasTipoDocumento(em, secTiposDocumentos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposDocumentos contarPersonasTipoDocumento ERROR : " + e);
+            log.error("ERROR AdministrarTiposDocumentos contarPersonasTipoDocumento ERROR : " + e);
             return null;
         }
     }

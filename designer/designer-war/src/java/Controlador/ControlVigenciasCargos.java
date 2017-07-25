@@ -33,6 +33,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -43,13 +44,18 @@ import java.io.FileInputStream;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import java.io.FileNotFoundException;
+import javax.annotation.PreDestroy;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.model.DefaultStreamedContent;
 
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasCargos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasCargos.class);
 
    //------------------------------------------------------------------------------------------
    //EJB
@@ -229,9 +235,65 @@ public class ControlVigenciasCargos implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarVigArp.obtenerConexion(ses.getId());
          administarReportes.obtenerConexion(ses.getId());
+         log.info("Controlador.ControlVigenciasCargos.inicializarAdministrador()");
+         buscarCookie();
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
+      }
+   }
+
+//   public void setCookie(String name, String value, int expiry) {
+//      FacesContext facesContext = FacesContext.getCurrentInstance();
+//      HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+//      Cookie cookie = null;
+//      Cookie[] userCookies = request.getCookies();
+//      if (userCookies != null && userCookies.length > 0) {
+//         for (int i = 0; i < userCookies.length; i++) {
+//            if (userCookies[i].getName().equals(name)) {
+//               cookie = userCookies[i];
+//               break;
+//            }
+//         }
+//      }
+//      if (cookie != null) {
+//         cookie.setValue(value);
+//      } else {
+//         cookie = new Cookie(name, value);
+//         cookie.setPath(request.getContextPath());
+//      }
+//      cookie.setMaxAge(expiry);
+//      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+//      response.addCookie(cookie);
+//   }
+   public void buscarCookie() {
+//      String name = "JSESSIONID";
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+      Cookie[] userCookies = request.getCookies();
+      Cookie cookie = null;
+      log.info("ControlVigenciasCargos.getCookie() userCookies: " + userCookies);
+      if (userCookies != null) {
+         if (userCookies.length > 0) {
+            log.info("ControlVigenciasCargos.getCookie() userCookies.length: " + userCookies.length);
+            for (int i = 0; i < userCookies.length; i++) {
+               log.info("ControlVigenciasCargos.getCookie() userCookies[i]: " + userCookies[i]);
+//               if (userCookies[i].getName().equals(name)) {
+               cookie = userCookies[i];
+               log.info("cookie.getComment(): " + cookie.getComment());
+               log.info("cookie.getDomain(): " + cookie.getDomain());
+               log.info("cookie.getName(): " + cookie.getName());
+               log.info("cookie.getPath(): " + cookie.getPath());
+               log.info("cookie.getValue(): " + cookie.getValue());
+               log.info("cookie.getMaxAge(): " + cookie.getMaxAge());
+               log.info("cookie.getSecure(): " + cookie.getSecure());
+               log.info("cookie.getVersion(): " + cookie.getVersion());
+               log.info("cookie.isHttpOnly(): " + cookie.isHttpOnly());
+               log.info("cookie.hashCode(): " + cookie.hashCode());
+//                  return cookie;
+//               }
+            }
+         }
       }
    }
 
@@ -288,12 +350,9 @@ public class ControlVigenciasCargos implements Serializable {
       recibirEmpleado(emp);
    }
 
-   public String redirigir() {
-      System.out.println(this.getClass().getName() + ".redirigir()");
-      if (paginaAnterior == null) {
-         System.out.println("la pagina anterior es nula.");
-      }
-      return paginaAnterior;
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
 
    /*
@@ -526,7 +585,7 @@ public class ControlVigenciasCargos implements Serializable {
      * Metodo encargado de actualizar la fecha de la Vigencia seleccionada
     */
    public void actualizarFecha(Date fecha) {
-      System.out.println(fecha);
+      log.info(fecha);
       fechaVigencia = fecha;
    }
 
@@ -678,24 +737,24 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public void estadoLista() {
-      //System.out.println("Lista Mostrada: ");
-      //System.out.println("___________________________________________________________________________________________________________");
+      //log.info("Lista Mostrada: ");
+      //log.info("___________________________________________________________________________________________________________");
       for (int i = 0; i < vigenciasCargosEmpleado.size(); i++) {
          Date fecha = vigenciasCargosEmpleado.get(i).getFechavigencia();
          String forFecha = formatoFecha.format(fecha);
-         System.out.println(forFecha + " | "
+         log.info(forFecha + " | "
                  + vigenciasCargosEmpleado.get(i).getEstructura().getNombre() + " | "
                  + vigenciasCargosEmpleado.get(i).getMotivocambiocargo().getNombre() + " | "
                  + vigenciasCargosEmpleado.get(i).getCargo().getNombre() + " | "
                  + vigenciasCargosEmpleado.get(i).getClaseRiesgo().getPorcentaje() + " - " + vigenciasCargosEmpleado.get(i).getClaseRiesgo().getDescripcion());
-         System.out.println("--------------------------------------------------------------------------------------------------------");
+         log.info("--------------------------------------------------------------------------------------------------------");
       }
    }
 
    /*
-     * public void unclick() { System.out.println("Un solo Click"); }
+     * public void unclick() { log.info("Un solo Click"); }
      *
-     * public void dobleclick() { System.out.println("Doble Click"); }
+     * public void dobleclick() { log.info("Doble Click"); }
     */
    // METODOS DEL TOOLBAR
    public void modificarVC(VigenciasCargos vCargos, String confirmarCambio, String valor) {
@@ -1026,7 +1085,7 @@ public class ControlVigenciasCargos implements Serializable {
             administrarVigenciasCargos.modificarVC(listVCModificar);
             listVCModificar.clear();
          }
-         //System.out.println("Se guardaron los datos con exito");
+         //log.info("Se guardaron los datos con exito");
          vigenciasCargosEmpleado = null;
          getVigenciasCargosEmpleado();
          contarRegistros();
@@ -1158,7 +1217,7 @@ public class ControlVigenciasCargos implements Serializable {
 
    public void cambioEditable() {
       cambioEditor = true;
-      //System.out.println("Estado del cambio : " + cambioEditor);
+      //log.info("Estado del cambio : " + cambioEditor);
    }
 
    public void editarCelda() {
@@ -1312,7 +1371,7 @@ public class ControlVigenciasCargos implements Serializable {
             }
             restaurarTabla();
             contarRegistros();
-            System.out.println("vigenciaSeleccionada : " + vigenciaSeleccionada);
+            log.info("vigenciaSeleccionada : " + vigenciaSeleccionada);
             duplicarVC = new VigenciasCargos();
             duplicarVC.setEstructura(new Estructuras());
             duplicarVC.setMotivocambiocargo(new MotivosCambiosCargos());
@@ -1322,7 +1381,7 @@ public class ControlVigenciasCargos implements Serializable {
             RequestContext.getCurrentInstance().update("form:listaValores");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroVC').hide()");
             RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
-            System.out.println("Ya paso por la actualizacion de tabla");
+            log.info("Ya paso por la actualizacion de tabla");
          } else {
             RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show();");
          }
@@ -1417,7 +1476,7 @@ public class ControlVigenciasCargos implements Serializable {
       FacesContext context = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) context.getViewRoot().findComponent("formExportar:datosVCEmpleadoExportar");
       Exporter exporter = new ExportarPDF();
-      System.out.println("exportPDF() tabla: " + tabla.getColumns());
+      log.info("exportPDF() tabla: " + tabla.getColumns());
       exporter.export(context, tabla, "VigenciasCargosPDF", false, false, "UTF-8", null, null);
       context.responseComplete();
    }
@@ -1426,7 +1485,7 @@ public class ControlVigenciasCargos implements Serializable {
       FacesContext context = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) context.getViewRoot().findComponent("formExportar:datosVCEmpleadoExportar");
       Exporter exporter = new ExportarXLS();
-      System.out.println("exportXLS() tabla: " + tabla.getColumns());
+      log.info("exportXLS() tabla: " + tabla.getColumns());
       exporter.export(context, tabla, "VigenciasCargosXLS", false, false, "UTF-8", null, null);
    }
 
@@ -1698,38 +1757,38 @@ public class ControlVigenciasCargos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('paso3').hide();");
          RequestContext.getCurrentInstance().execute("PF('exito').show()");
       } catch (Exception e) {
-         System.out.println("ControlVigenciasCargos.crearVRiesgo() ERROR : " + e);
+         log.info("ControlVigenciasCargos.crearVRiesgo() ERROR : " + e);
          RequestContext.getCurrentInstance().execute("PF('paso3').hide();");
          RequestContext.getCurrentInstance().execute("PF('ERRORRIESGO').show()");
       }
    }
 
    public AsynchronousFilllListener listener() {
-      System.out.println(this.getClass().getName() + ".listener()");
+      log.info(this.getClass().getName() + ".listener()");
       return new AsynchronousFilllListener() {
          //RequestContext context = c;
 
          @Override
          public void reportFinished(JasperPrint jp) {
-            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+            log.info(this.getClass().getName() + ".listener().reportFinished()");
             try {
                estadoReporte = true;
                resultadoReporte = "Exito";
             } catch (Exception e) {
-               System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+               log.info("ControlNReporteNomina reportFinished ERROR: " + e.toString());
             }
          }
 
          @Override
          public void reportCancelled() {
-            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+            log.info(this.getClass().getName() + ".listener().reportCancelled()");
             estadoReporte = true;
             resultadoReporte = "Cancelación";
          }
 
          @Override
          public void reportFillError(Throwable e) {
-            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+            log.info(this.getClass().getName() + ".listener().reportFillError()");
             if (e.getCause() != null) {
                pathReporteGenerado = "ControlInterfaseContableTotal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -1767,34 +1826,34 @@ public class ControlVigenciasCargos implements Serializable {
                   RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                   pathReporteGenerado = null;
                } catch (FileNotFoundException ex) {
-                  System.out.println("validar descarga reporte - ingreso al catch 1");
-                  System.out.println(ex);
+                  log.info("validar descarga reporte - ingreso al catch 1");
+                  log.info(ex);
                   reporte = null;
                }
             }
          } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            log.info("validar descarga reporte - ingreso al if 1 else");
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error en validar descargar Reporte");
+         log.warn("Error en validar descargar Reporte");
          RequestContext.getCurrentInstance().execute("PF('errorCifraControl').show()");
       }
    }
 
    public void reiniciarStreamedContent() {
-      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+      log.info(this.getClass().getName() + ".reiniciarStreamedContent()");
       reporte = null;
    }
 
    public void cancelarReporte() {
-      System.out.println(this.getClass().getName() + ".cancelarReporte()");
+      log.info(this.getClass().getName() + ".cancelarReporte()");
       administarReportes.cancelarReporte();
    }
 
    public void exportarReporte() throws IOException {
-      System.out.println(this.getClass().getName() + ".exportarReporte()");
+      log.info(this.getClass().getName() + ".exportarReporte()");
       if (pathReporteGenerado != null) {
          File reporteF = new File(pathReporteGenerado);
          FacesContext ctx = FacesContext.getCurrentInstance();
@@ -2190,7 +2249,7 @@ public class ControlVigenciasCargos implements Serializable {
    public List<Papeles> getLovPapeles() {
       if (lovPapeles == null) {
          BigDecimal secEmpresa = administrarVigenciasCargos.consultarEmpresaPorEmpl(empleado.getSecuencia());
-         System.out.println("sec empresa : " + secEmpresa);
+         log.info("sec empresa : " + secEmpresa);
          if (secEmpresa != null) {
             lovPapeles = administrarVigenciasCargos.lovPapeles(secEmpresa.toBigInteger());
          }

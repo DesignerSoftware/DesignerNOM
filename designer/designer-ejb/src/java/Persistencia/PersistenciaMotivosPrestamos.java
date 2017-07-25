@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosPrestamos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.merge(motivosPrestamos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosPrestamos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosPrestamos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.merge(motivosPrestamos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosPrestamos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosPrestamos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.remove(em.merge(motivosPrestamos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosPrestamos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosPrestamos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -95,7 +97,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             List<MotivosPrestamos> listaMotivosPrestamos = query.getResultList();
             return listaMotivosPrestamos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosPrestamos.buscarMotivosPrestamos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosPrestamos.buscarMotivosPrestamos()" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +113,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

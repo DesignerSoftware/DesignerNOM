@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidentesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaClasesAccidentes.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -34,7 +37,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          em.merge(clasesAccidentes);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesAccidentes.crear: " + e);
+         log.error("Error PersistenciaClasesAccidentes.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +52,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          em.merge(clasesAccidentes);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesAccidentes.crear: " + e);
+         log.error("Error PersistenciaClasesAccidentes.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +71,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaClasesAccidentes.borrar: " + e);
+         log.error("Error PersistenciaClasesAccidentes.borrar: " + e);
       }
    }
 
@@ -89,7 +92,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          List<ClasesAccidentes> listClasesAccidentes = query.getResultList();
          return listClasesAccidentes;
       } catch (Exception e) {
-         System.err.println("ERROR PERSISTENCIACLASESACCIDENTES BUSCARCLASESACCIDENTES ERROR : " + e);
+         log.error("ERROR PERSISTENCIACLASESACCIDENTES BUSCARCLASESACCIDENTES ERROR : " + e);
          return null;
       }
 
@@ -103,10 +106,10 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.err.println("Contador PERSISTENCIACLASESACCIDENTES  contadorSoAccidentesMedicos  " + retorno);
+         log.error("Contador PERSISTENCIACLASESACCIDENTES  contadorSoAccidentesMedicos  " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error PERSISTENCIACLASESACCIDENTES   contadorSoAccidentesMedicos. " + e);
+         log.error("Error PERSISTENCIACLASESACCIDENTES   contadorSoAccidentesMedicos. " + e);
          return retorno;
       }
    }

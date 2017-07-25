@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -30,6 +31,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @Local
 public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCarpetaPersonal.class);
    //--------------------------------------------------------------------------
    //ATRIBUTOS
    //--------------------------------------------------------------------------    
@@ -296,8 +299,8 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          VWActualesCargos vwActualesCargos = persistenciaVWActualesCargos.buscarCargoEmpleado(em, secuenciaEmpleado);
          return vwActualesCargos;
       } catch (Exception e) {
-         System.out.println("ConsultarCargo.");
-         System.out.println("Exception" + e);
+         log.warn("ConsultarCargo.");
+         log.warn("Exception" + e);
          return null;
       }
    }
@@ -308,7 +311,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          Date actualFechaHasta = persistenciaVWActualesFechas.actualFechaHasta(em);
          return actualFechaHasta;
       } catch (Exception e) {
-         System.out.println("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
+         log.warn("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
          return null;
       }
    }
@@ -319,7 +322,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          String actualARP = persistenciaVigenciasArps.actualARP(em, secEstructura, secCargo, fechaHasta);
          return actualARP;
       } catch (Exception e) {
-         System.out.println("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
+         log.warn("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
          return null;
       }
    }
@@ -388,10 +391,10 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public VWActualesTiposTrabajadores consultarActualTipoTrabajadorCodEmpleado(BigInteger codEmpleado) {
       try {
          VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl(em, codEmpleado);
-         System.out.println("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() vwActualesTiposTrabajadores : " + vwActualesTiposTrabajadores);
+         log.warn("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() vwActualesTiposTrabajadores : " + vwActualesTiposTrabajadores);
          return vwActualesTiposTrabajadores;
       } catch (Exception e) {
-         System.out.println("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() ERROR: " + e);
+         log.warn("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -575,7 +578,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public int obtenerTotalRegistrosTipoTrabajador(String tipo) {
       try {
          int totalRegistros = persistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador(em, tipo);
-         System.out.println(this.getClass().getName() + " obtenerTotalRegistrosTipoTrabajador() totalRegistros: " + totalRegistros);
+         log.warn(this.getClass().getName() + " obtenerTotalRegistrosTipoTrabajador() totalRegistros: " + totalRegistros);
          return totalRegistros;
       } catch (Exception e) {
          return 0;
@@ -595,13 +598,13 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
 
    @Override
    public Empresas obtenerEmpresa(BigInteger secEmpresa) {
-      System.out.println(this.getClass().getName() + ".obtenerEmpresa()");
+      log.warn(this.getClass().getName() + ".obtenerEmpresa()");
       Empresas empresa = null;
       try {
          empresa = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
          return empresa;
       } catch (Exception e) {
-         System.out.println(this.getClass().getName() + " Error en obtenerEmpresa.");
+         log.warn(this.getClass().getName() + " Error en obtenerEmpresa.");
          e.printStackTrace();
          return empresa;
       }
@@ -614,7 +617,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          listaEmpresas = persistenciaEmpresas.buscarEmpresas(em);
          return listaEmpresas;
       } catch (Exception e) {
-         System.out.println(this.getClass().getName() + " Error en consultarEmpresas");
+         log.warn(this.getClass().getName() + " Error en consultarEmpresas");
          e.printStackTrace();
          return listaEmpresas;
       }
@@ -675,7 +678,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          persistenciaPersonas.actualizarFotoPersona(em, identificacion);
       } catch (Exception e) {
-         System.out.println("No se puede actalizar el estado de la Foto.");
+         log.warn("No se puede actalizar el estado de la Foto.");
       }
    }
 
@@ -697,7 +700,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
             persistenciaVigenciasCargos.editar(em, vigenciasCargos.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Excepcion Administrar - No Se Guardo Nada ¬¬");
+         log.warn("Excepcion Administrar - No Se Guardo Nada ¬¬");
       }
    }
 

@@ -9,10 +9,13 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaTablas implements PersistenciaTablasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTablas.class);
 
    public List<Tablas> consultarTablas(EntityManager em) {
       try {
@@ -21,14 +24,14 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
          List<Tablas> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         System.out.println("ERROR: PersistenciaTablas.consultarTablas() Error: " + e);
+         log.error("ERROR: PersistenciaTablas.consultarTablas() Error: " + e);
          return null;
       }
    }
 
    @Override
    public List<Tablas> buscarTablas(EntityManager em, BigInteger secuenciaMod) {
-      //System.out.println("PersistenciaTablas.buscarTablas() secuenciaMod : " + secuenciaMod);
+      //log.error("PersistenciaTablas.buscarTablas() secuenciaMod : " + secuenciaMod);
       try {
          em.clear();
          Query query = em.createQuery("select t from Tablas t where t.modulo.secuencia = :secuenciaMod "
@@ -37,11 +40,11 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
                  + "order by t.nombre");
          query.setParameter("secuenciaMod", secuenciaMod);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         //System.out.println("PersistenciaTablas.buscarTablas() query : " + query);
+         //log.error("PersistenciaTablas.buscarTablas() query : " + query);
          List<Tablas> tablas = (List<Tablas>) query.getResultList();
          return tablas;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTablas.buscarTablas(): " + e);
+         log.error("Persistencia.PersistenciaTablas.buscarTablas(): " + e);
          return null;
       }
    }

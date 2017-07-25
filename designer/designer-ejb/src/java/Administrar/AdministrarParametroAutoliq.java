@@ -1,12 +1,10 @@
 package Administrar;
 
 import Entidades.ActualUsuario;
-import Entidades.AportesCorrecciones;
 import Entidades.AportesEntidades;
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.ParametrosAutoliq;
-import Entidades.ParametrosCorreccionesAutoL;
 import Entidades.ParametrosEstructuras;
 import Entidades.ParametrosInformes;
 import Entidades.Terceros;
@@ -15,7 +13,6 @@ import Entidades.TiposTrabajadores;
 import InterfaceAdministrar.AdministrarParametroAutoliqInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
-import InterfacePersistencia.PersistenciaAportesCorreccionesInterface;
 import InterfacePersistencia.PersistenciaAportesEntidadesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaEmpresasInterface;
@@ -31,6 +28,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -38,6 +36,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarParametroAutoliq.class);
 
     @EJB
     PersistenciaParametrosAutoliqInterface persistenciaParametrosAutoliq;
@@ -76,7 +76,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<ParametrosAutoliq> lista = persistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarParametrosAutoliq Admi : " + e.toString());
+            log.warn("Error consultarParametrosAutoliq Admi : " + e.toString());
             return null;
         }
     }
@@ -94,7 +94,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                 persistenciaParametrosAutoliq.crear(em, listaPA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearParametrosAutoliq Admi : " + e.toString());
+            log.warn("Error crearParametrosAutoliq Admi : " + e.toString());
         }
     }
 
@@ -111,7 +111,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                 persistenciaParametrosAutoliq.editar(em, listaPA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarParametrosAutoliq Admi : " + e.toString());
+            log.warn("Error editarParametrosAutoliq Admi : " + e.toString());
         }
     }
 
@@ -128,7 +128,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                 persistenciaParametrosAutoliq.borrar(em, listaPA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarParametrosAutoliq Admi : " + e.toString());
+            log.warn("Error borrarParametrosAutoliq Admi : " + e.toString());
         }
     }
 
@@ -138,7 +138,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio(em, empresa, mes, ano);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
+            log.warn("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
             return null;
         }
     }
@@ -146,20 +146,20 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     @Override
     public void editarAportesEntidades(List<AportesEntidades> listAE) {
         try {
-            System.out.println("entró a editarAportesEntidades");
+            log.warn("entró a editarAportesEntidades");
             for (int i = 0; i < listAE.size(); i++) {
 
                 if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
-                    System.out.println("if 2 editarAportesEntidades");
+                    log.warn("if 2 editarAportesEntidades");
                     listAE.get(i).setTipoentidad(new TiposEntidades());
                 } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
-                    System.out.println("if 3 editarAportesEntidades");
+                    log.warn("if 3 editarAportesEntidades");
                     listAE.get(i).setEmpleado(null);
                 }
                 persistenciaAportesEntidades.editar(em, listAE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarAportesEntidades Admi : " + e.toString());
+            log.warn("Error editarAportesEntidades Admi : " + e.toString());
         }
     }
 
@@ -176,35 +176,35 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                 persistenciaAportesEntidades.borrar(em, listAE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarAportesEntidades Admi : " + e.toString());
+            log.warn("Error borrarAportesEntidades Admi : " + e.toString());
         }
     }
 
     @Override
     public void crearAportesEntidades(List<AportesEntidades> listaAE) {
         try {
-            System.out.println("entró al crearAportesEntidades");
+            log.warn("entró al crearAportesEntidades");
             for (int i = 0; i < listaAE.size(); i++) {
 
                 if (listaAE.get(i).getTipoentidad() != null) {
                     if (listaAE.get(i).getTipoentidad().getSecuencia() == null) {
                         listaAE.get(i).setTipoentidad(new TiposEntidades());
-                        System.out.println("if 2 crearAportesEntidades");
+                        log.warn("if 2 crearAportesEntidades");
                     }
                 }
 
                 if (listaAE.get(i).getEmpleado() != null) {
                     if (listaAE.get(i).getEmpleado().getSecuencia() == null) {
                         listaAE.get(i).setEmpleado(null);
-                        System.out.println("if 3 crearAportesEntidades");
+                        log.warn("if 3 crearAportesEntidades");
                     }
                 }
 
                 persistenciaAportesEntidades.crear(em, listaAE.get(i));
             }
-            System.out.println("sale del for crearAportesEntidades");
+            log.warn("sale del for crearAportesEntidades");
         } catch (Exception e) {
-            System.out.println("Error crearAportesEntidades Admi : " + e.toString());
+            log.warn("Error crearAportesEntidades Admi : " + e.toString());
         }
     }
 
@@ -214,7 +214,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposTrabajadores Admi : " + e.toString());
+            log.warn("Error lovTiposTrabajadores Admi : " + e.toString());
             return null;
         }
     }
@@ -225,7 +225,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<Empleados> lista = persistenciaEmpleados.consultarEmpleadosParametroAutoliq(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpleados Admi : " + e.toString());
+            log.warn("Error lovEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -236,7 +236,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<TiposEntidades> lista = persistenciaTiposEntidades.buscarTiposEntidadesParametroAutoliq(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTiposEntidades Admi : " + e.toString());
+            log.warn("Error lovTiposEntidades Admi : " + e.toString());
             return null;
         }
     }
@@ -247,7 +247,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<Terceros> lista = persistenciaTerceros.buscarTercerosParametrosAutoliq(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovTerceros Admi : " + e.toString());
+            log.warn("Error lovTerceros Admi : " + e.toString());
             return null;
         }
     }
@@ -258,7 +258,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -268,7 +268,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             persistenciaAportesEntidades.borrarAportesEntidadesProcesoAutomatico(em, empresa, mes, ano);
         } catch (Exception e) {
-            System.out.println("Error borrarAportesEntidadesProcesoAutomatico Admi : " + e.toString());
+            log.warn("Error borrarAportesEntidadesProcesoAutomatico Admi : " + e.toString());
         }
     }
 
@@ -278,7 +278,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             ActualUsuario actual = persistenciaActualUsuario.actualUsuarioBD(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -289,7 +289,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             ParametrosInformes parametro = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuario);
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error buscarParametroInforme Admi : " + e.toString());
+            log.warn("Error buscarParametroInforme Admi : " + e.toString());
             return null;
         }
 
@@ -300,7 +300,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             persistenciaParametrosInformes.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroInforme Admi : " + e.toString());
+            log.warn("Error modificarParametroInforme Admi : " + e.toString());
         }
     }
 
@@ -310,7 +310,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             ParametrosEstructuras parametro = persistenciaParametrosEstructuras.buscarParametro(em, usuario);
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error buscarParametroEstructura Admi : " + e.toString());
+            log.warn("Error buscarParametroEstructura Admi : " + e.toString());
             return null;
         }
     }
@@ -320,30 +320,30 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             persistenciaParametrosEstructuras.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroEstructura Admi : " + e.toString());
+            log.warn("Error modificarParametroEstructura Admi : " + e.toString());
         }
     }
 
     @Override
     public String ejecutarPKGActualizarNovedades(short ano, short mes, BigInteger secuencia) {
-        System.out.println("Administrar.AdministrarParametroAutoliq.ejecutarPKGActualizarNovedades()");
+        log.warn("Administrar.AdministrarParametroAutoliq.ejecutarPKGActualizarNovedades()");
         try {
             String proceso = persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
             return proceso;
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
+            log.warn("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
             return "ERROR_ADMINISTRAR";
         }
     }
 
     @Override
     public String ejecutarPKGInsertar(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa) {
-        System.out.println("Administrar.AdministrarParametroAutoliq.ejecutarPKGInsertar()");
+        log.warn("Administrar.AdministrarParametroAutoliq.ejecutarPKGInsertar()");
         try {
             String proceso = persistenciaAportesEntidades.ejecutarPKGInsertar(em, fechaIni, fechaFin, secTipoTrabajador, secuenciaEmpresa);
             return proceso;
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
+            log.warn("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
             return "ERROR_ADMINISTRAR";
         }
     }
@@ -353,7 +353,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
+            log.warn("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
         }
     }
 
@@ -363,7 +363,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpleado(em, secEmpleado, mes, ano);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
+            log.warn("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
             return null;
         }
     }

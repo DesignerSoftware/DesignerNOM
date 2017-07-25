@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarNReporteBienestar implements AdministrarNReporteBienestarInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNReporteBienestar.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -64,7 +67,7 @@ public class AdministrarNReporteBienestar implements AdministrarNReporteBienesta
             parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
-            System.out.println("Error parametrosDeReporte Administrar" + e);
+            log.warn("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
@@ -75,7 +78,7 @@ public class AdministrarNReporteBienestar implements AdministrarNReporteBienesta
             listInforeportes = persistenciaInforeportes.buscarInforeportesUsuarioBienestar(em);
             return listInforeportes;
         } catch (Exception e) {
-            System.out.println("Error listInforeportesUsuario " + e.toString());
+            log.warn("Error listInforeportesUsuario " + e.toString());
             return null;
         }
     }
@@ -85,7 +88,7 @@ public class AdministrarNReporteBienestar implements AdministrarNReporteBienesta
         try {
             persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosReportes : " + e.toString());
+            log.warn("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -95,7 +98,7 @@ public class AdministrarNReporteBienestar implements AdministrarNReporteBienesta
             listActividades = persistenciaActividades.buscarActividades(em);
             return listActividades;
         } catch (Exception e) {
-            System.out.println("Error en listActividades Administrar: " + e.toString());
+            log.warn("Error en listActividades Administrar: " + e.toString());
             return null;
         }
     }
@@ -106,7 +109,7 @@ public class AdministrarNReporteBienestar implements AdministrarNReporteBienesta
             listEmpleados = persistenciaEmpleado.buscarEmpleados(em);
             return listEmpleados;
         } catch (Exception e) {
-            System.out.println("Error listEmpleados : " + e.toString());
+            log.warn("Error listEmpleados : " + e.toString());
             return null;
         }
     }
@@ -118,7 +121,7 @@ public class AdministrarNReporteBienestar implements AdministrarNReporteBienesta
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+            log.warn("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
 }

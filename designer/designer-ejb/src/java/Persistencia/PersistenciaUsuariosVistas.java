@@ -7,15 +7,12 @@ package Persistencia;
 
 import Entidades.UsuariosVistas;
 import InterfacePersistencia.PersistenciaUsuariosVistasInterface;
-import static com.sun.faces.facelets.util.Path.context;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 //import org.primefaces.context.RequestContext;
 
@@ -29,6 +26,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosVistas.class);
+
     @Override
     public List<UsuariosVistas> buscarUsuariosVistas(EntityManager em) {
         try {
@@ -40,7 +39,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             List<UsuariosVistas> usuariosvistas = query.getResultList();
             return usuariosvistas;
         } catch (Exception e) {
-            System.out.println("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
+            log.error("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
             return null;
         }
     }
@@ -54,7 +53,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             em.merge(usuariosVistas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosVistas.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosVistas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +69,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             em.merge(usuariosVistas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosVistas.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosVistas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -92,7 +91,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaUsuariosVistas.borrar: " + e.getMessage());
+                log.error("Error PersistenciaUsuariosVistas.borrar: " + e.getMessage());
             }
         }
     }
@@ -111,7 +110,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             tx.commit();
             return exe;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.crearUsuarioVista. " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.crearUsuarioVista. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

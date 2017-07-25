@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEvalEvaluadores implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEvalEvaluadores.class);
 
    @EJB
    AdministrarEvalEvaluadoresInterface administrarEvalEvaluadores;
@@ -133,14 +136,14 @@ public class ControlEvalEvaluadores implements Serializable {
          administrarEvalEvaluadores.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlEvalEvaluadores.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlEvalEvaluadores.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -148,7 +151,7 @@ public class ControlEvalEvaluadores implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarEvalEvaluadores.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlEvalEvaluadores eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlEvalEvaluadores eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
@@ -156,7 +159,7 @@ public class ControlEvalEvaluadores implements Serializable {
    private Integer backupCodigo;
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -170,24 +173,24 @@ public class ControlEvalEvaluadores implements Serializable {
             backupDescripcion = filtrarEvalEvaluadores.get(index).getDescripcion();
          }
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlEvalEvaluadores.asignarIndex \n");
+         log.info("\n ENTRE A ControlEvalEvaluadores.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlEvalEvaluadores.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlEvalEvaluadores.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -279,10 +282,10 @@ public class ControlEvalEvaluadores implements Serializable {
          descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosEvalEvaluadores");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -296,20 +299,20 @@ public class ControlEvalEvaluadores implements Serializable {
    }
 
    public void modificarEvalEvaluador(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR EVALDIMENSIONES");
+      log.error("ENTRE A MODIFICAR EVALDIMENSIONES");
       int contador = 0;
       boolean banderita = false;
       boolean banderita1 = false;
 
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearEvalEvaluadores.contains(listEvalEvaluadores.get(indice))) {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listEvalEvaluadores.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -368,8 +371,8 @@ public class ControlEvalEvaluadores implements Serializable {
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
 
-               System.out.println("backupCodigo : " + backupCodigo);
-               System.out.println("backupDescripcion : " + backupDescripcion);
+               log.info("backupCodigo : " + backupCodigo);
+               log.info("backupDescripcion : " + backupDescripcion);
 
                if (listEvalEvaluadores.get(indice).getCodigo() == null) {
                   mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
@@ -544,7 +547,7 @@ public class ControlEvalEvaluadores implements Serializable {
       if (index >= 0) {
 
          if (tipoLista == 0) {
-            System.out.println("Entro a borrarMotivosContratos");
+            log.info("Entro a borrarMotivosContratos");
             if (!modificarEvalEvaluadores.isEmpty() && modificarEvalEvaluadores.contains(listEvalEvaluadores.get(index))) {
                int modIndex = modificarEvalEvaluadores.indexOf(listEvalEvaluadores.get(index));
                modificarEvalEvaluadores.remove(modIndex);
@@ -558,7 +561,7 @@ public class ControlEvalEvaluadores implements Serializable {
             listEvalEvaluadores.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrarMotivosContratos ");
+            log.info("borrarMotivosContratos ");
             if (!modificarEvalEvaluadores.isEmpty() && modificarEvalEvaluadores.contains(filtrarEvalEvaluadores.get(index))) {
                int modIndex = modificarEvalEvaluadores.indexOf(filtrarEvalEvaluadores.get(index));
                modificarEvalEvaluadores.remove(modIndex);
@@ -591,7 +594,7 @@ public class ControlEvalEvaluadores implements Serializable {
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger borradoVC = new BigInteger("-1");
       try {
          if (tipoLista == 0) {
@@ -600,10 +603,10 @@ public class ControlEvalEvaluadores implements Serializable {
             borradoVC = administrarEvalEvaluadores.verificarEvalPruebas(filtrarEvalEvaluadores.get(index).getSecuencia());
          }
          if (borradoVC.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrarEvalEvaluadores();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
             RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
@@ -612,7 +615,7 @@ public class ControlEvalEvaluadores implements Serializable {
          }
 
       } catch (Exception e) {
-         System.err.println("ERROR ControlMotivosContratos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlMotivosContratos verificarBorrado ERROR " + e);
       }
    }
 
@@ -620,7 +623,7 @@ public class ControlEvalEvaluadores implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando Motivos Contratos");
+         log.info("Realizando Motivos Contratos");
          if (!borrarEvalEvaluadores.isEmpty()) {
             administrarEvalEvaluadores.borrarEvalEvaluadores(borrarEvalEvaluadores);
             //mostrarBorrados
@@ -637,7 +640,7 @@ public class ControlEvalEvaluadores implements Serializable {
             administrarEvalEvaluadores.modificarEvalEvaluadores(modificarEvalEvaluadores);
             modificarEvalEvaluadores.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listEvalEvaluadores = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -661,7 +664,7 @@ public class ControlEvalEvaluadores implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -678,7 +681,7 @@ public class ControlEvalEvaluadores implements Serializable {
    }
 
    public void agregarNuevoEvalEvaluadores() {
-      System.out.println("Agregar Motivo Contrato");
+      log.info("Agregar Motivo Contrato");
       int contador = 0;
       int duplicados = 0;
 
@@ -688,42 +691,42 @@ public class ControlEvalEvaluadores implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoEvalEvaluador.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEvalEvaluador.getCodigo());
+         log.info("codigo en Motivo Cambio Cargo: " + nuevoEvalEvaluador.getCodigo());
 
          for (int x = 0; x < listEvalEvaluadores.size(); x++) {
             if (listEvalEvaluadores.get(x).getCodigo() == nuevoEvalEvaluador.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoEvalEvaluador.getDescripcion() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEvalEvaluadores:descripcion");
@@ -733,7 +736,7 @@ public class ControlEvalEvaluadores implements Serializable {
             filtrarEvalEvaluadores = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          //AGREGAR REGISTRO A LA LISTA VIGENCIAS CARGOS EMPLEADO.
          k++;
@@ -753,12 +756,12 @@ public class ControlEvalEvaluadores implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         System.out.println("Despues de la bandera guardado");
+         log.info("Despues de la bandera guardado");
 
          RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEvalEvaluadores').hide()");
          index = -1;
          secRegistro = null;
-         System.out.println("Despues de nuevoRegistroEvalEvaluadores");
+         log.info("Despues de nuevoRegistroEvalEvaluadores");
 
       } else {
          RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
@@ -768,7 +771,7 @@ public class ControlEvalEvaluadores implements Serializable {
    }
 
    public void limpiarNuevoEvalEvaluadores() {
-      System.out.println("limpiarnuevoEvalEvaluadores");
+      log.info("limpiarnuevoEvalEvaluadores");
       nuevoEvalEvaluador = new EvalEvaluadores();
       secRegistro = null;
       index = -1;
@@ -777,7 +780,7 @@ public class ControlEvalEvaluadores implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicarEvalEvaluadores() {
-      System.out.println("duplicarEvalsEvaluadores");
+      log.info("duplicarEvalsEvaluadores");
       if (index >= 0) {
          duplicarEvalEvaluador = new EvalEvaluadores();
          k++;
@@ -803,19 +806,19 @@ public class ControlEvalEvaluadores implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarEvalEvaluador.getCodigo());
-      System.err.println("ConfirmarDuplicar nombre " + duplicarEvalEvaluador.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarEvalEvaluador.getCodigo());
+      log.error("ConfirmarDuplicar nombre " + duplicarEvalEvaluador.getDescripcion());
 
       if (duplicarEvalEvaluador.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listEvalEvaluadores.size(); x++) {
             if (listEvalEvaluadores.get(x).getCodigo() == duplicarEvalEvaluador.getCodigo()) {
@@ -824,27 +827,27 @@ public class ControlEvalEvaluadores implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarEvalEvaluador.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarEvalEvaluador.getSecuencia() + "  " + duplicarEvalEvaluador.getCodigo());
+         log.info("Datos Duplicando: " + duplicarEvalEvaluador.getSecuencia() + "  " + duplicarEvalEvaluador.getCodigo());
          if (crearEvalEvaluadores.contains(duplicarEvalEvaluador)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listEvalEvaluadores.add(duplicarEvalEvaluador);
          crearEvalEvaluadores.add(duplicarEvalEvaluador);
@@ -906,12 +909,12 @@ public class ControlEvalEvaluadores implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listEvalEvaluadores.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "EVALEVALUADORES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

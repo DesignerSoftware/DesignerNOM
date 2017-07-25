@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarConceptosSoportes implements AdministrarConceptosSoportesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarConceptosSoportes.class);
 //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    
@@ -60,14 +63,14 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
 
     public void modificarConceptosSoportes(List<ConceptosSoportes> listaConceptosSoportes) {
         for (int i = 0; i < listaConceptosSoportes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaConceptosSoportes.editar(em, listaConceptosSoportes.get(i));
         }
     }
 
     public void borrarConceptosSoportes(List<ConceptosSoportes> listaConceptosSoportes) {
         for (int i = 0; i < listaConceptosSoportes.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaConceptosSoportes.borrar(em, listaConceptosSoportes.get(i));
         }
     }

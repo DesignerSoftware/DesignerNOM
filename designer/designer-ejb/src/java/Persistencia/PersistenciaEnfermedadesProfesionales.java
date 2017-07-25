@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnfermedadesProfesionalesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEnfermedadesProfesionales.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          em.merge(enfermedadesProfesionales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEnfermedadesProfesionales.crear: " + e);
+         log.error("Error PersistenciaEnfermedadesProfesionales.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          em.merge(enfermedadesProfesionales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEnfermedadesProfesionales.editar: " + e);
+         log.error("Error PersistenciaEnfermedadesProfesionales.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +74,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEnfermedadesProfesionales.borrar: " + e);
+         log.error("Error PersistenciaEnfermedadesProfesionales.borrar: " + e);
       }
    }
 
@@ -81,7 +84,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          em.clear();
          return em.find(EnfermeadadesProfesionales.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error en la persistenciaEnfermedadesProfesionales ERROR : " + e);
+         log.error("Error en la persistenciaEnfermedadesProfesionales ERROR : " + e);
          return null;
       }
    }
@@ -96,7 +99,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          List<EnfermeadadesProfesionales> enfermedadesProfesionales = query.getResultList();
          return enfermedadesProfesionales;
       } catch (Exception e) {
-         System.out.println("Error: (buscarEPPorEmpleado)" + e);
+         log.error("Error: (buscarEPPorEmpleado)" + e);
          return null;
       }
    }

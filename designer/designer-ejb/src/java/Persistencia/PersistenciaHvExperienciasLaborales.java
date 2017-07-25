@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperienciasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaHvExperienciasLaborales.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +39,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.merge(experienciasLaborales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaHistoriasformulas.crear: " + e);
+         log.error("Error PersistenciaHistoriasformulas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.merge(experienciasLaborales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaHistoriasformulas.editar: " + e);
+         log.error("Error PersistenciaHistoriasformulas.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +71,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.remove(em.merge(experienciasLaborales));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e);
+         log.error("Error PersistenciaHistoriasformulas.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +84,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.clear();
          return em.find(HvExperienciasLaborales.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error en la PersistenciaHvExperienciasLaborales ERROR : " + e);
+         log.error("Error en la PersistenciaHvExperienciasLaborales ERROR : " + e);
          return null;
       }
    }
@@ -103,7 +106,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          }
          return null;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaHvExperienciasLaborales.experienciaLaboralPersona" + e);
+         log.error("Error PersistenciaHvExperienciasLaborales.experienciaLaboralPersona" + e);
          return null;
       }
    }
@@ -118,7 +121,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          List<HvExperienciasLaborales> listaExperienciasLaborales = queryFinal.getResultList();
          return listaExperienciasLaborales;
       } catch (Exception e) {
-         System.out.println("Error experienciasLaboralesSecuenciaEmpleado PersistenciaHvExperienciasLaborales : " + e.toString());
+         log.error("Error experienciasLaboralesSecuenciaEmpleado PersistenciaHvExperienciasLaborales : " + e.toString());
          return null;
       }
    }
@@ -139,7 +142,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          experiencia = "";
          }
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
+         log.error("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
          experiencia = "";
       }
       return experiencia;

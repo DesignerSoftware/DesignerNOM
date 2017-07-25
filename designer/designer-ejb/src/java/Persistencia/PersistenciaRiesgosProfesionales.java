@@ -9,8 +9,8 @@ import Entidades.RiesgosProfesionales;
 import InterfacePersistencia.PersistenciaRiesgosProfesionalesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaRiesgosProfesionales implements PersistenciaRiesgosProfesionalesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaRiesgosProfesionales.class);
+
     @Override
     public void crear(EntityManager em, RiesgosProfesionales riesgop) {
         em.clear();
@@ -30,7 +32,7 @@ public class PersistenciaRiesgosProfesionales implements PersistenciaRiesgosProf
             em.persist(riesgop);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRiesgosProfesionales.crear: " + e.getMessage());
+            log.error("Error PersistenciaRiesgosProfesionales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +48,7 @@ public class PersistenciaRiesgosProfesionales implements PersistenciaRiesgosProf
             em.merge(riesgop);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRiesgosProfesionales.editar: " + e.getMessage());
+            log.error("Error PersistenciaRiesgosProfesionales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +64,7 @@ public class PersistenciaRiesgosProfesionales implements PersistenciaRiesgosProf
             em.remove(em.merge(riesgop));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRiesgosProfesionales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaRiesgosProfesionales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaRiesgosProfesionales implements PersistenciaRiesgosProf
             List<RiesgosProfesionales> listaRiesgos = queryFinal.getResultList();
             return listaRiesgos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRiesgosProfesionales riesgosProfesionales : " + e.getMessage());
+            log.error("Error PersistenciaRiesgosProfesionales riesgosProfesionales : " + e.getMessage());
             return null;
         }
     }

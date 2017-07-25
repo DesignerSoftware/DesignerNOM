@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposEmbargos.class);
 
     @EJB
     PersistenciaTiposEmbargosInterface persistenciaTiposEmbargos;
@@ -42,7 +45,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
     @Override
     public void modificarTiposPrestamos(List<TiposEmbargos> listaTiposEmbargos) {
         for (int i = 0; i < listaTiposEmbargos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposEmbargos.editar(em, listaTiposEmbargos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
     @Override
     public void borrarTiposPrestamos(List<TiposEmbargos> listaTiposEmbargos) {
         for (int i = 0; i < listaTiposEmbargos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposEmbargos.borrar(em, listaTiposEmbargos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
     @Override
     public void crearTiposPrestamos(List<TiposEmbargos> listaTiposEmbargos) {
         for (int i = 0; i < listaTiposEmbargos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposEmbargos.crear(em, listaTiposEmbargos.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
         try {
             verificarBorradoEerPrestamos = persistenciaTiposEmbargos.contadorEerPrestamos(em, secuenciaTiposDias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSEMBARGOS VERIFICARDIASLABORALES ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSEMBARGOS VERIFICARDIASLABORALES ERROR :" + e);
         } finally {
             return verificarBorradoEerPrestamos;
         }
@@ -95,7 +98,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
         try {
             verificarBorradoFormasDtos = persistenciaTiposEmbargos.contadorFormasDtos(em, secuenciaTiposDias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSEMBARGOS VERIFICAREXTRASRECARGOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSEMBARGOS VERIFICAREXTRASRECARGOS ERROR :" + e);
         } finally {
             return verificarBorradoFormasDtos;
         }

@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPeriodicidades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPeriodicidades.class);
 
     @EJB
     AdministrarPeriodicidadesInterface administrarPeriodicidades;
@@ -116,8 +119,8 @@ public class ControlPeriodicidades implements Serializable {
             administrarPeriodicidades.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -294,14 +297,14 @@ public class ControlPeriodicidades implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLPERIODICIDADES.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLPERIODICIDADES.ModificarModificacion ERROR====================" + E.getMessage());
         }
     }
 
     public void salir() {
         limpiarListasValor();
         try {
-            System.out.println("entre a CONTROLPERIODICIDADES.cancelarModificacion");
+            log.info("entre a CONTROLPERIODICIDADES.cancelarModificacion");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
@@ -333,7 +336,7 @@ public class ControlPeriodicidades implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             navegar("atras");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLPERIODICIDADES.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLPERIODICIDADES.ModificarModificacion ERROR====================" + E.getMessage());
         }
     }
 
@@ -436,7 +439,7 @@ public class ControlPeriodicidades implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').hide()");
 
         } catch (Exception e) {
-            System.out.println("ERROR BETA .actualizarUnidad ERROR============" + e.getMessage());
+            log.warn("Error BETA .actualizarUnidad ERROR============" + e.getMessage());
         }
     }
 
@@ -475,7 +478,7 @@ public class ControlPeriodicidades implements Serializable {
             nuevaPeriodicidad.setUnidad(new Unidades());
             nuevaPeriodicidad.setUnidadbase(new Unidades());
         } catch (Exception e) {
-            System.out.println("Error CONTROLPERIODICIDADES.LimpiarNuevoPeriodicidades ERROR=============================" + e.getMessage());
+            log.warn("Error CONTROLPERIODICIDADES.LimpiarNuevoPeriodicidades ERROR=============================" + e.getMessage());
         }
     }
 
@@ -509,7 +512,7 @@ public class ControlPeriodicidades implements Serializable {
             if (nuevaPeriodicidad.getUnidad().getCodigo() == null) {
                 mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             } else {
-                System.out.println("Bandera : ");
+                log.info("Bandera : ");
                 contador++;
             }
             if (nuevaPeriodicidad.getUnidadbase().getCodigo() == null) {
@@ -559,7 +562,7 @@ public class ControlPeriodicidades implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES.agregarNuevoPeriodicidades ERROR===========================" + e.getMessage());
+            log.warn("Error CONTROLPERIODICIDADES.agregarNuevoPeriodicidades ERROR===========================" + e.getMessage());
         }
     }
 
@@ -679,8 +682,8 @@ public class ControlPeriodicidades implements Serializable {
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
-        System.out.println("TIPOLISTA = " + tipoLista);
+        log.info("Estoy en verificarBorrado");
+        log.info("TIPOLISTA = " + tipoLista);
         BigInteger pruebilla;
         contarCPCompromisosPeriodicidad = administrarPeriodicidades.contarCPCompromisosPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
         contarDetallesPeriodicidadesPeriodicidad = administrarPeriodicidades.contarDetallesPeriodicidadesPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());;
@@ -752,7 +755,7 @@ public class ControlPeriodicidades implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Vigencias Localizacion");
+            log.info("Realizando Operaciones Vigencias Localizacion");
             if (!borrarPeriodicidades.isEmpty()) {
                 administrarPeriodicidades.borrarPeriodicidades(borrarPeriodicidades);
                 registrosBorrados = borrarPeriodicidades.size();
@@ -768,7 +771,7 @@ public class ControlPeriodicidades implements Serializable {
                 administrarPeriodicidades.crearPeriodicidades(crearPeriodicidades);
                 crearPeriodicidades.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listPeriodicidades = null;
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -782,12 +785,12 @@ public class ControlPeriodicidades implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("\n ENTRE A CONTROLPERIODICIDADES ACTIVARCTRLF11 \n");
+        log.info("\n ENTRE A CONTROLPERIODICIDADES ACTIVARCTRLF11 \n");
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
 
             tamano = 250;
-            System.out.println("Activar");
+            log.info("Activar");
             codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
             codigoCC.setFilterStyle("width: 85% !important");
             nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
@@ -803,7 +806,7 @@ public class ControlPeriodicidades implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             //0
             tamano = 270;
             codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
@@ -863,7 +866,7 @@ public class ControlPeriodicidades implements Serializable {
     public void listaValoresBoton() {
         if (periocidadSeleccionadaTabla != null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("\n ListaValoresBoton \n");
+            log.info("\n ListaValoresBoton \n");
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMetodoPago implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMetodoPago.class);
 
    @EJB
    AdministrarMetodosPagosInterface administrarMetodosPagos;
@@ -135,20 +138,20 @@ public class ControlMetodoPago implements Serializable {
          administrarMetodosPagos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlMotiviosCambiosCargos.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlMotiviosCambiosCargos.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlMotiviosCambiosCargos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlMotiviosCambiosCargos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
    private Integer backUpCodigo;
@@ -246,11 +249,11 @@ public class ControlMetodoPago implements Serializable {
          pago = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:pago");
          pago.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosMetodoPago");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          codigo = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:descripcion");
@@ -289,14 +292,14 @@ public class ControlMetodoPago implements Serializable {
             verificarVigenciasFormasPagos = new BigInteger("-1");
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposTallas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposTallas verificarBorrado ERROR " + e);
       }
    }
 
    public void borrandoMetodoPago() {
       if (metodoPagoSeleccionado != null) {
 
-         System.out.println("Entro a borrarMetodoPago");
+         log.info("Entro a borrarMetodoPago");
          if (!modificarMetodosPagos.isEmpty() && modificarMetodosPagos.contains(metodoPagoSeleccionado)) {
             int modIndex = modificarMetodosPagos.indexOf(metodoPagoSeleccionado);
             modificarMetodosPagos.remove(modIndex);
@@ -377,7 +380,7 @@ public class ControlMetodoPago implements Serializable {
       int duplicados = 0;
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("1");
+      log.error("1");
       if (nuevoMetodoPago.getCodigo() == a) {
          mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
       } else {
@@ -401,7 +404,7 @@ public class ControlMetodoPago implements Serializable {
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:descripcion");
@@ -482,7 +485,7 @@ public class ControlMetodoPago implements Serializable {
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMetodoPago:descripcion");
@@ -564,7 +567,7 @@ public class ControlMetodoPago implements Serializable {
       if (listMetodosPagos == null) {
          listMetodosPagos = administrarMetodosPagos.consultarMetodosPagos();
          for (int i = 0; i < listMetodosPagos.size(); i++) {
-            System.out.println(listMetodosPagos.get(i).getSecuencia());
+            log.info(listMetodosPagos.get(i).getSecuencia());
          }
       }
       return listMetodosPagos;

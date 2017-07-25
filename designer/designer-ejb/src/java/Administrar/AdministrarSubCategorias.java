@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSubCategorias implements AdministrarSubCategoriasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSubCategorias.class);
 
     @EJB
     PersistenciaSubCategoriasInterface persistenciaSubCategorias;
@@ -42,7 +45,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
     @Override
     public void modificarSubCategorias(List<SubCategorias> listaSubCategorias) {
         for (int i = 0; i < listaSubCategorias.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaSubCategorias.editar(em, listaSubCategorias.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
     @Override
     public void borrarSubCategorias(List<SubCategorias> listaSubCategorias) {
         for (int i = 0; i < listaSubCategorias.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSubCategorias.borrar(em, listaSubCategorias.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
     @Override
     public void crearSubCategorias(List<SubCategorias> listaSubCategorias) {
         for (int i = 0; i < listaSubCategorias.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaSubCategorias.crear(em, listaSubCategorias.get(i));
         }
     }
@@ -84,7 +87,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
         try {
             return contarEscalafones = persistenciaSubCategorias.contarEscalafones(em, secSubCategorias);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarSubCategorias contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarSubCategorias contarEscalafones ERROR : " + e);
             return null;
         }
     }

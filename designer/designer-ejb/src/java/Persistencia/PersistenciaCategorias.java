@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -25,6 +26,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaCategorias.class);
+
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
     */
@@ -39,7 +42,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          em.merge(categorias);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCategorias.crear: " + e);
+         log.error("Error PersistenciaCategorias.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +58,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          em.merge(categorias);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCategorias.editar: " + e);
+         log.error("Error PersistenciaCategorias.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +75,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          tx.commit();
 
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCategorias.borrar: " + e);
+         log.error("Error PersistenciaCategorias.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -97,7 +100,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          Categorias categorias = (Categorias) query.getSingleResult();
          return categorias;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaCategorias.buscarCategoriaSecuencia() e: " + e);
+         log.error("Persistencia.PersistenciaCategorias.buscarCategoriaSecuencia() e: " + e);
          return null;
       }
    }

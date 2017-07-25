@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEersPrestamos.class);
 
    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -33,7 +36,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          em.merge(eersPrestamos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEersPrestamos.crear: " + e);
+         log.error("Error PersistenciaEersPrestamos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +52,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          em.merge(eersPrestamos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEersPrestamos.crear: " + e);
+         log.error("Error PersistenciaEersPrestamos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +72,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEersPrestamos.borrar: " + e);
+         log.error("Error PersistenciaEersPrestamos.borrar: " + e);
       }
    }
 
@@ -84,7 +87,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          List<EersPrestamos> eersPrestamosResult = new ArrayList<EersPrestamos>(eersPrestamos);
          return eersPrestamosResult;
       } catch (Exception e) {
-         System.out.println("Error: (eersPrestamos)" + e);
+         log.error("Error: (eersPrestamos)" + e);
          return null;
       }
    }

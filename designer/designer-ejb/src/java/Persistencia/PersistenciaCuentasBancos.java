@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -23,6 +24,8 @@ import javax.persistence.Query;
 @Stateless
 @Local
 public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCuentasBancos.class);
 
     @Override
     public void crear(EntityManager em, CuentasBancos cuentabanco) {
@@ -39,7 +42,7 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
             em.merge(cuentabanco);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCuentasBancos.crear: " + e);
+            log.error("Error PersistenciaCuentasBancos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +64,7 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
             em.merge(cuentabanco);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCuentasBancos.editar: " + e);
+            log.error("Error PersistenciaCuentasBancos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +86,7 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
             em.remove(em.merge(cuentabanco));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCuentasBancos.borrar: " + e);
+            log.error("Error PersistenciaCuentasBancos.borrar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -112,7 +115,7 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
             }
             return lista;
         } catch (Exception e) {
-            System.out.println("error en persistenciacuentabanco.buscarcuentabanco :" + e.toString());
+            log.error("error en persistenciacuentabanco.buscarcuentabanco :" + e.toString());
             return null;
         }
     }
@@ -126,7 +129,7 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
             List<Bancos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("error en persistenciacuentabanco.buscarBancos :" + e.toString());
+            log.error("error en persistenciacuentabanco.buscarBancos :" + e.toString());
             return null;
         }
     }
@@ -140,7 +143,7 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
             List<Inforeportes> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("error en persistenciacuentabanco.buscarReportes :" + e.toString());
+            log.error("error en persistenciacuentabanco.buscarReportes :" + e.toString());
             return null;
         }
     }

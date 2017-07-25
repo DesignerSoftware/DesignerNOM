@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPryClientes implements AdministrarPryClientesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPryClientes.class);
 
     @EJB
     PersistenciaPryClientesInterface persistenciaPryClientes;
@@ -42,21 +45,21 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
     @Override
     public void modificarPryClientes(List<PryClientes> listaPryClientes) {
         for (int i = 0; i < listaPryClientes.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaPryClientes.editar(em, listaPryClientes.get(i));
         }
     }
     @Override
     public void borrarPryClientes(List<PryClientes> listaPryClientes) {
         for (int i = 0; i < listaPryClientes.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaPryClientes.borrar(em, listaPryClientes.get(i));
         }
     }
     @Override
     public void crearPryClientes(List<PryClientes> listaPryClientes) {
         for (int i = 0; i < listaPryClientes.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaPryClientes.crear(em, listaPryClientes.get(i));
         }
     }
@@ -77,10 +80,10 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
         BigInteger verificadorProyectos;
 
         try {
-            System.err.println("Secuencia Borrado Competencias Cargos" + secuenciaProyectos);
+            log.error("Secuencia Borrado Competencias Cargos" + secuenciaProyectos);
             return verificadorProyectos = persistenciaPryClientes.contadorProyectos(em, secuenciaProyectos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarPryClientes verificarBorradoProyecto ERROR :" + e);
+            log.error("ERROR AdministrarPryClientes verificarBorradoProyecto ERROR :" + e);
             return null;
         }
     }

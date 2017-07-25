@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAficionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasAficiones.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             em.persist(vigenciasAficiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasAficiones.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasAficiones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             em.merge(vigenciasAficiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasAficiones.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasAficiones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             em.remove(em.merge(vigenciasAficiones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasAficiones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasAficiones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +86,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             BigInteger in = (BigInteger) secuencia;
             return em.find(VigenciasAficiones.class, in);
         } catch (Exception e) {
-            System.out.println("Error buscarvigenciaAficion : " + e.getMessage());
+            log.error("Error buscarvigenciaAficion : " + e.getMessage());
             return null;
         }
     }
@@ -106,7 +108,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasAficiones.aficionesPersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasAficiones.aficionesPersona" + e.getMessage());
             return null;
         }
     }
@@ -121,7 +123,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             List<VigenciasAficiones> listVigenciasAficiones = queryFinal.getResultList();
             return listVigenciasAficiones;
         } catch (Exception e) {
-            System.out.println("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones : " + e.getMessage());
+            log.error("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones : " + e.getMessage());
             return null;
         }
     }
@@ -144,7 +146,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             }
             return aficion;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasAficiones.primeraAficion()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasAficiones.primeraAficion()" + e.getMessage());
             aficion = "";
             return aficion;
         }

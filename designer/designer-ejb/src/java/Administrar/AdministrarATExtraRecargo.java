@@ -22,6 +22,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -32,6 +33,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarATExtraRecargo.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -104,7 +107,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
             List<ExtrasRecargos> lista = persistenciaExtrasRecargos.buscarExtrasRecargos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listExtrasRecargos Admi : " + e.toString());
+            log.warn("Error listExtrasRecargos Admi : " + e.toString());
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
                 persistenciaExtrasRecargos.crear(em,listaER.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearExtrasRecargos Admi : " + e.toString());
+            log.warn("Error crearExtrasRecargos Admi : " + e.toString());
         }
     }
 
@@ -127,7 +130,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
                 persistenciaExtrasRecargos.editar(em,listaER.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarExtrasRecargos Admi : " + e.toString());
+            log.warn("Error editarExtrasRecargos Admi : " + e.toString());
         }
     }
 
@@ -138,7 +141,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
                 persistenciaExtrasRecargos.borrar(em,listaER.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarExtrasRecargos Admi : " + e.toString());
+            log.warn("Error borrarExtrasRecargos Admi : " + e.toString());
         }
     }
 
@@ -148,7 +151,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
             List<DetallesExtrasRecargos> lista = persistenciaDetallesExtrasRecargos.buscaDetallesExtrasRecargosPorSecuenciaExtraRecargo(em,secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listDetallesExtrasRecargos Admi : " + e.toString());
+            log.warn("Error listDetallesExtrasRecargos Admi : " + e.toString());
             return null;
         }
     }
@@ -160,7 +163,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
                 persistenciaDetallesExtrasRecargos.crear(em,listaDER.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearDetallesExtrasRecargos Admi : " + e.toString());
+            log.warn("Error crearDetallesExtrasRecargos Admi : " + e.toString());
         }
     }
 
@@ -171,7 +174,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
                 persistenciaDetallesExtrasRecargos.editar(em,listaDER.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarDetallesExtrasRecargos Admi : " + e.toString());
+            log.warn("Error editarDetallesExtrasRecargos Admi : " + e.toString());
         }
     }
 
@@ -182,7 +185,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
                 persistenciaDetallesExtrasRecargos.borrar(em,listaDER.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarDetallesExtrasRecargos Admi : " + e.toString());
+            log.warn("Error borrarDetallesExtrasRecargos Admi : " + e.toString());
         }
     }
 
@@ -192,7 +195,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
             List<TiposDias> lista = persistenciaTiposDias.buscarTiposDias(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listTiposDias Admi : " + e.toString());
+            log.warn("Error listTiposDias Admi : " + e.toString());
             return null;
         }
     }
@@ -203,7 +206,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
             List<TiposJornadas> lista = persistenciaTiposJornadas.buscarTiposJornadas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listTiposJornadas Admi : " + e.toString());
+            log.warn("Error listTiposJornadas Admi : " + e.toString());
             return null;
         }
     }
@@ -214,7 +217,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
             List<Contratos> lista = persistenciaContratos.buscarContratos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listContratos Admi : " + e.toString());
+            log.warn("Error listContratos Admi : " + e.toString());
             return null;
         }
     }
@@ -225,7 +228,7 @@ public class AdministrarATExtraRecargo implements AdministrarATExtraRecargoInter
             List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listConceptos Admi : " + e.toString());
+            log.warn("Error listConceptos Admi : " + e.toString());
             return null;
         }
     }

@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFactoresRiesgosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaGruposFactoresRiesgos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -35,7 +38,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             em.merge(grupoFactoresRiesgos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaGruposFactoresRiesgos.crear: " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +56,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaGruposFactoresRiesgos.editar: " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos.editar: " + e);
         }
     }
 
@@ -68,7 +71,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaGruposFactoresRiesgos.borrar: " + e);
+                log.error("Error PersistenciaGruposFactoresRiesgos.borrar: " + e);
         }
     }
 
@@ -80,7 +83,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             List<GruposFactoresRiesgos> evalActividades = query.getResultList();
             return evalActividades;
         } catch (Exception e) {
-            System.out.println("Error buscarGruposFactoresRiesgos ERROR" + e);
+            log.error("Error buscarGruposFactoresRiesgos ERROR" + e);
             return null;
         }
     }
@@ -94,7 +97,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             GruposFactoresRiesgos grupoFactoresRiesgos = (GruposFactoresRiesgos) query.getSingleResult();
             return grupoFactoresRiesgos;
         } catch (Exception e) {
-            System.out.println("Error buscarGrupoFactorRiesgoSecuencia");
+            log.error("Error buscarGrupoFactorRiesgoSecuencia");
             GruposFactoresRiesgos grupoFactoresRiesgos = null;
             return grupoFactoresRiesgos;
         }
@@ -108,10 +111,10 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo Retorno " + retorno);
+            log.error("Contador PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR : " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR : " + e);
             return retorno;
         }
     }
@@ -124,10 +127,10 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo Retorno " + retorno);
+            log.error("Contador PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR : " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR : " + e);
             return retorno;
         }
     }
@@ -140,10 +143,10 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo Retorno " + retorno);
+            log.error("Contador PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR : " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR : " + e);
             return retorno;
         }
     }

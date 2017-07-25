@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -31,6 +30,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -43,6 +43,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadesConceptos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadesConceptos.class);
 
    @EJB
    AdministrarNovedadesConceptosInterface administrarNovedadesConceptos;
@@ -251,8 +253,8 @@ public class ControlNovedadesConceptos implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarFormulaConcepto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -549,7 +551,7 @@ public class ControlNovedadesConceptos implements Serializable {
 
       if (novedadSeleccionada.getFechafinal() != null && novedadSeleccionada.getFechainicial() != null) {
          if (novedadSeleccionada.getFechafinal().compareTo(novedadSeleccionada.getFechainicial()) < 0) {
-            System.out.println("La fecha Final es Menor que la Inicial");
+            log.info("La fecha Final es Menor que la Inicial");
             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
             novedadSeleccionada.setFechainicial(novedadBackup.getFechainicial());
@@ -966,7 +968,7 @@ public class ControlNovedadesConceptos implements Serializable {
          if (nuevaNovedad.getFechainicial().before(fechaContratacionE)) {
             RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
             RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
-            System.out.println("Inconsistencia Empleado");
+            log.info("Inconsistencia Empleado");
             pasa2++;
          }
       }
@@ -974,7 +976,7 @@ public class ControlNovedadesConceptos implements Serializable {
          if (nuevaNovedad.getFechainicial().compareTo(nuevaNovedad.getFechafinal()) > 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-            System.out.println("Dialogo de Fechas culas");
+            log.info("Dialogo de Fechas culas");
             pasa2++;
          }
       }
@@ -983,7 +985,7 @@ public class ControlNovedadesConceptos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadConcepto').show()");
       }
       if (pasa == 0 && pasa2 == 0) {
-         System.out.println("Todo esta Bien");
+         log.info("Todo esta Bien");
          if (bandera == 1) {
             restaurarTabla();
          }
@@ -1000,7 +1002,7 @@ public class ControlNovedadesConceptos implements Serializable {
                localMachine = java.net.InetAddress.getLocalHost();
 
             } catch (UnknownHostException ex) {
-               Logger.getLogger(ControlNovedadesConceptos.class.getName()).log(Level.SEVERE, null, ex);
+               java.util.logging.Logger.getLogger(ControlNovedadesConceptos.class.getName()).log(Level.SEVERE, null, ex);
             }
             equipo = localMachine.getHostAddress();
          } else {
@@ -1010,7 +1012,7 @@ public class ControlNovedadesConceptos implements Serializable {
             localMachine = java.net.InetAddress.getByName(equipo);
 
          } catch (UnknownHostException ex) {
-            Logger.getLogger(ControlNovedadesConceptos.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ControlNovedadesConceptos.class.getName()).log(Level.SEVERE, null, ex);
          }
 
          getAlias();
@@ -1059,9 +1061,9 @@ public class ControlNovedadesConceptos implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Tipo\n";
          pasa++;
       }
-      System.out.println("duplicarNovedad.getFechainicial() : " + duplicarNovedad.getFechainicial());
+      log.info("duplicarNovedad.getFechainicial() : " + duplicarNovedad.getFechainicial());
       fechaContratacionE = administrarNovedadesConceptos.obtenerFechaContratacionEmpleado(duplicarNovedad.getEmpleado().getSecuencia());
-      System.out.println("duplicarNovedad fechaContratacionE : " + fechaContratacionE);
+      log.info("duplicarNovedad fechaContratacionE : " + fechaContratacionE);
       if (fechaContratacionE == null) {
          fechaContratacionE = new Date();
       }

@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaAdiestramientosNFInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -17,7 +17,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaAdiestramientosNF implements PersistenciaAdiestramientosNFInterface{
+public class PersistenciaAdiestramientosNF implements PersistenciaAdiestramientosNFInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaAdiestramientosNF.class);
      /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -33,7 +35,7 @@ public class PersistenciaAdiestramientosNF implements PersistenciaAdiestramiento
             List<AdiestramientosNF> adiestramientosNF = query.getResultList();
             return adiestramientosNF;
         } catch (Exception e) {
-           System.out.println("Persistencia.PersistenciaAdiestramientosNF.adiestramientosNF() e: " + e);
+           log.error("Persistencia.PersistenciaAdiestramientosNF.adiestramientosNF() e: " + e);
             return null;
         }
     }

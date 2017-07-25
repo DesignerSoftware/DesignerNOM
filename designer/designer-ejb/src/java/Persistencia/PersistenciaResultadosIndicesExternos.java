@@ -11,6 +11,7 @@ import InterfacePersistencia.PersistenciaResultadosIndicesExternosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaResultadosIndicesExternos implements PersistenciaResultadosIndicesExternosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaResultadosIndicesExternos.class);
+
     @Override
     public void crear(EntityManager em, ResultadosIndicesExternos resultados) {
         em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             em.merge(resultados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaResultadosIndicesExternos.crear: " + e.getMessage());
+            log.error("Error PersistenciaResultadosIndicesExternos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +49,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             em.merge(resultados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaResultadosIndicesExternos.editar: " + e.getMessage());
+            log.error("Error PersistenciaResultadosIndicesExternos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +69,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaResultadosIndicesExternos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaResultadosIndicesExternos.borrar: " + e.getMessage());
         }
     }
 
@@ -79,7 +82,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             List<IndicesExternos> listIndicesExternos = query.getResultList();
             return listIndicesExternos;
         } catch (Exception e) {
-            System.out.println("Error buscarIndicesExternos PersistenciaResultadosIndicesExternos : " + e.toString());
+            log.error("Error buscarIndicesExternos PersistenciaResultadosIndicesExternos : " + e.toString());
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             List<ResultadosIndicesExternos> listResultadosIndicesExternos = query.getResultList();
             return listResultadosIndicesExternos;
         } catch (Exception e) {
-            System.out.println("Error buscarResultadosIndicesExternos PersistenciaResultadosIndicesExternos : " + e.toString());
+            log.error("Error buscarResultadosIndicesExternos PersistenciaResultadosIndicesExternos : " + e.toString());
             return null;
         }
     }

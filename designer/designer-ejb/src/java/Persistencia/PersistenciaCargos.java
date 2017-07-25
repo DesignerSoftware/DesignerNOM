@@ -7,6 +7,7 @@ import Entidades.Cargos;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import InterfacePersistencia.PersistenciaCargosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaCargos implements PersistenciaCargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCargos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +41,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          em.persist(cargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCargos.crear: " + e);
+         log.error("Error PersistenciaCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +57,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          em.merge(cargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCargos.editar: " + e);
+         log.error("Error PersistenciaCargos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +77,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCargos.borrar: " + e);
+         log.error("Error PersistenciaCargos.borrar: " + e);
       }
    }
 
@@ -86,7 +89,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          in = (BigInteger) secuencia;
          return em.find(Cargos.class, in);
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaCargos.buscarCargoSecuencia() e: " + e);
+         log.error("Persistencia.PersistenciaCargos.buscarCargoSecuencia() e: " + e);
          return null;
       }
    }
@@ -100,7 +103,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> cargos = query.getResultList();
          return cargos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCargos.consultarCargos: " + e);
+         log.error("Error PersistenciaCargos.consultarCargos: " + e);
          return null;
       }
    }
@@ -112,7 +115,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> listaCargosSalario = consultarCargos(em);
          if (listaCargosSalario != null) {
             for (int i = 0; i < listaCargosSalario.size(); i++) {
-               System.out.println("Secuencia: " + listaCargosSalario.get(i).getSecuencia());
+               log.error("Secuencia: " + listaCargosSalario.get(i).getSecuencia());
                String sqlQuery2 = "SELECT cargos_pkg.capturarsalario(?, sysdate) FROM DUAL";
                Query query2 = em.createNativeQuery(sqlQuery2).setParameter(1, listaCargosSalario.get(i).getSecuencia());
                listaCargosSalario.get(i).setSueldoCargo((BigDecimal) query2.getSingleResult());
@@ -120,7 +123,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          }
          return listaCargosSalario;
       } catch (Exception e) {
-         System.out.println("PersistenciaCargos: Fallo el nativeQuery.cargosSalario " + e);
+         log.error("PersistenciaCargos: Fallo el nativeQuery.cargosSalario " + e);
          return null;
       }
    }
@@ -135,7 +138,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> cargos = query.getResultList();
          return cargos;
       } catch (Exception e) {
-         System.out.println("Error buscarCargosPorSecuenciaEmpresa PersistenciaCargos : " + e.toString());
+         log.error("Error buscarCargosPorSecuenciaEmpresa PersistenciaCargos : " + e.toString());
          return null;
       }
    }
@@ -149,7 +152,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> cargos = query.getResultList();
          return cargos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCargos.lovCargos: " + e);
+         log.error("Error PersistenciaCargos.lovCargos: " + e);
          return null;
       }
    }

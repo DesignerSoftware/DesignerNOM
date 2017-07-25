@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +20,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFormulaNovedad.class);
 
     @EJB
     PersistenciaFormulasNovedadesInterface persistenciaFormulasNovedades;
@@ -41,12 +44,12 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
 
     @Override
     public List<FormulasNovedades> listFormulasNovedadesParaFormula(BigInteger secuencia) {
-       System.out.println("Administrar.AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
+       log.warn("Administrar.AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
         try {
             List<FormulasNovedades> lista = persistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia(em,secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listFormulasNovedadesParaFormula Admi : " + e.toString());
+            log.warn("Error listFormulasNovedadesParaFormula Admi : " + e.toString());
             return null;
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
                 persistenciaFormulasNovedades.crear(em,listFN.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearFormulasNovedades Admi : " + e.toString());
+            log.warn("Error crearFormulasNovedades Admi : " + e.toString());
         }
     }
 
@@ -69,7 +72,7 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
                 persistenciaFormulasNovedades.editar(em,listFN.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearFormulasNovedades Admi : " + e.toString());
+            log.warn("Error crearFormulasNovedades Admi : " + e.toString());
         }
     }
 
@@ -80,7 +83,7 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
                 persistenciaFormulasNovedades.borrar(em,listFN.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarFormulasNovedades Admi : " + e.toString());
+            log.warn("Error borrarFormulasNovedades Admi : " + e.toString());
         }
     }
 
@@ -92,7 +95,7 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
             lista.add(form);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listFormulas Admi : " + e.toString());
+            log.warn("Error listFormulas Admi : " + e.toString());
             return null;
         }
     }

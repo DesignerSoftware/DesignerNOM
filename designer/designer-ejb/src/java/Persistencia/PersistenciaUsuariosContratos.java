@@ -9,8 +9,8 @@ import Entidades.UsuariosContratos;
 import InterfacePersistencia.PersistenciaUsuariosContratosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContratosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaUsuariosContratos.class);
+
     @Override
     public void crear(EntityManager em, UsuariosContratos usuariots) {
         em.clear();
@@ -30,7 +32,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosContratos.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +48,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosContratos.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +64,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             em.remove(em.merge(usuariots));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosContratos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             List<UsuariosContratos> usuariosTS = query.getResultList();
             return usuariosTS;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosContratos.buscarUsuariosContratos" + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.buscarUsuariosContratos" + e.getMessage());
             return null;
         }
     }

@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaPensionados implements PersistenciaPensionadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPensionados.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +40,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.merge(pensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.crear: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +56,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.merge(pensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.editar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +72,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.remove(em.merge(pensionados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +86,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             BigInteger in = (BigInteger) secuencia;
             return em.find(Pensionados.class, in);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPensionados.buscarPensionado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPensionados.buscarPensionado()" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +100,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             List<Pensionados> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPensionados.buscarPensionados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPensionados.buscarPensionados()" + e.getMessage());
             return null;
         }
     }
@@ -112,7 +115,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             List<Pensionados> pensionados = query.getResultList();
             return pensionados;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Pensionados (buscarPensionadosEmpleado) " + e.toString());
+            log.error("Error en Persistencia Pensionados (buscarPensionadosEmpleado) " + e.toString());
             return null;
         }
     }
@@ -128,7 +131,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             Pensionados pensionVigencia = (Pensionados) query.getSingleResult();
             return pensionVigencia;
         } catch (Exception e) {
-            System.out.println("buscarPensionVigenciaSecuencia Error (PersistenciaPensionados): " + e.toString());
+            log.error("buscarPensionVigenciaSecuencia Error (PersistenciaPensionados): " + e.toString());
             return new Pensionados();
         }
     }

@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -24,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigenciasTiposTrabajadoresInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasTiposTrabajadores.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -39,14 +41,14 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-            System.out.println("Entro en el try de PersistenciaVigenciasTiposTrabajadores.crear()");
+            log.error("Entro en el try de PersistenciaVigenciasTiposTrabajadores.crear()");
             tx.begin();
             em.persist(vigenciasTiposTrabajadores);
             tx.commit();
-            System.out.println("Ya creo V tipoTrabajador");
+            log.error("Ya creo V tipoTrabajador");
             return true;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.crear()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +65,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             em.merge(vigenciasTiposTrabajadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.editar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +81,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             em.remove(em.merge(vigenciasTiposTrabajadores));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.borrar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -94,7 +96,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             cq.select(cq.from(VigenciasTiposTrabajadores.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadores()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadores()" + e.getMessage());
             return null;
         }
     }
@@ -109,7 +111,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             List<VigenciasTiposTrabajadores> vigenciasTiposTrabajadores = query.getResultList();
             return vigenciasTiposTrabajadores;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresEmpleado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresEmpleado()" + e.getMessage());
             return null;
         }
     }
@@ -123,7 +125,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             VigenciasTiposTrabajadores vigenciasTiposTrabajadores = (VigenciasTiposTrabajadores) query.getSingleResult();
             return vigenciasTiposTrabajadores;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresSecuencia()" + e.getMessage());
             return null;
         }
     }
@@ -139,7 +141,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
         return query.getResultList();
             
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarEmpleados()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarEmpleados()" + e.getMessage());
             return null;
         }
     }
@@ -156,7 +158,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             VigenciasTiposTrabajadores obj = (VigenciasTiposTrabajadores) query.getSingleResult();
             return obj;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciaTipoTrabajadorRestriccionUN()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciaTipoTrabajadorRestriccionUN()" + e.getMessage());
             return null;
         }
     }

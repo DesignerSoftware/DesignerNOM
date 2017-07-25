@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocatoriasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEvalConvocatorias.class);
+
    @Override
    public void crear(EntityManager em, Evalconvocatorias evalconvocatoria) {
       em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          em.merge(evalconvocatoria);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalConvocatorias.crear: " + e);
+         log.error("Error PersistenciaEvalConvocatorias.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +49,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          em.merge(evalconvocatoria);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalConvocatorias.editar: " + e);
+         log.error("Error PersistenciaEvalConvocatorias.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -66,7 +69,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEvalConvocatorias.borrar: " + e);
+         log.error("Error PersistenciaEvalConvocatorias.borrar: " + e);
       }
    }
 
@@ -81,7 +84,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          List<Evalconvocatorias> evalconvocatorias = query.getResultList();
          return evalconvocatorias;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
+         log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
          return null;
       }
    }
@@ -95,7 +98,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          List<Evalconvocatorias> evalConvocatorias = query.getResultList();
          return evalConvocatorias;
       } catch (Exception e) {
-         System.out.println("Error Persistencia.PersistenciaEvalConvocatorias.consultarEvalConvocatorias(): " + e);
+         log.error("Error Persistencia.PersistenciaEvalConvocatorias.consultarEvalConvocatorias(): " + e);
          return null;
       }
    }

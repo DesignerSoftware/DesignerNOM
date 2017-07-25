@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarTiposPensionados implements AdministrarTiposPensionadosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposPensionados.class);
 
     @EJB
     PersistenciaTiposPensionadosInterface persistenciaTiposPensionados;
@@ -42,7 +45,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
     @Override
     public void modificarTiposPensionados(List<TiposPensionados> listaTiposPensionados) {
         for (int i = 0; i < listaTiposPensionados.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposPensionados.editar(em, listaTiposPensionados.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
     @Override
     public void borrarTiposPensionados(List<TiposPensionados> listaTiposPensionados) {
         for (int i = 0; i < listaTiposPensionados.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposPensionados.borrar(em, listaTiposPensionados.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
     @Override
     public void crearTiposPensionados(List<TiposPensionados> listaTiposPensionados) {
         for (int i = 0; i < listaTiposPensionados.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposPensionados.crear(em, listaTiposPensionados.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
         try {
             return contarRetiradosTipoPensionado = persistenciaTiposPensionados.contarPensionadosTipoPension(em, secTiposPensionados);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposPensionados contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarTiposPensionados contarEscalafones ERROR : " + e);
             return null;
         }
     }

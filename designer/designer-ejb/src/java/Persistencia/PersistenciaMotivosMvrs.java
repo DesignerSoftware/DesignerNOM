@@ -9,10 +9,9 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-//import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-//import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Clase Stateless.<br>
@@ -23,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosMvrs.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -39,7 +40,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosMvrs.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosMvrs.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +56,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosMvrs.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosMvrs.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +72,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.remove(em.merge(motivosMvrs));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosMvrs.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosMvrs.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +85,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.clear();
             return em.find(Motivosmvrs.class, secuenciaMM);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
             return null;
         }
     }
@@ -98,7 +99,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
         List<Motivosmvrs> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
             return null;
         }
     }

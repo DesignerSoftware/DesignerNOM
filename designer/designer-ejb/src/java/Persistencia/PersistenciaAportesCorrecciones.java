@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorreccionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaAportesCorrecciones.class);
+
     @Override
     public void crear(EntityManager em, AportesCorrecciones aportesCorrecciones) {
         em.clear();
@@ -31,7 +34,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             em.persist(aportesCorrecciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesCorrecciones.crear : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.crear : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +50,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             em.merge(aportesCorrecciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesCorrecciones.editar : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.editar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +66,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             em.remove(em.merge(aportesCorrecciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesCorrecciones.borrar : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.borrar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +82,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             List<AportesCorrecciones> aportesCorrecciones = query.getResultList();
             return aportesCorrecciones;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesCorrecciones.consultarAportesEntidades : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.consultarAportesEntidades : " + e.toString());
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             List<AportesCorrecciones> aportesCorrecciones = query.getResultList();
             return aportesCorrecciones;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesCorrecciones.consultarLovAportesEntidades : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.consultarLovAportesEntidades : " + e.toString());
             return null;
         }
     }
@@ -114,7 +117,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaAportesCorrecciones.borrarAportesEntidadesProcesoAutomatico: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.borrarAportesEntidadesProcesoAutomatico: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -137,7 +140,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -160,7 +163,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -183,7 +186,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaAportesCorrecciones.ejecutarIncrementarCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarIncrementarCorreccion: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -206,7 +209,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }

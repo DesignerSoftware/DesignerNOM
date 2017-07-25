@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
@@ -24,6 +25,8 @@ import javax.persistence.StoredProcedureQuery;
 @Stateless
 public class PersistenciaDetallesReformasLaborales implements PersistenciaDetallesReformasLaboralesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaDetallesReformasLaborales.class);
+
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
     */
@@ -38,7 +41,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          em.persist(detallesReformasLaborales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+         log.error("Error PersistenciaDetallesReformasLaborales.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +57,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          em.merge(detallesReformasLaborales);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+         log.error("Error PersistenciaDetallesReformasLaborales.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +77,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
+         log.error("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
       }
    }
 
@@ -97,7 +100,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          DetallesReformasLaborales detallesReformasLaborales = (DetallesReformasLaborales) query.getSingleResult();
          return detallesReformasLaborales;
       } catch (Exception e) {
-         System.out.println("Error buscarDetalleReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
+         log.error("Error buscarDetalleReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
          DetallesReformasLaborales detallesReformasLaborales = null;
          return detallesReformasLaborales;
       }
@@ -113,7 +116,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          List<DetallesReformasLaborales> detallesReformasLaborales = (List<DetallesReformasLaborales>) query.getResultList();
          return detallesReformasLaborales;
       } catch (Exception e) {
-         System.out.println("Error buscarDetalleReformasParaReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
+         log.error("Error buscarDetalleReformasParaReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
          List<DetallesReformasLaborales> detallesReformasLaborales = null;
          return detallesReformasLaborales;
       }
@@ -124,9 +127,9 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         System.out.println("nuevoNombre : " + nuevoNombre);
-         System.out.println("codigoNuevo : " + codigoNuevo);
-         System.out.println("codOrigen : " + codOrigen);
+         log.error("nuevoNombre : " + nuevoNombre);
+         log.error("codigoNuevo : " + codigoNuevo);
+         log.error("codOrigen : " + codOrigen);
          StoredProcedureQuery query = em.createStoredProcedureQuery("REFORMASLABORALES_PKG.CLONARREFORMALABORAL");
          query.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
          query.registerStoredProcedureParameter(2, short.class, ParameterMode.IN);
@@ -139,10 +142,10 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          query.execute();
          query.hasMoreResults();
          String strRetorno = (String) query.getOutputParameterValue(1);
-         System.out.println("PersistenciaDetallesReformasLaborales.clonarReformaLaboral() Ya clono strRetorno:_" + strRetorno + "_");
+         log.error("PersistenciaDetallesReformasLaborales.clonarReformaLaboral() Ya clono strRetorno:_" + strRetorno + "_");
          return strRetorno;
       } catch (Exception e) {
-         System.err.println("ERROR: " + this.getClass().getName() + ".clonarReformaLaboral()");
+         log.error("ERROR: " + this.getClass().getName() + ".clonarReformaLaboral()");
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

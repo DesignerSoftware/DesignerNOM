@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaClasesAusentismos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +39,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             em.merge(clasesAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaClasesAusentismos.crear: " + e);
+            log.error("Error PersistenciaClasesAusentismos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +55,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             em.merge(clasesAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaClasesAusentismos.editar: " + e);
+            log.error("Error PersistenciaClasesAusentismos.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +77,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaClasesAusentismos.borrar: " + e);
+                log.error("Error PersistenciaClasesAusentismos.borrar: " + e);
             }
         }
     }
@@ -88,7 +91,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             List<Clasesausentismos> todasClasesAusentismos = query.getResultList();
             return todasClasesAusentismos;
         } catch (Exception e) {
-            System.out.println("Error: (todasNovedades)" + e);
+            log.error("Error: (todasNovedades)" + e);
             return null;
         }
     }
@@ -101,10 +104,10 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             Query query = em.createNativeQuery("SELECT COUNT(*)FROM soausentismos WHERE clase = ?");
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaClasesAusentismos contadorSoAusentismosClaseAusentismo  " + retorno);
+            log.error("Contador PersistenciaClasesAusentismos contadorSoAusentismosClaseAusentismo  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaClasesAusentismos  contadorSoAusentismosClaseAusentismo. " + e);
+            log.error("Error PersistenciaClasesAusentismos  contadorSoAusentismosClaseAusentismo. " + e);
             return retorno;
         }
     }
@@ -116,10 +119,10 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             Query query = em.createNativeQuery("SELECT COUNT(*)FROM causasausentismos WHERE clase = ?");
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaClasesAusentismos contadorCausasAusentismosClaseAusentismo  " + retorno);
+            log.error("Contador PersistenciaClasesAusentismos contadorCausasAusentismosClaseAusentismo  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaClasesAusentismos  contadorCausasAusentismosClaseAusentismo. " + e);
+            log.error("Error PersistenciaClasesAusentismos  contadorCausasAusentismosClaseAusentismo. " + e);
             return retorno;
         }
     }

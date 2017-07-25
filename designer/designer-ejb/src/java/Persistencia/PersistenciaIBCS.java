@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaIBCS implements PersistenciaIBCSInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaIBCS.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,11 +39,11 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.merge(ibcs);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("No se puede hacer rollback porque no hay una transacción");
+         log.error("No se puede hacer rollback porque no hay una transacción");
       }
    }
 
@@ -53,11 +56,11 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.merge(ibcs);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("No se puede hacer rollback porque no hay una transacción");
+         log.error("No se puede hacer rollback porque no hay una transacción");
       }
    }
 
@@ -70,11 +73,11 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.remove(em.merge(ibcs));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("No se puede hacer rollback porque no hay una transacción");
+         log.error("No se puede hacer rollback porque no hay una transacción");
       }
    }
 
@@ -84,15 +87,15 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.clear();
          return em.find(Ibcs.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error en la persistenciaIBCS formas pagos ERROR : " + e);
+         log.error("Error en la persistenciaIBCS formas pagos ERROR : " + e);
          return null;
       }
    }
 
    @Override
    public List<Ibcs> buscarIbcsPorEmpleado(EntityManager em, BigInteger secEmpleado) {
-      System.out.println("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
-      System.out.println("empleado en buscar IBC por empleado : " + secEmpleado);
+      log.error("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
+      log.error("empleado en buscar IBC por empleado : " + secEmpleado);
       try {
          em.clear();
          String sql = "SELECT * FROM Ibcs ib WHERE ib.empleado = ? ORDER BY ib.fechainicial DESC";
@@ -101,7 +104,7 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          List<Ibcs> ibcs = query.getResultList();
          return ibcs;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaIBCS Por Empleados ERROR" + e);
+         log.error("Error en PersistenciaIBCS Por Empleados ERROR" + e);
          return null;
       }
    }

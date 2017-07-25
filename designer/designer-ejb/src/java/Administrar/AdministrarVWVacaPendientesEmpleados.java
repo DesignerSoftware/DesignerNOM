@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPendientesEmpleadosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVWVacaPendientesEmpleados.class);
 
     @EJB
     PersistenciaVWVacaPendientesEmpleadosInterface persistenciaVWVacaPendientesEmpleados;
@@ -55,7 +58,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
         try {
             persistenciaVWVacaPendientesEmpleados.crear(em, vaca);
         } catch (Exception e) {
-            System.out.println("Error en crearVacaPeniente Admi : " + e.toString());
+            log.warn("Error en crearVacaPeniente Admi : " + e.toString());
         }
     }
 
@@ -64,7 +67,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
         try {
             persistenciaVWVacaPendientesEmpleados.editar(em, vaca);
         } catch (Exception e) {
-            System.out.println("Error en editarVacaPendiente Admi : " + e.toString());
+            log.warn("Error en editarVacaPendiente Admi : " + e.toString());
         }
     }
 
@@ -73,7 +76,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
         try {
             persistenciaVWVacaPendientesEmpleados.borrar(em, vaca);
         } catch (Exception e) {
-            System.out.println("Error en borrarVacaPendiente Admi : " + e.toString());
+            log.warn("Error en borrarVacaPendiente Admi : " + e.toString());
         }
     }
 
@@ -83,7 +86,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoPendientes(em, empl.getSecuencia(),fechaingreso);
             return vacaciones;
         } catch (Exception e) {
-            System.out.println("Error en vacaPendientesMayorCero Admi : " + e.toString());
+            log.warn("Error en vacaPendientesMayorCero Admi : " + e.toString());
             return null;
         }
     }
@@ -94,7 +97,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoDisfrutadas(em, empl.getSecuencia(),fechaingreso);
             return vacaciones;
         } catch (Exception e) {
-            System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
+            log.warn("Error en vacaPendientesIgualCero Admi : " + e.toString());
             return null;
         }
     }
@@ -105,7 +108,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             empleado = persistenciaEmpleado.buscarEmpleado(em, secuencia);
             return empleado;
         } catch (Exception e) {
-            System.out.println("Error en obtener empleado Admi : " + e.toString());
+            log.warn("Error en obtener empleado Admi : " + e.toString());
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             unidades = persistenciaSolucionesNodos.diasProvisionados(em, empl.getSecuencia(),fechaContratacion);
             return unidades;
         } catch (Exception e) {
-            System.out.println("Error en diasProvisionadosEmpleado Admi : " + e.toString());
+            log.warn("Error en diasProvisionadosEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -127,7 +130,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             Date ultimaFecha = persistenciaVigenciasTiposContratos.fechaFinalContratacionVacaciones(em, secEmpleado);
             return ultimaFecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaFinalContratacionEmpleado Admi : " + e.toString());
+            log.warn("Error obtenerFechaFinalContratacionEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -138,7 +141,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoPendientesAnterioresContratos(em, empl.getSecuencia());
             return vacaciones;
         } catch (Exception e) {
-            System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
+            log.warn("Error en vacaPendientesIgualCero Admi : " + e.toString());
             return null;
         }
     }
@@ -149,7 +152,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             vacaciones = persistenciaVWVacaPendientesEmpleados.vacaEmpleadoDisfrutadasAnterioresContratos(em, empl.getSecuencia());
             return vacaciones;
         } catch (Exception e) {
-            System.out.println("Error en vacaPendientesIgualCero Admi : " + e.toString());
+            log.warn("Error en vacaPendientesIgualCero Admi : " + e.toString());
             return null;
         }
     }
@@ -160,7 +163,7 @@ public class AdministrarVWVacaPendientesEmpleados implements AdministrarVWVacaPe
             Date ultimaFecha = persistenciaVigenciasTiposContratos.fechaMaxContrato(em, secEmpleado);
             return ultimaFecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaFinalContratacionEmpleado Admi : " + e.toString());
+            log.warn("Error obtenerFechaFinalContratacionEmpleado Admi : " + e.toString());
             return null;
         }
     }

@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTiposDescansos.class);
+
     /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     @Override
@@ -34,7 +36,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.merge(tiposDescansos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDescansos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDescansos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +52,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.merge(tiposDescansos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDescansos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDescansos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +68,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.remove(em.merge(tiposDescansos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDescansos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDescansos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +84,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             List<TiposDescansos> listaTiposDescansos = query.getResultList();
             return listaTiposDescansos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDescansos PersistenciaTiposDescansos" + e.getMessage());
+            log.error("Error buscarTiposDescansos PersistenciaTiposDescansos" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             TiposDescansos tiposDescansos = (TiposDescansos) query.getSingleResult();
             return tiposDescansos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDescansosSecuencia PersistenciaTiposDescansos" + e.getMessage());
+            log.error("Error buscarTiposDescansosSecuencia PersistenciaTiposDescansos" + e.getMessage());
             TiposDescansos tiposDescansos = null;
             return tiposDescansos;
         }
@@ -111,10 +113,10 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso contador" + retorno);
+            log.error("PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso contador" + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso()" + e.getMessage());
+            log.error("Persistencia.PersistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso()" + e.getMessage());
             return retorno;
         }
     }

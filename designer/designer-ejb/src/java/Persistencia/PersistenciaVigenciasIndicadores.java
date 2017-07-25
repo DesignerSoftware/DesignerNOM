@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIndicadoresInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasIndicadores.class);
 
     @Override
     public void crear(EntityManager em, VigenciasIndicadores vigenciasIndicadores) {
@@ -25,7 +27,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             em.persist(vigenciasIndicadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasIndicadores.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasIndicadores.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             em.merge(vigenciasIndicadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasIndicadores.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasIndicadores.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             em.remove(em.merge(vigenciasIndicadores));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasIndicadores.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasIndicadores.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             List<VigenciasIndicadores> vigenciasIndicadores = query.getResultList();
             return vigenciasIndicadores;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasIndicadores PersistenciaVigenciasIndicadores : " + e.getMessage());
+            log.error("Error buscarVigenciasIndicadores PersistenciaVigenciasIndicadores : " + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             VigenciasIndicadores vigenciasIndicadores = (VigenciasIndicadores) query.getSingleResult();
             return vigenciasIndicadores;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaIndicadorSecuencia PersistenciaVigenciasIndicadores : " + e.getMessage());
+            log.error("Error buscarVigenciaIndicadorSecuencia PersistenciaVigenciasIndicadores : " + e.getMessage());
             return null;
         }
     }
@@ -109,7 +111,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasIndicadores.indicadoresPersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasIndicadores.indicadoresPersona" + e.getMessage());
             return null;
         }
     }
@@ -124,7 +126,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             List<VigenciasIndicadores> listaVigenciasIndicadores = queryFinal.getResultList();
             return listaVigenciasIndicadores;
         } catch (Exception e) {
-            System.out.println("Error indicadoresTotalesEmpleadoSecuencia : " + e.getMessage());
+            log.error("Error indicadoresTotalesEmpleadoSecuencia : " + e.getMessage());
             return null;
         }
     }
@@ -147,7 +149,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             }
             return indicador;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasIndicadores.primeraVigenciaIndicador()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasIndicadores.primeraVigenciaIndicador()" + e.getMessage());
             indicador = "";
             return indicador;
         }

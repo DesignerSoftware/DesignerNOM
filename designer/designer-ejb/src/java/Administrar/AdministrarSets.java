@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -21,7 +22,9 @@ import javax.persistence.EntityManager;
  */
 
 @Stateful
-public class AdministrarSets implements AdministrarSetsInterface{
+public class AdministrarSets implements AdministrarSetsInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSets.class);
     
     @EJB
     PersistenciaSetsInterface persistenciaSets;
@@ -50,7 +53,7 @@ public class AdministrarSets implements AdministrarSetsInterface{
         try {
             setsLista = persistenciaSets.buscarSetsEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Vigencias Contratos (VigenciasContratosEmpleado)");
+            log.warn("Error en Administrar Vigencias Contratos (VigenciasContratosEmpleado)");
             setsLista = null;
         }
         return setsLista;
@@ -60,7 +63,7 @@ public class AdministrarSets implements AdministrarSetsInterface{
     @Override
     public void modificarSets(List<Sets> listSetsModificadas) {
         for (int i = 0; i < listSetsModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             sets = listSetsModificadas.get(i);
             persistenciaSets.editar(em, sets);
         }

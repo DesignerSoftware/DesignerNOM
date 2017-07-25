@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlHvEntrevistas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlHvEntrevistas.class);
 
    @EJB
    AdministrarHvEntrevistasInterface administrarHvEntrevistas;
@@ -147,8 +150,8 @@ public class ControlHvEntrevistas implements Serializable {
          administrarHvEntrevistas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -165,7 +168,7 @@ public class ControlHvEntrevistas implements Serializable {
    }
 
    public void mostrarNuevo() {
-      System.out.println("nuevo Tipo Entrevista " + nuevoHvEntrevista.getTipo());
+      log.info("nuevo Tipo Entrevista " + nuevoHvEntrevista.getTipo());
    }
 
    public void mostrarInfo(HvEntrevistas entrevista, int celda) {
@@ -285,11 +288,11 @@ public class ControlHvEntrevistas implements Serializable {
          puntaje = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:puntaje");
          puntaje.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
          fecha.setFilterStyle("display: none; visibility: hidden;");
          nombre = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:nombre");
@@ -322,7 +325,7 @@ public class ControlHvEntrevistas implements Serializable {
    public void borrandoHvEntrevistas() {
       if (hvEntrevistaSeleccionada != null) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoEvalCompetencias");
+            log.info("Entro a borrandoEvalCompetencias");
             if (!modificarHvEntrevistas.isEmpty() && modificarHvEntrevistas.contains(hvEntrevistaSeleccionada)) {
                int modIndex = modificarHvEntrevistas.indexOf(hvEntrevistaSeleccionada);
                modificarHvEntrevistas.remove(modIndex);
@@ -391,7 +394,7 @@ public class ControlHvEntrevistas implements Serializable {
             administrarHvEntrevistas.modificarHvEntrevistas(modificarHvEntrevistas);
             modificarHvEntrevistas.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listHvEntrevistas = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -415,7 +418,7 @@ public class ControlHvEntrevistas implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
             RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
@@ -450,13 +453,13 @@ public class ControlHvEntrevistas implements Serializable {
       if (nuevoHvEntrevista.getFecha() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
       if (nuevoHvEntrevista.getNombre() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
@@ -474,7 +477,7 @@ public class ControlHvEntrevistas implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:nombre");
@@ -551,7 +554,7 @@ public class ControlHvEntrevistas implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR HVENTREVISTAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR HVENTREVISTAS");
       int contador = 0;
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
@@ -561,7 +564,7 @@ public class ControlHvEntrevistas implements Serializable {
       if (duplicarHvEntrevista.getFecha() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
@@ -571,14 +574,14 @@ public class ControlHvEntrevistas implements Serializable {
       } else if (duplicarHvEntrevista.getNombre().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
             fecha.setFilterStyle("display: none; visibility: hidden;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:nombre");
@@ -593,9 +596,9 @@ public class ControlHvEntrevistas implements Serializable {
             filtrarHvEntrevistas = null;
             tipoLista = 0;
          }
-         System.out.println("Datos Duplicando: " + duplicarHvEntrevista.getSecuencia() + "  " + duplicarHvEntrevista.getFecha());
+         log.info("Datos Duplicando: " + duplicarHvEntrevista.getSecuencia() + "  " + duplicarHvEntrevista.getFecha());
          if (crearHvEntrevistas.contains(duplicarHvEntrevista)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listHvEntrevistas.add(duplicarHvEntrevista);
          crearHvEntrevistas.add(duplicarHvEntrevista);
@@ -639,11 +642,11 @@ public class ControlHvEntrevistas implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (hvEntrevistaSeleccionada != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(hvEntrevistaSeleccionada.getSecuencia(), "HVENTREVISTAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -669,13 +672,13 @@ public class ControlHvEntrevistas implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlHvEntrevistas.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlHvEntrevistas.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlHvEntrevistas eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlHvEntrevistas eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 

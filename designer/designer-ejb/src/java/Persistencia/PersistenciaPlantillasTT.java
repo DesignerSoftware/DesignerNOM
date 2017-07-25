@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -25,7 +26,9 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterface{
+public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPlantillasTT.class);
 
     @Override
     public List<ReformasLaborales> consultarReformasLaboralesValidas(EntityManager em, BigInteger secTipoT) {
@@ -37,7 +40,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<ReformasLaborales> listaReformasLaborales = query.getResultList();
             return listaReformasLaborales;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPlantillasTT.consultarReformasLaboralesValidas() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarReformasLaboralesValidas() : " + e.toString());
             return null;
         }
     }
@@ -52,7 +55,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<TiposSueldos> listaTiposSueldos = query.getResultList();
             return listaTiposSueldos;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPlantillasTT.consultarTiposSueldosValidos() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarTiposSueldosValidos() : " + e.toString());
             return null;
         }
     }
@@ -67,7 +70,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<TiposContratos> listaTiposContratos = query.getResultList();
             return listaTiposContratos;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPlantillasTT.consultarTiposContratosValidos() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarTiposContratosValidos() : " + e.toString());
             return null;
         }
     }
@@ -82,7 +85,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<NormasLaborales> listaNormasLaborales = query.getResultList();
             return listaNormasLaborales;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPlantillasTT.consultarNormasLaboralesValidas() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarNormasLaboralesValidas() : " + e.toString());
             return null;
         }
     }
@@ -97,7 +100,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<Contratos> listaContratos = query.getResultList();
             return listaContratos;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPlantillasTT.consultarContratosValidos() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarContratosValidos() : " + e.toString());
             return null;
         }
     }

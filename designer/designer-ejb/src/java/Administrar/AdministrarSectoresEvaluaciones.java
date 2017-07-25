@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvaluacionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSectoresEvaluaciones.class);
 
     @EJB
     PersistenciaSectoresEvaluacionesInterface persistenciaSectoresEvaluaciones;
@@ -42,7 +45,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
     @Override
     public void modificarSectoresEvaluaciones(List<SectoresEvaluaciones> listaSectoresEvaluaciones) {
         for (int i = 0; i < listaSectoresEvaluaciones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaSectoresEvaluaciones.editar(em, listaSectoresEvaluaciones.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
     @Override
     public void borrarSectoresEvaluaciones(List<SectoresEvaluaciones> listaSectoresEvaluaciones) {
         for (int i = 0; i < listaSectoresEvaluaciones.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSectoresEvaluaciones.borrar(em, listaSectoresEvaluaciones.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
     @Override
     public void crearSectoresEvaluaciones(List<SectoresEvaluaciones> listaSectoresEvaluaciones) {
         for (int i = 0; i < listaSectoresEvaluaciones.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaSectoresEvaluaciones.crear(em, listaSectoresEvaluaciones.get(i));
         }
     }

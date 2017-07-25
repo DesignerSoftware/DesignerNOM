@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
 @Stateless
 @Local
 public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFormulaProceso.class);
 
     @EJB
     PersistenciaFormulasProcesosInterface persistenciaFormulasProcesos;
@@ -55,7 +58,7 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
             List<FormulasProcesos> lista = persistenciaFormulasProcesos.formulasProcesosParaFormulaSecuencia(em,secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listFormulasProcesosParaFormula Admi : " + e.toString());
+            log.warn("Error listFormulasProcesosParaFormula Admi : " + e.toString());
             return null;
         }
     }
@@ -67,7 +70,7 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
                 persistenciaFormulasProcesos.crear(em,listFN.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearFormulasProcesos Admi : " + e.toString());
+            log.warn("Error crearFormulasProcesos Admi : " + e.toString());
         }
     }
 
@@ -78,7 +81,7 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
                 persistenciaFormulasProcesos.editar(em,listFN.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarFormulasProcesos Admi : " + e.toString());
+            log.warn("Error editarFormulasProcesos Admi : " + e.toString());
         }
     }
 
@@ -89,7 +92,7 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
                 persistenciaFormulasProcesos.borrar(em,listFN.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarFormulasProcesos Admi : " + e.toString());
+            log.warn("Error borrarFormulasProcesos Admi : " + e.toString());
         }
     }
 
@@ -98,7 +101,7 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
         try {
             return persistenciaProcesos.buscarProcesos(em);
         } catch (Exception e) {
-            System.out.println("Error listProcesos Admi : " + e.toString());
+            log.warn("Error listProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -108,7 +111,7 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
             Formulas form = persistenciaFormulas.buscarFormula(em,secuencia);
             return form;
         } catch (Exception e) {
-            System.out.println("Error formulaActual Admi : " + e.toString());
+            log.warn("Error formulaActual Admi : " + e.toString());
             return null;
         }
     }

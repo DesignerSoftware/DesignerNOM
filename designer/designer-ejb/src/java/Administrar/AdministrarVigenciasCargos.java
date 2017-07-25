@@ -24,6 +24,7 @@ import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -31,6 +32,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasCargos.class);
 
     @EJB
     PersistenciaVigenciasCargosInterface persistenciaVigenciasCargos;
@@ -106,16 +109,16 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     @Override
     public void editarVigenciaCargo(VigenciasCargos vigencia) {
         try {
-            System.out.println("administrarEmplVig editarVig: editar Vigencia = " + vigencia.getSecuencia());
+            log.warn("administrarEmplVig editarVig: editar Vigencia = " + vigencia.getSecuencia());
             persistenciaVigenciasCargos.editar(em, vigencia);
         } catch (Exception ex) {
-            System.out.println("administrarEmplVig editarVig: FALLO EN EL EDITAR");
+            log.warn("administrarEmplVig editarVig: FALLO EN EL EDITAR");
         }
     }
 
     public void modificarVC(List<VigenciasCargos> listVCModificadas) {
         for (int i = 0; i < listVCModificadas.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listVCModificadas.get(i).getEmpleadojefe() != null && listVCModificadas.get(i).getEmpleadojefe().getSecuencia() == null) {
                 listVCModificadas.get(i).setEmpleadojefe(null);
                 vc = listVCModificadas.get(i);
@@ -132,7 +135,7 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
         try {
             persistenciaVigenciasCargos.borrar(em, vigenciasCargos);
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            log.warn("Error" + e);
         }
 
     }
@@ -174,7 +177,7 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
             List<ClasesRiesgos> listaClasesRiesgos = persistenciaClasesRiesgos.consultarListaClasesRiesgos(em);
             return listaClasesRiesgos;
         } catch (Exception e) {
-            System.out.println("error en AdministrarVigenciasCargos.lovClasesRiesgos : " + e.toString());
+            log.warn("error en AdministrarVigenciasCargos.lovClasesRiesgos : " + e.toString());
             return null;
         }
     }
@@ -182,11 +185,11 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     @Override
     public List<Papeles> lovPapeles(BigInteger secEmpresa) {
         try {
-            System.out.println("secuencia de la empresa en lovPapeles : " + secEmpresa);
+            log.warn("secuencia de la empresa en lovPapeles : " + secEmpresa);
             List<Papeles> lovPapeles  = persistenciaPapeles.consultarPapelesEmpresa(em, secEmpresa);
             return lovPapeles;
         } catch (Exception e) {
-            System.out.println("error en AdministrarVigenciasCargos.lovPapeles: " + e.toString());
+            log.warn("error en AdministrarVigenciasCargos.lovPapeles: " + e.toString());
             return null;
         }
     }
@@ -197,7 +200,7 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
         BigDecimal sec = persistenciaEmpresas.consultarEmpresaPorEmpleado(em, secEmpl);
         return sec;
        }catch(Exception e){
-           System.out.println("error en AdministrarVigenciasCargos.consultarEmpresaPorEmpl : " + e.toString());
+           log.warn("error en AdministrarVigenciasCargos.consultarEmpresaPorEmpl : " + e.toString());
            return null;
        }
     }

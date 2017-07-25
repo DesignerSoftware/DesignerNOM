@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposChequeos.class);
 
     @EJB
     PersistenciaTiposChequeosInterface persistenciaTiposChequeos;
@@ -42,21 +45,21 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
     @Override
     public void modificarTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
         for (int i = 0; i < listaTiposChequeos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposChequeos.editar(em, listaTiposChequeos.get(i));
         }
     }
     @Override
     public void borrarTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
         for (int i = 0; i < listaTiposChequeos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposChequeos.borrar(em, listaTiposChequeos.get(i));
         }
     }
     @Override
     public void crearTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
         for (int i = 0; i < listaTiposChequeos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposChequeos.crear(em, listaTiposChequeos.get(i));
         }
     }
@@ -76,10 +79,10 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
     public BigInteger contarChequeosMedicosTipoChequeo(BigInteger secuenciaJuzgados) {
         BigInteger verificarChequeosMedicos = null;
         try {
-            System.out.println("Administrar SecuenciaBorrar " + secuenciaJuzgados);
+            log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
             verificarChequeosMedicos = persistenciaTiposChequeos.contadorChequeosMedicos(em, secuenciaJuzgados);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARCHEQUEOSMEDICOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARCHEQUEOSMEDICOS ERROR :" + e);
         } finally {
             return verificarChequeosMedicos;
         }
@@ -88,10 +91,10 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
     public BigInteger contarTiposExamenesCargosTipoChequeo(BigInteger secuenciaJuzgados) {
         BigInteger verificarTiposExamenesCargos = null;
         try {
-            System.out.println("Administrar SecuenciaBorrar " + secuenciaJuzgados);
+            log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
             verificarTiposExamenesCargos = persistenciaTiposChequeos.contadorTiposExamenesCargos(em, secuenciaJuzgados);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARTIPOSEXAMENESCARGOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARTIPOSEXAMENESCARGOS ERROR :" + e);
         } finally {
             return verificarTiposExamenesCargos;
         }

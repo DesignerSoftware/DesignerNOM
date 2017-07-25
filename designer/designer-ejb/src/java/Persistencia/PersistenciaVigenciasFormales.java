@@ -9,9 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-//import javax.persistence.PersistenceContext;
-//import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -24,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVigenciasFormales implements PersistenciaVigenciasFormalesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasFormales.class);
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      *
@@ -35,7 +36,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
      */
     @Override
     public void crear(EntityManager em, VigenciasFormales vigenciasFormales) {
-        System.out.println(this.getClass().getName() + ".crear()");
+        log.error(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -43,7 +44,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             em.merge(vigenciasFormales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasFormales.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasFormales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +53,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
 
     @Override
     public void editar(EntityManager em, VigenciasFormales vigenciasFormales) {
-        System.out.println(this.getClass().getName() + ".editar()");
+        log.error(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -60,7 +61,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             em.merge(vigenciasFormales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasFormales.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasFormales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +70,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
 
     @Override
     public void borrar(EntityManager em, VigenciasFormales vigenciasFormales) {
-        System.out.println(this.getClass().getName() + ".borrar()");
+        log.error(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -77,7 +78,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             em.remove(em.merge(vigenciasFormales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasFormales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasFormales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,20 +87,20 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
 
     @Override
     public List<VigenciasFormales> buscarVigenciasFormales(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".buscarVigenciasFormales()");
+        log.error(this.getClass().getName() + ".buscarVigenciasFormales()");
         try {
             em.clear();
             javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(VigenciasFormales.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("error en buscarVigenciasFormales");
+            log.error("error en buscarVigenciasFormales");
             return null;
         }
     }
 
     private Long contarEducacionPersona(EntityManager em, BigInteger secuencia) {
-        System.out.println(this.getClass().getName() + ".contarEducacionPersona()");
+        log.error(this.getClass().getName() + ".contarEducacionPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -109,7 +110,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasFormales.contarEducacionPersona()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasFormales.contarEducacionPersona()" + e.getMessage());
             e.printStackTrace();
             return resultado;
         }
@@ -125,7 +126,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
                 List<VigenciasFormales> listaVigenciasFormales = queryFinal.getResultList();
                 return listaVigenciasFormales;
             } catch (Exception e) {
-                System.out.println("Error PersistenciaVigenciasFormales.educacionPersona" + e.getMessage());
+                log.error("Error PersistenciaVigenciasFormales.educacionPersona" + e.getMessage());
                 return null;
             }
         } else {
@@ -135,7 +136,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
 
     @Override
     public List<VigenciasFormales> vigenciasFormalesPersona(EntityManager em, BigInteger secuencia) {
-        System.out.println(this.getClass().getName() + ".vigenciasFormalesPersona()");
+        log.error(this.getClass().getName() + ".vigenciasFormalesPersona()");
         try {
             em.clear();
             Query query = em.createQuery("SELECT vF FROM VigenciasFormales vF WHERE vF.persona.secuencia = :secuenciaPersona ORDER BY vF.fechavigencia DESC");
@@ -144,7 +145,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             List<VigenciasFormales> listaVigenciasFormales = query.getResultList();
             return listaVigenciasFormales;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
+            log.error("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
             return null;
         }
     }
@@ -169,7 +170,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             return educacion;
         } catch (Exception e) {
             educacion = "";
-            System.out.println("Persistencia.PersistenciaVigenciasFormales.primeraVigenciaFormal()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasFormales.primeraVigenciaFormal()" + e.getMessage());
             return educacion;
         }
     }

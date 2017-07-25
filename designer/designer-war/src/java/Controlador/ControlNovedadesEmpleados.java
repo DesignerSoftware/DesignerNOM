@@ -38,6 +38,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -50,6 +51,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadesEmpleados implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadesEmpleados.class);
 
    @EJB
    AdministrarNovedadesEmpleadosInterface administrarNovedadesEmpleados;
@@ -253,8 +256,8 @@ public class ControlNovedadesEmpleados implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          }
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -323,7 +326,7 @@ public class ControlNovedadesEmpleados implements Serializable {
       listaNovedades = null;
       guardado = true;
       getListaNovedades();
-      System.out.println("listaNovedades Valor" + listaNovedades.get(0).getValortotal());
+      log.info("listaNovedades Valor" + listaNovedades.get(0).getValortotal());
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
@@ -382,10 +385,10 @@ public class ControlNovedadesEmpleados implements Serializable {
    public void guardarCambiosNovedades() {
 //        Empleados emp = new Empleados();
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Novedades");
+         log.info("Realizando Operaciones Novedades");
 
          getResultado();
-         System.out.println("Resultado: " + resultado);
+         log.info("Resultado: " + resultado);
          if (resultado > 0) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:solucionesFormulas");
@@ -395,7 +398,7 @@ public class ControlNovedadesEmpleados implements Serializable {
 
          if (!listaNovedadesBorrar.isEmpty()) {
             for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaNovedadesBorrar.size());
+               log.info("Borrando..." + listaNovedadesBorrar.size());
 
                if (listaNovedadesBorrar.get(i).getPeriodicidad().getSecuencia() == null) {
                   listaNovedadesBorrar.get(i).setPeriodicidad(null);
@@ -414,13 +417,13 @@ public class ControlNovedadesEmpleados implements Serializable {
                }
                administrarNovedadesEmpleados.borrarNovedades(listaNovedadesBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaNovedadesBorrar.clear();
          }
 
          if (!listaNovedadesCrear.isEmpty()) {
             for (int i = 0; i < listaNovedadesCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
 
                if (listaNovedadesCrear.get(i).getTercero().getSecuencia() == null) {
                   listaNovedadesCrear.get(i).setTercero(null);
@@ -441,10 +444,10 @@ public class ControlNovedadesEmpleados implements Serializable {
                if (listaNovedadesCrear.get(i).getValortotal() == null) {
                   listaNovedadesCrear.get(i).setValortotal(new BigDecimal(0));
                }
-               System.out.println(listaNovedadesCrear.get(i).getTipo());
+               log.info(listaNovedadesCrear.get(i).getTipo());
                administrarNovedadesEmpleados.crearNovedades(listaNovedadesCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaNovedadesCrear.clear();
          }
          if (!listaNovedadesModificar.isEmpty()) {
@@ -452,7 +455,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             listaNovedadesModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaNovedades = null;
          RequestContext context = RequestContext.getCurrentInstance();
          activoBtnAcumulado = true;
@@ -475,13 +478,13 @@ public class ControlNovedadesEmpleados implements Serializable {
 //        Empleados emp2 = new Empleados();
       RequestContext context = RequestContext.getCurrentInstance();
 
-      System.out.println("nuevaNovedad Fechainicial : " + nuevaNovedad.getFechainicial());
-      System.out.println("Concepto : " + nuevaNovedad.getConcepto().getSecuencia());
-      System.out.println("Concepto codigo : " + nuevaNovedad.getConcepto().getCodigoSTR());
-      System.out.println("Formula : " + nuevaNovedad.getFormula().getSecuencia());
-      System.out.println("Formula NL :" + nuevaNovedad.getFormula().getNombrelargo() + "...");
-      System.out.println("Periodicidad : " + nuevaNovedad.getPeriodicidad().getNombre());
-      System.out.println("getTipo() : " + nuevaNovedad.getTipo());
+      log.info("nuevaNovedad Fechainicial : " + nuevaNovedad.getFechainicial());
+      log.info("Concepto : " + nuevaNovedad.getConcepto().getSecuencia());
+      log.info("Concepto codigo : " + nuevaNovedad.getConcepto().getCodigoSTR());
+      log.info("Formula : " + nuevaNovedad.getFormula().getSecuencia());
+      log.info("Formula NL :" + nuevaNovedad.getFormula().getNombrelargo() + "...");
+      log.info("Periodicidad : " + nuevaNovedad.getPeriodicidad().getNombre());
+      log.info("getTipo() : " + nuevaNovedad.getTipo());
 
       if (nuevaNovedad.getFechainicial() == null || nuevaNovedad.getConcepto().getCodigoSTR() == null || nuevaNovedad.getConcepto().getCodigoSTR().equals("0")
               || nuevaNovedad.getFormula().getNombrelargo() == null || nuevaNovedad.getFormula().getNombrelargo().equals("") || nuevaNovedad.getTipo() == null
@@ -506,12 +509,12 @@ public class ControlNovedadesEmpleados implements Serializable {
                }
             }
          } else {
-            System.err.println("La fecha de ingreso retorno null");
+            log.error("La fecha de ingreso retorno null");
             pasa2++;
          }
 
          if (pasa2 == 0) {
-            System.out.println("Paso todas las validaciones");
+            log.info("Paso todas las validaciones");
             cerrarFiltrado();
             //AGREGAR REGISTRO A LA LISTA NOVEDADES .
             k++;
@@ -538,13 +541,13 @@ public class ControlNovedadesEmpleados implements Serializable {
             localMachine = java.net.InetAddress.getByName(equipo);
 
             getAlias();
-            System.out.println("Alias: " + alias);
+            log.info("Alias: " + alias);
             getUsuarioBD();
-            System.out.println("UsuarioBD: " + usuarioBD);
+            log.info("UsuarioBD: " + usuarioBD);
             nuevaNovedad.setTerminal(localMachine.getHostName());
             nuevaNovedad.setUsuarioreporta(usuarioBD);
             nuevaNovedad.setEmpleado(emp); //Envia empleado
-            System.out.println("Empleado enviado: " + emp.getPersona().getNombreCompleto());
+            log.info("Empleado enviado: " + emp.getPersona().getNombreCompleto());
             listaNovedadesCrear.add(nuevaNovedad);
             listaNovedades.add(nuevaNovedad);
             contarRegistros();
@@ -563,7 +566,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             nuevaNovedad.setTerminal(" ");
             nuevaNovedad.setFechareporte(new Date());
 
-            System.out.println("nuevaNovedad : " + nuevaNovedad.getFechareporte());
+            log.info("nuevaNovedad : " + nuevaNovedad.getFechareporte());
             activoBtnAcumulado = true;
             RequestContext.getCurrentInstance().update("form:ACUMULADOS");
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
@@ -577,8 +580,8 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public void cambioFecha(Date fecha) {
-      System.out.println("feche : " + fecha);
-      System.out.println("controlNovedadesEmpleados.getNuevaNovedad().getFechainicial() : " + nuevaNovedad.getFechainicial());
+      log.info("feche : " + fecha);
+      log.info("controlNovedadesEmpleados.getNuevaNovedad().getFechainicial() : " + nuevaNovedad.getFechainicial());
    }
 
    public void confirmarDuplicar() {
@@ -620,9 +623,9 @@ public class ControlNovedadesEmpleados implements Serializable {
             String equipo = null;
             java.net.InetAddress localMachine = null;
             getAlias();
-            System.out.println("Alias: " + alias);
+            log.info("Alias: " + alias);
             getUsuarioBD();
-            System.out.println("UsuarioBD: " + usuarioBD);
+            log.info("UsuarioBD: " + usuarioBD);
             duplicarNovedad.setTerminal(localMachine.getHostName());
             duplicarNovedad = new Novedades();
             activoBtnAcumulado = true;
@@ -671,8 +674,8 @@ public class ControlNovedadesEmpleados implements Serializable {
          RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
          RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
       }
-      System.out.println("cual celda :" + cualLista);
-      System.out.println("tipo Actualización :" + tipoActualizacion);
+      log.info("cual celda :" + cualLista);
+      log.info("tipo Actualización :" + tipoActualizacion);
    }
 
    public void asignarIndex(Novedades novedad, int cualLista, int tipoAct) {
@@ -1001,7 +1004,7 @@ public class ControlNovedadesEmpleados implements Serializable {
 
          activoBtnAcumulado = true;
          RequestContext.getCurrentInstance().update("form:ACUMULADOS");
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptosCodigos");
             RequestContext.getCurrentInstance().execute("PF('editarConceptosCodigos').show()");
@@ -1067,8 +1070,8 @@ public class ControlNovedadesEmpleados implements Serializable {
          } else if (tipoNuevo == 2) {
             CodigoConcepto = duplicarNovedad.getConcepto().getCodigoSTR();
          }
-         System.out.println("tipoNuevo: " + tipoNuevo);
-         System.out.println("campo:" + Campo);
+         log.info("tipoNuevo: " + tipoNuevo);
+         log.info("campo:" + Campo);
       } else if (Campo.equals("CODIGO")) {
          if (tipoNuevo == 1) {
             CodigoPeriodicidad = nuevaNovedad.getPeriodicidad().getCodigoStr();
@@ -1257,7 +1260,7 @@ public class ControlNovedadesEmpleados implements Serializable {
 //            pe.setTipo(empleadoSeleccionadoLov.getTipo());
 //            listaEmpleadosNovedad.add(pe);
 //        }
-      System.out.println("empleadoSeleccionadoLov : " + empleadoSeleccionadoLov + "  " + empleadoSeleccionadoLov.getNombre());
+      log.info("empleadoSeleccionadoLov : " + empleadoSeleccionadoLov + "  " + empleadoSeleccionadoLov.getNombre());
       listaEmpleadosNovedad.clear();
       listaEmpleadosNovedad.add(empleadoSeleccionadoLov);
       empleadoSeleccionado = listaEmpleadosNovedad.get(0);
@@ -1286,7 +1289,7 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public void actualizarFormulas() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("seleccionFormulas: " + formulaLovSeleccioiada);
+      log.info("seleccionFormulas: " + formulaLovSeleccioiada);
       if (tipoActualizacion == 0) {
          novedadSeleccionada.setFormula(formulaLovSeleccioiada);
          if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
@@ -1305,7 +1308,7 @@ public class ControlNovedadesEmpleados implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACUMULADOS");
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       } else if (tipoActualizacion == 1) {
-         System.out.println("seleccionFormulas: " + formulaLovSeleccioiada);
+         log.info("seleccionFormulas: " + formulaLovSeleccioiada);
          nuevaNovedad.setFormula(formulaLovSeleccioiada);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
       } else if (tipoActualizacion == 2) {
@@ -1469,7 +1472,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public void mostrarTodos() {
-      System.out.println("controlNovedadesEmpleados.mostrarTodos...");
+      log.info("controlNovedadesEmpleados.mostrarTodos...");
 //      if (cargarTodos) {
       listaEmpleadosNovedad = null;
       cargarTodosEmpleados();
@@ -1602,7 +1605,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public void todasNovedades() {
-      System.out.println("Ingrese a todasNovedades()");
+      log.info("Ingrese a todasNovedades()");
       listaNovedades = administrarNovedadesEmpleados.todasNovedades(empleadoSeleccionado.getId());
       activoBtnAcumulado = true;
       contarRegistros();
@@ -1612,7 +1615,7 @@ public class ControlNovedadesEmpleados implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       RequestContext.getCurrentInstance().update("form:TODAS");
       RequestContext.getCurrentInstance().update("form:ACTUALES");
-      System.out.println("Sali de todasNovedades() listaNovedades : " + listaNovedades);
+      log.info("Sali de todasNovedades() listaNovedades : " + listaNovedades);
    }
 
    public void actualesNovedades() {
@@ -1694,11 +1697,11 @@ public class ControlNovedadesEmpleados implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       activoBtnAcumulado = true;
       RequestContext.getCurrentInstance().update("form:ACUMULADOS");
-      System.out.println("lol");
+      log.info("lol");
       if (novedadSeleccionada != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int result = administrarRastros.obtenerTabla(novedadSeleccionada.getSecuencia(), "NOVEDADES");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {
@@ -2032,7 +2035,7 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public String getAlias() {
       alias = administrarNovedadesEmpleados.alias();
-      System.out.println("Alias: " + alias);
+      log.info("Alias: " + alias);
       return alias;
    }
 

@@ -5,6 +5,7 @@
  */
 package Administrar;
 
+import InterfaceAdministrar.AdministrarUsuariosEstructurasInterface;
 import Entidades.Empresas;
 import Entidades.Estructuras;
 import Entidades.Usuarios;
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,6 +31,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstructurasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUsuariosEstructuras.class);
 
     @EJB
     PersistenciaUsuariosInterface persistenciaUsuarios;

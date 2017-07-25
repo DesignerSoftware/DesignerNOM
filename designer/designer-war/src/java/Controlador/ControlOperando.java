@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlOperando implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlOperando.class);
 
    @EJB
    AdministrarOperandosInterface administrarOperandos;
@@ -126,8 +129,8 @@ public class ControlOperando implements Serializable {
          administrarOperandos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -220,7 +223,7 @@ public class ControlOperando implements Serializable {
 
    public void irDetalle(Operandos operando) {
       operandoSeleccionado = operando;
-      System.out.println("ControlOperando.irDetalle() operandoSeleccionado.getTipo() : " + operandoSeleccionado.getTipo());
+      log.info("ControlOperando.irDetalle() operandoSeleccionado.getTipo() : " + operandoSeleccionado.getTipo());
       if (operandoSeleccionado.getTipo().equals("FORMULA")) {
          navegar("FORMULA");
       } else if (operandoSeleccionado.getTipo().equals("BLOQUE PL/SQL")) {
@@ -514,8 +517,8 @@ public class ControlOperando implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
       altoTabla = "242";
       altoTablaReg = "10";
-      System.out.println("Desactivar");
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("Desactivar");
+      log.info("TipoLista= " + tipoLista);
       operandosNombres = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosNombres");
       operandosNombres.setFilterStyle("display: none; visibility: hidden;");
       operandosTipos = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosTipos");
@@ -724,20 +727,20 @@ public class ControlOperando implements Serializable {
       if (guardado == false) {
          if (!listaOperandosBorrar.isEmpty()) {
             for (int i = 0; i < listaOperandosBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaOperandosBorrar.size());
+               log.info("Borrando..." + listaOperandosBorrar.size());
 
                administrarOperandos.borrarOperando(listaOperandosBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaOperandosBorrar.clear();
          }
          if (!listaOperandosCrear.isEmpty()) {
             for (int i = 0; i < listaOperandosCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
 
                administrarOperandos.crearOperando(listaOperandosCrear.get(i));
             }
-            System.out.println("LimpiaLista");
+            log.info("LimpiaLista");
             listaOperandosCrear.clear();
          }
          if (!listaOperandosModificar.isEmpty()) {
@@ -779,7 +782,7 @@ public class ControlOperando implements Serializable {
    public void verificarRastro() {
       if (operandoSeleccionado != null) {
          int result = administrarRastros.obtenerTabla(operandoSeleccionado.getSecuencia(), "OPERANDOS");
-         System.out.println("resultado: " + result);
+         log.info("resultado: " + result);
          if (result == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (result == 2) {

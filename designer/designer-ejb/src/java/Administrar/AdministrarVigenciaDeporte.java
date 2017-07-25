@@ -17,13 +17,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInterface{
+public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciaDeporte.class);
 
     @EJB
     PersistenciaVigenciasDeportesInterface persistenciaVigenciasDeportes;
@@ -52,7 +55,7 @@ public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInt
             List<VigenciasDeportes> retorno = persistenciaVigenciasDeportes.deportesTotalesSecuenciaPersona(em, secuenciaP);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasDeportesPersona Admi : "+e.toString());
+            log.warn("Error listVigenciasDeportesPersona Admi : "+e.toString());
             return null;
         }
     }
@@ -67,7 +70,7 @@ public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInt
                 persistenciaVigenciasDeportes.crear(em, listaVD.get(i));
             }
         }catch(Exception e){
-            System.out.println("Error crearVigenciasDeportes Admi : "+e.toString());
+            log.warn("Error crearVigenciasDeportes Admi : "+e.toString());
         }
     }
     
@@ -81,7 +84,7 @@ public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInt
                 persistenciaVigenciasDeportes.editar(em, listaVD.get(i));
             }
         }catch(Exception e){
-            System.out.println("Error editarVigenciasDeportes Admi : "+e.toString());
+            log.warn("Error editarVigenciasDeportes Admi : "+e.toString());
         }
     }
     
@@ -95,7 +98,7 @@ public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInt
                 persistenciaVigenciasDeportes.borrar(em, listaVD.get(i));
             }
         }catch(Exception e){
-            System.out.println("Error borrarVigenciasDeportes Admi : "+e.toString());
+            log.warn("Error borrarVigenciasDeportes Admi : "+e.toString());
         }
     }
     
@@ -105,7 +108,7 @@ public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInt
         List<Deportes> retorno = persistenciaDeportes.buscarDeportes(em);
         return retorno;
         }catch(Exception  e){
-            System.out.println("Error listDeportes Admi : "+e.toString());
+            log.warn("Error listDeportes Admi : "+e.toString());
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInt
         Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
         return retorno;
         }catch(Exception  e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+            log.warn("Error empleadoActual Admi : "+e.toString());
             return null;
         }
     }

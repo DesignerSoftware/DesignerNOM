@@ -18,14 +18,16 @@ import InterfacePersistencia.PersistenciaNovedadesSistemaInterface;
 import InterfacePersistencia.PersistenciaVacacionesInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
-public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaInterface{
+public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesSistema.class);
     
     @EJB
     PersistenciaNovedadesSistemaInterface persistenciaNovedades;
@@ -58,7 +60,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
         try {
             return persistenciaNovedades.novedadesEmpleado(em, secuenciaEmpleado);
         } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
+            log.error("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
             return null;
         }
     }

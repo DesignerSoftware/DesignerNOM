@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesAfiliacionesPensionInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -19,6 +19,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVWActualesAfiliacionesPension implements PersistenciaVWActualesAfiliacionesPensionInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesAfiliacionesPension.class);
+
     public VWActualesAfiliacionesPension buscarAfiliacionPension(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
@@ -28,7 +30,7 @@ public class PersistenciaVWActualesAfiliacionesPension implements PersistenciaVW
             VWActualesAfiliacionesPension vwActualesAfiliacionesPension = (VWActualesAfiliacionesPension) query.getSingleResult();
             return vwActualesAfiliacionesPension;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesAfiliacionesPension.buscarAfiliacionPension()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesAfiliacionesPension.buscarAfiliacionPension()" + e.getMessage());
             return null;
         }
     }

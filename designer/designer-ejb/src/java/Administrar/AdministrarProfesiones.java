@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarProfesiones implements AdministrarProfesionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarProfesiones.class);
 
     @EJB
     PersistenciaProfesionesInterface persistenciaprofesiones;
@@ -51,7 +54,7 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface {
                 persistenciaprofesiones.crear(em, listaCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en AdministrarProfesiones.crear : " + e.toString());
+            log.warn("Error en AdministrarProfesiones.crear : " + e.toString());
         }
     }
 
@@ -63,7 +66,7 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface {
            }
     
        }catch(Exception e){
-           System.out.println("Error en AdministrarProfesiones.editar : " + e.toString());
+           log.warn("Error en AdministrarProfesiones.editar : " + e.toString());
        }
     }
 
@@ -75,7 +78,7 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface {
             }
    
         } catch(Exception e){
-            System.out.println("Error en AdministrarProfesiones.borrar : " + e.toString());
+            log.warn("Error en AdministrarProfesiones.borrar : " + e.toString());
         }
     }
 

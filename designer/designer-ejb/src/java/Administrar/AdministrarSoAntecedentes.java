@@ -11,15 +11,17 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfaceAdministrar.AdministrarSoAntecedentesInterface;
 import InterfacePersistencia.PersistenciaSoAntecedentesInterface;
 import InterfacePersistencia.PersistenciaSoTiposAntecedentesInterface;
-import Persistencia.PersistenciaSoAntecedentes;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoAntecedentes.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -61,7 +63,7 @@ public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInter
         List<SoAntecedentes> listAntecedentes = persistenciaAntecedentes.lovAntecedentes(em, secTipoAntecedente);
         return listAntecedentes;
         }catch(Exception e){
-            System.out.println("error en consultarAntecedentesPorTipo : " + e.toString());
+            log.warn("error en consultarAntecedentesPorTipo : " + e.toString());
             return null;    
         }
     }
@@ -72,7 +74,7 @@ public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInter
             List<SoAntecedentes> listAntecedentes = persistenciaAntecedentes.listaAntecedentes(em);
             return listAntecedentes;
         } catch (Exception e) {
-            System.out.println("error en consultarAntecedentes : " + e.toString());
+            log.warn("error en consultarAntecedentes : " + e.toString());
             return null;
         }
 
@@ -84,7 +86,7 @@ public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInter
             List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.listaTiposAntecedentes(em);
             return lovTiposAntecedentes;
         } catch (Exception e) {
-            System.out.println("error en consultarTiposAntecedentes");
+            log.warn("error en consultarTiposAntecedentes");
             return null;
         }
     }

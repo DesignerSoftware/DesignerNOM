@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaConceptosSoportes implements PersistenciaConceptosSoportesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaConceptosSoportes.class);
+
    public void crear(EntityManager em, ConceptosSoportes conceptosSoportes) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
@@ -29,7 +32,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          em.merge(conceptosSoportes);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosSoportes.crear: " + e);
+         log.error("Error PersistenciaConceptosSoportes.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +47,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          em.merge(conceptosSoportes);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosSoportes.editar: " + e);
+         log.error("Error PersistenciaConceptosSoportes.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +65,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaConceptosSoportes.borrar: " + e);
+         log.error("Error PersistenciaConceptosSoportes.borrar: " + e);
       }
    }
 
@@ -74,7 +77,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          List<ConceptosSoportes> conceptosSoportes = query.getResultList();
          return conceptosSoportes;
       } catch (Exception e) {
-         System.out.println("Error consultarConceptosSoportes" + e);
+         log.error("Error consultarConceptosSoportes" + e);
          return null;
       }
    }
@@ -88,7 +91,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          ConceptosSoportes conceptosSoportes = (ConceptosSoportes) query.getSingleResult();
          return conceptosSoportes;
       } catch (Exception e) {
-         System.out.println("Error consultarConceptosSoportes");
+         log.error("Error consultarConceptosSoportes");
          ConceptosSoportes conceptosSoportes = null;
          return conceptosSoportes;
       }
@@ -104,7 +107,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          BigInteger conceptosSoportes = new BigInteger(query.getSingleResult().toString());
          return conceptosSoportes;
       } catch (Exception e) {
-         System.out.println("Error consultarConceptosSoportes");
+         log.error("Error consultarConceptosSoportes");
          ConceptosSoportes conceptosSoportes = null;
          return null;
       }

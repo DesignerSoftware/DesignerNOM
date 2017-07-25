@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEstadosCiviles.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -35,7 +38,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             em.persist(estadosCiviles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEstadosCiviles.crear: " + e);
+            log.error("Error PersistenciaEstadosCiviles.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +54,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             em.merge(estadosCiviles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEstadosCiviles.editar: " + e);
+            log.error("Error PersistenciaEstadosCiviles.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +76,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaEstadosCiviles.borrar: " + e);
+                log.error("Error PersistenciaEstadosCiviles.borrar: " + e);
             }
         }
     }
@@ -84,7 +87,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             em.clear();
             return em.find(EstadosCiviles.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error buscarEstadoCivil PersistenciaEstadosCiviles : " + e.toString());
+            log.error("Error buscarEstadoCivil PersistenciaEstadosCiviles : " + e.toString());
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
         List<EstadosCiviles> listEstadosCiviles = query.getResultList();
         return listEstadosCiviles;
         } catch(Exception e){
-            System.out.println("error consultarEstadosCiviles PersistenciaEstadosCivilires : " + e.toString());
+            log.error("error consultarEstadosCiviles PersistenciaEstadosCivilires : " + e.toString());
             return null;
         }
     }
@@ -111,10 +114,10 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles = " + retorno);
+            log.error("PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }

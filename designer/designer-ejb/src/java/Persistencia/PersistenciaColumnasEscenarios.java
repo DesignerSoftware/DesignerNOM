@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscenariosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaColumnasEscenarios.class);
 
    /*
      * @PersistenceContext(unitName = "DesignerRHN-ejbPU") private EntityManager
@@ -36,7 +39,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          List<ColumnasEscenarios> competenciascargos = query.getResultList();
          return competenciascargos;
       } catch (Exception e) {
-         System.out.println("Error buscarColumnasEscenarios PersistenciaColumnasEscenarios : " + e.toString());
+         log.error("Error buscarColumnasEscenarios PersistenciaColumnasEscenarios : " + e.toString());
          return null;
       }
    }
@@ -44,7 +47,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleado(EntityManager em, List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos) {
       try {
-         System.out.println("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado()");
+         log.error("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado()");
          em.clear();
          List<ResultadoBusquedaAvanzada> registrosConDatos = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
@@ -61,7 +64,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
                   String q = "SELECT " + auxiliarCampo + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = " + listaEmpleadosResultados.get(j).getCodigoEmpleado();
                   Query query = em.createNativeQuery(q);
                   if (i == 0) {
-                     System.out.println("Persistencia - buscarQVWEmpleadosCorteCodigoEmpleado() Query : " + q);
+                     log.error("Persistencia - buscarQVWEmpleadosCorteCodigoEmpleado() Query : " + q);
                   }
                   String valor = (String) query.getSingleResult();
                   registrosConDatos.get(j).setCodigoEmpleado(listaEmpleadosResultados.get(j).getCodigoEmpleado());
@@ -96,9 +99,9 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
                      registrosConDatos.get(j).setColumna9(valor);
                   }
                } catch (PersistenceException errorPersistence) {
-                  System.out.println("Error consultando Datos errorPersistence : " + errorPersistence);
+                  log.error("Error consultando Datos errorPersistence : " + errorPersistence);
                   if (j == 0) {
-                     System.out.println("i : " + i + "   , campos.get(i) : " + campos.get(i));
+                     log.error("i : " + i + "   , campos.get(i) : " + campos.get(i));
                   }
                }
             }
@@ -106,7 +109,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          return registrosConDatos;
 
       } catch (Exception e) {
-         System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
          e.printStackTrace();
          return null;
       }
@@ -121,16 +124,16 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigo(EntityManager em, List<BigInteger> listaEmpleadosResultados) {
       try {
-         System.out.println("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
+         log.error("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
 
          String queryMap = "SELECT " + camposAux + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = ?";
-         System.out.println("queryMap: " + queryMap);
+         log.error("queryMap: " + queryMap);
          List<ResultadoBusquedaAvanzada> registroPrueba = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
             if (j == 0) {
-               System.out.println("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
+               log.error("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
             }
             ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
             Query query = em.createNativeQuery(queryMap, "ConsultaBusquedaAvanzada");
@@ -141,7 +144,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          return registroPrueba;
 
       } catch (Exception e) {
-         System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
          e.printStackTrace();
          return null;
       }
@@ -150,7 +153,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(EntityManager em, List<BigInteger> listaEmpleadosResultados, List<String> campos) {
       try {
-         System.out.println("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         log.error("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
          if (!campos.isEmpty()) {
@@ -196,11 +199,11 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
             camposAux = camposAux + auxiliarCampo;
          }
          String queryMap = "SELECT " + camposAux + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = ?";
-         System.out.println("queryMap: " + queryMap);
+         log.error("queryMap: " + queryMap);
          List<ResultadoBusquedaAvanzada> registroPrueba = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
             if (j == 0) {
-               System.out.println("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
+               log.error("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
             }
             ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
             Query query = em.createNativeQuery(queryMap, "ConsultaBusquedaAvanzada");
@@ -212,7 +215,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
 
       } catch (Exception e) {
          e.printStackTrace();
-         System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
          return null;
       }
    }

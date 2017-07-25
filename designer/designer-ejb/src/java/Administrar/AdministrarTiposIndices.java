@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposIndices.class);
 
     @EJB
     PersistenciaTiposIndicesInterface persistenciaTiposIndices;
@@ -41,21 +44,21 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
 
     public void modificarTiposIndices(List<TiposIndices> listaTiposIndices) {
         for (int i = 0; i < listaTiposIndices.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposIndices.editar(em, listaTiposIndices.get(i));
         }
     }
 
     public void borrarTiposIndices(List<TiposIndices> listaTiposIndices) {
         for (int i = 0; i < listaTiposIndices.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposIndices.borrar(em, listaTiposIndices.get(i));
         }
     }
 
     public void crearTiposIndices(List<TiposIndices> listaTiposIndices) {
         for (int i = 0; i < listaTiposIndices.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposIndices.crear(em, listaTiposIndices.get(i));
         }
     }
@@ -78,7 +81,7 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
         try {
             return contarIndicesTipoIndice = persistenciaTiposIndices.contarIndicesTipoIndice(em, secTiposIndices);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposIndices contarIndicesTipoIndice ERROR : " + e);
+            log.error("ERROR AdministrarTiposIndices contarIndicesTipoIndice ERROR : " + e);
             return null;
         }
     }

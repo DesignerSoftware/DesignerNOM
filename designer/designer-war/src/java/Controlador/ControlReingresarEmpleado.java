@@ -22,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlReingresarEmpleado implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlReingresarEmpleado.class);
 
    @EJB
    AdministrarReingresarEmpleadoInterface administrarReingresarEmpleado;
@@ -82,8 +85,8 @@ public class ControlReingresarEmpleado implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarReingresarEmpleado.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -222,7 +225,7 @@ public class ControlReingresarEmpleado implements Serializable {
       if (fechaReingreso != null) {
          verificarFecha();
       } else {
-         System.out.println("Nula Fecha ");
+         log.info("Nula Fecha ");
       }
    }
 
@@ -235,10 +238,10 @@ public class ControlReingresarEmpleado implements Serializable {
          RequestContext.getCurrentInstance().update("form:fechaReingreso");
       } else {
          fechaRetiro = administrarReingresarEmpleado.obtenerFechaRetiro(empleado.getSecuencia());
-         System.out.println("formato: " + formato);
-         System.out.println("fechaRetiro: " + fechaRetiro);
+         log.info("formato: " + formato);
+         log.info("fechaRetiro: " + fechaRetiro);
          mostrarFechaRetiro = formato.format(fechaRetiro);
-         System.out.println("mostrarFechaRetiro: " + mostrarFechaRetiro);
+         log.info("mostrarFechaRetiro: " + mostrarFechaRetiro);
          if (fechaReingreso.before(fechaRetiro)) {
             RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
             RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
@@ -255,7 +258,7 @@ public class ControlReingresarEmpleado implements Serializable {
       int pasa = 0;
       nombre = new String();
       mensajeValidacion = new String();
-      System.out.println("ControlReingresarEmpleado.reingresarEmpleado() nombre: " + empleado.getPersona().getNombre() + ", documento: " + empleado.getPersona().getNumerodocumento());
+      log.info("ControlReingresarEmpleado.reingresarEmpleado() nombre: " + empleado.getPersona().getNombre() + ", documento: " + empleado.getPersona().getNumerodocumento());
       if (empleado.getPersona().getNumerodocumento() == null) {
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
          pasa++;
@@ -268,7 +271,7 @@ public class ControlReingresarEmpleado implements Serializable {
          mensajeValidacion = mensajeValidacion + "* Fecha Reingreso";
          pasa++;
       }
-      System.out.println("ControlReingresarEmpleado.reingresarEmpleado() pasa: " + pasa);
+      log.info("ControlReingresarEmpleado.reingresarEmpleado() pasa: " + pasa);
       if (pasa == 0) {
          fechaRetiro = administrarReingresarEmpleado.obtenerFechaRetiro(empleado.getSecuencia());
          mostrarFechaRetiro = formato.format(fechaRetiro);
@@ -291,26 +294,26 @@ public class ControlReingresarEmpleado implements Serializable {
          administrarReingresarEmpleado.reintegrarEmpleado(empleado.getCodigoempleado(), estructura.getCentrocosto().getCodigo(), fechaReingreso, estructura.getCentrocosto().getEmpresa().getCodigo(), fechaFinContrato);
          RequestContext.getCurrentInstance().update("formularioDialogos:exito");
          RequestContext.getCurrentInstance().execute("PF('exito').show()");
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 1");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 1");
          empleado = new Empleados();
          empleado.setPersona(new Personas());
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 2");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 2");
          estructura = new Estructuras();
          fechaReingreso = null;
          fechaFinContrato = null;
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 3");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 3");
          RequestContext.getCurrentInstance().update("form:nombreEmpleado");
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 4");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 4");
          RequestContext.getCurrentInstance().update("form:estructura");
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 5");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 5");
          RequestContext.getCurrentInstance().update("form:PanelTotal");
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 6");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 6");
          RequestContext.getCurrentInstance().update("form:fechaReingreso");
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 7");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 7");
          RequestContext.getCurrentInstance().update("form:fechaFinContrato");
-         System.out.println("ControlReingresarEmpleado.reingresoEmpleado() 8");
+         log.info("ControlReingresarEmpleado.reingresoEmpleado() 8");
       } catch (Exception e) {
-         System.out.println("Error en borrar al empleado");
+         log.warn("Error en borrar al empleado");
          RequestContext.getCurrentInstance().update("formularioDialogos:error");
          RequestContext.getCurrentInstance().execute("PF('error').show()");
       }

@@ -106,7 +106,6 @@ public class VigenciasProrrateos implements Serializable {
 
     public Proyectos getProyecto() {
         if(proyecto == null){
-            //System.out.println("Error en: VigenciasProrrateos.getProyecto():  proyecto == null");
             proyecto = new Proyectos();
             return proyecto;
         }else{

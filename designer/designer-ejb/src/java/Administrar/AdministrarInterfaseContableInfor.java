@@ -34,6 +34,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,6 +42,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarInterfaseContableInfor implements AdministrarInterfaseContableInforInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarInterfaseContableInfor.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -95,7 +98,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             }
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error obtenerParametrosContablesUsuarioBD Admi : " + e.toString());
+            log.warn("Error obtenerParametrosContablesUsuarioBD Admi : " + e.toString());
             return null;
         }
     }
@@ -108,7 +111,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -123,7 +126,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
                 persistenciaParametrosContables.borrar(em, listPC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarParametroContable Admi : " + e.toString());
+            log.warn("Error borrarParametroContable Admi : " + e.toString());
         }
     }
 
@@ -135,7 +138,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             }
             persistenciaParametrosContables.crear(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroContable Admi : " + e.toString());
+            log.warn("Error modificarParametroContable Admi : " + e.toString());
 
         }
     }
@@ -146,7 +149,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             List<SolucionesNodos> lista = persistenciaSolucionesNodos.buscarSolucionesNodosParaParametroContable_SAP(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerSolucionesNodosParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -157,7 +160,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             List<InterconInfor> lista = persistenciaInterconInfor.buscarInterconInforParametroContable(em, fechaInicial, fechaFinal);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerInterconInforParametroContable Admi : " + e.toString());
+            log.warn("Error obtenerInterconInforParametroContable Admi : " + e.toString());
             return null;
         }
     }
@@ -168,7 +171,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             List<Procesos> lista = persistenciaProcesos.buscarProcesos(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovProcesos Admi : " + e.toString());
+            log.warn("Error lovProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -179,7 +182,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpresas Admi : " + e.toString());
+            log.warn("Error lovEmpresas Admi : " + e.toString());
             return null;
         }
     }
@@ -190,7 +193,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             ActualUsuario user = persistenciaActualUsuario.actualUsuarioBD(em);
             return user;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -201,7 +204,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             Date fecha = persistenciaContabilizaciones.obtenerFechaMaximaContabilizacionesSAPBOV8(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerMaxFechaContabilizaciones Admi : " + e.toString());
+            log.warn("Error obtenerMaxFechaContabilizaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -212,7 +215,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             Date fecha = persistenciaInterconInfor.obtenerFechaMaxInterconInfor(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerMaxFechaIntercoSapBO Admi : " + e.toString());
+            log.warn("Error obtenerMaxFechaIntercoSapBO Admi : " + e.toString());
             return null;
         }
     }
@@ -228,7 +231,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.actualizarFlagProcesoAnularInterfaseContableInfor(em, fechaIni, fechaFin);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagProcesoAnularInterfaseContableSAPBOV8 Admi : " + e.toString());
+            log.warn("Error actualizarFlagProcesoAnularInterfaseContableSAPBOV8 Admi : " + e.toString());
         }
     }
 
@@ -238,7 +241,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             Date objeto = persistenciaVWActualesFechas.actualFechaHasta(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaHastaVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -249,7 +252,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             Date objeto = persistenciaVWActualesFechas.actualFechaDesde(em);
             return objeto;
         } catch (Exception e) {
-            System.out.println("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
+            log.warn("Error buscarFechaDesdeVWActualesFechas Admi : " + e.toString());
             return null;
         }
     }
@@ -259,7 +262,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.ejeuctarPKGUbicarnuevointercon_Infor(em, secuencia, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error ejeuctarPKGUbicarnuevointercon_SAPBOV8 Admi : " + e.toString());
+            log.warn("Error ejeuctarPKGUbicarnuevointercon_SAPBOV8 Admi : " + e.toString());
         }
     }
 
@@ -268,7 +271,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaContabilizaciones.actualizarFlahInterconContableSAPBOV8(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error cambiarFlagInterconContableSAPBOV8 Admi : " + e.toString());
+            log.warn("Error cambiarFlagInterconContableSAPBOV8 Admi : " + e.toString());
         }
     }
 
@@ -277,7 +280,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.ejecutarDeleteInterconInfor(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error ejecutarDeleteInterconSAP Admi : " + e.toString());
+            log.warn("Error ejecutarDeleteInterconSAP Admi : " + e.toString());
         }
     }
 
@@ -286,7 +289,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.cerrarProcesoLiquidacion(em, fechaIni, fechaFin, proceso);
         } catch (Exception e) {
-            System.out.println("Error cerrarProcesoLiquidacion Admi : " + e.toString());
+            log.warn("Error cerrarProcesoLiquidacion Admi : " + e.toString());
         }
     }
 
@@ -296,7 +299,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             Integer contador = persistenciaContabilizaciones.obtenerContadorFlagGeneradoFechasSAP(em, fechaIni, fechaFin);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error obtenerContadorFlagGeneradoFechasSAP Admi : " + e.toString());
+            log.warn("Error obtenerContadorFlagGeneradoFechasSAP Admi : " + e.toString());
             return null;
         }
     }
@@ -306,7 +309,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.ejecutarPKGRecontabilizacion(em, fechaIni, fechaFin);
         } catch (Exception e) {
-            System.out.println("Error obtenerContadorFlagGeneradoFechasSAP Admi : " + e.toString());
+            log.warn("Error obtenerContadorFlagGeneradoFechasSAP Admi : " + e.toString());
         }
     }
 
@@ -316,7 +319,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             int contador = persistenciaInterconInfor.contarProcesosContabilizadosInterconInfor(em, fechaInicial, fechaFinal);
             return contador;
         } catch (Exception e) {
-            System.out.println("Error contarProcesosContabilizadosInterconTotal Admi : " + e.toString());
+            log.warn("Error contarProcesosContabilizadosInterconTotal Admi : " + e.toString());
             return -1;
         }
     }
@@ -327,7 +330,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             String path = persistenciaGenerales.obtenerPathServidorWeb(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathServidorWeb Admi : " + e.toString());
+            log.warn("Error obtenerPathServidorWeb Admi : " + e.toString());
             return null;
         }
     }
@@ -338,7 +341,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             String path = persistenciaGenerales.obtenerPathProceso(em);
             return path;
         } catch (Exception e) {
-            System.out.println("Error obtenerPathProceso Admi : " + e.toString());
+            log.warn("Error obtenerPathProceso Admi : " + e.toString());
             return null;
         }
     }
@@ -349,7 +352,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             String valor = persistenciaProcesos.obtenerDescripcionProcesoPorSecuencia(em, proceso);
             return valor;
         } catch (Exception e) {
-            System.out.println("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
+            log.warn("Error obtenerDescripcionProcesoArchivo Admi : " + e.toString());
             return null;
         }
     }
@@ -359,7 +362,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.ejecutarPKGCrearArchivoPlanoInfor(em, fechaIni, fechaFin, proceso, descripcionProceso, nombreArchivo);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
+            log.warn("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
         }
     }
 
@@ -369,7 +372,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             String envio = persistenciaEmpresas.obtenerEnvioInterfaseContabilidadEmpresa(em, codigoEmpresa);
             return envio;
         } catch (Exception e) {
-            System.out.println("Error obtenerEnvioInterfaseContabilidadEmpresa Admi : " + e.toString());
+            log.warn("Error obtenerEnvioInterfaseContabilidadEmpresa Admi : " + e.toString());
             return null;
         }
     }
@@ -380,7 +383,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             UsuariosInterfases usuario = persistenciaUsuariosInterfases.obtenerUsuarioInterfaseContabilidad(em);
             return usuario;
         } catch (Exception e) {
-            System.out.println("Error obtenerUsuarioInterfaseContabilizacion Admi : " + e.toString());
+            log.warn("Error obtenerUsuarioInterfaseContabilizacion Admi : " + e.toString());
             return null;
         }
     }
@@ -390,7 +393,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.cerrarProcesoContabilizacion(em, fechaInicial, fechaFinal, empresa, proceso);
         } catch (Exception e) {
-            System.out.println("Error cerrarProcesoContabilizacion Admi : " + e.toString());
+            log.warn("Error cerrarProcesoContabilizacion Admi : " + e.toString());
         }
     }
 
@@ -399,7 +402,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.actualizarFlagInterconInforProcesoDeshacer(em, fechaInicial, fechaFinal, proceso);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagInterconTotalProcesoDeshacer Admi : " + e.toString());
+            log.warn("Error actualizarFlagInterconTotalProcesoDeshacer Admi : " + e.toString());
         }
     }
 
@@ -408,7 +411,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
         try {
             persistenciaInterconInfor.eliminarInterconInfor(em, fechaInicial, fechaFinal, empresa, proceso);
         } catch (Exception e) {
-            System.out.println("Error eliminarInterconSapBO Admi : " + e.toString());
+            log.warn("Error eliminarInterconSapBO Admi : " + e.toString());
         }
     }
 
@@ -417,7 +420,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
          try {
             persistenciaInterconInfor.actualizarFlagInterconInfor(em, fechaInicial, fechaFinal, empresa);
         } catch (Exception e) {
-            System.out.println("Error actualizarFlagInterconSapBO Admi : " + e.toString());
+            log.warn("Error actualizarFlagInterconSapBO Admi : " + e.toString());
         }
     }
 

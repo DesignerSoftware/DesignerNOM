@@ -12,10 +12,13 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 @Local
 public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarBusquedaAvanzada.class);
 
    @EJB
    AdministrarSesionesInterface administrarSesiones;
@@ -292,7 +295,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          List<ColumnasEscenarios> lista = persistenciaColumnasEscenarios.buscarColumnasEscenarios(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error buscarColumnasEscenarios Admi : " + e.toString());
+         log.warn("Error buscarColumnasEscenarios Admi : " + e.toString());
          return null;
       }
    }
@@ -303,7 +306,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          List<Empleados> lista = persistenciaEmpleado.buscarEmpleadosBusquedaAvanzada(em, query);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error ejecutarQueryBusquedaAvanzadaPorModulos Admi : " + e.toString());
+         log.warn("Error ejecutarQueryBusquedaAvanzadaPorModulos Admi : " + e.toString());
          return null;
       }
    }
@@ -314,7 +317,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          List<BigInteger> lista = persistenciaEmpleado.buscarEmpleadosBusquedaAvanzadaCodigo(em, query);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error ejecutarQueryBusquedaAvanzadaPorModulos Admi : " + e.toString());
+         log.warn("Error ejecutarQueryBusquedaAvanzadaPorModulos Admi : " + e.toString());
          return null;
       }
    }
@@ -347,7 +350,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       }
       return query;
       //} catch (Exception e) {
-      //System.out.println("Error armarQueryModulosBusquedaAvanzada Admi : " + e.toString());
+      //log.warn("Error armarQueryModulosBusquedaAvanzada Admi : " + e.toString());
       //return "";
       //}
    }
@@ -1235,7 +1238,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado(em, listaEmpleadosResultados, campos);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());
+         log.warn("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());
          return null;
       }
 
@@ -1244,11 +1247,11 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
    @Override
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados) {
       try {
-         System.out.println("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigo()");
+         log.warn("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigo()");
          List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigo(em, listaCodigosEmpleados);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());
+         log.warn("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());
          return null;
       }
    }
@@ -1256,11 +1259,11 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
    @Override
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos(List<BigInteger> listaCodigosEmpleados, List<String> campos) {
       try {
-         System.out.println("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         log.warn("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
          List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(em, listaCodigosEmpleados, campos);
          return retorno;
       } catch (Exception e) {
-         System.out.println("Error obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos Administrar : " + e.toString());
+         log.warn("Error obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos Administrar : " + e.toString());
          return null;
       }
    }
@@ -1270,13 +1273,13 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
          List<Parametros> lista = persistenciaParametros.empleadosParametros(em, usuarioBD);
-         System.out.println("Administrar.AdministrarBusquedaAvanzada.empleadosParametros() Ya consulto");
+         log.warn("Administrar.AdministrarBusquedaAvanzada.empleadosParametros() Ya consulto");
          if (lista != null) {
-            System.out.println("lista.size() : " + lista.size());
+            log.warn("lista.size() : " + lista.size());
          }
          return lista;
       } catch (Exception e) {
-         System.out.println("ERROR : Administrar.AdministrarBusquedaAvanzada.empleadosParametros(): " + e);
+         log.warn("ERROR : Administrar.AdministrarBusquedaAvanzada.empleadosParametros(): " + e);
          return null;
       }
    }
@@ -1313,7 +1316,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaEmpleado.buscarEmpleadosPorCodigo(em, listaCodigos);
       } catch (Exception e) {
-         System.out.println("ERROR Administrar.AdministrarBusquedaAvanzada.consultarEmpleadosXCodigo() e: " + e);
+         log.warn("ERROR Administrar.AdministrarBusquedaAvanzada.consultarEmpleadosXCodigo() e: " + e);
          return new ArrayList<Empleados>();
       }
    }

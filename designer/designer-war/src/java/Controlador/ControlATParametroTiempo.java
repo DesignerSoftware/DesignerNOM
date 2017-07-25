@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlATParametroTiempo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlATParametroTiempo.class);
 
    @EJB
    AdministrarATParametroTiempoInterface administrarATParametroTiempo;
@@ -159,8 +162,8 @@ public class ControlATParametroTiempo implements Serializable {
          administrarATParametroTiempo.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -169,7 +172,6 @@ public class ControlATParametroTiempo implements Serializable {
    }
 
    public void editarCelda() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (posicionParametroTiempo == 0) {
          RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroCuadrilla");
          RequestContext.getCurrentInstance().execute("PF('editarParametroCuadrilla').show()");
@@ -204,7 +206,6 @@ public class ControlATParametroTiempo implements Serializable {
    }
 
    public void guardarCambios() {
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (guardado == false) {
             administrarATParametroTiempo.modificarParametroTiempo(parametroTiempoUsuarioBD);
@@ -214,7 +215,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios Controlador : " + e.toString());
+         log.warn("Error guardarCambios Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -598,7 +599,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorFechasPKG').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnProgramarTurno Controlador : " + e.toString());
+         log.warn("Error actionBtnProgramarTurno Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en la ejecucion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -618,7 +619,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().execute("errorFechasPKG').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnSimularMarcacion Controlador : " + e.toString());
+         log.warn("Error actionBtnSimularMarcacion Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en la ejecucion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -642,7 +643,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorFechasPKG').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnSimularMarcacion Controlador : " + e.toString());
+         log.warn("Error actionBtnSimularMarcacion Controlador : " + e.toString());
 
       }
    }
@@ -656,7 +657,7 @@ public class ControlATParametroTiempo implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error actionFinalizarLiquidarTiempos Controlador : " + e.toString());
+         log.warn("Error actionFinalizarLiquidarTiempos Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en la ejecucion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -676,7 +677,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().execute("errorFechasPKG').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnDesprogramarTurno Controlador : " + e.toString());
+         log.warn("Error actionBtnDesprogramarTurno Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en la ejecucion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -696,7 +697,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().execute("errorFechasPKG').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnDesprogramarTurno Controlador : " + e.toString());
+         log.warn("Error actionBtnDesprogramarTurno Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en la ejecucion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -721,7 +722,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().execute("errorFechasPKG').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error actionBtnDesliquidarTiempos Controlador : " + e.toString());
+         log.warn("Error actionBtnDesliquidarTiempos Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en la ejecucion, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

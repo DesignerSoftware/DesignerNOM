@@ -42,6 +42,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -54,6 +55,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlTTPlantilla")
 @SessionScoped
 public class ControlTTPlantilla implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTTPlantilla.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -256,8 +259,8 @@ public class ControlTTPlantilla implements Serializable {
             administrarTiposSueldos.obtenerConexion(ses.getId());
             administrarTiposTrabajadores.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -613,7 +616,7 @@ public class ControlTTPlantilla implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosNL");
             deshabilitarBotonLov();
         } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
+            log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1499,7 +1502,7 @@ public class ControlTTPlantilla implements Serializable {
             altoTablaTC = "100";
             altoTablaTS = "100";
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             tipotrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:tipotrabajador");
@@ -1769,11 +1772,11 @@ public class ControlTTPlantilla implements Serializable {
     /*
      public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (ttSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(ttSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

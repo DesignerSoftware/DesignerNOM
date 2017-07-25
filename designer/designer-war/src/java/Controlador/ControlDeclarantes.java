@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlDeclarantes implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlDeclarantes.class);
 
    @EJB
    AdministrarDeclarantesInterface administrarDeclarantes;
@@ -149,8 +152,8 @@ public class ControlDeclarantes implements Serializable {
          administrarDeclarantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -158,14 +161,14 @@ public class ControlDeclarantes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       List<RetencionesMinimas> listaRetenciones = administrarDeclarantes.retencionesMinimasLista();
       RetencionesMinimas seleccionado = new RetencionesMinimas();
-      System.out.println("retencionesSeleccionado.getSecuenciaRetencion() : " + retencionesLovSeleccionado.getSecuenciaRetencion());
-      System.out.println("listaRetenciones : " + listaRetenciones.size());
+      log.info("retencionesSeleccionado.getSecuenciaRetencion() : " + retencionesLovSeleccionado.getSecuenciaRetencion());
+      log.info("listaRetenciones : " + listaRetenciones.size());
       for (int j = 0; j < listaRetenciones.size(); j++) {
-         System.out.println("listaRetenciones : " + listaRetenciones.get(j).getSecuencia());
+         log.info("listaRetenciones : " + listaRetenciones.get(j).getSecuencia());
       }
       for (int i = 0; i < listaRetenciones.size(); i++) {
          BigInteger secuencia = new BigInteger(listaRetenciones.get(i).getSecuencia().toString());
-         System.out.println("secuencia : " + secuencia);
+         log.info("secuencia : " + secuencia);
          if (secuencia.equals(retencionesLovSeleccionado.getSecuenciaRetencion())) {
             seleccionado = listaRetenciones.get(i);
             break;
@@ -236,7 +239,7 @@ public class ControlDeclarantes implements Serializable {
       declaranteSeleccionado = declarante;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      System.out.println("Entro a Modificar Declarantes");
+      log.info("Entro a Modificar Declarantes");
 
       for (int i = 0; i < listaDeclarantes.size(); i++) {
          if (declaranteSeleccionado.getFechainicial().after(declaranteSeleccionado.getFechainicial()) && declaranteSeleccionado.getFechainicial().before(declaranteSeleccionado.getFechafinal())) {
@@ -351,7 +354,7 @@ public class ControlDeclarantes implements Serializable {
       fechaParametro.setYear(0);
       fechaParametro.setMonth(1);
       fechaParametro.setDate(1);
-      System.err.println("fechaparametro : " + fechaParametro);
+      log.error("fechaparametro : " + fechaParametro);
       boolean retorno = true;
       if (i == 0) {
          Declarantes auxiliar = null;
@@ -411,7 +414,7 @@ public class ControlDeclarantes implements Serializable {
    //FALTA GUARDAR
 
    public void asignarIndex(Declarantes declarante, int dlg, int LND) {
-      System.out.println("Controlador.ControlDeclarantes.asignarIndex()");
+      log.info("Controlador.ControlDeclarantes.asignarIndex()");
       declaranteSeleccionado = declarante;
       tipoActualizacion = LND;
 
@@ -532,17 +535,17 @@ public class ControlDeclarantes implements Serializable {
                }
                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDeclarantes').hide()");
             } else {
-               System.out.println("traslapacion de fechas");
+               log.info("traslapacion de fechas");
                RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
                RequestContext.getCurrentInstance().execute("PF('fechasTraslapadas').show()");
             }
          } else {
-            System.out.println("error fechas ingresadas");
+            log.warn("Error fechas ingresadas");
             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
          }
       } else {
-         System.out.println("fechas obligatorias");
+         log.info("fechas obligatorias");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoDeclarante').show()");
       }
    }
@@ -672,16 +675,16 @@ public class ControlDeclarantes implements Serializable {
                }
                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDeclarantes').hide()");
             } else {
-               System.out.println("traslapacion de fechas");
+               log.info("traslapacion de fechas");
                RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
                RequestContext.getCurrentInstance().execute("PF('fechasTraslapadas').show()");
             }
          } else {
-            System.out.println("error fechas ingresadas");
+            log.warn("Error fechas ingresadas");
             RequestContext.getCurrentInstance().execute("PF('fecha').show()");
          }
       } else {
-         System.out.println("fechas obligatorias");
+         log.info("fechas obligatorias");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoDeclarante').show()");
       }
 
@@ -819,7 +822,7 @@ public class ControlDeclarantes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (declaranteSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(declaranteSeleccionado.getSecuencia(), "DECLARANTES");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -846,11 +849,11 @@ public class ControlDeclarantes implements Serializable {
    //GUARDAR
    public void guardarCambiosDeclarantes() {
       if (guardado == false) {
-         System.out.println("Realizando Operaciones Declarantes");
+         log.info("Realizando Operaciones Declarantes");
 
          if (!listaDeclarantesBorrar.isEmpty()) {
             for (int i = 0; i < listaDeclarantesBorrar.size(); i++) {
-               System.out.println("Borrando..." + listaDeclarantesBorrar.size());
+               log.info("Borrando..." + listaDeclarantesBorrar.size());
                if (listaDeclarantesBorrar.get(i).getRetenciondeseada() == null) {
                   listaDeclarantesBorrar.get(i).setRetenciondeseada(null);
                }
@@ -861,13 +864,13 @@ public class ControlDeclarantes implements Serializable {
 
                administrarDeclarantes.borrarDeclarantes(listaDeclarantesBorrar.get(i));
             }
-            System.out.println("Entra");
+            log.info("Entra");
             listaDeclarantesBorrar.clear();
          }
 
          if (!listaDeclarantesCrear.isEmpty()) {
             for (int i = 0; i < listaDeclarantesCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                if (listaDeclarantesCrear.get(i).getRetenciondeseada() == null) {
                   listaDeclarantesCrear.get(i).setRetenciondeseada(null);
                }
@@ -884,7 +887,7 @@ public class ControlDeclarantes implements Serializable {
             listaDeclarantesModificar.clear();
          }
 
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaDeclarantes = null;
          getListaDeclarantes();
          contarRegistros();

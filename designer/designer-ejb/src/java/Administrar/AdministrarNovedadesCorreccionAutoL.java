@@ -19,13 +19,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarNovedadesCorreccionAutoL  implements AdministrarNovedadesCorreccionAutoLInterface{
+public class AdministrarNovedadesCorreccionAutoL  implements AdministrarNovedadesCorreccionAutoLInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesCorreccionAutoL.class);
     
     @EJB
     PersistenciaNovedadesCorreccionAutoLInterface persistenciaNovedadesAuto;
@@ -70,7 +73,7 @@ public class AdministrarNovedadesCorreccionAutoL  implements AdministrarNovedade
         try {
             persistenciaNovedadesAuto.borrar(em, novedad);
         } catch (Exception e) {
-            System.out.println("Error borrarNovedades Admi : " + e.toString());
+            log.warn("Error borrarNovedades Admi : " + e.toString());
         }
     }
 
@@ -79,7 +82,7 @@ public class AdministrarNovedadesCorreccionAutoL  implements AdministrarNovedade
         try {
             persistenciaNovedadesAuto.crear(em, novedad);
         } catch (Exception e) {
-            System.out.println("Error crearNovedades Admi : " + e.toString());
+            log.warn("Error crearNovedades Admi : " + e.toString());
         }
     }
 
@@ -88,7 +91,7 @@ public class AdministrarNovedadesCorreccionAutoL  implements AdministrarNovedade
         try {
             persistenciaNovedadesAuto.editar(em, novedad);
         } catch (Exception e) {
-            System.out.println("Error editarNovedades Admi : " + e.toString());
+            log.warn("Error editarNovedades Admi : " + e.toString());
         }
     }
 

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOperandosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaNovedadesOperandos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +40,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             em.merge(novedadesOperandos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNovedadesOperandos.crear: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesOperandos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             em.merge(novedadesOperandos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNovedadesOperandos.editar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesOperandos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             em.merge(novedadesOperandos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNovedadesOperandos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesOperandos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +90,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             List<NovedadesOperandos> novedadesOperandosResult = new ArrayList<NovedadesOperandos>(novedadesOperandos);
             return novedadesOperandosResult;
         } catch (Exception e) {
-            System.out.println("Error: (novedadesOperandos)" + e.getMessage());
+            log.error("Error: (novedadesOperandos)" + e.getMessage());
             return null;
         }
     }

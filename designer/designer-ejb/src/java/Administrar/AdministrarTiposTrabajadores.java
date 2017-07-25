@@ -11,13 +11,12 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfaceAdministrar.AdministrarTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaVigenciasDiasTTInterface;
-import Persistencia.PersistenciaVigenciasDiasTT;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadoresInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposTrabajadores.class);
 
    @EJB
    PersistenciaTiposTrabajadoresInterface persistenciaTiposTrabajadores;
@@ -36,7 +37,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
 
    @Override
    public void obtenerConexion(String idSesion) {
-      System.out.println("AdministrarTiposTrabajadores: entro en obtenerConexion");
+      log.warn("AdministrarTiposTrabajadores: entro en obtenerConexion");
       em = administrarSesiones.obtenerConexionSesion(idSesion);
    }
 
@@ -50,7 +51,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
          }
          persistenciaTiposTrabajadores.crear(em, tiposTrabajadores);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.crearTT ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.crearTT ERROR: " + e);
       }
    }
 
@@ -64,7 +65,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
          }
          persistenciaTiposTrabajadores.editar(em, tiposTrabajadores);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.editarTT ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.editarTT ERROR: " + e);
       }
    }
 
@@ -78,18 +79,18 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
          }
          persistenciaTiposTrabajadores.borrar(em, tiposTrabajadores);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.borrarTT ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.borrarTT ERROR: " + e);
       }
    }
 
    @Override
    public List<TiposTrabajadores> buscarTiposTrabajadoresTT() {
-      System.out.println("entro en buscarTiposTrabajadoresTT()");
+      log.warn("entro en buscarTiposTrabajadoresTT()");
       try {
          List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
          return lista;
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.buscarTiposTrabajadoresTT ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.buscarTiposTrabajadoresTT ERROR: " + e);
          return null;
       }
    }
@@ -101,7 +102,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
          tipoT = persistenciaTiposTrabajadores.buscarTipoTrabajadorSecuencia(em, secuencia);
          return tipoT;
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.buscarTipoTrabajadorSecuencia ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.buscarTipoTrabajadorSecuencia ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +114,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
          tipoT = persistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort(em, codigo);
          return tipoT;
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort ERROR: " + e);
          return null;
       }
    }
@@ -124,7 +125,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
       try {
          persistenciaVigenciasDiasTT.crear(em, vigenciasDiasTT);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.crearVD ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.crearVD ERROR: " + e);
       }
    }
 
@@ -133,7 +134,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
       try {
          persistenciaVigenciasDiasTT.editar(em, vigenciasDiasTT);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.editarVD ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.editarVD ERROR: " + e);
       }
    }
 
@@ -142,7 +143,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
       persistenciaVigenciasDiasTT.borrar(em, vigenciasDiasTT);
       try {
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.borrarVD ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.borrarVD ERROR: " + e);
       }
    }
 
@@ -152,7 +153,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
          List<VigenciasDiasTT> listaVDias = persistenciaVigenciasDiasTT.consultarDiasPorTT(em, secuenciaTT);
          return listaVDias;
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.consultarDiasPorTipoT ERROR: " + e);
+         log.error("AdministrarTiposTrabajadores.consultarDiasPorTipoT ERROR: " + e);
          return null;
       }
    }
@@ -162,7 +163,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
       try {
          return persistenciaTiposTrabajadores.clonarTipoT(em, nuevoNombre, nuevoCodigo, codClonado);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.clonarTT ERROR : " + e);
+         log.error("AdministrarTiposTrabajadores.clonarTT ERROR : " + e);
          return ("ERROR AdministrarTiposTrabajadores.clonarTT");
       }
    }
@@ -171,7 +172,7 @@ public class AdministrarTiposTrabajadores implements AdministrarTiposTrabajadore
       try {
          return persistenciaTiposTrabajadores.hayRegistrosSecundarios(em, secuencia);
       } catch (Exception e) {
-         System.err.println("AdministrarTiposTrabajadores.hayRegistrosSecundarios ERROR : " + e);
+         log.error("AdministrarTiposTrabajadores.hayRegistrosSecundarios ERROR : " + e);
          return false;
       }
    }

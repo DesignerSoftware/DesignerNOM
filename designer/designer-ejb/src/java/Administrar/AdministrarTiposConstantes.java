@@ -15,54 +15,57 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarTiposConstantes implements AdministrarTiposConstantesInterface{
-    
-    @EJB
-    PersistenciaTiposConstantesInterface persistenciaTiposConstantes;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }    
+public class AdministrarTiposConstantes implements AdministrarTiposConstantesInterface {
 
-    @Override
-    public List<TiposConstantes> buscarTiposConstantes(BigInteger secuenciaOperando) {
-        List<TiposConstantes> listaTiposConstantes;
-        listaTiposConstantes = persistenciaTiposConstantes.tiposConstantes(em, secuenciaOperando);
-        return listaTiposConstantes;
-    }
+   private static Logger log = Logger.getLogger(AdministrarTiposConstantes.class);
 
-    @Override
-    public void borrarTiposConstantes(TiposConstantes tiposConstantes) {
-        persistenciaTiposConstantes.borrar(em, tiposConstantes);
-    }
+   @EJB
+   PersistenciaTiposConstantesInterface persistenciaTiposConstantes;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void crearTiposConstantes(TiposConstantes tiposConstantes) {
-        persistenciaTiposConstantes.crear(em, tiposConstantes);
-    }
+   private EntityManager em;
 
-    @Override
-    public void modificarTiposConstantes(TiposConstantes tiposConstantes) {
-        persistenciaTiposConstantes.editar(em, tiposConstantes);
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
 
-    }
-    
+   @Override
+   public List<TiposConstantes> buscarTiposConstantes(BigInteger secuenciaOperando) {
+      List<TiposConstantes> listaTiposConstantes;
+      listaTiposConstantes = persistenciaTiposConstantes.tiposConstantes(em, secuenciaOperando);
+      return listaTiposConstantes;
+   }
+
+   @Override
+   public void borrarTiposConstantes(TiposConstantes tiposConstantes) {
+      persistenciaTiposConstantes.borrar(em, tiposConstantes);
+   }
+
+   @Override
+   public void crearTiposConstantes(TiposConstantes tiposConstantes) {
+      persistenciaTiposConstantes.crear(em, tiposConstantes);
+   }
+
+   @Override
+   public void modificarTiposConstantes(TiposConstantes tiposConstantes) {
+      persistenciaTiposConstantes.editar(em, tiposConstantes);
+
+   }
+
 }

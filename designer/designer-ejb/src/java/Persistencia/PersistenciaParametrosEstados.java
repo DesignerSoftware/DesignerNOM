@@ -3,14 +3,13 @@
  */
 package Persistencia;
 
-import Entidades.ParametrosEstados;
 import InterfacePersistencia.PersistenciaParametrosEstadosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaParametrosEstados implements PersistenciaParametrosEstadosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametrosEstados.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -42,7 +43,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          Integer empeladosALiquidar = a.intValueExact();
          return empeladosALiquidar;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaParametrosEstados.empleadosParaLiquidar " + e.getMessage());
+         log.error("Error PersistenciaParametrosEstados.empleadosParaLiquidar " + e.getMessage());
          return null;
       }
    }
@@ -59,7 +60,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          Integer empeladosALiquidar = a.intValueExact();
          return empeladosALiquidar;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaParametrosEstados.empleadosLiquidados " + e.getMessage());
+         log.error("Error PersistenciaParametrosEstados.empleadosLiquidados " + e.getMessage());
          return null;
       }
    }
@@ -74,11 +75,11 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Entro en el Catch");
+         log.error("Entro en el Catch");
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaParametrosEstados.inicializarparametrosestados " + e.getMessage());
+         log.error("Error PersistenciaParametrosEstados.inicializarparametrosestados " + e.getMessage());
       }
    }
 
@@ -92,7 +93,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          String estadoParametro = (String) query.getSingleResult();
          return estadoParametro;
       } catch (Exception e) {
-         System.out.println("Exepcion en PersistenciaParametrosEstados.parametrosComprobantes" + e.getMessage());
+         log.error("Exepcion en PersistenciaParametrosEstados.parametrosComprobantes" + e.getMessage());
          return null;
       }
    }

@@ -7,15 +7,11 @@ import Entidades.Aficiones;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import InterfacePersistencia.PersistenciaAficionesInterface;
 import java.math.BigInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.Query;
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
 
 /**
  * Clase Stateless. <br>
@@ -26,6 +22,8 @@ import javax.persistence.PersistenceException;
  */
 @Stateless
 public class PersistenciaAficiones implements PersistenciaAficionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaAficiones.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -46,7 +44,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          em.merge(aficiones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaAficiones.crear: " + e);
+         log.error("Error PersistenciaAficiones.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +60,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          em.merge(aficiones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaAficiones.editar: " + e);
+         log.error("Error PersistenciaAficiones.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +76,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          em.remove(em.merge(aficiones));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaAficiones.borrar: " + e);
+         log.error("Error PersistenciaAficiones.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -101,7 +99,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          return aficiones;
       } catch (Exception e) {
          List<Aficiones> aficiones = null;
-         System.out.println("Persistencia.PersistenciaAficiones.buscarAficiones() e: " + e);
+         log.error("Persistencia.PersistenciaAficiones.buscarAficiones() e: " + e);
          return aficiones;
       }
    }
@@ -117,7 +115,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          maximo = (Aficiones) query.getSingleResult();
          max = maximo.getCodigo();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaAficiones.maximoCodigoAficiones() e: " + e);
+         log.error("Persistencia.PersistenciaAficiones.maximoCodigoAficiones() e: " + e);
       }
       return max;
    }
@@ -132,7 +130,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          Aficiones aficiones = (Aficiones) query.getSingleResult();
          return aficiones;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaAficiones.buscarAficionCodigo() e: " + e);
+         log.error("Persistencia.PersistenciaAficiones.buscarAficionCodigo() e: " + e);
          return null;
       }
    }

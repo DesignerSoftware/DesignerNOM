@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosRetiros implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosRetiros.class);
 
     @EJB
     AdministrarMotivosRetirosInterface administrarMotivosRetiros;
@@ -143,8 +146,8 @@ public class ControlMotivosRetiros implements Serializable {
             administrarMotivosRetiros.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -237,10 +240,10 @@ public class ControlMotivosRetiros implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivosRetiros:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivosRetiros:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -452,7 +455,7 @@ public class ControlMotivosRetiros implements Serializable {
     public void borrandoMotivosRetiros() {
 
         if (motivoRetiroSeleccionado != null) {
-            System.out.println("Entro a borrandoMotivosRetiros");
+            log.info("Entro a borrandoMotivosRetiros");
             if (!modificarMotivosRetiros.isEmpty() && modificarMotivosRetiros.contains(motivoRetiroSeleccionado)) {
                 int modIndex = modificarMotivosRetiros.indexOf(motivoRetiroSeleccionado);
                 modificarMotivosRetiros.remove(modIndex);
@@ -497,7 +500,7 @@ public class ControlMotivosRetiros implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando guardarMotivosRetiros");
+            log.info("Realizando guardarMotivosRetiros");
             if (!borrarMotivosRetiros.isEmpty()) {
                 administrarMotivosRetiros.borrarMotivosRetiros(borrarMotivosRetiros);
                 //mostrarBorrados
@@ -514,7 +517,7 @@ public class ControlMotivosRetiros implements Serializable {
                 administrarMotivosRetiros.crearMotivosRetiros(crearMotivosRetiros);
                 crearMotivosRetiros.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosRetiros = null;
             RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
             k = 0;
@@ -538,7 +541,7 @@ public class ControlMotivosRetiros implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -554,7 +557,7 @@ public class ControlMotivosRetiros implements Serializable {
     }
 
     public void agregarNuevoMotivosRetiros() {
-        System.out.println("agregarNuevoMotivosRetiros");
+        log.info("agregarNuevoMotivosRetiros");
         int contador = 0;
         int duplicados = 0;
 
@@ -564,42 +567,42 @@ public class ControlMotivosRetiros implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoMotivosRetiros.getCodigo() == a) {
             mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivosRetiros.getCodigo());
+            log.info("codigo en Motivo Cambio Cargo: " + nuevoMotivosRetiros.getCodigo());
 
             for (int x = 0; x < listMotivosRetiros.size(); x++) {
                 if (listMotivosRetiros.get(x).getCodigo().equals(nuevoMotivosRetiros.getCodigo())) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+            log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
             }
         }
         if (nuevoMotivosRetiros.getNombre() == null) {
             mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
 
         }
 
-        System.out.println("contador " + contador);
+        log.info("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosMotivosRetiros:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivosRetiros:descripcion");
@@ -609,7 +612,7 @@ public class ControlMotivosRetiros implements Serializable {
                 filtrarMotivosRetiros = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
+            log.info("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -639,7 +642,7 @@ public class ControlMotivosRetiros implements Serializable {
 
     //------------------------------------------------------------------------------
     public void duplicandoMotivosRetiros() {
-        System.out.println("duplicandoMotivosRetiros");
+        log.info("duplicandoMotivosRetiros");
         if (motivoRetiroSeleccionado != null) {
             duplicarMotivosRetiros = new MotivosRetiros();
             k++;
@@ -673,7 +676,7 @@ public class ControlMotivosRetiros implements Serializable {
         a = null;
         if (duplicarMotivosRetiros.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
         } else {
             for (int x = 0; x < listMotivosRetiros.size(); x++) {
                 if (listMotivosRetiros.get(x).getCodigo().equals(duplicarMotivosRetiros.getCodigo())) {
@@ -682,27 +685,27 @@ public class ControlMotivosRetiros implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarMotivosRetiros.getNombre() == null) {
             mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
 
         } else {
-            System.out.println("Bandera : ");
+            log.info("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
 
-            System.out.println("Datos Duplicando: " + duplicarMotivosRetiros.getSecuencia() + "  " + duplicarMotivosRetiros.getCodigo());
+            log.info("Datos Duplicando: " + duplicarMotivosRetiros.getSecuencia() + "  " + duplicarMotivosRetiros.getCodigo());
             if (crearMotivosRetiros.contains(duplicarMotivosRetiros)) {
-                System.out.println("Ya lo contengo.");
+                log.info("Ya lo contengo.");
             }
             listMotivosRetiros.add(duplicarMotivosRetiros);
             crearMotivosRetiros.add(duplicarMotivosRetiros);
@@ -761,11 +764,11 @@ public class ControlMotivosRetiros implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (motivoRetiroSeleccionado != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(motivoRetiroSeleccionado.getSecuencia(), "MOTIVOSRETIROS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -792,7 +795,7 @@ public class ControlMotivosRetiros implements Serializable {
             }
             contarRegistros();
         } catch (Exception e) {
-            System.out.println("ERROR ControlMotivosRetiros eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error ControlMotivosRetiros eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 

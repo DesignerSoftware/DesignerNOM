@@ -19,13 +19,12 @@ import InterfacePersistencia.PersistenciaFamiliaresInterface;
 import InterfacePersistencia.PersistenciaPersonasInterface;
 import InterfacePersistencia.PersistenciaTiposDocumentosInterface;
 import InterfacePersistencia.PersistenciaTiposFamiliaresInterface;
-import Persistencia.PersistenciaTiposFamiliares;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,6 +32,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFamiliares.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -62,7 +63,7 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
             if (listaModificar.get(i).getPersona() == null) {
                 listaModificar.get(i).setPersona(new Personas());
             }
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaFamiliares.editar(em, listaModificar.get(i));
         }
     }
@@ -73,7 +74,7 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
             if (listaBorrar.get(i).getPersona() == null) {
                 listaBorrar.get(i).setPersona(new Personas());
             }
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaFamiliares.borrar(em, listaBorrar.get(i));
         }
     }
@@ -81,7 +82,7 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
     @Override
     public void crearFamilares(List<Familiares> listaCrear) {
         for (int i = 0; i < listaCrear.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             if (listaCrear.get(i).getPersona() == null) {
                 listaCrear.get(i).setPersona(new Personas());
             }
@@ -102,7 +103,7 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
             Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

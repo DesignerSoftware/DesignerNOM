@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEventosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasEventos.class);
+
     @Override
     public void crear(EntityManager em, VigenciasEventos vigenciasEventos) {
         em.clear();
@@ -32,7 +34,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             em.persist(vigenciasEventos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasEventos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +50,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             em.merge(vigenciasEventos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasEventos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +66,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             em.remove(em.merge(vigenciasEventos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasEventos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +89,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.eventosPersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasEventos.eventosPersona" + e.getMessage());
             return null;
         }
     }
@@ -102,7 +104,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             List<VigenciasEventos> resultado = (List<VigenciasEventos>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado" + e.getMessage());
+            log.error("Error PersistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado" + e.getMessage());
             return null;
         }
     }
@@ -125,7 +127,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             }
             return evento;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasEventos.primerEvento()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasEventos.primerEvento()" + e.getMessage());
             evento = "";
             return evento;
         }

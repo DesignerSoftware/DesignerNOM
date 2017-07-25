@@ -12,6 +12,7 @@ import javax.ejb.Singleton;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.apache.log4j.Logger;
 
 /**
  * Clase de tipo singleton. <br>
@@ -24,54 +25,56 @@ import javax.persistence.Persistence;
 @Singleton
 public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInterface, Serializable {
 
-    /**
-     * Atributo EntityManagerFactory.
-     */
-    private EntityManagerFactory emf;
+   private static Logger log = Logger.getLogger(SesionEntityManagerFactory.class);
 
-    @Override
-    public boolean crearFactoryInicial(String baseDatos) {
-        try {
-            System.out.println("Entro y la bd es: " + baseDatos);
-            emf = Persistence.createEntityManagerFactory(baseDatos);
-            return true;
-        } catch (Exception e) {
-            System.out.println("error crearFactoryInicial" + e.getMessage());
-            return false;
-        }
-    }
+   /**
+    * Atributo EntityManagerFactory.
+    */
+   private EntityManagerFactory emf;
 
-    @Override
-    public boolean crearFactoryUsuario(String usuario, String contraseña, String baseDatos) {
-        try {
-            Map<String, String> properties = new HashMap<String, String>();
-            properties.put("javax.persistence.jdbc.user", usuario);
-            properties.put("javax.persistence.jdbc.password", contraseña);
-            System.out.println("Usuario: " + usuario);
-            System.out.println("Contraseña: " + contraseña);
-            System.out.println("Base de Datos: " + baseDatos);
-            emf = Persistence.createEntityManagerFactory(baseDatos, properties);
-            System.out.println("emf=Persistence.createEntityManagerFactory(baseDatos, properties)" + emf.getProperties() );
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error crearFactoryUsuario: " + e.getMessage());
-            return false;
-        }
-    }
+   @Override
+   public boolean crearFactoryInicial(String baseDatos) {
+      try {
+         log.warn("Entro y la bd es: " + baseDatos);
+         emf = Persistence.createEntityManagerFactory(baseDatos);
+         return true;
+      } catch (Exception e) {
+         log.fatal("error crearFactoryInicial" + e.getMessage());
+         return false;
+      }
+   }
 
-    @Override
-    public EntityManagerFactory getEmf() {
-        return emf;
-    }
+   @Override
+   public boolean crearFactoryUsuario(String usuario, String contraseña, String baseDatos) {
+      try {
+         Map<String, String> properties = new HashMap<String, String>();
+         properties.put("javax.persistence.jdbc.user", usuario);
+         properties.put("javax.persistence.jdbc.password", contraseña);
+         log.warn("Usuario: " + usuario);
+         log.warn("Contraseña: " + contraseña);
+         log.warn("Base de Datos: " + baseDatos);
+         emf = Persistence.createEntityManagerFactory(baseDatos, properties);
+         log.warn("emf=Persistence.createEntityManagerFactory(baseDatos, properties)" + emf.getProperties());
+         return true;
+      } catch (Exception e) {
+         log.fatal("Error crearFactoryUsuario: " + e.getMessage());
+         return false;
+      }
+   }
 
-    @Override
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+   @Override
+   public EntityManagerFactory getEmf() {
+      return emf;
+   }
 
-    @Remove
-    @Override
-    public void adios() {
-        System.out.println("Cerrando xD");
-    }
+   @Override
+   public void setEmf(EntityManagerFactory emf) {
+      this.emf = emf;
+   }
+
+   @Remove
+   @Override
+   public void adios() {
+      log.fatal("Cerrando xD");
+   }
 }

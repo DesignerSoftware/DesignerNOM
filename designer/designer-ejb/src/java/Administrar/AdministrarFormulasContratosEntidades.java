@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarFormulasContratosEntidades implements AdministrarFormulasContratosEntidadesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarFormulasContratosEntidades.class);
 //ATRIBUTOS
     //--------------------------------------------------------------------------    
 
@@ -59,14 +62,14 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
 
     public void modificarFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
         for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaFormulasContratosEntidades.editar(em,listaFormulasContratosEntidades.get(i));
         }
     }
 
     public void borrarFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
         for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaFormulasContratosEntidades.borrar(em,listaFormulasContratosEntidades.get(i));
         }
     }

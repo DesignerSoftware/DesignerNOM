@@ -34,6 +34,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,6 +42,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesEmbargos.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;
@@ -141,7 +144,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
     @Override
     public void modificarDetalleEmbargo(List<EersPrestamosDtos> listaDetallesEmbargosModificar) {
         for (int i = 0; i < listaDetallesEmbargosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaDetallesEmbargosModificar.get(i).getValor() == null) {
                 listaDetallesEmbargosModificar.get(i).setValor(null);
             }
@@ -170,8 +173,8 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
     @Override
     public void modificarEmbargo(List<EersPrestamos> listaEmbargosModificar) {
         for (int i = 0; i < listaEmbargosModificar.size(); i++) {
-            System.out.println("ListaEmbargosModificar " + listaEmbargosModificar.size());
-            System.out.println("Modificando...");
+            log.warn("ListaEmbargosModificar " + listaEmbargosModificar.size());
+            log.warn("Modificando...");
             if (listaEmbargosModificar.get(i).getTipoembargo() == null) {
                 listaEmbargosModificar.get(i).setTipoembargo(null);
             }

@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -28,6 +29,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlFormula implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlFormula.class);
 
    @EJB
    AdministrarFormulaInterface administrarFormula;
@@ -128,8 +131,8 @@ public class ControlFormula implements Serializable {
          administrarFormula.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -203,7 +206,7 @@ public class ControlFormula implements Serializable {
    }
 
    public void verDetalle(Formulas formula) {
-      System.out.println("Controlador.ControlFormula.verDetalle()");
+      log.info("Controlador.ControlFormula.verDetalle()");
       unaVez = true;
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;
@@ -534,7 +537,7 @@ public class ControlFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

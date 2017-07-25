@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedentesMedicosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoAntecedentesMedicos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;

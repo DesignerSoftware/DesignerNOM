@@ -11,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFormulasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSolucionesFormulas.class);
 
     @Override
     public int validarNovedadesNoLiquidadas(EntityManager em, BigInteger secNovedad) {
@@ -32,7 +34,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Exepcion: (validarNovedadesNoLiquidadas) " + e.getMessage());
+            log.error("Exepcion: (validarNovedadesNoLiquidadas) " + e.getMessage());
             return 1;
         }
     }
@@ -80,7 +82,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
 
             return lista;
         } catch (Exception e) {
-            System.out.println("Error listaSolucionesFormulasParaEmpleadoYNovedad PersistenciaSolucionhesFormulas : " + e.getMessage());
+            log.error("Error listaSolucionesFormulasParaEmpleadoYNovedad PersistenciaSolucionhesFormulas : " + e.getMessage());
             return null;
         }
     }
@@ -94,7 +96,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
          em.remove(em.merge(solucionf));
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaSolucionesFormulas.borrar()" + e.getMessage());
+          log.error("Persistencia.PersistenciaSolucionesFormulas.borrar()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }

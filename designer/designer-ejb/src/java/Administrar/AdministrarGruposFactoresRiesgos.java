@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactoresRiesgosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGruposFactoresRiesgos.class);
 
      @EJB
     PersistenciaGruposFactoresRiesgosInterface persistenciaGruposFactoresRiesgos;
@@ -41,21 +44,21 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
     }
     public void modificarGruposFactoresRiesgos(List<GruposFactoresRiesgos> listaGruposFactoresRiesgos) {
         for (int i = 0; i < listaGruposFactoresRiesgos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaGruposFactoresRiesgos.editar(em, listaGruposFactoresRiesgos.get(i));
         }
     }
 
     public void borrarGruposFactoresRiesgos(List<GruposFactoresRiesgos> listaGruposFactoresRiesgos) {
         for (int i = 0; i < listaGruposFactoresRiesgos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaGruposFactoresRiesgos.borrar(em, listaGruposFactoresRiesgos.get(i));
         }
     }
 
     public void crearGruposFactoresRiesgos(List<GruposFactoresRiesgos> listaGruposFactoresRiesgos) {
         for (int i = 0; i < listaGruposFactoresRiesgos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaGruposFactoresRiesgos.crear(em, listaGruposFactoresRiesgos.get(i));
         }
     }
@@ -79,7 +82,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
         try {
             return contarFactoresRiesgoGrupoFactorRiesgo = persistenciaGruposFactoresRiesgos.contarFactoresRiesgoGrupoFactorRiesgo(em, secGruposFactoresRiesgos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR : " + e);
+            log.error("ERROR AdministrarGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR : " + e);
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
         try {
             return contarSoIndicadoresGrupoFactorRiesgo = persistenciaGruposFactoresRiesgos.contarSoIndicadoresGrupoFactorRiesgo(em, secGruposFactoresRiesgos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR : " + e);
+            log.error("ERROR AdministrarGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR : " + e);
             return null;
         }
     }
@@ -101,7 +104,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
         try {
             return contarSoProActividadesGrupoFactorRiesgo = persistenciaGruposFactoresRiesgos.contarSoProActividadesGrupoFactorRiesgo(em, secGruposFactoresRiesgos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR : " + e);
+            log.error("ERROR AdministrarGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR : " + e);
             return null;
         }
     }

@@ -38,6 +38,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -50,6 +51,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlParametrosCorreccionAutoL implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlParametrosCorreccionAutoL.class);
 
     @EJB
     AdministrarParametrosCorreccionAutoLInterface administrarParametroCorreccionAutoL;
@@ -221,8 +224,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             administrarRastros.obtenerConexion(ses.getId());
 
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -335,7 +338,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public void modificarAporteEntidad(AportesCorrecciones aporte) {
-        System.out.println("entró a modificar aporte entidad   ");
+        log.info("entró a modificar aporte entidad   ");
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoListaAporte == 0) {
             if (listAportesCorreccionesModificar.isEmpty()) {
@@ -707,7 +710,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             cualTabla = 1;
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             parametroCorreccionSeleccionado = parametro;
-            System.out.println("parametroCorreccionSeleccionado cambiar indice : " + parametroCorreccionSeleccionado);
+            log.info("parametroCorreccionSeleccionado cambiar indice : " + parametroCorreccionSeleccionado);
             cualCelda = celda;
             parametroCorreccionSeleccionado.getSecuencia();
             if (celda == 0) {
@@ -750,7 +753,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
 
         } catch (Exception e) {
-            System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
+            log.warn("Error cargarDatosNuevos Controlador : " + e.toString());
         }
     }
 
@@ -911,7 +914,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosParametro  Controlador : " + e.toString());
+            log.warn("Error guardarCambiosParametro  Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Parámetros de Liquidación, Por favor intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -921,26 +924,26 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     public void guardarCambiosAportes() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
-            System.out.println("entró a guardar");
+            log.info("entró a guardar");
             if (!listAportesCorreccionesBorrar.isEmpty()) {
-                System.out.println("entró a lista correcciones borrar, tamaño lista borrar : " + listAportesCorreccionesBorrar.size());
+                log.info("entró a lista correcciones borrar, tamaño lista borrar : " + listAportesCorreccionesBorrar.size());
                 administrarParametroCorreccionAutoL.borrarAportesCorrecciones(listAportesCorreccionesBorrar);
                 listAportesCorreccionesBorrar.clear();
             }
             if (!listAportesCorreccionesCrear.isEmpty()) {
-                System.out.println("entró a lista correcciones crear , tamaño lista crear : " + listAportesCorreccionesCrear.size());
+                log.info("entró a lista correcciones crear , tamaño lista crear : " + listAportesCorreccionesCrear.size());
                 administrarParametroCorreccionAutoL.crearAportesCorrecciones(listAportesCorreccionesCrear);
                 listAportesCorreccionesCrear.clear();
             }
 
             if (!listAportesCorreccionesModificar.isEmpty()) {
-                System.out.println("entró a lista correcciones modificar, tamaño lista modificar : " + listAportesCorreccionesModificar.size());
+                log.info("entró a lista correcciones modificar, tamaño lista modificar : " + listAportesCorreccionesModificar.size());
                 administrarParametroCorreccionAutoL.editarAportesCorrecciones(listAportesCorreccionesModificar);
                 listAportesCorreccionesModificar.clear();
             }
             listaAportesCorrecciones = null;
             getListaAportesCorrecciones();
-            System.out.println("tamaño lista aportes : " + listaAportesCorrecciones.size());
+            log.info("tamaño lista aportes : " + listaAportesCorrecciones.size());
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
             contarRegistrosAporte();
             k = 0;
@@ -950,7 +953,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
-            System.out.println("Error guardarCambiosAportes  Controlador : " + e.toString());
+            log.warn("Error guardarCambiosAportes  Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Aporte Entidad Corrección, Por favor intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1616,8 +1619,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
 
     public void borrarAporteEntidad() {
         if (aporteTablaSeleccionado != null) {
-            System.out.println("entró a borrar aportes entidades");
-            System.out.println("lista de aportes entidades antes de borrar : " + listaAportesCorrecciones.size());
+            log.info("entró a borrar aportes entidades");
+            log.info("lista de aportes entidades antes de borrar : " + listaAportesCorrecciones.size());
             if (!listAportesCorreccionesModificar.isEmpty() && listAportesCorreccionesModificar.contains(aporteTablaSeleccionado)) {
                 int modIndex = listAportesCorreccionesModificar.indexOf(aporteTablaSeleccionado);
                 listAportesCorreccionesModificar.remove(modIndex);
@@ -1631,12 +1634,12 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             if (tipoLista == 1) {
                 filtrarListaAportesCorrecciones.remove(aporteTablaSeleccionado);
             }
-            System.out.println("lista de aportes entidades después de borrar : " + listaAportesCorrecciones.size());
+            log.info("lista de aportes entidades después de borrar : " + listaAportesCorrecciones.size());
             contarRegistrosAporte();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
             aporteTablaSeleccionado = null;
-            System.out.println("se borró un registro de aportes entidad");
+            log.info("se borró un registro de aportes entidad");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1661,20 +1664,20 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     RequestContext.getCurrentInstance().update("form:buscar");
                     RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                     RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
-                    System.out.println("El borrado fue realizado con éxito");
+                    log.info("El borrado fue realizado con éxito");
                     FacesMessage msg = new FacesMessage("Información", "El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
                 }
             } else {
-                System.out.println("No hay información para borrar");
+                log.info("No hay información para borrar");
                 FacesMessage msg = new FacesMessage("Información", "No hay información para borrar");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
 
         } catch (Exception e) {
-            System.out.println("Error borrarAporteEntidadProcesoAutomatico Controlador : " + e.toString());
+            log.warn("Error borrarAporteEntidadProcesoAutomatico Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de borrado de Aportes Entidades.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1722,7 +1725,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
+            log.warn("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
         }
     }
 
@@ -1730,10 +1733,10 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (guardado == false) {
-                System.out.println("entró a if 1");
+                log.info("entró a if 1");
                 guardadoGeneral();
             } else {
-                System.out.println("guardado : true");
+                log.info("guardado : true");
 
                 getParametroEstructura();
                 getParametroInforme();
@@ -1741,30 +1744,30 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 String procesoActualizar = " ";
                 String procesoIdentificar = " ";
 
-                System.out.println("fechadesde : " + parametroEstructura.getFechadesdecausado());
-                System.out.println("fecha hasta:  " + parametroEstructura.getFechahastacausado());
-                System.out.println("tipo trabajador: " + parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia());
-                System.out.println("empresa : " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
+                log.info("fechadesde : " + parametroEstructura.getFechadesdecausado());
+                log.info("fecha hasta:  " + parametroEstructura.getFechahastacausado());
+                log.info("tipo trabajador: " + parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia());
+                log.info("empresa : " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
 
                 if (tipoLista == 0) {
-                    System.out.println("entró a if 2");
+                    log.info("entró a if 2");
                     procesoInsertar = administrarParametroCorreccionAutoL.ejecutarPKGInsertarCorreccion(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-                    System.out.println("procesoinsertar del if 2 : " + procesoInsertar);
+                    log.info("procesoinsertar del if 2 : " + procesoInsertar);
                     procesoActualizar = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-                    System.out.println("procesoActualizar del if 2 : " + procesoActualizar);
+                    log.info("procesoActualizar del if 2 : " + procesoActualizar);
                     procesoIdentificar = administrarParametroCorreccionAutoL.ejecutarPKGIdentificaCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-                    System.out.println("procesoIdentificarCorreccion del if 2 : " + procesoIdentificar);
+                    log.info("procesoIdentificarCorreccion del if 2 : " + procesoIdentificar);
                 } else {
-                    System.out.println("entró a else 1");
+                    log.info("entró a else 1");
                     procesoInsertar = administrarParametroCorreccionAutoL.ejecutarPKGInsertarCorreccion(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
                     procesoActualizar = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
                     procesoIdentificar = administrarParametroCorreccionAutoL.ejecutarPKGIdentificaCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
                 }
                 if ((procesoInsertar.equals("PROCESO_EXITOSO")) && (procesoActualizar.equals("PROCESO_EXITOSO")) && (procesoIdentificar.equals("PROCESO_EXITOSO"))) {
-                    System.out.println("entró a if 3");
-                    System.out.println("procesoinsertar del if 3 : " + procesoInsertar);
-                    System.out.println("procesoActualizar del if 3 : " + procesoActualizar);
-                    System.out.println("procesoIdentificar del if 3 : " + procesoIdentificar);
+                    log.info("entró a if 3");
+                    log.info("procesoinsertar del if 3 : " + procesoInsertar);
+                    log.info("procesoActualizar del if 3 : " + procesoActualizar);
+                    log.info("procesoIdentificar del if 3 : " + procesoIdentificar);
                     listaAportesCorrecciones = null;
                     getListaAportesCorrecciones();
                     contarRegistrosAporte();
@@ -1772,13 +1775,13 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     visibilidadMostrarTodos = "hidden";
                     RequestContext.getCurrentInstance().update("form:mostrarTodos");
                     RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
-                    System.out.println("El proceso de Liquidación fue realizado con éxito");
-                    System.out.println("lista aportes correcciones : " + listaAportesCorrecciones.size());
+                    log.info("El proceso de Liquidación fue realizado con éxito");
+                    log.info("lista aportes correcciones : " + listaAportesCorrecciones.size());
                     FacesMessage msg = new FacesMessage("Información", "El proceso de Liquidación fue realizado con éxito");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
                 } else if ((procesoInsertar.equals("ERROR_PERSISTENCIA")) || (procesoActualizar.equals("ERROR_PERSISTENCIA")) || (procesoIdentificar.equals("ERROR_PERSISTENCIA"))) {
-                    System.out.println("entró a else if");
+                    log.info("entró a else if");
                     FacesMessage msg = new FacesMessage("Información", "Ocurrió un error en la ejecución del proceso de liquidación. Por favor, revisar los archivos de error de la carpeta SalidasUTL");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
@@ -1787,7 +1790,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("Error procesoLiquidacionOK Controlador : " + e.toString());
+            log.warn("Error procesoLiquidacionOK Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de Liquidación.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1834,7 +1837,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
-            System.out.println("Error cambiarFechasParametros Controlador : " + e.toString());
+            log.warn("Error cambiarFechasParametros Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en la modificacio de fechas ");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1846,22 +1849,22 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         try {
             getUsuario();
             parametroCorreccionSeleccionado = getParametroCorreccionSeleccionado();
-            System.out.println("usuario :" + usuario.getAlias());
+            log.info("usuario :" + usuario.getAlias());
             if (usuario.getAlias() != null) {
                 getParametroEstructura();
                 getParametroInforme();
-                System.out.println("parametro estructuras : " + parametroEstructura);
-                System.out.println("parametro informe : " + parametroInforme);
-                System.out.println("parametro seleccionado : " + parametroCorreccionSeleccionado);
-                System.out.println("parada 1");
+                log.info("parametro estructuras : " + parametroEstructura);
+                log.info("parametro informe : " + parametroInforme);
+                log.info("parametro seleccionado : " + parametroCorreccionSeleccionado);
+                log.info("parada 1");
                 if (parametroEstructura != null) {
                     if (parametroInforme != null) {
                         boolean fechasIgualesEstructura = true;
                         boolean fechasIgualesInforme = true;
 
-                        System.out.println("parada 2");
+                        log.info("parada 2");
                         if (fechasIgualesEstructura == true && fechasIgualesInforme == true) {
-                            System.out.println("entra a acumular dif ok");
+                            log.info("entra a acumular dif ok");
                             RequestContext.getCurrentInstance().execute("PF('acumularDiferenciaOK').show()");
                         } else {
                             RequestContext.getCurrentInstance().execute("PF('errorAcumularDiferencia').show()");
@@ -1871,8 +1874,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("se estalló");
-            System.out.println("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
+            log.info("se estalló");
+            log.warn("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
         }
     }
 
@@ -1881,17 +1884,17 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         String resultado;
         try {
             parametroCorreccionSeleccionado = getParametroCorreccionSeleccionado();
-            System.out.println("Año " + parametroCorreccionSeleccionado.getAno());
-            System.out.println("Mes " + parametroCorreccionSeleccionado.getMes());
-            System.out.println("Empresa " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
+            log.info("Año " + parametroCorreccionSeleccionado.getAno());
+            log.info("Mes " + parametroCorreccionSeleccionado.getMes());
+            log.info("Empresa " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
 
             resultado = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-            System.out.println("resultado consulta : " + resultado);
+            log.info("resultado consulta : " + resultado);
             disabledBuscar = true;
             visibilidadMostrarTodos = "hidden";
-            System.out.println("entró a actualizar");
+            log.info("entró a actualizar");
             RequestContext.getCurrentInstance().update("form:mostrarTodos");
-            System.out.println("El proceso de incrementar Correción fue realizado con éxito");
+            log.info("El proceso de incrementar Correción fue realizado con éxito");
             FacesMessage msg = new FacesMessage("Información", "El proceso de incrementar Correción fue realizado con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1899,7 +1902,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
 
         } catch (Exception e) {
-            System.out.println("Error incrementarCorrecionOK Controlador : " + e.toString());
+            log.warn("Error incrementarCorrecionOK Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de incrementar Correción.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -2331,7 +2334,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         parametroCorreccionSeleccionado = parametro;
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
-        System.out.println("tipo actualizacion aignar index : " + tipoActualizacion);
+        log.info("tipo actualizacion aignar index : " + tipoActualizacion);
         if (dialogo == 1) {
             contarRegistroTercero();
             RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
@@ -2348,7 +2351,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         aporteTablaSeleccionado = aporte;
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
-        System.out.println("tipo actualizacion aignar index aporte : " + tipoActualizacion);
+        log.info("tipo actualizacion aignar index aporte : " + tipoActualizacion);
         if (dialogo == 1) {
             contarRegistroEmpleados();
             RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
@@ -2480,8 +2483,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         } else if (tipoActualizacion == 1) {
             nuevoAporteEntidad.setEmpleado(empleadoSeleccionado);
-            System.out.println("empleado seleccionado :" + empleadoSeleccionado.getSecuencia());
-            System.out.println("nuevoaporteempleado empleado seleccionado : " + nuevoAporteEntidad.getEmpleado().getSecuencia());
+            log.info("empleado seleccionado :" + empleadoSeleccionado.getSecuencia());
+            log.info("nuevoaporteempleado empleado seleccionado : " + nuevoAporteEntidad.getEmpleado().getSecuencia());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodempl");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNomEmpl");
         } else if (tipoActualizacion == 2) {
@@ -2512,7 +2515,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public void actualizarTercero() {
-        System.out.println("tipo actualización actualizar tercero : " + tipoActualizacion);
+        log.info("tipo actualización actualizar tercero : " + tipoActualizacion);
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoListaAporte == 0) {
@@ -2604,8 +2607,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         } else if (tipoActualizacion == 1) {
             nuevoAporteEntidad.setTipoentidad(tipoEntidadSeleccionado);
-            System.out.println("tipo entidad seleccionado : " + tipoEntidadSeleccionado);
-            System.out.println("nuevoaporteempleado tipoentidad : " + nuevoAporteEntidad.getTipoentidad().getSecuencia());
+            log.info("tipo entidad seleccionado : " + tipoEntidadSeleccionado);
+            log.info("nuevoaporteempleado tipoentidad : " + nuevoAporteEntidad.getTipoentidad().getSecuencia());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevotipoentidad");
         } else if (tipoActualizacion == 2) {
             duplicarAporteEntidad.setTipoentidad(tipoEntidadSeleccionado);
@@ -2947,7 +2950,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             }
             return listaParametrosCorrecciones;
         } catch (Exception e) {
-            System.out.println("Error getListaParametrosCorrecciones");
+            log.warn("Error getListaParametrosCorrecciones");
             return null;
         }
 
@@ -2998,7 +3001,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             }
             return listaAportesCorrecciones;
         } catch (Exception e) {
-            System.out.println("Error !!!!!!!!!!! getListaAportesCorrecciones : " + e.toString());
+            log.warn("Error !!!!!!!!!!! getListaAportesCorrecciones : " + e.toString());
             return null;
         }
     }

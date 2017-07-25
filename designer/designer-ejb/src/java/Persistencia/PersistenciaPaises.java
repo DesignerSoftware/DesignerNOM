@@ -11,9 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPaises implements PersistenciaPaisesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPaises.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +38,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPaises.crear: " + e.getMessage());
+            log.error("Error PersistenciaPaises.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +54,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPaises.editar: " + e.getMessage());
+            log.error("Error PersistenciaPaises.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +70,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             em.remove(em.merge(tiposAusentismos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPaises.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPaises.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +86,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             List<Paises> todosPaises = query.getResultList();
             return todosPaises;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaPaises consultarPaises ERROR " + e.getMessage());
+            log.error("Error: PersistenciaPaises consultarPaises ERROR " + e.getMessage());
             return null;
         }
     }
@@ -99,7 +100,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             Paises clasesCategorias = (Paises) query.getSingleResult();
             return clasesCategorias;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPaises.consultarPais()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPaises.consultarPais()" + e.getMessage());
             return null;
         }
     }
@@ -114,7 +115,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPaises contarDepartamentosPais ERROR : " + e.getMessage());
+            log.error("Error PersistenciaPaises contarDepartamentosPais ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -129,7 +130,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaPaises contarFestivosPais ERROR : " + e.getMessage());
+            log.error("Error PersistenciaPaises contarFestivosPais ERROR : " + e.getMessage());
             return retorno;
         }
     }

@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTipoSueldo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTipoSueldo.class);
 
    @EJB
    AdministrarTiposSueldosInterface administrarTipoSueldo;
@@ -217,8 +220,8 @@ public class ControlTipoSueldo implements Serializable {
          administrarTipoSueldo.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -501,7 +504,7 @@ public class ControlTipoSueldo implements Serializable {
    }
 
    public void modificarTSFormula(TSFormulasConceptos tsformcon) {
-      System.out.println("ControlTipoSueldo.modificarTSFormula()");
+      log.info("ControlTipoSueldo.modificarTSFormula()");
       tsFormulaTablaSeleccionado = tsformcon;
       if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
          if (listTSFormulasConceptosModificar.isEmpty()) {
@@ -803,7 +806,7 @@ public class ControlTipoSueldo implements Serializable {
    }
 
    public void cambiarIndice(TiposSueldos tipoS, int celda) {
-      System.out.println("ControlTipoSueldo.cambiarIndice()");
+      log.info("ControlTipoSueldo.cambiarIndice()");
       deshabiltiarBotonLov();
       cualtabla = 1;
       cualCelda = celda;
@@ -813,24 +816,24 @@ public class ControlTipoSueldo implements Serializable {
       contarRegistrosGrupos();
       contarRegistrosTipoEntidades();
       RequestContext.getCurrentInstance().update("form:datosTSFormula");
-      System.out.println("ControlTipoSueldo.cambiarIndice() 1");
+      log.info("ControlTipoSueldo.cambiarIndice() 1");
       RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-      System.out.println("ControlTipoSueldo.cambiarIndice() 2");
+      log.info("ControlTipoSueldo.cambiarIndice() 2");
       RequestContext.getCurrentInstance().update("form:datosTEFormula");
-      System.out.println("ControlTipoSueldo.cambiarIndice() 3");
+      log.info("ControlTipoSueldo.cambiarIndice() 3");
    }
 
    public void cargarDatos() {
-      System.out.println("ControlTipoSueldo.cargarDatos()");
+      log.info("ControlTipoSueldo.cargarDatos()");
       listaTSGruposTiposEntidades = administrarTipoSueldo.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
-      System.out.println("ControlTipoSueldo.cargarDatos()2");
+      log.info("ControlTipoSueldo.cargarDatos()2");
       listaTSFormulasConceptos = administrarTipoSueldo.listaTSFormulasConceptosParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
-      System.out.println("ControlTipoSueldo.cargarDatos()3");
+      log.info("ControlTipoSueldo.cargarDatos()3");
       teFormulaTablaSeleccionado = null;
       if (listaTSGruposTiposEntidades != null) {
          if (!listaTSGruposTiposEntidades.isEmpty()) {
             listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(listaTSGruposTiposEntidades.get(0).getSecuencia());
-            System.out.println("ControlTipoSueldo.cargarDatos()4");
+            log.info("ControlTipoSueldo.cargarDatos()4");
             tsGrupoTablaSeleccionado = listaTSGruposTiposEntidades.get(0);
          } else {
             listaTEFormulasConceptos = null;
@@ -838,12 +841,12 @@ public class ControlTipoSueldo implements Serializable {
       } else {
          listaTEFormulasConceptos = null;
       }
-      System.out.println("ControlTipoSueldo.cargarDatos() tsGrupoTablaSeleccionado: " + tsGrupoTablaSeleccionado);
+      log.info("ControlTipoSueldo.cargarDatos() tsGrupoTablaSeleccionado: " + tsGrupoTablaSeleccionado);
    }
 
    public void cambiarIndiceTSFormula(TSFormulasConceptos tsformcon, int celda) {
       cualCeldaTSFormulas = celda;
-      System.out.println("cambiarIndiceTSFormula celda " + cualCeldaTSFormulas);
+      log.info("cambiarIndiceTSFormula celda " + cualCeldaTSFormulas);
       cualtabla = 2;
       if (permitirIndexTSFormulas == true) {
          tsFormulaTablaSeleccionado = tsformcon;
@@ -1514,7 +1517,7 @@ public class ControlTipoSueldo implements Serializable {
    }
 
    public void confirmarDuplicarTSGrupo() {
-      System.out.println("ControlTipoSueldo.confirmarDuplicarTSGrupo() duplicarTSGrupoTipoEntidad.getGrupotipoentidad() : " + duplicarTSGrupoTipoEntidad.getGrupotipoentidad());
+      log.info("ControlTipoSueldo.confirmarDuplicarTSGrupo() duplicarTSGrupoTipoEntidad.getGrupotipoentidad() : " + duplicarTSGrupoTipoEntidad.getGrupotipoentidad());
       if (duplicarTSGrupoTipoEntidad.getGrupotipoentidad() != null) {
          if (duplicarTSGrupoTipoEntidad.getGrupotipoentidad().getSecuencia() != null) {
             int duplicados = 0;
@@ -2901,7 +2904,7 @@ public class ControlTipoSueldo implements Serializable {
             return listaTiposSueldos;
          }
       } catch (Exception e) {
-         System.out.println("Error...!! getListaTiposSueldos " + e.toString());
+         log.warn("Error...!! getListaTiposSueldos " + e.toString());
          return null;
       }
    }

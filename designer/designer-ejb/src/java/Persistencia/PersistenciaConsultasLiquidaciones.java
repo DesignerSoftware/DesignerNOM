@@ -8,6 +8,7 @@ import InterfacePersistencia.PersistenciaConsultasLiquidacionesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -18,6 +19,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaConsultasLiquidaciones implements PersistenciaConsultasLiquidacionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaConsultasLiquidaciones.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -46,10 +49,10 @@ public class PersistenciaConsultasLiquidaciones implements PersistenciaConsultas
          query.setParameter(1, fechaInicial);
          query.setParameter(2, fechaFinal);
          List<ConsultasLiquidaciones> listaLiquidacionesCerradas = query.getResultList();
-         System.out.println("PersistenciaConsultasLiquidaciones liquidacionesCerradas() retorna : " + listaLiquidacionesCerradas);
+         log.error("PersistenciaConsultasLiquidaciones liquidacionesCerradas() retorna : " + listaLiquidacionesCerradas);
          return listaLiquidacionesCerradas;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConsultasLiquidaciones.liquidacionesCerradas. " + e);
+         log.error("Error PersistenciaConsultasLiquidaciones.liquidacionesCerradas. " + e);
          e.printStackTrace();
          return null;
       }
@@ -74,7 +77,7 @@ public class PersistenciaConsultasLiquidaciones implements PersistenciaConsultas
          return listaLiquidacionesPreNomina;
       } catch (Exception e) {
          e.printStackTrace();
-         System.out.println("Error PersistenciaConsultasLiquidaciones.preNomina. " + e);
+         log.error("Error PersistenciaConsultasLiquidaciones.preNomina. " + e);
          return null;
       }
    }

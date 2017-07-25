@@ -8,6 +8,7 @@ package Controlador;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,41 +18,43 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControlDestajo implements Serializable {
 
-    private String piePagina;
-    private String titulo;
-    private String tituloSeleccion;
+   private static Logger log = Logger.getLogger(ControlDestajo.class);
 
-    /**
-     * Creates a new instance of ControlDestajo
-     */
-    public ControlDestajo() {
-        piePagina = "Sistema Integral de Talento Humano y Nómina Designer .RHN - Todos los derechos Reservados. WWW.NOMINA.COM.CO";
-        titulo = " Bienvenido al Sistema Designer DESTAJO, el cual fue diseñado teniendo como principal objetivo brindar una herramienta sencilla para registrar unidades de producción para el empleado(Destajo).";
-        tituloSeleccion = "Por favor seleccione la opción que desea trabajar";
-    }
+   private String piePagina;
+   private String titulo;
+   private String tituloSeleccion;
 
-    public String getTitulo() {
-        return titulo;
-    }
+   /**
+    * Creates a new instance of ControlDestajo
+    */
+   public ControlDestajo() {
+      piePagina = "Sistema Integral de Talento Humano y Nómina Designer .RHN - Todos los derechos Reservados. WWW.NOMINA.COM.CO";
+      titulo = " Bienvenido al Sistema Designer DESTAJO, el cual fue diseñado teniendo como principal objetivo brindar una herramienta sencilla para registrar unidades de producción para el empleado(Destajo).";
+      tituloSeleccion = "Por favor seleccione la opción que desea trabajar";
+   }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+   public String getTitulo() {
+      return titulo;
+   }
 
-    public String getPiePagina() {
-        return piePagina;
-    }
+   public void setTitulo(String titulo) {
+      this.titulo = titulo;
+   }
 
-    public void setPiePagina(String piePagina) {
-        this.piePagina = piePagina;
-    }
+   public String getPiePagina() {
+      return piePagina;
+   }
 
-    public String getTituloSeleccion() {
-        return tituloSeleccion;
-    }
+   public void setPiePagina(String piePagina) {
+      this.piePagina = piePagina;
+   }
 
-    public void setTituloSeleccion(String tituloSeleccion) {
-        this.tituloSeleccion = tituloSeleccion;
-    }
+   public String getTituloSeleccion() {
+      return tituloSeleccion;
+   }
+
+   public void setTituloSeleccion(String tituloSeleccion) {
+      this.tituloSeleccion = tituloSeleccion;
+   }
 
 }

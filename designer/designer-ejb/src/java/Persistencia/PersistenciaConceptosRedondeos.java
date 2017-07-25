@@ -5,14 +5,11 @@ package Persistencia;
 
 import Entidades.ConceptosRedondeos;
 import InterfacePersistencia.PersistenciaConceptosRedondeosInterface;
-import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Clase Stateless.<br>
@@ -23,6 +20,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedondeosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaConceptosRedondeos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -38,7 +37,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          return em.createNativeQuery("SELECT CR.* FROM CONCEPTOSREDONDEOS CR, CONCEPTOS C\n"
                  + "WHERE CR.CONCEPTO = C.SECUENCIA", ConceptosRedondeos.class).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarConceptosRedondeos PersistenciaConceptosRedondeos : " + e.toString());
+         log.error("Error buscarConceptosRedondeos PersistenciaConceptosRedondeos : " + e.toString());
          return null;
       }
    }
@@ -52,7 +51,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          em.merge(conceptosRedondeos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosRedondeos.crear: " + e);
+         log.error("Error PersistenciaConceptosRedondeos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +67,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          em.merge(conceptosRedondeos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosRedondeos.crear: " + e);
+         log.error("Error PersistenciaConceptosRedondeos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -87,7 +86,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaConceptosRedondeos.borrar: " + e);
+         log.error("Error PersistenciaConceptosRedondeos.borrar: " + e);
       }
    }
 

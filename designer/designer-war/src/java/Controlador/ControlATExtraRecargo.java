@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlATExtraRecargo implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlATExtraRecargo.class);
 
    @EJB
    AdministrarATExtraRecargoInterface administrarATExtraRecargo;
@@ -230,8 +233,8 @@ public class ControlATExtraRecargo implements Serializable {
          administrarATExtraRecargo.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -847,7 +850,7 @@ public class ControlATExtraRecargo implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosExtraRecargo : " + e.toString());
+         log.warn("Error guardarCambiosExtraRecargo : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Recargo Extra, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -885,7 +888,7 @@ public class ControlATExtraRecargo implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosExtraRecargo : " + e.toString());
+         log.warn("Error guardarCambiosExtraRecargo : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Detalle, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2471,7 +2474,7 @@ public class ControlATExtraRecargo implements Serializable {
          return listExtrasRecargos;
 
       } catch (Exception e) {
-         System.out.println("Error...!! getListExtrasRecargos " + e.toString());
+         log.warn("Error...!! getListExtrasRecargos " + e.toString());
          return null;
       }
    }
@@ -2547,7 +2550,7 @@ public class ControlATExtraRecargo implements Serializable {
          }
          return listDetallesExtrasRecargos;
       } catch (Exception e) {
-         System.out.println("Error getListDetallesExtrasRecargos : " + e.toString());
+         log.warn("Error getListDetallesExtrasRecargos : " + e.toString());
          return null;
       }
    }

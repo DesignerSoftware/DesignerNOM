@@ -16,12 +16,12 @@ import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaSolucionesNodosInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaUnidadesInterface;
-//import Persistencia.PersistenciaSolucionesNodos;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br> Clase encargada de realizar las operaciones lógicas para
@@ -31,6 +31,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarConceptos implements AdministrarConceptosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarConceptos.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS

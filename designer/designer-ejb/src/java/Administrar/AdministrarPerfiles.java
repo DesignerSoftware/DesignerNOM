@@ -13,12 +13,12 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaPerfilesInterface;
 import InterfacePersistencia.PersistenciaPermisosObjetosDBInterface;
 import InterfacePersistencia.PersistenciaPermisosPantallasInterface;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPerfiles implements AdministrarPerfilesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPerfiles.class);
 
     @EJB
     PersistenciaPerfilesInterface persistenciaPerfiles;
@@ -129,7 +131,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
         try {
             persistenciaPerfiles.ejecutarPKGRecrearPerfil(em, descripcion, pwd);
         } catch (Exception e) {
-            System.out.println("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
+            log.warn("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
         }
     }
 
@@ -138,7 +140,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
         try {
             persistenciaPerfiles.ejecutarPKGEliminarPerfil(em, descripcion);
         } catch (Exception e) {
-            System.out.println("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
+            log.warn("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
         }
     }
 
@@ -153,7 +155,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
         try {
             persistenciaPerfiles.clonarPantallas(em, nomPerfil);
         } catch (Exception e) {
-            System.out.println("Error en administrar.clonarPantallas() : " + e.getMessage());
+            log.warn("Error en administrar.clonarPantallas() : " + e.getMessage());
         }
     }
 
@@ -162,7 +164,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
         try {
             persistenciaPerfiles.clonarPermisosObjetos(em, nomPerfil);
         } catch (Exception e) {
-            System.out.println("Error en administrar.clonarPermisosObjetos() : " + e.getMessage());
+            log.warn("Error en administrar.clonarPermisosObjetos() : " + e.getMessage());
         }
     }
 

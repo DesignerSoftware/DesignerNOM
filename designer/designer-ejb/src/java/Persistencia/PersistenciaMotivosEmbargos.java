@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosEmbargos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
             em.merge(motivosEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosEmbargos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosEmbargos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
             em.merge(motivosEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosEmbargos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosEmbargos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
             em.remove(em.merge(motivosEmbargos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosEmbargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosEmbargos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -95,7 +97,7 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
         List<MotivosEmbargos> listaMotivosEmbargos = query.getResultList();
         return listaMotivosEmbargos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosEmbargos.buscarMotivosEmbargos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosEmbargos.buscarMotivosEmbargos()" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +113,7 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSEMBARGOS CONTADOREERSPRESTAMOS  ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSEMBARGOS CONTADOREERSPRESTAMOS  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -128,7 +130,7 @@ public class PersistenciaMotivosEmbargos implements PersistenciaMotivosEmbargosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSEMBARGOS CONTADOREMBARGOS  ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSEMBARGOS CONTADOREMBARGOS  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

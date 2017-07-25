@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarATParametroTiempo implements AdministrarATParametroTiempoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarATParametroTiempo.class);
     
     @EJB
     PersistenciaCuadrillasInterface persistenciaCuadrillas;
@@ -55,7 +58,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             List<Empleados> lista = persistenciaEmpleadosInterface.buscarEmpleados(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpleados Admi : " + e.toString());
+            log.warn("Error lovEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -66,7 +69,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             ParametrosTiempos lista = persistenciaParametrosTiempos.buscarParametrosTiemposPorUsuarioBD(em, usuarioBD);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error consultarParametrosTiemposPorUsarioBD Admi : " + e.toString());
+            log.warn("Error consultarParametrosTiemposPorUsarioBD Admi : " + e.toString());
             return null;
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             ActualUsuario user = persistenciaActualUsuario.actualUsuarioBD(em);
             return user;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuario Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             List<Cuadrillas> lista = persistenciaCuadrillas.buscarCuadrillas(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovCuadrillas Admi : " + e.toString());
+            log.warn("Error lovCuadrillas Admi : " + e.toString());
             return null;
         }
     }
@@ -99,7 +102,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             Date fecha = persistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaInicialMinTurnosEmpleados Admi : " + e.toString());
+            log.warn("Error obtenerFechaInicialMinTurnosEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -110,7 +113,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             Date fecha = persistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados(em);
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error obtenerFechaFinalMaxTurnosEmpleados Admi : " + e.toString());
+            log.warn("Error obtenerFechaFinalMaxTurnosEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -120,7 +123,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaParametrosTiempos.ejecutarPKG_INSERTARCUADRILLA(em, cuadrilla, fechaDesde, fechaHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_INSERTARCUADRILLA Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_INSERTARCUADRILLA Admi : " + e.toString());
         }
     }
     
@@ -129,7 +132,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaParametrosTiempos.ejecutarPKG_SIMULARTURNOSEMPLEADOS(em, fechaDesde, fechaHasta, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_SIMULARTURNOSEMPLEADOS Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_SIMULARTURNOSEMPLEADOS Admi : " + e.toString());
         }
     }
     
@@ -138,7 +141,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaParametrosTiempos.ejecutarPKG_LIQUIDAR(em, fechaDesde, fechaHasta, emplDesde, emplHasta, formulaLiquidacion);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_LIQUIDAR Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_LIQUIDAR Admi : " + e.toString());
         }
     }
     
@@ -147,7 +150,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaParametrosTiempos.ejecutarPKG_EliminarProgramacion(em, fechaDesde, fechaHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_EliminarProgramacion Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_EliminarProgramacion Admi : " + e.toString());
         }
     }
     
@@ -156,7 +159,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaParametrosTiempos.ejecutarPKG_ELIMINARSIMULACION(em, cuadrilla, fechaDesde, fechaHasta, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_ELIMINARSIMULACION Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_ELIMINARSIMULACION Admi : " + e.toString());
         }
     }
     
@@ -166,7 +169,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
             int conteo = persistenciaTurnosEmpleados.ejecutarPKG_CONTARNOVEDADESLIQ(em, fechaDesde, fechaHasta, emplDesde, emplHasta);
             return conteo;
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_CONTARNOVEDADESLIQ Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_CONTARNOVEDADESLIQ Admi : " + e.toString());
             return -1;
         }
     }
@@ -176,7 +179,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaTurnosEmpleados.ejecutarPKG_ELIMINARLIQUIDACION(em, fechaDesde, fechaHasta, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error ejecutarPKG_ELIMINARLIQUIDACION Admi : " + e.toString());
+            log.warn("Error ejecutarPKG_ELIMINARLIQUIDACION Admi : " + e.toString());
         }
     }
     
@@ -185,7 +188,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
         try {
             persistenciaParametrosTiempos.editar(em, parametro);
         } catch (Exception e) {
-            System.out.println("Error modificarParametroTiempo Admi : " + e.toString());
+            log.warn("Error modificarParametroTiempo Admi : " + e.toString());
         }  
     }
     

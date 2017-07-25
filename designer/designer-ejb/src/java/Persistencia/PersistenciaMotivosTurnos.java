@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -14,7 +15,9 @@ import javax.persistence.Query;
  * @author Administrador
  */
 @Stateless
-public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInterface{
+public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosTurnos.class);
 
     @Override
     public void crear(EntityManager em, MotivosTurnos motivosTurnos) {
@@ -25,7 +28,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             em.persist(motivosTurnos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosTurnos.crear: " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.crear: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +44,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             em.merge(motivosTurnos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosTurnos.editar: " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.editar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +60,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             em.remove(em.merge(motivosTurnos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosTurnos.borrar: " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.borrar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +76,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             List<MotivosTurnos> motivosTurnos = query.getResultList();
             return motivosTurnos;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaMotivosTurnos.consultarMotivosTurnos :" + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.consultarMotivosTurnos :" + e.toString());
             return null;
         }
 
@@ -90,7 +93,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             MotivosTurnos motivosTurnos = (MotivosTurnos) query.getSingleResult();
             return motivosTurnos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosTurnos.consultarMotivoTurnoPorSecuencia : " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.consultarMotivoTurnoPorSecuencia : " + e.toString());
             MotivosTurnos motivosTurnos = null;
             return motivosTurnos;
         }

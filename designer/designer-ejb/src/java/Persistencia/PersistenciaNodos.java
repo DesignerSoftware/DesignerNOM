@@ -9,9 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -23,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaNodos implements PersistenciaNodosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaNodos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +39,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.merge(nodos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNodos.crear: " + e.getMessage());
+            log.error("Error PersistenciaNodos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +55,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.merge(nodos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNodos.editar: " + e.getMessage());
+            log.error("Error PersistenciaNodos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +71,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.remove(em.merge(nodos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNodos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNodos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +88,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             Nodos nodos = (Nodos) query.getSingleResult();
             return nodos;
         } catch (Exception e) {
-            System.out.println("Error buscarNodoSecuencia PersistenciaNodos : " + e.toString());
+            log.error("Error buscarNodoSecuencia PersistenciaNodos : " + e.toString());
             Nodos nodos = null;
             return nodos;
         }
@@ -102,7 +103,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             List<Nodos> nodos = (List<Nodos>) query.getResultList();
             return nodos;
         } catch (Exception e) {
-            System.out.println("Error listNodos PersistenciaNodos : " + e.toString());
+            log.error("Error listNodos PersistenciaNodos : " + e.toString());
             return null;
         }
     }
@@ -117,7 +118,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             List<Nodos> nodos = query.getResultList();
             return nodos;
         } catch (Exception e) {
-            System.out.println("Error buscarNodosPorSecuenciaHistoriaFormula PersistenciaNodos : " + e.toString());
+            log.error("Error buscarNodosPorSecuenciaHistoriaFormula PersistenciaNodos : " + e.toString());
             List<Nodos> nodos = null;
             return nodos;
         }

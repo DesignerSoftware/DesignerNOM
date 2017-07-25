@@ -7,9 +7,9 @@ package Persistencia;
 
 import Entidades.ParametrosConjuntos;
 import InterfacePersistencia.PersistenciaParametrosConjuntosInterface;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +20,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaParametrosConjuntos implements PersistenciaParametrosConjuntosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaParametrosConjuntos.class);
+
     @Override
     public void crearParametros(EntityManager em, ParametrosConjuntos parametrosConjuntos) {
         em.clear();
@@ -29,7 +31,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.persist(parametrosConjuntos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosConjuntos.crearParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.crearParametros : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +47,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.merge(parametrosConjuntos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosConjuntos.editarParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.editarParametros : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +63,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.remove(em.merge(parametrosConjuntos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosConjuntos.borrarParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.borrarParametros : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,10 +76,10 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.clear();
             Query query = em.createNativeQuery("SELECT * FROM PARAMETROSCONJUNTOS p WHERE p.USUARIOBD = USER", ParametrosConjuntos.class);
             ParametrosConjuntos pc = (ParametrosConjuntos) query.getSingleResult();
-            System.out.println("PersistenciaParametrosConjuntos.consultarParametros pc : " + pc);
+            log.error("PersistenciaParametrosConjuntos.consultarParametros pc : " + pc);
             return pc;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaParametrosConjuntos.consultarParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.consultarParametros : " + e.toString());
             return null;
         }
     }

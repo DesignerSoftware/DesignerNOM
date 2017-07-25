@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplDemanda implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplDemanda.class);
 
    @EJB
    AdministrarEmplDemandaInterface administrarEmplDemanda;
@@ -155,8 +158,8 @@ public class ControlEmplDemanda implements Serializable {
          administrarEmplDemanda.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -378,7 +381,7 @@ public class ControlEmplDemanda implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosDemanda");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -891,7 +894,7 @@ public class ControlEmplDemanda implements Serializable {
          }
          return listDemandasEmpleado;
       } catch (Exception e) {
-         System.out.println("Error en getListDemandasEmpleado : " + e.toString());
+         log.warn("Error en getListDemandasEmpleado : " + e.toString());
          return null;
       }
    }
@@ -913,7 +916,7 @@ public class ControlEmplDemanda implements Serializable {
          lovMotivosDemandas = administrarEmplDemanda.listMotivosDemandas();
          return lovMotivosDemandas;
       } catch (Exception e) {
-         System.out.println("Error getListEmpresas " + e.toString());
+         log.warn("Error getListEmpresas " + e.toString());
          return null;
       }
    }

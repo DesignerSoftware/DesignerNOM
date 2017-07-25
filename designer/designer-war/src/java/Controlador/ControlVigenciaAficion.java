@@ -27,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -39,6 +40,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciaAficion implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciaAficion.class);
 
    @EJB
    AdministrarVigenciaAficionInterface administrarVigenciaAficion;
@@ -128,8 +131,8 @@ public class ControlVigenciaAficion implements Serializable {
          administrarVigenciaAficion.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -510,7 +513,7 @@ public class ControlVigenciaAficion implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1091,7 +1094,7 @@ public class ControlVigenciaAficion implements Serializable {
          return listVigenciasAficiones;
 
       } catch (Exception e) {
-         System.out.println("Error...!! getListVigenciasAficiones : " + e.toString());
+         log.warn("Error...!! getListVigenciasAficiones : " + e.toString());
          return null;
       }
    }

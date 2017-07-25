@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -24,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasAfiliacionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasAfiliaciones.class);
+
    @Override
    public boolean crear(EntityManager em, VigenciasAfiliaciones vigenciasAfiliaciones) {
       em.clear();
@@ -34,7 +36,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          tx.commit();
          return true;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasAfiliaciones.crear()" + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasAfiliaciones.crear()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -51,7 +53,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          em.merge(vigenciasAfiliaciones);
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasAfiliaciones.editar()" + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasAfiliaciones.editar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -68,7 +70,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          em.remove(em.merge(vigenciasAfiliaciones));
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaVigenciasAfiliaciones.borrar()" + e.getMessage());
+          log.error("Persistencia.PersistenciaVigenciasAfiliaciones.borrar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -83,7 +85,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          cq.select(cq.from(VigenciasAfiliaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciaAfiliacion PersistenciaVigenciasAfiliaciones" + e.getMessage());
+         log.error("Error buscarVigenciaAfiliacion PersistenciaVigenciasAfiliaciones" + e.getMessage());
          return null;
       }
    }
@@ -98,7 +100,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          List<VigenciasAfiliaciones> vigenciasAfiliaciones = query.getResultList();
          return vigenciasAfiliaciones;
       } catch (Exception e) {
-         System.out.println("Error en buscarVigenciasAfiliacionesEmpleado PersistenciaVigenciasAfiliaciones " + e.getMessage());
+         log.error("Error en buscarVigenciasAfiliacionesEmpleado PersistenciaVigenciasAfiliaciones " + e.getMessage());
          return null;
       }
    }
@@ -112,7 +114,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          VigenciasAfiliaciones vigenciasAfiliaciones = (VigenciasAfiliaciones) query.getSingleResult();
          return vigenciasAfiliaciones;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones " + e.getMessage());
+         log.error("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones " + e.getMessage());
          return null;
       }
    }
@@ -127,7 +129,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          List<VigenciasAfiliaciones> vigenciasAfiliaciones = query.getResultList();
          return vigenciasAfiliaciones;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones " + e.getMessage());
+         log.error("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones " + e.getMessage());
          return null;
       }
    }

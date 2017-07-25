@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaJornadas implements PersistenciaJornadasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaJornadas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -36,7 +38,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             em.merge(jornadas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadas.crear: " + e.getMessage());
+            log.error("Error PersistenciaJornadas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +54,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             em.merge(jornadas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadas.editar: " + e.getMessage());
+            log.error("Error PersistenciaJornadas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +71,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaJornadas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +84,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             em.clear();
             return em.find(Jornadas.class, secuencia);
         } catch (Exception e) {
-            System.out.println("\n ERROR EN PersistenciaJornadas buscarJornada ERROR " + e.getMessage());
+            log.error("\n ERROR EN PersistenciaJornadas buscarJornada ERROR " + e.getMessage());
             return null;
         }
     }
@@ -96,7 +98,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             List<Jornadas> todosJornadas = query.getResultList();
             return todosJornadas;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaJornadas consultarJornadas ERROR " + e.getMessage());
+            log.error("Error: PersistenciaJornadas consultarJornadas ERROR " + e.getMessage());
             return null;
         }
     }
@@ -112,7 +114,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaJornadas contarTiposEntidadesJornada ERROR : " + e.getMessage());
+            log.error("Error PersistenciaJornadas contarTiposEntidadesJornada ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -128,7 +130,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaJornadas contarTSjornadasTipoEntidad ERROR : " + e.getMessage());
+            log.error("Error PersistenciaJornadas contarTSjornadasTipoEntidad ERROR : " + e.getMessage());
             return retorno;
         }
     }

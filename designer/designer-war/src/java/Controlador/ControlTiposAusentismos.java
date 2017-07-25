@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposAusentismos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposAusentismos.class);
 
    @EJB
    AdministrarTiposAusentismosInterface administrarTiposAusentismos;
@@ -82,7 +85,7 @@ public class ControlTiposAusentismos implements Serializable {
       guardado = true;
       tamano = 270;
       activarLOV = true;
-      System.out.println("controlTiposAusentismos Constructor");
+      log.info("controlTiposAusentismos Constructor");
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
@@ -93,14 +96,14 @@ public class ControlTiposAusentismos implements Serializable {
    @PostConstruct
    public void inicializarAdministrador() {
       try {
-         System.out.println("ControlTiposAusentismos PostConstruct ");
+         log.info("ControlTiposAusentismos PostConstruct ");
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTiposAusentismos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -177,12 +180,12 @@ String pagActual = "tipoausentismo";
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposAusentismos eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlTiposAusentismos eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(Tiposausentismos tipo, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          tiposAusentismosSeleccionado = tipo;
@@ -190,20 +193,20 @@ String pagActual = "tipoausentismo";
          if (tipoLista == 0) {
             if (cualCelda == 0) {
                backUpCodigo = tiposAusentismosSeleccionado.getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
             } else if (cualCelda == 1) {
                backUpDescripcion = tiposAusentismosSeleccionado.getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
             }
             tiposAusentismosSeleccionado.getSecuencia();
          } else {
             if (cualCelda == 0) {
                backUpCodigo = tiposAusentismosSeleccionado.getCodigo();
-               System.out.println(" backUpCodigo : " + backUpCodigo);
+               log.info(" backUpCodigo : " + backUpCodigo);
 
             } else if (cualCelda == 1) {
                backUpDescripcion = tiposAusentismosSeleccionado.getDescripcion();
-               System.out.println(" backUpDescripcion : " + backUpDescripcion);
+               log.info(" backUpDescripcion : " + backUpDescripcion);
 
             }
             tiposAusentismosSeleccionado.getSecuencia();
@@ -214,12 +217,12 @@ String pagActual = "tipoausentismo";
 
    public void asignarIndex(Tiposausentismos tipo, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlTiposAusentismos.asignarIndex \n");
+         log.info("\n ENTRE A ControlTiposAusentismos.asignarIndex \n");
          tiposAusentismosSeleccionado = tipo;
          tipoActualizacion = LND;
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlTiposAusentismos.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlTiposAusentismos.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -298,10 +301,10 @@ String pagActual = "tipoausentismo";
          descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
          descripcion.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -315,7 +318,7 @@ String pagActual = "tipoausentismo";
    }
 
    public void modificarTiposAusentismos(Tiposausentismos tipo, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       tiposAusentismosSeleccionado = tipo;
 
       int contador = 0;
@@ -323,9 +326,9 @@ String pagActual = "tipoausentismo";
       Integer a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearTiposAusentismos.contains(tiposAusentismosSeleccionado)) {
                if (tiposAusentismosSeleccionado.getCodigo() == a) {
@@ -480,7 +483,7 @@ String pagActual = "tipoausentismo";
    public void borrandoTiposAusentismos() {
 
       if (tiposAusentismosSeleccionado != null) {
-         System.out.println("Entro a borrandoTiposAusentismos");
+         log.info("Entro a borrandoTiposAusentismos");
          if (!modificarTiposAusentismos.isEmpty() && modificarTiposAusentismos.contains(tiposAusentismosSeleccionado)) {
             int modIndex = modificarTiposAusentismos.indexOf(tiposAusentismosSeleccionado);
             modificarTiposAusentismos.remove(modIndex);
@@ -512,12 +515,12 @@ String pagActual = "tipoausentismo";
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarClasesAusentimosTipoAusentismo;
       BigInteger contarSOAusentimosTipoAusentismo;
 
       try {
-         System.err.println("Control Secuencia de ControlTiposAusentismos ");
+         log.error("Control Secuencia de ControlTiposAusentismos ");
          if (tipoLista == 0) {
             contarClasesAusentimosTipoAusentismo = administrarTiposAusentismos.contarClasesAusentimosTipoAusentismo(tiposAusentismosSeleccionado.getSecuencia());
             contarSOAusentimosTipoAusentismo = administrarTiposAusentismos.contarSOAusentimosTipoAusentismo(tiposAusentismosSeleccionado.getSecuencia());
@@ -527,10 +530,10 @@ String pagActual = "tipoausentismo";
          }
          if (contarClasesAusentimosTipoAusentismo.equals(new BigInteger("0"))
                  && contarSOAusentimosTipoAusentismo.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoTiposAusentismos();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -540,7 +543,7 @@ String pagActual = "tipoausentismo";
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlTiposAusentismos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposAusentismos verificarBorrado ERROR " + e);
       }
    }
 
@@ -558,7 +561,7 @@ String pagActual = "tipoausentismo";
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarTiposAusentismos");
+         log.info("Realizando guardarTiposAusentismos");
          if (!borrarTiposAusentismos.isEmpty()) {
             administrarTiposAusentismos.borrarTiposAusentismos(borrarTiposAusentismos);
             //mostrarBorrados
@@ -575,7 +578,7 @@ String pagActual = "tipoausentismo";
             administrarTiposAusentismos.crearTiposAusentismos(crearTiposAusentismos);
             crearTiposAusentismos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listTiposAusentismos = null;
          RequestContext.getCurrentInstance().update("form:datosTiposAusentismos");
          k = 0;
@@ -599,7 +602,7 @@ String pagActual = "tipoausentismo";
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -616,7 +619,7 @@ String pagActual = "tipoausentismo";
    }
 
    public void agregarNuevoTiposAusentismos() {
-      System.out.println("agregarNuevoTiposAusentismos");
+      log.info("agregarNuevoTiposAusentismos");
       int contador = 0;
       int duplicados = 0;
 
@@ -626,7 +629,7 @@ String pagActual = "tipoausentismo";
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoTiposAusentismos.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
 
          for (int x = 0; x < listTiposAusentismos.size(); x++) {
@@ -634,37 +637,37 @@ String pagActual = "tipoausentismo";
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
+         log.info("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoTiposAusentismos.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (nuevoTiposAusentismos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripción \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposAusentismos:descripcion");
@@ -674,7 +677,7 @@ String pagActual = "tipoausentismo";
             filtrarTiposAusentismos = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -702,13 +705,13 @@ String pagActual = "tipoausentismo";
    }
 
    public void limpiarNuevoTiposAusentismos() {
-      System.out.println("limpiarNuevoTiposAusentismos");
+      log.info("limpiarNuevoTiposAusentismos");
       nuevoTiposAusentismos = new Tiposausentismos();
 
    }
 
    public void duplicandoTiposAusentismos() {
-      System.out.println("duplicandoTiposAusentismos");
+      log.info("duplicandoTiposAusentismos");
       if (tiposAusentismosSeleccionado != null) {
          duplicarTiposAusentismos = new Tiposausentismos();
          k++;
@@ -732,19 +735,19 @@ String pagActual = "tipoausentismo";
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       Integer a = 0;
       a = null;
-      System.err.println("ConfirmarDuplicar codigo " + duplicarTiposAusentismos.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposAusentismos.getDescripcion());
+      log.error("ConfirmarDuplicar codigo " + duplicarTiposAusentismos.getCodigo());
+      log.error("ConfirmarDuplicar Descripcion " + duplicarTiposAusentismos.getDescripcion());
 
       if (duplicarTiposAusentismos.getCodigo() == a) {
          mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposAusentismos.size(); x++) {
             if (listTiposAusentismos.get(x).getCodigo().equals(duplicarTiposAusentismos.getCodigo())) {
@@ -753,32 +756,32 @@ String pagActual = "tipoausentismo";
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarTiposAusentismos.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else if (duplicarTiposAusentismos.getDescripcion().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
 
       }
 
       if (contador == 2) {
 
-         System.out.println("Datos Duplicando: " + duplicarTiposAusentismos.getSecuencia() + "  " + duplicarTiposAusentismos.getCodigo());
+         log.info("Datos Duplicando: " + duplicarTiposAusentismos.getSecuencia() + "  " + duplicarTiposAusentismos.getCodigo());
          if (crearTiposAusentismos.contains(duplicarTiposAusentismos)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          listTiposAusentismos.add(duplicarTiposAusentismos);
          crearTiposAusentismos.add(duplicarTiposAusentismos);
@@ -836,7 +839,7 @@ String pagActual = "tipoausentismo";
       RequestContext context = RequestContext.getCurrentInstance();
       if (tiposAusentismosSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(tiposAusentismosSeleccionado.getSecuencia(), "TIPOSAUSENTISMOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

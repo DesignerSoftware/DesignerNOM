@@ -28,6 +28,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @Named(value = "controlAnterioresContratos")
 @SessionScoped
 public class ControlAnterioresContratos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlAnterioresContratos.class);
 
    @EJB
    AdministrarAnterioresContratosInterface administrarAnterioresContratos;
@@ -91,8 +94,8 @@ public class ControlAnterioresContratos implements Serializable {
          administrarAnterioresContratos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -452,7 +455,7 @@ public class ControlAnterioresContratos implements Serializable {
    }
 
    public void activarCtrlF11() {
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       FacesContext c = FacesContext.getCurrentInstance();
 
       if (bandera == 0) {
@@ -519,8 +522,8 @@ public class ControlAnterioresContratos implements Serializable {
       }
 
       if (contador == 0) {
-         System.out.println("nuevoAnteriorContrato.getFechafinal() " + nuevoAnteriorContrato.getFechafinal());
-         System.out.println("nuevoAnteriorContrato.getFechafinal() " + nuevoAnteriorContrato.getFechafinal());
+         log.info("nuevoAnteriorContrato.getFechafinal() " + nuevoAnteriorContrato.getFechafinal());
+         log.info("nuevoAnteriorContrato.getFechafinal() " + nuevoAnteriorContrato.getFechafinal());
          if (nuevoAnteriorContrato.getFechafinal().before(nuevoAnteriorContrato.getFechainicial())) {
             banderaf++;
          }

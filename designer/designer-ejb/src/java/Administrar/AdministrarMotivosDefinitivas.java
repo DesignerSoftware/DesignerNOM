@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefinitivasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosDefinitivas.class);
 
     @EJB
     PersistenciaMotivosDefinitivasInterface persistenciaMotivosDefinitivas;
@@ -41,21 +44,21 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
     
     public void modificarMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas) {
         for (int i = 0; i < listaMotivosDefinitivas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosDefinitivas.editar(em, listaMotivosDefinitivas.get(i));
         }
     }
 
     public void borrarMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas) {
         for (int i = 0; i < listaMotivosDefinitivas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosDefinitivas.borrar(em, listaMotivosDefinitivas.get(i));
         }
     }
 
     public void crearMotivosDefinitivas(List<MotivosDefinitivas> listaMotivosDefinitivas) {
         for (int i = 0; i < listaMotivosDefinitivas.size(); i++) {
-            System.out.println("Administrar Crenando...");
+            log.warn("Administrar Crenando...");
             persistenciaMotivosDefinitivas.crear(em, listaMotivosDefinitivas.get(i));
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
         try {
             verificarNovedadesSistema = persistenciaMotivosDefinitivas.contadorNovedadesSistema(em, secuenciaMotivosCesantias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARNOVEDADESSISTEMA ERROR :" + e);
+            log.error("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARNOVEDADESSISTEMA ERROR :" + e);
         } finally {
             return verificarNovedadesSistema;
         }
@@ -88,7 +91,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
         try {
             verificarParametrosCambiosMasivos = persistenciaMotivosDefinitivas.contadorParametrosCambiosMasivos(em, secuenciaMotivosCesantias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARPARAMETROSCAMBIOSMASIVOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARMOTIVOSDEFINITIVAS VERIFICARPARAMETROSCAMBIOSMASIVOS ERROR :" + e);
         } finally {
             return verificarParametrosCambiosMasivos;
         }

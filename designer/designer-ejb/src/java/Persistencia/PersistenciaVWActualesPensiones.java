@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -18,7 +18,10 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaVWActualesPensiones implements  PersistenciaVWActualesPensionesInterface{
+public class PersistenciaVWActualesPensiones implements  PersistenciaVWActualesPensionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesPensiones
+           .class);
 
     @Override
     public BigDecimal buscarSueldoPensionado(EntityManager em, BigInteger secuencia) {
@@ -30,7 +33,7 @@ public class PersistenciaVWActualesPensiones implements  PersistenciaVWActualesP
             VWActualesPensiones vWActualesPensiones = (VWActualesPensiones) query.getSingleResult();          
             return vWActualesPensiones.getValor();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesPensiones.buscarSueldoPensionado()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesPensiones.buscarSueldoPensionado()" + e.getMessage());
             return null;
         }
     }

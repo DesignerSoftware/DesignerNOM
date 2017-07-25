@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlFormulasContratosEntidades implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlFormulasContratosEntidades.class);
 
    @EJB
    AdministrarFormulasContratosEntidadesInterface administrarFormulasContratosEntidades;
@@ -154,8 +157,8 @@ public class ControlFormulasContratosEntidades implements Serializable {
          administrarFormulasContratosEntidades.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -163,7 +166,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
       secuenciaFormulasContratos = secuencia;
       listFormulasContratosEntidades = administrarFormulasContratosEntidades.consultarFormulasContratosEntidadesPorFormulaContrato(secuenciaFormulasContratos);
       paginaAnterior = pagina;
-      System.out.println("ControlFormulasContratosEntidades PaginaAnterior");
+      log.info("ControlFormulasContratosEntidades PaginaAnterior");
       FacesContext fc = FacesContext.getCurrentInstance();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "formulacontratoentidad");
    }
@@ -174,7 +177,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlFormulasContratosEntidades.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlFormulasContratosEntidades.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -182,12 +185,12 @@ public class ControlFormulasContratosEntidades implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarFormulasContratosEntidades.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlFormulasContratosEntidades eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlFormulasContratosEntidades eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -207,19 +210,19 @@ public class ControlFormulasContratosEntidades implements Serializable {
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("\n ENTRE A ControlFormulasContratosEntidades.asignarIndex \n");
+         log.info("\n ENTRE A ControlFormulasContratosEntidades.asignarIndex \n");
          index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
@@ -229,7 +232,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
             dig = -1;
          }
       } catch (Exception e) {
-         System.out.println("ERROR ControlFormulasContratosEntidades.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlFormulasContratosEntidades.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -319,10 +322,10 @@ public class ControlFormulasContratosEntidades implements Serializable {
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
          personafir.setFilterStyle("width: 85% !important");
          RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
          personafir.setFilterStyle("display: none; visibility: hidden;");
@@ -336,9 +339,9 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
    public void actualizarTiposEntidades() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("formula seleccionado : " + tipoEntidadSeleccionado.getNombre());
-      System.out.println("tipo Actualizacion : " + tipoActualizacion);
-      System.out.println("tipo Lista : " + tipoLista);
+      log.info("formula seleccionado : " + tipoEntidadSeleccionado.getNombre());
+      log.info("tipo Actualizacion : " + tipoActualizacion);
+      log.info("tipo Lista : " + tipoLista);
 
       if (tipoActualizacion == 0) {
          if (tipoLista == 0) {
@@ -366,16 +369,16 @@ public class ControlFormulasContratosEntidades implements Serializable {
             guardado = false;
          }
          permitirIndex = true;
-         System.out.println("ACTUALIZAR FORMULA : " + tipoEntidadSeleccionado.getNombre());
+         log.info("ACTUALIZAR FORMULA : " + tipoEntidadSeleccionado.getNombre());
          RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else if (tipoActualizacion == 1) {
-         System.out.println("ACTUALIZAR FORMULA NUEVO DEPARTAMENTO: " + tipoEntidadSeleccionado.getNombre());
+         log.info("ACTUALIZAR FORMULA NUEVO DEPARTAMENTO: " + tipoEntidadSeleccionado.getNombre());
          nuevoFormulasContratosEntidades.setTipoentidad(tipoEntidadSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigo");
       } else if (tipoActualizacion == 2) {
-         System.out.println("ACTUALIZAR FORMULA DUPLICAR DEPARTAMENO: " + tipoEntidadSeleccionado.getNombre());
+         log.info("ACTUALIZAR FORMULA DUPLICAR DEPARTAMENO: " + tipoEntidadSeleccionado.getNombre());
          duplicarFormulasContratosEntidades.setTipoentidad(tipoEntidadSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
@@ -408,7 +411,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void modificarFormulasContratosEntidades(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      log.error("ENTRE A MODIFICAR SUB CATEGORIA");
       index = indice;
       int coincidencias = 0;
       int contador = 0;
@@ -417,9 +420,9 @@ public class ControlFormulasContratosEntidades implements Serializable {
       boolean banderita2 = false;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-         System.out.println("MODIFICANDO NORMA LABORAL : " + listFormulasContratosEntidades.get(indice).getTipoentidad().getNombre());
+         log.info("MODIFICANDO NORMA LABORAL : " + listFormulasContratosEntidades.get(indice).getTipoentidad().getNombre());
          if (!listFormulasContratosEntidades.get(indice).getTipoentidad().getNombre().equals("")) {
             if (tipoLista == 0) {
                listFormulasContratosEntidades.get(indice).getTipoentidad().setNombre(backupTipoEntidad);
@@ -506,7 +509,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoFormulasContratosEntidades");
+            log.info("Entro a borrandoFormulasContratosEntidades");
             if (!modificarFormulasContratosEntidades.isEmpty() && modificarFormulasContratosEntidades.contains(listFormulasContratosEntidades.get(index))) {
                int modIndex = modificarFormulasContratosEntidades.indexOf(listFormulasContratosEntidades.get(index));
                modificarFormulasContratosEntidades.remove(modIndex);
@@ -522,7 +525,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoFormulasContratosEntidades ");
+            log.info("borrandoFormulasContratosEntidades ");
             if (!modificarFormulasContratosEntidades.isEmpty() && modificarFormulasContratosEntidades.contains(filtrarFormulasContratosEntidades.get(index))) {
                int modIndex = modificarFormulasContratosEntidades.indexOf(filtrarFormulasContratosEntidades.get(index));
                modificarFormulasContratosEntidades.remove(modIndex);
@@ -554,7 +557,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void valoresBackupAutocompletar(int tipoNuevo, String valorCambio) {
-      System.out.println("1...");
+      log.info("1...");
       if (valorCambio.equals("FORMULA")) {
          if (tipoNuevo == 1) {
             nuevoYduplicarCompletarTipoEntidad = nuevoFormulasContratosEntidades.getTipoentidad().getNombre();
@@ -562,7 +565,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
             nuevoYduplicarCompletarTipoEntidad = duplicarFormulasContratosEntidades.getTipoentidad().getNombre();
          }
 
-         System.out.println("CONCEPTO : " + nuevoYduplicarCompletarTipoEntidad);
+         log.info("CONCEPTO : " + nuevoYduplicarCompletarTipoEntidad);
       }
    }
 
@@ -573,13 +576,13 @@ public class ControlFormulasContratosEntidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-         System.out.println(" nueva Operando    Entro al if 'Centro costo'");
-         System.out.println("NUEVO PERSONA :-------> " + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
+         log.info(" nueva Operando    Entro al if 'Centro costo'");
+         log.info("NUEVO PERSONA :-------> " + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
 
          if (!nuevoFormulasContratosEntidades.getTipoentidad().getNombre().equals("")) {
-            System.out.println("ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("valorConfirmar: " + valorConfirmar);
-            System.out.println("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarTipoEntidad);
+            log.info("ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("valorConfirmar: " + valorConfirmar);
+            log.info("nuevoYduplicarCompletarPersona: " + nuevoYduplicarCompletarTipoEntidad);
             nuevoFormulasContratosEntidades.getTipoentidad().setNombre(nuevoYduplicarCompletarTipoEntidad);
             for (int i = 0; i < listaTiposEntidades.size(); i++) {
                if (listaTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -587,11 +590,11 @@ public class ControlFormulasContratosEntidades implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                nuevoFormulasContratosEntidades.setTipoentidad(listaTiposEntidades.get(indiceUnicoElemento));
                listaTiposEntidades = null;
-               System.err.println("PERSONA GUARDADA :-----> " + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
+               log.error("PERSONA GUARDADA :-----> " + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
             } else {
                RequestContext.getCurrentInstance().update("form:personasDialogo");
                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
@@ -599,10 +602,10 @@ public class ControlFormulasContratosEntidades implements Serializable {
             }
          } else {
             nuevoFormulasContratosEntidades.getTipoentidad().setNombre(nuevoYduplicarCompletarTipoEntidad);
-            System.out.println("valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("valorConfirmar cuando es vacio: " + valorConfirmar);
             nuevoFormulasContratosEntidades.setTipoentidad(new TiposEntidades());
             nuevoFormulasContratosEntidades.getTipoentidad().setNombre(" ");
-            System.out.println("NUEVA NORMA LABORAL" + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
+            log.info("NUEVA NORMA LABORAL" + nuevoFormulasContratosEntidades.getTipoentidad().getNombre());
          }
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigo");
@@ -623,18 +626,18 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-      System.out.println("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
+      log.info("DUPLICAR entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-         System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
-         System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarTipoEntidad);
+         log.info("DUPLICAR valorConfirmar : " + valorConfirmar);
+         log.info("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarTipoEntidad);
 
          if (!duplicarFormulasContratosEntidades.getTipoentidad().getNombre().equals("")) {
-            System.out.println("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
-            System.out.println("DUPLICAR valorConfirmar: " + valorConfirmar);
-            System.out.println("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarTipoEntidad);
+            log.info("DUPLICAR ENTRO DONDE NO TENIA QUE ENTRAR");
+            log.info("DUPLICAR valorConfirmar: " + valorConfirmar);
+            log.info("DUPLICAR nuevoTipoCCAutoCompletar: " + nuevoYduplicarCompletarTipoEntidad);
             duplicarFormulasContratosEntidades.getTipoentidad().setNombre(nuevoYduplicarCompletarTipoEntidad);
             for (int i = 0; i < listaTiposEntidades.size(); i++) {
                if (listaTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -642,7 +645,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                duplicarFormulasContratosEntidades.setTipoentidad(listaTiposEntidades.get(indiceUnicoElemento));
                listaTiposEntidades = null;
@@ -653,17 +656,17 @@ public class ControlFormulasContratosEntidades implements Serializable {
             }
          } else if (tipoNuevo == 2) {
             //duplicarFormulasContratosEntidades.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-            System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-            System.out.println("DUPLICAR INDEX : " + index);
+            log.info("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+            log.info("DUPLICAR INDEX : " + index);
             duplicarFormulasContratosEntidades.setTipoentidad(new TiposEntidades());
             duplicarFormulasContratosEntidades.getTipoentidad().setNombre(" ");
 
-            System.out.println("DUPLICAR PERSONA  : " + duplicarFormulasContratosEntidades.getTipoentidad().getNombre());
-            System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarTipoEntidad);
+            log.info("DUPLICAR PERSONA  : " + duplicarFormulasContratosEntidades.getTipoentidad().getNombre());
+            log.info("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarTipoEntidad);
             if (tipoLista == 0) {
                listFormulasContratosEntidades.get(index).getTipoentidad().setNombre(nuevoYduplicarCompletarTipoEntidad);
-               System.err.println("tipo lista" + tipoLista);
-               System.err.println("Secuencia Parentesco " + listFormulasContratosEntidades.get(index).getTipoentidad().getSecuencia());
+               log.error("tipo lista" + tipoLista);
+               log.error("Secuencia Parentesco " + listFormulasContratosEntidades.get(index).getTipoentidad().getSecuencia());
             } else if (tipoLista == 1) {
                filtrarFormulasContratosEntidades.get(index).getTipoentidad().setNombre(nuevoYduplicarCompletarTipoEntidad);
             }
@@ -688,7 +691,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarFormulasContratosEntidades");
+         log.info("Realizando guardarFormulasContratosEntidades");
          if (!borrarFormulasContratosEntidades.isEmpty()) {
             administrarFormulasContratosEntidades.borrarFormulasContratosEntidades(borrarFormulasContratosEntidades);
             //mostrarBorrados
@@ -705,7 +708,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
             administrarFormulasContratosEntidades.crearFormulasContratosEntidades(crearFormulasContratosEntidades);
             crearFormulasContratosEntidades.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listFormulasContratosEntidades = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -730,7 +733,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
          }
 
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
             RequestContext.getCurrentInstance().execute("PF('editPais').show()");
@@ -751,7 +754,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void agregarNuevoFormulasContratosEntidades() {
-      System.out.println("agregarNuevoFormulasContratosEntidades");
+      log.info("agregarNuevoFormulasContratosEntidades");
       int contador = 0;
       int duplicados = 0;
 
@@ -762,7 +765,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
       if (nuevoFormulasContratosEntidades.getTipoentidad().getNombre() == null || nuevoFormulasContratosEntidades.getTipoentidad().getNombre().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Tipo Entidad \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int j = 0; j < listFormulasContratosEntidades.size(); j++) {
@@ -780,14 +783,14 @@ public class ControlFormulasContratosEntidades implements Serializable {
       if (contador == 1) {
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             personafir = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulasContratosEntidades:personafir");
             personafir.setFilterStyle("display: none; visibility: hidden;");
             bandera = 0;
             filtrarFormulasContratosEntidades = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
@@ -819,7 +822,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void limpiarNuevoFormulasContratosEntidades() {
-      System.out.println("limpiarNuevoFormulasContratosEntidades");
+      log.info("limpiarNuevoFormulasContratosEntidades");
       nuevoFormulasContratosEntidades = new FormulasContratosEntidades();
       nuevoFormulasContratosEntidades.setTipoentidad(new TiposEntidades());
       secRegistro = null;
@@ -829,7 +832,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
    //------------------------------------------------------------------------------
    public void cargarNuevoFormulasContratosEntidades() {
-      System.out.println("cargarNuevoFormulasContratosEntidades");
+      log.info("cargarNuevoFormulasContratosEntidades");
 
       duplicarFormulasContratosEntidades = new FormulasContratosEntidades();
       duplicarFormulasContratosEntidades.setTipoentidad(new TiposEntidades());
@@ -839,7 +842,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void duplicandoFormulasContratosEntidades() {
-      System.out.println("duplicandoFormulasContratosEntidades");
+      log.info("duplicandoFormulasContratosEntidades");
       if (index >= 0) {
          duplicarFormulasContratosEntidades = new FormulasContratosEntidades();
          duplicarFormulasContratosEntidades.setTipoentidad(new TiposEntidades());
@@ -863,7 +866,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
@@ -873,7 +876,7 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
       if (duplicarFormulasContratosEntidades.getTipoentidad().getNombre() == null || duplicarFormulasContratosEntidades.getTipoentidad().getNombre().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   *Tipo Entidad \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
          for (int j = 0; j < listFormulasContratosEntidades.size(); j++) {
@@ -891,16 +894,16 @@ public class ControlFormulasContratosEntidades implements Serializable {
       if (contador == 1) {
 
          if (crearFormulasContratosEntidades.contains(duplicarFormulasContratosEntidades)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          }
          duplicarFormulasContratosEntidades.setFormulacontrato(formulaContratoSeleccionada);
          listFormulasContratosEntidades.add(duplicarFormulasContratosEntidades);
          crearFormulasContratosEntidades.add(duplicarFormulasContratosEntidades);
          RequestContext.getCurrentInstance().update("form:datosFormulasContratosEntidades");
          index = -1;
-         System.out.println("--------------DUPLICAR------------------------");
-         System.out.println("PERSONA : " + duplicarFormulasContratosEntidades.getTipoentidad().getNombre());
-         System.out.println("--------------DUPLICAR------------------------");
+         log.info("--------------DUPLICAR------------------------");
+         log.info("PERSONA : " + duplicarFormulasContratosEntidades.getTipoentidad().getNombre());
+         log.info("--------------DUPLICAR------------------------");
 
          secRegistro = null;
          if (guardado == true) {
@@ -960,12 +963,12 @@ public class ControlFormulasContratosEntidades implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listFormulasContratosEntidades.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "FORMULASCONTRATOSENTIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

@@ -30,6 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasProyectos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasProyectos.class);
 
    @EJB
    AdministrarVigenciasProyectosInterface administrarVigenciasProyectos;
@@ -143,8 +146,8 @@ public class ControlVigenciasProyectos implements Serializable {
          administrarProyectos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -407,10 +410,10 @@ public class ControlVigenciasProyectos implements Serializable {
 
       FacesContext c = FacesContext.getCurrentInstance();
 
-      System.out.println("TipoLista= " + tipoLista);
+      log.info("TipoLista= " + tipoLista);
       if (bandera == 0) {
-         System.out.println("Activar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Activar");
+         log.info("TipoLista= " + tipoLista);
          vPFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasIniciales");
          vPFechasIniciales.setFilterStyle("width: 85% !important;");
          vPFechasFinales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasFinales");
@@ -428,8 +431,8 @@ public class ControlVigenciasProyectos implements Serializable {
          bandera = 1;
          tipoLista = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          vPFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasIniciales");
          vPFechasIniciales.setFilterStyle("display: none; visibility: hidden;");
          vPFechasFinales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasFinales");
@@ -668,29 +671,29 @@ public class ControlVigenciasProyectos implements Serializable {
       mensajeValidacion = " ";
 
       if (nuevaVigenciaProyectos.getFechainicial() == null) {
-         System.out.println("Entro a Fecha");
+         log.info("Entro a Fecha");
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
          pasa++;
       }
       if (nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals(" ") || nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals("")) {
-         System.out.println("Entro a Proyecto");
+         log.info("Entro a Proyecto");
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
          pasa++;
       }
       if (nuevaVigenciaProyectos.getPryRol().getDescripcion().equals(" ") || nuevaVigenciaProyectos.getPryRol().getDescripcion().equals("")) {
-         System.out.println("Entro a Rol");
+         log.info("Entro a Rol");
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
          pasa++;
       }
       if (nuevaVigenciaProyectos.getPryCargoproyecto().getNombre().equals(" ") || nuevaVigenciaProyectos.getPryCargoproyecto().getNombre().equals("")) {
-         System.out.println("Entro a Cargo");
+         log.info("Entro a Cargo");
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
          pasa++;
       }
       if (pasa == 0) {
          if (bandera == 1) {
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
 
             vPFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasIniciales");
@@ -897,8 +900,8 @@ public class ControlVigenciasProyectos implements Serializable {
    //CANCELAR MODIFICACIONES
    public void cancelarModificacion() {
       if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          FacesContext c = FacesContext.getCurrentInstance();
 
          vPFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasIniciales");
@@ -963,8 +966,8 @@ public class ControlVigenciasProyectos implements Serializable {
    public void salir() {
       limpiarListasValor();
       if (bandera == 1) {
-         System.out.println("Desactivar");
-         System.out.println("TipoLista= " + tipoLista);
+         log.info("Desactivar");
+         log.info("TipoLista= " + tipoLista);
          FacesContext c = FacesContext.getCurrentInstance();
 
          vPFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona:vPFechasIniciales");
@@ -1032,7 +1035,7 @@ public class ControlVigenciasProyectos implements Serializable {
       if (guardado == false) {
          if (!listaVigenciasProyectosBorrar.isEmpty()) {
             for (int i = 0; i < listaVigenciasProyectosBorrar.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                if (listaVigenciasProyectosBorrar.get(i).getProyecto().getSecuencia() == null) {
                   listaVigenciasProyectosBorrar.get(i).setProyecto(null);
                   administrarVigenciasProyectos.borrarVigenciaProyecto(listaVigenciasProyectosBorrar.get(i));
@@ -1048,7 +1051,7 @@ public class ControlVigenciasProyectos implements Serializable {
 
          if (!listaVigenciasProyectosCrear.isEmpty()) {
             for (int i = 0; i < listaVigenciasProyectosCrear.size(); i++) {
-               System.out.println("Creando...");
+               log.info("Creando...");
                if (listaVigenciasProyectosCrear.get(i).getProyecto().getSecuencia() == null) {
                   listaVigenciasProyectosCrear.get(i).setProyecto(null);
                   administrarVigenciasProyectos.crearVigenciaProyecto(listaVigenciasProyectosCrear.get(i));
@@ -1066,7 +1069,7 @@ public class ControlVigenciasProyectos implements Serializable {
             administrarVigenciasProyectos.modificarVigenciaProyecto(listaVigenciasProyectosModificar);
             listaVigenciasProyectosModificar.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listaVigenciasProyectos = null;
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
@@ -1422,11 +1425,11 @@ public class ControlVigenciasProyectos implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (vigenciaProyectoSeleccionado != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(vigenciaProyectoSeleccionado.getSecuencia(), "VIGENCIASPROYECTOS");
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarATAprobacionHE.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleado;
@@ -58,7 +61,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             List<EersCabeceras> lista = persistenciaEersCabeceras.buscarEersCabecerasTotales(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerTotalesEersCabeceras Admi : " + e.toString());
+            log.warn("Error obtenerTotalesEersCabeceras Admi : " + e.toString());
             return null;
         }
     }
@@ -69,7 +72,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             List<EersCabeceras> lista = persistenciaEersCabeceras.buscarEersCabecerasTotalesPorEmpleado(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerEersCabecerasPorEmpleado Admi : " + e.toString());
+            log.warn("Error obtenerEersCabecerasPorEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -81,7 +84,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
                 persistenciaEersCabeceras.crear(em, listaEC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearEersCabeceras Admi : " + e.toString());
+            log.warn("Error crearEersCabeceras Admi : " + e.toString());
         }
     }
 
@@ -92,7 +95,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
                 persistenciaEersCabeceras.editar(em, listaEC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarEersCabeceras Admi : " + e.toString());
+            log.warn("Error editarEersCabeceras Admi : " + e.toString());
         }
     }
 
@@ -103,7 +106,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
                 persistenciaEersCabeceras.borrar(em, listaEC.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarEersCabeceras Admi : " + e.toString());
+            log.warn("Error borrarEersCabeceras Admi : " + e.toString());
         }
     }
 
@@ -113,7 +116,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             List<EersDetalles> lista = persistenciaEersDetalles.buscarEersDetallesPorEersCabecera(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerDetallesEersCabecera Admi : " + e.toString());
+            log.warn("Error obtenerDetallesEersCabecera Admi : " + e.toString());
             return null;
         }
     }
@@ -124,7 +127,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             List<EersFlujos> lista = persistenciaEersFlujos.buscarEersFlujosPorEersCabecera(em, secuencia);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error obtenerFlujosEersCabecera Admi : " + e.toString());
+            log.warn("Error obtenerFlujosEersCabecera Admi : " + e.toString());
             return null;
         }
     }
@@ -135,7 +138,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             List<Estructuras> lista = persistenciaEstructuras.consultarEstructurasEersCabeceras(em, secuenciaEstado);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEstructuras Admi : " + e.toString());
+            log.warn("Error lovEstructuras Admi : " + e.toString());
             return null;
         }
     }
@@ -146,7 +149,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             List<Empleados> lista = persistenciaEmpleado.consultarEmpleadosParaAprobarHorasExtras(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("Error lovEmpleados Admi : " + e.toString());
+            log.warn("Error lovEmpleados Admi : " + e.toString());
             return null;
         }
     }
@@ -157,7 +160,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
             ActualUsuario usuario = persistenciaActualUsuario.actualUsuarioBD(em);
             return usuario;
         } catch (Exception e) {
-            System.out.println("Error obtenerActualUsuarioSistema Admi : " + e.toString());
+            log.warn("Error obtenerActualUsuarioSistema Admi : " + e.toString());
             return null;
         }
     }

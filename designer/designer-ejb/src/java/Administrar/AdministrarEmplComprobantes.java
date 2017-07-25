@@ -30,6 +30,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -40,6 +41,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplComprobantes.class);
 
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -172,7 +175,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
    @Override
    public void modificarComprobantes(List<Comprobantes> listComprobantes) {
       for (int i = 0; i < listComprobantes.size(); i++) {
-         System.out.println("Modificando Comprobantes...");
+         log.warn("Modificando Comprobantes...");
          persistenciaComprobantes.editar(em, listComprobantes.get(i));
       }
 
@@ -183,7 +186,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          persistenciaComprobantes.borrar(em, comprobante);
       } catch (Exception e) {
-         System.out.println("Error borrarComprobantes" + e);
+         log.warn("Error borrarComprobantes" + e);
       }
    }
 
@@ -195,7 +198,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
    @Override
    public void modificarCortesProcesos(List<CortesProcesos> listaCortesProcesos) {
       for (int i = 0; i < listaCortesProcesos.size(); i++) {
-         System.out.println("Modificando Cortes procesos...");
+         log.warn("Modificando Cortes procesos...");
          if (listaCortesProcesos.get(i).getProceso().getSecuencia() == null) {
             listaCortesProcesos.get(i).setProceso(null);
             persistenciaCortesProcesos.editar(em, listaCortesProcesos.get(i));
@@ -210,7 +213,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          persistenciaCortesProcesos.borrar(em, corteProceso);
       } catch (Exception e) {
-         System.out.println("Error borrarCortesProcesos" + e);
+         log.warn("Error borrarCortesProcesos" + e);
       }
    }
 
@@ -222,7 +225,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
    @Override
    public void modificarSolucionesNodosEmpleado(List<SolucionesNodos> listaSolucionesNodosEmpleado) {
       for (int i = 0; i < listaSolucionesNodosEmpleado.size(); i++) {
-         System.out.println("Modificando Soluciones Nodo Empleado...");
+         log.warn("Modificando Soluciones Nodo Empleado...");
          if (listaSolucionesNodosEmpleado.get(i).getNittercero() == null) {
             listaSolucionesNodosEmpleado.get(i).setNittercero(null);
             persistenciaSolucionesNodos.editar(em, listaSolucionesNodosEmpleado.get(i));
@@ -255,10 +258,10 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
    @Override
    public boolean eliminarCPconUndoCierre(BigInteger secProceso, BigInteger secEmpleado, Date fechaCorte) {
       try {
-         System.out.println("Entro en eliminarCPconUndoCierre()");
+         log.warn("Entro en eliminarCPconUndoCierre()");
          return persistenciaCortesProcesos.eliminarCPconUndoCierre(em, secProceso, secEmpleado, fechaCorte);
       } catch (Exception e) {
-         System.out.println(this.getClass().getName() + " Error eliminarCPconUndoCierre : " + e);
+         log.warn(this.getClass().getName() + " Error eliminarCPconUndoCierre : " + e);
          return false;
       }
    }

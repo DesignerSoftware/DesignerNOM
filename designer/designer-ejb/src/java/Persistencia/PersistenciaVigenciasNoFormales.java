@@ -9,9 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -25,6 +24,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoFormalesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasNoFormales.class);
+
     @Override
     public void crear(EntityManager em, VigenciasNoFormales vigenciasNoFormales) {
         em.clear();
@@ -34,7 +35,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasNoFormales.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasNoFormales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +51,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasNoFormales.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasNoFormales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +67,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.remove(em.merge(vigenciasNoFormales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasNoFormales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasNoFormales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +82,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
         cq.select(cq.from(VigenciasNoFormales.class));
         return em.createQuery(cq).getResultList();
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaVigenciasNoFormales.buscarVigenciasNoFormales()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasNoFormales.buscarVigenciasNoFormales()" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +97,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             List<VigenciasNoFormales> listaVigenciasNoFormales = query.getResultList();
             return listaVigenciasNoFormales;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
+            log.error("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
             return null;
         }
     }

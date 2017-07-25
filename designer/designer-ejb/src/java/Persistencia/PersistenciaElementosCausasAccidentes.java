@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaElementosCausasAccidentes implements PersistenciaElementosCausasAccidentesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaElementosCausasAccidentes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -34,7 +37,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             em.merge(elementosCausasAccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaElementosCausasAccidentes.crear: " + e);
+            log.error("Error PersistenciaElementosCausasAccidentes.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +52,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             em.merge(elementosCausasAccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaElementosCausasAccidentes.editar: " + e);
+            log.error("Error PersistenciaElementosCausasAccidentes.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +73,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaElementosCausasAccidentes.borrar: " + e);
+                log.error("Error PersistenciaElementosCausasAccidentes.borrar: " + e);
             }
         }
     }
@@ -92,7 +95,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             List<ElementosCausasAccidentes> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES BUSCARELEMENTOSCAUSASACCIDENTES  ERROR" + e);
+            log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES BUSCARELEMENTOSCAUSASACCIDENTES  ERROR" + e);
             return null;
         }
 
@@ -106,10 +109,10 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos = " + retorno);
+            log.error("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES verificarBorradoVigenciasDeportes  ERROR = " + e);
+            log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES verificarBorradoVigenciasDeportes  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -123,10 +126,10 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes = " + retorno);
+            log.error("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes  ERROR = " + e);
+            log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -140,10 +143,10 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr = " + retorno);
+            log.error("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr  ERROR = " + e);
+            log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr  ERROR = " + e);
             retorno = new BigInteger("-1");
             return retorno;
         }

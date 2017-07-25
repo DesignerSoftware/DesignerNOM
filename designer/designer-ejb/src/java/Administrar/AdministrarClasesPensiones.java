@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarClasesPensiones implements AdministrarClasesPensionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarClasesPensiones.class);
 
     @EJB
     PersistenciaClasesPensionesInterface persistenciaClasesPensiones;
@@ -42,7 +45,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
     @Override
     public void modificarClasesPensiones(List<ClasesPensiones> listaClasesPensiones) {
         for (int i = 0; i < listaClasesPensiones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaClasesPensiones.editar(em,listaClasesPensiones.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
     @Override
     public void borrarClasesPensiones(List<ClasesPensiones> listaClasesPensiones) {
         for (int i = 0; i < listaClasesPensiones.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaClasesPensiones.borrar(em,listaClasesPensiones.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
     @Override
     public void crearClasesPensiones(List<ClasesPensiones> listaClasesPensiones) {
         for (int i = 0; i < listaClasesPensiones.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaClasesPensiones.crear(em,listaClasesPensiones.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
         try {
             return contarRetiradosClasePension = persistenciaClasesPensiones.contarRetiradosClasePension(em,secClasesPensiones);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarClasesPensiones contarEscalafones ERROR : " + e);
+            log.error("ERROR AdministrarClasesPensiones contarEscalafones ERROR : " + e);
             return null;
         }
     }

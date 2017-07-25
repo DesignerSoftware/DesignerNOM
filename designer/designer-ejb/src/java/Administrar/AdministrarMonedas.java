@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateless
 public class AdministrarMonedas implements AdministrarMonedasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMonedas.class);
 
     @EJB
     PersistenciaMonedasInterface persistenciaMonedas;
@@ -45,7 +48,7 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
     @Override
     public void modificarMonedas(List<Monedas> listMonedasModificadas) {
         for (int i = 0; i < listMonedasModificadas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             monedaSeleccionado = listMonedasModificadas.get(i);
             persistenciaMonedas.editar(em, monedaSeleccionado);
         }
@@ -77,10 +80,10 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
     public BigInteger verificarMonedasProyecto(BigInteger secuenciaIdiomas) {
         BigInteger verificadorProyectos = null;
         try {
-            System.err.println("Secuencia Borrado Proyecto" + secuenciaIdiomas);
+            log.error("Secuencia Borrado Proyecto" + secuenciaIdiomas);
             verificadorProyectos = persistenciaMonedas.contadorProyectos(em, secuenciaIdiomas);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarMonedas verificarBorradoProyecto ERROR :" + e);
+            log.error("ERROR AdministrarMonedas verificarBorradoProyecto ERROR :" + e);
         } finally {
             return verificadorProyectos;
         }

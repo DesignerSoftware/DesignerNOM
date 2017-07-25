@@ -11,8 +11,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -21,6 +21,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantiasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaMotivosCesantias.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -37,7 +39,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.merge(motivosCesantias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCesantias.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCesantias.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.merge(motivosCesantias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCesantias.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCesantias.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +77,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaMotivosCesantias.borrar: " + e.getMessage());
+                log.error("Error PersistenciaMotivosCesantias.borrar: " + e.getMessage());
             }
         }
     }
@@ -86,7 +88,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.clear();
             return em.find(MotivosCesantias.class, secuenciaME);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosCesantias.buscarMotivoCensantia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosCesantias.buscarMotivoCensantia()" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
         List<MotivosCesantias> listaMotivosEmbargos = query.getResultList();
         return listaMotivosEmbargos;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaMotivosCesantias.buscarMotivosCesantias()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosCesantias.buscarMotivosCesantias()" + e.getMessage());
             return null;
         }
     }
@@ -116,7 +118,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

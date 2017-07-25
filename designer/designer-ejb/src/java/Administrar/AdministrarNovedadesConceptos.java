@@ -30,6 +30,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -37,6 +38,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarNovedadesConceptos implements AdministrarNovedadesConceptosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarNovedadesConceptos.class);
 
    @EJB
    PersistenciaNovedadesInterface persistenciaNovedades;
@@ -80,7 +83,7 @@ public class AdministrarNovedadesConceptos implements AdministrarNovedadesConcep
       try {
          return persistenciaNovedades.novedadesConcepto(em, secuenciaConcepto);
       } catch (Exception e) {
-         System.err.println("Error AdministrarNovedadesConceptos.conceptosNovedades" + e);
+         log.error("Error AdministrarNovedadesConceptos.conceptosNovedades" + e);
          return null;
       }
    }
@@ -141,7 +144,7 @@ public class AdministrarNovedadesConceptos implements AdministrarNovedadesConcep
    @Override
    public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
       for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-         System.out.println("Modificando...");
+         log.warn("Modificando...");
          if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
             listaNovedadesModificar.get(i).setTercero(null);
          }
@@ -165,7 +168,7 @@ public class AdministrarNovedadesConceptos implements AdministrarNovedadesConcep
       try {
          return persistenciaNovedades.todasNovedadesConcepto(em, secuenciaConcepto);
       } catch (Exception e) {
-         System.err.println("Error AdministrarNovedadesConceptos.todasNovedadesConcepto" + e);
+         log.error("Error AdministrarNovedadesConceptos.todasNovedadesConcepto" + e);
          return null;
       }
    }
@@ -175,7 +178,7 @@ public class AdministrarNovedadesConceptos implements AdministrarNovedadesConcep
       try {
          return persistenciaVigenciasTiposContratos.fechaFinalContratacionVacaciones(em, secEmpleado);
       } catch (Exception e) {
-         System.out.println("Error obtenerFechaContratacionEmpleado Admi : " + e.toString());
+         log.warn("Error obtenerFechaContratacionEmpleado Admi : " + e.toString());
          return null;
       }
    }

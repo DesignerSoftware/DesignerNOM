@@ -20,6 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlTiposAuxilios implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTiposAuxilios.class);
 
     @EJB
     AdministrarTiposAuxiliosInterface administrarTiposAuxilios;
@@ -154,8 +157,8 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 infoRegistro = "Cantidad de registros : 0";
             }
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -167,7 +170,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
             infoRegistro = "Cantidad de registros : " + filtrarTiposAuxilios.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
-            System.err.println("ERROR CONTROLTIPOSAUXILIOS EVENTOFILTRAR  ERROR =" + e.getMessage());
+            log.error("ERROR CONTROLTIPOSAUXILIOS EVENTOFILTRAR  ERROR =" + e.getMessage());
         }
     }
 
@@ -382,7 +385,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 borrandoTiposAuxilios();
             }
         } catch (Exception e) {
-            System.err.println("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
         }
     }
 
@@ -472,7 +475,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
-            System.out.println("Error guardarTiposAuxilio : " + e.toString());
+            log.warn("Error guardarTiposAuxilio : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");

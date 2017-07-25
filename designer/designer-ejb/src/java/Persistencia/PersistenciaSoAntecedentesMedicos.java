@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -23,6 +24,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecedentesMedicosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaSoAntecedentesMedicos.class);
+
     @Override
     public void crear(EntityManager em, SoAntecedentesMedicos antecedenteM) {
         em.clear();
@@ -32,7 +35,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             em.merge(antecedenteM);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.crear: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +57,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaSoAntecedentesMedicos.borrar: " + e.getMessage());
+                log.error("Error PersistenciaSoAntecedentesMedicos.borrar: " + e.getMessage());
             }
         }
     }
@@ -68,7 +71,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             em.merge(antecedenteM);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.editar: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +88,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             List<SoAntecedentes> antecedentes = query.getResultList();
             return antecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.lovAntecedentes: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.lovAntecedentes: " + e.getMessage());
             return null;
         }
     }
@@ -105,7 +108,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             List<SoAntecedentesMedicos> antecedentesM = query.getResultList();
             return antecedentesM;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e.getMessage());
             return null;
         }
     }

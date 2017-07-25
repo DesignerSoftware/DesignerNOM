@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaClasesRiesgosInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaClasesRiesgos.class);
+
    @Override
    public void crear(EntityManager em, ClasesRiesgos claseRiesgo) {
       em.clear();
@@ -29,7 +32,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          em.merge(claseRiesgo);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesRiesgos.crear: " + e);
+         log.error("Error PersistenciaClasesRiesgos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +49,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          em.merge(claseRiesgo);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesRiesgos.editar: " + e);
+         log.error("Error PersistenciaClasesRiesgos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +65,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          em.remove(em.merge(claseRiesgo));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesRiesgos.borrar: " + e);
+         log.error("Error PersistenciaClasesRiesgos.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +81,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          List<ClasesRiesgos> listClasesRiesgos = (List<ClasesRiesgos>) query.getResultList();
          return listClasesRiesgos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaClasesRiesgos.consultarClasesRiesgos : " + e.toString());
+         log.error("Error PersistenciaClasesRiesgos.consultarClasesRiesgos : " + e.toString());
          return null;
       }
    }

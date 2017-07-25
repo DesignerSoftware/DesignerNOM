@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaEvalPlanillasInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaEvalPlanillas.class);
+
    @Override
    public void crear(EntityManager em, Evalplanillas evalplanilla) {
       em.clear();
@@ -29,7 +32,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          em.merge(evalplanilla);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalPlanillas.crear: " + e);
+         log.error("Error PersistenciaEvalPlanillas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -45,7 +48,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          em.merge(evalplanilla);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEvalPlanillas.editar: " + e);
+         log.error("Error PersistenciaEvalPlanillas.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +68,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEvalPlanillas.borrar: " + e);
+         log.error("Error PersistenciaEvalPlanillas.borrar: " + e);
       }
    }
 
@@ -78,7 +81,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          List<Evalplanillas> evalPlanilla = query.getResultList();
          return evalPlanilla;
       } catch (Exception e) {
-         System.out.println("Error Persistencia.PersistenciaEvalPlanillas.consultarEvalPlanilla(): " + e);
+         log.error("Error Persistencia.PersistenciaEvalPlanillas.consultarEvalPlanilla(): " + e);
          return null;
       }
    }

@@ -16,9 +16,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarInforeportes implements AdministrarInforeportesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarInforeportes.class);
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
@@ -70,7 +73,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
     @Override
     public void modificarInforeporte(List<Inforeportes> listaInforeportesModificar) {
         for (int i = 0; i < listaInforeportesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaInforeportesModificar.get(i).getAficion() == null) {
                 listaInforeportesModificar.get(i).setAficion(null);
             }

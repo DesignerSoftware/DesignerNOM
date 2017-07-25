@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @LocalBean
 public class AdministrarCentroCostos implements AdministrarCentroCostosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCentroCostos.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -77,7 +80,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             List<Empresas> listaEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("AdministrarCentroCostos: Falló al buscar las empresas /n" + e.getMessage());
+            log.warn("AdministrarCentroCostos: Falló al buscar las empresas /n" + e.getMessage());
             return null;
         }
     }
@@ -86,48 +89,48 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
     public void modificarCentroCostos(List<CentrosCostos> listaCentrosCostos) {
         try {
             for (int i = 0; i < listaCentrosCostos.size(); i++) {
-                System.out.println("Modificando...");
+                log.warn("Modificando...");
                 persistenciaCentrosCostos.editar(em,listaCentrosCostos.get(i));
             }
         } catch (Exception e) {
-            System.err.println("AdministrarCentrosCostos: Falló al editar el CentroCosto /n" + e.getMessage());
+            log.error("AdministrarCentrosCostos: Falló al editar el CentroCosto /n" + e.getMessage());
         }
     }
 
     @Override
     public void borrarCentroCostos(List<CentrosCostos> listaCentrosCostos) {
-        System.out.println("ENTRE A AdministrarCentroCostos.borrarCentroCostos ");
+        log.warn("ENTRE A AdministrarCentroCostos.borrarCentroCostos ");
         try {
             for (int i = 0; i < listaCentrosCostos.size(); i++) {
-                System.out.println("Borrando...");
+                log.warn("Borrando...");
                 persistenciaCentrosCostos.borrar(em,listaCentrosCostos.get(i));
             }
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarCentroCostos.borrarCentroCostos ERROR=====" + e.getMessage());
+            log.error("ERROR AdministrarCentroCostos.borrarCentroCostos ERROR=====" + e.getMessage());
         }
     }
 
     @Override
     public void crearCentroCostos(List<CentrosCostos> listaCentrosCostos) {
-        System.out.println("ENTRE A AdministrarCentroCostos.crearCentroCostos ");
+        log.warn("ENTRE A AdministrarCentroCostos.crearCentroCostos ");
         try {
             for (int i = 0; i < listaCentrosCostos.size(); i++) {
-                System.out.println("Creando...");
+                log.warn("Creando...");
                 persistenciaCentrosCostos.crear(em,listaCentrosCostos.get(i));
             }
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarCentroCostos.crearCentroCostos ERROR======" + e.getMessage());
+            log.error("ERROR AdministrarCentroCostos.crearCentroCostos ERROR======" + e.getMessage());
         }
     }
 
     @Override
     public List<CentrosCostos> consultarCentrosCostosPorEmpresa(BigInteger secEmpresa) {
         try {
-            System.out.println("ENTRE A AdministrarCentroCostos.consultarCentrosCostosPorEmpresa ");
+            log.warn("ENTRE A AdministrarCentroCostos.consultarCentrosCostosPorEmpresa ");
             List<CentrosCostos> listaCentrosCostos = persistenciaCentrosCostos.buscarCentrosCostosEmpr(em,secEmpresa);
             return listaCentrosCostos;
         } catch (Exception e) {
-            System.out.println("Error en Administrar CentrosCostos (centrosCostosPorEmpresa)");
+            log.warn("Error en Administrar CentrosCostos (centrosCostosPorEmpresa)");
             return null;
         }
     }
@@ -138,7 +141,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             List<TiposCentrosCostos> listaTiposCentrosCostos = persistenciaTiposCentrosCostos.buscarTiposCentrosCostos(em);
             return listaTiposCentrosCostos;
         } catch (Exception e) {
-            System.out.println("\n AdministrarCentroCostos error en buscarTiposCentroCostos \n" + e.getMessage());
+            log.warn("\n AdministrarCentroCostos error en buscarTiposCentroCostos \n" + e.getMessage());
             return null;
         }
     }
@@ -150,7 +153,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             contadorComprobantesContables = persistenciaCentrosCostos.contadorComprobantesContables(em,secCentroCosto);
             return contadorComprobantesContables;
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorComprobantesContables ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorComprobantesContables ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -162,7 +165,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorDetallesCCConsolidador = persistenciaCentrosCostos.contadorDetallesCCConsolidador(em,secCentroCosto);
             return contadorDetallesCCConsolidador;
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorDetallesCCConsolidador ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorDetallesCCConsolidador ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -175,7 +178,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             return contadorDetallesCCDetalle;
 
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorDetalleContable ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorDetalleContable ERROR===" + e.getMessage());
 
             return null;
         }
@@ -188,7 +191,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorEmpresasV;
             return contadorEmpresasV = persistenciaCentrosCostos.contadorEmpresas(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorEmpresas ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorEmpresas ERROR===" + e.getMessage());
 
             return null;
         }
@@ -201,7 +204,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorEstructuras;
             return contadorEstructuras = persistenciaCentrosCostos.contadorEstructuras(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorEstructuras ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorEstructuras ERROR===" + e.getMessage());
 
             return null;
         }
@@ -214,7 +217,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorInterconCondor;
             return contadorInterconCondor = persistenciaCentrosCostos.contadorInterconCondor(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconCondor ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconCondor ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -226,7 +229,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorInterconDynamics;
             return contadorInterconDynamics = persistenciaCentrosCostos.contadorInterconDynamics(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconDynamics ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconDynamics ERROR===" + e.getMessage());
 
             return null;
         }
@@ -240,7 +243,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
 
             return contadorInterconGeneral = persistenciaCentrosCostos.contadorInterconGeneral(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconGeneral ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconGeneral ERROR===" + e.getMessage());
 
             return null;
         }
@@ -253,7 +256,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorInterconHelisa;
             return contadorInterconHelisa = persistenciaCentrosCostos.contadorInterconHelisa(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconHelisa ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconHelisa ERROR===" + e.getMessage());
 
             return null;
         }
@@ -266,7 +269,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorInterconSapbo;
             return contadorInterconSapbo = persistenciaCentrosCostos.contadorInterconSapbo(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconSapbo ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconSapbo ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -279,7 +282,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
 
             return contadorInterconSiigo = persistenciaCentrosCostos.contadorInterconSiigo(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconSiigo ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconSiigo ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -292,7 +295,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
 
             return contadorInterconTotal = persistenciaCentrosCostos.contadorInterconTotal(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorInterconTotal ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorInterconTotal ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -305,7 +308,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
 
             return contadorNovedadesD = persistenciaCentrosCostos.contadorNovedadesD(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorNovedadesD ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorNovedadesD ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -318,7 +321,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
 
             return contadorNovedadesC = persistenciaCentrosCostos.contadorNovedadesC(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorNovedadesC ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorNovedadesC ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -330,7 +333,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorProcesosProductivos;
             return contadorProcesosProductivos = persistenciaCentrosCostos.contadorProcesosProductivos(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorProcesosProductivos ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorProcesosProductivos ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -342,7 +345,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorProyecciones;
             return contadorProyecciones = persistenciaCentrosCostos.contadorProyecciones(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorProyecciones ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorProyecciones ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -354,7 +357,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorSolucionesNodosC;
             return contadorSolucionesNodosC = persistenciaCentrosCostos.contadorSolucionesNodosC(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorSolucionesNodosC ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorSolucionesNodosC ERROR===" + e.getMessage());
 
             return null;
         }
@@ -367,7 +370,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorSolucionesNodosD;
             return contadorSolucionesNodosD = persistenciaCentrosCostos.contadorSolucionesNodosD(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorSolucionesNodosD ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorSolucionesNodosD ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -379,7 +382,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorSoPanoramas;
             return contadorSoPanoramas = persistenciaCentrosCostos.contadorSoPanoramas(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorSoPanoramas ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorSoPanoramas ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -391,7 +394,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorTerceros;
             return contadorTerceros = persistenciaCentrosCostos.contadorTerceros(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorTerceros ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorTerceros ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -403,7 +406,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorUnidadesRegistradas;
             return contadorUnidadesRegistradas = persistenciaCentrosCostos.contadorUnidadesRegistradas(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorUnidadesRegistradas ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorUnidadesRegistradas ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -415,7 +418,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorVigenciasCuentasC;
             return contadorVigenciasCuentasC = persistenciaCentrosCostos.contadorVigenciasCuentasC(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorVigenciasCuentasC ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorVigenciasCuentasC ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -427,7 +430,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorVigenciasCuentasD;
             return contadorVigenciasCuentasD = persistenciaCentrosCostos.contadorVigenciasCuentasD(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorVigenciasCuentasD ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorVigenciasCuentasD ERROR===" + e.getMessage());
             return null;
         }
     }
@@ -439,7 +442,7 @@ public class AdministrarCentroCostos implements AdministrarCentroCostosInterface
             BigInteger contadorVigenciasProrrateos;
             return contadorVigenciasProrrateos = persistenciaCentrosCostos.contadorVigenciasProrrateos(em,secCentroCosto);
         } catch (Exception e) {
-            System.out.println("ERROR administrarCentrosCostos.contadorVigenciasProrrateos ERROR===" + e.getMessage());
+            log.warn("ERROR administrarCentrosCostos.contadorVigenciasProrrateos ERROR===" + e.getMessage());
             return null;
         }
     }

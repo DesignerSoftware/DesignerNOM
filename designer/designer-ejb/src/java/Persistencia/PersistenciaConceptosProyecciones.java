@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -21,6 +22,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaConceptosProyecciones implements PersistenciaConceptosProyeccionesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaConceptosProyecciones.class);
+
    public void crear(EntityManager em, ConceptosProyecciones contadorProyecciones) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
@@ -29,7 +32,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          em.merge(contadorProyecciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosProyecciones.crear: " + e);
+         log.error("Error PersistenciaConceptosProyecciones.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +47,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          em.merge(contadorProyecciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaConceptosProyecciones.editar: " + e);
+         log.error("Error PersistenciaConceptosProyecciones.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -63,7 +66,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaConceptosProyecciones.borrar: " + e);
+         log.error("Error PersistenciaConceptosProyecciones.borrar: " + e);
       }
    }
 
@@ -72,7 +75,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          em.clear();
          return em.find(ConceptosProyecciones.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error buscarDeporte PersistenciaConceptosProyecciones : " + e.toString());
+         log.error("Error buscarDeporte PersistenciaConceptosProyecciones : " + e.toString());
          return null;
       }
    }
@@ -84,7 +87,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          cq.select(cq.from(ConceptosProyecciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarConceptosProyecciones PersistenciaConceptosProyecciones Error : " + e);
+         log.error("Error buscarConceptosProyecciones PersistenciaConceptosProyecciones Error : " + e);
          return null;
       }
    }

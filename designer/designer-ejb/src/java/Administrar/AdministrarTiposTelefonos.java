@@ -12,9 +12,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
-public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInterface{
+public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposTelefonos.class);
 
     @EJB
     PersistenciaTiposTelefonosInterface persistenciaTiposTelefonos;
@@ -44,7 +47,7 @@ public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInter
     @Override
     public void modificarTipoTelefono(List<TiposTelefonos> listaTiposTelefonosModificar) {
         for (int i = 0; i < listaTiposTelefonosModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaTiposTelefonosModificar.get(i).getSecuencia() == null) {
                 tt = listaTiposTelefonosModificar.get(i);
             } else {

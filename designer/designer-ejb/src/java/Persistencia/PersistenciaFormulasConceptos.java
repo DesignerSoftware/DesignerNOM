@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 //import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -25,6 +26,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaFormulasConceptos implements PersistenciaFormulasConceptosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaFormulasConceptos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -43,7 +46,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          em.persist(conceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulasConceptos.crear: " + e);
+         log.error("Error PersistenciaFormulasConceptos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,12 +58,12 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         System.out.println("Entrando a persistir FormulasConceptos, FormulaConcepto : " + fConceptos);
+         log.error("Entrando a persistir FormulasConceptos, FormulaConcepto : " + fConceptos);
          tx.begin();
          em.merge(fConceptos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaFormulasConceptos.editar : " + e);
+         log.error("Error PersistenciaFormulasConceptos.editar : " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -80,7 +83,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaFormulasConceptos.borrar: " + e);
+         log.error("Error PersistenciaFormulasConceptos.borrar: " + e);
       }
    }
 
@@ -91,13 +94,13 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C, FORMULAS F \n"
                  + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND FC.FORMULA = F.SECUENCIA";
-         System.out.println("sqlQuery : " + sqlQuery);
+         log.error("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          List<FormulasConceptos> resultado = query.getResultList();
 
          if (resultado != null) {
             if (!resultado.isEmpty()) {
-               System.out.println("resultado.size() : " + resultado.size());
+               log.error("resultado.size() : " + resultado.size());
                for (int i = 0; i < resultado.size(); i++) {
                   em.clear();
                   String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
@@ -108,7 +111,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
                           + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                           + "AND FC.SECUENCIA = " + resultado.get(i).getSecuencia();
                   if (i == 0) {
-                     System.out.println("sqlQuery2 : " + sqlQuery2);
+                     log.error("sqlQuery2 : " + sqlQuery2);
                   }
                   Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
                   FormulasConceptosAux resultado2 = (FormulasConceptosAux) query2.getSingleResult();
@@ -122,7 +125,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          }
          return resultado;
       } catch (Exception e) {
-         System.out.println("Error buscarFormulasConceptos Persistencia : " + e.toString());
+         log.error("Error buscarFormulasConceptos Persistencia : " + e.toString());
          e.printStackTrace();
          return null;
       }
@@ -130,7 +133,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    @Override
    public boolean verificarExistenciaConceptoFormulasConcepto(EntityManager em, BigInteger secuencia) {
-      System.out.println("buenas verificarExistenciaConceptoFormulasConcepto");
+      log.error("buenas verificarExistenciaConceptoFormulasConcepto");
       try {
          em.clear();
          String txtQuery = "SELECT COUNT(fc) FROM FormulasConceptos fc WHERE fc.concepto = ?";
@@ -139,7 +142,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          BigDecimal resultado = (BigDecimal) query.getSingleResult();
          return resultado.compareTo(BigDecimal.ZERO) > 0;
       } catch (Exception e) {
-         System.out.println("Exepcion: " + e);
+         log.error("Exepcion: " + e);
          return false;
       }
    }
@@ -153,13 +156,13 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
                  + "AND C.EMPRESA = E.SECUENCIA \n"
                  + "AND FC.CONCEPTO = " + secuencia + "\n"
                  + "AND FC.FORMULA = F.SECUENCIA";
-         System.out.println("sqlQuery : " + sqlQuery);
+         log.error("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          List<FormulasConceptos> resultado = query.getResultList();
-         System.out.println("resultado : " + resultado);
+         log.error("resultado : " + resultado);
          if (resultado != null) {
             if (!resultado.isEmpty()) {
-               System.out.println("resultado.size() : " + resultado.size());
+               log.error("resultado.size() : " + resultado.size());
                for (int i = 0; i < resultado.size(); i++) {
                   em.clear();
                   String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
@@ -181,7 +184,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          }
          return resultado;
       } catch (Exception e) {
-         System.out.println("Error en formulasConcepto() : " + e);
+         log.error("Error en formulasConcepto() : " + e);
          e.printStackTrace();
          return null;
       }
@@ -189,7 +192,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    @Override
    public boolean verificarFormulaCargue_Concepto(EntityManager em, BigInteger secuencia, BigInteger secFormula) {
-      System.out.println("Entrando a verificarFormulaCargue_Concepto PersistenciaFormulasConceptos");
+      log.error("Entrando a verificarFormulaCargue_Concepto PersistenciaFormulasConceptos");
       try {
          em.clear();
          String txtQuery = "SELECT COUNT(fc) FROM FormulasConceptos fc WHERE fc.concepto = ? AND fc.formula = ? ";
@@ -199,7 +202,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          BigDecimal resultado = (BigDecimal) query.getSingleResult();
          return resultado.compareTo(BigDecimal.ZERO) > 0;
       } catch (Exception e) {
-         System.out.println("Exepcion verificarFormulaCargue_Concepto: " + e);
+         log.error("Exepcion verificarFormulaCargue_Concepto: " + e);
          return false;
       }
    }
@@ -215,7 +218,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          Long resultado = resTemp.longValue();
          return resultado;
       } catch (Exception e) {
-         System.out.println("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto : " + e.toString());
+         log.error("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto : " + e.toString());
          return null;
       }
    }
@@ -231,7 +234,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          Long resultado = resTemp.longValue();
          return resultado;
       } catch (Exception e) {
-         System.out.println("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto : " + e.toString());
+         log.error("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto : " + e.toString());
          return null;
       }
    }
@@ -245,14 +248,14 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C \n"
                  + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND FC.FORMULA = " + secuencia + " \n";
-         System.out.println("sqlQuery : " + sqlQuery);
+         log.error("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          resultado = query.getResultList();
-         System.out.println("resultado : " + resultado);
+         log.error("resultado : " + resultado);
 
          if (resultado != null) {
             if (!resultado.isEmpty()) {
-               System.out.println("resultado.size() : " + resultado.size());
+               log.error("resultado.size() : " + resultado.size());
                for (int i = 0; i < resultado.size(); i++) {
                   em.clear();
                   String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
@@ -276,7 +279,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          }
          return resultado;
       } catch (Exception e) {
-         System.out.println("Error Persistencia formulasConceptosParaFormulaSecuencia : " + e.toString());
+         log.error("Error Persistencia formulasConceptosParaFormulaSecuencia : " + e.toString());
          e.printStackTrace();
          return null;
       }

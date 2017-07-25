@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenciasGruposSalarialesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasGruposSalariales.class);
 
     @Override
     public void crear(EntityManager em, VigenciasGruposSalariales vigenciasGruposSalariales) {
@@ -25,7 +27,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             em.merge(vigenciasGruposSalariales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposSalariales.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposSalariales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             em.merge(vigenciasGruposSalariales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposSalariales.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposSalariales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             em.remove(em.merge(vigenciasGruposSalariales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposSalariales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposSalariales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             List<VigenciasGruposSalariales> vigenciasGruposSalariales = (List<VigenciasGruposSalariales>) query.getResultList();
             return vigenciasGruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasGruposSalariales PersistenciaVigenciasGruposSalariales : " + e.getMessage());
+            log.error("Error buscarVigenciasGruposSalariales PersistenciaVigenciasGruposSalariales : " + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             VigenciasGruposSalariales vigenciasGruposSalariales = (VigenciasGruposSalariales) query.getSingleResult();
             return vigenciasGruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.getMessage());
+            log.error("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.getMessage());
             return null;
         }
     }
@@ -103,7 +105,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             List<VigenciasGruposSalariales> vigenciasGruposSalariales = (List<VigenciasGruposSalariales>) query.getResultList();
             return vigenciasGruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.getMessage());
+            log.error("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.getMessage());
             return null;
         }
     }

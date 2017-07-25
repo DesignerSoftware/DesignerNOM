@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlBetaEmplVigenciaNormaLaboral.class);
 
    @EJB
    AdministrarVigenciaNormaLaboralInterface administrarVigenciaNormaLaboral;
@@ -157,14 +160,14 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
          administrarVigenciaNormaLaboral.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void recibirEmpleado(BigInteger sec) {
       if (sec == null) {
-         System.out.println("ERROR EN RECIBIR LA SECUENCIA DEL EMPLEADO EN CONTROLBETAEMPLVIGENCIANORMALABORAL");
+         log.warn("Error EN RECIBIR LA SECUENCIA DEL EMPLEADO EN CONTROLBETAEMPLVIGENCIANORMALABORAL");
       }
       secuenciaEmpleado = sec;
       getEmpleadoSeleccionado();
@@ -270,7 +273,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
             dig = -1;
          }
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLBETAEMPLVIGENCIANORMALABORAL.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error CONTROLBETAEMPLVIGENCIANORMALABORAL.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -560,7 +563,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
          nuevoEmplVigenciaNormaLaboral = new VigenciasNormasEmpleados();
          nuevoEmplVigenciaNormaLaboral.setNormalaboral(new NormasLaborales());
       } catch (Exception e) {
-         System.out.println("Error CONTROLBETAEMPLVIGENCIANORMALABORAL LIMPIAR NUEVO NORMA LABORAL ERROR :" + e.getMessage());
+         log.warn("Error CONTROLBETAEMPLVIGENCIANORMALABORAL LIMPIAR NUEVO NORMA LABORAL ERROR :" + e.getMessage());
       }
    }
 
@@ -911,7 +914,7 @@ public class ControlBetaEmplVigenciaNormaLaboral implements Serializable {
 //
 //    private void modificarInfoRegistro(int valor) {
 //        infoRegistro = String.valueOf(valor);
-//        System.out.println("infoRegistro: " + infoRegistro);
+//        log.info("infoRegistro: " + infoRegistro);
 //    }
 //
 //    private void modificarInfoRegistroNorma(int valor) {

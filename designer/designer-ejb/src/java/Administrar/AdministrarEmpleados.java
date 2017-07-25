@@ -9,12 +9,12 @@ import Entidades.Empleados;
 import InterfaceAdministrar.AdministrarEmpleadosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
-import Persistencia.PersistenciaEmpleados;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmpleados.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -41,7 +43,7 @@ public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
             List<Empleados> lista = persitenciaEmpleados.todosEmpleados(em);
             return lista;
         } catch (Exception e) {
-            System.out.println("error en AdministrarEmpleados.listaEmpleados" + e);
+            log.warn("error en AdministrarEmpleados.listaEmpleados" + e);
             return null;
         }
     }
@@ -53,7 +55,7 @@ public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
                 persitenciaEmpleados.editar(em, listaE.get(i));
             }
         } catch (Exception e) {
-            System.out.println("erroe en AdministrarEmpleados.editarEmpleado : " + e);
+            log.warn("erroe en AdministrarEmpleados.editarEmpleado : " + e);
         }
     }
 
@@ -62,7 +64,7 @@ public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
        try{
            persitenciaEmpleados.cambiarCodEmpleado(em, codactual, codnuevo);
        }catch(Exception e){
-        System.out.println("erroe en AdministrarEmpleados.cambiarCodEmpl : " + e);
+        log.warn("erroe en AdministrarEmpleados.cambiarCodEmpl : " + e);
        }
     }
 

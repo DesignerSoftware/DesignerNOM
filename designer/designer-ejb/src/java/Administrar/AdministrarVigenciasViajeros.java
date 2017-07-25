@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajerosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciasViajeros.class);
 
     @EJB
     PersistenciaVigenciasViajerosInterface persistenciaVigenciasViajeros;
@@ -61,21 +64,21 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
 
     public void modificarVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
         for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaVigenciasViajeros.editar(em, listaVigenciasViajeros.get(i));
         }
     }
 
     public void borrarVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
         for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaVigenciasViajeros.borrar(em, listaVigenciasViajeros.get(i));
         }
     }
 
     public void crearVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
         for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaVigenciasViajeros.crear(em, listaVigenciasViajeros.get(i));
         }
     }

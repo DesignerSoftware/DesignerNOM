@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -26,6 +26,8 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaMotivosContratos implements PersistenciaMotivosContratosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaMotivosContratos.class);
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -40,7 +42,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             em.merge(motivosContratos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosContratos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosContratos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +58,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             em.merge(motivosContratos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosContratos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosContratos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosContratos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosContratos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +88,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             em.clear();
             return em.find(MotivosContratos.class, secuenciaMotivosContratos);
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaMotivosContratos buscarMotivosContratos ERROR " + e.getMessage());
+            log.error("ERROR PersistenciaMotivosContratos buscarMotivosContratos ERROR " + e.getMessage());
             return null;
         }
     }
@@ -100,7 +102,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             List<MotivosContratos> motivosContratos = query.getResultList();
             return motivosContratos;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaMotivosContratos.motivosContratos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaMotivosContratos.motivosContratos()" + e.getMessage());
             return null;
         }
     }
@@ -113,7 +115,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             cq.select(cq.from(MotivosContratos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println(" ERROR EN PersistenciaMotivosContratos buscarMotivosCambiosCargos ERROR" + e.getMessage());
+            log.error(" ERROR EN PersistenciaMotivosContratos buscarMotivosCambiosCargos ERROR" + e.getMessage());
             return null;
         }
     }
@@ -128,7 +130,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             retorno = new BigInteger(query.getSingleResult().toString());
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaMotivosMotivosContratos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaMotivosMotivosContratos verificarBorrado ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }

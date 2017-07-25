@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposCertificados implements AdministrarTiposCertificadosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposCertificados.class);
 
     @EJB
     PersistenciaTiposCertificadosInterface persistenciaTiposCertificados;
@@ -41,7 +44,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
     @Override
     public void modificarTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
         for (int i = 0; i < listaTiposCertificados.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposCertificados.editar(em, listaTiposCertificados.get(i));
         }
     }
@@ -49,7 +52,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
     @Override
     public void borrarTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
         for (int i = 0; i < listaTiposCertificados.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposCertificados.borrar(em, listaTiposCertificados.get(i));
         }
     }
@@ -57,7 +60,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
     @Override
     public void crearTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
         for (int i = 0; i < listaTiposCertificados.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposCertificados.crear(em, listaTiposCertificados.get(i));
         }
     }

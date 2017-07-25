@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciasContratos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciasContratos.class);
 
    @EJB
    AdministrarVigenciasContratosInterface administrarVigenciasContratos;
@@ -141,8 +144,8 @@ public class ControlVigenciasContratos implements Serializable {
          administrarVigenciasContratos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -224,7 +227,7 @@ public class ControlVigenciasContratos implements Serializable {
       fechaParametro.setYear(0);
       fechaParametro.setMonth(1);
       fechaParametro.setDate(1);
-      System.err.println("fechaparametro : " + fechaParametro);
+      log.error("fechaparametro : " + fechaParametro);
       boolean retorno = true;
       if (i == 0) {
          VigenciasContratos auxiliar = null;
@@ -1181,7 +1184,7 @@ public class ControlVigenciasContratos implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          tablaC = (DataTable) c.getViewRoot().findComponent("form:datosVCEmpleado");
          tablaC.setSelection(vigenciaSeleccionada);
-         System.out.println("vigenciaSeleccionada: " + vigenciaSeleccionada);
+         log.info("vigenciaSeleccionada: " + vigenciaSeleccionada);
       }
    }
    //GETTERS AND SETTERS
@@ -1200,7 +1203,7 @@ public class ControlVigenciasContratos implements Serializable {
          }
          return vigenciasContratos;
       } catch (Exception e) {
-         System.out.println("Error....................!!!!!!!!!!!! getVigenciasContratos ");
+         log.warn("Error....................!!!!!!!!!!!! getVigenciasContratos ");
          return null;
       }
    }

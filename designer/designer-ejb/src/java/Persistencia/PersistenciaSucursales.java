@@ -9,14 +9,15 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 
 @Stateless
 public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaSucursales.class);
 
     @Override
     public void crear(EntityManager em, Sucursales sucursales) {
@@ -27,7 +28,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.merge(sucursales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSucursales.crear: " + e.getMessage());
+            log.error("Error PersistenciaSucursales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +44,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.merge(sucursales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSucursales.editar: " + e.getMessage());
+            log.error("Error PersistenciaSucursales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +60,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.remove(em.merge(sucursales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSucursales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSucursales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +73,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.clear();
             return em.find(Sucursales.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaSucursales.buscarSucursal()" + e.getMessage());
+            log.error("Persistencia.PersistenciaSucursales.buscarSucursal()" + e.getMessage());
             return null;
         }
     }
@@ -86,7 +87,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             List<Sucursales> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("error consultarSucursales :  " + e.toString());
+            log.error("error consultarSucursales :  " + e.toString());
             return null;
         }
     }
@@ -99,10 +100,10 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
+            log.error("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
+            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
             return retorno;
         }
     }

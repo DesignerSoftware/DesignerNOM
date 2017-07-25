@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlMotivosCambiosSueldos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlMotivosCambiosSueldos.class);
 
     @EJB
     AdministrarMotivosCambiosSueldosInterface administrarMotivosCambiosSueldos;
@@ -134,8 +137,8 @@ public class ControlMotivosCambiosSueldos implements Serializable {
             administrarMotivosCambiosSueldos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -186,7 +189,7 @@ public class ControlMotivosCambiosSueldos implements Serializable {
 
     public void salir() {
         limpiarListasValor();
-        System.err.println("cancelarModificacion");
+        log.error("cancelarModificacion");
         if (bandera == 1) {
             tamano = 270;
             FacesContext c = FacesContext.getCurrentInstance();
@@ -227,11 +230,11 @@ public class ControlMotivosCambiosSueldos implements Serializable {
             estadoSueldoPromedio = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:estadoSueldoPromedio");
             estadoSueldoPromedio.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioSueldo");
-            System.out.println("Activar");
+            log.info("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             tamano = 270;
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:descripcion");
@@ -247,8 +250,8 @@ public class ControlMotivosCambiosSueldos implements Serializable {
 
     public void modificarPromedioSuelos(MotivosCambiosSueldos motivo, boolean cambio) {
         motivoCambioSueldoSeleccionado = motivo;
-        System.out.println("modificarPromediosSuelos cambio = " + cambio);
-        System.err.println("cambio = " + cambio);
+        log.info("modificarPromediosSuelos cambio = " + cambio);
+        log.error("cambio = " + cambio);
         motivoCambioSueldoSeleccionado.setEstadoSueldoPromedio(cambio);
         if (motivoCambioSueldoSeleccionado.getEstadoSueldoPromedio() == true) {
             motivoCambioSueldoSeleccionado.setSueldopromedio("S");
@@ -282,7 +285,7 @@ public class ControlMotivosCambiosSueldos implements Serializable {
     public void borrarMotivosCambiosSueldos() {
         if (motivoCambioSueldoSeleccionado != null) {
             if (tipoLista == 0) {
-                System.out.println("Entro a borrarMotivosCambiosSueldos");
+                log.info("Entro a borrarMotivosCambiosSueldos");
                 if (!modificarrMotivosCambiosSueldos.isEmpty() && modificarrMotivosCambiosSueldos.contains(motivoCambioSueldoSeleccionado)) {
                     int modIndex = modificarrMotivosCambiosSueldos.indexOf(motivoCambioSueldoSeleccionado);
                     modificarrMotivosCambiosSueldos.remove(modIndex);
@@ -359,17 +362,17 @@ public class ControlMotivosCambiosSueldos implements Serializable {
             nuevoMotivoCambioSueldo.setSueldopromedio("N");
         }
         if (nuevoMotivoCambioSueldo.getEstadoSueldoPromedio() == true) {
-            System.err.println("Sueldo Promedio S");
+            log.error("Sueldo Promedio S");
             nuevoMotivoCambioSueldo.setSueldopromedio("S");
         }
         if (nuevoMotivoCambioSueldo.getEstadoSueldoPromedio() == false) {
-            System.err.println("Sueldo Promedio N");
+            log.error("Sueldo Promedio N");
             nuevoMotivoCambioSueldo.setSueldopromedio("N");
         }
         if (contador == 2) {
             if (bandera == 1) {
                 //CERRAR FILTRADO
-                System.out.println("Desactivar");
+                log.info("Desactivar");
                 FacesContext c = FacesContext.getCurrentInstance();
                 codigo = (Column) c.getViewRoot().findComponent("form:datosMotivoCambioSueldo:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -444,9 +447,9 @@ public class ControlMotivosCambiosSueldos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarMotivoCambioSueldo.getCodigo());
-        System.err.println("ConfirmarDuplicar nombre " + duplicarMotivoCambioSueldo.getNombre());
-        System.err.println("ConfirmarDuplicar Sueldo Promedio " + duplicarMotivoCambioSueldo.getSueldopromedio());
+        log.error("ConfirmarDuplicar codigo " + duplicarMotivoCambioSueldo.getCodigo());
+        log.error("ConfirmarDuplicar nombre " + duplicarMotivoCambioSueldo.getNombre());
+        log.error("ConfirmarDuplicar Sueldo Promedio " + duplicarMotivoCambioSueldo.getSueldopromedio());
 
         if (duplicarMotivoCambioSueldo.getCodigo() == a) {
             mensajeValidacion = "Los campos marcados con asterisco son obligtorios";
@@ -458,9 +461,9 @@ public class ControlMotivosCambiosSueldos implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " El código ingresado ya existe. Por favor ingrese otro código.";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                log.info("Mensaje validacion : " + mensajeValidacion);
             } else {
-                System.out.println("bandera");
+                log.info("bandera");
                 contador++;
                 duplicados = 0;
             }
@@ -472,11 +475,11 @@ public class ControlMotivosCambiosSueldos implements Serializable {
             contador++;
         }
         if (duplicarMotivoCambioSueldo.getEstadoSueldoPromedio() == true) {
-            System.err.println("Sueldo Promedio S");
+            log.error("Sueldo Promedio S");
             duplicarMotivoCambioSueldo.setSueldopromedio("S");
         }
         if (duplicarMotivoCambioSueldo.getEstadoSueldoPromedio() == false) {
-            System.err.println("Sueldo Promedio N");
+            log.error("Sueldo Promedio N");
             duplicarMotivoCambioSueldo.setSueldopromedio("N");
         }
 
@@ -522,7 +525,7 @@ public class ControlMotivosCambiosSueldos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Vigencias Localizacion");
+            log.info("Realizando Operaciones Vigencias Localizacion");
             if (!borrarMotivosCambiosSueldos.isEmpty()) {
                 administrarMotivosCambiosSueldos.borrarMotivosCambiosSueldos(borrarMotivosCambiosSueldos);
                 //mostrarBorrados
@@ -539,7 +542,7 @@ public class ControlMotivosCambiosSueldos implements Serializable {
                 administrarMotivosCambiosSueldos.modificarMotivosCambiosSueldos(modificarrMotivosCambiosSueldos);
                 modificarrMotivosCambiosSueldos.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             listMotivosCambiosSueldos = null;
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioSueldo");
             k = 0;

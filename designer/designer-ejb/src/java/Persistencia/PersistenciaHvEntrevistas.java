@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaHvEntrevistas.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +39,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          em.merge(hvEntrevistas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaHvEntrevistas.crear: " + e);
+         log.error("Error PersistenciaHvEntrevistas.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +57,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaHvEntrevistas.editar: " + e);
+         log.error("Error PersistenciaHvEntrevistas.editar: " + e);
       }
    }
 
@@ -70,7 +73,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaHvEntrevistas.borrar: " + e);
+         log.error("Error PersistenciaHvEntrevistas.borrar: " + e);
       }
    }
 
@@ -79,7 +82,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          em.clear();
          return em.find(HvEntrevistas.class, secuenciaHvEntrevista);
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaHvEntrevistas.buscarHvEntrevista() e: " + e);
+         log.error("Persistencia.PersistenciaHvEntrevistas.buscarHvEntrevista() e: " + e);
          return null;
       }
    }
@@ -102,7 +105,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          List<HvEntrevistas> listHvEntrevistas = query.getResultList();
          return listHvEntrevistas;
       } catch (Exception e) {
-         System.err.println("Error en PERSISTENCIAHVENTREVISTAS ERROR " + e);
+         log.error("Error en PERSISTENCIAHVENTREVISTAS ERROR " + e);
          return null;
       }
    }
@@ -116,7 +119,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
          return hvHojasDeVIda;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia HvEntrevistas buscarHvHojaDeVidaPorEmpleado " + e);
+         log.error("Error en Persistencia HvEntrevistas buscarHvHojaDeVidaPorEmpleado " + e);
          return null;
       }
    }
@@ -138,7 +141,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          }
          return null;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaHvEntrevistas.entrevistasPersona" + e);
+         log.error("Error PersistenciaHvEntrevistas.entrevistasPersona" + e);
          return null;
       }
    }
@@ -156,7 +159,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          query.setParameter(1, secuenciaHV);
          entrevista = (String) query.getSingleResult();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
+         log.error("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
          entrevista = "";
       }
       return entrevista;

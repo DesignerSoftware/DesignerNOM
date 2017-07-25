@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmplVigenciaIndicador implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmplVigenciaIndicador.class);
 
    @EJB
    AdministrarEmplVigenciaIndicadorInterface administrarEmplVigenciaIndicador;
@@ -172,8 +175,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          administrarEmplVigenciaIndicador.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -310,8 +313,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          }
       } else //            int ind = listVigenciasIndicadores.indexOf(vigenciaTablaSeleccionada);
       //            vigenciaTablaSeleccionada = ind;
-      {
-         if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
+       if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
             if (listVigenciaIndicadorModificar.isEmpty()) {
                listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
             } else if (!listVigenciaIndicadorModificar.contains(vigenciaTablaSeleccionada)) {
@@ -322,7 +324,6 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          }
-      }
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosVigencia");
 
@@ -1133,7 +1134,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          }
          return listVigenciasIndicadores;
       } catch (Exception e) {
-         System.out.println("Error en getListVigenciasIndicadores : " + e.toString());
+         log.warn("Error en getListVigenciasIndicadores : " + e.toString());
          return null;
       }
    }
@@ -1155,7 +1156,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          lovTiposIndicadores = administrarEmplVigenciaIndicador.listTiposIndicadores();
          return lovTiposIndicadores;
       } catch (Exception e) {
-         System.out.println("Error getListTiposIndicadores " + e.toString());
+         log.warn("Error getListTiposIndicadores " + e.toString());
          return null;
       }
    }
@@ -1185,7 +1186,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
          lovIndicadores = administrarEmplVigenciaIndicador.listIndicadores();
          return lovIndicadores;
       } catch (Exception e) {
-         System.out.println("Error getListIndicadores " + e.toString());
+         log.warn("Error getListIndicadores " + e.toString());
          return null;
       }
    }

@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -35,6 +36,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlFormulaConcepto implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlFormulaConcepto.class);
 
    @EJB
    AdministrarFormulaConceptoInterface administrarFormulaConcepto;
@@ -140,8 +143,8 @@ public class ControlFormulaConcepto implements Serializable {
          administrarFormulaConcepto.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -157,7 +160,7 @@ public class ControlFormulaConcepto implements Serializable {
    }
 
    public void recibirFormula(Formulas formula, String pagina) {
-      System.out.println("Controlador.ControlFormulaConcepto.recibirFormula() formula: " + formula + " , y pagina: " + pagina);
+      log.info("Controlador.ControlFormulaConcepto.recibirFormula() formula: " + formula + " , y pagina: " + pagina);
       paginaAnterior = pagina;
       formulaActual = formula;
       listFormulasConceptos = null;
@@ -352,7 +355,7 @@ public class ControlFormulaConcepto implements Serializable {
                codigoConcepto = duplicarFormulaConcepto.getCodigoConcepto().toString();
             }
          } catch (Exception e) {
-            System.out.println("Asignando codigoConcepto : null como ''''");
+            log.info("Asignando codigoConcepto : null como ''''");
             codigoConcepto = "";
          }
       } else if (Campo.equals("CONCEPTO")) {
@@ -629,7 +632,7 @@ public class ControlFormulaConcepto implements Serializable {
             modificarFormulaConcepto(fc);
             RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
          } else {
-            System.out.println("Error de fechas de ingreso");
+            log.warn("Error de fechas de ingreso");
             formulaConceptoSeleccionada.setFechainicial(fechaIni);
             formulaConceptoSeleccionada.setFechafinal(fechaFin);
             RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
@@ -652,12 +655,12 @@ public class ControlFormulaConcepto implements Serializable {
    /**
     */
    public void guardadoGeneral() {
-      System.out.println("Entro en guardadoGeneral()");
+      log.info("Entro en guardadoGeneral()");
       if (cambiosFormulasConceptos == true) {
          try {
-            System.out.println("listFormulasConceptosBorrar.size() : " + listFormulasConceptosBorrar.size());
-            System.out.println("listFormulasConceptosCrear.size() : " + listFormulasConceptosCrear.size());
-            System.out.println("listFormulasConceptosModificar.size() : " + listFormulasConceptosModificar.size());
+            log.info("listFormulasConceptosBorrar.size() : " + listFormulasConceptosBorrar.size());
+            log.info("listFormulasConceptosCrear.size() : " + listFormulasConceptosCrear.size());
+            log.info("listFormulasConceptosModificar.size() : " + listFormulasConceptosModificar.size());
             if (!listFormulasConceptosBorrar.isEmpty()) {
                administrarFormulaConcepto.borrarFormulasConceptos(listFormulasConceptosBorrar);
                listFormulasConceptosBorrar.clear();
@@ -681,7 +684,7 @@ public class ControlFormulaConcepto implements Serializable {
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } catch (Exception e) {
-            System.out.println("Error guardarCambiosFormula  : " + e.toString());
+            log.warn("Error guardarCambiosFormula  : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -1353,10 +1356,10 @@ public class ControlFormulaConcepto implements Serializable {
    //GET - SET 
    public List<FormulasConceptos> getListFormulasConceptos() {
       if (listFormulasConceptos == null) {
-         System.out.println("Entro a consultar formulasConceptosParaFormula formulaActual : " + formulaActual);
+         log.info("Entro a consultar formulasConceptosParaFormula formulaActual : " + formulaActual);
          if (formulaActual.getSecuencia() != null) {
             listFormulasConceptos = administrarFormulaConcepto.formulasConceptosParaFormula(formulaActual.getSecuencia());
-            System.out.println("Salio de consultar formulasConceptosParaFormula");
+            log.info("Salio de consultar formulasConceptosParaFormula");
          }
       }
       return listFormulasConceptos;
@@ -1456,9 +1459,9 @@ public class ControlFormulaConcepto implements Serializable {
 
    public List<FormulasConceptos> getLovFormulasConceptosOrden() {
       if (lovFormulasConceptosOrden == null) {
-         System.out.println("a consultar listFormulasConceptos");
+         log.info("a consultar listFormulasConceptos");
          lovFormulasConceptosOrden = administrarFormulaConcepto.listFormulasConceptos();
-         System.out.println("Ya consulto listFormulasConceptos");
+         log.info("Ya consulto listFormulasConceptos");
       }
       return lovFormulasConceptosOrden;
    }

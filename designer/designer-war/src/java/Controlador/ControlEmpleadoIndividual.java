@@ -33,7 +33,6 @@ import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarEmpleadoIndividualInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
-import com.sun.xml.ws.security.opt.impl.util.SOAPUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,7 +47,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -64,17 +62,19 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 
 @ManagedBean
 @SessionScoped
 public class ControlEmpleadoIndividual implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmpleadoIndividual.class);
 
    @EJB
    AdministrarEmpleadoIndividualInterface administrarEmpleadoIndividual;
@@ -244,8 +244,8 @@ public class ControlEmpleadoIndividual implements Serializable {
          externalContext = x.getExternalContext();
          userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -264,7 +264,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          lovCargos = null;
          guardado = true;
       } catch (Exception e) {
-         System.out.println("error en recibir empleado" + e.getMessage());
+         log.warn("Error en recibir empleado" + e.getMessage());
       }
    }
 
@@ -325,7 +325,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             vehiculoPropio = "N";
          }
       } catch (Exception e) {
-         System.out.println("error en consultar Datos Empleado" + e.getCause() + e.getMessage());
+         log.warn("Error en consultar Datos Empleado" + e.getCause() + e.getMessage());
       }
    }
 
@@ -421,12 +421,12 @@ public class ControlEmpleadoIndividual implements Serializable {
    public void seleccionarCiudadDocumento() {
       if (persona != null) {
          if (persona.getCiudaddocumento() != null && seleccionLovCiudadDocumento != null) {
-//                System.out.println("entra al if 2");
+//                log.info("entra al if 2");
             RequestContext context = RequestContext.getCurrentInstance();
             if (modificacionCiudad == 0) {
                persona.setCiudaddocumento(seleccionLovCiudadDocumento);
-//                    System.out.println("nueva ciudad : " + seleccionLovCiudadDocumento);
-//                    System.out.println("nueva ciudad : " + persona.getCiudaddocumento());
+//                    log.info("nueva ciudad : " + seleccionLovCiudadDocumento);
+//                    log.info("nueva ciudad : " + persona.getCiudaddocumento());
                RequestContext.getCurrentInstance().update("form:lugarExpedicion");
             }
             if (!modificacionPersona) {
@@ -445,10 +445,10 @@ public class ControlEmpleadoIndividual implements Serializable {
             modificacionCiudad = -1;
             dialogo = -1;
          } else {
-//                System.out.println("entra al else");
-//                System.out.println("ciudadnacimiento" + persona.getCiudadnacimiento().getNombre());
+//                log.info("entra al else");
+//                log.info("ciudadnacimiento" + persona.getCiudadnacimiento().getNombre());
             persona.setCiudaddocumento(persona.getCiudadnacimiento());
-//                System.out.println("ciudadnacimiento" + persona.getCiudaddocumento().getNombre());
+//                log.info("ciudadnacimiento" + persona.getCiudaddocumento().getNombre());
          }
       }
    }
@@ -742,7 +742,7 @@ public class ControlEmpleadoIndividual implements Serializable {
 
    //MODIFICACION
    public void eventoDataSelectFechaNacimiento(String tipoCampo) {
-//        System.out.println(this.getClass().getName() + ".eventoDataSelectFechaNacimiento");
+//        log.info(this.getClass().getName() + ".eventoDataSelectFechaNacimiento");
       if (persona.getFechanacimiento() != null) {
          if (tipoCampo.equals("P")) {
             if (modificacionPersona == false) {
@@ -929,7 +929,7 @@ public class ControlEmpleadoIndividual implements Serializable {
    public void transformarArchivo(long size, InputStream in) {
       try {
          //extension = fileName.split("[.]")[1];
-         //System.out.println(extension); 
+         //log.info(extension); 
          OutputStream out = new FileOutputStream(new File(destino + identificacionEmpleado + ".jpg"));
          int reader = 0;
          byte[] bytes = new byte[(int) size];
@@ -941,7 +941,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          out.close();
          administrarEmpleadoIndividual.actualizarFotoPersona(persona);
       } catch (IOException e) {
-         System.out.println("Error: ControlEmpleadoIndividual.transformarArchivo: " + e);
+         log.warn("Error: ControlEmpleadoIndividual.transformarArchivo: " + e);
       }
    }
 
@@ -974,31 +974,31 @@ public class ControlEmpleadoIndividual implements Serializable {
    }
 
    public AsynchronousFilllListener listener() {
-      System.out.println(this.getClass().getName() + ".listener()");
+      log.info(this.getClass().getName() + ".listener()");
       return new AsynchronousFilllListener() {
          //RequestContext context = c;
 
          @Override
          public void reportFinished(JasperPrint jp) {
-            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+            log.info(this.getClass().getName() + ".listener().reportFinished()");
             try {
                estadoReporte = true;
                resultadoReporte = "Exito";
             } catch (Exception e) {
-               System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+               log.info("ControlNReporteNomina reportFinished ERROR: " + e.toString());
             }
          }
 
          @Override
          public void reportCancelled() {
-            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+            log.info(this.getClass().getName() + ".listener().reportCancelled()");
             estadoReporte = true;
             resultadoReporte = "Cancelación";
          }
 
          @Override
          public void reportFillError(Throwable e) {
-            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+            log.info(this.getClass().getName() + ".listener().reportFillError()");
             if (e.getCause() != null) {
                pathReporteGenerado = "ControlEmpleadoIndividual reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -1012,13 +1012,13 @@ public class ControlEmpleadoIndividual implements Serializable {
 
    public void validarDescargaReporte() {
       try {
-         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+         log.info(this.getClass().getName() + ".validarDescargaReporte()");
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
          RequestContext context = RequestContext.getCurrentInstance();
          nombreReporte = "HojaVidaPorEmpleado";
          tipoReporte = "PDF";
-         System.out.println("nombre reporte : " + nombreReporte);
-         System.out.println("tipo reporte: " + tipoReporte);
+         log.info("nombre reporte : " + nombreReporte);
+         log.info("tipo reporte: " + tipoReporte);
          BigDecimal secPersona = new BigDecimal(persona.getSecuencia());
 
          Map param = new HashMap();
@@ -1027,19 +1027,19 @@ public class ControlEmpleadoIndividual implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
          pathReporteGenerado = administarReportes.generarReporteHojaVida(nombreReporte, tipoReporte, param);
          if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
+            log.info("validar descarga reporte - ingreso al if 1");
             if (tipoReporte.equals("PDF")) {
-               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               log.info("validar descarga reporte - ingreso al if 2 else");
                FileInputStream fis;
                try {
-                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  log.info("pathReporteGenerado : " + pathReporteGenerado);
                   fis = new FileInputStream(new File(pathReporteGenerado));
-                  System.out.println("fis : " + fis);
+                  log.info("fis : " + fis);
                   reporte = new DefaultStreamedContent(fis, "application/pdf");
-                  System.out.println("reporte despues de esto : " + reporte);
+                  log.info("reporte despues de esto : " + reporte);
                   if (reporte != null) {
-                     System.out.println("userAgent: " + userAgent);
-                     System.out.println("validar descarga reporte - ingreso al if 4");
+                     log.info("userAgent: " + userAgent);
+                     log.info("validar descarga reporte - ingreso al if 4");
                      if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                         context.update("formularioDialogos:descargarReporte");
                         context.execute("PF('descargarReporte').show();");
@@ -1050,19 +1050,19 @@ public class ControlEmpleadoIndividual implements Serializable {
                      }
                   }
                } catch (FileNotFoundException ex) {
-                  System.out.println("error en validar descargar reporte : " + ex.getMessage());
+                  log.warn("Error en validar descargar reporte : " + ex.getMessage());
                   RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
                   RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
                   reporte = null;
                }
             }
          } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            log.info("validar descarga reporte - ingreso al if 1 else");
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error en validar descargar Reporte" + e.toString());
+         log.warn("Error en validar descargar Reporte" + e.toString());
          RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
       }
    }
@@ -1072,13 +1072,13 @@ public class ControlEmpleadoIndividual implements Serializable {
    }
 
    public void cancelarReporte() {
-      System.out.println(this.getClass().getName() + ".cancelarReporte()");
+      log.info(this.getClass().getName() + ".cancelarReporte()");
       administarReportes.cancelarReporte();
    }
 
    public void exportarReporte() throws IOException {
       try {
-         System.out.println("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1103,7 +1103,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
          }
       } catch (Exception e) {
-         System.out.println("error en exportarReporte :" + e.getMessage());
+         log.warn("Error en exportarReporte :" + e.getMessage());
          RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
          RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
       }
@@ -1479,10 +1479,10 @@ public class ControlEmpleadoIndividual implements Serializable {
             fotoEmpleado = new DefaultStreamedContent(fis, "image/jpg");
          } catch (FileNotFoundException e) {
             fotoEmpleado = null;
-            System.out.println("Foto del empleado no encontrada. \n" + e);
+            log.info("Foto del empleado no encontrada. \n" + e);
          }
       } else {
-         System.out.println("la ruta de la foto del empleado es nula");
+         log.info("la ruta de la foto del empleado es nula");
       }
    }
 
@@ -1587,7 +1587,7 @@ public class ControlEmpleadoIndividual implements Serializable {
 
    private void imprimir(String etiqueta, String texto) {
       if (false) {
-         System.out.println(etiqueta + " " + texto);
+         log.info(etiqueta + " " + texto);
       }
    }
 

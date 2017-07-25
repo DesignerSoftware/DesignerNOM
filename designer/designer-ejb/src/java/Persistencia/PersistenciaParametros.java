@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -25,6 +26,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaParametros implements PersistenciaParametrosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaParametros.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -40,7 +43,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.merge(parametro);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaParametros.crear: " + e.getMessage());
+         log.error("Error PersistenciaParametros.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +59,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.remove(em.merge(parametro));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +76,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          List<Parametros> listaParametros = query.getResultList();
          return listaParametros;
       } catch (Exception e) {
-         System.out.println("Exepcion en PersistenciaParametros.parametrosComprobantes" + e.getMessage());
+         log.error("Exepcion en PersistenciaParametros.parametrosComprobantes" + e.getMessage());
          return null;
       }
    }
@@ -81,16 +84,16 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
    @Override
    public List<Parametros> empleadosParametros(EntityManager em, String usuarioBD) {
       try {
-         System.out.println("Persistencia.PersistenciaParametros.empleadosParametros() usuarioBD: " + usuarioBD + ", em: " + em);
+         log.error("Persistencia.PersistenciaParametros.empleadosParametros() usuarioBD: " + usuarioBD + ", em: " + em);
          em.clear();
          Query query = em.createQuery("SELECT p FROM Parametros p WHERE p.empleado IS NOT NULL AND p.usuario.alias = :usuarioBD", Parametros.class);
          query.setParameter("usuarioBD", usuarioBD);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         System.out.println("query: " + query);
+         log.error("query: " + query);
          List<Parametros> listaParametros = query.getResultList();
          return listaParametros;
       } catch (Exception e) {
-         System.out.println("Exepcion en PersistenciaParametros.empleadosParametros" + e.getMessage());
+         log.error("Exepcion en PersistenciaParametros.empleadosParametros" + e.getMessage());
          return null;
       }
    }
@@ -106,7 +109,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("PersistenciaParametros.borrarParametros. " + e.getMessage());
+         log.error("PersistenciaParametros.borrarParametros. " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -123,7 +126,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.persist(cambioMasivo);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCambiosMasivos.crear: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -139,7 +142,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.merge(cambioMasivo);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCambiosMasivos.editar: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -158,7 +161,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCambiosMasivos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.borrar: " + e.getMessage());
       }
    }
 
@@ -168,7 +171,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       try {
          return em.find(CambiosMasivos.class, secuencia);
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia(): " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia(): " + e.getMessage());
          return null;
       }
    }
@@ -184,12 +187,12 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
 //      try {
 //         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
 //                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
-//         System.out.println("q : " + q);
+//         log.error("q : " + q);
 //         Query query = em.createNativeQuery(q, CambiosMasivos.class);
 //         List<CambiosMasivos> lista = query.getResultList();
 //         return lista;
 //      } catch (Exception e) {
-//         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
       return null;
 //      }
    }
@@ -201,16 +204,16 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
     * @return
     */
    public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
-      System.out.println("Persistencia.PersistenciaParametros.consultarParametroCambiosMasivos()");
+      log.error("Persistencia.PersistenciaParametros.consultarParametroCambiosMasivos()");
 //         em.clear();
 //      try {
 //         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
 //         Query query = em.createNativeQuery(q);
-//         System.out.println("q : " + q);
+//         log.error("q : " + q);
 //         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
 //         return parametro;
 //      } catch (Exception e) {
-//         System.out.println("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
       return null;
 //      }
    }
@@ -222,7 +225,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
                  + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO) \n"
                  + "ORDER BY ULTIMAMODIFICACION DESC";
-         System.out.println("q : " + q);
+         log.error("q : " + q);
          Query query = em.createNativeQuery(q, CambiosMasivos.class);
          List<CambiosMasivos> lista = query.getResultList();
          if (lista != null) {
@@ -232,44 +235,44 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                   try {
                      String q2 = "SELECT P.NOMBRE ||' '|| P.PRIMERAPELLIDO ||' '|| P.SEGUNDOAPELLIDO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
                      if (i == 0) {
-                        System.out.println("q2 : " + q2);
+                        log.error("q2 : " + q2);
                      }
                      Query query2 = em.createNativeQuery(q2);
                      String nom = (String) query2.getSingleResult();
                      lista.get(i).setNombreEmpleado(nom);
                   } catch (Exception e2) {
-                     System.out.println("Error consultando Transients : " + e2);
+                     log.error("Error consultando Transients : " + e2);
                   }
                   em.clear();
                   try {
                      String q1 = "SELECT E.CODIGOEMPLEADO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
                      if (i == 0) {
-                        System.out.println("q1 : " + q1);
+                        log.error("q1 : " + q1);
                      }
                      Query query1 = em.createNativeQuery(q1);
                      BigDecimal cod = (BigDecimal) query1.getSingleResult();
                      lista.get(i).setCodigoEmpleado(cod);
                   } catch (Exception e3) {
-                     System.out.println("Error consultando Transients : " + e3);
+                     log.error("Error consultando Transients : " + e3);
                   }
                }
             }
          }
          return lista;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e.getMessage());
          return null;
       }
    }
 
    @Override
    public ParametrosCambiosMasivos parametrosCambiosMasivos(EntityManager em, String user) {
-      System.out.println("Persistencia.PersistenciaParametros.parametrosCambiosMasivos()");
+      log.error("Persistencia.PersistenciaParametros.parametrosCambiosMasivos()");
       em.clear();
       try {
          String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + user + "' AND ROWNUM < 2";
          Query query = em.createNativeQuery(q, ParametrosCambiosMasivos.class);
-         System.out.println("q : " + q);
+         log.error("q : " + q);
          ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
          if (parametro != null) {
             if (parametro.getSecuencia() != null) {
@@ -391,13 +394,13 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                      parametro.setSueldoUnidadPago(null);
                   }
                } catch (Exception e2) {
-                  System.out.println("ERROR al consultar @transients : " + e2);
+                  log.error("ERROR al consultar @transients : " + e2);
                }
             }
          }
          return parametro;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e.getMessage());
          return null;
       }
    }
@@ -413,27 +416,27 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         System.out.println("actualizarParametroCambioMasivo antes del MERGE 222");
-         System.out.println("parametro.getSecuencia(): " + parametro.getSecuencia());
-         System.out.println("parametro.getUsuarioBD(): " + parametro.getUsuarioBD());
-         System.out.println("\nparametro.getAfiliaTerceroSucursal(): " + parametro.getAfiliaTerceroSucursal());
-         System.out.println("parametro.getAfiliaTipoEntidad(): " + parametro.getAfiliaTipoEntidad());
-         System.out.println("parametro.getCargoEstructura(): " + parametro.getCargoEstructura());
-         System.out.println("parametro.getLocaliEstructura(): " + parametro.getLocaliEstructura());
-         System.out.println("parametro.getNoveConcepto(): " + parametro.getNoveConcepto());
-         System.out.println("parametro.getNoveFormula(): " + parametro.getNoveFormula());
-         System.out.println("parametro.getNovePeriodicidad(): " + parametro.getNovePeriodicidad());
-         System.out.println("parametro.getNoveTercero(): " + parametro.getNoveTercero());
-         System.out.println("parametro.getRetiMotivoDefinitiva(): " + parametro.getRetiMotivoDefinitiva());
-         System.out.println("parametro.getRetiMotivoRetiro(): " + parametro.getRetiMotivoRetiro());
-         System.out.println("parametro.getSueldoMotivoCambioSueldo(): " + parametro.getSueldoMotivoCambioSueldo());
-         System.out.println("parametro.getSueldoTipoSueldo(): " + parametro.getSueldoTipoSueldo());
-         System.out.println("parametro.getSueldoUnidadPago(): " + parametro.getSueldoUnidadPago());
+         log.error("actualizarParametroCambioMasivo antes del MERGE 222");
+         log.error("parametro.getSecuencia(): " + parametro.getSecuencia());
+         log.error("parametro.getUsuarioBD(): " + parametro.getUsuarioBD());
+         log.error("\nparametro.getAfiliaTerceroSucursal(): " + parametro.getAfiliaTerceroSucursal());
+         log.error("parametro.getAfiliaTipoEntidad(): " + parametro.getAfiliaTipoEntidad());
+         log.error("parametro.getCargoEstructura(): " + parametro.getCargoEstructura());
+         log.error("parametro.getLocaliEstructura(): " + parametro.getLocaliEstructura());
+         log.error("parametro.getNoveConcepto(): " + parametro.getNoveConcepto());
+         log.error("parametro.getNoveFormula(): " + parametro.getNoveFormula());
+         log.error("parametro.getNovePeriodicidad(): " + parametro.getNovePeriodicidad());
+         log.error("parametro.getNoveTercero(): " + parametro.getNoveTercero());
+         log.error("parametro.getRetiMotivoDefinitiva(): " + parametro.getRetiMotivoDefinitiva());
+         log.error("parametro.getRetiMotivoRetiro(): " + parametro.getRetiMotivoRetiro());
+         log.error("parametro.getSueldoMotivoCambioSueldo(): " + parametro.getSueldoMotivoCambioSueldo());
+         log.error("parametro.getSueldoTipoSueldo(): " + parametro.getSueldoTipoSueldo());
+         log.error("parametro.getSueldoUnidadPago(): " + parametro.getSueldoUnidadPago());
          em.merge(parametro);
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("ERROR PersistenciaParametros.actualizarParametroCambioMasivo: " + e.getMessage());
+         log.error("ERROR PersistenciaParametros.actualizarParametroCambioMasivo: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }

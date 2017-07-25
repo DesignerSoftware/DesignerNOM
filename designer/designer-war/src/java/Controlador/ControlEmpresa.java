@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEmpresa implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEmpresa.class);
 
    @EJB
    AdministrarEmpresasInterface administrarEmpresa;
@@ -269,8 +272,8 @@ public class ControlEmpresa implements Serializable {
          administrarEmpresa.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -439,7 +442,7 @@ public class ControlEmpresa implements Serializable {
             retorno = false;
          }
       }
-      System.out.println("ControlEmpresa.validarCamposNulosEmpresa() retorno: " + retorno);
+      log.info("ControlEmpresa.validarCamposNulosEmpresa() retorno: " + retorno);
       return retorno;
    }
 
@@ -477,7 +480,7 @@ public class ControlEmpresa implements Serializable {
    }
 
    public void modificarEmpresa(Empresas empresa) {
-      System.out.println("ControlEmpresa.modificarEmpresa()");
+      log.info("ControlEmpresa.modificarEmpresa()");
       tablaActiva = 0;
       empresaSeleccionada = empresa;
       if (empresaSeleccionada.getNombre().length() >= 1 && empresaSeleccionada.getNombre().length() <= 50) {
@@ -512,7 +515,7 @@ public class ControlEmpresa implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('errorNombreEmpresa').show()");
       }
       if (!listEmpresasModificar.isEmpty()) {
-         System.out.println("listEmpresasModificar.get(0): " + listEmpresasModificar.get(0) + ", Nom: " + listEmpresasModificar.get(0).getNombre());
+         log.info("listEmpresasModificar.get(0): " + listEmpresasModificar.get(0) + ", Nom: " + listEmpresasModificar.get(0).getNombre());
       }
    }
 
@@ -688,10 +691,10 @@ public class ControlEmpresa implements Serializable {
 
    public void cambiarIndice(Empresas empresa, int celda) {
       tablaActiva = 0;
-      System.out.println("Controlador.ControlEmpresa.cambiarIndice()");
+      log.info("Controlador.ControlEmpresa.cambiarIndice()");
       empresaSeleccionada = empresa;
       if (guardadoVigencia == true && guardadoCircular == true) {
-         System.out.println("Controlador.ControlEmpresa.cambiarIndice() empresaSeleccionada: " + empresaSeleccionada);
+         log.info("Controlador.ControlEmpresa.cambiarIndice() empresaSeleccionada: " + empresaSeleccionada);
          cualCelda = celda;
          vigenciaMBSeleccionada = null;
          circularSeleccionada = null;
@@ -699,7 +702,7 @@ public class ControlEmpresa implements Serializable {
          auxNombreEmpresa = empresaSeleccionada.getNombre();
          auxNitEmpresa = empresaSeleccionada.getNit();
          if (empresaSeleccionada.getCentrocosto() == null) {
-            System.out.println("Centro costo nulo");
+            log.info("Centro costo nulo");
          } else {
             centroCosto = empresaSeleccionada.getCentrocosto().getNombre();
          }
@@ -721,7 +724,7 @@ public class ControlEmpresa implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
-      System.out.println("Controlador.ControlEmpresa.cambiarIndice() Saliendo de la selección");
+      log.info("Controlador.ControlEmpresa.cambiarIndice() Saliendo de la selección");
    }
 
    public void cambiarIndiceVigencia(VigenciasMonedasBases vigMoneda, int celda) {
@@ -819,7 +822,7 @@ public class ControlEmpresa implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosEmpresa : " + e.toString());
+         log.warn("Error guardarCambiosEmpresa : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Empresa, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -850,7 +853,7 @@ public class ControlEmpresa implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosVigencia : " + e.toString());
+         log.warn("Error guardarCambiosVigencia : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Concepto Juridico, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -881,7 +884,7 @@ public class ControlEmpresa implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCircular : " + e.toString());
+         log.warn("Error guardarCambiosCircular : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Circular, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -2243,10 +2246,10 @@ public class ControlEmpresa implements Serializable {
 
    public void actualizarEmpresasClonado() {
       if (variableClonado.equalsIgnoreCase("origen")) {
-         System.out.println("Origen");
+         log.info("Origen");
          actualizarEmpresaOrigenClonado();
       } else if (variableClonado.equalsIgnoreCase("destino")) {
-         System.out.println("Destino");
+         log.info("Destino");
          actualizarEmpresaDestinoClonado();
       }
       aceptar = true;
@@ -2306,7 +2309,7 @@ public class ControlEmpresa implements Serializable {
          activoCasillaClonado = true;
          RequestContext.getCurrentInstance().update("form:CodigoBaseClonado");
          RequestContext.getCurrentInstance().update("form:DescripcionBaseClonado");
-         System.out.println("Proceso Clonado en Proceso");
+         log.info("Proceso Clonado en Proceso");
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorProcesoClonado').show()");
       }
@@ -2470,13 +2473,13 @@ public class ControlEmpresa implements Serializable {
    }
 
    public void clonarEmpresa() {
-      System.out.println("ControlEmpresa.clonarEmpresa() 1");
+      log.info("ControlEmpresa.clonarEmpresa() 1");
       if (!empresaDestinoClonado.getNombre().isEmpty() && empresaDestinoClonado.getCodigo() >= 1 && empresaOrigenClonado.getCodigo() >= 1) {
-         System.out.println("ControlEmpresa.clonarEmpresa() 2");
+         log.info("ControlEmpresa.clonarEmpresa() 2");
 //         if (validarNuevaEmpresaClon() == true) {
-         System.out.println("ControlEmpresa.clonarEmpresa() 3");
+         log.info("ControlEmpresa.clonarEmpresa() 3");
          errorClonado = administrarEmpresa.clonarEmpresa(empresaOrigenClonado.getCodigo(), empresaDestinoClonado.getCodigo());
-         System.out.println("ControlEmpresa.clonarEmpresa() 4");
+         log.info("ControlEmpresa.clonarEmpresa() 4");
          if (errorClonado.equals("SI")) {
             FacesMessage msg = new FacesMessage("Información", "El registro fue clonado con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2768,7 +2771,7 @@ public class ControlEmpresa implements Serializable {
       if (listaCirculares == null) {
          if (empresaSeleccionada != null) {
             listaCirculares = administrarEmpresa.listaCircularesParaEmpresa(empresaSeleccionada.getSecuencia());
-            System.out.println("Controlador.ControlEmpresa.getListaCirculares(): " + listaCirculares);
+            log.info("Controlador.ControlEmpresa.getListaCirculares(): " + listaCirculares);
          }
       }
       return listaCirculares;

@@ -32,6 +32,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -44,6 +45,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlProyecciones implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlProyecciones.class);
 
     @EJB
     AdministrarProyeccionesInterface administrarProyecciones;
@@ -150,14 +153,14 @@ public class ControlProyecciones implements Serializable {
             administrarProyecciones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
     public void recibirAtras(String atras) {
         paginaAnterior = atras;
-        System.out.println("ControProyecciones pagina anterior : " + paginaAnterior);
+        log.info("ControProyecciones pagina anterior : " + paginaAnterior);
     }
 
     public String redireccionarAtras() {
@@ -166,7 +169,7 @@ public class ControlProyecciones implements Serializable {
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A CONTROLBETAPROYECCIONES.eventoFiltrar \n");
+            log.info("\n ENTRE A CONTROLBETAPROYECCIONES.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
@@ -175,7 +178,7 @@ public class ControlProyecciones implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLBETAPROYECCIONES eventoFiltrar ERROR===" + e.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
@@ -194,15 +197,15 @@ public class ControlProyecciones implements Serializable {
     private String backUpNitNombre;
 
     public void cambiarIndice(int indice, int celda) {
-        System.err.println("BETA CENTRO COSTO TIPO LISTA = " + tipoLista);
-        System.err.println("PERMITIR INDEX = " + permitirIndex);
+        log.error("BETA CENTRO COSTO TIPO LISTA = " + tipoLista);
+        log.error("PERMITIR INDEX = " + permitirIndex);
 
         if (permitirIndex == true) {
             index = indice;
             cualCelda = celda;
-            System.err.println("CAMBIAR INDICE CUALCELDA = " + cualCelda);
+            log.error("CAMBIAR INDICE CUALCELDA = " + cualCelda);
             secRegistro = listProyecciones.get(index).getSecuencia();
-            System.err.println("Sec Registro = " + secRegistro);
+            log.error("Sec Registro = " + secRegistro);
             if (tipoLista == 0) {
                 backUpDescripcionConcepto = listProyecciones.get(index).getConcepto().getDescripcion();
                 backUpNombreEmpleado = listProyecciones.get(index).getEmpleado().getPersona().getNombreCompleto();
@@ -235,20 +238,20 @@ public class ControlProyecciones implements Serializable {
 
             }
 
-            System.out.println("Indice: " + index + " Celda: " + cualCelda);
+            log.info("Indice: " + index + " Celda: " + cualCelda);
         }
     }
 
     public void modificandoProyecciones(int indice, String confirmarCambio, String valorConfirmar) {
 
-        System.err.println("ENTRE A MODIFICANDOPROYECCIONES INDEX : " + indice);
+        log.error("ENTRE A MODIFICANDOPROYECCIONES INDEX : " + indice);
         index = indice;
         Short a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
+        log.error("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR CENTROCOSTO, CONFIRMAR CAMBIO ES N");
+            log.error("ENTRE A MODIFICAR CENTROCOSTO, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 listProyecciones.get(index).getConcepto().setDescripcion(backUpDescripcionConcepto);
                 listProyecciones.get(index).getEmpleado().getPersona().setNombreCompleto(backUpNombreEmpleado);
@@ -293,7 +296,7 @@ public class ControlProyecciones implements Serializable {
         mensajeValidacion = " ";
         index = indice;
         cualCelda = celda;
-        System.out.println("Entre a mostrarInfo");
+        log.info("Entre a mostrarInfo");
         RequestContext context = RequestContext.getCurrentInstance();
         if (permitirIndex == true) {
             secRegistro = listProyecciones.get(index).getSecuencia();
@@ -317,7 +320,7 @@ public class ControlProyecciones implements Serializable {
 
     public void cancelarModificacion() {
         //try {
-        System.out.println("entre a CONTROLBETAPROYECCIONES.cancelarModificacion");
+        log.info("entre a CONTROLBETAPROYECCIONES.cancelarModificacion");
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
 
@@ -384,14 +387,14 @@ public class ControlProyecciones implements Serializable {
         RequestContext.getCurrentInstance().update("form:BUSCARCENTROCOSTO");
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         //} catch (Exception E) {
-        //  System.out.println("ERROR CONTROLBETAPROYECCIONES.ModificarModificacion ERROR====================" + E.getMessage());
+        //  log.warn("Error CONTROLBETAPROYECCIONES.ModificarModificacion ERROR====================" + E.getMessage());
 
     }
 
     public void salir() {
         limpiarListasValor();
         try {
-            System.out.println("entre a CONTROLBETAPROYECCIONES.Salir");
+            log.info("entre a CONTROLBETAPROYECCIONES.Salir");
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
 
@@ -444,13 +447,13 @@ public class ControlProyecciones implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosProyecciones");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLBETAPROYECCIONES.ModificarModificacion ERROR====================" + E.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES.ModificarModificacion ERROR====================" + E.getMessage());
         }
     }
 
     public void asignarIndex(Integer indice, int LND, int dig) {
         try {
-            System.out.println("\n ENTRE A CONTROLBETAPROYECCIONES.asignarIndex \n");
+            log.info("\n ENTRE A CONTROLBETAPROYECCIONES.asignarIndex \n");
             index = indice;
             RequestContext context = RequestContext.getCurrentInstance();
 
@@ -458,7 +461,7 @@ public class ControlProyecciones implements Serializable {
                 tipoActualizacion = 0;
             } else if (LND == 1) {
                 tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+                log.info("Tipo Actualizacion: " + tipoActualizacion);
             } else if (LND == 2) {
                 tipoActualizacion = 2;
             }
@@ -469,7 +472,7 @@ public class ControlProyecciones implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLBETAPROYECCIONES.asignarIndex ERROR======" + e.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -493,7 +496,7 @@ public class ControlProyecciones implements Serializable {
     }
 
     public void limpiarNuevoProyecciones() {
-        System.out.println("\n ENTRE A CONTROLBETAPROYECCIONES.limpiarNuevoProyecciones \n");
+        log.info("\n ENTRE A CONTROLBETAPROYECCIONES.limpiarNuevoProyecciones \n");
         try {
             nuevaProyeccion = new Proyecciones();
             nuevaProyeccion.setEmpleado(new Empleados());
@@ -504,7 +507,7 @@ public class ControlProyecciones implements Serializable {
             nuevaProyeccion.setNit(new Terceros());
             index = -1;
         } catch (Exception e) {
-            System.out.println("Error CONTROLBETAPROYECCIONES.LimpiarNuevoProyecciones ERROR=============================" + e.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES.LimpiarNuevoProyecciones ERROR=============================" + e.getMessage());
         }
     }
 
@@ -531,7 +534,7 @@ public class ControlProyecciones implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 index = -1;
-                System.err.println("verificar Borrado " + guardado);
+                log.error("verificar Borrado " + guardado);
                 if (guardado == true) {
                     guardado = false;
                 }
@@ -539,7 +542,7 @@ public class ControlProyecciones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosProyecciones");
             }
         } catch (Exception e) {
-            System.out.println("ERROR CONTROLBETAPROYECCIONES.BorrarProyecciones ERROR=====================" + e.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES.BorrarProyecciones ERROR=====================" + e.getMessage());
         }
     }
 
@@ -547,7 +550,7 @@ public class ControlProyecciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Vigencias Localizacion");
+            log.info("Realizando Operaciones Vigencias Localizacion");
             if (!borrarProyecciones.isEmpty()) {
                 administrarProyecciones.borrarProyecciones(borrarProyecciones);
                 //mostrarBorrados
@@ -556,7 +559,7 @@ public class ControlProyecciones implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarProyecciones.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
+            log.info("Se guardaron los datos con exito");
             k = 0;
             guardado = true;
             index = -1;
@@ -582,12 +585,12 @@ public class ControlProyecciones implements Serializable {
     }
 
     public void activarCtrlF11() {
-        System.out.println("\n ENTRE A CONTROLBETAPROYECCIONES.activarCtrlF11 \n");
+        log.info("\n ENTRE A CONTROLBETAPROYECCIONES.activarCtrlF11 \n");
         try {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 0) {
                 tamano = 250;
-                System.out.println("Activar");
+                log.info("Activar");
 
                 descripcionConcepto = (Column) c.getViewRoot().findComponent("form:datosProyecciones:descripcionConcepto");
                 descripcionConcepto.setFilterStyle("width: 85% !important;");
@@ -631,7 +634,7 @@ public class ControlProyecciones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosProyecciones");
                 bandera = 1;
             } else if (bandera == 1) {
-                System.out.println("Desactivar");
+                log.info("Desactivar");
 
                 descripcionConcepto = (Column) c.getViewRoot().findComponent("form:datosProyecciones:descripcionConcepto");
                 descripcionConcepto.setFilterStyle("display: none; visibility: hidden;");
@@ -674,15 +677,15 @@ public class ControlProyecciones implements Serializable {
             }
         } catch (Exception e) {
 
-            System.out.println("ERROR CONTROLBETAPROYECCIONES.activarCtrlF11 ERROR====================" + e.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES.activarCtrlF11 ERROR====================" + e.getMessage());
         }
     }
 
     public void editarCelda() {
         try {
-            System.out.println("\n ENTRE A editarCelda INDEX  " + index);
+            log.info("\n ENTRE A editarCelda INDEX  " + index);
             if (index >= 0) {
-                System.out.println("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
+                log.info("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
                 if (tipoLista == 0) {
                     editarProyeccion = listProyecciones.get(index);
                 }
@@ -690,7 +693,7 @@ public class ControlProyecciones implements Serializable {
                     editarProyeccion = filtrarProyecciones.get(index);
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                System.out.println("CONTROLBETAPROYECCIONES: Entro a editar... valor celda: " + cualCelda);
+                log.info("CONTROLBETAPROYECCIONES: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionConceptoD");
                     RequestContext.getCurrentInstance().execute("PF('editarDescripcionConceptoD').show()");
@@ -747,7 +750,7 @@ public class ControlProyecciones implements Serializable {
             }
             index = -1;
         } catch (Exception E) {
-            System.out.println("ERROR CONTROLBETAPROYECCIONES.editarCelDa ERROR=====================" + E.getMessage());
+            log.warn("Error CONTROLBETAPROYECCIONES.editarCelDa ERROR=====================" + E.getMessage());
         }
     }
 
@@ -757,14 +760,14 @@ public class ControlProyecciones implements Serializable {
             if (index >= 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 2) {
-                    System.out.println("\n ListaValoresBoton \n");
+                    log.info("\n ListaValoresBoton \n");
                     RequestContext.getCurrentInstance().update("formularioDialogos:tiposProyeccionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('tiposProyeccionesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
         } catch (Exception e) {
-            System.out.println("\n ERROR CONTROLBETAPROYECCIONES.listaValoresBoton ERROR====================" + e.getMessage());
+            log.info("\n ERROR CONTROLBETAPROYECCIONES.listaValoresBoton ERROR====================" + e.getMessage());
 
         }
     }
@@ -793,12 +796,12 @@ public class ControlProyecciones implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
+        log.info("lol");
         if (!listProyecciones.isEmpty()) {
             if (secRegistro != null) {
-                System.out.println("lol 2");
+                log.info("lol 2");
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "PROYECCIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
+                log.info("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
@@ -830,8 +833,8 @@ public class ControlProyecciones implements Serializable {
 
     public void cambiarEmpleado() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("Cambiar empresa  GUARDADO = " + guardado);
-        System.err.println("Cambiar empresa  GUARDADO = " + empleadoSeleccionado.getPersona().getNombreCompleto());
+        log.error("Cambiar empresa  GUARDADO = " + guardado);
+        log.error("Cambiar empresa  GUARDADO = " + empleadoSeleccionado.getPersona().getNombreCompleto());
         if (guardado == true) {
             RequestContext.getCurrentInstance().update("form:nombreEmpresa");
             RequestContext.getCurrentInstance().update("form:nitEmpresa");
@@ -907,7 +910,7 @@ public class ControlProyecciones implements Serializable {
             RequestContext.getCurrentInstance().update("form:infoRegistroEmpleados");
             return listaEmpleados;
         } catch (Exception e) {
-            System.out.println("ERRO LISTA EMPRESAS " + e);
+            log.info("ERRO LISTA EMPRESAS " + e);
             return null;
         }
     }
@@ -939,7 +942,7 @@ public class ControlProyecciones implements Serializable {
             if (listProyecciones == null) {
                 listProyecciones = administrarProyecciones.consultarProyeccionesEmpleado(empleadoSeleccionado.getSecuencia());
             } else {
-                System.out.println(".-.");
+                log.info(".-.");
             }
             for (int z = 0; z < listProyecciones.size(); z++) {
                 if (listProyecciones.get(z).getCentroCosto() == null) {
@@ -971,7 +974,7 @@ public class ControlProyecciones implements Serializable {
 
             return listProyecciones;
         } catch (Exception e) {
-            System.out.println(" BETA  BETA ControlCentrosCosto: Error al recibir los Proyecciones de la empresa seleccionada /n" + e.getMessage());
+            log.info(" BETA  BETA ControlCentrosCosto: Error al recibir los Proyecciones de la empresa seleccionada /n" + e.getMessage());
             return null;
         }
     }

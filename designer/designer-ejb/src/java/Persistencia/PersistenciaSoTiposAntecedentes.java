@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaSoTiposAntecedentesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +21,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntecedentesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaSoTiposAntecedentes.class);
+
     @Override
     public void crear(EntityManager em, SoTiposAntecedentes tipoantecedente) {
         em.clear();
@@ -29,7 +32,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             em.merge(tipoantecedente);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +52,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                System.out.println("Error PersistenciaSoAntecedentes.borrar: " + e.getMessage());
+                log.error("Error PersistenciaSoAntecedentes.borrar: " + e.getMessage());
         }
     }
 
@@ -62,7 +65,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             em.merge(tipoantecedente);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.editar: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +83,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             List<SoTiposAntecedentes> tiposantecedentes = query.getResultList();
             return tiposantecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.lovTiposAntecedentes: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.lovTiposAntecedentes: " + e.getMessage());
             return null;
         }
     }
@@ -94,7 +97,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             List<SoTiposAntecedentes> tiposantecedentes = query.getResultList();
             return tiposantecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.listaTiposAntecedentes: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.listaTiposAntecedentes: " + e.getMessage());
             return null;
         }
     }

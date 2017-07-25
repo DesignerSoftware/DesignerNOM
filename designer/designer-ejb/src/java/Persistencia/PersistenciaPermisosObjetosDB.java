@@ -11,11 +11,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 @Stateless
 public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjetosDBInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPermisosObjetosDB.class);
 
     @Override
     public void crear(EntityManager em, PermisosObjetosDB permisosp) {
@@ -26,7 +29,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPermisosObjetosDB.crear: " + e.getMessage());
+            log.error("Error PersistenciaPermisosObjetosDB.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -42,7 +45,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPermisosObjetosDB.editar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosObjetosDB.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +61,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             em.remove(em.merge(permisosp));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPermisosObjetosDB.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosObjetosDB.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +78,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             List<PermisosObjetosDB> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPermisosObjetosDB.consultarPermisosPorPerfil()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPermisosObjetosDB.consultarPermisosPorPerfil()" + e.getMessage());
             return null;
         }
     }

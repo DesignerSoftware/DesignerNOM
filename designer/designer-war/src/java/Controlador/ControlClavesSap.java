@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlClavesSap implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlClavesSap.class);
 
    @EJB
    AdministrarClavesSapInterface administrarClavesSap;
@@ -150,14 +153,14 @@ public class ControlClavesSap implements Serializable {
          administrarClavesSap.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A ControlClavesSap.eventoFiltrar \n");
+         log.info("\n ENTRE A ControlClavesSap.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
@@ -165,12 +168,12 @@ public class ControlClavesSap implements Serializable {
          infoRegistro = "Cantidad de registros: " + filtrarClavesSap.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
       } catch (Exception e) {
-         System.out.println("ERROR ControlClavesSap eventoFiltrar ERROR===" + e.getMessage());
+         log.warn("Error ControlClavesSap eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
    public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
+      log.error("TIPO LISTA = " + tipoLista);
 
       if (permitirIndex == true) {
          index = indice;
@@ -191,16 +194,16 @@ public class ControlClavesSap implements Serializable {
             } else {
                tipoIndice = filtrarClavesSap.get(index).getClaveAjuste().getClave();
             }
-            System.out.println("Cambiar Indice tipoIndice : " + tipoIndice);
+            log.info("Cambiar Indice tipoIndice : " + tipoIndice);
          }
 
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
    }
 
    public void asignarIndex(Integer indice, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A ControlClavesSap.asignarIndex \n");
+         log.info("\n ENTRE A ControlClavesSap.asignarIndex \n");
          RequestContext context = RequestContext.getCurrentInstance();
 
          index = indice;
@@ -208,7 +211,7 @@ public class ControlClavesSap implements Serializable {
             tipoActualizacion = 0;
          } else if (LND == 1) {
             tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
          } else if (LND == 2) {
             tipoActualizacion = 2;
          }
@@ -218,7 +221,7 @@ public class ControlClavesSap implements Serializable {
          }
 
       } catch (Exception e) {
-         System.out.println("ERROR ControlClavesSap.asignarIndex ERROR======" + e.getMessage());
+         log.warn("Error ControlClavesSap.asignarIndex ERROR======" + e.getMessage());
       }
    }
 
@@ -333,11 +336,11 @@ public class ControlClavesSap implements Serializable {
          naturaleza = (Column) c.getViewRoot().findComponent("form:datosClavesSap:naturaleza");
          naturaleza.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosClavesSap");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
          tamano = 270;
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          clave = (Column) c.getViewRoot().findComponent("form:datosClavesSap:clave");
          clave.setFilterStyle("display: none; visibility: hidden;");
          claveajuste = (Column) c.getViewRoot().findComponent("form:datosClavesSap:claveajuste");
@@ -354,7 +357,7 @@ public class ControlClavesSap implements Serializable {
    }
 
    /*   public void modificandoHvReferencia(int indice, String confirmarCambio, String valorConfirmar) {
-     System.err.println("ENTRE A MODIFICAR HV Referencia");
+     log.error("ENTRE A MODIFICAR HV Referencia");
      index = indice;
 
      int contador = 0;
@@ -362,9 +365,9 @@ public class ControlClavesSap implements Serializable {
      Short a;
      a = null;
      RequestContext context = RequestContext.getCurrentInstance();
-     System.err.println("TIPO LISTA = " + tipoLista);
+     log.error("TIPO LISTA = " + tipoLista);
      if (confirmarCambio.equalsIgnoreCase("N")) {
-     System.err.println("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
+     log.error("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
      if (tipoLista == 0) {
      if (!crearClavesSapFamiliares.contains(listClavesSap.get(indice))) {
 
@@ -470,34 +473,34 @@ public class ControlClavesSap implements Serializable {
             }
          } else if (cualCelda == 3) {
             if (tipoLista == 0) {
-               System.out.println("NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
-               System.out.println("Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
+               log.info("NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
+               log.info("Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
 
                if (listClavesSap.get(indice).getNaturalezaTransient() == null) {
                   listClavesSap.get(indice).setNaturaleza(null);
-                  System.out.println("3NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
-                  System.out.println("3Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
+                  log.info("3NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
+                  log.info("3Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
                } else if (listClavesSap.get(indice).getNaturalezaTransient().equalsIgnoreCase("DEBITO")) {
                   listClavesSap.get(indice).setNaturaleza("D");
-                  System.out.println("1NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
-                  System.out.println("1Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
+                  log.info("1NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
+                  log.info("1Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
                } else if (listClavesSap.get(indice).getNaturalezaTransient().equalsIgnoreCase("CREDITO")) {
                   listClavesSap.get(indice).setNaturaleza("C");
-                  System.out.println("2NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
-                  System.out.println("2Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
+                  log.info("2NaturalezaTransient : " + listClavesSap.get(indice).getNaturalezaTransient());
+                  log.info("2Naturaleza : " + listClavesSap.get(indice).getNaturaleza());
                }
             } else if (filtrarClavesSap.get(indice).getNaturalezaTransient() == null) {
                filtrarClavesSap.get(indice).setNaturaleza(null);
-               System.out.println("3NaturalezaTransient : " + filtrarClavesSap.get(indice).getNaturalezaTransient());
-               System.out.println("3Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
+               log.info("3NaturalezaTransient : " + filtrarClavesSap.get(indice).getNaturalezaTransient());
+               log.info("3Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
             } else if (filtrarClavesSap.get(indice).getNaturalezaTransient().equalsIgnoreCase("DEBITO")) {
                filtrarClavesSap.get(indice).setNaturaleza("D");
-               System.out.println("1NaturalezaTransient : " + filtrarClavesSap.get(indice).getNaturalezaTransient());
-               System.out.println("1Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
+               log.info("1NaturalezaTransient : " + filtrarClavesSap.get(indice).getNaturalezaTransient());
+               log.info("1Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
             } else if (filtrarClavesSap.get(indice).getNaturalezaTransient().equalsIgnoreCase("CREDITO")) {
                filtrarClavesSap.get(indice).setNaturaleza("C");
-               System.out.println("2NaturalezaTransient : " + filtrarClavesSap.get(indice).getNaturalezaTransient());
-               System.out.println("2Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
+               log.info("2NaturalezaTransient : " + filtrarClavesSap.get(indice).getNaturalezaTransient());
+               log.info("2Naturaleza : " + filtrarClavesSap.get(indice).getNaturaleza());
             }
             RequestContext.getCurrentInstance().update("form:datosClavesSap");
          }
@@ -532,7 +535,7 @@ public class ControlClavesSap implements Serializable {
          }
          RequestContext.getCurrentInstance().update("form:datosClavesSap");
       }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+      log.info("Indice: " + index + " Celda: " + cualCelda);
 
    }
 
@@ -551,9 +554,9 @@ public class ControlClavesSap implements Serializable {
       BigInteger contadorBD;
       mensajeValidacion = " ";
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("ENTRE A MODIFICAR");
+      log.error("ENTRE A MODIFICAR");
       if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
+         log.error("ENTRE A MODIFICAR HvReferencia, CONFIRMAR CAMBIO ES N");
          if (tipoLista == 0) {
             if (!crearClavesSap.contains(listClavesSap.get(index))) {
                if (listClavesSap.get(index).getClave() == null) {
@@ -699,7 +702,7 @@ public class ControlClavesSap implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosClavesSap");
       } else if (confirmarCambio.equalsIgnoreCase("CLAVESAJUSTES")) {
 
-         System.out.println("Entre a ControlClavesSap modificiarClavesSap");
+         log.info("Entre a ControlClavesSap modificiarClavesSap");
          if (!listClavesSap.get(index).getClaveAjuste().getClave().equals("")) {
 
             if (tipoLista == 0) {
@@ -712,15 +715,15 @@ public class ControlClavesSap implements Serializable {
             for (int i = 0; i < lovClavesSap.size(); i++) {
                if (lovClavesSap.get(i).getClave() != null) {
                   if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
-                     System.out.println("Entre a ControlClavesSap modificiarClavesSap TRUE " + i + " " + lovClavesSap.get(i).getClave());
+                     log.info("Entre a ControlClavesSap modificiarClavesSap TRUE " + i + " " + lovClavesSap.get(i).getClave());
                      indiceUnicoElemento = i;
                      coincidencias++;
                   }
                }
             }
 
-            System.out.println("coincidencias : " + coincidencias);
-            System.out.println("indiceUnicoElemento : " + indiceUnicoElemento);
+            log.info("coincidencias : " + coincidencias);
+            log.info("indiceUnicoElemento : " + indiceUnicoElemento);
             if (coincidencias == 1) {
                if (tipoLista == 0) {
                   if (listClavesSap.get(index).getClave().equals(lovClavesSap.get(indiceUnicoElemento).getClave())) {
@@ -728,19 +731,19 @@ public class ControlClavesSap implements Serializable {
                   }
                   if (clavesRepetidas == 0) {
                      listClavesSap.get(index).setClaveAjuste(lovClavesSap.get(indiceUnicoElemento));
-                     System.out.println("1. Clave Ajuste Agregada : " + listClavesSap.get(index).getClaveAjuste().getClave());
-                     System.out.println("1. index : " + index);
+                     log.info("1. Clave Ajuste Agregada : " + listClavesSap.get(index).getClaveAjuste().getClave());
+                     log.info("1. index : " + index);
                      if (!crearClavesSap.contains(listClavesSap.get(index))) {
-                        System.out.println("2. Clave Ajuste Agregada : " + listClavesSap.get(index).getClaveAjuste().getClave());
-                        System.out.println("2. index : " + index);
+                        log.info("2. Clave Ajuste Agregada : " + listClavesSap.get(index).getClaveAjuste().getClave());
+                        log.info("2. index : " + index);
 
                         if (modificarClavesSap.isEmpty()) {
                            modificarClavesSap.add(listClavesSap.get(index));
                         } else if (!modificarClavesSap.contains(listClavesSap.get(index))) {
                            modificarClavesSap.add(listClavesSap.get(index));
                         }
-                        System.out.println("3. Clave Ajuste Agregada : " + listClavesSap.get(index).getClaveAjuste().getClave());
-                        System.out.println("3. index : " + index);
+                        log.info("3. Clave Ajuste Agregada : " + listClavesSap.get(index).getClaveAjuste().getClave());
+                        log.info("3. index : " + index);
                         if (guardado == true) {
                            guardado = false;
                         }
@@ -800,7 +803,7 @@ public class ControlClavesSap implements Serializable {
                tipoActualizacion = 0;
             }
          } else {
-            System.out.println("PUSE UN VACIO");
+            log.info("PUSE UN VACIO");
             listClavesSap.get(index).getClaveAjuste().setClave(tipoIndice);
             listClavesSap.get(index).setClaveAjuste(new ClavesSap());
             coincidencias = 1;
@@ -817,8 +820,8 @@ public class ControlClavesSap implements Serializable {
       getLovClavesSap();
       /*for (int i = 0; i < lovClavesSap.size(); i++) {
          if (listClavesSap.get(index).getClave().equals(lovClavesSap.get(i).getClave())) {
-         System.out.println("listClavesSap.get(index).getClave()" + listClavesSap.get(index).getClave());
-         System.out.println("lovClavesSap.get(i).getClave())" + lovClavesSap.get(i).getClave());
+         log.info("listClavesSap.get(index).getClave()" + listClavesSap.get(index).getClave());
+         log.info("lovClavesSap.get(i).getClave())" + lovClavesSap.get(i).getClave());
          listClavesSap.add(listClavesSap.get(index));
          lovClavesSap.remove(i);
          }
@@ -919,8 +922,8 @@ public class ControlClavesSap implements Serializable {
             listClavesSap.get(index).getClaveAjuste().setClave(tipoIndice);
          }
       }
-      System.out.println("LIsta : " + lovClavesSap.size());
-      System.out.println("LIst : " + listClavesSap.size());
+      log.info("LIsta : " + lovClavesSap.size());
+      log.info("LIst : " + listClavesSap.size());
       filtradoClavesSap = null;
       claveAjusteSeleccionada = null;
       aceptar = true;
@@ -938,7 +941,7 @@ public class ControlClavesSap implements Serializable {
 
       if (index >= 0) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoClavesSap");
+            log.info("Entro a borrandoClavesSap");
             if (!modificarClavesSap.isEmpty() && modificarClavesSap.contains(listClavesSap.get(index))) {
                int modIndex = modificarClavesSap.indexOf(listClavesSap.get(index));
                modificarClavesSap.remove(modIndex);
@@ -952,7 +955,7 @@ public class ControlClavesSap implements Serializable {
             listClavesSap.remove(index);
          }
          if (tipoLista == 1) {
-            System.out.println("borrandoClavesSap ");
+            log.info("borrandoClavesSap ");
             if (!modificarClavesSap.isEmpty() && modificarClavesSap.contains(filtrarClavesSap.get(index))) {
                int modIndex = modificarClavesSap.indexOf(filtrarClavesSap.get(index));
                modificarClavesSap.remove(modIndex);
@@ -989,20 +992,20 @@ public class ControlClavesSap implements Serializable {
 
    public void verificarBorrado() {
 
-      System.out.println("Estoy en verificarBorrado");
+      log.info("Estoy en verificarBorrado");
       BigInteger contarClavesContablesCreditoClaveSap;
       BigInteger contarResultadosClavesSapDetallesIndice;
       try {
-         System.err.println("Control Secuencia de ControlClavesSap ");
+         log.error("Control Secuencia de ControlClavesSap ");
          contarClavesContablesCreditoClaveSap = administrarClavesSap.contarClavesContablesCreditoClaveSap(listClavesSap.get(index).getSecuencia());
          contarResultadosClavesSapDetallesIndice = administrarClavesSap.contarClavesContablesDebitoClaveSap(listClavesSap.get(index).getSecuencia());
 
          if (contarClavesContablesCreditoClaveSap.equals(new BigInteger("0"))
                  && contarResultadosClavesSapDetallesIndice.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
+            log.info("Borrado==0");
             borrandoClavesSap();
          } else {
-            System.out.println("Borrado>0");
+            log.info("Borrado>0");
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
@@ -1011,7 +1014,7 @@ public class ControlClavesSap implements Serializable {
 
          }
       } catch (Exception e) {
-         System.err.println("ERROR ControlClavesSap verificarBorrado ERROR " + e);
+         log.error("ERROR ControlClavesSap verificarBorrado ERROR " + e);
       }
 
    }
@@ -1030,10 +1033,10 @@ public class ControlClavesSap implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (guardado == false) {
-         System.out.println("Realizando guardarClaveSap");
+         log.info("Realizando guardarClaveSap");
          if (!borrarClavesSap.isEmpty()) {
             for (int i = 0; i < borrarClavesSap.size(); i++) {
-               System.out.println("Borrando...");
+               log.info("Borrando...");
                if (borrarClavesSap.get(i).getClaveAjuste().getSecuencia() == null) {
                   borrarClavesSap.get(i).setClaveAjuste(null);
                }
@@ -1052,7 +1055,7 @@ public class ControlClavesSap implements Serializable {
                   crearClavesSap.get(i).setClaveAjuste(null);
                }
             }
-            System.out.println("Creando...");
+            log.info("Creando...");
             administrarClavesSap.crearClavesSap(crearClavesSap);
             crearClavesSap.clear();
          }
@@ -1065,7 +1068,7 @@ public class ControlClavesSap implements Serializable {
             administrarClavesSap.modificarClavesSap(modificarClavesSap);
             modificarClavesSap.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listClavesSap = null;
          RequestContext.getCurrentInstance().update("form:datosClavesSap");
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -1089,7 +1092,7 @@ public class ControlClavesSap implements Serializable {
             editarClavesSap = filtrarClavesSap.get(index);
          }
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         log.info("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editClaveD");
             RequestContext.getCurrentInstance().execute("PF('editClaveD').show()");
@@ -1115,7 +1118,7 @@ public class ControlClavesSap implements Serializable {
             nuevoParentesco = duplicarClavesSap.getClaveAjuste().getClave();
          }
       }
-      System.err.println("NUEVO PARENTESCO " + nuevoParentesco);
+      log.error("NUEVO PARENTESCO " + nuevoParentesco);
    }
 
    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1201,12 +1204,12 @@ public class ControlClavesSap implements Serializable {
             }
          } else if (tipoNuevo == 2) {
             duplicarClavesSap.setClaveAjuste(new ClavesSap());
-            System.out.println("NUEVO PARENTESCO " + nuevoParentesco);
+            log.info("NUEVO PARENTESCO " + nuevoParentesco);
             if (tipoLista == 0) {
                if (index >= 0) {
                   listClavesSap.get(index).getClaveAjuste().setClave(nuevoParentesco);
-                  System.err.println("tipo lista" + tipoLista);
-                  System.err.println("Secuencia Parentesco " + listClavesSap.get(index).getClaveAjuste().getSecuencia());
+                  log.error("tipo lista" + tipoLista);
+                  log.error("Secuencia Parentesco " + listClavesSap.get(index).getClaveAjuste().getSecuencia());
                }
             } else if (tipoLista == 1) {
                filtrarClavesSap.get(index).getClaveAjuste().setClave(nuevoParentesco);
@@ -1233,7 +1236,7 @@ public class ControlClavesSap implements Serializable {
    }
 
    public void agregarNuevoClavesSap() {
-      System.out.println("agregarNuevoClavesSap");
+      log.info("agregarNuevoClavesSap");
       int contador = 0;
       int contador1 = 0;
       int pass = 0;
@@ -1277,7 +1280,7 @@ public class ControlClavesSap implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             clave = (Column) c.getViewRoot().findComponent("form:datosClavesSap:clave");
             clave.setFilterStyle("display: none; visibility: hidden;");
             claveajuste = (Column) c.getViewRoot().findComponent("form:datosClavesSap:claveajuste");
@@ -1291,16 +1294,16 @@ public class ControlClavesSap implements Serializable {
             filtrarClavesSap = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
+         log.info("Despues de la bandera");
 
          k++;
          l = BigInteger.valueOf(k);
          nuevoClavesSap.setSecuencia(l);
-         System.out.println("Nueva Secuencia " + nuevoClavesSap.getSecuencia().toString());
-         System.out.println("Nueva Secuencia Clave Ajuste" + nuevoClavesSap.getClaveAjuste().getSecuencia().toString());
+         log.info("Nueva Secuencia " + nuevoClavesSap.getSecuencia().toString());
+         log.info("Nueva Secuencia Clave Ajuste" + nuevoClavesSap.getClaveAjuste().getSecuencia().toString());
          crearClavesSap.add(nuevoClavesSap);
          listClavesSap.add(nuevoClavesSap);
-         System.out.println("tamaño en agregarnuevoclavesap : " + listClavesSap.size());
+         log.info("tamaño en agregarnuevoclavesap : " + listClavesSap.size());
          nuevoClavesSap = new ClavesSap();
          nuevoClavesSap.setClaveAjuste(new ClavesSap());
          RequestContext.getCurrentInstance().update("form:datosClavesSap");
@@ -1323,7 +1326,7 @@ public class ControlClavesSap implements Serializable {
    }
 
    public void limpiarNuevoClavesSap() {
-      System.out.println("limpiarNuevoClavesSap");
+      log.info("limpiarNuevoClavesSap");
       nuevoClavesSap = new ClavesSap();
       nuevoClavesSap.setClaveAjuste(new ClavesSap());
       secRegistro = null;
@@ -1333,7 +1336,7 @@ public class ControlClavesSap implements Serializable {
 
    //------------------------------------------------------------------------------
    public void duplicandoClavesSap() {
-      System.out.println("duplicandoClavesSap");
+      log.info("duplicandoClavesSap");
       if (index >= 0) {
          duplicarClavesSap = new ClavesSap();
          k++;
@@ -1358,7 +1361,7 @@ public class ControlClavesSap implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR CLAVES_SAP");
+      log.error("ESTOY EN CONFIRMAR DUPLICAR CLAVES_SAP");
       int contador = 0;
       int contador1 = 0;
       int pass = 0;
@@ -1398,7 +1401,7 @@ public class ControlClavesSap implements Serializable {
       if (pass == 2) {
 
          if (crearClavesSap.contains(duplicarClavesSap)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          } else {
             crearClavesSap.add(duplicarClavesSap);
          }
@@ -1467,12 +1470,12 @@ public class ControlClavesSap implements Serializable {
 
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
+      log.info("lol");
       if (!listClavesSap.isEmpty()) {
          if (secRegistro != null) {
-            System.out.println("lol 2");
+            log.info("lol 2");
             int resultado = administrarRastros.obtenerTabla(secRegistro, "CLAVES_SAP"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
+            log.info("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

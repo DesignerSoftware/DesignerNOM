@@ -43,6 +43,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -54,6 +55,8 @@ import org.primefaces.model.UploadedFile;
 @Named(value = "cargarArchivoPlano")
 @SessionScoped
 public class CargarArchivoPlano implements Serializable {
+
+   private static Logger log = Logger.getLogger(CargarArchivoPlano.class);
 
    @EJB
    AdministrarCargueArchivosInterface administrarCargueArchivos;
@@ -167,8 +170,8 @@ public class CargarArchivoPlano implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCargueArchivos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct CargarArchivoPlano: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -335,7 +338,7 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public void modificarTempNovedad(TempNovedades tempNovedad, int celda, String valor) {
-      System.out.println("Cargue.CargarArchivoPlano.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
+      log.info("Cargue.CargarArchivoPlano.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
       tempNovedadSeleccionada = tempNovedad;
       cualCelda = celda;
       if (cualCelda == 0) {
@@ -349,12 +352,12 @@ public class CargarArchivoPlano implements Serializable {
    public void cargarArchivo(FileUploadEvent event) throws IOException {
       if (event.getFile().getFileName().substring(event.getFile().getFileName().lastIndexOf(".") + 1).equalsIgnoreCase("prn")) {
          nombreArchivoPlano = event.getFile().getFileName();
-         System.out.println("CargarArchivoPlano.cargarArchivo()");
-         System.out.println("event.getFile().getSize() : " + event.getFile().getSize());
-         System.out.println("event.getFile().getContentType() : " + event.getFile().getContentType());
-         System.out.println("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
-         System.out.println("event.getFile().getFileName() : " + event.getFile().getFileName());
-         System.out.println("event.getFile().getInputstream() : " + event.getFile().getInputstream());
+         log.info("CargarArchivoPlano.cargarArchivo()");
+         log.info("event.getFile().getSize() : " + event.getFile().getSize());
+         log.info("event.getFile().getContentType() : " + event.getFile().getContentType());
+         log.info("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
+         log.info("event.getFile().getFileName() : " + event.getFile().getFileName());
+         log.info("event.getFile().getInputstream() : " + event.getFile().getInputstream());
 
          transformarArchivo(event.getFile().getSize(), event.getFile().getInputstream(), event.getFile().getFileName());
          contarRegistros();
@@ -370,7 +373,7 @@ public class CargarArchivoPlano implements Serializable {
          if (nombreArchivo.length() <= 30) {
 //            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
             String destino = administrarCargueArchivos.consultarRuta() + nombreArchivo;
-            System.out.println("transformarArchivo() destino : _" + destino + "_");
+            log.info("transformarArchivo() destino : _" + destino + "_");
             OutputStream out = new FileOutputStream(new File(destino));
             int reader = 0;
             byte[] bytes = new byte[(int) size];
@@ -387,12 +390,12 @@ public class CargarArchivoPlano implements Serializable {
             context.execute("PF('errorNombreArchivo').show()");
          }
       } catch (Exception e) {
-         System.out.println("Error transformarArchivo Controlador : " + e.toString());
+         log.error("Error transformarArchivo Controlador : " + e.toString());
       }
    }
 
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
-      System.out.println("Cargue.CargarArchivoPlano.leerTxt()");
+      log.info("Cargue.CargarArchivoPlano.leerTxt()");
       try {
          File archivo = new File(locArchivo);
          FileReader fr = new FileReader(archivo);
@@ -641,7 +644,7 @@ public class CargarArchivoPlano implements Serializable {
             botones = true;
             cargue = false;
             /*context.update("form:tempNovedades");
-                 System.out.println("Actualizo tabla");
+                 log.info("Actualizo tabla");
                  context.update("form:FileUp");
                  context.update("form:nombreArchivo");
                  context.update("form:formula");
@@ -657,7 +660,7 @@ public class CargarArchivoPlano implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         System.out.println("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt) " + e);
       }
    }
 
@@ -698,7 +701,7 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public void validarNovedades() {
-      System.out.println("Cargue.CargarArchivoPlano.validarNovedades()");
+      log.info("Cargue.CargarArchivoPlano.validarNovedades()");
       boolean validacion = false;
       List<String> erroresN;
       documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
@@ -981,7 +984,7 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public void revisarNovedad(BigInteger secnovedad) {
-      System.out.println("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
+      log.info("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
       validarNovedades();
       erroresNovedad = null;
       for (int i = 0; i < listErrores.size(); i++) {
@@ -1662,13 +1665,13 @@ public class CargarArchivoPlano implements Serializable {
 
 // Get the header attributes. Use them to retrieve the actual  
 // values.  
-      System.out.println(request.getHeaderNames());
+      log.info(request.getHeaderNames());
 
 // Get the IP-address of the client.  
-      System.out.println(request.getRemoteAddr());
+      log.info(request.getRemoteAddr());
 
 // Get the hostname of the client.  
-      System.out.println(request.getRemotePort());
+      log.info(request.getRemotePort());
 
       String equipo = null;
       java.net.InetAddress localMachine = null;
@@ -1679,7 +1682,7 @@ public class CargarArchivoPlano implements Serializable {
          equipo = request.getRemoteAddr();
       }
       localMachine = java.net.InetAddress.getByName(equipo);
-      System.out.println(localMachine.getHostName());
+      log.info(localMachine.getHostName());
    }
 
    public List<TempNovedades> getFiltrarListTempNovedades() {

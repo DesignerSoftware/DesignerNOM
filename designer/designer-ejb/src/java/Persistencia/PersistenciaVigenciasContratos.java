@@ -9,13 +9,15 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class PersistenciaVigenciasContratos implements PersistenciaVigenciasContratosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasContratos.class);
 
     @Override
     public boolean crear(EntityManager em, VigenciasContratos vigenciasContratos) {
@@ -27,7 +29,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasContratos.crear() " + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasContratos.crear() " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +46,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
             em.merge(vigenciasContratos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasContratos.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasContratos.editar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +62,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
             em.remove(em.merge(vigenciasContratos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasContratos.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasContratos.borrar()" + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +77,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
             cq.select(cq.from(VigenciasContratos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasContratos.buscarVigenciasContratos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciasContratos()" + e.getMessage());
             return null;
         }
     }
@@ -90,7 +92,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
             List<VigenciasContratos> vigenciasC = query.getResultList();
             return vigenciasC;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Contratos " + e.getMessage());
+            log.error("Error en Persistencia Vigencias Contratos " + e.getMessage());
             return null;
         }
     }
@@ -104,7 +106,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
             VigenciasContratos vigenciaC = (VigenciasContratos) query.getSingleResult();
             return vigenciaC;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVigenciasContratos.buscarVigenciaContratoSecuencia()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciaContratoSecuencia()" + e.getMessage());
             return null;
         }
     }

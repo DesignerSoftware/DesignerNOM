@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarIdiomas implements AdministrarIdiomasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarIdiomas.class);
 
     @EJB
     PersistenciaIdiomasInterface persistenciaIdiomas;
@@ -42,21 +45,21 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
     
     public void modificarIdiomas(List<Idiomas> listaIdiomas) {
         for (int i = 0; i < listaIdiomas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaIdiomas.editar(em, listaIdiomas.get(i));
         }
     }
 
     public void borrarIdiomas(List<Idiomas> listaIdiomas) {
         for (int i = 0; i < listaIdiomas.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaIdiomas.borrar(em, listaIdiomas.get(i));
         }
     }
 
     public void crearIdiomas(List<Idiomas> listaIdiomas) {
         for (int i = 0; i < listaIdiomas.size(); i++) {
-            System.out.println("Administrar crear...");
+            log.warn("Administrar crear...");
             persistenciaIdiomas.crear(em, listaIdiomas.get(i));
         }
     }
@@ -77,10 +80,10 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
         BigInteger verificadorIdiomasPersonas = null;
 
         try {
-            System.err.println("Secuencia Idiomas Personas " + secuenciaIdiomas);
+            log.error("Secuencia Idiomas Personas " + secuenciaIdiomas);
             verificadorIdiomasPersonas = persistenciaIdiomas.contadorIdiomasPersonas(em, secuenciaIdiomas);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIdiomas verificarBorradoIdiomasPersonas ERROR :" + e);
+            log.error("ERROR AdmnistrarIdiomas verificarBorradoIdiomasPersonas ERROR :" + e);
         } finally {
             return verificadorIdiomasPersonas;
         }

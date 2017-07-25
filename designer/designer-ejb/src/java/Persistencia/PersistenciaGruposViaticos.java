@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaGruposViaticos.class);
+
    @Override
    public void crear(EntityManager em, GruposViaticos gruposViaticos) {
       em.clear();
@@ -30,7 +33,7 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          em.merge(gruposViaticos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaGruposViaticos.crear: " + e);
+         log.error("Error PersistenciaGruposViaticos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +52,7 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposViaticos.editar: " + e);
+         log.error("Error PersistenciaGruposViaticos.editar: " + e);
       }
 
    }
@@ -67,7 +70,7 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaGruposViaticos.borrar: " + e);
+         log.error("Error PersistenciaGruposViaticos.borrar: " + e);
       }
 
    }
@@ -78,7 +81,7 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          em.clear();
          return em.find(GruposViaticos.class, secuenciaGV);
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaGruposViaticos.buscarGrupoViatico() e: " + e);
+         log.error("Persistencia.PersistenciaGruposViaticos.buscarGrupoViatico() e: " + e);
          return null;
       }
    }
@@ -101,10 +104,10 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("Contador contadorCargos persistencia " + retorno);
+         log.error("Contador contadorCargos persistencia " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("persistenciaGruposViativos Error contadorCargos. " + e);
+         log.error("persistenciaGruposViativos Error contadorCargos. " + e);
          return retorno;
       }
    }
@@ -118,10 +121,10 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("persistenciaGruposViativos contardorPlantas Contador " + retorno);
+         log.error("persistenciaGruposViativos contardorPlantas Contador " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("persistenciaGruposViativos contardorPlantas Error " + e);
+         log.error("persistenciaGruposViativos contardorPlantas Error " + e);
          return retorno;
       }
    }
@@ -135,10 +138,10 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("persistenciaGruposViativos  contadorTablasViaticos Contador " + retorno);
+         log.error("persistenciaGruposViativos  contadorTablasViaticos Contador " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("persistenciaGruposViativos  contadorTablasViaticos Error : " + e);
+         log.error("persistenciaGruposViativos  contadorTablasViaticos Error : " + e);
          return retorno;
       }
    }
@@ -152,10 +155,10 @@ public class PersistenciaGruposViaticos implements PersistenciaGruposViaticosInt
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("persistenciaGruposViativos contadorEersviaticos Contador :" + retorno);
+         log.error("persistenciaGruposViativos contadorEersviaticos Contador :" + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("persistenciaGruposViativos contadorEersviaticos Error : " + e);
+         log.error("persistenciaGruposViativos contadorEersviaticos Error : " + e);
          return retorno;
       }
    }

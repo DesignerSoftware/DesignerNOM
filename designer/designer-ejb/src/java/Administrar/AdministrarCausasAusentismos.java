@@ -11,15 +11,16 @@ import InterfaceAdministrar.AdministrarCausasAusentismosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaCausasAusentismosInterface;
 import InterfacePersistencia.PersistenciaClasesAusentismosInterface;
-import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarCausasAusentismos implements AdministrarCausasAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarCausasAusentismos.class);
 
     @EJB
     PersistenciaClasesAusentismosInterface persistenciaClasesAusentismos;
@@ -54,8 +55,8 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
     @Override
     public void modificarCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
         for (int i = 0; i < listaCausasAusentismo.size(); i++) {
-            System.out.println("Modificando...CausasAusentismos");
-            System.out.println("posicion : " + i + " secuencia : "+ listaCausasAusentismo.get(i).getSecuencia());
+            log.warn("Modificando...CausasAusentismos");
+            log.warn("posicion : " + i + " secuencia : "+ listaCausasAusentismo.get(i).getSecuencia());
             if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
                 listaCausasAusentismo.get(i).setCodigo(null);
                 persistenciaCausasausentismos.editar(em, listaCausasAusentismo.get(i));
@@ -70,7 +71,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
     @Override
     public void borrarCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
         for (int i = 0; i < listaCausasAusentismo.size(); i++) {
-            System.out.println("Borrando..CausasAusentismos.");
+            log.warn("Borrando..CausasAusentismos.");
             if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
                 listaCausasAusentismo.get(i).setCodigo(null);
                 persistenciaCausasausentismos.borrar(em, listaCausasAusentismo.get(i));
@@ -85,7 +86,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
     @Override
     public void crearCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
         for (int i = 0; i < listaCausasAusentismo.size(); i++) {
-            System.out.println("Creando. JornadasLaborales..");
+            log.warn("Creando. JornadasLaborales..");
             if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
                 listaCausasAusentismo.get(i).setCodigo(null);
                 persistenciaCausasausentismos.crear(em, listaCausasAusentismo.get(i));

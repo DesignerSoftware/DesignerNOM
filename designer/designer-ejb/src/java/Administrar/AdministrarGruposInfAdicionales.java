@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdicionalesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarGruposInfAdicionales.class);
 
     @EJB
     PersistenciaGruposInfAdicionalesInterface persistenciaGruposInfAdicionales;
@@ -45,7 +48,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
     @Override
     public void modificarGruposInfAdicionales(List<GruposInfAdicionales> listGruposInfAdicionales) {
         for (int i = 0; i < listGruposInfAdicionales.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaGruposInfAdicionales.editar(em, listGruposInfAdicionales.get(i));
         }
     }
@@ -53,7 +56,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
     @Override
     public void borrarGruposInfAdicionales(List<GruposInfAdicionales> listGruposInfAdicionales) {
         for (int i = 0; i < listGruposInfAdicionales.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaGruposInfAdicionales.borrar(em, listGruposInfAdicionales.get(i));
         }
     }
@@ -61,7 +64,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
     @Override
     public void crearGruposInfAdicionales(List<GruposInfAdicionales> listGruposInfAdicionales) {
         for (int i = 0; i < listGruposInfAdicionales.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaGruposInfAdicionales.crear(em, listGruposInfAdicionales.get(i));
         }
     }
@@ -82,10 +85,10 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
     public BigInteger verificarInformacionesAdicionales(BigInteger secuenciaGruposInfAdicionales) {
         BigInteger verificadorInformacionesAdicionales = null;
         try {
-            System.err.println("Secuencia Grupo Inf Adicional : " + secuenciaGruposInfAdicionales);
+            log.error("Secuencia Grupo Inf Adicional : " + secuenciaGruposInfAdicionales);
             verificadorInformacionesAdicionales = persistenciaGruposInfAdicionales.contadorInformacionesAdicionales(em, secuenciaGruposInfAdicionales);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarEstadosCiviles VigenciasEstadoCiviles ERROR :" + e);
+            log.error("ERROR AdministrarEstadosCiviles VigenciasEstadoCiviles ERROR :" + e);
         } finally {
             return verificadorInformacionesAdicionales;
         }

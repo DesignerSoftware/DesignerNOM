@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaVWActualesVigenciasViajerosInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 
@@ -17,7 +17,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaVWActualesVigenciasViajeros implements PersistenciaVWActualesVigenciasViajerosInterface{
+public class PersistenciaVWActualesVigenciasViajeros implements PersistenciaVWActualesVigenciasViajerosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesVigenciasViajeros.class);
    
     public VWActualesVigenciasViajeros buscarTipoViajero(EntityManager em, BigInteger secuencia) {
         try {
@@ -28,7 +30,7 @@ public class PersistenciaVWActualesVigenciasViajeros implements PersistenciaVWAc
             VWActualesVigenciasViajeros vWActualesVigenciasViajeros = (VWActualesVigenciasViajeros) query.getSingleResult();
             return vWActualesVigenciasViajeros;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesVigenciasViajeros.buscarTipoViajero()" + e.getMessage());
+            log.warn("Persistencia.PersistenciaVWActualesVigenciasViajeros.buscarTipoViajero()" + e.getMessage());
             return null;
         }
     }

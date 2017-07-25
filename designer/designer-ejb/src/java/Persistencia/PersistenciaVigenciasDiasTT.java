@@ -9,9 +9,8 @@ import InterfacePersistencia.PersistenciaVigenciasDiasTTInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
-import javax.management.Query;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 
 /**
@@ -19,7 +18,9 @@ import javax.persistence.EntityTransaction;
  * @author user
  */
 @Stateless
-public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTInterface{
+public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasDiasTT.class);
 
     @Override
     public void crear(EntityManager em, VigenciasDiasTT vigenciasDiasTT) {
@@ -30,7 +31,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.persist(vigenciasDiasTT);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDiasTT.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDiasTT.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +47,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.merge(vigenciasDiasTT);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDiasTT.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDiasTT.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +63,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.remove(em.merge(vigenciasDiasTT));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDiasTT.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDiasTT.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +80,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             List<VigenciasDiasTT> listaVigenciasDiasTT = query.getResultList();
             return listaVigenciasDiasTT;
         } catch (Exception e) {
-            System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
+            log.error("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
             return null;
         }
     }

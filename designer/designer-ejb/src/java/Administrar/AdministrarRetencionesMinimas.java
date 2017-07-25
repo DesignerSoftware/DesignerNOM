@@ -17,13 +17,16 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarRetencionesMinimas implements AdministrarRetencionesMinimasInterface{
+public class AdministrarRetencionesMinimas implements AdministrarRetencionesMinimasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarRetencionesMinimas.class);
 
     @EJB
     PersistenciaRetencionesMinimasInterface persistenciaRetencionesMinimas;
@@ -58,7 +61,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
     @Override
     public void modificarVigenciaRetencion(List<VigenciasRetencionesMinimas> listaVigenciasRetencionesModificar) {
         for (int i = 0; i < listaVigenciasRetencionesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             persistenciaVigenciasRetencionesMinimas.editar(em, listaVigenciasRetencionesModificar.get(i));
         }
     }
@@ -69,7 +72,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
             List<VigenciasRetencionesMinimas> actual = persistenciaVigenciasRetencionesMinimas.buscarVigenciasRetencionesMinimas(em);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasRetenciones: " + e.toString());
+            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
     @Override
     public void modificarRetencion(List<RetencionesMinimas> listaRetencionesModificar) {
         for (int i = 0; i < listaRetencionesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             
             persistenciaRetencionesMinimas.editar(em,listaRetencionesModificar.get(i));
         }
@@ -100,7 +103,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
             List<RetencionesMinimas> actual = persistenciaRetencionesMinimas.buscarRetencionesMinimasVig(em, secRetencion);
             return actual;
         } catch (Exception e) {
-            System.out.println("Error consultarRetenciones Admi : " + e.toString());
+            log.warn("Error consultarRetenciones Admi : " + e.toString());
             return null;
         }
     }

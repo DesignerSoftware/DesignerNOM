@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
@@ -26,6 +27,8 @@ import javax.persistence.StoredProcedureQuery;
 @LocalBean
 public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaTempProrrateos.class);
+
    @Override
    public void crear(EntityManager em, TempProrrateos tempAusentismos) {
       em.clear();
@@ -35,7 +38,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempProrrateos.crear: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -51,7 +54,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempProrrateos.editar: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +70,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          em.remove(em.merge(tempAusentismos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempProrrateos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,10 +87,10 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, usuarioBD);
          query.executeUpdate();
-         System.out.println("PersistenciaTempProrrateos.borrarRegistrosTempProrrateos() Ya ejecuto");
+         log.error("PersistenciaTempProrrateos.borrarRegistrosTempProrrateos() Ya ejecuto");
          tx.commit();
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro en borrarRegistrosTempProrrateos() : " + e.toString());
+         log.error("No se pudo borrar el registro en borrarRegistrosTempProrrateos() : " + e.toString());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -134,7 +137,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          }
          return listTNovedades;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempProrrateos.obtenerTempProrrateos()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempProrrateos.obtenerTempProrrateos()" + e.getMessage());
          return null;
       }
    }
@@ -150,7 +153,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-         System.out.println("PersistenciaTempProrrateos.obtenerDocumentosSoporteCargados()" + e.getMessage());
+         log.error("PersistenciaTempProrrateos.obtenerDocumentosSoporteCargados()" + e.getMessage());
          return null;
       }
    }
@@ -166,7 +169,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          queryProcedure.execute();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempProrrateos.cargarTempProrrateos()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempProrrateos.cargarTempProrrateos()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -185,7 +188,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
                  + " AND ARCHIVO = ?");
          query.setParameter(1, documentoSoporte);
          Date fecha = (Date) query.getSingleResult();
-         System.out.println("PersistenciaTempProrrateos.reversarTempProrrateos() Paso1 Consulto fecha: " + fecha);
+         log.error("PersistenciaTempProrrateos.reversarTempProrrateos() Paso1 Consulto fecha: " + fecha);
          if (fecha != null) {
             em.clear();
             StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOS");
@@ -198,12 +201,12 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
             queryProcedure.execute();
             queryProcedure.hasMoreResults();
             String strRetorno = (String) queryProcedure.getOutputParameterValue(1);
-            System.out.println("PersistenciaTempProrrateos.reversarTempProrrateos() Paso2 Consulto strRetorno: " + strRetorno);
+            log.error("PersistenciaTempProrrateos.reversarTempProrrateos() Paso2 Consulto strRetorno: " + strRetorno);
          }
          tx.commit();
          return 1;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaTempProrrateos.reversarTempProrrateos()" + e.getMessage());
+         log.error("Persistencia.PersistenciaTempProrrateos.reversarTempProrrateos()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }

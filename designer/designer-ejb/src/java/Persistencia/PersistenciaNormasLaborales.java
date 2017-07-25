@@ -8,12 +8,10 @@ import InterfacePersistencia.PersistenciaNormasLaboralesInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Clase Stateless.<br>
@@ -25,6 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaNormasLaborales.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -40,7 +40,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.merge(normasLaborales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaNormasLaborales.crear()" + e.getMessage());
+            log.error("Persistencia.PersistenciaNormasLaborales.crear()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -56,7 +56,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.merge(normasLaborales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaNormasLaborales.editar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaNormasLaborales.editar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -72,7 +72,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.remove(em.merge(normasLaborales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaNormasLaborales.borrar()" + e.getMessage());
+            log.error("Persistencia.PersistenciaNormasLaborales.borrar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -85,7 +85,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.clear();
             return em.find(NormasLaborales.class, secuenciaNL);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaNormasLaborales.consultarNormaLaboral()" + e.getMessage());
+            log.error("Persistencia.PersistenciaNormasLaborales.consultarNormaLaboral()" + e.getMessage());
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
         List<NormasLaborales> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaNormasLaborales.consultarNormasLaborales()" + e.getMessage());
+            log.error("Persistencia.PersistenciaNormasLaborales.consultarNormasLaborales()" + e.getMessage());
             return null;
         }
     }
@@ -113,10 +113,10 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             query.setParameter("secNormaLaboral", secuencia);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("PersistenciaMotivosCambiosSueldos retorno ==" + retorno.intValue());
+            log.error("PersistenciaMotivosCambiosSueldos retorno ==" + retorno.intValue());
 
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }

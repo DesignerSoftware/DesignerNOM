@@ -3,13 +3,11 @@ package Administrar;
 import ClasesAyuda.SessionEntityManager;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import java.io.Serializable;
-//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Singleton;
-//import javax.faces.context.ExternalContext;
-//import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -18,67 +16,77 @@ import javax.persistence.EntityManager;
 @Singleton
 public class AdministrarSesiones implements AdministrarSesionesInterface, Serializable {
 
-    private List<SessionEntityManager> sessionesActivas;
+   private static Logger log = Logger.getLogger(AdministrarSesiones.class);
 
-    public AdministrarSesiones() {
-        sessionesActivas = new ArrayList<SessionEntityManager>();
-    }
+   private List<SessionEntityManager> sessionesActivas;
 
-    @Override
-    public void adicionarSesion(SessionEntityManager session) {
-        System.out.println("Se adiciono la sesion: " + session.getIdSession());
-        System.out.println("El entityManagerFactory recibido: " + session.getEmf().toString());
-        System.out.println("El entityManager recibido: " + session.getEm().toString());
-        sessionesActivas.add(session);
-    }
+   public AdministrarSesiones() {
+      try {
+         sessionesActivas = new ArrayList<SessionEntityManager>();
+      } catch (Exception e) {
+         log.fatal("Administrar.AdministrarSesiones.<init>() ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void consultarSessionesActivas() {
-        if (!sessionesActivas.isEmpty()) {
+   @Override
+   public void adicionarSesion(SessionEntityManager session) {
+      try {
+         log.warn("Se adiciono la sesion: " + session.getIdSession());
+         log.warn("El entityManagerFactory recibido: " + session.getEmf().toString());
+         log.warn("El entityManager recibido: " + session.getEm().toString());
+         sessionesActivas.add(session);
+      } catch (Exception e) {
+         log.fatal("Administrar.adicionarSesion() ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void consultarSessionesActivas() {
+      try {
+         if (!sessionesActivas.isEmpty()) {
             for (int i = 0; i < sessionesActivas.size(); i++) {
-                System.out.println("Id Sesion: " + sessionesActivas.get(i).getIdSession() + " - Entity Manager " + sessionesActivas.get(i).getEm().toString());
+               log.warn("Id Sesion: " + sessionesActivas.get(i).getIdSession() + " - Entity Manager " + sessionesActivas.get(i).getEm().toString());
             }
-            System.out.println("TOTAL SESIONES: " + sessionesActivas.size());
-        }
-    }
+            log.warn("TOTAL SESIONES: " + sessionesActivas.size());
+         }
+      } catch (Exception e) {
+         log.fatal("Administrar.consultarSessionesActivas() ERROR: " + e);
+      }
+   }
 
-    @Override
-    public EntityManager obtenerConexionSesion(String idSesion) {
-        if (!sessionesActivas.isEmpty()) {
-            /*for (int i = 0; i < sessionesActivas.size(); i++) {
-             if (sessionesActivas.get(i).getIdSession().equals(idSesion)) {
-             return sessionesActivas.get(i).getEm();
-             }
-             }*/
+   @Override
+   public EntityManager obtenerConexionSesion(String idSesion) {
+      try {
+         if (!sessionesActivas.isEmpty()) {
             for (SessionEntityManager sem : sessionesActivas) {
-                if (sem.getIdSession().equals(idSesion)) {
-                    System.out.println("Encontró la sesión");
-                    return sem.getEm();
-                }
+               if (sem.getIdSession().equals(idSesion)) {
+                  log.warn(this.getClass().getName() + ".obtenerConexionSesion() Encontró la sesión: " + idSesion);
+                  return sem.getEm();
+               }
             }
-        }
-        return null;
-    }
+         }
+      } catch (Exception e) {
+         log.fatal("Administrar.obtenerConexionSesion() ERROR: " + e);
+      }
+      return null;
+   }
 
-    @Override
-    public void borrarSesion(String idSesion) {
-        if (!sessionesActivas.isEmpty()) {
+   @Override
+   public void borrarSesion(String idSesion) {
+      try {
+         if (!sessionesActivas.isEmpty()) {
             for (int i = 0; i < sessionesActivas.size(); i++) {
-                if (sessionesActivas.get(i).getIdSession().equals(idSesion)) {
-                    sessionesActivas.remove(sessionesActivas.get(i));
-                    i--;
-                    //break;
-                }
+               if (sessionesActivas.get(i).getIdSession().equals(idSesion)) {
+                  sessionesActivas.remove(sessionesActivas.get(i));
+                  i--;
+               }
             }
-            /*for (SessionEntityManager sem : sessionesActivas) {
-             if (sem.getIdSession().equals(idSesion)) {
-             System.out.println("Se encontró la session a quitar");
-             sessionesActivas.remove(sem);
-             }
-             }*/
-        } else {
-            System.out.println("No se encontraron sesiones activas.");
-        }
-    }
+         } else {
+            log.fatal("No se encontraron sesiones activas.");
+         }
+      } catch (Exception e) {
+         log.fatal("Administrar.borrarSesion() ERROR: " + e);
+      }
+   }
 
 }

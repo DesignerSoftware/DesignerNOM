@@ -9,12 +9,14 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasMonedasBasesInterface{
+public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasMonedasBasesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVigenciasMonedasBases.class);
 
     @Override
     public void crear(EntityManager em, VigenciasMonedasBases monedasBases) {
@@ -25,7 +27,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             em.persist(monedasBases);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasMonedasBases.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasMonedasBases.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +43,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             em.merge(monedasBases);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasMonedasBases.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasMonedasBases.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +59,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             em.remove(em.merge(monedasBases));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasMonedasBases.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasMonedasBases.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +75,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             List<VigenciasMonedasBases> monedasBases = query.getResultList();
             return monedasBases;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasMonedasBases PersistenciaVigenciasMonedasBases : " + e.getMessage());
+            log.error("Error buscarVigenciasMonedasBases PersistenciaVigenciasMonedasBases : " + e.getMessage());
             return null;
         }
     }
@@ -88,7 +90,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             VigenciasMonedasBases monedasBases = (VigenciasMonedasBases) query.getSingleResult();
             return monedasBases;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaMonedaBaseSecuencia  PersistenciaVigenciasMonedasBases : " + e.getMessage());
+            log.error("Error buscarVigenciaMonedaBaseSecuencia  PersistenciaVigenciasMonedasBases : " + e.getMessage());
             VigenciasMonedasBases monedasBases = null;
             return monedasBases;
         }
@@ -104,7 +106,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             List<VigenciasMonedasBases> monedasBases = query.getResultList();
             return monedasBases;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasMonedasBasesPorSecuenciaEmpresa  PersistenciaVigenciasMonedasBases : " + e.getMessage());
+            log.error("Error buscarVigenciasMonedasBasesPorSecuenciaEmpresa  PersistenciaVigenciasMonedasBases : " + e.getMessage());
             List<VigenciasMonedasBases> monedasBases = null;
             return monedasBases;
         }

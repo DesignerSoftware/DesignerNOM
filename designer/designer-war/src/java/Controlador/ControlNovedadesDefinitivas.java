@@ -29,6 +29,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -41,6 +42,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlNovedadesDefinitivas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlNovedadesDefinitivas.class);
 
     @EJB
     AdministrarNovedadesSistemaInterface administrarNovedadesSistema;
@@ -219,8 +222,8 @@ public class ControlNovedadesDefinitivas implements Serializable {
             getListaNovedades();
 
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -359,19 +362,19 @@ public class ControlNovedadesDefinitivas implements Serializable {
     public void cambiosCampos() {
         RequestContext context = RequestContext.getCurrentInstance();
         int error = 0;
-        System.out.println("cambios campos, lista Novedades : " + listaNovedades.size());
-        System.out.println("cambios campos ,novedad mostrar: " + novedadMostrar.getSecuencia());
-        System.out.println("cambios campos ,novedad mostrar getFechainicialdisfrute: " + novedadMostrar.getFechainicialdisfrute());
-        System.out.println("cambios campos ,nueva novedad getFechainicialdisfrute: " + nuevaNovedad.getFechainicialdisfrute());
+        log.info("cambios campos, lista Novedades : " + listaNovedades.size());
+        log.info("cambios campos ,novedad mostrar: " + novedadMostrar.getSecuencia());
+        log.info("cambios campos ,novedad mostrar getFechainicialdisfrute: " + novedadMostrar.getFechainicialdisfrute());
+        log.info("cambios campos ,nueva novedad getFechainicialdisfrute: " + nuevaNovedad.getFechainicialdisfrute());
         for (int i = 0; i < listaNovedades.size(); i++) {
             if (novedadMostrar.getFechainicialdisfrute() != null) {
-                System.out.println("listaNovedades.get(i).getFechainicialdisfrute() : " + listaNovedades.get(i).getFechainicialdisfrute());
+                log.info("listaNovedades.get(i).getFechainicialdisfrute() : " + listaNovedades.get(i).getFechainicialdisfrute());
                 if (nuevaNovedad.getFechainicialdisfrute().equals(listaNovedades.get(i).getFechainicialdisfrute())) {
                     error++;
                 }
             }
         }
-        System.out.println("error : " + error);
+        log.warn("Error : " + error);
         if (error > 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:fechaRepetida");
             RequestContext.getCurrentInstance().execute("PF('fechaRepetida').show()");
@@ -572,21 +575,21 @@ public class ControlNovedadesDefinitivas implements Serializable {
             }
         }
         if (nuevaNovedad.getFechainicialdisfrute() == null) {
-            System.out.println("Entro a Fecha ");
+            log.info("Entro a Fecha ");
             mensajeValidacion = mensajeValidacion + " * Fecha Liquidacion Definitiva\n";
             pasa++;
         }
         if (nuevaNovedad.getMotivodefinitiva().getNombre() == null) {
-            System.out.println("Entro a Motivo");
+            log.info("Entro a Motivo");
             mensajeValidacion = mensajeValidacion + " * Motivo Liquidacion Definitiva\n";
             pasa++;
         }
         if (nuevaNovedad.getMotivoretiro().getNombre() == null) {
-            System.out.println("Entro a Retiro");
+            log.info("Entro a Retiro");
             mensajeValidacion = mensajeValidacion + " * Motivo Retiro\n";
             pasa++;
         }
-        System.out.println("Valor Pasa: " + pasa);
+        log.info("Valor Pasa: " + pasa);
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedad");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedad').show()");

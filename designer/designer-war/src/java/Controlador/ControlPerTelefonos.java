@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlPerTelefonos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlPerTelefonos.class);
 
     @EJB
     AdministrarTelefonosInterface administrarTelefonos;
@@ -129,8 +132,8 @@ public class ControlPerTelefonos implements Serializable {
             administrarTelefonos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
+            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Causa: " + e.getCause());
         }
     }
 
@@ -427,18 +430,18 @@ public class ControlPerTelefonos implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (duplicarTelefono.getFechavigencia() == null) {
-            System.out.println("Entro a Fecha");
+            log.info("Entro a Fecha");
             mensajeValidacion = " Campo fecha vacío \n";
             pasa++;
 
         }
         if (duplicarTelefono.getTipotelefono().getSecuencia() == null) {
-            System.out.println("Entro a TipoTelefono");
+            log.info("Entro a TipoTelefono");
             mensajeValidacion = mensajeValidacion + " Campo Tipo Teléfono vacío \n";
             pasa++;
         }
         if (duplicarTelefono.getNumerotelefono() == 0) {
-            System.out.println("Entro a Numero");
+            log.info("Entro a Numero");
             mensajeValidacion = mensajeValidacion + " * Campo Número Teléfono vacío \n";
             pasa++;
         }
@@ -467,8 +470,8 @@ public class ControlPerTelefonos implements Serializable {
             }
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
+                log.info("Desactivar");
+                log.info("TipoLista= " + tipoLista);
                 tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
                 tFecha.setFilterStyle("display: none; visibility: hidden;");
                 tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
@@ -522,12 +525,12 @@ public class ControlPerTelefonos implements Serializable {
     //FILTRADO
 
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
+        log.info("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            System.out.println("Activar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Activar");
+            log.info("TipoLista= " + tipoLista);
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
             tFecha.setFilterStyle("width: 85%");
             tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
@@ -541,8 +544,8 @@ public class ControlPerTelefonos implements Serializable {
             bandera = 1;
 
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
+            log.info("Desactivar");
+            log.info("TipoLista= " + tipoLista);
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
             tFecha.setFilterStyle("display: none; visibility: hidden;");
             tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
@@ -569,23 +572,23 @@ public class ControlPerTelefonos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (nuevoTelefono.getFechavigencia() == null && nuevoTelefono.getTipotelefono().getSecuencia() == null && nuevoTelefono.getNumerotelefono() == 0) {
-            System.out.println("Entro a Fecha");
+            log.info("Entro a Fecha");
             mensajeValidacion = " Existen campos vacíos \n";
             pasa++;
         }
 
         if (nuevoTelefono.getFechavigencia() == null) {
-            System.out.println("Entro a Fecha");
+            log.info("Entro a Fecha");
             mensajeValidacion = " Campo fecha vacío \n";
             pasa++;
         }
         if (nuevoTelefono.getTipotelefono().getSecuencia() == null) {
-            System.out.println("Entro a TipoTelefono");
+            log.info("Entro a TipoTelefono");
             mensajeValidacion = " Campo Tipo Teléfono vacío\n";
             pasa++;
         }
         if (nuevoTelefono.getNumerotelefono() == 0) {
-            System.out.println("Entro a Numero");
+            log.info("Entro a Numero");
             mensajeValidacion = " Campo Número de Teléfono vacío\n";
             pasa++;
         }
@@ -907,7 +910,7 @@ public class ControlPerTelefonos implements Serializable {
 
             if (!listaTelefonosCrear.isEmpty()) {
                 for (int i = 0; i < listaTelefonosCrear.size(); i++) {
-                    System.out.println("Creando...");
+                    log.info("Creando...");
                     if (listaTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
                         listaTelefonosCrear.get(i).setTipotelefono(null);
                         administrarTelefonos.crearTelefono(listaTelefonosCrear.get(i));
@@ -1072,7 +1075,7 @@ public class ControlPerTelefonos implements Serializable {
         } else if (LND == 1) {
             tipoActualizacion = 1;
             telefonoSeleccionado = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+            log.info("Tipo Actualizacion: " + tipoActualizacion);
         } else if (LND == 2) {
             telefonoSeleccionado = null;
             tipoActualizacion = 2;

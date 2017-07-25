@@ -14,10 +14,9 @@ import Entidades.TiposTrabajadores;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresPlantillasInterface;
 import java.math.BigInteger;
 import java.util.List;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -26,6 +25,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTiposTrabajadoresPlantillasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaTiposTrabajadoresPlantillas.class);
 
     @Override
     public List<PlantillasValidaTC> consultarPlanillaTC(EntityManager em, BigInteger secTipoT) {
@@ -37,7 +38,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaTC> listaPlantillaTC = query.getResultList();
             return listaPlantillaTC;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTC() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTC() : " + e.toString());
             return null;
         }
     }
@@ -52,7 +53,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaTS> listaPlantillaTS = query.getResultList();
             return listaPlantillaTS;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTS() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTS() : " + e.toString());
             return null;
         }
     }
@@ -67,7 +68,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaRL> listaPlantillaRL = query.getResultList();
             return listaPlantillaRL;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaRL() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaRL() : " + e.toString());
             return null;
         }
     }
@@ -82,7 +83,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaLL> listaPlantillaLL = query.getResultList();
             return listaPlantillaLL;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaLL() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaLL() : " + e.toString());
             return null;
         }
     }
@@ -97,7 +98,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaNL> listaPlantillaNL = query.getResultList();
             return listaPlantillaNL;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaNL() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaNL() : " + e.toString());
             return null;
         }
     }
@@ -111,7 +112,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<TiposTrabajadores> listatt = query.getResultList();
             return listatt;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposTrabajadoresPlantillas.consultarTiposTrabajadores() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarTiposTrabajadores() : " + e.toString());
             return null;
         }
     }

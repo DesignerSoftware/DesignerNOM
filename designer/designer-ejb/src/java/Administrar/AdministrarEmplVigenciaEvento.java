@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEventoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEmplVigenciaEvento.class);
 
     @EJB
     PersistenciaEventosInterface persistenciaEventos;
@@ -52,7 +55,7 @@ public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEve
             List<VigenciasEventos> vigencias = persistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado(em,secuencia);
             return vigencias;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasEventosEmpleado Admi : " + e.toString());
+            log.warn("Error listVigenciasEventosEmpleado Admi : " + e.toString());
             return null;
         }
     }
@@ -67,7 +70,7 @@ public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEve
                 persistenciaVigenciasEventos.crear(em,listaV.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearVigenciasEventos Admi : " + e.toString());
+            log.warn("Error crearVigenciasEventos Admi : " + e.toString());
         }
     }
 
@@ -81,7 +84,7 @@ public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEve
                 persistenciaVigenciasEventos.editar(em,listaV.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarVigenciasEventos Admi : " + e.toString());
+            log.warn("Error editarVigenciasEventos Admi : " + e.toString());
         }
     }
 
@@ -95,7 +98,7 @@ public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEve
                 persistenciaVigenciasEventos.borrar(em,listaV.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarVigenciasEventos Admi : " + e.toString());
+            log.warn("Error borrarVigenciasEventos Admi : " + e.toString());
         }
     }
 
@@ -105,7 +108,7 @@ public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEve
             List<Eventos> eventos = persistenciaEventos.buscarEventos(em);
             return eventos;
         } catch (Exception e) {
-            System.out.println("Error listEventos Admi : " + e.toString());
+            log.warn("Error listEventos Admi : " + e.toString());
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarEmplVigenciaEvento implements AdministrarEmplVigenciaEve
             Empleados empl = persistenciaEmpleado.buscarEmpleado(em,secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaIdiomas.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -38,7 +40,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.merge(idiomas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomas.crear: " + e.getMessage());
+            log.error("Error PersistenciaIdiomas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +56,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.merge(idiomas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomas.editar: " + e.getMessage());
+            log.error("Error PersistenciaIdiomas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +73,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             tx.commit();
 
         } catch (Exception e) {
-        System.out.println("Error PersistenciaIdiomas.borrar: " + e.getMessage());
+        log.error("Error PersistenciaIdiomas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -83,7 +85,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.clear();
             return em.find(Idiomas.class, secuenciaI);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaIdiomas.buscarIdioma()" + e.getMessage());
+            log.error("Persistencia.PersistenciaIdiomas.buscarIdioma()" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             List<Idiomas> idioma = (List<Idiomas>) query.getResultList();
             return idioma;
         } catch (Exception e) {
-            System.out.println("Error buscarIdiomas PersistenciaIdiomas : " + e.toString());
+            log.error("Error buscarIdiomas PersistenciaIdiomas : " + e.toString());
             return null;
         }
     }
@@ -112,7 +114,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomas contadorIdiomasPersonas. " + e);
+            log.error("Error PersistenciaIdiomas contadorIdiomasPersonas. " + e);
             return retorno;
         }
     }

@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaIndices implements PersistenciaIndicesInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaIndices.class);
+
     public void crear(EntityManager em, Indices indices) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -29,7 +32,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             em.merge(indices);
             tx.commit();
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices.crear: " + e.getMessage());
+            log.error("Error PersistenciaIndices.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +47,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             em.merge(indices);
             tx.commit();
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices.editar: " + e.getMessage());
+            log.error("Error PersistenciaIndices.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +62,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             em.remove(em.merge(indices));
             tx.commit();
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices.borrar: " + e.getMessage());
+            log.error("Error PersistenciaIndices.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +81,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             lista = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaIndices.consultarIndices()" + e.getMessage());
+            log.error("Persistencia.PersistenciaIndices.consultarIndices()" + e.getMessage());
             lista = null;
         }
         return lista;
@@ -94,7 +97,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices   contarUsuariosIndicesIndice. " + e.getMessage());
+            log.error("Error PersistenciaIndices   contarUsuariosIndicesIndice. " + e.getMessage());
             return retorno;
         }
     }
@@ -109,7 +112,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices   contarParametrosIndicesIndice. " + e.getMessage());
+            log.error("Error PersistenciaIndices   contarParametrosIndicesIndice. " + e.getMessage());
             return retorno;
         }
     }
@@ -124,7 +127,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices   contarResultadosIndicesSoportesIndice. " + e.getMessage());
+            log.error("Error PersistenciaIndices   contarResultadosIndicesSoportesIndice. " + e.getMessage());
             return retorno;
         }
     }
@@ -139,7 +142,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices   contarResultadosIndicesDetallesIndice. " + e.getMessage());
+            log.error("Error PersistenciaIndices   contarResultadosIndicesDetallesIndice. " + e.getMessage());
             return retorno;
         }
     }
@@ -154,7 +157,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices   contarResultadosIndicesIndice. " + e.getMessage());
+            log.error("Error PersistenciaIndices   contarResultadosIndicesIndice. " + e.getMessage());
             return retorno;
         }
     }
@@ -169,7 +172,7 @@ public class PersistenciaIndices implements PersistenciaIndicesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaIndices   contarCodigosRepetidosIndices. " + e.getMessage());
+            log.error("Error PersistenciaIndices   contarCodigosRepetidosIndices. " + e.getMessage());
             return retorno;
         }
     }

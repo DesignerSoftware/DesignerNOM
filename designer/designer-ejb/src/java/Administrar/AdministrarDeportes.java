@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDeportes implements AdministrarDeportesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDeportes.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -55,7 +58,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
     @Override
     public void modificarDeportes(List<Deportes> listDeportesModificadas) {
         for (int i = 0; i < listDeportesModificadas.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             Deportes deporteSeleccionado = listDeportesModificadas.get(i);
             persistenciaDeportes.editar(em,deporteSeleccionado);
         }
@@ -64,7 +67,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
     @Override
     public void borrarDeportes(List<Deportes> listaDeportes) {
         for (int i = 0; i < listaDeportes.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             persistenciaDeportes.borrar(em,listaDeportes.get(i));
         }
     }
@@ -72,7 +75,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
     @Override
     public void crearDeportes(List<Deportes> listaDeportes) {
         for (int i = 0; i < listaDeportes.size(); i++) {
-            System.out.println("Creando...");
+            log.warn("Creando...");
             persistenciaDeportes.crear(em,listaDeportes.get(i));
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
         try {
             verificarBorradoVigenciasDeportes = persistenciaDeportes.verificarBorradoVigenciasDeportes(em,secDeporte);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARDEPORTES verificarBorradoVigenciasDeportes ERROR :" + e);
+            log.error("ERROR ADMINISTRARDEPORTES verificarBorradoVigenciasDeportes ERROR :" + e);
         } finally {
             return verificarBorradoVigenciasDeportes;
         }
@@ -107,7 +110,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
         try {
             contadorDeportesPersonas = persistenciaDeportes.contadorDeportesPersonas(em,secDeporte);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARDEPORTES contadorDeportesPersonas ERROR :" + e);
+            log.error("ERROR ADMINISTRARDEPORTES contadorDeportesPersonas ERROR :" + e);
         } finally {
             return contadorDeportesPersonas;
         }
@@ -119,7 +122,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
         try {
             contadorParametrosInformes = persistenciaDeportes.contadorParametrosInformes(em,secDeporte);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARDEPORTES contadorParametrosInformes ERROR :" + e);
+            log.error("ERROR ADMINISTRARDEPORTES contadorParametrosInformes ERROR :" + e);
         } finally {
             return contadorParametrosInformes;
         }

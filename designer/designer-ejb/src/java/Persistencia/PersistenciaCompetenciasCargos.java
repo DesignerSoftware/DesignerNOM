@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasCargosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaCompetenciasCargos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +39,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          em.persist(competenciascargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCompetenciasCargos.crear: " + e);
+         log.error("Error PersistenciaCompetenciasCargos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +55,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          em.persist(competenciascargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCompetenciasCargos.editar: " + e);
+         log.error("Error PersistenciaCompetenciasCargos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +74,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaCompetenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaCompetenciasCargos.borrar: " + e);
       }
    }
 
@@ -84,7 +87,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          List<Competenciascargos> competenciascargos = query.getResultList();
          return competenciascargos;
       } catch (Exception e) {
-         System.out.println("Error buscarCompetenciasCargos PersistenciaCompetenciasCargos : " + e.toString());
+         log.error("Error buscarCompetenciasCargos PersistenciaCompetenciasCargos : " + e.toString());
          return null;
       }
    }
@@ -99,7 +102,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          Competenciascargos competenciascargos = (Competenciascargos) query.getSingleResult();
          return competenciascargos;
       } catch (Exception e) {
-         System.out.println("Error buscarCompetenciasCargosSecuencia PersistenciaCompetenciasCargos : " + e.toString());
+         log.error("Error buscarCompetenciasCargosSecuencia PersistenciaCompetenciasCargos : " + e.toString());
          Competenciascargos competenciascargos = null;
          return competenciascargos;
       }
@@ -115,7 +118,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          List<Competenciascargos> competenciascargos = query.getResultList();
          return competenciascargos;
       } catch (Exception e) {
-         System.out.println("Error buscarCompetenciasCargosParaSecuenciaCargo PersistenciaCompetenciasCargos : " + e.toString());
+         log.error("Error buscarCompetenciasCargosParaSecuenciaCargo PersistenciaCompetenciasCargos : " + e.toString());
          return null;
       }
    }

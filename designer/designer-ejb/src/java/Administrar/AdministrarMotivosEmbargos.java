@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosEmbargos.class);
 
     @EJB
     PersistenciaMotivosEmbargosInterface persistenciaMotivosEmbargos;
@@ -41,21 +44,21 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
     
     public void modificarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
         for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaMotivosEmbargos.editar(em, listaMotivosEmbargos.get(i));
         }
     }
 
     public void borrarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
         for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaMotivosEmbargos.borrar(em, listaMotivosEmbargos.get(i));
         }
     }
 
     public void crearMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
         for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaMotivosEmbargos.crear(em, listaMotivosEmbargos.get(i));
         }
     }
@@ -77,7 +80,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
         try {
             verificarEersPrestamos = persistenciaMotivosEmbargos.contadorEersPrestamos(em, secuenciaTiposDias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREERSPRESTAMOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREERSPRESTAMOS ERROR :" + e);
         } finally {
             return verificarEersPrestamos;
         }
@@ -88,7 +91,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
         try {
             verificarEmbargos = persistenciaMotivosEmbargos.contadorEmbargos(em, secuenciaTiposDias);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREMBARGOS ERROR :" + e);
+            log.error("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREMBARGOS ERROR :" + e);
         } finally {
             return verificarEmbargos;
         }

@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
@@ -32,6 +33,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlAcercaDe implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlAcercaDe.class);
 
    @EJB
    AdministrarPapelesInterface administrarPapeles;
@@ -143,8 +146,8 @@ public class ControlAcercaDe implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarPapeles.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -220,7 +223,7 @@ public class ControlAcercaDe implements Serializable {
          }
          return listaEmpresas;
       } catch (Exception e) {
-         System.out.println("ERROR LISTA EMPRESAS " + e);
+         log.warn("Error LISTA EMPRESAS " + e);
          return null;
       }
    }
@@ -249,7 +252,7 @@ public class ControlAcercaDe implements Serializable {
       if (empresaSeleccionada == null) {
          getListaEmpresas();
          RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("EMPRESA SELECCIONADA  : " + empresaSeleccionada.getNombre());
+         log.info("EMPRESA SELECCIONADA  : " + empresaSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("form:PanelTotal");
       }
       return empresaSeleccionada;

@@ -17,13 +17,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 @Stateful
-public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInterface{
+public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarVigenciaAficion.class);
 
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleado;
@@ -52,7 +55,7 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
             List<VigenciasAficiones> retorno = persistenciaVigenciasAficiones.aficionesTotalesSecuenciaPersona(em, secuenciaP);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listVigenciasAficionesPersona Admi : " + e.toString());
+            log.warn("Error listVigenciasAficionesPersona Admi : " + e.toString());
             return null;
         }
     }
@@ -67,7 +70,7 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
                 persistenciaVigenciasAficiones.crear(em, listVA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error crearVigenciasAficiones Admi : " + e.toString());
+            log.warn("Error crearVigenciasAficiones Admi : " + e.toString());
         }
     }
 
@@ -81,7 +84,7 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
                 persistenciaVigenciasAficiones.editar(em, listVA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error editarVigenciasAficiones Admi : " + e.toString());
+            log.warn("Error editarVigenciasAficiones Admi : " + e.toString());
         }
     }
 
@@ -95,7 +98,7 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
                 persistenciaVigenciasAficiones.borrar(em, listVA.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error borrarVigenciasAficiones Admi : " + e.toString());
+            log.warn("Error borrarVigenciasAficiones Admi : " + e.toString());
         }
     }
 
@@ -105,7 +108,7 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
             List<Aficiones> retorno = persistenciaAficiones.buscarAficiones(em);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error listAficiones Admi : " + e.toString());
+            log.warn("Error listAficiones Admi : " + e.toString());
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
             Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuencia);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

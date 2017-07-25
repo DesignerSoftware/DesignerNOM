@@ -9,6 +9,7 @@ import Entidades.Organigramas;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,8 @@ import javax.persistence.StoredProcedureQuery;
  */
 @Stateless
 public class PersistenciaEstructuras implements PersistenciaEstructurasInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEstructuras.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -58,7 +61,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          em.merge(estructura);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEstructuras.crear: " + e);
+         log.error("Error PersistenciaEstructuras.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +92,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          em.merge(estructura);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaEstructuras.editar: " + e);
+         log.error("Error PersistenciaEstructuras.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -123,7 +126,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaEstructuras.borrar: " + e);
+         log.error("Error PersistenciaEstructuras.borrar: " + e);
       }
    }
 
@@ -145,7 +148,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return estructura;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaEstructuras.buscarEstructura() e: " + e);
+         log.error("Persistencia.PersistenciaEstructuras.buscarEstructura() e: " + e);
          return null;
       }
    }
@@ -172,7 +175,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaEstructuras.estructuras() e: " + e);
+         log.error("Persistencia.PersistenciaEstructuras.estructuras() e: " + e);
          return null;
       }
    }
@@ -200,7 +203,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras");
+         log.error("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras");
          e.printStackTrace();
          return null;
       }
@@ -229,7 +232,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructurasPorOrganigrama PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPorOrganigrama PersistenciaEstructuras : " + e.toString());
          return null;
       }
    }
@@ -265,8 +268,8 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception ex) {
-         System.out.println("PersistenciaEstructuras: Fallo el nativeQuery, fecha parametro entrante: " + fechaVigencia);
-         System.out.println("PersistenciaEstructuras: Fallo el nativeQuery, EM: " + em);
+         log.error("PersistenciaEstructuras: Fallo el nativeQuery, fecha parametro entrante: " + fechaVigencia);
+         log.error("PersistenciaEstructuras: Fallo el nativeQuery, EM: " + em);
          listaEstructuras = null;
          return listaEstructuras;
       }
@@ -295,7 +298,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructuraPadre" + e);
+         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructuraPadre" + e);
          return null;
       }
    }
@@ -324,7 +327,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructurasHijas" + e);
+         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructurasHijas" + e);
          return null;
       }
    }
@@ -351,7 +354,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructuras PersistenciaEstructuras");
+         log.error("Error buscarEstructuras PersistenciaEstructuras");
          return null;
       }
    }
@@ -378,7 +381,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return estructura;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructuraSecuencia PersistenciaEstructuras");
+         log.error("Error buscarEstructuraSecuencia PersistenciaEstructuras");
          estructura = null;
       }
       return estructura;
@@ -408,7 +411,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructurasPadres PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPadres PersistenciaEstructuras : " + e.toString());
          return null;
       }
    }
@@ -438,7 +441,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructurasPorEmpresaFechaIngreso PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPorEmpresaFechaIngreso PersistenciaEstructuras : " + e.toString());
          listaEstructuras = null;
       }
       return listaEstructuras;
@@ -468,7 +471,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error buscarEstructurasPorEmpresa PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPorEmpresa PersistenciaEstructuras : " + e.toString());
          listaEstructuras = null;
       }
       return listaEstructuras;
@@ -496,7 +499,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error consultarEstructurasReingreso PersistenciaEstructuras: " + e.toString());
+         log.error("Error consultarEstructurasReingreso PersistenciaEstructuras: " + e.toString());
          return null;
       }
    }
@@ -537,7 +540,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error consultarEstructurasTurnoEmpleado PersistenciaEstructuras: " + e.toString());
+         log.error("Error consultarEstructurasTurnoEmpleado PersistenciaEstructuras: " + e.toString());
          return null;
       }
    }
@@ -581,14 +584,14 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         System.out.println("Error consultarEstructurasEersCabeceras PersistenciaEstructuras: " + e.toString());
+         log.error("Error consultarEstructurasEersCabeceras PersistenciaEstructuras: " + e.toString());
          return null;
       }
    }
 
    @Override
    public void adicionaEstructuraCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio) {
-      System.out.println("Persistencia.PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
+      log.error("Persistencia.PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -600,9 +603,9 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         System.out.println(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
+         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -625,9 +628,9 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         System.out.println(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() Ya ejecuto");
+         log.error(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -650,9 +653,9 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         System.out.println(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
+         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -675,9 +678,9 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         System.out.println(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() Ya ejecuto");
+         log.error(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

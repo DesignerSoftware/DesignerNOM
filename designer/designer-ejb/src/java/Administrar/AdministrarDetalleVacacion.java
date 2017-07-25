@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
 @Stateful
 @LocalBean
 public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDetalleVacacion.class);
 
    @EJB
    PersistenciaNovedadesSistemaInterface persistenciaNovedadesSistema;
@@ -46,7 +49,7 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
       try {
          persistenciaNovedadesSistema.editar(em, novedadSistema);
       } catch (Exception e) {
-         System.out.println("Error en modificarDetalleVacacion() Admi : " + e.toString());
+         log.warn("Error en modificarDetalleVacacion() Admi : " + e.toString());
       }
    }
 
@@ -55,7 +58,7 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
       try {
          return persistenciaNovedadesSistema.novedadsistemaPorEmpleadoYVacacion(em, secEmpleado, secVacacion);
       } catch (Exception e) {
-         System.out.println("Error en novedadsistemaPorEmpleadoYVacacion() Admi : " + e.toString());
+         log.warn("Error en novedadsistemaPorEmpleadoYVacacion() Admi : " + e.toString());
          return null;
       }
    }
@@ -70,7 +73,7 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
       try {
          return persistenciaNovedadesSistema.consultarValorTotalDetalleVacacion(em, secNovedadSistema);
       } catch (Exception e) {
-         System.out.println("Error en consultarValorTotalDetalleVacacion() Admi : " + e.toString());
+         log.warn("Error en consultarValorTotalDetalleVacacion() Admi : " + e.toString());
          return null;
       }
    }

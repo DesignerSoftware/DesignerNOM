@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -23,6 +24,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaHvReferencias.class);
+
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     /**
@@ -35,12 +38,12 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-            System.out.println("pass");
+            log.error("pass");
             tx.begin();
             em.merge(hvReferencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHvReferencias.crear: " + e);
+            log.error("Error PersistenciaHvReferencias.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +59,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             em.merge(hvReferencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHvReferencias.editar: " + e);
+            log.error("Error PersistenciaHvReferencias.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +79,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaHvReferencias.borrar: " + e);
+            log.error("Error PersistenciaHvReferencias.borrar: " + e);
         }
     }
 
@@ -98,11 +101,11 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<HvReferencias> listHvReferencias = query.getResultList();
             if (listHvReferencias != null) {
-                System.out.println("PersistenciaHvReferencias Tamaño listHvReferencias : " + listHvReferencias.size());
+                log.error("PersistenciaHvReferencias Tamaño listHvReferencias : " + listHvReferencias.size());
             }
             return listHvReferencias;
         } catch (Exception e) {
-            System.err.println("Error en Persistencia Vigencias Normas Empleados " + e);
+            log.error("Error en Persistencia Vigencias Normas Empleados " + e);
             return null;
         }
     }
@@ -124,7 +127,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
+            log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
             return null;
         }
     }
@@ -134,13 +137,13 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         try {
             em.clear();
             String sql = "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
-            System.out.println("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
+            log.error("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
             Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
             query.setParameter(1, secPersona);
             List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
             return hvHojasDeVIda;
         } catch (Exception e) {
-            System.err.println("Error en Persistencia HVREFERENCIAS buscarHvHojaDeVidaPorPersona " + e);
+            log.error("Error en Persistencia HVREFERENCIAS buscarHvHojaDeVidaPorPersona " + e);
             return null;
         }
     }
@@ -155,7 +158,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             List<HvReferencias> listHvReferencias = query.getResultList();
             return listHvReferencias;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia HvRefencias 1  " + e);
+            log.error("Error en Persistencia HvRefencias 1  " + e);
             return null;
         }
     }
@@ -166,7 +169,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             em.clear();
             return em.find(HvReferencias.class, secHvReferencias);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaHvReferencias.buscarHvReferencia() e: " + e);
+            log.error("Persistencia.PersistenciaHvReferencias.buscarHvReferencia() e: " + e);
             return null;
         }
     }
@@ -188,7 +191,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
+            log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
             return null;
         }
     }
@@ -211,7 +214,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             }
             return referenciaF;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaHvReferencias.primeraReferenciaFamiliar() e: " + e);
+            log.error("Persistencia.PersistenciaHvReferencias.primeraReferenciaFamiliar() e: " + e);
             referenciaF = "";
             return referenciaF;
         }
@@ -236,7 +239,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             }
             return referenciaP;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaHvReferencias.primeraReferenciaPersonal() e: " + e);
+            log.error("Persistencia.PersistenciaHvReferencias.primeraReferenciaPersonal() e: " + e);
             referenciaP = "";
             return referenciaP;
         }

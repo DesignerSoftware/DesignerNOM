@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarPartesCuerpo.class);
 
     @EJB
     PersistenciaPartesCuerpoInterface persistenciaPartesCuerpo;
@@ -41,21 +44,21 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
     
     public void modificarPartesCuerpo(List<PartesCuerpo> listPartesCuerpo) {
         for (int i = 0; i < listPartesCuerpo.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaPartesCuerpo.editar(em, listPartesCuerpo.get(i));
         }
     }
 
     public void borrarPartesCuerpo(List<PartesCuerpo> listPartesCuerpo) {
         for (int i = 0; i < listPartesCuerpo.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaPartesCuerpo.borrar(em, listPartesCuerpo.get(i));
         }
     }
 
     public void crearPartesCuerpo(List<PartesCuerpo> listPartesCuerpo) {
         for (int i = 0; i < listPartesCuerpo.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaPartesCuerpo.crear(em, listPartesCuerpo.get(i));
         }
     }
@@ -78,7 +81,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
 
             return verificarSoAccidentesMedicos = persistenciaPartesCuerpo.contadorSoAccidentesMedicos(em, secuenciaElementosCausasAccidentes);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARPARTESCUERPO verificarBorradoDetallesLicensias ERROR :" + e);
+            log.error("ERROR ADMINISTRARPARTESCUERPO verificarBorradoDetallesLicensias ERROR :" + e);
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
             BigInteger verificarBorradoDetallesExamenes;
             return verificarBorradoDetallesExamenes = persistenciaPartesCuerpo.contadorDetallesExamenes(em, secuenciaElementosCausasAccidentes);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARPARTESCUERPO verificarBorradoSoAccidentesDomesticos ERROR :" + e);
+            log.error("ERROR ADMINISTRARPARTESCUERPO verificarBorradoSoAccidentesDomesticos ERROR :" + e);
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
             BigInteger verificarBorradoSoDetallesRevisiones;
             return verificarBorradoSoDetallesRevisiones = persistenciaPartesCuerpo.contadorSoDetallesRevisiones(em, secuenciaElementosCausasAccidentes);
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARPARTESCUERPO verificarBorradoSoAccidentesDomesticos ERROR :" + e);
+            log.error("ERROR ADMINISTRARPARTESCUERPO verificarBorradoSoAccidentesDomesticos ERROR :" + e);
             return null;
         }
     }

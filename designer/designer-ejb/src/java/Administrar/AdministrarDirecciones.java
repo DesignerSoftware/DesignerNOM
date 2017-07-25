@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -28,6 +29,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDirecciones implements AdministrarDireccionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDirecciones.class);
 
     //--------------------------------------------------------------------------
     //ATRIBUTOS
@@ -79,7 +82,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
         try {
             return persistenciaDirecciones.direccionesPersona(em,secPersona);
         } catch (Exception e) {
-            System.err.println("Error AdministrarTelefonos.telefonosPersona " + e);
+            log.error("Error AdministrarTelefonos.telefonosPersona " + e);
             return null;
         }
     }
@@ -98,7 +101,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
     public void modificarDirecciones(List<Direcciones> listaDirecciones) {
         Direcciones d;
         for (int i = 0; i < listaDirecciones.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaDirecciones.get(i).getCiudad().getSecuencia() == null) {
                 listaDirecciones.get(i).setCiudad(null);
                 d = listaDirecciones.get(i);
@@ -112,7 +115,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
     @Override
     public void borrarDirecciones(List<Direcciones> listaDirecciones) {
         for (int i = 0; i < listaDirecciones.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             if (listaDirecciones.get(i).getHipoteca() == null) {
                 listaDirecciones.get(i).setHipoteca("N");
             }
@@ -123,7 +126,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
     @Override
     public void crearDirecciones(List<Direcciones> listaDirecciones) {
         for (int i = 0; i < listaDirecciones.size(); i++) {
-            System.out.println("Borrando...");
+            log.warn("Borrando...");
             if (listaDirecciones.get(i).getHipoteca() == null) {
                 listaDirecciones.get(i).setHipoteca("N");
             }
@@ -137,7 +140,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
         Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
         return retorno;
         }catch(Exception  e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+            log.warn("Error empleadoActual Admi : "+e.toString());
             return null;
         }
     }
@@ -148,7 +151,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             List<Direcciones> listaDirecciones =  persistenciaDirecciones.direccionesBanco(em, secBanco);
             return listaDirecciones;
         } catch (Exception e) {
-            System.err.println("Error AdministrarDirecciones.direccionesBanco " + e);
+            log.error("Error AdministrarDirecciones.direccionesBanco " + e);
             return null;
         }
     }

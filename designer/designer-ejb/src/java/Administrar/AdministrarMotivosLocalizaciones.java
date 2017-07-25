@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,6 +21,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocalizacionesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarMotivosLocalizaciones.class);
 
     @EJB
     PersistenciaMotivosLocalizacionesInterface PersistenciaMotivosLocalizaciones;
@@ -41,7 +44,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
     @Override
     public void modificarMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
         for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             PersistenciaMotivosLocalizaciones.editar(em, listaMotivosLocalizaciones.get(i));
         }
     }
@@ -49,7 +52,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
     @Override
     public void borrarMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
         for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             PersistenciaMotivosLocalizaciones.borrar(em, listaMotivosLocalizaciones.get(i));
         }
     }
@@ -57,7 +60,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
     @Override
     public void crearMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
         for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             PersistenciaMotivosLocalizaciones.crear(em, listaMotivosLocalizaciones.get(i));
         }
     }

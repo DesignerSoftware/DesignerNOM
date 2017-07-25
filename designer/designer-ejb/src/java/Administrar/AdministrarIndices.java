@@ -11,12 +11,12 @@ import InterfaceAdministrar.AdministrarIndicesInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaIndicesInterface;
 import InterfacePersistencia.PersistenciaTiposIndicesInterface;
-import Persistencia.PersistenciaTiposIndices;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarIndices implements AdministrarIndicesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarIndices.class);
 
     @EJB
     PersistenciaIndicesInterface persistenciaIndices;
@@ -45,21 +47,21 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
 
     public void modificarIndices(List<Indices> listaIndices) {
         for (int i = 0; i < listaIndices.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaIndices.editar(em, listaIndices.get(i));
         }
     }
 
     public void borrarIndices(List<Indices> listaIndices) {
         for (int i = 0; i < listaIndices.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaIndices.borrar(em, listaIndices.get(i));
         }
     }
 
     public void crearIndices(List<Indices> listaIndices) {
         for (int i = 0; i < listaIndices.size(); i++) {
-            System.out.println("Administrar crear...");
+            log.warn("Administrar crear...");
             persistenciaIndices.crear(em, listaIndices.get(i));
         }
     }
@@ -82,7 +84,7 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
         try {
             verificadorIndicesPersonas = persistenciaIndices.contarParametrosIndicesIndice(em, secuenciaIndices);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIndices contarParametrosIndicesIndice ERROR :" + e);
+            log.error("ERROR AdmnistrarIndices contarParametrosIndicesIndice ERROR :" + e);
         } finally {
             return verificadorIndicesPersonas;
         }
@@ -94,7 +96,7 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
         try {
             verificadorIndicesPersonas = persistenciaIndices.contarResultadosIndicesDetallesIndice(em, secuenciaIndices);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIndices contarResultadosIndicesDetallesIndice ERROR :" + e);
+            log.error("ERROR AdmnistrarIndices contarResultadosIndicesDetallesIndice ERROR :" + e);
         } finally {
             return verificadorIndicesPersonas;
         }
@@ -106,7 +108,7 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
         try {
             verificadorIndicesPersonas = persistenciaIndices.contarResultadosIndicesIndice(em, secuenciaIndices);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIndices contarResultadosIndicesIndice ERROR :" + e);
+            log.error("ERROR AdmnistrarIndices contarResultadosIndicesIndice ERROR :" + e);
         } finally {
             return verificadorIndicesPersonas;
         }
@@ -118,7 +120,7 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
         try {
             verificadorIndicesPersonas = persistenciaIndices.contarResultadosIndicesSoportesIndice(em, secuenciaIndices);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIndices contarResultadosIndicesSoportesIndice ERROR :" + e);
+            log.error("ERROR AdmnistrarIndices contarResultadosIndicesSoportesIndice ERROR :" + e);
         } finally {
             return verificadorIndicesPersonas;
         }
@@ -130,7 +132,7 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
         try {
             verificadorIndicesPersonas = persistenciaIndices.contarUsuariosIndicesIndice(em, secuenciaIndices);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIndices contarUsuariosIndicesIndice ERROR :" + e);
+            log.error("ERROR AdmnistrarIndices contarUsuariosIndicesIndice ERROR :" + e);
         } finally {
             return verificadorIndicesPersonas;
         }
@@ -143,7 +145,7 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
         try {
             verificadorIndicesPersonas = persistenciaIndices.contarCodigosRepetidosIndices(em, codigo);
         } catch (Exception e) {
-            System.err.println("ERROR AdmnistrarIndices contarCodigosRepetidosIndices ERROR :" + e);
+            log.error("ERROR AdmnistrarIndices contarCodigosRepetidosIndices ERROR :" + e);
         } finally {
             return verificadorIndicesPersonas;
         }

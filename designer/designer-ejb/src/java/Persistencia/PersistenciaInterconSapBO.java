@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -20,6 +20,8 @@ import javax.persistence.Query;
 
 public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaInterconSapBO.class);
+
     @Override
     public void crear(EntityManager em, InterconSapBO interconSapBO) {
         em.clear();
@@ -29,7 +31,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             em.merge(interconSapBO);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.crear: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.crear: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +47,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             em.merge(interconSapBO);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.editar: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.editar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +63,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             em.remove(em.merge(interconSapBO));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.borrar: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.borrar: " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             InterconSapBO intercon = (InterconSapBO) query.getSingleResult();
             return intercon;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.buscarInterconSAPBOSecuencia: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.buscarInterconSAPBOSecuencia: " + e.toString());
             return null;
         }
     }
@@ -86,7 +88,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
     @Override
     public List<InterconSapBO> buscarInterconSAPBOParametroContable(EntityManager em, Date fechaInicial, Date fechaFinal) {
         try {
-            System.out.println("Entre al metodo intercon");
+            log.error("Entre al metodo intercon");
             em.clear();
             String sql = "select * from INTERCON_SAPBO i where fechacontabilizacion between \n"
                     + " ? and ? and FLAG = 'CONTABILIZADO' AND SALIDA <> 'NETO'\n"
@@ -96,13 +98,13 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(2, fechaFinal);
             List<InterconSapBO> intercon = query.getResultList();
             if (intercon != null) {
-                System.out.println("Lista InterconSapBO intercon : "+intercon.size());
+                log.error("Lista InterconSapBO intercon : "+intercon.size());
             } else {
-                System.out.println("Lista Nula InterconSapBO");
+                log.error("Lista Nula InterconSapBO");
             }
             return intercon;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.buscarInterconSAPBOParametroContable: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.buscarInterconSAPBOParametroContable: " + e.toString());
             return null;
         }
     }
@@ -116,7 +118,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             Date fecha = (Date) (query.getSingleResult());
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.obtenerFechaMaxInterconSAPBO: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.obtenerFechaMaxInterconSAPBO: " + e.toString());
             return null;
         }
     }
@@ -136,7 +138,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBO : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBO : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -160,7 +162,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBOV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBOV8 : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -182,7 +184,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOV8 : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -204,7 +206,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -226,7 +228,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOVHP : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOVHP : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -248,7 +250,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_VCA : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_VCA : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -270,7 +272,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_PE : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_PE : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -292,7 +294,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOPQ : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOPQ : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -312,7 +314,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGRecontabilizacion : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGRecontabilizacion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -336,7 +338,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarDeleteInterconSAPBOV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarDeleteInterconSAPBOV8 : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -361,7 +363,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.cerrarProcesoLiquidacion : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.cerrarProcesoLiquidacion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -383,7 +385,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPBO : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPBO : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -406,7 +408,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPV8 : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -429,7 +431,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPVCA : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPVCA : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -452,7 +454,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPE : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPE : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -475,7 +477,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPQ : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPQ : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -497,7 +499,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPHP : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPHP : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -521,7 +523,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.contarProcesosContabilizadosInterconSAPBO. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.contarProcesosContabilizadosInterconSAPBO. " + e.toString());
             return -1;
         }
     }
@@ -543,7 +545,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBoProcesoDeshacer. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBoProcesoDeshacer. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -569,7 +571,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.cerrarProcesoContabilizacion. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.cerrarProcesoContabilizacion. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -596,7 +598,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.eliminarInterconSapBO. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.eliminarInterconSapBO. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -621,7 +623,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBO. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBO. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }

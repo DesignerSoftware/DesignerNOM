@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionObjetivosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarSoPoblacionObjetivos.class);
     @EJB
     PersistenciaSoPoblacionObjetivosInterface persistenciaSoPoblacionObjetivos;
     /**
@@ -41,21 +44,21 @@ public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionOb
 
     public void modificarSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
         for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaSoPoblacionObjetivos.editar(em, listSoPoblacionObjetivos.get(i));
         }
     }
 
     public void borrarSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
         for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaSoPoblacionObjetivos.borrar(em, listSoPoblacionObjetivos.get(i));
         }
     }
 
     public void crearSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
         for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaSoPoblacionObjetivos.crear(em, listSoPoblacionObjetivos.get(i));
         }
     }

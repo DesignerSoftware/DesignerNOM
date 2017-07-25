@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposPagos.class);
 
     @EJB
     PersistenciaTiposPagosInterface persistenciaTiposPagos;
@@ -41,21 +44,21 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
 
     public void modificarTiposPagos(List<Tipospagos> listaTiposPagos) {
         for (int i = 0; i < listaTiposPagos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposPagos.editar(em, listaTiposPagos.get(i));
         }
     }
 
     public void borrarTiposPagos(List<Tipospagos> listaTiposPagos) {
         for (int i = 0; i < listaTiposPagos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposPagos.borrar(em, listaTiposPagos.get(i));
         }
     }
 
     public void crearTiposPagos(List<Tipospagos> listaTiposPagos) {
         for (int i = 0; i < listaTiposPagos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposPagos.crear(em, listaTiposPagos.get(i));
         }
     }
@@ -79,7 +82,7 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
         try {
             return contarProcesosTipoPago = persistenciaTiposPagos.contarProcesosTipoPago(em, secTiposPagos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposPagos contarProcesosTipoPago ERROR : " + e);
+            log.error("ERROR AdministrarTiposPagos contarProcesosTipoPago ERROR : " + e);
             return null;
         }
     }

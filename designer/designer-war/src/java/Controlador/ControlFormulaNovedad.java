@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
@@ -22,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -34,6 +34,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlFormulaNovedad implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlFormulaNovedad.class);
 
    @EJB
    AdministrarFormulaNovedadInterface administrarFormulaNovedad;
@@ -165,8 +167,8 @@ public class ControlFormulaNovedad implements Serializable {
          administrarFormulaNovedad.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -321,7 +323,7 @@ public class ControlFormulaNovedad implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambios : " + e.toString());
+         log.warn("Error guardarCambios : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -829,7 +831,7 @@ public class ControlFormulaNovedad implements Serializable {
          }
          return listFormulasNovedades;
       } catch (Exception e) {
-         System.out.println("Error...!! getListFormulasNovedades " + e.toString());
+         log.warn("Error...!! getListFormulasNovedades " + e.toString());
          return null;
       }
    }
@@ -1040,8 +1042,8 @@ public class ControlFormulaNovedad implements Serializable {
    }
 
    public boolean isNuevoYBOrrado() {
-//      System.out.println("isNuevoYBOrrado() : " + nuevoYBOrrado);
-//      System.out.println("listFormulasNovedades : " + listFormulasNovedades);
+//      log.info("isNuevoYBOrrado() : " + nuevoYBOrrado);
+//      log.info("listFormulasNovedades : " + listFormulasNovedades);
       if (listFormulasNovedades != null) {
          if (listFormulasNovedades.isEmpty()) {
             nuevoYBOrrado = false;

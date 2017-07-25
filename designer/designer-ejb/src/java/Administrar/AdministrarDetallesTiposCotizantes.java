@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTiposCotizantesInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarDetallesTiposCotizantes.class);
 
     @EJB
     PersistenciaDetallesTiposCotizantesInterface persistenciaDetallesTiposCotizantes;
@@ -49,7 +52,7 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
         listaDetallesTiposCotizantes = persistenciaDetallesTiposCotizantes.detallesTiposCotizantes(em,secuenciaTipoCotizante);
         return listaDetallesTiposCotizantes;
         }catch(Exception e){
-            System.out.println("error en detallesTiposCotizantes : "  + e.toString());
+            log.warn("error en detallesTiposCotizantes : "  + e.toString());
             return null;
         }
     }
@@ -72,7 +75,7 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
     @Override
     public void modificarDetalleTipoCotizante(List<DetallesTiposCotizantes> listaDetallesTiposCotizantesModificar) {
         for (int i = 0; i < listaDetallesTiposCotizantesModificar.size(); i++) {
-            System.out.println("Modificando...");
+            log.warn("Modificando...");
             if (listaDetallesTiposCotizantesModificar.get(i).getTipocotizante().getSecuencia() == null) {
                 listaDetallesTiposCotizantesModificar.get(i).setTipocotizante(null);
             }

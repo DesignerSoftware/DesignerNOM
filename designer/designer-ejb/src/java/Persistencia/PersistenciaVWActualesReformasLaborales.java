@@ -8,12 +8,14 @@ import InterfacePersistencia.PersistenciaVWActualesReformasLaboralesInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 
 @Stateless
-public class PersistenciaVWActualesReformasLaborales implements PersistenciaVWActualesReformasLaboralesInterface{
+public class PersistenciaVWActualesReformasLaborales implements PersistenciaVWActualesReformasLaboralesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaVWActualesReformasLaborales.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -29,7 +31,7 @@ public class PersistenciaVWActualesReformasLaborales implements PersistenciaVWAc
             VWActualesReformasLaborales vWActualesReformasLaborales = (VWActualesReformasLaborales) query.getSingleResult();
             return vWActualesReformasLaborales;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaVWActualesReformasLaborales.buscarReformaLaboral()" + e.getMessage());
+            log.error("Persistencia.PersistenciaVWActualesReformasLaborales.buscarReformaLaboral()" + e.getMessage());
             return null;
         }
     }

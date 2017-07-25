@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaModulos implements PersistenciaModulosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaModulos.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +39,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             em.merge(modulos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaModulos.crear: " + e.getMessage());
+            log.error("Error PersistenciaModulos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +55,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             em.merge(modulos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaModulos.editar: " + e.getMessage());
+            log.error("Error PersistenciaModulos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +72,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             tx.commit();
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaModulos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaModulos.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -83,7 +85,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
         em.clear();
         return em.find(Modulos.class, secuencia);
         }catch(Exception e){
-            System.out.println("Persistencia.PersistenciaModulos.buscarModulos()" + e.getMessage());
+            log.error("Persistencia.PersistenciaModulos.buscarModulos()" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             List<Modulos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error buscarModulos PersistenciaModulos : " + e.toString());
+            log.error("Error buscarModulos PersistenciaModulos : " + e.toString());
             return null;
         }
     }
@@ -112,7 +114,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             Modulos modu = (Modulos) query.getSingleResult();
             return modu;
         } catch (Exception e) {
-            System.out.println("Error buscarModulos PersistenciaModulos : " + e.toString());
+            log.error("Error buscarModulos PersistenciaModulos : " + e.toString());
             return null;
         }
     }

@@ -14,21 +14,21 @@ import java.text.SimpleDateFormat;
 //import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import ControlNavegacion.ControlListaNavegacion;
 import java.math.BigDecimal;
-import java.util.Map;
-import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 @ManagedBean
 @SessionScoped
 public class ControlTemplate implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlTemplate.class);
 
    @EJB
    AdministrarTemplateInterface administrarTemplate;
@@ -60,7 +60,7 @@ public class ControlTemplate implements Serializable {
 
    @PostConstruct
    public void inicializarAdministrador() {
-      System.out.println("Inicializando Template.");
+      log.info("Inicializando Template.");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -70,8 +70,8 @@ public class ControlTemplate implements Serializable {
          detalleEmpresa = administrarTemplate.consultarDetalleEmpresaUsuario();
          nombrePerfil = administrarTemplate.consultarNombrePerfil();
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlTemplate: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlTemplate: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -98,7 +98,7 @@ public class ControlTemplate implements Serializable {
                   fis = new FileInputStream(new File(rutaFotoUs));
                   fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
                } catch (FileNotFoundException ex) {
-                  System.out.println("No se encontro el siguiente archivo, verificar. \n" + rutaFotoUs);
+                  log.info("No se encontro el siguiente archivo, verificar. \n" + rutaFotoUs);
                }
             }
          }
@@ -152,11 +152,11 @@ public class ControlTemplate implements Serializable {
                logoEmpresa = null;
                fis = null;
                rutaFotoLogo = administrarTemplate.rutaFotoUsuario() + "sinLogo.png";
-//               System.out.println("ruta sin logo: " + rutaFotoLogo);
+//               log.info("ruta sin logo: " + rutaFotoLogo);
                fis = new FileInputStream(new File(rutaFotoLogo));
                logoEmpresa = new DefaultStreamedContent(fis, "image/png");
             } catch (FileNotFoundException fnfei) {
-               System.out.println("Logo de empresa por defecto no encontrado. \n" + fnfei);
+               log.info("Logo de empresa por defecto no encontrado. \n" + fnfei);
                logoEmpresa = null;
             }
          }

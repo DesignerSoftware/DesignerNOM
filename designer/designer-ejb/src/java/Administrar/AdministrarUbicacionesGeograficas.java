@@ -20,6 +20,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarUbicacionesGeograficas implements AdministrarUbicacionesGeograficasInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarUbicacionesGeograficas.class);
 
     //-------------------------------------------------------------------------
     //ATRIBUTOS
@@ -81,7 +84,7 @@ public class AdministrarUbicacionesGeograficas implements AdministrarUbicaciones
             List<Empresas> listaEmpresas = persistenciaEmpresas.consultarEmpresas(em);
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("ADMINISTRARUBICACIONESGEOGRAFICAS: Falló al buscar las empresas /n" + e.getMessage());
+            log.warn("ADMINISTRARUBICACIONESGEOGRAFICAS: Falló al buscar las empresas /n" + e.getMessage());
             return null;
         }
     }
@@ -103,7 +106,7 @@ public class AdministrarUbicacionesGeograficas implements AdministrarUbicaciones
                 persistenciaUbicacionesGeograficas.editar(em, listaUbicacionesGeograficas.get(i));
             }
         } catch (Exception e) {
-            System.err.println("AdministrarUbicacionesGeograficas: Falló al editar el CentroCosto /n" + e.getMessage());
+            log.error("AdministrarUbicacionesGeograficas: Falló al editar el CentroCosto /n" + e.getMessage());
         }
     }
 
@@ -120,11 +123,11 @@ public class AdministrarUbicacionesGeograficas implements AdministrarUbicaciones
                 }
             }
             for (int i = 0; i < listaUbicacionesGeograficas.size(); i++) {
-                System.out.println("Borando... sucursalpila : " + listaUbicacionesGeograficas.get(i).getSucursalPila().getSecuencia());
+                log.warn("Borando... sucursalpila : " + listaUbicacionesGeograficas.get(i).getSucursalPila().getSecuencia());
                 persistenciaUbicacionesGeograficas.borrar(em, listaUbicacionesGeograficas.get(i));
             }
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARUBICACIONESGEOGRAFICAS.borrarUbicacionesGeograficas ERROR=====" + e.getMessage());
+            log.error("ERROR ADMINISTRARUBICACIONESGEOGRAFICAS.borrarUbicacionesGeograficas ERROR=====" + e.getMessage());
         }
     }
 
@@ -137,23 +140,23 @@ public class AdministrarUbicacionesGeograficas implements AdministrarUbicaciones
                 if (listaUbicacionesGeograficas.get(i).getSucursalPila().getSecuencia() == null) {
                     listaUbicacionesGeograficas.get(i).setSucursalPila(null);
                 }
-                System.out.println("ADMINISTRAR CREANDO...");
+                log.warn("ADMINISTRAR CREANDO...");
                 persistenciaUbicacionesGeograficas.crear(em, listaUbicacionesGeograficas.get(i));
 
             }
 
         } catch (Exception e) {
-            System.err.println("ERROR ADMINISTRARUBICACIONESGEOGRAFICAS CREARUBICACIONESGEOGRAFICAS : " + e);
+            log.error("ERROR ADMINISTRARUBICACIONESGEOGRAFICAS CREARUBICACIONESGEOGRAFICAS : " + e);
         }
     }
 
     public List<UbicacionesGeograficas> consultarUbicacionesGeograficasPorEmpresa(BigInteger secEmpresa) {
         try {
-            System.out.println("ENTRE A ADMINISTRARUBICACIONESGEOGRAFICAS.buscarUbicacionesGeograficasPorEmpresa ");
+            log.warn("ENTRE A ADMINISTRARUBICACIONESGEOGRAFICAS.buscarUbicacionesGeograficasPorEmpresa ");
             List<UbicacionesGeograficas> listaUbicacionesGeograficas = persistenciaUbicacionesGeograficas.consultarUbicacionesGeograficasPorEmpresa(em, secEmpresa);
             return listaUbicacionesGeograficas;
         } catch (Exception e) {
-            System.out.println("ERROR ADMINISTRARUBICACIONESGEOGRAFICAS CONSULTARUBICACIONESGEOGRAFICASPOREMPRESA ERROR : " + e);
+            log.warn("ERROR ADMINISTRARUBICACIONESGEOGRAFICAS CONSULTARUBICACIONESGEOGRAFICASPOREMPRESA ERROR : " + e);
             return null;
         }
     }
@@ -163,18 +166,18 @@ public class AdministrarUbicacionesGeograficas implements AdministrarUbicaciones
             List<Ciudades> listaCiudades = persistenciaCiudades.consultarCiudades(em);
             return listaCiudades;
         } catch (Exception e) {
-            System.out.println("\n ADMINISTRARUBICACIONESGEOGRAFICAS LOVCIUDADES ERROR : " + e);
+            log.warn("\n ADMINISTRARUBICACIONESGEOGRAFICAS LOVCIUDADES ERROR : " + e);
             return null;
         }
     }
 
     public List<SucursalesPila> lovSucursalesPilaPorEmpresa(BigInteger secEmpresa) {
         try {
-            System.out.println("AdministrarUbicacionesGeograficas lovSucursalesPilaPorEmpresa : "+secEmpresa);
+            log.warn("AdministrarUbicacionesGeograficas lovSucursalesPilaPorEmpresa : "+secEmpresa);
             List<SucursalesPila> listaSucursalesPila = persistenciaSucursalesPila.consultarSucursalesPilaPorEmpresa(em, secEmpresa);
             return listaSucursalesPila;
         } catch (Exception e) {
-            System.out.println("\n ADMINISTRARUBICACIONESGEOGRAFICAS LOVSUCURSALESPILA ERROR : " + e);
+            log.warn("\n ADMINISTRARUBICACIONESGEOGRAFICAS LOVSUCURSALESPILA ERROR : " + e);
             return null;
         }
     }

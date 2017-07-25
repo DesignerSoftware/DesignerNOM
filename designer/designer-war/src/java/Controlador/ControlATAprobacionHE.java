@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -38,6 +39,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlATAprobacionHE implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlATAprobacionHE.class);
 
    @EJB
    AdministrarATAprobacionHEInterface administrarATAprobacionHE;
@@ -182,8 +185,8 @@ public class ControlATAprobacionHE implements Serializable {
          numeroScrollCabecera = 505;
          rowsCabecera = 20;
       } catch (Exception e) {
-         System.out.println("Error postconstruct ControlATAprobacionHE: " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct ControlATAprobacionHE: " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -880,7 +883,7 @@ public class ControlATAprobacionHE implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosCabecera Controlador : " + e.toString());
+         log.warn("Error guardarCambiosCabecera Controlador : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ocurrio un error en el guardado de Conceptos A Aprobar");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1026,11 +1029,11 @@ public class ControlATAprobacionHE implements Serializable {
          }
          Thread.sleep(2000L);
          RequestContext.getCurrentInstance().update("form:PanelTotal");
-         System.out.println("Ejecuto Time");
+         log.info("Ejecuto Time");
          RequestContext.getCurrentInstance().execute("operacionEnProceso').hide()");
 
       } catch (Exception e) {
-         System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
+         log.warn("Error cargarDatosNuevos Controlador : " + e.toString());
       }
    }
 

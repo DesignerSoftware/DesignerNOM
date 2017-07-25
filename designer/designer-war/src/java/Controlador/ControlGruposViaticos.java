@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -36,6 +37,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlGruposViaticos implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlGruposViaticos.class);
 
    @EJB
    AdministrarGruposViaticosInterface administrarGruposViaticos;
@@ -132,8 +135,8 @@ public class ControlGruposViaticos implements Serializable {
          administrarGruposViaticos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -230,10 +233,10 @@ public class ControlGruposViaticos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosGruposViaticos");
          estado = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:estado");
          estado.setFilterStyle("width: 85% !important");
-         System.out.println("Activar");
+         log.info("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
+         log.info("Desactivar");
          tamano = 270;
          codigo = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -298,7 +301,7 @@ public class ControlGruposViaticos implements Serializable {
    public void borrandoGruposViaticos() {
       if (grupoViaticoSeleccionado != null) {
          if (tipoLista == 0) {
-            System.out.println("Entro a borrandoGruposViaticos");
+            log.info("Entro a borrandoGruposViaticos");
             if (!modificarGruposViaticos.isEmpty() && modificarGruposViaticos.contains(grupoViaticoSeleccionado)) {
                int modIndex = modificarGruposViaticos.indexOf(grupoViaticoSeleccionado);
                modificarGruposViaticos.remove(modIndex);
@@ -361,7 +364,7 @@ public class ControlGruposViaticos implements Serializable {
             administrarGruposViaticos.crearGruposViaticos(crearGruposViaticos);
             crearGruposViaticos.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
          listGruposViaticos = null;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -405,7 +408,7 @@ public class ControlGruposViaticos implements Serializable {
    }
 
    public void agregarNuevoGruposViaticos() {
-      System.out.println("agregarNuevoGruposViaticos");
+      log.info("agregarNuevoGruposViaticos");
       int contador = 0;
       int duplicados = 0;
 
@@ -415,7 +418,7 @@ public class ControlGruposViaticos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoGruposViaticos.getCodigo() == a) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listGruposViaticos.size(); x++) {
             if (listGruposViaticos.get(x).getCodigo() == nuevoGruposViaticos.getCodigo()) {
@@ -425,36 +428,36 @@ public class ControlGruposViaticos implements Serializable {
 
          if (duplicados > 0) {
             mensajeValidacion = " Ya existe un registro con el código ingresado \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
       if (nuevoGruposViaticos.getDescripcion() == null || nuevoGruposViaticos.getDescripcion().isEmpty()) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
       if (nuevoGruposViaticos.getPorcentajelastday() == null || nuevoGruposViaticos.getPorcentajelastday() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
 
       } else {
-         System.out.println("bandera");
+         log.info("bandera");
          contador++;
       }
 
-      System.out.println("contador " + contador);
+      log.info("contador " + contador);
 
       if (contador == 3) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
             //CERRAR FILTRADO
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposViaticos:descripcion");
@@ -528,9 +531,9 @@ public class ControlGruposViaticos implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = "*Ya existe un registro con el código ingresado \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
             duplicados = 0;
          }
@@ -604,7 +607,7 @@ public class ControlGruposViaticos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (grupoViaticoSeleccionado != null) {
          int resultado = administrarRastros.obtenerTabla(grupoViaticoSeleccionado.getSecuencia(), "GRUPOSINFADICIONALES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {

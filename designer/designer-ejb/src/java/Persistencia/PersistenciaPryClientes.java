@@ -9,8 +9,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaPryClientes implements PersistenciaPryClientesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaPryClientes.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -36,7 +38,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.merge(pryClientes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryClientes.crear: " + e.getMessage());
+            log.error("Error PersistenciaPryClientes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +53,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.merge(pryClientes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryClientes.editar: " + e.getMessage());
+            log.error("Error PersistenciaPryClientes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +68,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.remove(em.merge(pryClientes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryClientes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPryClientes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +80,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.clear();
             return em.find(PryClientes.class, secuenciaPC);
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPryClientes.buscarPryCliente()" + e.getMessage()); 
+            log.error("Persistencia.PersistenciaPryClientes.buscarPryCliente()" + e.getMessage()); 
             return null;
         }
     }
@@ -92,7 +94,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             List<PryClientes> pryclientes = query.getResultList();
             return pryclientes;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaPryClientes.buscarPryClientes()" + e.getMessage());
+            log.error("Persistencia.PersistenciaPryClientes.buscarPryClientes()" + e.getMessage());
             return null;
         }
     }
@@ -105,10 +107,10 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("persistenciapryclientes contadorProyectos Contador " + retorno);
+            log.error("persistenciapryclientes contadorProyectos Contador " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error  persistenciapryclientes contadorProyectos. " + e);
+            log.error("Error  persistenciapryclientes contadorProyectos. " + e);
             return retorno;
         }
     }

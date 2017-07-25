@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -37,6 +38,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlIbcAutoliquid implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlIbcAutoliquid.class);
 
    @EJB
    AdministrarIbcAutoliquidInterface administrarIBCAuto;
@@ -161,8 +164,8 @@ public class ControlIbcAutoliquid implements Serializable {
             }
          }
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -217,7 +220,7 @@ public class ControlIbcAutoliquid implements Serializable {
          getListIbcsAutoliquidaciones();
 
       } catch (Exception e) {
-         System.out.println("Error obtenerTipoEntidad : " + e.toString());
+         log.warn("Error obtenerTipoEntidad : " + e.toString());
       }
    }
 
@@ -434,7 +437,7 @@ public class ControlIbcAutoliquid implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
          }
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosIBCS : " + e.toString());
+         log.warn("Error guardarCambiosIBCS : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Se ha presentado un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1066,7 +1069,7 @@ public class ControlIbcAutoliquid implements Serializable {
       } else {
          tipoEntidadActual = null;
       }
-      //System.out.println("vigenciaSeleccionada: " + vigenciaSeleccionada);
+      //log.info("vigenciaSeleccionada: " + vigenciaSeleccionada);
    }
 
    ////////////////////////////////////******************************************************************************************************************************************/
@@ -1079,7 +1082,7 @@ public class ControlIbcAutoliquid implements Serializable {
          }
          return listIbcsAutoliquidaciones;
       } catch (Exception e) {
-         System.out.println("Error getListIbcsAutoliquidaciones : " + e.toString());
+         log.warn("Error getListIbcsAutoliquidaciones : " + e.toString());
          return null;
       }
 
@@ -1104,7 +1107,7 @@ public class ControlIbcAutoliquid implements Serializable {
          }
          return listTiposEntidades;
       } catch (Exception e) {
-         System.out.println("Error getListTiposEntidades : " + e.toString());
+         log.warn("Error getListTiposEntidades : " + e.toString());
          return null;
       }
 

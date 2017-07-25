@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -18,6 +19,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiemposInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaParametrosTiempos.class);
+
     @Override
     public void crear(EntityManager em, ParametrosTiempos parametrosTiempos) {
         em.clear();
@@ -27,7 +30,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             em.persist(parametrosTiempos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.crear : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.crear : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +46,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             em.merge(parametrosTiempos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.editar : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.editar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +62,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             em.remove(em.merge(parametrosTiempos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.borrar : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.borrar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +78,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             List<ParametrosTiempos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.buscarParametrosTiempos : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.buscarParametrosTiempos : " + e.toString());
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             ParametrosTiempos parametro = (ParametrosTiempos) query.getSingleResult();
             return parametro;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.buscarParametrosTiemposPorUsuarioBD : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.buscarParametrosTiemposPorUsuarioBD : " + e.toString());
             return null;
         }
     }
@@ -108,7 +111,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.EjecutarPKG_INSERTARCUADRILLA : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_INSERTARCUADRILLA : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -129,7 +132,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.EjecutarPKG_SIMULARTURNOSEMPLEADOS : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_SIMULARTURNOSEMPLEADOS : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -158,7 +161,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.EjecutarPKG_LIQUIDAR : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_LIQUIDAR : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -177,7 +180,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.EjecutarPKG_EliminarProgramacion : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_EliminarProgramacion : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -199,7 +202,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosTiempos.EjecutarPKG_ELIMINARSIMULACION : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_ELIMINARSIMULACION : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }

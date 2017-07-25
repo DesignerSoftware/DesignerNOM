@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -13,7 +14,9 @@ import javax.persistence.Query;
  * @author Administrador
  */
 @Stateless
-public class PersistenciaEersDetalles implements PersistenciaEersDetallesInterface{
+public class PersistenciaEersDetalles implements PersistenciaEersDetallesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEersDetalles.class);
 
     @Override
     public List<EersDetalles> buscarEersDetallesPorEersCabecera(EntityManager em, BigInteger secuencia) {
@@ -25,7 +28,7 @@ public class PersistenciaEersDetalles implements PersistenciaEersDetallesInterfa
             List<EersDetalles> eersCabeceras = query.getResultList();
             return eersCabeceras;
         } catch (Exception e) {
-            System.out.println("Error buscarEersDetallesPorEersCabecera PersistenciaEersDetalles " + e.toString());
+            log.error("Error buscarEersDetallesPorEersCabecera PersistenciaEersDetalles " + e.toString());
             return null;
         }
     }

@@ -10,13 +10,13 @@ import Entidades.EvalResultadosConv;
 import InterfaceAdministrar.AdministrarEvalResultadosConvInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
-import InterfacePersistencia.PersistenciaEvalConvocatoriasInterface;
 import InterfacePersistencia.PersistenciaEvalResultadosConvInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarEvalResultadosConv implements AdministrarEvalResultadosConvInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarEvalResultadosConv.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -45,7 +47,7 @@ public class AdministrarEvalResultadosConv implements AdministrarEvalResultadosC
                 persistenciarevalresconv.crear(em, listCrear.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalConvocatorias.crear : " + e.toString());
+            log.warn("AdministrarEvalConvocatorias.crear : " + e.toString());
         }
     }
 
@@ -56,7 +58,7 @@ public class AdministrarEvalResultadosConv implements AdministrarEvalResultadosC
                 persistenciarevalresconv.borrar(em, listBorrar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalConvocatorias.borrar : " + e.toString());
+            log.warn("AdministrarEvalConvocatorias.borrar : " + e.toString());
         }
     }
 
@@ -67,7 +69,7 @@ public class AdministrarEvalResultadosConv implements AdministrarEvalResultadosC
                 persistenciarevalresconv.editar(em, listModificar.get(i));
             }
         } catch (Exception e) {
-            System.out.println("AdministrarEvalConvocatorias.editar : " + e.toString());
+            log.warn("AdministrarEvalConvocatorias.editar : " + e.toString());
         }
     }
 
@@ -83,7 +85,7 @@ public class AdministrarEvalResultadosConv implements AdministrarEvalResultadosC
             Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

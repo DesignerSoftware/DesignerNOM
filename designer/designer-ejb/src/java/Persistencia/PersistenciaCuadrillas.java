@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -16,6 +17,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaCuadrillas.class);
+
     @Override
     public void crear(EntityManager em, Cuadrillas cuadrillas) {
         em.clear();
@@ -25,7 +28,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             em.persist(cuadrillas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error crear PersistenciaCuadrillas " + e.toString());
+            log.error("Error crear PersistenciaCuadrillas " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -41,7 +44,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             em.merge(cuadrillas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error editar PersistenciaCuadrillas " + e.toString());
+            log.error("Error editar PersistenciaCuadrillas " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +60,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             em.remove(em.merge(cuadrillas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error borrar PersistenciaCuadrillas " + e.toString());
+            log.error("Error borrar PersistenciaCuadrillas " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +77,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             Cuadrillas cuadrilla = (Cuadrillas) query.getSingleResult();
             return cuadrilla;
         } catch (Exception e) {
-            System.out.println("Error buscarCuadrillaPorSecuencia PersistenciaCuadrillas " + e.toString());
+            log.error("Error buscarCuadrillaPorSecuencia PersistenciaCuadrillas " + e.toString());
             return null;
         }
     }
@@ -88,7 +91,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             List<Cuadrillas> cuadrillas = query.getResultList();
             return cuadrillas;
         } catch (Exception e) {
-            System.out.println("Error buscarCuadrillas PersistenciaCuadrillas " + e.toString());
+            log.error("Error buscarCuadrillas PersistenciaCuadrillas " + e.toString());
             return null;
         }
     }
@@ -107,7 +110,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCuadrillas.borrarProgramacionCompleta : " + e.toString());
+            log.error("Error PersistenciaCuadrillas.borrarProgramacionCompleta : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -130,7 +133,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             List<Cuadrillas> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCuadrillas.buscarCuadrillasParaEmpleado : " + e);
+            log.error("Error PersistenciaCuadrillas.buscarCuadrillasParaEmpleado : " + e);
             return null;
         }
     }

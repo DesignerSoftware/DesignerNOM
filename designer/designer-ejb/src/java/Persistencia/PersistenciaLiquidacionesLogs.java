@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesLogsInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaLiquidacionesLogs.class);
+
     public void crear(EntityManager em, LiquidacionesLogs liquidacionesLogs) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -29,7 +32,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             em.merge(liquidacionesLogs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLiquidacionesLogs.crear: " + e.getMessage());
+            log.error("Error PersistenciaLiquidacionesLogs.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +47,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             em.merge(liquidacionesLogs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLiquidacionesLogs.editar: " + e.getMessage());
+            log.error("Error PersistenciaLiquidacionesLogs.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +63,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             tx.commit();
 
         } catch (Exception e) {
-        System.out.println("Error PersistenciaLiquidacionesLogs.borrar: " + e.getMessage());
+        log.error("Error PersistenciaLiquidacionesLogs.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -76,7 +79,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.err.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogs ERROR : " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogs ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -90,7 +93,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e.getMessage());
             return null;
         }
     }
@@ -104,7 +107,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR " + e.getMessage());
             return null;
         }
     }
@@ -118,7 +121,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR " + e.getMessage());
             return null;
         }
     }

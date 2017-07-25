@@ -8,6 +8,7 @@ import InterfacePersistencia.PersistenciaProfesionesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 /**
@@ -17,7 +18,9 @@ import javax.persistence.Query;
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaProfesiones implements PersistenciaProfesionesInterface{
+public class PersistenciaProfesiones implements PersistenciaProfesionesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaProfesiones.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      * @param em
@@ -34,7 +37,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
             List<Profesiones> profesiones = query.getResultList();
             return profesiones;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaProfesiones.profesiones()" + e.getMessage());
+            log.error("Persistencia.PersistenciaProfesiones.profesiones()" + e.getMessage());
             return null;
         }
     }
@@ -48,7 +51,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
             em.merge(profesion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProfesiones.crear: " + e.getMessage());
+            log.error("Error PersistenciaProfesiones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +73,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaProfesiones.borrar: " + e.getMessage());
+                log.error("Error PersistenciaProfesiones.borrar: " + e.getMessage());
             }
         }
     }
@@ -84,7 +87,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
             em.merge(profesion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProfesiones.editar: " + e.getMessage());
+            log.error("Error PersistenciaProfesiones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

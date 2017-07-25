@@ -14,8 +14,8 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarKioAdmin.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -55,7 +57,7 @@ public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
                 persistencisKioAdmin.modificarck(em, ck.get(i));
             }
         } catch (Exception e) {
-            System.out.println("error en editarCK : " + e.getMessage());
+            log.warn("error en editarCK : " + e.getMessage());
         }
     }
 
@@ -64,7 +66,7 @@ public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
         try{
          persistencisKioAdmin.resetUsuario(em, secEmpleado);
         }catch(Exception e){
-            System.out.println("erro en reset Usuario admin : "  + e.getMessage());
+            log.warn("erro en reset Usuario admin : "  + e.getMessage());
         }
     }
 
@@ -73,7 +75,7 @@ public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
        try{
          persistencisKioAdmin.unlockUsuario(em, secEmpleado);
         }catch(Exception e){
-            System.out.println("erro en unlock Usuario admin : "  + e.getMessage());
+            log.warn("erro en unlock Usuario admin : "  + e.getMessage());
         }
     }
 

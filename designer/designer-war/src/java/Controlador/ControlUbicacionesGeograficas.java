@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -40,6 +41,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlUbicacionesGeograficas implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlUbicacionesGeograficas.class);
 
    @EJB
    AdministrarUbicacionesGeograficasInterface administrarUbicacionesGeograficas;
@@ -139,8 +142,8 @@ public class ControlUbicacionesGeograficas implements Serializable {
          administrarUbicacionesGeograficas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -201,13 +204,13 @@ public class ControlUbicacionesGeograficas implements Serializable {
 
    public void eventoFiltrar() {
       try {
-         System.out.println("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.eventoFiltrar \n");
+         log.info("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.eventoFiltrar \n");
          if (tipoLista == 0) {
             tipoLista = 1;
          }
          contarRegistros();
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS eventoFiltrar ERROR===" + e);
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS eventoFiltrar ERROR===" + e);
       }
    }
 
@@ -231,7 +234,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
       if (permitirIndex == true) {
          ubicacionGeograficaSeleccionada = ubicacion;
          cualCelda = celda;
-         System.err.println("CAMBIAR INDICE CUALCELDA = " + cualCelda);
+         log.error("CAMBIAR INDICE CUALCELDA = " + cualCelda);
          ubicacionGeograficaSeleccionada.getSecuencia();
          if (cualCelda == 0) {
             backUpCodigo = ubicacionGeograficaSeleccionada.getCodigo();
@@ -276,7 +279,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
    public void cancelarModificacion() {
       try {
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("entre a CONTROLUBICACIONESGEOGRAFICAS.cancelarModificacion");
+         log.info("entre a CONTROLUBICACIONESGEOGRAFICAS.cancelarModificacion");
          if (bandera == 1) {
             codigoUG = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoUG");
             codigoUG.setFilterStyle("display: none; visibility: hidden;");
@@ -323,7 +326,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          contarRegistros();
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception E) {
-         System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
       }
    }
 
@@ -331,7 +334,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
       limpiarListasValor();
       try {
          FacesContext c = FacesContext.getCurrentInstance();
-         System.out.println("entre a CONTROLUBICACIONESGEOGRAFICAS.cancelarModificacion");
+         log.info("entre a CONTROLUBICACIONESGEOGRAFICAS.cancelarModificacion");
          if (bandera == 1) {
             //CERRAR FILTRADO
             //0
@@ -380,7 +383,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          navegar("atras");
       } catch (Exception E) {
-         System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
       }
    }
 
@@ -390,7 +393,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          ubicacionGeograficaSeleccionada = ubicacion;
          cualCelda = celda;
          ubicacionGeograficaSeleccionada.getSecuencia();
-         System.out.println("Modificar Zona : " + ubicacionGeograficaSeleccionada.getZona());
+         log.info("Modificar Zona : " + ubicacionGeograficaSeleccionada.getZona());
          if (!crearUbicacionesGeograficas.contains(ubicacionGeograficaSeleccionada)) {
             if (modificarUbicacionesGeograficas.isEmpty()) {
                modificarUbicacionesGeograficas.add(ubicacionGeograficaSeleccionada);
@@ -408,7 +411,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
 
    public void asignarIndex(UbicacionesGeograficas ubicacion, int LND, int dig) {
       try {
-         System.out.println("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.asignarIndex \n");
+         log.info("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.asignarIndex \n");
          ubicacionGeograficaSeleccionada = ubicacion;
          tipoActualizacion = LND;
          if (dig == 2) {
@@ -417,7 +420,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
          }
          if (dig == 9) {
-            System.out.println("Secuencia Empresa Seleccionada = " + empresaSeleccionada.getSecuencia());
+            log.info("Secuencia Empresa Seleccionada = " + empresaSeleccionada.getSecuencia());
             lovSucursalesPilas = null;
             getLovSucursalesPilas();
             contarRegistrosSucursales();
@@ -425,7 +428,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('sucursalesPilaDialogo').show()");
          }
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS ASIGNARINDEX ERROR :" + e);
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS ASIGNARINDEX ERROR :" + e);
       }
    }
 
@@ -542,7 +545,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
    }
 
    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-      System.out.println("1...");
+      log.info("1...");
       if (Campo.equals("CIUDADES")) {
          if (tipoNuevo == 1) {
             nuevoTipoCCAutoCompletar = nuevaUbicacionGeografica.getCiudad().getNombre();
@@ -574,7 +577,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                coincidencias++;
             }
          }
-         System.out.println("Coincidencias: " + coincidencias);
+         log.info("Coincidencias: " + coincidencias);
          if (coincidencias == 1) {
             nuevaUbicacionGeografica.setCiudad(lovCiudades.get(indiceUnicoElemento));
             lovCiudades = null;
@@ -595,7 +598,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                coincidencias++;
             }
          }
-         System.out.println("Coincidencias: " + coincidencias);
+         log.info("Coincidencias: " + coincidencias);
          if (coincidencias == 1) {
             nuevaUbicacionGeografica.setSucursalPila(lovSucursalesPilas.get(indiceUnicoElemento));
             lovSucursalesPilas = null;
@@ -664,7 +667,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
                   coincidencias++;
                }
             }
-            System.out.println("Coincidencias: " + coincidencias);
+            log.info("Coincidencias: " + coincidencias);
             if (coincidencias == 1) {
                duplicarUbicacionGeografica.setSucursalPila(lovSucursalesPilas.get(indiceUnicoElemento));
                lovSucursalesPilas = null;
@@ -693,14 +696,14 @@ public class ControlUbicacionesGeograficas implements Serializable {
    }
 
    public void agregarNuevaUbicacionGeografica() {
-      System.out.println("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.agregarNuevaUbicacionGeograficas \n");
+      log.info("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.agregarNuevaUbicacionGeograficas \n");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
       banderaModificacionEmpresa = 1;
       if (nuevaUbicacionGeografica.getCodigo() == null) {
          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
+         log.info("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listUbicacionesGeograficasPorEmpresa.size(); x++) {
             if (listUbicacionesGeograficasPorEmpresa.get(x).getCodigo().equals(nuevaUbicacionGeografica.getCodigo())) {
@@ -709,9 +712,9 @@ public class ControlUbicacionesGeograficas implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
@@ -811,7 +814,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          duplicarUbicacionGeografica.setCodigo(ubicacionGeograficaSeleccionada.getCodigo());
          duplicarUbicacionGeografica.setDescripcion(ubicacionGeograficaSeleccionada.getDescripcion());
          duplicarUbicacionGeografica.getCiudad().setNombre(ubicacionGeograficaSeleccionada.getCiudad().getNombre());
-         System.out.println("0");
+         log.info("0");
          duplicarUbicacionGeografica.setDireccion(ubicacionGeograficaSeleccionada.getDireccion());
          duplicarUbicacionGeografica.setTelefono(ubicacionGeograficaSeleccionada.getTelefono());
          duplicarUbicacionGeografica.setFax(ubicacionGeograficaSeleccionada.getFax());
@@ -847,9 +850,9 @@ public class ControlUbicacionesGeograficas implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = "Existe un registro con ese código. Por favor ingrese un código válido";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            log.info("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
+            log.info("bandera");
             contador++;
          }
       }
@@ -858,7 +861,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
       } else if (duplicarUbicacionGeografica.getDescripcion() == null) {
          mensajeValidacion = mensajeValidacion + "Los campos marcados con asterisco son obligatorios";
       } else {
-         System.out.println("Bandera : ");
+         log.info("Bandera : ");
          contador++;
       }
       if (duplicarUbicacionGeografica.getCiudad().getSecuencia() == null) {
@@ -866,7 +869,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
       }
       if (contador == 2) {
          if (crearUbicacionesGeograficas.contains(duplicarUbicacionGeografica)) {
-            System.out.println("Ya lo contengo.");
+            log.info("Ya lo contengo.");
          } else {
             listUbicacionesGeograficasPorEmpresa.add(duplicarUbicacionGeografica);
          }
@@ -931,11 +934,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
          contarParametrosInformesUbicacionGeografica = administrarUbicacionesGeograficas.contarParametrosInformesUbicacionGeografica(ubicacionGeograficaSeleccionada.getSecuencia());
          contarRevisionesUbicacionGeografica = administrarUbicacionesGeograficas.contarRevisionesUbicacionGeografica(ubicacionGeograficaSeleccionada.getSecuencia());
          contarVigenciasUbicacionesUbicacionGeografica = administrarUbicacionesGeograficas.contarVigenciasUbicacionesUbicacionGeografica(ubicacionGeograficaSeleccionada.getSecuencia());
-         System.out.println("contarAfiliacionesEntidadesUbicacionGeografica : " + contarAfiliacionesEntidadesUbicacionGeografica);
-         System.out.println("contarInspeccionesUbicacionGeografica : " + contarInspeccionesUbicacionGeografica);
-         System.out.println("contarParametrosInformesUbicacionGeografica : " + contarParametrosInformesUbicacionGeografica);
-         System.out.println("contarRevisionesUbicacionGeografica : " + contarRevisionesUbicacionGeografica);
-         System.out.println("contarVigenciasUbicacionesUbicacionGeografica : " + contarVigenciasUbicacionesUbicacionGeografica);
+         log.info("contarAfiliacionesEntidadesUbicacionGeografica : " + contarAfiliacionesEntidadesUbicacionGeografica);
+         log.info("contarInspeccionesUbicacionGeografica : " + contarInspeccionesUbicacionGeografica);
+         log.info("contarParametrosInformesUbicacionGeografica : " + contarParametrosInformesUbicacionGeografica);
+         log.info("contarRevisionesUbicacionGeografica : " + contarRevisionesUbicacionGeografica);
+         log.info("contarVigenciasUbicacionesUbicacionGeografica : " + contarVigenciasUbicacionesUbicacionGeografica);
          if (contarAfiliacionesEntidadesUbicacionGeografica.equals(new BigInteger("0"))
                  && contarInspeccionesUbicacionGeografica.equals(new BigInteger("0"))
                  && contarParametrosInformesUbicacionGeografica.equals(new BigInteger("0"))
@@ -1021,9 +1024,9 @@ public class ControlUbicacionesGeograficas implements Serializable {
          ubicacionGeograficaSeleccionada = null;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          banderaModificacionEmpresa = 0;
-         System.out.println("Se guardaron los datos con exito");
+         log.info("Se guardaron los datos con exito");
       } catch (Exception e) {
-         System.err.println("CONTROLUBICACIONESGEOGRAFICAS GUARDARCAMBIOS: " + e);
+         log.error("CONTROLUBICACIONESGEOGRAFICAS GUARDARCAMBIOS: " + e);
          RequestContext context = RequestContext.getCurrentInstance();
          FacesMessage msg = new FacesMessage("Información", "Hubo un error en el guardado, Por favor intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1042,12 +1045,12 @@ public class ControlUbicacionesGeograficas implements Serializable {
    }
 
    public void activarCtrlF11() {
-      System.out.println("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 \n");
+      log.info("\n ENTRE A CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 \n");
       FacesContext c = FacesContext.getCurrentInstance();
       try {
 
          if (bandera == 0) {
-            System.out.println("Activar");
+            log.info("Activar");
             tamano = 250;
             codigoUG = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoUG");
             codigoUG.setFilterStyle("width: 85% !important;");
@@ -1074,7 +1077,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
             bandera = 1;
          } else if (bandera == 1) {
-            System.out.println("Desactivar");
+            log.info("Desactivar");
             //0
             codigoUG = (Column) c.getViewRoot().findComponent("form:datosUbicacionesGeograficas:codigoUG");
             codigoUG.setFilterStyle("display: none; visibility: hidden;");
@@ -1106,7 +1109,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             tipoLista = 0;
          }
       } catch (Exception e) {
-         System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 ERROR " + e);
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 ERROR " + e);
       }
    }
 
@@ -1176,7 +1179,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             }
          }
       } catch (Exception e) {
-         System.out.println("\n ERROR CONTROLUBICACIONESGEOGRAFICAS.listaValoresBoton ERROR====================" + e);
+         log.info("\n ERROR CONTROLUBICACIONESGEOGRAFICAS.listaValoresBoton ERROR====================" + e);
 
       }
    }
@@ -1200,9 +1203,9 @@ public class ControlUbicacionesGeograficas implements Serializable {
    public void verificarRastro() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (ubicacionGeograficaSeleccionada != null) {
-         System.out.println("lol 2");
+         log.info("lol 2");
          int resultado = administrarRastros.obtenerTabla(ubicacionGeograficaSeleccionada.getSecuencia(), "UBICACIONESGEOGRAFICAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         System.out.println("resultado: " + resultado);
+         log.info("resultado: " + resultado);
          if (resultado == 1) {
             RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
@@ -1287,7 +1290,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          }
          return lovEmpresas;
       } catch (Exception e) {
-         System.out.println("ERROR LISTA EMPRESAS " + e);
+         log.warn("Error LISTA EMPRESAS " + e);
          return null;
       }
    }

@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -21,6 +22,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultadosConvInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaEvalResultadosConv.class);
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -44,7 +47,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEvalResultadosConv.pruebasAplicadasPersona" + e);
+            log.error("Error PersistenciaEvalResultadosConv.pruebasAplicadasPersona" + e);
             return null;
         }
     }
@@ -58,7 +61,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             em.merge(evalresconvocatoria);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEvalResultadosConv.crear: " + e);
+            log.error("Error PersistenciaEvalResultadosConv.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +77,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             em.merge(evalresconvocatoria);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEvalResultadosConv.editar: " + e);
+            log.error("Error PersistenciaEvalResultadosConv.editar: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -96,7 +99,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaEvalConvocatorias.borrar: " + e);
+                log.error("Error PersistenciaEvalConvocatorias.borrar: " + e);
             }
         }
     }
@@ -111,7 +114,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             List<EvalResultadosConv> evalresconv = query.getResultList();
             return evalresconv;
         } catch (Exception e) {
-            System.out.println("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
+            log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
             return null;
         }
     }
@@ -130,7 +133,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             }
             return pruebas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada()");
+            log.error("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada()");
             pruebas = "";
             return pruebas;
         }

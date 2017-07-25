@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposAusentismos.class);
 
     @EJB
     PersistenciaTiposAusentismosInterface persistenciaTiposAusentismos;
@@ -42,7 +45,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
     @Override
     public void modificarTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
         for (int i = 0; i < listaTiposAusentismos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposAusentismos.editar(em, listaTiposAusentismos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
     @Override
     public void borrarTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
         for (int i = 0; i < listaTiposAusentismos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposAusentismos.borrar(em, listaTiposAusentismos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
     @Override
     public void crearTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
         for (int i = 0; i < listaTiposAusentismos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposAusentismos.crear(em, listaTiposAusentismos.get(i));
         }
     }
@@ -83,7 +86,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
         try {
             return contarClasesAusentimosTipoAusentismo = persistenciaTiposAusentismos.contarClasesAusentimosTipoAusentismo(em, secTiposAusentismos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
+            log.error("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
             return null;
         }
     }
@@ -95,7 +98,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
         try {
             return contarSOAusentimosTipoAusentismo = persistenciaTiposAusentismos.contarSOAusentimosTipoAusentismo(em, secTiposAusentismos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
+            log.error("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
             return null;
         }
     }

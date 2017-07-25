@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaComprobantes implements PersistenciaComprobantesInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaComprobantes.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -41,11 +44,11 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("No se puede hacer rollback porque no hay una transacción");
+         log.error("No se puede hacer rollback porque no hay una transacción");
          return false;
       }
    }
@@ -60,11 +63,11 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          em.merge(comprobante);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("No se puede hacer rollback porque no hay una transacción");
+         log.error("No se puede hacer rollback porque no hay una transacción");
       }
    }
 
@@ -78,11 +81,11 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          em.remove(em.merge(comprobante));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("No se puede hacer rollback porque no hay una transacción");
+         log.error("No se puede hacer rollback porque no hay una transacción");
       }
    }
 
@@ -110,7 +113,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          List<Comprobantes> listComprobantes = query.getResultList();
          return listComprobantes;
       } catch (Exception e) {
-         System.out.println("Error: (PersistenciaComprobantes.comprobantesEmpleado)" + e);
+         log.error("Error: (PersistenciaComprobantes.comprobantesEmpleado)" + e);
          return null;
       }
    }
@@ -124,7 +127,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          BigInteger max = (BigInteger) query.getSingleResult();
          return max;
       } catch (Exception e) {
-         System.out.println("Error: (PersistenciaComprobantes.numeroMaximoComprobante)" + e);
+         log.error("Error: (PersistenciaComprobantes.numeroMaximoComprobante)" + e);
          return null;
       }
    }
@@ -138,7 +141,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          BigDecimal valor = (BigDecimal) query.getSingleResult();
          return valor;
       } catch (Exception e) {
-         System.out.println("Error buscarValorNumeroMaximo PersistenciaComprobantes : " + e.toString());
+         log.error("Error buscarValorNumeroMaximo PersistenciaComprobantes : " + e.toString());
          return null;
       }
    }
@@ -153,7 +156,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          Comprobantes comprobante = (Comprobantes) query.getSingleResult();
          return comprobante;
       } catch (Exception e) {
-         System.out.println("Error buscarComprobanteParaPrimerRegistroEmpleado PersistenciaComprobantes : " + e.toString());
+         log.error("Error buscarComprobanteParaPrimerRegistroEmpleado PersistenciaComprobantes : " + e.toString());
          return null;
       }
    }

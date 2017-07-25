@@ -8,7 +8,7 @@ import InterfacePersistencia.PersistenciaAdiestramientosFInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
 /**
@@ -18,6 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaAdiestramientosF implements PersistenciaAdiestramientosFInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaAdiestramientosF.class);
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
@@ -33,7 +35,7 @@ public class PersistenciaAdiestramientosF implements PersistenciaAdiestramientos
             List<AdiestramientosF> adiestramientosF = query.getResultList();
             return adiestramientosF;
         } catch (Exception e) {
-           System.out.println("Persistencia.PersistenciaAdiestramientosF.adiestramientosF() e: " + e);
+           log.error("Persistencia.PersistenciaAdiestramientosF.adiestramientosF() e: " + e);
             return null;
         }
     }

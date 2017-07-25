@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 //import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 //import org.primefaces.model.DefaultStreamedContent;
 //import org.primefaces.model.StreamedContent;
@@ -31,6 +32,8 @@ import org.primefaces.context.RequestContext;
 //@ManagedBean
 @SessionScoped
 public class ControlInicioRed implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlInicioRed.class);
 
    @EJB
    AdministrarInicioRedInterface administrarInicioRed;
@@ -57,12 +60,12 @@ public class ControlInicioRed implements Serializable {
    private String candadoLogin;
 
    public ControlInicioRed() {
-      System.out.println(this.getClass().getName() + ".constructor()");
+      log.info(this.getClass().getName() + ".constructor()");
       inicializarCampos();
       asignarImagenCandado(false);
       inicializarListaActualizaciones();
       llenarBannerSinEntrar();
-      System.out.println("estadoinicio constructor: " + estadoInicio);
+      log.info("estadoinicio constructor: " + estadoInicio);
    }
 
    private void inicializarCampos() {
@@ -102,8 +105,8 @@ public class ControlInicioRed implements Serializable {
 //         RequestContext context = RequestContext.getCurrentInstance();
          FacesContext contextoF = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) contextoF.getExternalContext().getSession(false);
-         System.out.println("Ses= " + ses);
-         System.out.println("estado sesion ingreso = " + estadoInicio);
+         log.info("Ses= " + ses);
+         log.info("estado sesion ingreso = " + estadoInicio);
          if (!estadoInicio) {
             // Iniciar sesión.
             if (!baseDatos.equals("") && !usuario.equals("") && !contraseña.equals("")) {
@@ -181,7 +184,7 @@ public class ControlInicioRed implements Serializable {
             modulosDesigner = true;
             txtBoton = "Conectar";
             asignarImagenCandado(false);
-            System.out.println("estadoinicio ingresar else: " + estadoInicio);
+            log.info("estadoinicio ingresar else: " + estadoInicio);
             estadoInicio = false;
             getNombreEmpresa();
             llenarBannerSinEntrar();
@@ -192,33 +195,33 @@ public class ControlInicioRed implements Serializable {
             sessionEntradaDefault();
          }
          RequestContext.getCurrentInstance().update("form:btnCandadoLogin");
-         System.out.println("estadoinicio ingresar fin: " + estadoInicio);
+         log.info("estadoinicio ingresar fin: " + estadoInicio);
       } catch (UnknownHostException e) {
-         System.out.println("estadoinicio ingresar exception: " + estadoInicio);
-         System.out.println(e);
+         log.info("estadoinicio ingresar exception: " + estadoInicio);
+         log.info(e);
       }
    }
 
    private void imprimirRequest(HttpServletRequest request) {
-      System.out.println(this.getClass().getName() + "imprimirRequest()");
+      log.info(this.getClass().getName() + "imprimirRequest()");
       try {
-         System.out.println("auth: " + request.getAuthType());
-         System.out.println("ContextPath: " + request.getContextPath());
-         System.out.println("LocalAddr: " + request.getLocalAddr());
-         System.out.println("LocalName: " + request.getLocalName());
-         System.out.println("LocalPort: " + request.getLocalPort());
-         System.out.println("PathInfo: " + request.getPathInfo());
-         System.out.println("PathTranslated: " + request.getPathTranslated());
-         System.out.println("Protocol: " + request.getProtocol());
-         System.out.println("QueryString: " + request.getQueryString());
-         System.out.println("RemoteAddr: " + request.getRemoteAddr());
-         System.out.println("RemoteHost: " + request.getRemoteHost());
-         System.out.println("RemotePort: " + request.getRemotePort());
-         System.out.println("RemoteUser: " + request.getRemoteUser());
-         System.out.println("RequestURI: " + request.getRequestURI());
-         System.out.println("RequestURL: " + request.getRequestURL());
-         System.out.println("RequestedSessionId: " + request.getRequestedSessionId());
-         System.out.println("ServerName: " + request.getServerName());
+         log.info("auth: " + request.getAuthType());
+         log.info("ContextPath: " + request.getContextPath());
+         log.info("LocalAddr: " + request.getLocalAddr());
+         log.info("LocalName: " + request.getLocalName());
+         log.info("LocalPort: " + request.getLocalPort());
+         log.info("PathInfo: " + request.getPathInfo());
+         log.info("PathTranslated: " + request.getPathTranslated());
+         log.info("Protocol: " + request.getProtocol());
+         log.info("QueryString: " + request.getQueryString());
+         log.info("RemoteAddr: " + request.getRemoteAddr());
+         log.info("RemoteHost: " + request.getRemoteHost());
+         log.info("RemotePort: " + request.getRemotePort());
+         log.info("RemoteUser: " + request.getRemoteUser());
+         log.info("RequestURI: " + request.getRequestURI());
+         log.info("RequestURL: " + request.getRequestURL());
+         log.info("RequestedSessionId: " + request.getRequestedSessionId());
+         log.info("ServerName: " + request.getServerName());
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -237,7 +240,7 @@ public class ControlInicioRed implements Serializable {
 //         RequestContext.getCurrentInstance().execute("PF('estadoSesion').show()");
          RequestContext.getCurrentInstance().execute("PF('estadoSesion').show()");
       }
-      System.out.println("ControlInicioRed.validaDialogoSesion");
+      log.info("ControlInicioRed.validaDialogoSesion");
       RequestContext.getCurrentInstance().update("form:btnCandadoLogin");
    }
 
@@ -309,7 +312,7 @@ public class ControlInicioRed implements Serializable {
    }
 
    public void cambiarClave() {
-      System.out.println("Nclave: " + NClave + " Rclave: " + Rclave);
+      log.info("Nclave: " + NClave + " Rclave: " + Rclave);
       if (!NClave.equals("") && !Rclave.equals("")) {
          if (NClave.equals(Rclave)) {
             int transaccion = administrarInicioRed.cambioClave(usuario, NClave);
@@ -322,7 +325,7 @@ public class ControlInicioRed implements Serializable {
                RequestContext.getCurrentInstance().execute("PF('errorCambioClaveReusar').show()");
             } else if (transaccion == -1) {
                RequestContext.getCurrentInstance().execute("PF('cambiarClave').hide()");
-               System.out.println("El entity manager Factory no se ha creado, revisar.");
+               log.info("El entity manager Factory no se ha creado, revisar.");
             }
          } else {
             RequestContext.getCurrentInstance().execute("PF('errorCambioClave').show();");
@@ -338,8 +341,8 @@ public class ControlInicioRed implements Serializable {
    }
 
    private void asignarImagenCandado(boolean inicioSesion) {
-      System.out.println("ControlInicioRed.asignarImagenCandado");
-      System.out.println("parametro: " + inicioSesion);
+      log.info("ControlInicioRed.asignarImagenCandado");
+      log.info("parametro: " + inicioSesion);
       this.candadoLogin = (inicioSesion) ? "loginCandadoAbierto.png" : "loginCandadoCerrado.png";
    }
 
@@ -442,8 +445,8 @@ public class ControlInicioRed implements Serializable {
    }
 
    public String getCandadoLogin() {
-      System.out.println("ControlInicioRed.getCandadoLogin");
-      System.out.println("inicio sesion: " + !modulosDesigner);
+      log.info("ControlInicioRed.getCandadoLogin");
+      log.info("inicio sesion: " + !modulosDesigner);
       asignarImagenCandado(!modulosDesigner);
       return candadoLogin;
    }

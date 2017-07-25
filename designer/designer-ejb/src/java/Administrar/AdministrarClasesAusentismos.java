@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarClasesAusentismos implements AdministrarClasesAusentismosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarClasesAusentismos.class);
 
     @EJB
     PersistenciaClasesAusentismosInterface persistenciaClasesAusentismos;
@@ -45,21 +48,21 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
 
     public void modificarClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
         for (int i = 0; i < listClasesAusentismos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaClasesAusentismos.editar(em,listClasesAusentismos.get(i));
         }
     }
 
     public void borrarClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
         for (int i = 0; i < listClasesAusentismos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaClasesAusentismos.borrar(em,listClasesAusentismos.get(i));
         }
     }
 
     public void crearClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
         for (int i = 0; i < listClasesAusentismos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaClasesAusentismos.crear(em,listClasesAusentismos.get(i));
         }
     }
@@ -75,10 +78,10 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
         BigInteger verificadorHvReferencias = null;
 
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
+            log.error("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
             verificadorHvReferencias = persistenciaClasesAusentismos.contadorCausasAusentismosClaseAusentismo(em,secuenciaClasesAusentismos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarClasesAusentismos contarCausasAusentismosClaseAusentismo ERROR :" + e);
+            log.error("ERROR AdministrarClasesAusentismos contarCausasAusentismosClaseAusentismo ERROR :" + e);
         } finally {
             return verificadorHvReferencias;
         }
@@ -88,10 +91,10 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
         BigInteger verificadorHvReferencias = null;
 
         try {
-            System.err.println("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
+            log.error("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
             verificadorHvReferencias = persistenciaClasesAusentismos.contadorSoAusentismosClaseAusentismo(em,secuenciaClasesAusentismos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarClasesAusentismos contarSoAusentismosClaseAusentismo ERROR :" + e);
+            log.error("ERROR AdministrarClasesAusentismos contarSoAusentismosClaseAusentismo ERROR :" + e);
         } finally {
             return verificadorHvReferencias;
         }

@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -35,6 +36,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlEscalafonSalarial implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlEscalafonSalarial.class);
 
    @EJB
    AdministrarEscalafonesSalarialesInterface administrarEscalafonesSalariales;
@@ -207,8 +210,8 @@ public class ControlEscalafonSalarial implements Serializable {
          administrarEscalafonesSalariales.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -628,7 +631,7 @@ public class ControlEscalafonSalarial implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosEscalafonSalarial : " + e.toString());
+         log.warn("Error guardarCambiosEscalafonSalarial : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Escalafon Salarial, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -664,7 +667,7 @@ public class ControlEscalafonSalarial implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } catch (Exception e) {
-         System.out.println("Error guardarCambiosEscalafonSalarial : " + e.toString());
+         log.warn("Error guardarCambiosEscalafonSalarial : " + e.toString());
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Grupo Salarial, intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
@@ -1651,7 +1654,7 @@ public class ControlEscalafonSalarial implements Serializable {
          }
          return listaEscalafonesSalariales;
       } catch (Exception e) {
-         System.out.println("Error...!! getListaEscalafonesSalariales " + e.toString());
+         log.warn("Error...!! getListaEscalafonesSalariales " + e.toString());
          return null;
       }
    }

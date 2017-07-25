@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEntidadesXDiaInterface {
 
+   private static Logger log = Logger.getLogger(PersistenciaAportesEntidadesXDia.class);
+
     @Override
     public void crear(EntityManager em, AportesEntidadesXDia aporteEntidad) {
         em.clear();
@@ -31,7 +34,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             em.merge(aporteEntidad);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesEntidadesXDia.crear : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.crear : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +50,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             em.merge(aporteEntidad);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesEntidadesXDia.editar : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.editar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +66,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             em.remove(em.merge(aporteEntidad));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesEntidadesXDia.borrar : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.borrar : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +82,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             List<AportesEntidadesXDia> aportesEntidades = query.getResultList();
             return aportesEntidades;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia : " + e.toString());
             return null;
         }
     }
@@ -96,7 +99,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             List<AportesEntidadesXDia> aportesEntidadesDia = query.getResultList();
             return aportesEntidadesDia;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia : " + e.toString());
             return null;
         }
     }
@@ -123,7 +126,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             BigDecimal tarifa = (BigDecimal) query.getSingleResult();
             return tarifa;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaAportesEntidadesXDia.cosultarTarifa : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.cosultarTarifa : " + e.toString());
             return null;
         }
     }

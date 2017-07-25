@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarIbcAutoliquid.class);
 
     @EJB
     PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
@@ -57,7 +60,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
             listTiposEntidades = persistenciaTiposEntidades.buscarTiposEntidadesIBCS(em);
             return listTiposEntidades;
         } catch (Exception e) {
-            System.out.println("Error listTiposEntidadesIBCS Admi : " + e.toString());
+            log.warn("Error listTiposEntidadesIBCS Admi : " + e.toString());
             return null;
         }
     }
@@ -69,7 +72,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
             IbcsAutoliquidaciones = persistenciaIbcsAutoliquidaciones.buscarIbcsAutoliquidacionesTipoEntidadEmpleado(em, secuenciaTE, secuenciaEmpl);
             return IbcsAutoliquidaciones;
         } catch (Exception e) {
-            System.out.println("Error listIBCSAutoliquidaciones Admi : " + e.toString());
+            log.warn("Error listIBCSAutoliquidaciones Admi : " + e.toString());
             return null;
         }
     }
@@ -84,7 +87,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
                 persistenciaIbcsAutoliquidaciones.crear(em, crearIbcsAutoliquidaciones.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en crearCargo Admi : " + e.toString());
+            log.warn("Error en crearCargo Admi : " + e.toString());
         }
     }
 
@@ -98,7 +101,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
                 persistenciaIbcsAutoliquidaciones.editar(em, modificarIbcsAutoliquidaciones.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en modificarCargo Admi : " + e.toString());
+            log.warn("Error en modificarCargo Admi : " + e.toString());
         }
     }
 
@@ -112,7 +115,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
                 persistenciaIbcsAutoliquidaciones.borrar(em, borrarIbcsAutoliquidaciones.get(i));
             }
         } catch (Exception e) {
-            System.out.println("Error en borrarCargo Admi : " + e.toString());
+            log.warn("Error en borrarCargo Admi : " + e.toString());
         }
     }
 
@@ -123,7 +126,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
             listProcesos = persistenciaProcesos.buscarProcesos(em);
             return listProcesos;
         } catch (Exception e) {
-            System.out.println("Error listProcesos Admi : " + e.toString());
+            log.warn("Error listProcesos Admi : " + e.toString());
             return null;
         }
     }
@@ -134,7 +137,7 @@ public class AdministrarIbcAutoliquid implements AdministrarIbcAutoliquidInterfa
             Empleados empl = persistenciaEmpleado.buscarEmpleado(em, secuencia);
             return empl;
         } catch (Exception e) {
-            System.out.println("Error empleadoActual Admi : " + e.toString());
+            log.warn("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }

@@ -30,6 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -42,6 +43,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlVigenciaTipoTrabajador implements Serializable {
+
+   private static Logger log = Logger.getLogger(ControlVigenciaTipoTrabajador.class);
 
    @EJB
    AdministrarVigenciasTiposTrabajadoresInterface administrarVigenciasTiposTrabajadores;
@@ -256,8 +259,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          administrarVigenciasTiposTrabajadores.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
       }
    }
 
@@ -555,7 +558,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
    public void posicionTabla() {
       FacesContext context = FacesContext.getCurrentInstance();
-      System.out.println("Controlador.ControlVigenciaTipoTrabajador.posicionTabla()");
+      log.info("Controlador.ControlVigenciaTipoTrabajador.posicionTabla()");
       Map<String, String> map = context.getExternalContext().getRequestParameterMap();
       String name = map.get("n"); // name attribute of node
       String type = map.get("t"); // type attribute of node
@@ -581,7 +584,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * @param celda Columna de la tabla
     */
    public void cambiarIndice(VigenciasTiposTrabajadores vtt, int celda) {
-      System.out.println("Controlador.ControlVigenciaTipoTrabajador.cambiarIndice()");
+      log.info("Controlador.ControlVigenciaTipoTrabajador.cambiarIndice()");
       if (permitirIndex) {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
@@ -767,8 +770,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Metodo que se encarga de agregar una nueva VigenciasTiposTrabajador
     */
    public void agregarNuevaVTT() {
-      System.out.println("ControlVigenciaTipoTrabajador");
-      System.out.println("Secuencia: " + nuevaVigencia.getSecuencia());
+      log.info("ControlVigenciaTipoTrabajador");
+      log.info("Secuencia: " + nuevaVigencia.getSecuencia());
       if (nuevaVigencia.getFechavigencia() != null && nuevaVigencia.getTipotrabajador().getSecuencia() != null) {//Evalua que los datos no sean nulos ni esten vacios
          if (validarFechasRegistroVTT(1) == true) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -781,7 +784,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             nuevaVigencia.setSecuencia(l);
             nuevaVigencia.setEmpleado(empleado);
             listVTTCrear.add(nuevaVigencia);
-            System.out.println("Secuencia VTT: " + nuevaVigencia.getSecuencia());
+            log.info("Secuencia VTT: " + nuevaVigencia.getSecuencia());
             listaVigenciasTT.add(nuevaVigencia);
             vigenciaTTSeleccionada = listaVigenciasTT.get(listaVigenciasTT.indexOf(nuevaVigencia));
             activarLOV = true;
@@ -1173,7 +1176,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       activarLOV = true;
       vigenciaTTSeleccionada = vtt;
       context.update("form:listaValores");
-      System.out.println("VigenciasTiposTrabajadores: " + vtt.toString());
+      log.info("VigenciasTiposTrabajadores: " + vtt.toString());
       if (tt == 0) {
          tipoActualizacion = tipoAct;
          if (campo == 0) {
@@ -1296,7 +1299,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
 //   public void asignarIndex(Retirados retirados, int dlg, int LND, int tt) {
 //        RequestContext context = RequestContext.getCurrentInstance();
-//      System.out.println("Retirados: " + retirados.toString());
+//      log.info("Retirados: " + retirados.toString());
 //        if (tt == 2) {
 //            if (LND == 0) {
 //                indexRetiro = true;
@@ -1565,25 +1568,25 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Guarda los datos efectuados en el panel retirados
     */
    public void guardarDatosRetiros() {
-      System.out.println("ENTRO guardarDatosRetiros");
+      log.info("ENTRO guardarDatosRetiros");
       if (retiroVigencia.getFecharetiro() != null) {
-         System.out.println("ControlVigenciaTipoTrabajador.guardarDatosPensiones:");
-         System.out.println("Secuencia: " + retiroVigencia.getSecuencia());
+         log.info("ControlVigenciaTipoTrabajador.guardarDatosPensiones:");
+         log.info("Secuencia: " + retiroVigencia.getSecuencia());
          retiroVigencia.setVigenciatipotrabajador(vigenciaTTSeleccionada);
 
          k++;
          k = retiroVigencia.getSecuencia().intValue();
-         System.out.println("K: " + k);
+         log.info("K: " + k);
          l = BigInteger.valueOf(k);
-         System.out.println("L: " + l);
+         log.info("L: " + l);
          retiroVigencia.setSecuencia(l);
-         System.out.println("pensionVigencia.Secuencia: " + retiroVigencia.getSecuencia());
+         log.info("pensionVigencia.Secuencia: " + retiroVigencia.getSecuencia());
          if (operacionRetiro == false) {
             if (banderaLimpiarRetiro == true) {
                administrarVigenciasTiposTrabajadores.borrarRetirado(retiroCopia);
             } else {
-               System.out.println("editar");
-               System.out.println("Secuencia: " + retiroVigencia.getSecuencia());
+               log.info("editar");
+               log.info("Secuencia: " + retiroVigencia.getSecuencia());
                administrarVigenciasTiposTrabajadores.editarRetirado(retiroVigencia);
             }
          } else if (banderaLimpiarRetiro == false) {
@@ -1604,11 +1607,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             estiloPensionadosInput = "position: absolute; left: 12px; top: 310px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;";
             estiloRetiradosMensaje = "position: absolute; left: 440px; top: 310px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible";
          }
-         System.err.println("---------------------DATOS GUARDADOS---------------------------------");
-         System.out.println("Fecha Retiro: " + retiroVigencia.getFecharetiro());
-         System.out.println("Motivo de retiro: " + retiroVigencia.getMotivoretiro().getNombre());
-         System.out.println("Descripcion: " + retiroVigencia.getDescripcion());
-         System.err.println("---------------------------------------------------------------------");
+         log.error("---------------------DATOS GUARDADOS---------------------------------");
+         log.info("Fecha Retiro: " + retiroVigencia.getFecharetiro());
+         log.info("Motivo de retiro: " + retiroVigencia.getMotivoretiro().getNombre());
+         log.info("Descripcion: " + retiroVigencia.getDescripcion());
+         log.error("---------------------------------------------------------------------");
 
          cambioRetiros = false;
          retiroVigencia = new Retirados();
@@ -1629,12 +1632,12 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
          cambiosPagina = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         System.out.println("SALIO GUARDARDATOSRETIROS");
+         log.info("SALIO GUARDARDATOSRETIROS");
 
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegRetiro').show()");
-         System.out.println("SALIO CON ERROR");
+         log.info("SALIO CON ERROR");
       }
    }
 
@@ -1663,25 +1666,25 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Efectua el guardado de los datos cambiados en el panel pensiones
     */
    public void guardarDatosPensiones() {
-      System.out.println("ENTRO guardarDatosPensiones");
+      log.info("ENTRO guardarDatosPensiones");
       if (pensionVigencia.getFechainiciopension() != null && pensionVigencia.getClase().getSecuencia() != null) {
-         System.out.println("ControlVigenciaTipoTrabajador.guardarDatosPensiones:");
-         System.out.println("Secuencia: " + pensionVigencia.getSecuencia());
+         log.info("ControlVigenciaTipoTrabajador.guardarDatosPensiones:");
+         log.info("Secuencia: " + pensionVigencia.getSecuencia());
          pensionVigencia.setVigenciatipotrabajador(vigenciaTTSeleccionada);
 
          k++;
          k = pensionVigencia.getSecuencia().intValue();
-         System.out.println("K: " + k);
+         log.info("K: " + k);
          l = BigInteger.valueOf(k);
-         System.out.println("L: " + l);
+         log.info("L: " + l);
          pensionVigencia.setSecuencia(l);
-         System.out.println("pensionVigencia.Secuencia: " + pensionVigencia.getSecuencia());
+         log.info("pensionVigencia.Secuencia: " + pensionVigencia.getSecuencia());
          if (operacionPension == false) {
             if (banderaLimpiarPension == true) {
                administrarVigenciasTiposTrabajadores.borrarPensionado(pensionCopia);
             } else {
-               System.out.println("editar");
-               System.out.println("Secuencia: " + pensionVigencia.getSecuencia());
+               log.info("editar");
+               log.info("Secuencia: " + pensionVigencia.getSecuencia());
                administrarVigenciasTiposTrabajadores.editarPensionado(pensionVigencia);
             }
          } else if (banderaLimpiarPension == false) {
@@ -1735,11 +1738,11 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
          cambiosPagina = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         System.out.println("SALIO");
+         log.info("SALIO");
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegPensionado').show()");
-         System.out.println("SALIO CON ERROR");
+         log.info("SALIO CON ERROR");
       }
    }
 
@@ -1773,7 +1776,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    public void dialogoRetiros() {
       RequestContext context = RequestContext.getCurrentInstance();
       contarRegistrosMotivosRetiros();
-      System.out.println("dialogoRetiros.Motivosretiros: " + lovMotivosRetiros);
+      log.info("dialogoRetiros.Motivosretiros: " + lovMotivosRetiros);
       context.reset("formLovs:RetirosDialogo");
       RequestContext.getCurrentInstance().execute("PF('RetirosDialogo').show()");
    }
@@ -1783,8 +1786,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     */
    public void actualizarMotivoRetiro() {
       banderaCambiosRetirados();
-      System.err.println("Estoy en actualizarMotivoRetiro");
-      System.out.println("retiroVigencia: " + retiroVigencia);
+      log.error("Estoy en actualizarMotivoRetiro");
+      log.info("retiroVigencia: " + retiroVigencia);
       retiroVigencia.setMotivoretiro(motivoRetiroSeleccionado);
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
@@ -1809,7 +1812,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Cancela la seleccion del motivo retiro
     */
    public void cancelarMotivoRetiro() {
-      System.out.println("cancelarMotivoRetiro.Motivosretiros: " + lovMotivosRetiros);
+      log.info("cancelarMotivoRetiro.Motivosretiros: " + lovMotivosRetiros);
       motivoRetiroSeleccionado = null;
       filtradoMotivosRetiros = null;
       aceptar = true;
@@ -2086,15 +2089,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     */
    public void banderaCambiosRetirados() {
       if (cambioRetiros == false) {
-         System.out.println("ControlVigenciaTipoTrabajador.banderaCambiosRetirados()");
-         System.out.println("Secuencia: " + retiroVigencia.getSecuencia());
+         log.info("ControlVigenciaTipoTrabajador.banderaCambiosRetirados()");
+         log.info("Secuencia: " + retiroVigencia.getSecuencia());
          cambioRetiros = true;
          banderaEliminarRetiro = false;
       }
       cambiosPagina = false;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      System.out.println("paso por banderaCambiosRetirados() y salio Bien");
+      log.info("paso por banderaCambiosRetirados() y salio Bien");
    }
 
    /**
@@ -2103,8 +2106,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     */
    public void banderaCambiosPensionados() {
       if (cambioPension == false) {
-         System.out.println("ControlVigenciaTipoTrabajador.banderaCambiosPensionados()");
-         System.out.println("Secuencia: " + pensionVigencia.getSecuencia());
+         log.info("ControlVigenciaTipoTrabajador.banderaCambiosPensionados()");
+         log.info("Secuencia: " + pensionVigencia.getSecuencia());
          cambioPension = true;
          banderaEliminarPension = false;
       }
@@ -2152,8 +2155,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * no
     */
    public void validarRegistroSeleccionadoPensionado() {
-      System.out.println("ENTRO validarRegistroSeleccionadoPensionado");
-      System.out.println("Secuencia: " + pensionVigencia.getSecuencia());
+      log.info("ENTRO validarRegistroSeleccionadoPensionado");
+      log.info("Secuencia: " + pensionVigencia.getSecuencia());
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("form:fechaPensionInicio");
       context.reset("form:fechaPensionFinal");
@@ -2185,7 +2188,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
              * RequestContext.getCurrentInstance().execute("PF('guardarNuevoRegistroPensionado').show()");
           */
       }
-      System.out.println("SALIO validarRegistroSeleccionadoPensionado");
+      log.info("SALIO validarRegistroSeleccionadoPensionado");
    }
 
    /**
@@ -2200,7 +2203,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Guardar el nuevo registro de pensionado
     */
    public void guardarNuevoRegistroPension() {
-      System.out.println("ENTRO guardarNuevoRegistroPension()");
+      log.info("ENTRO guardarNuevoRegistroPension()");
       guardarCambiosVTT();
       almacenarPensionado = true;
    }
@@ -2214,15 +2217,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * Guardado general de la pagina
     */
    public void guardarGeneral() {
-      System.out.println("ENTRO GUARDADO GENERAL");
+      log.info("ENTRO GUARDADO GENERAL");
       if (cambiosPagina == false) {
          if ((almacenarRetirado == true) && (banderaEliminarRetiro == false)) {
-            System.out.println("ENTRO IF ALMACENAR RETIRADOS");
+            log.info("ENTRO IF ALMACENAR RETIRADOS");
             guardarDatosRetiros();
          }
 
          if ((almacenarPensionado == true) && (banderaEliminarPension == false)) {
-            System.out.println("ENTRO IF ALMACENAR PENSIONADO");
+            log.info("ENTRO IF ALMACENAR PENSIONADO");
             guardarDatosPensiones();
          }
 
@@ -2230,7 +2233,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             guardarCambiosVTT();
          }
       }
-      System.out.println("SALIO guardarGeneral");
+      log.info("SALIO guardarGeneral");
    }
 
    public void verificarRastro() {
@@ -2303,7 +2306,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          tablaC = (DataTable) c.getViewRoot().findComponent("form:datosVTTEmpleado");
          tablaC.setSelection(vigenciaTTSeleccionada);
       }
-      //System.out.println("vigenciaTTSeleccionada: " + vigenciaTTSeleccionada);
+      //log.info("vigenciaTTSeleccionada: " + vigenciaTTSeleccionada);
    }
 
    public void anularLOV() {

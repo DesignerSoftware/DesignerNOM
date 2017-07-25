@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
@@ -22,6 +23,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaContratos implements PersistenciaContratosInterface {
+
+   private static Logger log = Logger.getLogger(PersistenciaContratos.class);
 
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
@@ -37,7 +40,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          em.persist(contratos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaContratos.crear: " + e);
+         log.error("Error PersistenciaContratos.crear: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +56,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          em.merge(contratos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaContratos.editar: " + e);
+         log.error("Error PersistenciaContratos.editar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +72,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          em.remove(em.merge(contratos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaContratos.borrar: " + e);
+         log.error("Error PersistenciaContratos.borrar: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +81,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
 
    @Override
    public List<Contratos> buscarContratos(EntityManager em) {
-      System.out.println("Entro en buscarContratos(), em = " + em);
+      log.error("Entro en buscarContratos(), em = " + em);
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -87,7 +90,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> contratoLista = (List<Contratos>) query.getResultList();
          return contratoLista;
       } catch (Exception e) {
-         System.out.println("Error buscarContratos : " + e);
+         log.error("Error buscarContratos : " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -105,7 +108,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          Contratos contrato = (Contratos) query.getSingleResult();
          return contrato;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaContratos.buscarContratoSecuencia() e: " + e);
+         log.error("Persistencia.PersistenciaContratos.buscarContratoSecuencia() e: " + e);
          Contratos contrato = null;
          return contrato;
       }
@@ -120,7 +123,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> listaContratos = query.getResultList();
          return listaContratos;
       } catch (Exception e) {
-         System.out.println("Persistencia.PersistenciaContratos.lovContratos() e: " + e);
+         log.error("Persistencia.PersistenciaContratos.lovContratos() e: " + e);
          return null;
       }
    }
@@ -138,7 +141,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error en reproducirContrato: " + e);
+         log.error("Error en reproducirContrato: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -154,7 +157,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         System.out.println("Error buscarContratosPorUsuario PersistenciaContratos : " + e);
+         log.error("Error buscarContratosPorUsuario PersistenciaContratos : " + e);
          return null;
       }
    }

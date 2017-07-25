@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarIBCS implements AdministrarIBCSInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarIBCS.class);
 
     @EJB
     PersistenciaIBCSInterface persistenciaIBCS;
@@ -49,7 +52,7 @@ public class AdministrarIBCS implements AdministrarIBCSInterface {
         try {
             listIbcsPorEmpleado = persistenciaIBCS.buscarIbcsPorEmpleado(em, secEmpleado);
         } catch (Exception e) {
-            System.out.println("Error en Administrar Ibcs ERROR " + e);
+            log.warn("Error en Administrar Ibcs ERROR " + e);
             listIbcsPorEmpleado = null;
         }
         return listIbcsPorEmpleado;
@@ -61,7 +64,7 @@ public class AdministrarIBCS implements AdministrarIBCSInterface {
             empleado = persistenciaEmpleados.buscarEmpleadoSecuencia(em, secuencia);
             return empleado;
         } catch (Exception e) {
-            System.out.println("AdministrarVigenciasFormasPagos buscarEmpleado error" + e);
+            log.warn("AdministrarVigenciasFormasPagos buscarEmpleado error" + e);
             empleado = null;
             return empleado;
         }

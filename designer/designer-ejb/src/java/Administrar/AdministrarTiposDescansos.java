@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposDescansos implements AdministrarTiposDescansosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposDescansos.class);
 
     @EJB
     PersistenciaTiposDescansosInterface persistenciaTiposDescansos;
@@ -42,7 +45,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
     @Override
     public void modificarTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
         for (int i = 0; i < listaTiposDescansos.size(); i++) {
-            System.out.println("Administrar Modificando...");
+            log.warn("Administrar Modificando...");
             persistenciaTiposDescansos.editar(em, listaTiposDescansos.get(i));
         }
     }
@@ -50,7 +53,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
     @Override
     public void borrarTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
         for (int i = 0; i < listaTiposDescansos.size(); i++) {
-            System.out.println("Administrar Borrando...");
+            log.warn("Administrar Borrando...");
             persistenciaTiposDescansos.borrar(em, listaTiposDescansos.get(i));
         }
     }
@@ -58,7 +61,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
     @Override
     public void crearTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
         for (int i = 0; i < listaTiposDescansos.size(); i++) {
-            System.out.println("Administrar Creando...");
+            log.warn("Administrar Creando...");
             persistenciaTiposDescansos.crear(em, listaTiposDescansos.get(i));
         }
     }
@@ -80,10 +83,10 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
     public BigInteger contarVigenciasJornadasTipoDescanso(BigInteger secuenciaTiposDescansos) {
         BigInteger contarVigenciasJornadasTipoDescanso;
         try {
-            System.out.println("Secuencia Tipos Jornadas" + secuenciaTiposDescansos);
+            log.warn("Secuencia Tipos Jornadas" + secuenciaTiposDescansos);
             return contarVigenciasJornadasTipoDescanso = persistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso(em, secuenciaTiposDescansos);
         } catch (Exception e) {
-            System.err.println("ERROR AdministrarTiposDescansos contarVigenciasJornadasTipoDescanso ERROR :" + e);
+            log.error("ERROR AdministrarTiposDescansos contarVigenciasJornadasTipoDescanso ERROR :" + e);
             return null;
         }
     }

@@ -26,6 +26,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 
 /**
  * Clase Stateful. <br>
@@ -36,6 +37,8 @@ import javax.persistence.EntityManager;
  */
 @Stateful
 public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface {
+
+   private static Logger log = Logger.getLogger(AdministrarTiposSueldos.class);
 
    //--------------------------------------------------------------------------    
    //ATRIBUTOS
@@ -121,7 +124,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
          List<TiposSueldos> lista = persistenciaTiposSueldos.buscarTiposSueldos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaTiposSueldos Admi : " + e.toString());
+         log.warn("Error listaTiposSueldos Admi : " + e.toString());
          return null;
       }
    }
@@ -133,7 +136,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTiposSueldos.crear(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearTiposSueldos Admi : " + e.toString());
+         log.warn("Error crearTiposSueldos Admi : " + e.toString());
       }
    }
 
@@ -144,7 +147,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTiposSueldos.editar(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarTiposSueldos Admi : " + e.toString());
+         log.warn("Error editarTiposSueldos Admi : " + e.toString());
       }
    }
 
@@ -155,7 +158,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTiposSueldos.borrar(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarTiposSueldos Admi : " + e.toString());
+         log.warn("Error borrarTiposSueldos Admi : " + e.toString());
       }
    }
    ////TiposSueldos
@@ -164,11 +167,11 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
    @Override
    public List<TSFormulasConceptos> listaTSFormulasConceptosParaTipoSueldoSecuencia(BigInteger secTipoSueldo) {
       try {
-         System.out.println("AdministrarTiposSueldos.listaTSFormulasConceptosParaTipoSueldoSecuencia()");
+         log.warn("AdministrarTiposSueldos.listaTSFormulasConceptosParaTipoSueldoSecuencia()");
          List<TSFormulasConceptos> lista = persistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo(em, secTipoSueldo);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaTSFormulasConceptosParaTipoSueldoSecuencia Admi : " + e.toString());
+         log.warn("Error listaTSFormulasConceptosParaTipoSueldoSecuencia Admi : " + e.toString());
          return null;
       }
    }
@@ -183,7 +186,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTSFormulasConceptos.crear(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearTSFormulasConceptos Admi : " + e.toString());
+         log.warn("Error crearTSFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -197,7 +200,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTSFormulasConceptos.editar(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarTSFormulasConceptos Admi : " + e.toString());
+         log.warn("Error editarTSFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -228,7 +231,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTSFormulasConceptos.borrar(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarTSFormulasConceptos Admi : " + e.toString());
+         log.warn("Error borrarTSFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -237,10 +240,10 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
    @Override
    public List<TSGruposTiposEntidades> listaTSGruposTiposEntidadesParaTipoSueldoSecuencia(BigInteger secTipoSueldo) {
       try {
-         System.out.println("AdministrarTiposSueldos.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia()");
+         log.warn("AdministrarTiposSueldos.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia()");
          return persistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo(em, secTipoSueldo);
       } catch (Exception e) {
-         System.out.println("Error listaTSGruposTiposEntidadesParaTipoSueldoSecuencia Admi : " + e.toString());
+         log.warn("Error listaTSGruposTiposEntidadesParaTipoSueldoSecuencia Admi : " + e.toString());
          return null;
       }
    }
@@ -252,7 +255,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTSGruposTiposEntidades.crear(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearTSGruposTiposEntidades Admi : " + e.toString());
+         log.warn("Error crearTSGruposTiposEntidades Admi : " + e.toString());
       }
    }
 
@@ -263,7 +266,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTSGruposTiposEntidades.editar(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarTSGruposTiposEntidades Admi : " + e.toString());
+         log.warn("Error editarTSGruposTiposEntidades Admi : " + e.toString());
       }
    }
 
@@ -274,7 +277,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTSGruposTiposEntidades.borrar(em, listaTS.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarTSGruposTiposEntidades Admi : " + e.toString());
+         log.warn("Error borrarTSGruposTiposEntidades Admi : " + e.toString());
       }
    }
    ////TSGruposTiposEntidades
@@ -282,11 +285,11 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
    @Override
    public List<TEFormulasConceptos> listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(BigInteger secTSGrupo) {
       try {
-         System.out.println("AdministrarTiposSueldos.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia()");
+         log.warn("AdministrarTiposSueldos.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia()");
          List<TEFormulasConceptos> lista = persistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad(em, secTSGrupo);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia Admi : " + e.toString());
+         log.warn("Error listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia Admi : " + e.toString());
          return null;
       }
    }
@@ -299,7 +302,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTEFormulasConceptos.crear(em, listaTE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error crearTEFormulasConceptos Admi : " + e.toString());
+         log.warn("Error crearTEFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -314,7 +317,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTEFormulasConceptos.editar(em, listaTE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error editarTEFormulasConceptos Admi : " + e.toString());
+         log.warn("Error editarTEFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -326,7 +329,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
             persistenciaTEFormulasConceptos.borrar(em, listaTE.get(i));
          }
       } catch (Exception e) {
-         System.out.println("Error borrarTEFormulasConceptos Admi : " + e.toString());
+         log.warn("Error borrarTEFormulasConceptos Admi : " + e.toString());
       }
    }
 
@@ -348,7 +351,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
          List<Formulas> lista = persistenciaFormulas.buscarFormulas(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovFormulas Admi : " + e.toString());
+         log.warn("Error lovFormulas Admi : " + e.toString());
          return null;
       }
    }
@@ -359,7 +362,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
          List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovConceptos Admi : " + e.toString());
+         log.warn("Error lovConceptos Admi : " + e.toString());
          return null;
       }
    }
@@ -370,7 +373,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
          List<Grupostiposentidades> lista = persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(em);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovGruposTiposEntidades Admi : " + e.toString());
+         log.warn("Error lovGruposTiposEntidades Admi : " + e.toString());
          return null;
       }
    }
@@ -381,7 +384,7 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
          List<TiposEntidades> lista = persistenciaTiposEntidades.buscarTiposEntidadesPorSecuenciaGrupo(em, secGrupo);
          return lista;
       } catch (Exception e) {
-         System.out.println("Error lovTiposEntidades Admi : " + e.toString());
+         log.warn("Error lovTiposEntidades Admi : " + e.toString());
          return null;
       }
    }
