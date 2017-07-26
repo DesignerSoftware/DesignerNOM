@@ -109,10 +109,10 @@
                      <legend style="font-size: 13px; color: blue;"><strong>#{msg['acumulados']}</strong></legend>
 
                      <p:dataTable id="datosEmplAcumulados" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 2000px; position: absolute;"                           
-                                  value="#{controlEmplAcumulados.listVWAcumuladosPorEmpleado}" scrollHeight="#{controlEmplAcumulados.altoTabla}" 
+                                  value="#{controlEmplAcumulados.model}" scrollHeight="#{controlEmplAcumulados.altoTabla}" 
                                   filteredValue="#{controlEmplAcumulados.filtrarVWAcumuladosPorEmpleado}" emptyMessage="#{msg['vacio']}"
-                                  selection="#{controlEmplAcumulados.acumuladosPorEmpleadoSeleccionado}" selectionMode="single" rows="#{controlEmplAcumulados.altoTablaReg}"
-                                  editable="true" editMode="cell" scrollable="true" scrollWidth="830" widgetVar="datosEmplAcumulados"
+                                  selection="#{controlEmplAcumulados.acumuladosPorEmpleadoSeleccionado}" selectionMode="single" rows="13"
+                                  editable="true" editMode="cell" scrollable="true" scrollWidth="830" widgetVar="datosEmplAcumulados" lazy="true"
                                   paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}">
                         <p:ajax event="filter" listener="#{controlEmplAcumulados.eventoFiltrar()}"/>
 
@@ -125,7 +125,7 @@
                               <f:facet  name="output"><h:outputText value="#{info.concepto_Codigo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off"  value="#{info.concepto_Codigo}" id="editarConceptoCodigo" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 0)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarConceptoCodigo"/>
                                  </p:inputText>
@@ -145,7 +145,7 @@
                               <f:facet name="output"><h:outputText value="#{info.concepto_Descripcion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off"  value="#{info.concepto_Descripcion}" id="editarConceptoDescripcion" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 1)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="@this"/>
                                  </p:inputText>
@@ -170,7 +170,7 @@
                               </f:facet>  
                               <f:facet  name="input">
                                  <p:inputText autocomplete="off" value="#{info.fechaDesde}" id="editarFechaDesde" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 2)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 2)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"   update="editarFechaDesde"/>
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -195,7 +195,7 @@
                               </f:facet>  
                               <f:facet  name="input">
                                  <p:inputText autocomplete="off"  value="#{info.fechaPago}" id="editarfechaPago" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 3)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarfechaPago"/>
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -216,7 +216,7 @@
                               <f:facet name="output"><h:outputText value="#{info.unidades}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.unidades}" id="editarUnidades" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 4)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 4)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarUnidades"/>
                                  </p:inputText>
@@ -236,7 +236,7 @@
                               <f:facet name="output"><h:outputText value="#{info.valor}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.valor}" id="editarValor" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 5)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 5)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarValor"/>
                                  </p:inputText>
@@ -256,7 +256,7 @@
                               <f:facet name="output"><h:outputText value="#{info.saldo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.saldo}" id="editarSaldo" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 6)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 6)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"   update="editarSaldo"/>
                                  </p:inputText>
@@ -276,7 +276,7 @@
                               <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.tipo}" id="editarTipo" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 7)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 7)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarTipo"/>
                                  </p:inputText>
@@ -296,7 +296,7 @@
                               <f:facet name="output"><h:outputText value="#{info.corteProceso.proceso.descripcion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.corteProceso.proceso.descripcion}" id="editarCorteProceso" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 8)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 8)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCorteProceso"/>
                                  </p:inputText>
@@ -316,7 +316,7 @@
                               <f:facet name="output"><h:outputText value="#{info.nit_nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.nit_nombre}" id="editarTercero" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 9)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 9)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarTercero"/>
                                  </p:inputText>
@@ -336,7 +336,7 @@
                               <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.formula.nombrelargo}" id="editarFormula" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 10)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 10)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarFormula"/>
                                  </p:inputText>
@@ -356,7 +356,7 @@
                               <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.cuentaD.codigo}" id="editarDebito" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 11)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 11)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarDebito"/>
                                  </p:inputText>
@@ -376,7 +376,7 @@
                               <f:facet name="output"><h:outputText value="#{info.centroCostoD.nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.centroCostoD.nombre}" id="editarCentroCostoDebito" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 12)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 12)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCentroCostoDebito"/>
                                  </p:inputText>
@@ -396,7 +396,7 @@
                               <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.cuentaC.codigo}" id="editarCredito" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 13)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 13)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCredito"/>
                                  </p:inputText>
@@ -417,7 +417,7 @@
                               <f:facet name="output"><h:outputText value="#{info.centroCostoC.nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.centroCostoC.nombre}" id="editarCentroCostoCredito" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 14)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 14)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarCentroCostoCredito"/>
                                  </p:inputText>
@@ -441,7 +441,7 @@
                               </f:facet>  
                               <f:facet  name="input">
                                  <p:inputText autocomplete="off" value="#{info.ultimaModificacion}" id="editarUltimaModificacion" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 15)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 15)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarUltimaModificacion"/>
                                     <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>                                            
@@ -462,7 +462,7 @@
                               <f:facet name="output"><h:outputText value="#{info.observacionesMovedad}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.observacionesMovedad}" id="editarObservaciones" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 16)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 16)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarObservaciones"/>
                                  </p:inputText>
@@ -482,7 +482,7 @@
                               <f:facet name="output"><h:outputText value="#{info.motivoNovedad}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.motivoNovedad}" id="editarMotivoNovedad" style="text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 17)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(info, 17)}" process="@this"
                                             onstart="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarMotivoNovedad"/>
                                  </p:inputText>
@@ -498,7 +498,7 @@
                               <h:outputText id="headerDetalle" value="..."/>
                               <p:tooltip  for="headerDetalle" value="Detalles del Concepto."/>
                            </f:facet> 
-                           <p:commandButton id="selectButton" icon="ui-icon-search" style="width: 16px; height: 16px; margin: 0px;" actionListener="#{controlEmplAcumulados.cambiarIndice(indice, 18)}" title="Ver detalle"
+                           <p:commandButton id="selectButton" icon="ui-icon-search" style="width: 16px; height: 16px; margin: 0px;" actionListener="#{controlEmplAcumulados.cambiarIndice(info, 18)}" title="Ver detalle"
                                             onblur="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"  
                                             onfocus="PF('datosEmplAcumulados').unselectAllRows();PF('datosEmplAcumulados').selectRow(#{indice});"/>  
                            <f:facet name="footer">

@@ -22,25 +22,42 @@ import javax.persistence.Query;
 public class PersistenciaVWAcumulados implements PersistenciaVWAcumuladosInterface {
 
    private static Logger log = Logger.getLogger(PersistenciaVWAcumulados.class);
-    /**
+   /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
-*/
-
+     */
     @Override
-    public List<VWAcumulados> buscarAcumuladosPorEmpleado(EntityManager em, BigInteger secuencia) {
+    public List<VWAcumulados> buscarAcumuladosPorEmpleado(EntityManager em, BigInteger secEmpleado) {
         try {
             em.clear();
             Query query = em.createQuery("SELECT vwa FROM VWAcumulados vwa WHERE vwa.empleado.secuencia = :secuenciaEmpl ORDER BY vwa.fechaPago DESC");
-            query.setParameter("secuenciaEmpl", secuencia);
+            query.setParameter("secuenciaEmpl", secEmpleado);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<VWAcumulados> VWAcumuladosPorEmpleado = query.getResultList();
             return VWAcumuladosPorEmpleado;
         } catch (Exception e) {
             log.error("Error en Persistencia VWAcumulados " + e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public Long getTotalRegistros(EntityManager em, BigInteger secuencia) {
+        Long count;
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT count(vwa) FROM VWAcumulados vwa WHERE vwa.empleado.secuencia = :secuenciaEmpl ORDER BY vwa.fechaPago DESC");
+            query.setParameter("secuenciaEmpl", secuencia);
+            List lista = query.getResultList();
+            count = (Long) lista.get(0);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            return count;
+        } catch (Exception e) {
+            log.error("Error en getTotalRegistros :" + e.getMessage());
+            count = Long.valueOf(0);
+            return count;
         }
     }
 }

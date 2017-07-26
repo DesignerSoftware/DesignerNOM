@@ -5,477 +5,427 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
->
-   <h:head>
-   </h:head>
-   <h:body>
-      <ui:composition template="/template.xhtml">
-         <ui:define name="body">
-            <script type="text/javascript">
-               $(window).load(function () {
-                  foco('form:guardarRapido');
-               });
-               function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
+      >
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
                };
-            </script>
-            <div class="loader"/>
-            <style>
-               .ui-datatable-scrollable-body .ui-widget-content {
-                  height: 18px !important;
-               }
-            </style>
-            <h:form id="form">
-               <p:growl id="growl" showDetail="true"/>
-               <p:panel  id="PanelTotal" header="Detalles de la Liquidación" styleClass="panelTotal">
+                </script>
+                <div class="loader"/>
+                <style>
+                    .ui-datatable-scrollable-body .ui-widget-content {
+                        height: 18px !important;
+                    }
+                </style>
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
+                    <p:panel  id="PanelTotal" header="Detalles de la Liquidación" styleClass="panelTotal">
 
-                  <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
 
-                        <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this"/>
-                        <p:tooltip style="" for="guardarRapido" value="Guardar"/>
+                                <p:commandButton id="guardarRapido" disabled="true" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="Guardar"/>
 
-                        <p:commandButton id="editar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/editar.png);"
-                                         actionListener="#{controlLiquidacionesLogs.editarCelda()}"  process="@this"/>
-                        <p:tooltip style="" for="editar" value="Editar"/>
+                                <p:commandButton id="editar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="Editar"/>
 
-                        <p:separator style="position: relative; top: -9px;"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
-                        <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="Lista de Valores"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
-                                         actionListener="#{controlLiquidacionesLogs.activarCtrlF11()}"  process="@this"/>
-                        <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator style="position: relative; top: -9px;"/>
+                                <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
-                                         actionListener="#{controlLiquidacionesLogs.exportXLS()}"  ajax="false"/>
-                        <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="Exportar a XLS"/>
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
-                                         actionListener="#{controlLiquidacionesLogs.limpiarNuevoLiquidacionesLogs()}"  ajax="false">
-                           <p:dataExporter type="xml"  target=":formExportar:datosLiquidacionesLogsExportar" fileName="LIQUIDACIONESLOGS" encoding="UTF-8"/> 
-                        </p:commandButton> 
-                        <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.limpiarNuevoLiquidacionesLogs()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosLiquidacionesLogsExportar" fileName="LIQUIDACIONESLOGS" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="Exportar a XML"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
-                                         actionListener="#{controlLiquidacionesLogs.exportPDF()}" ajax="false"/>
-                        <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
-                        <p:tooltip style="" for="insertar" value="Nuevo Clase Pension"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="Nuevo Clase Pension"/>
 
-                        <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  process="@this"/>  
-                        <p:tooltip style="" for="eliminar" value="Eliminar Clase Pension"/>
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="Eliminar Clase Pension"/>
 
-                        <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
-                        <p:tooltip style="" for="duplicar" value="Duplicar Clase Pension"/>
-                        <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
-                                         actionListener="#{controlLiquidacionesLogs.verificarRastro()}" process="@this"/>  
-                        <p:tooltip style="" for="rastro" value="Rastro"/>
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="Duplicar Clase Pension"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="Rastro"/>
 
-                        <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="refrescar" value="" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                         actionListener="#{controlLiquidacionesLogs.cancelarModificacion()}" process="@this"/>  
-                        <p:tooltip  for="refrescar" value="refrescar"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="refrescar" value="" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="refrescar"/>
 
-                        <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlLiquidacionesLogs.salir()}" process="@this"/>  
-                        <p:tooltip  for="salir" value="Salir"/>
-                     </p:toolbarGroup>  
-                  </p:toolbar>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 actionListener="#{controlLiquidacionesLogs.salir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="Salir"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
-                     <h:outputText id="nombrevariable" value="#{controlLiquidacionesLogs.nombreVariable}" 
-                                   style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 10px;"/>
-                     <h:outputText id="nombredato" value="#{controlLiquidacionesLogs.nombreDato}"
-                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 20px; top: 1px;"/>
+                                             <h:outputText id="nombrevariable" value="#{controlLiquidacionesLogs.nombreVariable}" 
+                                                           style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 10px;"/>
+                                             <h:outputText id="nombredato" value="#{controlLiquidacionesLogs.nombreDato}"
+                                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 20px; top: 1px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 105px; left: 10px; height: 383px; width: 830px; border-radius: 10px; text-align: left; padding-top: 0px !important;">
-                     <legend style="font-size: 13px; color: blue;"><strong>Detalles de Liquidación</strong></legend>
+                        <fieldset style="position: absolute; top: 105px; left: 10px; height: 383px; width: 830px; border-radius: 10px; text-align: left; padding-top: 0px !important;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Detalles de Liquidación</strong></legend>
 
-                     <p:dataTable id="datosLiquidacionesLogs" widgetVar="datosLiquidacionesLogs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"
-                                  style="width: 1000px; position: absolute;" value="#{controlLiquidacionesLogs.listLiquidacionesLogs}" scrollable="true" scrollWidth="820"
+                            <p:dataTable id="datosLiquidacionesLogs" lazy="true" widgetVar="datosLiquidacionesLogs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"
+                                         style="width: 1000px; position: absolute;" value="#{controlLiquidacionesLogs.modelEmpleados}" scrollable="true" scrollWidth="820"
                                   filteredValue="#{controlLiquidacionesLogs.filtrarLiquidacionesLogs}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                  selection="#{controlLiquidacionesLogs.liquidacionLogSeleccionada}" selectionMode="single" rows="#{controlLiquidacionesLogs.tamanoReg}" paginator="true"
-                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                                  selection="#{controlLiquidacionesLogs.liquidacionLogSeleccionada}" selectionMode="single" rows="15" paginator="true"
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
                                   currentPageReportTemplate="{totalPages}" scrollHeight="#{controlLiquidacionesLogs.tamano}">
-                        <!--editable="true" editMode="cell"-->
-                        <!--liveScroll="true"-->
-                        <!--scrollRows="14"-->
-                        <!--scrollHeight="#/{controlLiquidacionesLogs.tamano}"-->
+                                <!--editable="true" editMode="cell"-->
+                                <!--liveScroll="true"-->
+                                <!--scrollRows="14"-->
+                                <!--scrollHeight="#/{controlLiquidacionesLogs.tamano}"-->
 
-                        <p:ajax event="filter" listener="#{controlLiquidacionesLogs.eventoFiltrar()}"/>
-                        <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.cambiarIndiceDefault()}"/>
+                                <p:ajax event="filter" listener="#{controlLiquidacionesLogs.eventoFiltrar()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.cambiarIndiceDefault()}"/>
 
-                        <p:column headerText="F Desde" sortBy="#{info.fechadesde}" filterBy="#{info.fechadesde}" filterMatchMode="contains"
-                                  id="fechaInicial" width="70" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                   
-                           <!--                           <p:cellEditor> 
-                                                         <f:facet name="output">-->
-                           <h:outputText value="#{info.fechadesde}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText>
-                           <!--                              </f:facet>  
-                                                         <f:facet name="input">
-                                                            <h:inputText value="#/{info.fechadesde}" disabled="true" style="height: 16px; width: 90px; text-transform: uppercase;">
-                                                               <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                            </h:inputText>
-                                                         </f:facet>  
-                                                      </p:cellEditor>-->
-                        </p:column>
+                                <p:column headerText="F Desde" sortBy="#{info.fechadesde}" filterBy="#{info.fechadesde}" filterMatchMode="contains"
+                                          id="fechaInicial" width="70" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                   
+                                    <h:outputText value="#{info.fechadesde}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
 
-                        <p:column headerText="F Hasta" sortBy="#{info.fechahasta}" filterBy="#{info.fechahasta}" filterMatchMode="contains" 
-                                  id="fechaFinal" width="70" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                                  
-                           <!--                           <p:cellEditor> 
-                                                         <f:facet name="output">-->
-                           <h:outputText value="#{info.fechahasta}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
-                           </h:outputText>
-                           <!--                              </f:facet>  
-                                                         <f:facet name="input">
-                                                            <h:inputText value="#/{info.fechahasta}" disabled="true" style="height: 16px; width: 90px; text-transform: uppercase;">
-                                                               <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                            </h:inputText>
-                                                         </f:facet>  
-                                                      </p:cellEditor>-->
-                        </p:column>
+                                <p:column headerText="F Hasta" sortBy="#{info.fechahasta}" filterBy="#{info.fechahasta}" filterMatchMode="contains" 
+                                          id="fechaFinal" width="70" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                                  
+                                    <h:outputText value="#{info.fechahasta}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
 
-                        <p:column headerText="Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}"
-                                  filterMatchMode="contains" id="empleado"
-                                  filterStyle="display: none; visibility: hidden;">                                  
-                           <!--<p:cellEditor>-->  
-                           <!--<f:facet name="output">-->
-                           <h:outputText style="text-transform: uppercase;" value="#{info.empleado.persona.nombreCompleto}"/>
-                           <!--</f:facet>-->
-                           <!--                              <f:facet name="input">
-                           <p:inputText autocomplete="off" value="#/{info.empleado.persona.nombreCompleto}" disabled="true" maxlength="50"
-                                        id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"/>
-                        </f:facet>  
-                     </p:cellEditor>-->
-                        </p:column>
+                                <p:column headerText="Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}"
+                                          filterMatchMode="contains" id="empleado"
+                                          filterStyle="display: none; visibility: hidden;">                                  
+                                    <h:outputText style="text-transform: uppercase;" value="#{info.empleado.persona.nombreCompleto}"/>
+                                </p:column>
 
-                        <p:column headerText="Operando" sortBy="#{info.operando.nombre}" filterBy="#{info.operando.nombre}" filterMatchMode="contains"
-                                  id="operando" width="270" filterStyle="display: none; visibility: hidden;">                                  
-                           <!--<p:cellEditor>-->  
-                           <!--<f:facet name="output">-->
-                           <h:outputText style="text-transform: uppercase;" value="#{info.operando.nombre}"/>
-                           <!--                              </f:facet>
-                                                         <f:facet name="input">
-                                                            <p:inputText autocomplete="off" value="#/{info.operando.nombre}" maxlength="50" disabled="true" id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                            </p:inputText>
-                                                         </f:facet>  
-                                                      </p:cellEditor>-->
-                        </p:column>
+                                <p:column headerText="Operando" sortBy="#{info.operando.nombre}" filterBy="#{info.operando.nombre}" filterMatchMode="contains"
+                                          id="operando" width="270" filterStyle="display: none; visibility: hidden;">                                  
+                                    <h:outputText style="text-transform: uppercase;" value="#{info.operando.nombre}"/>
+                                </p:column>
 
-                        <p:column headerText="Proceso" sortBy="#{info.proceso.descripcion}" filterBy="#{info.proceso.descripcion}" filterMatchMode="contains" id="proceso"
-                                  width="190" filterStyle="display: none; visibility: hidden;">                                  
-                           <!--                           <p:cellEditor>  
-                                                         <f:facet name="output">-->
-                           <h:outputText style="text-transform: uppercase;" value="#{info.proceso.descripcion}"/>
-                           <!--                              </f:facet>
-                                                         <f:facet name="input">
-                                                            <p:inputText autocomplete="off" value="#/{info.proceso.descripcion}" disabled="true" maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                            </p:inputText>
-                                                         </f:facet>  
-                                                      </p:cellEditor>-->
-                        </p:column>
+                                <p:column headerText="Proceso" sortBy="#{info.proceso.descripcion}" filterBy="#{info.proceso.descripcion}" filterMatchMode="contains" id="proceso"
+                                          width="190" filterStyle="display: none; visibility: hidden;">                                  
+                                    <h:outputText style="text-transform: uppercase;" value="#{info.proceso.descripcion}"/>
+                                </p:column>
 
-                        <p:column headerText="Valor" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor"
-                                  width="80" style="text-transform: uppercase; text-align: right !important;" filterStyle="display: none; visibility: hidden;">
-                           <!--                           <p:cellEditor>  
-                                                         <f:facet name="output">-->
-                           <h:outputText value="$#{info.valor}"/>
-                           <!--                              </f:facet>
-                                                         <f:facet name="input">
-                                                            <p:inputText autocomplete="off" value="#/{info.valor}" disabled="true" maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
-                                                            </p:inputText>
-                                                         </f:facet>  
-                                                      </p:cellEditor>-->
-                        </p:column>
-                     </p:dataTable>
-                     <h:outputText id="informacionRegistro" value="Registros: #{controlLiquidacionesLogs.infoRegistro}" style="position: relative; left: 10px; top: 345px; font-weight: bold;"/>
-                  </fieldset>
+                                <p:column headerText="Valor" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor"
+                                          width="80" style="text-transform: uppercase; text-align: right !important;" filterStyle="display: none; visibility: hidden;">
+                                    <h:outputText value="$#{info.valor}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlLiquidacionesLogs.infoRegistro}" style="position: relative; left: 10px; top: 345px; font-weight: bold;"/>
+                        </fieldset>
 
-                  <p:commandButton style="position: absolute; left: 314px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w" disabled="true"
-                                   id="MOSTRARTODOS" value="TODOS" actionListener="#{controlLiquidacionesLogs.mostrarTodos()}"
-                                   onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                  <p:commandButton style="position: absolute; left: 448px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w"
-                                   id="BUSCAREMPLEADO" value="Por Empleado" onclick="PF('EMPLEADOS').show();" onstart="PF('operacionEnProceso').show();"
-                                   oncomplete="PF('operacionEnProceso').hide()"/>
-                  <p:commandButton style="position: absolute; left: 582px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w"
-                                   id="BUSCAROPERANDO" value="Por Operando" onclick="PF('OPERANDOS').show();" onstart="PF('operacionEnProceso').show();"
-                                   oncomplete="PF('operacionEnProceso').hide()"/>
-                  <p:commandButton style="position: absolute; left: 716px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w"
-                                   id="BUSCAROPROCESO" value="Por Proceso" onclick="PF('PROCESOS').show();" onstart="PF('operacionEnProceso').show();"
-                                   oncomplete="PF('operacionEnProceso').hide()"/>
-                  <!--<p:commandButton style="position: absolute; left: 10px; top: 470px;" class="cssBotonMostrarTodos"
-                                   id="MOSTRARTODOS" value="" actionListener="#/{controlLiquidacionesLogs.}"/>-->
+<!--                        <p:commandButton style="position: absolute; left: 314px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w" disabled="true"
+                                         id="MOSTRARTODOS" value="TODOS" actionListener="#{controlLiquidacionesLogs.mostrarTodos()}"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>-->
+                        <p:commandButton style="position: absolute; left: 448px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w"
+                                         id="BUSCAREMPLEADO" value="Por Empleado" onclick="PF('EMPLEADOS').show();" onstart="PF('operacionEnProceso').show();"
+                                         oncomplete="PF('operacionEnProceso').hide()"/>
+                        <p:commandButton style="position: absolute; left: 582px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w"
+                                         id="BUSCAROPERANDO" value="Por Operando" onclick="PF('OPERANDOS').show();" onstart="PF('operacionEnProceso').show();"
+                                         oncomplete="PF('operacionEnProceso').hide()"/>
+                        <p:commandButton style="position: absolute; left: 716px; top: 469px; width: 134px !important;" class="cssBoton" icon="ui-icon-arrowreturnthick-1-w"
+                                         id="BUSCAROPROCESO" value="Por Proceso" onclick="PF('PROCESOS').show();" onstart="PF('operacionEnProceso').show();"
+                                         oncomplete="PF('operacionEnProceso').hide()"/>
+                        <!--<p:commandButton style="position: absolute; left: 10px; top: 470px;" class="cssBotonMostrarTodos"
+                                         id="MOSTRARTODOS" value="" actionListener="#/{controlLiquidacionesLogs.}"/>-->
 
-                  <p:commandButton class="cssBotonCancelar" actionListener="#{controlLiquidacionesLogs.salir()}" value=""/>
+                        <p:commandButton class="cssBotonCancelar" actionListener="#{controlLiquidacionesLogs.salir()}" value=""/>
 
-                  <!--                  <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                                       <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
-                                       <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                                       <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
-                                       <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#/{controlLiquidacionesLogs.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
-                                       <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-                                    </p:dialog>-->
+                        <!--                  <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                                             <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
+                                             <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#/{controlLiquidacionesLogs.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
+                                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                                          </p:dialog>-->
 
-                  <p:dialog header="Empleados" widgetVar="EMPLEADOS" draggable="true" resizable="false" closable="false" id="EMPLEADOS"  
-                            showEffect="fade" hideEffect="fade" width="440" modal="true">
-                     <p:dataTable id="lovEmpleados" widgetVar="lovEmpleados" value="#{controlLiquidacionesLogs.lovEmpleados}"
-                                  rowKey="#{empleado.secuencia}" selection="#{controlLiquidacionesLogs.empleadoSeleccionado}"
-                                  selectionMode="single" scrollable="true" scrollWidth="420" scrollHeight="250" var="empleado"
-                                  filteredValue="#{controlLiquidacionesLogs.filtrarEmpleados}" emptyMessage="No se encontrarón resultados para la búsqueda">             
+                        <p:dialog header="Empleados" widgetVar="EMPLEADOS" draggable="true" resizable="false" closable="false" id="EMPLEADOS"  
+                                  showEffect="fade" hideEffect="fade" width="440" modal="true">
+                            <p:dataTable id="lovEmpleados" widgetVar="lovEmpleados" value="#{controlLiquidacionesLogs.lovEmpleados}"
+                                         rowKey="#{empleado.secuencia}" selection="#{controlLiquidacionesLogs.empleadoSeleccionado}"
+                                         selectionMode="single" scrollable="true" scrollWidth="420" scrollHeight="250" var="empleado"
+                                         filteredValue="#{controlLiquidacionesLogs.filtrarEmpleados}" emptyMessage="No se encontrarón resultados para la búsqueda">             
 
-                        <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarEmp"/>
-                        <p:ajax event="rowDblselect" listener="#{controlLiquidacionesLogs.seleccionarEmpleado()}" process="@this"
-                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                        <p:ajax event="filter" listener="#{controlLiquidacionesLogs.contarRegistrosEmpl()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarEmp"/>
+                                <p:ajax event="rowDblselect" listener="#{controlLiquidacionesLogs.seleccionarEmpleado()}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:ajax event="filter" listener="#{controlLiquidacionesLogs.contarRegistrosEmpl()}"/>
 
-                        <f:facet name="header">  
-                           <h:outputText value="Buscar Empleado"/>
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
-                        </f:facet>
+                                <f:facet name="header">  
+                                    <h:outputText value="Buscar Empleado"/>
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
+                                </f:facet>
 
-                        <p:column filterBy="#{empleado.persona.numerodocumento}" sortBy="#{empleado.persona.numerodocumento}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
-                           <f:facet name="header">
-                              <h:outputText style="text-align: center;" value="Documento"/>
-                           </f:facet>
-                           <h:outputText  value="#{empleado.persona.numerodocumento}"/>
-                        </p:column>
+                                <p:column filterBy="#{empleado.persona.numerodocumento}" sortBy="#{empleado.persona.numerodocumento}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center;" value="Documento"/>
+                                    </f:facet>
+                                    <h:outputText  value="#{empleado.persona.numerodocumento}"/>
+                                </p:column>
 
-                        <p:column filterBy="#{empleado.persona.nombreCompleto}" sortBy="#{empleado.persona.nombreCompleto}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                           <f:facet name="header">
-                              <h:outputText value="Nombre Compleato"/>
-                           </f:facet>
-                           <h:outputText value="#{empleado.persona.nombreCompleto}"/>
-                        </p:column>
-                     </p:dataTable>
-                     <div class="cssBotonesLOV">
-                        <h:outputText id="infoRegistroEmpleados" value="Registros: #{controlLiquidacionesLogs.infoRegistroEmpleados}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarEmp" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}"
-                                         actionListener="#{controlLiquidacionesLogs.seleccionarEmpleado()}" process="@this"
-                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                        <p:commandButton id="atrasTCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioEmpleado()}" process="@this"/>
-                     </div>
-                  </p:dialog> 
+                                <p:column filterBy="#{empleado.persona.nombreCompleto}" sortBy="#{empleado.persona.nombreCompleto}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre Compleato"/>
+                                    </f:facet>
+                                    <h:outputText value="#{empleado.persona.nombreCompleto}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroEmpleados" value="Registros: #{controlLiquidacionesLogs.infoRegistroEmpleados}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarEmp" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}"
+                                                 actionListener="#{controlLiquidacionesLogs.seleccionarEmpleado()}" process="@this"
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:commandButton id="atrasTCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioEmpleado()}" process="@this"/>
+                            </div>
+                        </p:dialog> 
 
 
-                  <p:dialog header="Operandos" widgetVar="OPERANDOS" draggable="true" resizable="false" closable="false" id="OPERANDOS"  
-                            showEffect="fade" hideEffect="fade" width="440" modal="true">
-                     <p:dataTable id="lovOperandos" widgetVar="lovOperandos" value="#{controlLiquidacionesLogs.lovOperandos}"
-                                  rowKey="#{operando.secuencia}" selection="#{controlLiquidacionesLogs.operandoSeleccionado}"
-                                  selectionMode="single" scrollable="true" scrollWidth="420" scrollHeight="250" var="operando"
-                                  filteredValue="#{controlLiquidacionesLogs.filtrarOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">             
+                        <p:dialog header="Operandos" widgetVar="OPERANDOS" draggable="true" resizable="false" closable="false" id="OPERANDOS"  
+                                  showEffect="fade" hideEffect="fade" width="440" modal="true">
+                            <p:dataTable id="lovOperandos" widgetVar="lovOperandos" value="#{controlLiquidacionesLogs.lovOperandos}"
+                                         rowKey="#{operando.secuencia}" selection="#{controlLiquidacionesLogs.operandoSeleccionado}"
+                                         selectionMode="single" scrollable="true" scrollWidth="420" scrollHeight="250" var="operando"
+                                         filteredValue="#{controlLiquidacionesLogs.filtrarOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">             
 
-                        <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarOP"/>
-                        <p:ajax event="rowDblselect" listener="#{controlLiquidacionesLogs.seleccionarOperando()}" process="@this"
-                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                        <p:ajax event="filter" listener="#{controlLiquidacionesLogs.contarRegistrosOper()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarOP"/>
+                                <p:ajax event="rowDblselect" listener="#{controlLiquidacionesLogs.seleccionarOperando()}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:ajax event="filter" listener="#{controlLiquidacionesLogs.contarRegistrosOper()}"/>
 
-                        <f:facet name="header">  
-                           <h:outputText value="Buscar Operando"/>
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovOperandos').filter();" class="cssFiltroLOV"/>
-                        </f:facet>
+                                <f:facet name="header">  
+                                    <h:outputText value="Buscar Operando"/>
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovOperandos').filter();" class="cssFiltroLOV"/>
+                                </f:facet>
 
-                        <p:column filterBy="#{operando.codigo}" sortBy="#{operando.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
-                           <f:facet name="header">
-                              <h:outputText style="text-align: center;" value="Codigo"/>
-                           </f:facet>
-                           <h:outputText  value="#{operando.codigo}"/>
-                        </p:column>
+                                <p:column filterBy="#{operando.codigo}" sortBy="#{operando.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center;" value="Codigo"/>
+                                    </f:facet>
+                                    <h:outputText  value="#{operando.codigo}"/>
+                                </p:column>
 
-                        <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                           <f:facet name="header">
-                              <h:outputText value="Nombre"/>
-                           </f:facet>
-                           <h:outputText value="#{operando.nombre}"/>
-                        </p:column>
-                     </p:dataTable>
-                     <div class="cssBotonesLOV">
-                        <h:outputText id="infoRegistroOperandos" value="Registros: #{controlLiquidacionesLogs.infoRegistroOperandos}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarOP" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}"
-                                         actionListener="#{controlLiquidacionesLogs.seleccionarOperando()}" process="@this"
-                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                        <p:commandButton class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioOperando()}" process="@this"/>
-                     </div>
-                  </p:dialog> 
-
-
-                  <p:dialog header="Procesos" widgetVar="PROCESOS" draggable="true" resizable="false" closable="false" id="PROCESOS"  
-                            showEffect="fade" hideEffect="fade" width="440" modal="true">
-                     <p:dataTable id="lovProcesos" widgetVar="lovProcesos" value="#{controlLiquidacionesLogs.lovProcesos}"
-                                  rowKey="#{proceso.secuencia}" selection="#{controlLiquidacionesLogs.procesoSeleccionado}"
-                                  selectionMode="single" scrollable="true" scrollWidth="420" scrollHeight="250" var="proceso"
-                                  filteredValue="#{controlLiquidacionesLogs.filtrarProcesos}" emptyMessage="No se encontrarón resultados para la búsqueda">             
-
-                        <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarPro"/>
-                        <p:ajax event="rowDblselect" listener="#{controlLiquidacionesLogs.seleccionarProceso()}" process="@this"
-                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                        <p:ajax event="filter" listener="#{controlLiquidacionesLogs.contarRegistrosPro()}"/>
-
-                        <f:facet name="header">  
-                           <h:outputText value="Buscar Proceso"/>
-                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>
-                        </f:facet>
-
-                        <p:column filterBy="#{proceso.codigo}" sortBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
-                           <f:facet name="header">
-                              <h:outputText style="text-align: center;" value="Codigo"/>
-                           </f:facet>
-                           <h:outputText  value="#{proceso.codigo}"/>
-                        </p:column>
-
-                        <p:column filterBy="#{proceso.descripcion}" sortBy="#{proceso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
-                           <f:facet name="header">
-                              <h:outputText value="Descripción"/>
-                           </f:facet>
-                           <h:outputText value="#{proceso.descripcion}"/>
-                        </p:column>
-                     </p:dataTable>
-                     <div class="cssBotonesLOV">
-                        <h:outputText id="infoRegistroProcesos" value="Registros: #{controlLiquidacionesLogs.infoRegistroProcesos}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarPro" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}"
-                                         actionListener="#{controlLiquidacionesLogs.seleccionarProceso()}" process="@this"
-                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                        <p:commandButton class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioProceso()}" process="@this"/>
-                     </div>
-                  </p:dialog> 
-
-               </p:panel>
-
-               <p:hotkey bind="ctrl+f11" actionListener="#{controlLiquidacionesLogs.activarCtrlF11()}"/> 
-            </h:form>
-
-            <h:form id="formularioDialogos">
-
-               <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="Operación en proceso, por favor espere..." style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla 'LIQUIDACIONESLOGS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 63px; left: 230px;" onstart="#{controlLiquidacionesLogs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidacionlog', 'rastrotabla')}" process="@this"/>
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla LIQUIDACIONESLOGS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px;" onstart="#{controlLiquidacionesLogs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidacionlog', 'rastrotabla')}" process="@this"/>
-                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
-               </p:dialog>
-
-               <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
-               </p:dialog>
-
-               <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px;" onstart="#{controlLiquidacionesLogs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidacionlog', 'rastrotabla')}" process="@this"/>
-                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
-               </p:dialog>
-
-               <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
-               </p:dialog>
-
-               <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="La tabla 'LIQUIDACIONESLOGS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
-               </p:dialog>
-
-               <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
-                  <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechadesde}" style="overflow: auto;" readonly="true">  
-                     <f:convertDateTime pattern="dd/MM/yyyy"/>
-                  </p:inputTextarea>
-               </p:dialog>
-               <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
-                  <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechahasta}" style="overflow: auto;" readonly="true">  
-                     <f:convertDateTime pattern="dd/MM/yyyy"/>
-                  </p:inputTextarea>
-               </p:dialog>
+                                <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre"/>
+                                    </f:facet>
+                                    <h:outputText value="#{operando.nombre}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroOperandos" value="Registros: #{controlLiquidacionesLogs.infoRegistroOperandos}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarOP" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}"
+                                                 actionListener="#{controlLiquidacionesLogs.seleccionarOperando()}" process="@this"
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:commandButton class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioOperando()}" process="@this"/>
+                            </div>
+                        </p:dialog> 
 
 
-               <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
+                        <p:dialog header="Procesos" widgetVar="PROCESOS" draggable="true" resizable="false" closable="false" id="PROCESOS"  
+                                  showEffect="fade" hideEffect="fade" width="440" modal="true">
+                            <p:dataTable id="lovProcesos" widgetVar="lovProcesos" value="#{controlLiquidacionesLogs.lovProcesos}"
+                                         rowKey="#{proceso.secuencia}" selection="#{controlLiquidacionesLogs.procesoSeleccionado}"
+                                         selectionMode="single" scrollable="true" scrollWidth="420" scrollHeight="250" var="proceso"
+                                         filteredValue="#{controlLiquidacionesLogs.filtrarProcesos}" emptyMessage="No se encontrarón resultados para la búsqueda">             
 
-               <p:dialog id="editarOperandoE" header="Operando" widgetVar="editarOperandoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.descripcion}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
+                                <p:ajax event="rowSelect" listener="#{controlLiquidacionesLogs.activarAceptar()}" update=":form:aceptarPro"/>
+                                <p:ajax event="rowDblselect" listener="#{controlLiquidacionesLogs.seleccionarProceso()}" process="@this"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:ajax event="filter" listener="#{controlLiquidacionesLogs.contarRegistrosPro()}"/>
 
-               <p:dialog id="editarProcesoE" header="Proceso" widgetVar="editarProcesoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
-               <p:dialog id="editarValorE" header="Valor" widgetVar="editarValorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.valor}" style="overflow: auto;" readonly="true"/>
-               </p:dialog>
+                                <f:facet name="header">  
+                                    <h:outputText value="Buscar Proceso"/>
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>
+                                </f:facet>
 
-            </h:form>
+                                <p:column filterBy="#{proceso.codigo}" sortBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center;" value="Codigo"/>
+                                    </f:facet>
+                                    <h:outputText  value="#{proceso.codigo}"/>
+                                </p:column>
+
+                                <p:column filterBy="#{proceso.descripcion}" sortBy="#{proceso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripción"/>
+                                    </f:facet>
+                                    <h:outputText value="#{proceso.descripcion}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroProcesos" value="Registros: #{controlLiquidacionesLogs.infoRegistroProcesos}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarPro" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlLiquidacionesLogs.aceptar}"
+                                                 actionListener="#{controlLiquidacionesLogs.seleccionarProceso()}" process="@this"
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                <p:commandButton class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlLiquidacionesLogs.cancelarCambioProceso()}" process="@this"/>
+                            </div>
+                        </p:dialog> 
+
+                    </p:panel>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlLiquidacionesLogs.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="Operación en proceso, por favor espere..." style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="!Información¡" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'LIQUIDACIONESLOGS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 63px; left: 230px;" onstart="#{controlLiquidacionesLogs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidacionlog', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="!Información¡" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla LIQUIDACIONESLOGS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px;" onstart="#{controlLiquidacionesLogs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidacionlog', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="!Error¡" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="!Error¡" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="!Información¡" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLiquidacionesLogs.secRegistro, 'LiquidacionesLogs', 'liquidacionlog')}" style="position: absolute; top: 60px; left: 230px;" onstart="#{controlLiquidacionesLogs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidacionlog', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="!Error¡" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="!Error¡" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="!Error¡" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'LIQUIDACIONESLOGS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechadesde}" style="overflow: auto;" readonly="true">  
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechahasta}" style="overflow: auto;" readonly="true">  
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
 
 
-            <h:form id="formExportar">
-               <p:dataTable id="datosLiquidacionesLogsExportar" var="info2" style="visibility: hidden; display: none;"                           
-                            value="#{controlLiquidacionesLogs.listLiquidacionesLogs}">
-                  <p:column>  
-                     <f:facet name="header">
-                        <h:outputText value="Desde"/>
-                     </f:facet>
-                     <h:outputText value="#{info2.fechadesde}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                     </h:outputText>
-                  </p:column>  
-                  <p:column>  
-                     <f:facet name="header">
-                        <h:outputText value="Desde"/>
-                     </f:facet>
-                     <h:outputText value="#{info2.fechahasta}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                     </h:outputText>
-                  </p:column>  
-                  <p:column>                                  
-                     <f:facet name="header"><h:outputText value="Empleado"/></f:facet> 
-                     <h:outputText value="#{info2.empleado.persona.nombreCompleto}"/>
-                  </p:column>  
-                  <p:column>                                  
-                     <f:facet name="header"><h:outputText value="Operando"/></f:facet> 
-                     <h:outputText value="#{info2.operando.descripcion}"/>
-                  </p:column>  
-                  <p:column>                                  
-                     <f:facet name="header"><h:outputText value="Proceso"/></f:facet> 
-                     <h:outputText value="#{info2.proceso.descripcion}"/>
-                  </p:column>  
-                  <p:column>                                  
-                     <f:facet name="header"><h:outputText value="Valor"/></f:facet> 
-                     <h:outputText value="#{info2.valor}"/>
-                  </p:column>  
+                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
 
-               </p:dataTable>
-            </h:form>
-         </ui:define>
-      </ui:composition>
-   </h:body>
+                    <p:dialog id="editarOperandoE" header="Operando" widgetVar="editarOperandoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarProcesoE" header="Proceso" widgetVar="editarProcesoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarValorE" header="Valor" widgetVar="editarValorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.valor}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosLiquidacionesLogsExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlLiquidacionesLogs.listLiquidacionesLogs}">
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="Desde"/>
+                            </f:facet>
+                            <h:outputText value="#{info2.fechadesde}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>  
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="Desde"/>
+                            </f:facet>
+                            <h:outputText value="#{info2.fechahasta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Empleado"/></f:facet> 
+                            <h:outputText value="#{info2.empleado.persona.nombreCompleto}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Operando"/></f:facet> 
+                            <h:outputText value="#{info2.operando.descripcion}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Proceso"/></f:facet> 
+                            <h:outputText value="#{info2.proceso.descripcion}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Valor"/></f:facet> 
+                            <h:outputText value="#{info2.valor}"/>
+                        </p:column>  
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

@@ -78,4 +78,24 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
         return listaUsuarios;
     }
 
+    @Override
+    public Long getTotalRegistros(BigInteger secUsuario) {
+        return persistenciaUsuariosIR.getTotalRegistros(em, secUsuario);
+    }
+
+    @Override
+    public List<UsuariosInforeportes> getFind(int firstRow, int max, BigInteger secUsuario) {
+        return persistenciaUsuariosIR.getFind(em, firstRow, max, secUsuario);
+    }
+
+    @Override
+    public List<UsuariosInforeportes> getBuscarIR(int firstRow, int max, BigInteger secUsuarioIR) {
+       return persistenciaUsuariosIR.getBuscarUIR(em, firstRow, max, secUsuarioIR);
+    }
+
+    @Override
+    public Long getTotalRegistrosBuscar(BigInteger secUsuario) {
+       return persistenciaUsuariosIR.getTotalRegistrosBuscar(em, secUsuario);
+    }
+
 }

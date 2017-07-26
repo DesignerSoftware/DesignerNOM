@@ -32,83 +32,93 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
    private static Logger log = Logger.getLogger(AdministrarLiquidacionesLogs.class);
 
    @EJB
-   PersistenciaLiquidacionesLogsInterface persistenciaLiquidacionesLogs;
-   @EJB
-   PersistenciaEmpleadoInterface persistenciaEmpleado;
-   @EJB
-   PersistenciaOperandosInterface persistenciaOperandos;
-   @EJB
-   PersistenciaProcesosInterface persistenciaProcesos;
+    PersistenciaLiquidacionesLogsInterface persistenciaLiquidacionesLogs;
+    @EJB
+    PersistenciaEmpleadoInterface persistenciaEmpleado;
+    @EJB
+    PersistenciaOperandosInterface persistenciaOperandos;
+    @EJB
+    PersistenciaProcesosInterface persistenciaProcesos;
 
-   @EJB
-   PersistenciaEmpleadoInterface persistenciaEmpleados;
-   /**
-    * Enterprise JavaBean.<br>
-    * Atributo que representa todo lo referente a la conexión del usuario que
-    * está usando el aplicativo.
-    */
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaEmpleadoInterface persistenciaEmpleados;
+    /**
+     * Enterprise JavaBean.<br>
+     * Atributo que representa todo lo referente a la conexión del usuario que
+     * está usando el aplicativo.
+     */
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
 
-   private EntityManager em;
+    private EntityManager em;
 
-   public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
-   }
+    public void obtenerConexion(String idSesion) {
+        em = administrarSesiones.obtenerConexionSesion(idSesion);
+    }
 
-   public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
-      for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
-         log.warn("Administrar Modificando...");
-         persistenciaLiquidacionesLogs.editar(em, listaLiquidacionesLogs.get(i));
-      }
-   }
+    public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
+        for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
+            persistenciaLiquidacionesLogs.editar(em, listaLiquidacionesLogs.get(i));
+        }
+    }
 
-   public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
-      for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
-         log.warn("Administrar Borrando...");
-         persistenciaLiquidacionesLogs.borrar(em, listaLiquidacionesLogs.get(i));
-      }
-   }
+    public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
+        for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
+            persistenciaLiquidacionesLogs.borrar(em, listaLiquidacionesLogs.get(i));
+        }
+    }
 
-   public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
-      for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
-         log.warn("Administrar Creando...");
-         persistenciaLiquidacionesLogs.crear(em, listaLiquidacionesLogs.get(i));
-      }
-   }
+    public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
+        for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
+            persistenciaLiquidacionesLogs.crear(em, listaLiquidacionesLogs.get(i));
+        }
+    }
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogs() {
-      return persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(em);
-   }
+    public List<LiquidacionesLogs> consultarLiquidacionesLogs() {
+        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(em);
+    }
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
-      List<LiquidacionesLogs> lesiones;
-      lesiones = persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(em, secEmpleado);
-      return lesiones;
-   }
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
+        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(em, secEmpleado);
+    }
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando) {
-      return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(em, secOperando);
-   }
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando) {
+        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(em, secOperando);
+    }
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso) {
-      return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(em, secProceso);
-   }
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso) {
+        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(em, secProceso);
+    }
 
-   @Override
-   public List<Empleados> consultarLOVEmpleados() {
-      List<Empleados> listEmpleados;
-      listEmpleados = persistenciaEmpleados.consultarEmpleadosLiquidacionesLog(em);
-      return listEmpleados;
-   }
+    @Override
+    public List<Empleados> consultarLOVEmpleados() {
+        List<Empleados> listEmpleados;
+        listEmpleados = persistenciaEmpleados.consultarEmpleadosLiquidacionesLog(em);
+        return listEmpleados;
+    }
 
-   @Override
-   public List<Operandos> consultarLOVOperandos() {
-      return persistenciaOperandos.buscarOperandos(em);
-   }
+    @Override
+    public List<Operandos> consultarLOVOperandos() {
+        return persistenciaOperandos.buscarOperandos(em);
+    }
 
-   @Override
-   public List<Procesos> consultarLOVProcesos() {
-      return persistenciaProcesos.lovProcesos(em);
-   }
+    @Override
+    public List<Procesos> consultarLOVProcesos() {
+        return persistenciaProcesos.lovProcesos(em);
+    }
+
+    @Override
+    public Long getTotalRegistrosLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
+        return persistenciaLiquidacionesLogs.getTotalRegistrosLiquidacionesLogsPorEmpleado(em, secEmpleado);
+    }
+
+    @Override
+    public Long getTotalRegistrosLiquidacionesLogsPorOperando(BigInteger secOperando) {
+        return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorOperando(em, secOperando);
+    }
+
+    @Override
+    public Long getTotalRegistrosLiquidacionesLogsPorProceso(BigInteger secProceso) {
+        return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorProceso(em, secProceso);
+    }
 }

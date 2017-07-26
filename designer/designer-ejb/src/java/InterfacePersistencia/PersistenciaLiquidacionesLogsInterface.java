@@ -27,8 +27,15 @@ public interface PersistenciaLiquidacionesLogsInterface {
     public List<LiquidacionesLogs> consultarLiquidacionesLogs(EntityManager em);
 
     public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(EntityManager em, BigInteger secEmpleado);
-    
+
     public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(EntityManager em, BigInteger secOperando);
-    
-    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(EntityManager em, BigInteger secProceso);
+
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(EntityManager em,  BigInteger secProceso);
+
+    public Long getTotalRegistrosLiquidacionesLogsPorEmpleado(EntityManager em, BigInteger secEmpleado);
+
+    public Long getTotalRegistrosBuscarLiquidacionesLogsPorOperando(EntityManager em, BigInteger secOperando);
+
+    public Long getTotalRegistrosBuscarLiquidacionesLogsPorProceso(EntityManager em, BigInteger secProceso);
+
 }

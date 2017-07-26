@@ -18,7 +18,7 @@ import java.util.List;
 public interface AdministrarUsuariosInfoReportesInterface {
 
     public void obtenerConexion(String idSesion);
-    
+
     public void crear(List<UsuariosInforeportes> lista);
 
     public void editar(List<UsuariosInforeportes> lista);
@@ -31,4 +31,11 @@ public interface AdministrarUsuariosInfoReportesInterface {
 
     public List<Usuarios> listaUsuarios();
 
+    public Long getTotalRegistros(BigInteger secUsuario);
+
+    public List<UsuariosInforeportes> getFind(final int firstRow, final int max,BigInteger secUsuario);
+
+    public List<UsuariosInforeportes> getBuscarIR(final int firstRow, final int max,BigInteger secUsuarioIR);
+    
+    public Long getTotalRegistrosBuscar(BigInteger secUsuario);
 }

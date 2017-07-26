@@ -20,25 +20,31 @@ import javax.ejb.Local;
 @Local
 public interface AdministrarLiquidacionesLogsInterface {
 
-   public void obtenerConexion(String idSesion);
+    public void obtenerConexion(String idSesion);
 
-   public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
+    public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
 
-   public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
+    public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
 
-   public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
+    public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogs();
+    public List<LiquidacionesLogs> consultarLiquidacionesLogs();
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado);
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado);
 
-   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando);
-   
-   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso);
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando);
 
-   public List<Empleados> consultarLOVEmpleados();
-   
-   public List<Operandos> consultarLOVOperandos();
-   
-   public List<Procesos> consultarLOVProcesos();
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso);
+
+    public List<Empleados> consultarLOVEmpleados();
+
+    public List<Operandos> consultarLOVOperandos();
+
+    public List<Procesos> consultarLOVProcesos();
+
+    public Long getTotalRegistrosLiquidacionesLogsPorEmpleado(BigInteger secEmpleado);
+
+    public Long getTotalRegistrosLiquidacionesLogsPorOperando(BigInteger secOperando);
+
+    public Long getTotalRegistrosLiquidacionesLogsPorProceso(BigInteger secProceso);
 }

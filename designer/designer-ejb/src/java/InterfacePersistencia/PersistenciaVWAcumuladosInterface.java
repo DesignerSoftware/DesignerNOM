@@ -27,5 +27,6 @@ public interface PersistenciaVWAcumuladosInterface {
      * @return Retorna una lista de VWAcumulados con la información de los
      * Acumulados de un empleado.
      */
-    public List<VWAcumulados> buscarAcumuladosPorEmpleado(EntityManager em, BigInteger secuencia);
+    public List<VWAcumulados> buscarAcumuladosPorEmpleado(EntityManager em,BigInteger secEmpleado);
+     public Long getTotalRegistros(EntityManager em,BigInteger secuencia);
 }

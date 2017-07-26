@@ -28,7 +28,7 @@ public class AdministrarEmplAcumulados implements AdministrarEmplAcumuladosInter
 
    private static Logger log = Logger.getLogger(AdministrarEmplAcumulados.class);
 
-    //--------------------------------------------------------------------------
+     //--------------------------------------------------------------------------
     //ATRIBUTOS
     //--------------------------------------------------------------------------    
     /**
@@ -81,5 +81,10 @@ public class AdministrarEmplAcumulados implements AdministrarEmplAcumuladosInter
             log.error("ERROR Administrar emplAcumulados ERROR : " + e);
             return null;
         }
+    }
+
+    @Override
+    public Long getTotalRegistros(BigInteger secUsuario) {
+         return persistenciaVWAcumulados.getTotalRegistros(em, secUsuario);
     }
 }

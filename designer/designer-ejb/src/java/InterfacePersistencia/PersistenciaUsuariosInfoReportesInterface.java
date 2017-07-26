@@ -29,5 +29,12 @@ public interface PersistenciaUsuariosInfoReportesInterface {
     public List<Inforeportes> lovIR(EntityManager em);
 
     public List<Usuarios> listaUsuarios(EntityManager em);
+    
+    public Long getTotalRegistros(EntityManager em,BigInteger secUsuario);
 
+    public List<UsuariosInforeportes> getFind(EntityManager em, final int firstRow, final int max,BigInteger secUsuario);
+    
+    public List<UsuariosInforeportes> getBuscarUIR(EntityManager em, final int firstRow, final int max,BigInteger secUsuarioIR);
+
+    public Long getTotalRegistrosBuscar(EntityManager em,BigInteger secUsuarioIR);
 }

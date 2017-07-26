@@ -24,7 +24,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInfoReportesInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaUsuariosInfoReportes.class);
+    private static Logger log = Logger.getLogger(PersistenciaUsuariosInfoReportes.class);
 
     @Override
     public void crear(EntityManager em, UsuariosInforeportes usuarioIR) {
@@ -114,6 +114,72 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
         } catch (Exception e) {
             log.error("Error Persitencia Usuarios InfoReportes.listaUsuarios() : " + e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public Long getTotalRegistros(EntityManager em, BigInteger secUsuario) {
+        Long count;
+        try {
+            em.clear();
+            Query query = em.createQuery("select count(uir) from UsuariosInforeportes uir where uir.usuario.secuencia=:secusuario");
+            query.setParameter("secusuario", secUsuario);
+            List lista = query.getResultList();
+            count = (Long) lista.get(0);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            return count;
+        } catch (Exception e) {
+            log.error("Error en getTotalRegistros :" + e.getMessage());
+            count = Long.valueOf(0);
+            return count;
+        }
+    }
+
+    @Override
+    public List<UsuariosInforeportes> getFind(EntityManager em, int firstRow, int max, BigInteger secUsuario) {
+        try {
+            em.clear();
+            Query query = em.createQuery("select uir from UsuariosInforeportes uir where uir.usuario.secuencia=:secUsuario order by uir.inforeporte.secuencia").setFirstResult(firstRow).setMaxResults(max);
+            query.setParameter("secUsuario", secUsuario);
+            List<UsuariosInforeportes> lista = query.getResultList();
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            return lista;
+        } catch (Exception e) {
+            log.error("error en getFind Persistencia :  " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<UsuariosInforeportes> getBuscarUIR(EntityManager em, int firstRow, int max, BigInteger secUsuarioIR) {
+        try {
+            em.clear();
+            Query query = em.createQuery("select uir from UsuariosInforeportes uir where uir.secuencia=:secUsuarioIR", UsuariosInforeportes.class).setFirstResult(firstRow).setMaxResults(max);
+            query.setParameter("secUsuarioIR", secUsuarioIR);
+            List<UsuariosInforeportes> lista = query.getResultList();
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            return lista;
+        } catch (Exception e) {
+            log.error("error en getBuscarUIR Persistencia :  " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Long getTotalRegistrosBuscar(EntityManager em, BigInteger secUsuarioIR) {
+        Long count;
+        try {
+            em.clear();
+            Query query = em.createQuery("select count(uir) from UsuariosInforeportes uir where uir.secuencia=:secusuario");
+            query.setParameter("secusuario", secUsuarioIR);
+            List lista = query.getResultList();
+            count = (Long) lista.get(0);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            return count;
+        } catch (Exception e) {
+            log.error("Error en getTotalRegistrosBuscar :" + e.getMessage());
+            count = Long.valueOf(0);
+            return count;
         }
     }
 

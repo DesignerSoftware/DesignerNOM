@@ -75,7 +75,7 @@
 
                         <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 13px; color: blue;"><strong>Usuarios</strong></legend>
-                            <p:dataTable lazy="true" id="datosUsuarios" widgetVar="datosUsuarios" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
+                            <p:dataTable id="datosUsuarios" widgetVar="datosUsuarios" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
                                          value="#{controlUsuariosInfoReportes.listaUsuarios}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlUsuariosInfoReportes.listaUsuariosFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlUsuariosInfoReportes.usuarioSeleccionado}" selectionMode="single">
@@ -135,10 +135,12 @@
                         <fieldset style="position: absolute; top: 210px; left: 10px; height: 260px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 13px; color: blue;"><strong>Permisos</strong></legend>
                             <p:dataTable id="datosUsuariosIR" widgetVar="datosUsuariosIR" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indice2" style="width: 810px; border: none; "                           
-                                         value="#{controlUsuariosInfoReportes.listaUsuariosIR}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTablaIR}" scrollRows="40"
-                                         scrollWidth="830"  filteredValue="#{controlUsuariosInfoReportes.listaUsuariosIRFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"   selection="#{controlUsuariosInfoReportes.usuarioIRSeleccionado}" selectionMode="single">
-                                <p:ajax event="filter" listener="#{controlUsuariosInfoReportes.contarRegistrosUsuariosIR()}"/>
+                                         value="#{controlUsuariosInfoReportes.model}" scrollable="true" scrollHeight="#{controlUsuariosInfoReportes.altoTablaIR}" scrollRows="40"
+                                         scrollWidth="830"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" selection="#{controlUsuariosInfoReportes.usuarioIRSeleccionado}" selectionMode="single"
+                                         rows="10" paginator="true"  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{totalPages}"
+                                         lazy="true">
+                                <p:ajax event="filter" listener="#{controlUsuariosInfoReportes.contarRegistrosUsuariosIR()}" process="@this" update=":form:datosUsuariosIR"/>
 
                                 <p:column headerText="Código" sortBy="#{info2.inforeporte.codigo}" filterBy="#{info2.inforeporte.codigo}" filterMatchMode="contains" id="codigo" width="60" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  

@@ -43,4 +43,6 @@ public interface AdministrarEmplAcumuladosInterface {
      * parámetro.
      */
     public Empleados consultarEmpleado(BigInteger secEmpleado);
+    
+      public Long getTotalRegistros(BigInteger secUsuario);
 }

@@ -31,6 +31,9 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import ClasesAyuda.LazyLiquidacionesDataModel;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -42,7 +45,7 @@ public class ControlLiquidacionesLogs implements Serializable {
 
    private static Logger log = Logger.getLogger(ControlLiquidacionesLogs.class);
 
-    @EJB
+        @EJB
     AdministrarLiquidacionesLogsInterface administrarLiquidacionesLogs;
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -88,6 +91,9 @@ public class ControlLiquidacionesLogs implements Serializable {
     private String backUpValor;
 
     private String infoRegistro;
+    private LazyDataModel<LiquidacionesLogs> modelEmpleados;
+    private LazyDataModel<LiquidacionesLogs> modelOperandos;
+    private LazyDataModel<LiquidacionesLogs> modelProcesos;
 
     public ControlLiquidacionesLogs() {
         listLiquidacionesLogs = null;
@@ -105,36 +111,79 @@ public class ControlLiquidacionesLogs implements Serializable {
         lovEmpleados = null;
         lovOperandos = null;
         lovProcesos = null;
+        modelEmpleados = null;
+        modelOperandos = null;
+        modelProcesos = null;
     }
 
     public void limpiarListasValor() {
-
+        lovEmpleados = null;
+        lovOperandos = null;
+        lovProcesos = null;
     }
 
     @PostConstruct
     public void inicializarAdministrador() {
         try {
-            log.info("ControlLiquidacionesLogs PostConstruct ");
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarLiquidacionesLogs.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            lovEmpleados = null;
             getLovEmpleados();
+            cargarModelEmpleados();
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+           log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
             log.error("Causa: " + e.getCause());
         }
     }
 
+    public void cargarModelEmpleados() {
+        try {
+            if (empleadoSeleccionado != null) {
+                modelEmpleados = new LazyLiquidacionesDataModel(administrarLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(empleadoSeleccionado.getSecuencia()));
+            }
+        } catch (Exception e) {
+            log.error("error en cargarModelEmpleados() : " + e.getMessage());
+        }
+    }
+
+    public void cargarModelOperandos() {
+        try {
+            if (operandoSeleccionado != null) {
+                modelOperandos = new LazyLiquidacionesDataModel(administrarLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(operandoSeleccionado.getSecuencia()));
+                modelEmpleados = modelOperandos;
+                RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            }
+        } catch (Exception e) {
+            log.error("error en cargarModelOperandos : " + e.getMessage());
+        }
+
+    }
+
+    public void cargarModelProcesos() {
+        try {
+            if (procesoSeleccionado != null) {
+                modelProcesos = new LazyLiquidacionesDataModel(administrarLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(procesoSeleccionado.getSecuencia()));
+                modelEmpleados = modelProcesos;
+                RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+            }
+        } catch (Exception e) {
+            log.error("error en cargarModelProcesos : " + e.getMessage());
+        }
+
+    }
+
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
-        //inicializarCosas(); Inicializar cosas de ser necesario
+        cargarModelEmpleados();
+        lovEmpleados = null;
+        getLovEmpleados();
     }
 
     public void recibirParametros(Map<String, Object> map) {
         mapParametros = map;
         paginaAnterior = (String) mapParametros.get("paginaAnterior");
-        //inicializarCosas(); Inicializar cosas de ser necesario
     }
 
     //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -174,86 +223,8 @@ public class ControlLiquidacionesLogs implements Serializable {
 
     public void cambiarIndiceDefault() {
         this.liquidacionLogSeleccionada = liquidacionLogSeleccionada;
-        log.info("cambiarIndiceDefault() liquidacionLogSeleccionada : " + liquidacionLogSeleccionada);
     }
 
-//   public void cambiarIndice(LiquidacionesLogs liqLog, int celda) {
-//      liquidacionLogSeleccionada = liqLog;
-//
-//      if (permitirIndex == true) {
-//         cualCelda = celda;
-//         if (cualCelda == 0) {
-//            backUpFechaDesde = liquidacionLogSeleccionada.getFechadesde();
-//         }
-//         if (cualCelda == 1) {
-//            backUpFechaHasta = liquidacionLogSeleccionada.getFechahasta();
-//         }
-//         if (cualCelda == 2) {
-//            backUpEmpleado = liquidacionLogSeleccionada.getEmpleado().getPersona().getNombreCompleto();
-//         }
-//         if (cualCelda == 3) {
-//            backUpOperando = liquidacionLogSeleccionada.getOperando().getDescripcion();
-//         }
-//         if (cualCelda == 4) {
-//            backUpProceso = liquidacionLogSeleccionada.getProceso().getDescripcion();
-//         }
-//         if (cualCelda == 5) {
-//            backUpValor = liquidacionLogSeleccionada.getValor();
-//         }
-//      }
-//   }
-//   public void asignarIndex(LiquidacionesLogs liqLog, int LND, int dig) {
-//      liquidacionLogSeleccionada = liqLog;
-//      try {
-////         tipoActualizacion = LND;
-//      } catch (Exception e) {
-//         log.warn("Error ControlLiquidacionesLogs.asignarIndex ERROR======" + e.getMessage());
-//      }
-//   }
-//
-//   public void modificarLiquidacionesLogSinGuardar(int indice, String confirmarCambio, String valorConfirmar) {
-//      index = indice;
-//      int coincidencias = 0;
-//      int indiceUnicoElemento = 0, pass = 0;
-//      RequestContext context = RequestContext.getCurrentInstance();
-//      if (confirmarCambio.equalsIgnoreCase("N")) {
-//         log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar");
-//         if (!crearLiquidacionesLogs.contains(liquidacionLogSeleccionada)) {
-//
-//            if (liquidacionLogSeleccionada.getEmpleado().getPersona().getNombreCompleto() == null) {
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
-//               liquidacionLogSeleccionada.getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-//            } else if (!liquidacionLogSeleccionada.getEmpleado().getPersona().getNombreCompleto().equals(backUpEmpleado) && backUpEmpleado != null) {
-//               liquidacionLogSeleccionada.getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
-//            }
-//            if (liquidacionLogSeleccionada.getOperando().getDescripcion() == null) {
-//               liquidacionLogSeleccionada.getOperando().setDescripcion(backUpOperando);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpOperando : " + backUpOperando);
-//            } else if (!liquidacionLogSeleccionada.getOperando().getDescripcion().equals(backUpOperando) && backUpOperando != null) {
-//               liquidacionLogSeleccionada.getOperando().setDescripcion(backUpOperando);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpOperando : " + backUpOperando);
-//            }
-//            if (liquidacionLogSeleccionada.getProceso().getDescripcion() == null) {
-//               liquidacionLogSeleccionada.getProceso().setDescripcion(backUpProceso);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpProceso : " + backUpProceso);
-//            } else if (!liquidacionLogSeleccionada.getProceso().getDescripcion().equals(backUpProceso) && backUpProceso != null) {
-//               liquidacionLogSeleccionada.getProceso().setDescripcion(backUpProceso);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpProceso : " + backUpProceso);
-//            }
-//            if (liquidacionLogSeleccionada.getValor() == null) {
-//               liquidacionLogSeleccionada.setValor(backUpValor);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpValor : " + backUpValor);
-//            } else if (!liquidacionLogSeleccionada.getValor().equals(backUpValor) && backUpValor != null) {
-//               liquidacionLogSeleccionada.setValor(backUpValor);
-//               log.error("CONTROLLIQUIDACIONESLOGS modificarLiquidacionesLogSinGuardar backUpValor : " + backUpValor);
-//            }
-//
-//            liquidacionLogSeleccionada = null;
-//         }
-//      }
-//      RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
-//   }
     public void activarAceptar() {
         aceptar = false;
     }
@@ -273,7 +244,7 @@ public class ControlLiquidacionesLogs implements Serializable {
                 nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
             }
         }
-        getListLiquidacionesLogs();
+        cargarModelEmpleados();
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
     }
@@ -339,7 +310,6 @@ public class ControlLiquidacionesLogs implements Serializable {
             valor = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:valor");
             valor.setFilterStyle("width: 85% !important;");
 
-            log.info("Activar");
             bandera = 1;
             RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
         } else if (bandera == 1) {
@@ -351,7 +321,6 @@ public class ControlLiquidacionesLogs implements Serializable {
         if (liquidacionLogSeleccionada != null) {
             editarLiquidacionesLogs = liquidacionLogSeleccionada;
 
-            log.info("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
@@ -391,8 +360,9 @@ public class ControlLiquidacionesLogs implements Serializable {
             restaurarTabla();
         }
         liquidacionLogSeleccionada = null;
-        listLiquidacionesLogs = null;
-        getListLiquidacionesLogs();
+//        listLiquidacionesLogs = null;
+//        getListLiquidacionesLogs();
+        cargarModelEmpleados();
         aceptar = true;
         nombreVariable = "Empleado : ";
         nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
@@ -418,8 +388,9 @@ public class ControlLiquidacionesLogs implements Serializable {
             restaurarTabla();
         }
         liquidacionLogSeleccionada = null;
-        listLiquidacionesLogs = null;
-        listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(operandoSeleccionado.getSecuencia());
+//        listLiquidacionesLogs = null;
+//        listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(operandoSeleccionado.getSecuencia());
+        cargarModelOperandos();
         aceptar = true;
         nombreVariable = "Operando : ";
         nombreDato = operandoSeleccionado.getNombre();
@@ -446,8 +417,9 @@ public class ControlLiquidacionesLogs implements Serializable {
         }
         liquidacionLogSeleccionada = null;
         if (!procesoSeleccionado.getDescripcion().equals("NOMINA")) {
-            listLiquidacionesLogs = null;
-            listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(procesoSeleccionado.getSecuencia());
+//            listLiquidacionesLogs = null;
+//            listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(procesoSeleccionado.getSecuencia());
+            cargarModelProcesos();
             aceptar = true;
             nombreVariable = "Proceso : ";
             nombreDato = procesoSeleccionado.getDescripcion();
@@ -552,7 +524,6 @@ public class ControlLiquidacionesLogs implements Serializable {
     public void verificarRastro() {
         if (liquidacionLogSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(liquidacionLogSeleccionada.getSecuencia(), "LIQUIDACIONESLOGS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -811,6 +782,30 @@ public class ControlLiquidacionesLogs implements Serializable {
 
     public void setNombreDato(String nombreDato) {
         this.nombreDato = nombreDato;
+    }
+
+    public LazyDataModel<LiquidacionesLogs> getModelEmpleados() {
+        return modelEmpleados;
+    }
+
+    public void setModelEmpleados(LazyDataModel<LiquidacionesLogs> modelEmpleados) {
+        this.modelEmpleados = modelEmpleados;
+    }
+
+    public LazyDataModel<LiquidacionesLogs> getModelOperandos() {
+        return modelOperandos;
+    }
+
+    public void setModelOperandos(LazyDataModel<LiquidacionesLogs> modelOperandos) {
+        this.modelOperandos = modelOperandos;
+    }
+
+    public LazyDataModel<LiquidacionesLogs> getModelProcesos() {
+        return modelProcesos;
+    }
+
+    public void setModelProcesos(LazyDataModel<LiquidacionesLogs> modelProcesos) {
+        this.modelProcesos = modelProcesos;
     }
 
 }
