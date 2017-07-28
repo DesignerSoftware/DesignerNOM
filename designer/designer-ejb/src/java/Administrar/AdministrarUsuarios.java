@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarUsuarios implements AdministrarUsuariosInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarUsuarios.class);
+    private static Logger log = Logger.getLogger(AdministrarUsuarios.class);
 
     @EJB
     PersistenciaUsuariosInterface persistenciaUsuarios;
@@ -65,53 +65,38 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
     }
 
     @Override
-    public void crearUsuariosBD(String alias) {
-        persistenciaUsuarios.crearUsuario(em, alias);
+    public String crearUsuariosBD(String alias) {
+        return persistenciaUsuarios.crearUsuario(em, alias);
     }
 
     @Override
-    public void CrearUsuarioPerfilBD(String alias, String perfil) {
-        persistenciaUsuarios.crearUsuarioPerfil(em, alias, perfil);
+    public String CrearUsuarioPerfilBD(String alias, String perfil) {
+        return persistenciaUsuarios.crearUsuarioPerfil(em, alias, perfil);
     }
 
     @Override
-    public Integer eliminarUsuariosBD(String alias) {
-        Integer exeE = null;
-        try {
-            persistenciaUsuarios.borrarUsuario(em, alias);
-            return exeE;
-        } catch (Exception e) {
-            log.warn("Error eliminarUsuariosBD Admi : " + e.toString());
-            return null;
-        }
-
+    public String eliminarUsuariosBD(String alias) {
+        return persistenciaUsuarios.borrarUsuario(em, alias);
     }
 
     @Override
-    public Integer eliminarUsuarioTotalBD(String alias) {
-        Integer exeE2 = null;
-        try {
-            exeE2 = persistenciaUsuarios.borrarUsuarioTotal(em, alias);
-            return exeE2;
-        } catch (Exception e) {
-            log.warn("Error eliminarUsuarioTotalBD Admi : " + e.toString());
-            return null;
-        }
+    public String eliminarUsuarioTotalBD(String alias) {
+        return persistenciaUsuarios.borrarUsuarioTotal(em, alias);
     }
 
     @Override
-    public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {
-        persistenciaUsuarios.clonarUsuario(em, usuarioOrigen, usuarioDestino);
+    public String clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {
+        return persistenciaUsuarios.clonarUsuario(em, usuarioOrigen, usuarioDestino);
     }
 
     @Override
-    public void desbloquearUsuariosBD(String alias) {
-        persistenciaUsuarios.desbloquearUsuario(em, alias);
+    public String desbloquearUsuariosBD(String alias) {
+        return persistenciaUsuarios.desbloquearUsuario(em, alias);
     }
 
     @Override
-    public void restaurarUsuariosBD(String alias, String fecha) {
-        persistenciaUsuarios.restaurarUsuario(em, alias, fecha);
+    public String restaurarUsuariosBD(String alias, String fecha) {
+        return persistenciaUsuarios.restaurarUsuario(em, alias, fecha);
     }
 
     public List<Personas> consultarPersonas() {

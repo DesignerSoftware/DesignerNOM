@@ -1995,8 +1995,7 @@ public class ControlRemoto implements Serializable {
       if (!nombrepantalla.equalsIgnoreCase(" ")) {
          FacesContext fc = FacesContext.getCurrentInstance();
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, nombrepantalla.toLowerCase());
-         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class
-         );
+         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
          controlListaNavegacion.guardarNavegacion("nominaf", nombrepantalla.toLowerCase());
       }
    }

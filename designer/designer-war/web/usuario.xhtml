@@ -290,23 +290,29 @@
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioEliminado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorCrearUsuario" header="#{msg['error']}" widgetVar="errorCrearUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="errorCrearUsuario" header="#{msg['error']}" widgetVar="errorCrearUsuario"  resizable="false" draggable="true" modal="true" height="300" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="El usuario no se pudo crear. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorCrearUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                        <h:outputText value="#{controlUsuarios.msgError}  #{controlUsuarios.msgErrorAux} " style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorCrearUsuario').hide();" style="position: absolute; top: 270px; left: 330px;" process="@this"/>
                     </p:dialog>
 
 
-                    <p:dialog id="errorEliminarUsuario" header="#{msg['error']}" widgetVar="errorEliminarUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="errorEliminarUsuario" header="#{msg['error']}" widgetVar="errorEliminarUsuario"  resizable="false" draggable="true" modal="true" height="150" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="El usuario no ha sido eliminado. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorEliminarUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                        <h:outputText value="#{controlUsuarios.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorEliminarUsuario').hide();" style="position: absolute; top: 130px; left: 330px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorDesbloquearUsuario" header="#{msg['error']}" widgetVar="errorDesbloquearUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="errorDesbloquearUsuario" header="#{msg['error']}" widgetVar="errorDesbloquearUsuario"  resizable="false" draggable="true" modal="true" height="150" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="El usuario no se ha podido desbloquear. Por favor llame a soporte" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorDesbloquearUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                        <h:outputText value="#{controlUsuarios.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorDesbloquearUsuario').hide();" style="position: absolute; top: 130px; left: 330px;" process="@this"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="errorReiniciarUsuario" header="#{msg['error']}" widgetVar="errorReiniciarUsuario"  resizable="false" draggable="true" modal="true" height="150" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="#{controlUsuarios.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorReiniciarUsuario').hide();" style="position: absolute; top: 130px; left: 330px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="usuarioClonado" header="#{msg['informacion']}" widgetVar="usuarioClonado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
@@ -315,10 +321,10 @@
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('usuarioClonado').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorClonarUsuario" header="#{msg['error']}" widgetVar="errorClonarUsuario"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="errorClonarUsuario" header="#{msg['error']}" widgetVar="errorClonarUsuario"  resizable="false" draggable="true" modal="true" height="150" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="El usuario no se pudo clonar. Por favor intente nuevamente" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorClonarUsuario').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
+                        <h:outputText value="#{controlUsuarios.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorClonarUsuario').hide();" style="position: absolute; top: 130px; left: 330px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
@@ -835,7 +841,7 @@
                     </p:dialog>
 
                     <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                        <h:graphicImage value="Imagenes/Iconos/descargar.png" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
                         <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                         <p:commandButton value="Descargar" icon="ui-icon-download" actionListener="#{controlUsuarios.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>

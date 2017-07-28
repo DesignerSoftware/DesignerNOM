@@ -27,13 +27,13 @@ public interface PersistenciaAportesEntidadesInterface {
 
     public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAnio(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
-    public void borrarAportesEntidadesProcesoAutomatico(EntityManager em, BigInteger secEmpresa, short mes, short ano);
+    public String borrarAportesEntidadesProcesoAutomatico(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
     public String ejecutarPKGActualizarNovedades(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
     public String ejecutarPKGInsertar(EntityManager em, Date fechaIni, Date fechaFin, BigInteger tipoTrabajador, BigInteger secEmpresa);
     
-    public void ejecutarAcumularDiferencia(EntityManager em, BigInteger secEmpresa, short mes, short ano);
+    public String ejecutarAcumularDiferencia(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
     public List<AportesEntidades> consultarAportesEntidadesPorEmpleado (EntityManager em, BigInteger secEmpleado, short mes, short ano);
     

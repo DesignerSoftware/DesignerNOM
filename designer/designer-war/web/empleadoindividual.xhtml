@@ -290,8 +290,7 @@
                         <h:outputText value="#{msg['email']}" 
                                       style="position: absolute; left: 370px; top: 101px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                         <p:inputText autocomplete="off" value="#{controlEmpleadoIndividual.persona.email}" id="email" 
-                                     style="position: absolute; left: 510px; top: 96px; width: 160px; height: 12px;" 
-                                     onclick="select();">
+                                     style="position: absolute; left: 510px; top: 96px; width: 160px; height: 12px;">
                            <p:ajax event="click" listener="#{controlEmpleadoIndividual.cambiarTablaRastro('Personas')}"/>
                            <p:ajax event="change" listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this"/>
                         </p:inputText>
@@ -623,8 +622,7 @@
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
                   <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.lovCiudades}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlEmpleadoIndividual.seleccionCiudades}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="418" scrollHeight="250"
-                               filteredValue="#{controlEmpleadoIndividual.filtradoListaCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
-                               scrollRows="15">              
+                               filteredValue="#{controlEmpleadoIndividual.filtradoListaCiudades}" emptyMessage="#{msg['lovvacio']}" scrollRows="15">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                      <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudad()}"/>
                      <p:ajax event="filter" process="@this" listener="#{controlEmpleadoIndividual.contarRegistrosCiudades()}"/>
@@ -665,7 +663,7 @@
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
                   <p:dataTable id="lovCiudadesDocumento" style="width: 400px;" var="ciudad" value="#{controlEmpleadoIndividual.lovCiudadesDocumento}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlEmpleadoIndividual.seleccionLovCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
-                               filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
+                               filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" 
                                scrollRows="15">              
                      <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
                      <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}"/>

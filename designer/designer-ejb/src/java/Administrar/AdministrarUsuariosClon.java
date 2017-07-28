@@ -74,9 +74,9 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
     }
     @Override
     public void desbloquearUsuariosBD(String alias) {        
-        persistenciaUsuarios.desbloquearUsuario(em, alias);
+           persistenciaUsuarios.desbloquearUsuario(em, alias);
         log.warn("está haciendo algo de desbloquear");   
-    }
+       }
     @Override
     public void restaurarUsuariosBD(String alias, String fecha) {        
         persistenciaUsuarios.restaurarUsuario(em, alias, fecha);

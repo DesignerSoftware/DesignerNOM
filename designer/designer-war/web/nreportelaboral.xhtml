@@ -12,7 +12,7 @@
     <h:body>
         <ui:composition template="/template.xhtml">
             <ui:define name="body"> 
-                <script type="text/javascript">
+               <script type="text/javascript">
                     $(window).load(function () {
                     });
                 </script>
@@ -166,6 +166,7 @@
 
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNReporteLaboral.activarCtrlF11()}" process="@this"/> 
+                    
                 </h:form>
 
                 <h:form id="formParametros" style="position: absolute; top: 11px; left: 4px">
@@ -255,16 +256,13 @@
                                 </div>
                             </div>
                         </div>
-                    </fieldset>                 
-                </h:form>
-
-                <h:form id="formDialogos">
-
-                    <p:dialog id="validacionRegistroFechas" header="#{msg['error']}" widgetVar="validacionRegistroFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
+                    </fieldset>    
+                    
+                     <p:dialog id="validacionRegistroFechas" header="#{msg['error']}" widgetVar="validacionRegistroFechas"  resizable="false" draggable="true" modal="true" height="80" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Los campos marcados con asterisco son obligatorios" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
-
+                    
                     <p:dialog id="nuevoRegistroFechas" header="Nuevo Registro" widgetVar="nuevoRegistroFechas" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="340" style=" padding: 0px">  
                         <center><strong><h:outputText id="informacion" value="Ingresar Fechas Parámetros" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
@@ -288,6 +286,10 @@
                         </p:panel>
                     </p:dialog>
 
+                    
+                </h:form>
+
+                <h:form id="formDialogos">
 
                     <p:dialog header="#{msg['reportesR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
                               showEffect="fade" hideEffect="fade" width="475" modal="true">

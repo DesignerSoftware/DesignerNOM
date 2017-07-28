@@ -6,18 +6,21 @@ package Persistencia;
 import Entidades.Usuarios;
 import InterfacePersistencia.PersistenciaUsuariosInterface;
 import java.math.BigInteger;
+import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 //import org.primefaces.context.RequestContext;
 
 @Stateless
 public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaUsuarios.class);
+    private static Logger log = Logger.getLogger(PersistenciaUsuarios.class);
 
     @Override
     public List<Usuarios> buscarUsuarios(EntityManager em) {
@@ -65,7 +68,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
     }
 
     @Override
-    public void crearUsuario(EntityManager em, String alias) {
+    public String crearUsuario(EntityManager em, String alias) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -75,15 +78,21 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             query.setParameter(1, alias);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear al usuario";
             }
         }
     }
 
     @Override
-    public void crearUsuarioPerfil(EntityManager em, String alias, String perfil) {
+    public String crearUsuarioPerfil(EntityManager em, String alias, String perfil) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -94,9 +103,15 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             query.setParameter(2, perfil);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Asignar el perfil al usuario";
             }
         }
     }
@@ -138,7 +153,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
     }
 
     @Override
-    public void borrarUsuario(EntityManager em, String alias) {
+    public String borrarUsuario(EntityManager em, String alias) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -148,38 +163,47 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             query.setParameter(1, alias);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaUsuarios.borrarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar el usuario";
+            }
         }
     }
 
     @Override
-    public Integer borrarUsuarioTotal(EntityManager em, String alias) {
+    public String borrarUsuarioTotal(EntityManager em, String alias) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
-        Integer exeE2 = null;
         try {
             tx.begin();
             String sqlQuery = "call USUARIOS_PKG.EliminarRegistrosUsuario(?)";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, alias);
-            exeE2 = query.executeUpdate();
+            query.executeUpdate();
             tx.commit();
-            return exeE2;
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaUsuarios.borrarUsuarioTotal. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return null;
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al borrar los registros del usuario";
+            }
         }
     }
 
     @Override
-    public void clonarUsuario(EntityManager em, BigInteger usuarioOrigen, BigInteger usuarioDestino) {
+    public String clonarUsuario(EntityManager em, BigInteger usuarioOrigen, BigInteger usuarioDestino) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -190,16 +214,22 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             query.setParameter(2, usuarioDestino);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaUsuarios.clonarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al clonar el usuario";
+            }
         }
     }
 
     @Override
-    public void desbloquearUsuario(EntityManager em, String alias) {
+    public String desbloquearUsuario(EntityManager em, String alias) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -210,16 +240,22 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             query.setParameter(1, sentencia);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.clonarUsuario. " + e.getMessage());
+            log.error("Error desbloquearUsuario. " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al desbloquear al usuario";
             }
         }
     }
 
     @Override
-    public void restaurarUsuario(EntityManager em, String alias, String fecha) {
+    public String restaurarUsuario(EntityManager em, String alias, String fecha) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -231,17 +267,23 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             query.setParameter(1, sentencia);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaUsuarios.restaurarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Asignar el reiniciar el usuario";
             }
         }
     }
 
     @Override
     public List<Usuarios> buscarUsuariosXSecuencia(EntityManager em, BigInteger secUsuario) {
-       try {
+        try {
             em.clear();
             String sql = "SELECT * FROM USUARIOS WHERE SECUENCIA = ? ";
             Query query = em.createNativeQuery(sql, Usuarios.class);

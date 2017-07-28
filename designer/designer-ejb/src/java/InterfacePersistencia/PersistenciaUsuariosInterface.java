@@ -23,12 +23,12 @@ public interface PersistenciaUsuariosInterface {
     public void editar(EntityManager em, Usuarios usuarios);
     public void borrar(EntityManager em, Usuarios usuarios);
     public List<Usuarios> buscarUsuarios(EntityManager em);
-    public void crearUsuario(EntityManager em, String alias);
-    public void crearUsuarioPerfil(EntityManager em, String alias, String perfil);
-    public void borrarUsuario(EntityManager em, String alias);
-    public Integer borrarUsuarioTotal(EntityManager em, String alias);
-    public void clonarUsuario(EntityManager em, BigInteger usuarioOrigen , BigInteger usuarioDestino);
-    public void desbloquearUsuario(EntityManager em, String alias);
-    public void restaurarUsuario(EntityManager em, String alias, String fecha);
+    public String crearUsuario(EntityManager em, String alias);
+    public String crearUsuarioPerfil(EntityManager em, String alias, String perfil);
+    public String borrarUsuario(EntityManager em, String alias);
+    public String borrarUsuarioTotal(EntityManager em, String alias);
+    public String clonarUsuario(EntityManager em, BigInteger usuarioOrigen , BigInteger usuarioDestino);
+    public String desbloquearUsuario(EntityManager em, String alias);
+    public String restaurarUsuario(EntityManager em, String alias, String fecha);
     public List<Usuarios> buscarUsuariosXSecuencia(EntityManager em, BigInteger secUsuario);
 }

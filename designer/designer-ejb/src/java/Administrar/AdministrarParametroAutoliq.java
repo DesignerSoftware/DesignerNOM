@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarParametroAutoliq.class);
+    private static Logger log = Logger.getLogger(AdministrarParametroAutoliq.class);
 
     @EJB
     PersistenciaParametrosAutoliqInterface persistenciaParametrosAutoliq;
@@ -146,7 +146,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     @Override
     public void editarAportesEntidades(List<AportesEntidades> listAE) {
         try {
-            log.warn("entró a editarAportesEntidades");
             for (int i = 0; i < listAE.size(); i++) {
 
                 if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
@@ -183,7 +182,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     @Override
     public void crearAportesEntidades(List<AportesEntidades> listaAE) {
         try {
-            log.warn("entró al crearAportesEntidades");
             for (int i = 0; i < listaAE.size(); i++) {
 
                 if (listaAE.get(i).getTipoentidad() != null) {
@@ -264,12 +262,8 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     }
 
     @Override
-    public void borrarAportesEntidadesProcesoAutomatico(BigInteger empresa, short mes, short ano) {
-        try {
-            persistenciaAportesEntidades.borrarAportesEntidadesProcesoAutomatico(em, empresa, mes, ano);
-        } catch (Exception e) {
-            log.warn("Error borrarAportesEntidadesProcesoAutomatico Admi : " + e.toString());
-        }
+    public String borrarAportesEntidadesProcesoAutomatico(BigInteger empresa, short mes, short ano) {
+        return persistenciaAportesEntidades.borrarAportesEntidadesProcesoAutomatico(em, empresa, mes, ano);
     }
 
     //@Override
@@ -326,7 +320,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
 
     @Override
     public String ejecutarPKGActualizarNovedades(short ano, short mes, BigInteger secuencia) {
-        log.warn("Administrar.AdministrarParametroAutoliq.ejecutarPKGActualizarNovedades()");
         try {
             String proceso = persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
             return proceso;
@@ -338,7 +331,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
 
     @Override
     public String ejecutarPKGInsertar(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa) {
-        log.warn("Administrar.AdministrarParametroAutoliq.ejecutarPKGInsertar()");
         try {
             String proceso = persistenciaAportesEntidades.ejecutarPKGInsertar(em, fechaIni, fechaFin, secTipoTrabajador, secuenciaEmpresa);
             return proceso;
@@ -349,17 +341,13 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     }
 
     @Override
-    public void ejecutarPKGAcumularDiferencia(short ano, short mes, BigInteger secuencia) {
-        try {
-            persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
-        } catch (Exception e) {
-            log.warn("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
-        }
+    public String ejecutarPKGAcumularDiferencia(short ano, short mes, BigInteger secuencia) {
+        return persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
     }
 
     @Override
     public List<AportesEntidades> consultarAportesEntidadesPorEmpleado(BigInteger secEmpleado, short mes, short ano) {
-       try {
+        try {
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpleado(em, secEmpleado, mes, ano);
             return lista;
         } catch (Exception e) {

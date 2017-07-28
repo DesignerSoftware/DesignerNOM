@@ -559,52 +559,6 @@ public class ControlInterfaseContableTotal implements Serializable {
       }
    }
 
-//    public void conectarAlFTP() {
-//        try {
-//            log.info("server remoto : " + usuarioInterfaseContabilizacion.getServernameremoto());
-//            log.info("usuario remoto : " + usuarioInterfaseContabilizacion.getUsuarioremoto());
-//            log.info("password remoto : " + usuarioInterfaseContabilizacion.getPasswordremoto());
-//
-//            ftpClient.connect(usuarioInterfaseContabilizacion.getServernameremoto());
-//            ftpClient.login(usuarioInterfaseContabilizacion.getUsuarioremoto(), usuarioInterfaseContabilizacion.getPasswordremoto());
-//            ftpClient.enterLocalPassiveMode();
-//            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-//        } catch (Exception e) {
-//            log.warn("Error en conexion : " + e.toString());
-//        }
-//    }
-//
-//    public void descargarArchivoFTP() throws IOException {
-//        try {
-//            usuarioInterfaseContabilizacion = administrarInterfaseContableTotal.obtenerUsuarioInterfaseContabilizacion();
-//            log.info("usuario interfase contabilzación: " + usuarioInterfaseContabilizacion);
-//            conectarAlFTP();
-//            int tamPath = pathProceso.length();
-//            String rutaX = "";
-//            for (int i = 2; i < tamPath; i++) {
-//                rutaX = rutaX + pathProceso.charAt(i) + "";
-//            }
-//            log.info("rutaX : " + rutaX);
-//            String remoteFile1 = rutaX + nombreArchivo + ".txt";
-//            File downloadFile1 = new File(pathProceso + nombreArchivo + ".txt");
-//            OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFile1));
-//            boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
-//            outputStream1.close();
-//            if (success) {
-//                log.info("Archivo #1 ha sido descargado exitosamente.");
-//            } else {
-//                log.info("Ni mierda !");
-//            }
-//            ftpClient.logout();
-//            File file = new File(pathProceso + nombreArchivo + ".txt");
-//            InputStream input = new FileInputStream(file);
-//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//            setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
-////            RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
-//        } catch (Exception e) {
-//            log.warn("Error descarga : " + e.toString());
-//        }
-//    }
    public void exportarPlano() throws IOException {
       try {
          log.info(this.getClass().getName() + ".exportarPlano()");

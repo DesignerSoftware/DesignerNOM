@@ -1219,6 +1219,13 @@
                   </fieldset>
 
 
+                  <p:commandButton id="buscar" style="position: absolute; left: 685px; top: 452px;" class="cssBotonBuscar"
+                                         actionListener="#{controlParametrosCorreccionAutoL.dispararDialogoBuscar()}" onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
+                        <p:tooltip value="#{msg['btn1']}" for="buscar"/>
+
+                        <p:commandButton id="mostrarTodos" style="position: absolute; left: 775px; top: 452px;" class="cssBotonMostrarTodos"
+                                         onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametrosCorreccionAutoL.mostrarTodosAporteEntidad()}" value="" process="@this"/>
+                  
                   <p:commandButton id="novedadauto"  style="position: absolute; left: 15px; top: 450px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;" onstart="#{controlParametrosCorreccionAutoL.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroscorreccionautol', 'novedadcorreccionautol')}" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.recibirPag('novedadcorreccionautol',controlParametrosCorreccionAutoL.parametroCorreccionSeleccionado.ano,controlParametrosCorreccionAutoL.parametroCorreccionSeleccionado.mes,controlParametrosCorreccionAutoL.parametroCorreccionSeleccionado.empresa.secuencia)}" 
                                    value="#{msg['novAuto']}" process="@this" icon="ui-icon-extlink"/>
@@ -1237,14 +1244,6 @@
                   <p:commandButton id="procesoLiq" style="position: absolute; left: 495px; top: 450px; height: 30px; width: 140px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;" icon="ui-icon-extlink"  value="#{msg['procesoLiq']}" actionListener="#{controlParametrosCorreccionAutoL.procesoLiquidacionAporteEntidad()}" process="@this"/>
                   <p:tooltip value="#{msg['btn5']}" for="procesoLiq"/>
-
-
-                  <p:commandButton id="buscar" style="position: absolute; left: 20px; top: 490px; width: 150px; height: 30px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                   actionListener="#{controlParametrosCorreccionAutoL.dispararDialogoBuscar()}"  value=" " process="@this"/>
-                  <p:tooltip value="#{msg['btn1']}" for="buscar"/>
-
-                  <p:commandButton id="mostrarTodos" style="position: absolute; left: 200px; top: 490px; width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "
-                                   onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametrosCorreccionAutoL.mostrarTodosAporteEntidad()}" value="" process="@this"/>
 
                   <p:commandButton class="cssBotonAceptar" disabled="#{controlParametrosCorreccionAutoL.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlParametrosCorreccionAutoL.salir()}" process="@this"/>

@@ -1134,7 +1134,7 @@ public class ControlNReporteLaboral implements Serializable {
     public void mostrarDialogoNuevaFecha() {
         getParametroDeReporte();
         if (parametroDeReporte.getFechadesde() == null && parametroDeReporte.getFechahasta() == null) {
-            RequestContext.getCurrentInstance().update("formDialogos:nuevoRegistroFechas");
+            RequestContext.getCurrentInstance().update("formParametros:nuevoRegistroFechas");
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').show()");
         }
     }
@@ -1157,7 +1157,7 @@ public class ControlNReporteLaboral implements Serializable {
             RequestContext.getCurrentInstance().execute("form:ACEPTAR");
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroFechas').hide()");
         } else {
-            RequestContext.getCurrentInstance().update("formDialogos:validacionRegistroFechas");
+            RequestContext.getCurrentInstance().update("formParametros:validacionRegistroFechas");
             RequestContext.getCurrentInstance().execute("PF('validacionRegistroFechas').show()");
         }
 

@@ -55,7 +55,7 @@ public interface AdministrarParametroAutoliqInterface {
 
     public List<Empresas> lovEmpresas();
 
-    public void borrarAportesEntidadesProcesoAutomatico(BigInteger empresa, short mes, short ano);
+    public String borrarAportesEntidadesProcesoAutomatico(BigInteger empresa, short mes, short ano);
 
     public ActualUsuario obtenerActualUsuario();
 
@@ -71,7 +71,7 @@ public interface AdministrarParametroAutoliqInterface {
 
     public String ejecutarPKGInsertar(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa);
 
-    public void ejecutarPKGAcumularDiferencia(short ano, short mes, BigInteger secuencia);
+    public String ejecutarPKGAcumularDiferencia(short ano, short mes, BigInteger secuencia);
     
     public List<AportesEntidades> consultarAportesEntidadesPorEmpleado(BigInteger secEmpleado, short mes, short ano);
 

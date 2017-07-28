@@ -24,9 +24,9 @@ public interface AdministrarUsuariosInterface {
 
     public List<Usuarios> consultarUsuarios();
 
-    public void crearUsuariosBD(String alias);
+    public String crearUsuariosBD(String alias);
 
-    public void CrearUsuarioPerfilBD(String alias, String perfil);
+    public String CrearUsuarioPerfilBD(String alias, String perfil);
 
     public List<Personas> consultarPersonas();
 
@@ -40,15 +40,15 @@ public interface AdministrarUsuariosInterface {
 
     public void crearUsuarios(List<Usuarios> listaUsuarios);
 
-    public Integer eliminarUsuariosBD(String alias);
+    public String eliminarUsuariosBD(String alias);
 
-    public Integer eliminarUsuarioTotalBD(String alias);
+    public String eliminarUsuarioTotalBD(String alias);
 
-    public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino);
+    public String clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino);
 
-    public void desbloquearUsuariosBD(String alias);
+    public String desbloquearUsuariosBD(String alias);
 
-    public void restaurarUsuariosBD(String alias, String fecha);
+    public String restaurarUsuariosBD(String alias, String fecha);
 
     public List<Ciudades> lovCiudades();
 

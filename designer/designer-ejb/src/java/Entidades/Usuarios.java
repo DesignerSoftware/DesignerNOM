@@ -69,7 +69,7 @@ public class Usuarios implements Serializable {
 
     public String getAlias() {
         if (alias == null) {
-            alias = (" ");
+            alias = ("");
         }
         return alias.toUpperCase();
     }

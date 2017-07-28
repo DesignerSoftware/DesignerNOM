@@ -3,6 +3,7 @@ package Administrar;
 import Entidades.Cargos;
 import Entidades.Ciudades;
 import Entidades.Demandas;
+import Entidades.Departamentos;
 import Entidades.Direcciones;
 import Entidades.Empleados;
 import Entidades.Encargaturas;
@@ -526,24 +527,14 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
     @Override
     public void modificarPersona(Personas personas) {
         try {
-            if (personas.getFactorrh().equals("")) {
-                personas.setFactorrh(null);
-            }
-            if (personas.getGruposanguineo().equals("")) {
-                personas.setGruposanguineo(null);
-            }
-            if (personas.getViviendapropia().equals("")) {
-                personas.setViviendapropia(null);
-            }
-            if (personas.getCiudaddocumento() != null) {
-                if (personas.getCiudaddocumento().getSecuencia() == null) {
-                    personas.setCiudaddocumento(null);
-                }
+            if (personas.getCiudaddocumento() == null) {
+                    personas.setCiudaddocumento(new Ciudades());
+                    personas.getCiudaddocumento().setDepartamento(new Departamentos());
             }
 
             persistenciaPersonas.editar(em, personas);
         } catch (Exception e) {
-            log.warn("Error modificando. AdministrarEmpleadoIndividual.modificarPersona");
+            log.warn("Error modificando. AdministrarEmpleadoIndividual.modificarPersona : "  + e.getMessage() );
         }
     }
 
