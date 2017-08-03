@@ -76,7 +76,7 @@ public interface AdministrarInterfaseContableTotalInterface {
 
     public String obtenerPathProceso();
 
-    public void ejecutarPKGCrearArchivoPlano(int tipoArchivo, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo);
+    public String ejecutarPKGCrearArchivoPlano(int tipoArchivo, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo);
 
     public UsuariosInterfases obtenerUsuarioInterfaseContabilizacion();
 }

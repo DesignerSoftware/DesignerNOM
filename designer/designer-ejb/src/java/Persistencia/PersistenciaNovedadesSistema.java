@@ -129,6 +129,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
         try {
             em.clear();
             String sql = " SELECT * FROM NOVEDADESSISTEMA WHERE TIPO='VACACION' AND EXISTS (SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA=NOVEDADESSISTEMA.EMPLEADO AND E.SECUENCIA = ?)";
+            
             Query query = em.createNativeQuery(sql, NovedadesSistema.class);
             query.setParameter(1, secuenciaEmpleado);
             List<NovedadesSistema> novedadesSistema = query.getResultList();

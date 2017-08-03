@@ -9,6 +9,7 @@ import ClasesAyuda.ExtraeCausaExcepcion;
 import Entidades.InterconTotal;
 import InterfacePersistencia.PersistenciaInterconTotalInterface;
 import excepciones.ExcepcionBD;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -17,6 +18,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -26,7 +28,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaInterconTotal implements PersistenciaInterconTotalInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaInterconTotal.class);
+    private static Logger log = Logger.getLogger(PersistenciaInterconTotal.class);
 
     @Override
     public void crear(EntityManager em, InterconTotal interconTotal) {
@@ -320,7 +322,7 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public void ejecutarPKGCrearArchivoPlano(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo) {
+    public String ejecutarPKGCrearArchivoPlano(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -340,10 +342,16 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.setParameter(4, nombreArchivo);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaInterconTotal.ejecutarPKGCrearArchivoPlano : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof FileNotFoundException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el Archivo Plano";
             }
         }
     }

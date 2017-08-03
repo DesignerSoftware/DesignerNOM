@@ -1803,7 +1803,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('acumularDiferenciaOK').hide();" style="position: absolute; top: 50px; left: 250px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
-                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="true" modal="true" height="85" width="355"  closable="true">  
+                    <p:dialog id="errorAcumularDiferencia" header="#{msg['error']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="true" modal="true" height="85" width="355"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"/>
                         <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight: bold;text-align: justify"/>
                     </p:dialog>
@@ -1818,6 +1818,12 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:outputText value="#{controlParametroAutoliq.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorProcesoPila').hide();" style="position: absolute; top: 130px; left: 330px;" process="@this"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="procesoPilaOK" header="#{msg['informacion']}" widgetVar="procesoPilaOK"  resizable="false" draggable="true" modal="true" height="90" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('procesoPilaOK').hide();" style="position: absolute; top: 50px; left: 330px;" process="@this"/>
                     </p:dialog>
                     
                     

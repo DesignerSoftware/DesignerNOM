@@ -11,10 +11,12 @@ import Entidades.VWDSolucionesNodosN;
 import Entidades.VWDSolucionesNodosNDetalle;
 import InterfaceAdministrar.AdministrarParametrosConjuntosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
+import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaConceptosInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaParametrosConjuntosInterface;
 import InterfacePersistencia.PersistenciaVWDSolucionesNodosNInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +33,7 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarParametrosConjuntos implements AdministrarParametrosConjuntosInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarParametrosConjuntos.class);
+    private static Logger log = Logger.getLogger(AdministrarParametrosConjuntos.class);
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -43,6 +45,8 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
     PersistenciaEmpleadoInterface persistenciaEmpleado;
     @EJB
     PersistenciaConceptosInterface persistenciaConceptos;
+    @EJB
+    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
 
     private EntityManager em;
 
@@ -81,7 +85,13 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
     @Override
     public ParametrosConjuntos consultarParametros() {
         try {
-            return persistenciaParametrosConjuntos.consultarParametros(em);
+            ParametrosConjuntos pc = persistenciaParametrosConjuntos.consultarParametros(em);
+            if (pc == null) {
+                pc = new ParametrosConjuntos();
+                pc.setSecuencia(BigDecimal.ONE);
+                pc.setUsuarioBD(persistenciaActualUsuario.actualAliasBD(em));
+            }
+            return pc;
         } catch (Exception e) {
             log.error("Error AdministrarParametrosConjuntos.consultarParametros : " + e);
             return null;

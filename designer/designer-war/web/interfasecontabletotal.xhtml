@@ -766,7 +766,21 @@
                     <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="100" width="360" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlInterfaseContableTotal.pathReporteGenerado}" style="position: absolute; left: 10px; top: 10px; width: 325px; height: 70px;" readonly="true"/>
                     </p:dialog>
+                    
 
+                    <p:dialog id="errorGenerandoPlano" header="#{msg['error']}" widgetVar="errorGenerandoPlano"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="#{controlInterfaseContableTotal.msgError}" style="position: absolute; left:90px; top: 10px; width: 350px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGenerandoPlano').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
+                    </p:dialog>
+                    
+                     <p:dialog id="errorExportandoPlano" header="#{msg['error']}" widgetVar="errorExportandoPlano"  resizable="false" draggable="true" modal="true" height="90" width="480"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
+                        <h:outputText value="#{controlInterfaseContableTotal.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorExportandoPlano').hide();" style="position: absolute; top: 60px; left: 330px;" process="@this"/>
+                    </p:dialog>
+
+                    
                     <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="80" width="400" style="font-size: 12px">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"/>
                         <h:outputText value="Generando reporte, esto puede tardar algunos minutos..." style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
@@ -867,7 +881,7 @@
                         <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>

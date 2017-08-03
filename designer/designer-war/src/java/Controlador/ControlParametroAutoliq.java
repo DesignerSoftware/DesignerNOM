@@ -1798,7 +1798,6 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaAportesEntidades != null) {
             if (!listaAportesEntidades.isEmpty()) {
-                msgError = "";
                 if (msgError.equals("PROCESO_EXITOSO")) {
                     administrarParametroAutoliq.borrarAportesEntidadesProcesoAutomatico(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
                     listaAportesEntidades = null;
@@ -1812,9 +1811,11 @@ public class ControlParametroAutoliq implements Serializable {
                     RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                     RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
                     activoBtnsPaginas = true;
-                    FacesMessage msg = new FacesMessage("Información", "El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
+                    RequestContext.getCurrentInstance().update("formularioDialogos:procesoPilaOK");
+                    RequestContext.getCurrentInstance().execute("PF('procesoPilaOK').show()");
+//                    FacesMessage msg = new FacesMessage("Información", "El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente");
+//                    FacesContext.getCurrentInstance().addMessage(null, msg);
+//                    RequestContext.getCurrentInstance().update("form:growl");
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 } else {
                     RequestContext.getCurrentInstance().update("formularioDialogos:errorProcesoPila");

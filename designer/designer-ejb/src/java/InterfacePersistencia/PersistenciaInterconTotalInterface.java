@@ -44,7 +44,7 @@ public interface PersistenciaInterconTotalInterface {
 
     public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin) throws ExcepcionBD;
 
-    public void ejecutarPKGCrearArchivoPlano(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo);
+    public String ejecutarPKGCrearArchivoPlano(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo);
     
     public void ejecutarPKGCrearArchivoPlano_GEO(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo);
     

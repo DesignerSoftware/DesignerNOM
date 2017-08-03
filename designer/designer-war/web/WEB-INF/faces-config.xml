@@ -6183,7 +6183,7 @@
    </navigation-rule>
     
    <navigation-rule>
-      <from-view-id>/novedadvacaciones.xhtml</from-view-id>
+      <from-view-id>/novedadvacacionesarmor.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>novedad</from-outcome>
          <to-view-id>/novedad.xhtml</to-view-id>
@@ -6193,8 +6193,8 @@
    <navigation-rule>
       <from-view-id>/novedad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>novedadvacaciones</from-outcome>
-         <to-view-id>/novedadvacaciones.xhtml</to-view-id>
+         <from-outcome>novedadvacacionesarmor</from-outcome>
+         <to-view-id>/novedadvacacionesarmor.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>

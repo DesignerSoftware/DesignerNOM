@@ -371,12 +371,8 @@ public class AdministrarInterfaseContableSapBOV8 implements AdministrarInterfase
     }
 
     @Override
-    public void ejecutarPKGCrearArchivoPlano(Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
-        try {
-            persistenciaInterconSap.ejecutarPKGCrearArchivoPlanoSAPV8(em, fechaIni, fechaFin, proceso, descripcionProceso, nombreArchivo);
-        } catch (Exception e) {
-            log.warn("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
-        }
+    public String ejecutarPKGCrearArchivoPlano(Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
+        return  persistenciaInterconSap.ejecutarPKGCrearArchivoPlanoSAPV8(em, fechaIni, fechaFin, proceso, descripcionProceso, nombreArchivo);
     }
 
     public String obtenerEnvioInterfaseContabilidadEmpresa(short codigoEmpresa) {

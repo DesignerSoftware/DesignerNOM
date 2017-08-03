@@ -75,10 +75,10 @@
                                     </div>
                                     <div style="height: 50px;">
                                         <p:commandButton id="novedadVacaciones" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad06.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacaciones')}"
+                                                         value="" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacacionesarmor')}"
                                                          disabled="#{controlNovedad.consultarPermisosPorId('novedadVacaciones')}">
                                         </p:commandButton>
-                                        <h:commandLink id="txtnovedadVacaciones" style="font-weight: bold; color: #14388B;" value="Vacaciones" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacaciones')}" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}"
+                                        <h:commandLink id="txtnovedadVacaciones" style="font-weight: bold; color: #14388B;" value="Vacaciones" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacacionesarmor')}" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}"
                                                        disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadVacaciones')}"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por empleado"/>

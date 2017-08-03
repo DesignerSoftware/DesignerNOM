@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarInterfaseContableTotal implements AdministrarInterfaseContableTotalInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarInterfaseContableTotal.class);
+    private static Logger log = Logger.getLogger(AdministrarInterfaseContableTotal.class);
 
     @EJB
     PersistenciaParametrosContablesInterface persistenciaParametrosContables;
@@ -381,12 +381,8 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     }
 
     @Override
-    public void ejecutarPKGCrearArchivoPlano(int tipoArchivo, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo) {
-        try {
-            persistenciaInterconTotal.ejecutarPKGCrearArchivoPlano(em, tipoArchivo, fechaIni, fechaFin, proceso, nombreArchivo);
-        } catch (Exception e) {
-            log.warn("Error ejecutarPKGCrearArchivoPlano Admi : " + e.toString());
-        }
+    public String ejecutarPKGCrearArchivoPlano(int tipoArchivo, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo) {
+        return persistenciaInterconTotal.ejecutarPKGCrearArchivoPlano(em, tipoArchivo, fechaIni, fechaFin, proceso, nombreArchivo);
     }
 
     @Override

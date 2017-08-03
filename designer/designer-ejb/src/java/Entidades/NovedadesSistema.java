@@ -99,7 +99,7 @@ public class NovedadesSistema implements Serializable {
     @Column(name = "PAGADO")
     private String pagado;
     @Column(name = "VACADIASAPLAZADOS")
-    private Short vacadiasaplazados;
+    private BigInteger vacadiasaplazados;
     @Size(max = 1)
     @Column(name = "CONTABILIZARALCIERRE")
     private String contabilizaralcierre;
@@ -377,14 +377,11 @@ public class NovedadesSistema implements Serializable {
         this.pagado = pagado;
     }
 
-    public Short getVacadiasaplazados() {
-//        if(vacadiasaplazados == null){
-//            vacadiasaplazados = 0;
-//        }
+    public BigInteger getVacadiasaplazados() {
         return vacadiasaplazados;
     }
 
-    public void setVacadiasaplazados(Short vacadiasaplazados) {
+    public void setVacadiasaplazados(BigInteger vacadiasaplazados) {
         this.vacadiasaplazados = vacadiasaplazados;
     }
 

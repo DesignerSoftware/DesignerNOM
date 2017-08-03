@@ -2,6 +2,7 @@ package Persistencia;
 
 import Entidades.InterconSapBO;
 import InterfacePersistencia.PersistenciaInterconSapBOInterface;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -10,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -20,7 +22,7 @@ import javax.persistence.Query;
 
 public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaInterconSapBO.class);
+    private static Logger log = Logger.getLogger(PersistenciaInterconSapBO.class);
 
     @Override
     public void crear(EntityManager em, InterconSapBO interconSapBO) {
@@ -98,7 +100,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(2, fechaFinal);
             List<InterconSapBO> intercon = query.getResultList();
             if (intercon != null) {
-                log.error("Lista InterconSapBO intercon : "+intercon.size());
+                log.error("Lista InterconSapBO intercon : " + intercon.size());
             } else {
                 log.error("Lista Nula InterconSapBO");
             }
@@ -122,7 +124,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             return null;
         }
     }
-    
+
     @Override
     public void actualizarFlagProcesoAnularInterfaseContableSAPBO(EntityManager em, Date fechaIni, Date fechaFin) {
         em.clear();
@@ -144,8 +146,6 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
-    
 
     @Override
     public void actualizarFlagProcesoAnularInterfaseContableSAPBOV8(EntityManager em, Date fechaIni, Date fechaFin) {
@@ -180,7 +180,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(1, secuencia);
             query.setParameter(2, fechaIni);
             query.setParameter(3, fechaFin);
-            query.setParameter(4, proceso); 
+            query.setParameter(4, proceso);
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
@@ -190,7 +190,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejeuctarPKGUbicarnuevointercon_SAPBO(EntityManager em, BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso) {
         em.clear();
@@ -202,7 +202,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(1, secuencia);
             query.setParameter(2, fechaIni);
             query.setParameter(3, fechaFin);
-            query.setParameter(4, proceso); 
+            query.setParameter(4, proceso);
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
@@ -212,7 +212,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejeuctarPKGUbicarnuevointercon_SAPBOVHP(EntityManager em, BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso) {
         em.clear();
@@ -224,7 +224,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(1, secuencia);
             query.setParameter(2, fechaIni);
             query.setParameter(3, fechaFin);
-            query.setParameter(4, proceso); 
+            query.setParameter(4, proceso);
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
@@ -234,7 +234,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejeuctarPKGUbicarnuevointercon_SAPBO_VCA(EntityManager em, BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso) {
         em.clear();
@@ -256,7 +256,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejeuctarPKGUbicarnuevointercon_SAPBO_PE(EntityManager em, BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso) {
         em.clear();
@@ -278,7 +278,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejeuctarPKGUbicarnuevointercon_SAPBOPQ(EntityManager em, BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso) {
         em.clear();
@@ -300,7 +300,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin) {
         em.clear();
@@ -369,7 +369,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejecutarPKGCrearArchivoPlanoSAPBO(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
         em.clear();
@@ -391,9 +391,9 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
-    public void ejecutarPKGCrearArchivoPlanoSAPV8(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
+    public String ejecutarPKGCrearArchivoPlanoSAPV8(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -407,14 +407,20 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.setParameter(5, nombreArchivo);
             query.executeUpdate();
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
             log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPV8 : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
+            if (e instanceof PersistenceException || e instanceof FileNotFoundException) {
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al crear el Archivo Plano";
+            }
         }
     }
-    
+
     @Override
     public void ejecutarPKGCrearArchivoPlanoSAPVCA(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
         em.clear();
@@ -437,7 +443,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejecutarPKGCrearArchivoPlanoSAPPE(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
         em.clear();
@@ -460,7 +466,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public void ejecutarPKGCrearArchivoPlanoSAPPQ(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
         em.clear();
@@ -483,6 +489,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
+
     @Override
     public void ejecutarPKGCrearArchivoPlanoSAPHP(EntityManager em, Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo) {
         em.clear();
@@ -505,7 +512,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
         }
     }
-    
+
     @Override
     public int contarProcesosContabilizadosInterconSAPBO(EntityManager em, Date fechaInicial, Date fechaFinal) {
         try {
@@ -607,7 +614,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
 
     @Override
     public void actualizarFlagInterconSapBO(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa) {
-       em.clear();
+        em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();

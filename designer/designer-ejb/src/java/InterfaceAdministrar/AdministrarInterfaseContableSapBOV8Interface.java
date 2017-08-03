@@ -78,7 +78,7 @@ public interface AdministrarInterfaseContableSapBOV8Interface {
 
     public String obtenerDescripcionProcesoArchivo(BigInteger proceso);
 
-    public void ejecutarPKGCrearArchivoPlano(Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo);
+    public String ejecutarPKGCrearArchivoPlano(Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo);
 
     public String obtenerEnvioInterfaseContabilidadEmpresa(short codigoEmpresa);
 
