@@ -11,11 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-ejb/src/java/Administrar/AdministrarTemplate.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-ejb/src/java/Administrar/AdministrarSesiones.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-ejb/src/conf/persistence.xml</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-ejb/src/java/log4j.xml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
