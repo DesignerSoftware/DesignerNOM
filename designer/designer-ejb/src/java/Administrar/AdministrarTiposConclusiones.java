@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Administrar;
 
 import Entidades.TiposConclusiones;
@@ -15,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,69 +27,104 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
    private static Logger log = Logger.getLogger(AdministrarTiposConclusiones.class);
 
    @EJB
-    PersistenciaTiposConclusionesInterface persistenciaTiposConclusiones;
+   PersistenciaTiposConclusionesInterface persistenciaTiposConclusiones;
    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
-        for (int i = 0; i < listaTiposConclusiones.size(); i++) {
-            log.warn("Administrar Modificando...");
-            persistenciaTiposConclusiones.editar(em, listaTiposConclusiones.get(i));
-        }
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void borrarTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
-        for (int i = 0; i < listaTiposConclusiones.size(); i++) {
-            log.warn("Administrar Borrando...");
-            persistenciaTiposConclusiones.borrar(em, listaTiposConclusiones.get(i));
-        }
-    }
-
-    @Override
-    public void crearTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
-        for (int i = 0; i < listaTiposConclusiones.size(); i++) {
-            log.warn("Administrar Creando...");
-            persistenciaTiposConclusiones.crear(em, listaTiposConclusiones.get(i));
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
-    public List<TiposConclusiones> consultarTiposConclusiones() {
-        List<TiposConclusiones> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaTiposConclusiones.consultarTiposConclusiones(em);
-        return listMotivosCambiosCargos;
-    }
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public TiposConclusiones consultarTipoConclusion(BigInteger secTiposConclusiones) {
-        TiposConclusiones subCategoria;
-        subCategoria = persistenciaTiposConclusiones.consultarTipoConclusion(em, secTiposConclusiones);
-        return subCategoria;
-    }
+   @Override
+   public void modificarTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
+      try {
+         for (int i = 0; i < listaTiposConclusiones.size(); i++) {
+            log.warn("Administrar Modificando...");
+            persistenciaTiposConclusiones.editar(getEm(), listaTiposConclusiones.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public BigInteger contarProcesosTipoConclusion(BigInteger secTiposConclusiones) {
-        BigInteger contarProcesosTipoConclusion = null;
+   @Override
+   public void borrarTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
+      try {
+         for (int i = 0; i < listaTiposConclusiones.size(); i++) {
+            log.warn("Administrar Borrando...");
+            persistenciaTiposConclusiones.borrar(getEm(), listaTiposConclusiones.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-        try {
-            return contarProcesosTipoConclusion = persistenciaTiposConclusiones.contarChequeosMedicosTipoConclusion(em, secTiposConclusiones);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public void crearTiposConclusiones(List<TiposConclusiones> listaTiposConclusiones) {
+      try {
+         for (int i = 0; i < listaTiposConclusiones.size(); i++) {
+            log.warn("Administrar Creando...");
+            persistenciaTiposConclusiones.crear(getEm(), listaTiposConclusiones.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<TiposConclusiones> consultarTiposConclusiones() {
+      try {
+         return persistenciaTiposConclusiones.consultarTiposConclusiones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public TiposConclusiones consultarTipoConclusion(BigInteger secTiposConclusiones) {
+      try {
+         return persistenciaTiposConclusiones.consultarTipoConclusion(getEm(), secTiposConclusiones);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarProcesosTipoConclusion(BigInteger secTiposConclusiones) {
+      try {
+         return persistenciaTiposConclusiones.contarChequeosMedicosTipoConclusion(getEm(), secTiposConclusiones);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e);
+         return null;
+      }
+   }
 }

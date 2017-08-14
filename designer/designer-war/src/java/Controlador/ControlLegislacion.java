@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -147,7 +148,7 @@ public class ControlLegislacion implements Serializable {
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
+            controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
         } else {
             controlListaNavegacion.guardarNavegacion(pagActual, pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -171,8 +172,14 @@ public class ControlLegislacion implements Serializable {
         lovTiposCotizantes = null;
     }
 
-    @PostConstruct
+    @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
+   @PostConstruct
     public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession sesion = (HttpSession) context.getExternalContext().getSession(false);

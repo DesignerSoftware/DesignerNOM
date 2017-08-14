@@ -28,8 +28,8 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         log.error("PersitenciaClavesSap sencuencia " + clavesap.getSecuencia());
-         log.error("PersitenciaClavesSap Clave Ajuste sencuencia " + clavesap.getClaveAjuste().getSecuencia());
+         log.warn("PersitenciaClavesSap sencuencia " + clavesap.getSecuencia());
+         log.warn("PersitenciaClavesSap Clave Ajuste sencuencia " + clavesap.getClaveAjuste().getSecuencia());
          tx.begin();
          em.merge(clavesap);
          tx.commit();
@@ -92,7 +92,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
+         log.warn("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
@@ -107,7 +107,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
+         log.warn("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);

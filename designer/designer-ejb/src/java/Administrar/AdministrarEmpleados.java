@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,47 +26,65 @@ public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarEmpleados.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaEmpleadoInterface persitenciaEmpleados;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEmpleadoInterface persitenciaEmpleados;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<Empleados> listaEmpleados() {
-        try {
-            List<Empleados> lista = persitenciaEmpleados.todosEmpleados(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("error en AdministrarEmpleados.listaEmpleados" + e);
-            return null;
-        }
-    }
-
-    @Override
-    public void editarEmpleado(List<Empleados> listaE) {
-        try {
-            for (int i = 0; i < listaE.size(); i++) {
-                persitenciaEmpleados.editar(em, listaE.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("erroe en AdministrarEmpleados.editarEmpleado : " + e);
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void cambiarCodEmpl(BigDecimal codactual, BigDecimal codnuevo) {
-       try{
-           persitenciaEmpleados.cambiarCodEmpleado(em, codactual, codnuevo);
-       }catch(Exception e){
-        log.warn("erroe en AdministrarEmpleados.cambiarCodEmpl : " + e);
-       }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<Empleados> listaEmpleados() {
+      try {
+         return persitenciaEmpleados.todosEmpleados(getEm());
+      } catch (Exception e) {
+         log.warn("error en AdministrarEmpleados.listaEmpleados" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void editarEmpleado(List<Empleados> listaE) {
+      try {
+         for (int i = 0; i < listaE.size(); i++) {
+            persitenciaEmpleados.editar(getEm(), listaE.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("erroe en AdministrarEmpleados.editarEmpleado : " + e);
+      }
+   }
+
+   @Override
+   public void cambiarCodEmpl(BigDecimal codactual, BigDecimal codnuevo) {
+      try {
+         persitenciaEmpleados.cambiarCodEmpleado(getEm(), codactual, codnuevo);
+      } catch (Exception e) {
+         log.warn("erroe en AdministrarEmpleados.cambiarCodEmpl : " + e);
+      }
+   }
 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -62,6 +63,23 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
                if (sem.getIdSession().equals(idSesion)) {
                   log.warn(this.getClass().getName() + ".obtenerConexionSesion() Encontró la sesión: " + idSesion);
                   return sem.getEm();
+               }
+            }
+         }
+      } catch (Exception e) {
+         log.fatal("Administrar.obtenerConexionSesion() ERROR: " + e);
+      }
+      return null;
+   }
+
+   @Override
+   public EntityManagerFactory obtenerConexionSesionEMF(String idSesion) {
+      try {
+         if (!sessionesActivas.isEmpty()) {
+            for (SessionEntityManager sem : sessionesActivas) {
+               if (sem.getIdSession().equals(idSesion)) {
+                  log.warn(this.getClass().getName() + ".obtenerConexionSesion() Encontró la sesión: " + idSesion);
+                  return sem.getEmf();
                }
             }
          }

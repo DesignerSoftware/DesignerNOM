@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,72 +26,106 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
 
    private static Logger log = Logger.getLogger(AdministrarMotivosDemandas.class);
 
-    @EJB
-    PersistenciaMotivosDemandasInterface persistenciaMotivosDemandas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMotivosDemandasInterface persistenciaMotivosDemandas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
-        for (int i = 0; i < listMotivosDemandas.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
+      try {
+         for (int i = 0; i < listMotivosDemandas.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaMotivosDemandas.editar(em, listMotivosDemandas.get(i));
-        }
-    }
+            persistenciaMotivosDemandas.editar(getEm(), listMotivosDemandas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
-        for (int i = 0; i < listMotivosDemandas.size(); i++) {
+   @Override
+   public void borrarMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
+      try {
+         for (int i = 0; i < listMotivosDemandas.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaMotivosDemandas.borrar(em, listMotivosDemandas.get(i));
-        }
-    }
+            persistenciaMotivosDemandas.borrar(getEm(), listMotivosDemandas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
-        for (int i = 0; i < listMotivosDemandas.size(); i++) {
+   @Override
+   public void crearMotivosDemandas(List<MotivosDemandas> listMotivosDemandas) {
+      try {
+         for (int i = 0; i < listMotivosDemandas.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaMotivosDemandas.crear(em, listMotivosDemandas.get(i));
-        }
-    }
+            persistenciaMotivosDemandas.crear(getEm(), listMotivosDemandas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<MotivosDemandas> consultarMotivosDemandas() {
-        List<MotivosDemandas> listMotivoDemanda;
-        listMotivoDemanda = persistenciaMotivosDemandas.buscarMotivosDemandas(em);
-        return listMotivoDemanda;
-    }
+   @Override
+   public List<MotivosDemandas> consultarMotivosDemandas() {
+      try {
+         return persistenciaMotivosDemandas.buscarMotivosDemandas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public MotivosDemandas consultarMotivoDemanda(BigInteger secMotivoDemanda) {
-        MotivosDemandas motivoDemanda;
-        motivoDemanda = persistenciaMotivosDemandas.buscarMotivoDemanda(em, secMotivoDemanda);
-        return motivoDemanda;
-    }
+   @Override
+   public MotivosDemandas consultarMotivoDemanda(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaMotivosDemandas.buscarMotivoDemanda(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarDemandasMotivoDemanda(BigInteger secuenciaEventos) {
-        BigInteger verificadorDemanda = null;
-
-        try {
-            log.error("Secuencia Motivo Demanda " + secuenciaEventos);
-            verificadorDemanda = persistenciaMotivosDemandas.contadorDemandas(em, secuenciaEventos);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarMotivoDemanda verificarBorradoDemanda ERROR :" + e);
-        } finally {
-            return verificadorDemanda;
-        }
-    }
+   @Override
+   public BigInteger contarDemandasMotivoDemanda(BigInteger secuenciaEventos) {
+      try {
+         log.error("Secuencia Motivo Demanda " + secuenciaEventos);
+         return persistenciaMotivosDemandas.contadorDemandas(getEm(), secuenciaEventos);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarMotivoDemanda verificarBorradoDemanda ERROR :" + e);
+         return null;
+      }
+   }
 }

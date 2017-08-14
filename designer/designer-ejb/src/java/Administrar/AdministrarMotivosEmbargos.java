@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,75 +26,108 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
 
    private static Logger log = Logger.getLogger(AdministrarMotivosEmbargos.class);
 
-    @EJB
-    PersistenciaMotivosEmbargosInterface persistenciaMotivosEmbargos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMotivosEmbargosInterface persistenciaMotivosEmbargos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    public void modificarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
-        for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
+      try {
+         for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaMotivosEmbargos.editar(em, listaMotivosEmbargos.get(i));
-        }
-    }
+            persistenciaMotivosEmbargos.editar(getEm(), listaMotivosEmbargos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
-        for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
+   public void borrarMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
+      try {
+         for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaMotivosEmbargos.borrar(em, listaMotivosEmbargos.get(i));
-        }
-    }
+            persistenciaMotivosEmbargos.borrar(getEm(), listaMotivosEmbargos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
-        for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
+   public void crearMotivosEmbargos(List<MotivosEmbargos> listaMotivosEmbargos) {
+      try {
+         for (int i = 0; i < listaMotivosEmbargos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaMotivosEmbargos.crear(em, listaMotivosEmbargos.get(i));
-        }
-    }
+            persistenciaMotivosEmbargos.crear(getEm(), listaMotivosEmbargos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<MotivosEmbargos> mostrarMotivosEmbargos() {
-        List<MotivosEmbargos> listMotivosEmbargos;
-        listMotivosEmbargos = persistenciaMotivosEmbargos.buscarMotivosEmbargos(em);
-        return listMotivosEmbargos;
-    }
+   public List<MotivosEmbargos> mostrarMotivosEmbargos() {
+      try {
+         return persistenciaMotivosEmbargos.buscarMotivosEmbargos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public MotivosEmbargos mostrarMotivoEmbargo(BigInteger secMotivoPrestamo) {
-        MotivosEmbargos motivosEmbargos;
-        motivosEmbargos = persistenciaMotivosEmbargos.buscarMotivoEmbargo(em, secMotivoPrestamo);
-        return motivosEmbargos;
-    }
+   public MotivosEmbargos mostrarMotivoEmbargo(BigInteger secMotivoPrestamo) {
+      try {
+         return persistenciaMotivosEmbargos.buscarMotivoEmbargo(getEm(), secMotivoPrestamo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarEersPrestamosMotivoEmbargo(BigInteger secuenciaTiposDias) {
-        BigInteger verificarEersPrestamos = null;
-        try {
-            verificarEersPrestamos = persistenciaMotivosEmbargos.contadorEersPrestamos(em, secuenciaTiposDias);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREERSPRESTAMOS ERROR :" + e);
-        } finally {
-            return verificarEersPrestamos;
-        }
-    }
+   public BigInteger contarEersPrestamosMotivoEmbargo(BigInteger secuenciaTiposDias) {
+      try {
+         return persistenciaMotivosEmbargos.contadorEersPrestamos(getEm(), secuenciaTiposDias);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREERSPRESTAMOS ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarEmbargosMotivoEmbargo(BigInteger secuenciaTiposDias) {
-        BigInteger verificarEmbargos = null;
-        try {
-            verificarEmbargos = persistenciaMotivosEmbargos.contadorEmbargos(em, secuenciaTiposDias);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREMBARGOS ERROR :" + e);
-        } finally {
-            return verificarEmbargos;
-        }
-    }
+   public BigInteger contarEmbargosMotivoEmbargo(BigInteger secuenciaTiposDias) {
+      try {
+         return persistenciaMotivosEmbargos.contadorEmbargos(getEm(), secuenciaTiposDias);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARMOTIVOSEMBARGOS VERIFICAREMBARGOS ERROR :" + e);
+         return null;
+      }
+   }
 }

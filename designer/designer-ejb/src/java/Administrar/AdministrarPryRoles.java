@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,56 +24,93 @@ import org.apache.log4j.Logger;
 public class AdministrarPryRoles implements AdministrarPryRolesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarPryRoles.class);
-    @EJB
-    PersistenciaPryRolesInterface persistenciaPryRoles;
-        /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaPryRolesInterface persistenciaPryRoles;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public List<PryRoles> PryRoles(){
-        List<PryRoles> listaPryRoles;
-        listaPryRoles = persistenciaPryRoles.pryroles(em);
-        return listaPryRoles;
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<PryRoles>  lovPryRoles(){
-        return persistenciaPryRoles.pryroles(em);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarPryRoles(List<PryRoles> listaPryRoles) {
-        for (int i = 0; i < listaPryRoles.size(); i++) {
-            persistenciaPryRoles.editar(em, listaPryRoles.get(i));
-        }
-    }
+   @Override
+   public List<PryRoles> PryRoles() {
+      try {
+         return persistenciaPryRoles.pryroles(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void borrarPryRoles(List<PryRoles> listaPryRoles) {
-        for (int i = 0; i < listaPryRoles.size(); i++) {
-            persistenciaPryRoles.borrar(em, listaPryRoles.get(i));
-        }
-    }
+   @Override
+   public List<PryRoles> lovPryRoles() {
+      try {
+         return persistenciaPryRoles.pryroles(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void crearPryRoles(List<PryRoles> listaPryRoles) {
-        for (int i = 0; i < listaPryRoles.size(); i++) {
-            persistenciaPryRoles.crear(em, listaPryRoles.get(i));
-        }
-    }
+   @Override
+   public void modificarPryRoles(List<PryRoles> listaPryRoles) {
+      try {
+         for (int i = 0; i < listaPryRoles.size(); i++) {
+            persistenciaPryRoles.editar(getEm(), listaPryRoles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
+   @Override
+   public void borrarPryRoles(List<PryRoles> listaPryRoles) {
+      try {
+         for (int i = 0; i < listaPryRoles.size(); i++) {
+            persistenciaPryRoles.borrar(getEm(), listaPryRoles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearPryRoles(List<PryRoles> listaPryRoles) {
+      try {
+         for (int i = 0; i < listaPryRoles.size(); i++) {
+            persistenciaPryRoles.crear(getEm(), listaPryRoles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
 }
-

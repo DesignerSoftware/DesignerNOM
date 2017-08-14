@@ -23,6 +23,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -34,119 +35,187 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
 
    private static Logger log = Logger.getLogger(AdministrarNovedadesReemplazos.class);
 
-    @EJB
-    PersistenciaEncargaturasInterface persistenciaEncargaturas;
-    @EJB
-    PersistenciaMotivosReemplazosInterface persistenciaMotivosReemplazos;
-    @EJB
-    PersistenciaTiposReemplazosInterface persistenciaTiposReemplazos;
-    @EJB
-    PersistenciaCargosInterface persistenciaCargos;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaEstructurasInterface persistenciaEstructuras;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEncargaturasInterface persistenciaEncargaturas;
+   @EJB
+   PersistenciaMotivosReemplazosInterface persistenciaMotivosReemplazos;
+   @EJB
+   PersistenciaTiposReemplazosInterface persistenciaTiposReemplazos;
+   @EJB
+   PersistenciaCargosInterface persistenciaCargos;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaEstructurasInterface persistenciaEstructuras;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    //Trae las encargaturas del empleado cuya secuencia se envía como parametro//
-    @Override
-    public List<Encargaturas> encargaturasEmpleado(BigInteger secEmpleado) {
-        try {
-            return persistenciaEncargaturas.encargaturasEmpleado(em, secEmpleado);
-        } catch (Exception e) {
-            log.error("Error AdministrarNovedadesReemplazos.encargaturasEmpleado" + e);
-            return null;
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public Empleados encontrarEmpleado(BigInteger secEmpleado) {
-        return persistenciaEmpleados.buscarEmpleado(em, secEmpleado);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    //Listas de Tipos Reemplazos, Motivos Reemplazos, Estructuras, Cargos
-    @Override
-    public List<Empleados> lovEmpleados() {
-        List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(em);
-        return listaEmpleados ;
-    }
+   //Trae las encargaturas del empleado cuya secuencia se envía como parametro//
+   @Override
+   public List<Encargaturas> encargaturasEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaEncargaturas.encargaturasEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.error("Error AdministrarNovedadesReemplazos.encargaturasEmpleado" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<TiposReemplazos> lovTiposReemplazos() {
-        return persistenciaTiposReemplazos.buscarTiposReemplazos(em);
-    }
+   @Override
+   public Empleados encontrarEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaEmpleados.buscarEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<MotivosReemplazos> lovMotivosReemplazos() {
-        return persistenciaMotivosReemplazos.motivosReemplazos(em);
-    }
+   //Listas de Tipos Reemplazos, Motivos Reemplazos, Estructuras, Cargos
+   @Override
+   public List<Empleados> lovEmpleados() {
+      try {
+         return persistenciaEmpleados.buscarEmpleados(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Estructuras> lovEstructuras() {
-        return persistenciaEstructuras.estructuras(em);
-    }
+   @Override
+   public List<TiposReemplazos> lovTiposReemplazos() {
+      try {
+         return persistenciaTiposReemplazos.buscarTiposReemplazos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Cargos> lovCargos() {
-        return persistenciaCargos.cargosSalario(em);
-    }
+   @Override
+   public List<MotivosReemplazos> lovMotivosReemplazos() {
+      try {
+         return persistenciaMotivosReemplazos.motivosReemplazos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    /*Toca Arreglarlo con el Native Query
+   @Override
+   public List<Estructuras> lovEstructuras() {
+      try {
+         return persistenciaEstructuras.estructuras(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<Cargos> lovCargos() {
+      try {
+         return persistenciaCargos.cargosSalario(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   /*Toca Arreglarlo con el Native Query
      @Override
      public List<Cargos> lovCargos() {
      return persistenciaCargos.cargos();
      }*/
-    @Override
-    public void modificarEncargatura(List<Encargaturas> listaEncargaturasModificar) {
-        for (int i = 0; i < listaEncargaturasModificar.size(); i++) {
+   @Override
+   public void modificarEncargatura(List<Encargaturas> listaEncargaturasModificar) {
+      try {
+         for (int i = 0; i < listaEncargaturasModificar.size(); i++) {
             log.warn("Modificando...");
             if (listaEncargaturasModificar.get(i).getCargo().getSecuencia() == null) {
-                listaEncargaturasModificar.get(i).setCargo(null);
+               listaEncargaturasModificar.get(i).setCargo(null);
             }
             if (listaEncargaturasModificar.get(i).getMotivoreemplazo().getSecuencia() == null) {
-                listaEncargaturasModificar.get(i).setMotivoreemplazo(null);
+               listaEncargaturasModificar.get(i).setMotivoreemplazo(null);
             }
             if (listaEncargaturasModificar.get(i).getReemplazado().getSecuencia() == null) {
-                listaEncargaturasModificar.get(i).setReemplazado(null);
+               listaEncargaturasModificar.get(i).setReemplazado(null);
             }
             if (listaEncargaturasModificar.get(i).getEstructura().getSecuencia() == null) {
-                listaEncargaturasModificar.get(i).setEstructura(null);
+               listaEncargaturasModificar.get(i).setEstructura(null);
             }
-            persistenciaEncargaturas.editar(em, listaEncargaturasModificar.get(i));
-        }
-    }
+            persistenciaEncargaturas.editar(getEm(), listaEncargaturasModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarEncargaturas(Encargaturas encargaturas) {
-        persistenciaEncargaturas.borrar(em, encargaturas);
-    }
+   @Override
+   public void borrarEncargaturas(Encargaturas encargaturas) {
+      try {
+         persistenciaEncargaturas.borrar(getEm(), encargaturas);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearEncargaturas(Encargaturas encargaturas) {
-        persistenciaEncargaturas.crear(em, encargaturas);
-    }
+   @Override
+   public void crearEncargaturas(Encargaturas encargaturas) {
+      try {
+         persistenciaEncargaturas.crear(getEm(), encargaturas);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Empleados> buscarEmpleadoReemplazosHV(BigInteger secEmpleado) {
-        List<Empleados> listaempleado = persistenciaEmpleados.empleadosReemplazosHV(em, secEmpleado);
-        return listaempleado;
-    }
+   @Override
+   public List<Empleados> buscarEmpleadoReemplazosHV(BigInteger secEmpleado) {
+      try {
+         return persistenciaEmpleados.empleadosReemplazosHV(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Empleados> buscarEmpleados() {
-        List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(em);
-        return listaEmpleados ;
-    }
+   @Override
+   public List<Empleados> buscarEmpleados() {
+      try {
+         return persistenciaEmpleados.buscarEmpleados(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

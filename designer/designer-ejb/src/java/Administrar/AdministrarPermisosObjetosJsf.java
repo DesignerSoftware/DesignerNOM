@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 import InterfaceAdministrar.AdministrarPermisosObjetosJsfInterface;
 import InterfacePersistencia.PersistenciaPerfilesInterface;
@@ -26,29 +27,56 @@ public class AdministrarPermisosObjetosJsf implements AdministrarPermisosObjetos
 
    private static Logger log = Logger.getLogger(AdministrarPermisosObjetosJsf.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaObjetosJsfInterface persistenciaObjetosJsf;
-    @EJB
-    PersistenciaPerfilesInterface persistenciaPerfiles;
-    private EntityManager em;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaObjetosJsfInterface persistenciaObjetosJsf;
+   @EJB
+   PersistenciaPerfilesInterface persistenciaPerfiles;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<ObjetosJsf> consultarEnable(String nomPantalla) {
-        String perfil = consultarPerfilUsuario();
-        List<ObjetosJsf> enable = persistenciaObjetosJsf.consultarEnableObjetoJsf(em, perfil, nomPantalla);
-        return enable;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    private String consultarPerfilUsuario() {
-        Perfiles perfil = persistenciaPerfiles.consultarPerfilPorUsuario(em);
-        String aux = perfil.getDescripcion();
-        return aux;
-    }
+   @Override
+   public List<ObjetosJsf> consultarEnable(String nomPantalla) {
+      try {
+         String perfil = consultarPerfilUsuario();
+         return persistenciaObjetosJsf.consultarEnableObjetoJsf(getEm(), perfil, nomPantalla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   private String consultarPerfilUsuario() {
+      try {
+         Perfiles perfil = persistenciaPerfiles.consultarPerfilPorUsuario(em);
+         return perfil.getDescripcion();
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

@@ -114,7 +114,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles = " + retorno);
+            log.warn("PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles  ERROR = " + e);

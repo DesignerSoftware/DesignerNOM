@@ -4,6 +4,7 @@
 package Persistencia;
 
 import Entidades.Conceptos;
+import Entidades.ConceptosAux;
 import InterfacePersistencia.PersistenciaConceptosInterface;
 import java.math.BigInteger;
 import java.util.Date;
@@ -88,9 +89,31 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> buscarConceptos(EntityManager em) {
       em.clear();
       try {
-         String sql = "SELECT * FROM CONCEPTOS ORDER BY DESCRIPCION";
-         Query query = em.createNativeQuery(sql, Conceptos.class);
+         Query query = em.createNativeQuery("SELECT * FROM CONCEPTOS ORDER BY DESCRIPCION", Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
+         if (listaConceptos != null) {
+            if (!listaConceptos.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD,\n"
+                       + " T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA", ConceptosAux.class);
+               List<ConceptosAux> listaConceptosAux = query2.getResultList();
+               log.warn("PersistenciaConceptos.buscarConceptos() Ya consulo Transients");
+               if (listaConceptosAux != null) {
+                  if (!listaConceptosAux.isEmpty()) {
+                     log.warn("PersistenciaConceptos.buscarConceptos() listaConceptosAux.size(): " + listaConceptosAux.size());
+                     for (ConceptosAux recAux : listaConceptosAux) {
+                        for (Conceptos recConcepto : listaConceptos) {
+                           if (recAux.getSecuencia().equals(recConcepto.getSecuencia())) {
+                              recConcepto.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaConceptos;
       } catch (Exception e) {
          log.error("Error en buscarConceptos() : " + e.getCause());
@@ -108,6 +131,31 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
                  + " AND C.ACTIVO = 'S' ORDER BY DESCRIPCION";
          Query query = em.createNativeQuery(sql, Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
+         if (listaConceptos != null) {
+            if (!listaConceptos.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD,\n"
+                       + " T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM CONCEPTOS C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE NOT EXISTS (SELECT 'X' FROM FORMULASCONCEPTOS FC, FORMULAS F, FORMULASCONTRATOS FCON\n"
+                       + " WHERE F.SECUENCIA = FCON.FORMULA AND FC.CONCEPTO = C.SECUENCIA AND FC.FORMULA = F.SECUENCIA)\n"
+                       + " AND C.ACTIVO = 'S' AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA ORDER BY DESCRIPCION", ConceptosAux.class);
+               List<ConceptosAux> listaConceptosAux = query2.getResultList();
+               log.warn("PersistenciaConceptos.buscarConceptosLovNovedades() Ya consulo Transients");
+               if (listaConceptosAux != null) {
+                  if (!listaConceptosAux.isEmpty()) {
+                     log.warn("PersistenciaConceptos.buscarConceptosLovNovedades() listaConceptosAux.size(): " + listaConceptosAux.size());
+                     for (ConceptosAux recAux : listaConceptosAux) {
+                        for (Conceptos recConcepto : listaConceptos) {
+                           if (recAux.getSecuencia().equals(recConcepto.getSecuencia())) {
+                              recConcepto.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaConceptos;
       } catch (Exception e) {
          log.error("Error en buscarConceptosLovNovedades() : " + e.getCause());
@@ -150,11 +198,27 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public Conceptos validarCodigoConcepto(EntityManager em, BigInteger codigoConcepto, BigInteger secEmpresa) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.codigo = :codigo AND c.empresa.secuencia = :secEmpresa");
+         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.codigo = :codigo AND c.empresa = :secEmpresa");
          query.setParameter("codigo", codigoConcepto);
          query.setParameter("secEmpresa", secEmpresa);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          Conceptos concepto = (Conceptos) query.getSingleResult();
+         if (concepto != null) {
+            if (concepto.getSecuencia() != null) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD, T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE c.secuencia = " + concepto.getSecuencia() + "\n"
+                       + " AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA", ConceptosAux.class);
+               ConceptosAux conceptoAux = (ConceptosAux) query2.getSingleResult();
+               log.warn("PersistenciaConceptos.validarCodigoConcepto() conceptoAux: " + conceptoAux);
+               if (conceptoAux != null) {
+                  if (conceptoAux.getSecuencia() != null && conceptoAux.getSecuencia().equals(concepto.getSecuencia())) {
+                     concepto.llenarTransients(conceptoAux);
+                  }
+               }
+            }
+         }
          return concepto;
       } catch (Exception e) {
          log.error("PersistenciaConceptos.validarCodigoConcepto() ERROR: " + e);
@@ -166,12 +230,36 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> conceptosPorEmpresa(EntityManager em, BigInteger secEmpresa) {
       try {
          em.clear();
-         // Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa.secuencia  = NVL(:secEmpresa, c.empresa.secuencia) ORDER BY c.codigo ASC");
-         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa.secuencia  = :secEmpresa ORDER BY c.codigo ASC");
+         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa = :secEmpresa ORDER BY c.codigo ASC");
 
          query.setParameter("secEmpresa", secEmpresa);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<Conceptos> listaConceptos = query.getResultList();
+         if (listaConceptos != null) {
+            if (!listaConceptos.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT  c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD,\n"
+                       + " T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE c.empresa = " + secEmpresa + "\n"
+                       + " AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA\n"
+                       + " ORDER BY c.codigo ASC", ConceptosAux.class);
+               List<ConceptosAux> listaConceptosAux = query2.getResultList();
+               log.warn("PersistenciaConceptos.conceptosPorEmpresa() Ya consulo Transients");
+               if (listaConceptosAux != null) {
+                  if (!listaConceptosAux.isEmpty()) {
+                     log.warn("PersistenciaConceptos.conceptosPorEmpresa() listaConceptosAux.size(): " + listaConceptosAux.size());
+                     for (ConceptosAux recAux : listaConceptosAux) {
+                        for (Conceptos recConcepto : listaConceptos) {
+                           if (recAux.getSecuencia().equals(recConcepto.getSecuencia())) {
+                              recConcepto.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaConceptos;
       } catch (Exception e) {
          log.error("PersistenciaConceptos.conceptosPorEmpresa() ERROR: " + e);
@@ -183,11 +271,36 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> conceptosEmpresaActivos_Inactivos(EntityManager em, BigInteger secEmpresa, String estado) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa.secuencia = :secEmpresa AND c.activo = :estado ORDER BY c.codigo ASC");
+         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa = :secEmpresa AND c.activo = :estado ORDER BY c.codigo ASC");
          query.setParameter("secEmpresa", secEmpresa);
          query.setParameter("estado", estado);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<Conceptos> listaConceptos = query.getResultList();
+         if (listaConceptos != null) {
+            if (!listaConceptos.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT  c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD,\n"
+                       + " T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE c.empresa = " + secEmpresa + " AND c.activo = '" + estado + "'\n"
+                       + " AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA\n"
+                       + " ORDER BY c.codigo ASC", ConceptosAux.class);
+               List<ConceptosAux> listaConceptosAux = query2.getResultList();
+               log.warn("PersistenciaConceptos.conceptosEmpresaActivos_Inactivos() Ya consulo Transients");
+               if (listaConceptosAux != null) {
+                  if (!listaConceptosAux.isEmpty()) {
+                     log.warn("PersistenciaConceptos.conceptosEmpresaActivos_Inactivos() listaConceptosAux.size(): " + listaConceptosAux.size());
+                     for (ConceptosAux recAux : listaConceptosAux) {
+                        for (Conceptos recConcepto : listaConceptos) {
+                           if (recAux.getSecuencia().equals(recConcepto.getSecuencia())) {
+                              recConcepto.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaConceptos;
       } catch (Exception e) {
          log.error("PersistenciaConceptos.conceptosEmpresaActivos_Inactivos() ERROR: " + e);
@@ -199,10 +312,35 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> conceptosEmpresaSinPasivos(EntityManager em, BigInteger secEmpresa) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa.secuencia = :secEmpresa AND c.naturaleza <> 'L' ORDER BY c.codigo ASC");
+         Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.empresa = :secEmpresa AND c.naturaleza <> 'L' ORDER BY c.codigo ASC");
          query.setParameter("secEmpresa", secEmpresa);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<Conceptos> listaConceptos = query.getResultList();
+         if (listaConceptos != null) {
+            if (!listaConceptos.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT  c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD,\n"
+                       + " T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE c.empresa = " + secEmpresa + " AND c.naturaleza <> 'L' \n"
+                       + " AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA\n"
+                       + " ORDER BY c.codigo ASC", ConceptosAux.class);
+               List<ConceptosAux> listaConceptosAux = query2.getResultList();
+               log.warn("PersistenciaConceptos.conceptosEmpresaSinPasivos() Ya consulo Transients");
+               if (listaConceptosAux != null) {
+                  if (!listaConceptosAux.isEmpty()) {
+                     log.warn("PersistenciaConceptos.conceptosEmpresaSinPasivos() listaConceptosAux.size(): " + listaConceptosAux.size());
+                     for (ConceptosAux recAux : listaConceptosAux) {
+                        for (Conceptos recConcepto : listaConceptos) {
+                           if (recAux.getSecuencia().equals(recConcepto.getSecuencia())) {
+                              recConcepto.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaConceptos;
       } catch (Exception e) {
          log.error("PersistenciaConceptos.conceptosEmpresaSinPasivos() ERROR: " + e);
@@ -226,7 +364,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          query.setParameter(3, descripcionConceptoNuevo);
          query.execute();
          tx.commit();
-         log.error("clonarConcepto() Ya hiso commit");
+         log.warn("clonarConcepto() Ya hiso commit");
 
 //         String sqlQuery = "call CONCEPTOS_PKG.CLONARCONCEPTO(?, ?, ?)";
 //         Query query = em.createNativeQuery(sqlQuery);
@@ -249,8 +387,24 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          Query query = em.createQuery("SELECT c FROM Conceptos c WHERE c.secuencia=:secConcepto");
          query.setParameter("secConcepto", secConcepto);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         Conceptos conceptos = (Conceptos) query.getSingleResult();
-         return conceptos;
+         Conceptos concepto = (Conceptos) query.getSingleResult();
+         if (concepto != null) {
+            if (concepto.getSecuencia() != null) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD, T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE c.secuencia = " + concepto.getSecuencia() + "\n"
+                       + " AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA", ConceptosAux.class);
+               ConceptosAux conceptoAux = (ConceptosAux) query2.getSingleResult();
+               log.warn("PersistenciaConceptos.conceptosPorSecuencia() conceptoAux: " + conceptoAux);
+               if (conceptoAux != null) {
+                  if (conceptoAux.getSecuencia() != null && conceptoAux.getSecuencia().equals(concepto.getSecuencia())) {
+                     concepto.llenarTransients(conceptoAux);
+                  }
+               }
+            }
+         }
+         return concepto;
       } catch (Exception e) {
          log.error("Error Persistencia conceptosPorSecuencia : " + e.toString());
          return null;
@@ -306,31 +460,55 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
       }
    }
 
-   @Override
-   public List<Conceptos> conceptoEmpresa(EntityManager em) {
-      try {
-         em.clear();
-         String sqlQuery = "SELECT  C.*,\n"
-                 + "decode(c.naturaleza,'P','PAGO','D','DESCUENTO','L','PASIVO','G','GASTO','N','NETO') NATURALEZA\n"
-                 + "FROM CONCEPTOS C, EMPRESAS S\n"
-                 + "WHERE C.EMPRESA = S.SECUENCIA\n"
-                 + "ORDER BY C.DESCRIPCION";
-         Query query = em.createNativeQuery(sqlQuery, Conceptos.class);
-         List<Conceptos> listaConceptos = query.getResultList();
-         return listaConceptos;
-      } catch (Exception e) {
-         log.error("Error PersistenciaConceptos.conceptoEmpresa " + e.toString());
-         return null;
-      }
-   }
-
+//   @Override
+//   public List<Conceptos> conceptoEmpresa(EntityManager em) {
+//      try {
+//         em.clear();
+//         String sqlQuery = "SELECT  C.*,\n"
+//                 + " decode(c.naturaleza,'P','PAGO','D','DESCUENTO','L','PASIVO','G','GASTO','N','NETO') NATURALEZA\n"
+//                 + " FROM CONCEPTOS C, EMPRESAS E\n"
+//                 + " WHERE C.EMPRESA = E.SECUENCIA\n"
+//                 + " ORDER BY C.DESCRIPCION";
+//         Query query = em.createNativeQuery(sqlQuery, Conceptos.class);
+//         List<Conceptos> listaConceptos = query.getResultList();
+//         return listaConceptos;
+//      } catch (Exception e) {
+//         log.error("Error PersistenciaConceptos.conceptoEmpresa " + e.toString());
+//         return null;
+//      }
+//   }
    @Override
    public List<Conceptos> novedadConceptos(EntityManager em) {
       try {
          em.clear();
-         String sqlQuery = "SELECT V.* FROM Conceptos V WHERE EXISTS (select 'x' from empresas e where v.empresa=e.secuencia) AND NVL(V.ACTIVO,'S')='S' ORDER BY V.CODIGO";
+         String sqlQuery = "SELECT c.* FROM Conceptos c WHERE EXISTS (select 'x' from empresas e where c.empresa=e.secuencia) AND NVL(c.ACTIVO,'S')='S' ORDER BY c.CODIGO";
          Query query = em.createNativeQuery(sqlQuery, Conceptos.class);
          List<Conceptos> listaConceptos = query.getResultList();
+         if (listaConceptos != null) {
+            if (!listaConceptos.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT c.SECUENCIA, U.NOMBRE NOMBREUNIDAD, U.CODIGO CODIGOUNIDAD,\n"
+                       + " T.NOMBRE NOMBRETERCERO, E.NOMBRE NOMBREEMPRESA, E.NIT NITEMPRESA\n"
+                       + " FROM Conceptos C, Unidades U, Terceros T, empresas E\n"
+                       + " WHERE EXISTS (select 'x' from empresas e where c.empresa=e.secuencia) AND NVL(c.ACTIVO,'S')='S'\n"
+                       + " AND c.UNIDAD = U.SECUENCIA AND c.TERCERO = T.SECUENCIA(+) AND c.EMPRESA = E.SECUENCIA\n"
+                       + " ORDER BY c.CODIGO", ConceptosAux.class);
+               List<ConceptosAux> listaConceptosAux = query2.getResultList();
+               log.warn("PersistenciaConceptos.novedadConceptos() Ya consulo Transients");
+               if (listaConceptosAux != null) {
+                  if (!listaConceptosAux.isEmpty()) {
+                     log.warn("PersistenciaConceptos.novedadConceptos() listaConceptosAux.size(): " + listaConceptosAux.size());
+                     for (ConceptosAux recAux : listaConceptosAux) {
+                        for (Conceptos recConcepto : listaConceptos) {
+                           if (recAux.getSecuencia().equals(recConcepto.getSecuencia())) {
+                              recConcepto.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaConceptos;
       } catch (Exception e) {
          log.error("Error PersistenciaConceptos.novedadConceptos " + e.toString());

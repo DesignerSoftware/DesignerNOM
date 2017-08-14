@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.io.Serializable;
@@ -123,8 +124,14 @@ public class ControlFormula implements Serializable {
       disabledPropiedadesFormula = true;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -177,7 +184,7 @@ public class ControlFormula implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          if (pag.equals("historiaformula")) {
             Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();

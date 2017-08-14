@@ -140,7 +140,7 @@ public interface PersistenciaConceptosInterface {
 
    public String conceptoParaFormulaContrato(EntityManager em, BigInteger secuencia, Date fechaFin);
 
-   public List<Conceptos> conceptoEmpresa(EntityManager em);
+//   public List<Conceptos> conceptoEmpresa(EntityManager em);
 
    public List<Conceptos> novedadConceptos(EntityManager em);
 }

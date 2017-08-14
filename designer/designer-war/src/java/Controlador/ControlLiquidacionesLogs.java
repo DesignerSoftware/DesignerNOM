@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Operandos;
@@ -122,8 +123,14 @@ public class ControlLiquidacionesLogs implements Serializable {
         lovProcesos = null;
     }
 
+    @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
     @PostConstruct
     public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -194,15 +201,15 @@ public class ControlLiquidacionesLogs implements Serializable {
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
+            controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
         } else {
             controlListaNavegacion.guardarNavegacion(pagActual, pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
             //mapParaEnviar.put("paginaAnterior", pagActual);
             //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //         if (pag.equals("rastrotabla")) {
+            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
             //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
             //      } else if (pag.equals("rastrotablaH")) {
             //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);

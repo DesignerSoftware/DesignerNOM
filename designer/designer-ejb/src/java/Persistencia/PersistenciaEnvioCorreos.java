@@ -26,8 +26,8 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public List<EnvioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte) {
-        log.error("Persistencia.PersisteciaEnvioCorreos.consultarEnvios()");
-        log.error("secReporte:  " + secReporte);
+        log.warn("Persistencia.PersisteciaEnvioCorreos.consultarEnvios()");
+        log.warn("secReporte:  " + secReporte);
         try {
             em.clear();
             String consulta = "SELECT ec.* \n"
@@ -70,7 +70,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
     @Override
     public Inforeportes buscarEnvioCorreoporSecuencia(EntityManager em, BigInteger secEnvioReporte) {
         try {
-            log.error("buscarEnvioCorreoporSecuencia() secEnvioReporte: " + secEnvioReporte);
+            log.warn("buscarEnvioCorreoporSecuencia() secEnvioReporte: " + secEnvioReporte);
             em.clear();
             String sqlString = "SELECT * FROM inforeportes WHERE secuencia = " + secEnvioReporte;
             Query query = em.createNativeQuery(sqlString, Inforeportes.class);
@@ -84,8 +84,8 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
 //    @Override
 //    public List<Empleados> buscarEmpleados(EntityManager em, BigInteger secEnvioRepEmp) {
-//        log.error("Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()");
-//        log.error("secEnvioRepEmp:  " + secEnvioRepEmp);
+//        log.warn("Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()");
+//        log.warn("secEnvioRepEmp:  " + secEnvioRepEmp);
 //        try {
 //            em.clear();
 //            String consulta = "SELECT e.* \n"
@@ -121,7 +121,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public void borrar(EntityManager em, EnvioCorreos envio) {
-        log.error("Persistencia.PersisteciaEnvioCorreos.borrar()");
+        log.warn("Persistencia.PersisteciaEnvioCorreos.borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -144,9 +144,9 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public List<Empleados> CorreoCodEmpleados(EntityManager em, BigDecimal emplDesde, BigDecimal emplHasta) {
-        log.error("Persistencia.PersistenciaEnvioCorreos.CorreoCodEmpleados()");
-        log.error("emplDesde: " + emplDesde);
-        log.error("emplHasta: " + emplHasta);
+        log.warn("Persistencia.PersistenciaEnvioCorreos.CorreoCodEmpleados()");
+        log.warn("emplDesde: " + emplDesde);
+        log.warn("emplHasta: " + emplHasta);
         try {
             em.clear();
             String consulta = "SELECT e.* \n"
@@ -158,7 +158,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
             Query query = em.createNativeQuery(consulta, Empleados.class);
             List<Empleados> correoCod = (List<Empleados>) query.getResultList();
-            log.error("CorreoCod: " + correoCod);
+            log.warn("CorreoCod: " + correoCod);
             return correoCod;
         } catch (Exception e) {
             log.error("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
@@ -168,7 +168,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public ConfiguracionCorreo consultarRemitente(EntityManager em, BigInteger secEmpresa) {
-        log.error("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
+        log.warn("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
         try {
             em.clear();
             String consulta = "SELECT cc.* \n"
@@ -176,7 +176,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
                     + "WHERE cc.empresa = " + secEmpresa + " ";
             Query query = em.createNativeQuery(consulta, ConfiguracionCorreo.class);
             ConfiguracionCorreo remitente = (ConfiguracionCorreo) query.getSingleResult();
-            log.error("CorreoCod: " + remitente);
+            log.warn("CorreoCod: " + remitente);
             return remitente;
         } catch (Exception e) {
             log.error("Error Persistencia.PersistenciaEnvioCorreos.consultarRemitente(): " + e);
@@ -186,7 +186,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public void insertarFalloCorreos(EntityManager em, EnvioCorreos enviocorreo) {
-        log.error("Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos()");
+        log.warn("Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {

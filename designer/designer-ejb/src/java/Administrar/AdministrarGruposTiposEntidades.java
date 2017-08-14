@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,83 +26,116 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
 
    private static Logger log = Logger.getLogger(AdministrarGruposTiposEntidades.class);
 
-    @EJB
-    PersistenciaGruposTiposEntidadesInterface persistenciaGruposTiposEntidades;
+   @EJB
+   PersistenciaGruposTiposEntidadesInterface persistenciaGruposTiposEntidades;
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
-        for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
+      try {
+         for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaGruposTiposEntidades.editar(em, listaGruposTiposEntidades.get(i));
-        }
-    }
+            persistenciaGruposTiposEntidades.editar(getEm(), listaGruposTiposEntidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
-        for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
+   @Override
+   public void borrarGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
+      try {
+         for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaGruposTiposEntidades.borrar(em, listaGruposTiposEntidades.get(i));
-        }
-    }
+            persistenciaGruposTiposEntidades.borrar(getEm(), listaGruposTiposEntidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
-        for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
+   @Override
+   public void crearGruposTiposEntidades(List<Grupostiposentidades> listaGruposTiposEntidades) {
+      try {
+         for (int i = 0; i < listaGruposTiposEntidades.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaGruposTiposEntidades.crear(em, listaGruposTiposEntidades.get(i));
-        }
-    }
+            persistenciaGruposTiposEntidades.crear(getEm(), listaGruposTiposEntidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Grupostiposentidades> consultarGruposTiposEntidades() {
-        List<Grupostiposentidades> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(em);
-        return listMotivosCambiosCargos;
-    }
+   @Override
+   public List<Grupostiposentidades> consultarGruposTiposEntidades() {
+      try {
+         return persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Grupostiposentidades consultarGrupoTipoEntidad(BigInteger secGruposTiposEntidades) {
-        Grupostiposentidades subCategoria;
-        subCategoria = persistenciaGruposTiposEntidades.consultarGrupoTipoEntidad(em, secGruposTiposEntidades);
-        return subCategoria;
-    }
+   @Override
+   public Grupostiposentidades consultarGrupoTipoEntidad(BigInteger secGruposTiposEntidades) {
+      try {
+         return persistenciaGruposTiposEntidades.consultarGrupoTipoEntidad(getEm(), secGruposTiposEntidades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarTSgruposTiposEntidadesTipoEntidad(BigInteger secGruposTiposEntidades) {
-        BigInteger contarTSgruposTiposEntidadesTipoEntidad = null;
+   @Override
+   public BigInteger contarTSgruposTiposEntidadesTipoEntidad(BigInteger secGruposTiposEntidades) {
+      try {
+         return persistenciaGruposTiposEntidades.contarTSgruposTiposEntidadesTipoEntidad(getEm(), secGruposTiposEntidades);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarGruposTiposEntidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarTSgruposTiposEntidadesTipoEntidad = persistenciaGruposTiposEntidades.contarTSgruposTiposEntidadesTipoEntidad(em, secGruposTiposEntidades);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarGruposTiposEntidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigInteger contarTiposEntidadesGrupoTipoEntidad(BigInteger secGruposTiposEntidades) {
-        BigInteger contarTiposEntidadesGrupoTipoEntidad = null;
-
-        try {
-            return contarTiposEntidadesGrupoTipoEntidad = persistenciaGruposTiposEntidades.contarTiposEntidadesGrupoTipoEntidad(em, secGruposTiposEntidades);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarGruposTiposEntidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarTiposEntidadesGrupoTipoEntidad(BigInteger secGruposTiposEntidades) {
+      try {
+         return persistenciaGruposTiposEntidades.contarTiposEntidadesGrupoTipoEntidad(getEm(), secGruposTiposEntidades);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarGruposTiposEntidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
+         return null;
+      }
+   }
 }

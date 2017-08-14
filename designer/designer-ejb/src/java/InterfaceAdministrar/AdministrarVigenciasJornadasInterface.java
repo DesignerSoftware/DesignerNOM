@@ -76,10 +76,6 @@ public interface AdministrarVigenciasJornadasInterface {
      */
     public List<JornadasLaborales> jornadasLaborales();
     /**
-     * Cierra la sesion del administrar
-     */
-    public void salir();
-    /**
      * Obtiene a el empleado usado
      * @param secuencia Secuencia empleado
      * @return Empleado que cumple con la secuencia

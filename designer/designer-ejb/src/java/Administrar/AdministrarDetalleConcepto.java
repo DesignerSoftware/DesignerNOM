@@ -44,6 +44,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -191,21 +192,39 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    //--------------------------------------------------------------------------
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<VigenciasCuentas> consultarListaVigenciasCuentasConcepto(BigInteger secConcepto) {
       try {
-         List<VigenciasCuentas> lista = persistenciaVigenciasCuentas.buscarVigenciasCuentasPorConcepto(em, secConcepto);
-         return lista;
+         return persistenciaVigenciasCuentas.buscarVigenciasCuentasPorConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error listVigenciasCuentasConcepto Admi : " + e.toString());
          return null;
@@ -216,7 +235,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void crearVigenciasCuentas(List<VigenciasCuentas> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasCuentas.crear(em, listaVC.get(i));
+            persistenciaVigenciasCuentas.crear(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasCuentas Admi : " + e.toString());
@@ -227,7 +246,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void modificarVigenciasCuentas(List<VigenciasCuentas> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasCuentas.editar(em, listaVC.get(i));
+            persistenciaVigenciasCuentas.editar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasCuentas Admi : " + e.toString());
@@ -238,7 +257,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void borrarVigenciasCuentas(List<VigenciasCuentas> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasCuentas.borrar(em, listaVC.get(i));
+            persistenciaVigenciasCuentas.borrar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasCuentas Admi : " + e.toString());
@@ -248,8 +267,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<TiposCentrosCostos> consultarLOVTiposCentrosCostos() {
       try {
-         List<TiposCentrosCostos> tipos = persistenciaTiposCentrosCostos.buscarTiposCentrosCostos(em);
-         return tipos;
+         return persistenciaTiposCentrosCostos.buscarTiposCentrosCostos(getEm());
       } catch (Exception e) {
          log.warn("Error listTiposCentrosCostos Admi : " + e.toString());
          return null;
@@ -259,8 +277,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<Cuentas> consultarLOVCuentas() {
       try {
-         List<Cuentas> cuentas = persistenciaCuentas.buscarCuentas(em);
-         return cuentas;
+         return persistenciaCuentas.buscarCuentas(getEm());
       } catch (Exception e) {
          log.warn("Error listCuentas Admi : " + e.toString());
          return null;
@@ -270,8 +287,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<CentrosCostos> consultarLOVCentrosCostos() {
       try {
-         List<CentrosCostos> centros = persistenciaCentrosCostos.buscarCentrosCostos(em);
-         return centros;
+         return persistenciaCentrosCostos.buscarCentrosCostos(getEm());
       } catch (Exception e) {
          log.warn("Error listCentrosCostos Admi : " + e.toString());
          return null;
@@ -281,8 +297,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<VigenciasGruposConceptos> consultarListaVigenciasGruposConceptosConcepto(BigInteger secConcepto) {
       try {
-         List<VigenciasGruposConceptos> lista = persistenciaVigenciasGruposConceptos.listVigenciasGruposConceptosPorConcepto(em, secConcepto);
-         return lista;
+         return persistenciaVigenciasGruposConceptos.listVigenciasGruposConceptosPorConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error listVigenciasGruposConceptosConcepto Admi : " + e.toString());
          return null;
@@ -293,7 +308,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void crearVigenciasGruposConceptos(List<VigenciasGruposConceptos> listaVGC) {
       try {
          for (int i = 0; i < listaVGC.size(); i++) {
-            persistenciaVigenciasGruposConceptos.crear(em, listaVGC.get(i));
+            persistenciaVigenciasGruposConceptos.crear(getEm(), listaVGC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasGruposConceptos Admi : " + e.toString());
@@ -304,7 +319,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void modificarVigenciasGruposConceptos(List<VigenciasGruposConceptos> listaVGC) {
       try {
          for (int i = 0; i < listaVGC.size(); i++) {
-            persistenciaVigenciasGruposConceptos.editar(em, listaVGC.get(i));
+            persistenciaVigenciasGruposConceptos.editar(getEm(), listaVGC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarVigenciasGruposConceptos Admi : " + e.toString());
@@ -315,7 +330,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void borrarVigenciasGruposConceptos(List<VigenciasGruposConceptos> listaVGC) {
       try {
          for (int i = 0; i < listaVGC.size(); i++) {
-            persistenciaVigenciasGruposConceptos.borrar(em, listaVGC.get(i));
+            persistenciaVigenciasGruposConceptos.borrar(getEm(), listaVGC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarVigenciasGruposConceptos Admi : " + e.toString());
@@ -325,8 +340,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<GruposConceptos> consultarLOVGruposConceptos() {
       try {
-         List<GruposConceptos> grupos = persistenciaGruposConceptos.buscarGruposConceptos(em);
-         return grupos;
+         return persistenciaGruposConceptos.buscarGruposConceptos(getEm());
       } catch (Exception e) {
          log.warn("Error listGruposConceptos Admi : " + e.toString());
          return null;
@@ -336,8 +350,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<VigenciasConceptosTT> consultarListaVigenciasConceptosTTConcepto(BigInteger secConcepto) {
       try {
-         List<VigenciasConceptosTT> lista = persistenciaVigenciasConceptosTT.listVigenciasConceptosTTPorConcepto(em, secConcepto);
-         return lista;
+         return persistenciaVigenciasConceptosTT.listVigenciasConceptosTTPorConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error listVigenciasConceptosTTConcepto Admi : " + e.toString());
          return null;
@@ -348,7 +361,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void crearVigenciasConceptosTT(List<VigenciasConceptosTT> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosTT.crear(em, listaVC.get(i));
+            persistenciaVigenciasConceptosTT.crear(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasConceptosTT Admi : " + e.toString());
@@ -359,7 +372,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void modificarVigenciasConceptosTT(List<VigenciasConceptosTT> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosTT.editar(em, listaVC.get(i));
+            persistenciaVigenciasConceptosTT.editar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarVigenciasConceptosTT Admi : " + e.toString());
@@ -370,7 +383,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void borrarVigenciasConceptosTT(List<VigenciasConceptosTT> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosTT.borrar(em, listaVC.get(i));
+            persistenciaVigenciasConceptosTT.borrar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarVigenciasConceptosTT Admi : " + e.toString());
@@ -380,8 +393,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<TiposTrabajadores> consultarLOVTiposTrabajadores() {
       try {
-         List<TiposTrabajadores> tipos = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
-         return tipos;
+         return persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
       } catch (Exception e) {
          log.warn("Error listTiposTrabajadores Admi : " + e.toString());
          return null;
@@ -391,8 +403,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<VigenciasConceptosTC> consultarListaVigenciasConceptosTCConcepto(BigInteger secConcepto) {
       try {
-         List<VigenciasConceptosTC> lista = persistenciaVigenciasConceptosTC.listVigenciasConceptosTCPorConcepto(em, secConcepto);
-         return lista;
+         return persistenciaVigenciasConceptosTC.listVigenciasConceptosTCPorConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error listVigenciasConceptosTCConcepto Admi : " + e.toString());
          return null;
@@ -403,7 +414,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void crearVigenciasConceptosTC(List<VigenciasConceptosTC> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosTC.crear(em, listaVC.get(i));
+            persistenciaVigenciasConceptosTC.crear(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasConceptosTC Admi : " + e.toString());
@@ -414,7 +425,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void modificarVigenciasConceptosTC(List<VigenciasConceptosTC> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosTC.editar(em, listaVC.get(i));
+            persistenciaVigenciasConceptosTC.editar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarVigenciasConceptosTC Admi : " + e.toString());
@@ -425,7 +436,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void borrarVigenciasConceptosTC(List<VigenciasConceptosTC> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosTC.borrar(em, listaVC.get(i));
+            persistenciaVigenciasConceptosTC.borrar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarVigenciasConceptosTC Admi : " + e.toString());
@@ -435,8 +446,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<TiposContratos> consultarLOVTiposContratos() {
       try {
-         List<TiposContratos> tipos = persistenciaTiposContratos.tiposContratos(em);
-         return tipos;
+         return persistenciaTiposContratos.tiposContratos(getEm());
       } catch (Exception e) {
          log.warn("Error listTiposContratos Admi : " + e.toString());
          return null;
@@ -446,8 +456,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<VigenciasConceptosRL> consultarListaVigenciasConceptosRLCConcepto(BigInteger secConcepto) {
       try {
-         List<VigenciasConceptosRL> lista = persistenciaVigenciasConceptosRL.listVigenciasConceptosRLPorConcepto(em, secConcepto);
-         return lista;
+         return persistenciaVigenciasConceptosRL.listVigenciasConceptosRLPorConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error listVigenciasConceptosRLCConcepto Admi : " + e.toString());
          return null;
@@ -458,7 +467,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void crearVigenciasConceptosRL(List<VigenciasConceptosRL> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosRL.crear(em, listaVC.get(i));
+            persistenciaVigenciasConceptosRL.crear(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearVigenciasConceptosTC Admi : " + e.toString());
@@ -469,7 +478,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void modificarVigenciasConceptosRL(List<VigenciasConceptosRL> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosRL.editar(em, listaVC.get(i));
+            persistenciaVigenciasConceptosRL.editar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarVigenciasConceptosTC Admi : " + e.toString());
@@ -480,7 +489,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void borrarVigenciasConceptosRL(List<VigenciasConceptosRL> listaVC) {
       try {
          for (int i = 0; i < listaVC.size(); i++) {
-            persistenciaVigenciasConceptosRL.borrar(em, listaVC.get(i));
+            persistenciaVigenciasConceptosRL.borrar(getEm(), listaVC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarVigenciasConceptosTC Admi : " + e.toString());
@@ -490,8 +499,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<ReformasLaborales> consultarLOVReformasLaborales() {
       try {
-         List<ReformasLaborales> reformas = persistenciaReformasLaborales.buscarReformasLaborales(em);
-         return reformas;
+         return persistenciaReformasLaborales.buscarReformasLaborales(getEm());
       } catch (Exception e) {
          log.warn("Error listReformasLaborales Admi : " + e.toString());
          return null;
@@ -501,7 +509,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<FormulasConceptos> consultarListaFormulasConceptosConcepto(BigInteger secConcepto) {
       try {
-         List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
+         List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(getEm(), secConcepto);
          return lista;
       } catch (Exception e) {
          log.warn("Error listFormulasConceptosConcepto Admi : " + e.toString());
@@ -513,7 +521,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void crearFormulasConceptos(List<FormulasConceptos> listaFC) {
       try {
          for (int i = 0; i < listaFC.size(); i++) {
-            persistenciaFormulasConceptos.crear(em, listaFC.get(i));
+            persistenciaFormulasConceptos.crear(getEm(), listaFC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearFormulasConceptos Admi : " + e.toString());
@@ -524,7 +532,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void modificarFormulasConceptos(List<FormulasConceptos> listaFC) {
       try {
          for (int i = 0; i < listaFC.size(); i++) {
-            persistenciaFormulasConceptos.editar(em, listaFC.get(i));
+            persistenciaFormulasConceptos.editar(getEm(), listaFC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarFormulasConceptos Admi : " + e.toString());
@@ -535,7 +543,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public void borrarFormulasConceptos(List<FormulasConceptos> listaFC) {
       try {
          for (int i = 0; i < listaFC.size(); i++) {
-            persistenciaFormulasConceptos.borrar(em, listaFC.get(i));
+            persistenciaFormulasConceptos.borrar(getEm(), listaFC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarFormulasConceptos Admi : " + e.toString());
@@ -545,8 +553,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<Formulas> consultarLOVFormulas() {
       try {
-         List<Formulas> formulas = persistenciaFormulas.buscarFormulas(em);
-         return formulas;
+         return persistenciaFormulas.buscarFormulas(getEm());
       } catch (Exception e) {
          log.warn("Error listFormulas Admi : " + e.toString());
          return null;
@@ -556,8 +563,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public List<FormulasConceptos> consultarLOVFormulasConceptos() {
       try {
-         List<FormulasConceptos> formulas = persistenciaFormulasConceptos.buscarFormulasConceptos(em);
-         return formulas;
+         return persistenciaFormulasConceptos.buscarFormulasConceptos(getEm());
       } catch (Exception e) {
          log.warn("Error listFormulasConceptos Admi : " + e.toString());
          return null;
@@ -568,7 +574,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    public List<Procesos> consultarLOVProcesos() {
       try {
          log.warn("Si entro en consultarLOVProcesos()");
-         return persistenciaProcesos.lovProcesos(em);
+         return persistenciaProcesos.lovProcesos(getEm());
       } catch (Exception e) {
          log.warn("Error listFormulasConceptos Admi : " + e.toString());
          return null;
@@ -578,8 +584,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public Long contarFormulasConceptosConcepto(BigInteger secConcepto) {
       try {
-         Long retorno = PersistenciaFormulasConceptos.comportamientoConceptoAutomaticoSecuenciaConcepto(em, secConcepto);
-         return retorno;
+         return PersistenciaFormulasConceptos.comportamientoConceptoAutomaticoSecuenciaConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error comportamientoAutomaticoConcepto Admi : " + e.toString());
          return null;
@@ -589,8 +594,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public Long contarFormulasNovedadesConcepto(BigInteger secConcepto) {
       try {
-         Long retorno = PersistenciaFormulasConceptos.comportamientoConceptoSemiAutomaticoSecuenciaConcepto(em, secConcepto);
-         return retorno;
+         return PersistenciaFormulasConceptos.comportamientoConceptoSemiAutomaticoSecuenciaConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error comportamientoSemiAutomaticoConcepto Admi : " + e.toString());
          return null;
@@ -600,8 +604,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public Conceptos consultarConceptoActual(BigInteger secConcepto) {
       try {
-         Conceptos actual = persistenciaConceptos.conceptosPorSecuencia(em, secConcepto);
-         return actual;
+         return persistenciaConceptos.conceptosPorSecuencia(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error conceptoActual Admi : " + e.toString());
          return null;
@@ -611,7 +614,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public boolean eliminarConceptoTotal(BigInteger secConcepto) {
       try {
-         return persistenciaConceptos.eliminarConcepto(em, secConcepto);
+         return persistenciaConceptos.eliminarConcepto(getEm(), secConcepto);
       } catch (Exception e) {
          log.warn("Error eliminarConcepto Admi : " + e.toString());
          return false;
@@ -621,7 +624,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
    @Override
    public boolean verificarSolucionesNodosConcepto(BigInteger secConcepto) {
       try {
-         boolean retorno = persistenciaSolucionesNodos.solucionesNodosParaConcepto(em, secConcepto);
+         boolean retorno = persistenciaSolucionesNodos.solucionesNodosParaConcepto(getEm(), secConcepto);
          return retorno;
       } catch (Exception e) {
          log.warn("Error verificarSolucionesNodosParaConcepto Admi : " + e.toString());
@@ -631,7 +634,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
 
    public int contarVigCuentasPorTipoccConceptoYCuentac(BigInteger tipoCC, BigInteger cuentaC, BigInteger concepto, Date fechaIni) {
       try {
-         return persistenciaCuentas.contarVigCuentasPorTipoccConceptoYCuentac(em, tipoCC, cuentaC, concepto, fechaIni);
+         return persistenciaCuentas.contarVigCuentasPorTipoccConceptoYCuentac(getEm(), tipoCC, cuentaC, concepto, fechaIni);
       } catch (Exception e) {
          log.warn("AdministrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentac() ERROR : " + e);
          return 0;
@@ -640,7 +643,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
 
    public int contarVigCuentasPorTipoccConceptoYCuentad(BigInteger tipoCC, BigInteger cuentaD, BigInteger concepto, Date fechaIni) {
       try {
-         return persistenciaCuentas.contarVigCuentasPorTipoccConceptoYCuentad(em, tipoCC, cuentaD, concepto, fechaIni);
+         return persistenciaCuentas.contarVigCuentasPorTipoccConceptoYCuentad(getEm(), tipoCC, cuentaD, concepto, fechaIni);
       } catch (Exception e) {
          log.warn("AdministrarDetalleConcepto.contarVigCuentasPorTipoccConceptoYCuentad() ERROR : " + e);
          return 0;
@@ -649,7 +652,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
 
    public CentrosCostos centroCostoLocalizacionTrabajador(BigInteger secEmpresa) {
       try {
-         return persistenciaCuentas.centroCostoLocalizacionTrabajador(em, secEmpresa);
+         return persistenciaCuentas.centroCostoLocalizacionTrabajador(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("AdministrarDetalleConcepto.centroCostoLocalizacionTrabajador() ERROR : " + e);
          return null;
@@ -658,7 +661,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
 
    public CentrosCostos centroCostoContabilidad(BigInteger secEmpresa) {
       try {
-         return persistenciaCuentas.centroCostoContabilidad(em, secEmpresa);
+         return persistenciaCuentas.centroCostoContabilidad(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("AdministrarDetalleConcepto.centroCostoContabilidad() ERROR : " + e);
          return null;
@@ -667,7 +670,7 @@ public class AdministrarDetalleConcepto implements AdministrarDetalleConceptoInt
 
    public List<Cuentas> cuenta2505(BigInteger secEmpresa) {
       try {
-         return persistenciaCuentas.cuenta2505(em, secEmpresa);
+         return persistenciaCuentas.cuenta2505(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("AdministrarDetalleConcepto.cuenta2505() ERROR : " + e);
          return null;

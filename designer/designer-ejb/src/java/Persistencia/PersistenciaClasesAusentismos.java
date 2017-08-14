@@ -104,7 +104,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             Query query = em.createNativeQuery("SELECT COUNT(*)FROM soausentismos WHERE clase = ?");
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaClasesAusentismos contadorSoAusentismosClaseAusentismo  " + retorno);
+            log.warn("Contador PersistenciaClasesAusentismos contadorSoAusentismosClaseAusentismo  " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaClasesAusentismos  contadorSoAusentismosClaseAusentismo. " + e);
@@ -119,7 +119,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             Query query = em.createNativeQuery("SELECT COUNT(*)FROM causasausentismos WHERE clase = ?");
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaClasesAusentismos contadorCausasAusentismosClaseAusentismo  " + retorno);
+            log.warn("Contador PersistenciaClasesAusentismos contadorCausasAusentismosClaseAusentismo  " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaClasesAusentismos  contadorCausasAusentismosClaseAusentismo. " + e);

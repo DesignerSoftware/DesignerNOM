@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,71 +29,87 @@ public class AdministrarDetalleCuenta implements AdministrarDetalleCuentaInterfa
 
    private static Logger log = Logger.getLogger(AdministrarDetalleCuenta.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaVigenciasCuentas'.
-     */
-    @EJB
-    PersistenciaVigenciasCuentasInterface persistenciaVigenciasCuentas;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaCuentas'.
-     */
-    @EJB
-    PersistenciaCuentasInterface persistenciaCuentas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaVigenciasCuentas'.
+    */
+   @EJB
+   PersistenciaVigenciasCuentasInterface persistenciaVigenciasCuentas;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaCuentas'.
+    */
+   @EJB
+   PersistenciaCuentasInterface persistenciaCuentas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<VigenciasCuentas> consultarListaVigenciasCuentasCredito(BigInteger secuenciaC) {
-        try {
-            List<VigenciasCuentas> listCCredito = persistenciaVigenciasCuentas.buscarVigenciasCuentasPorCredito(em,secuenciaC);
-            return listCCredito;
-        } catch (Exception e) {
-            log.warn("Error listVigenciasCuentasCredito Admi : " + e.toString());
-            return null;
-        }
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<VigenciasCuentas> consultarListaVigenciasCuentasDebito(BigInteger secuenciaC) {
-        try {
-            List<VigenciasCuentas> listCDebito = persistenciaVigenciasCuentas.buscarVigenciasCuentasPorDebito(em,secuenciaC);
-            return listCDebito;
-        } catch (Exception e) {
-            log.warn("Error listVigenciasCuentasDebito Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<VigenciasCuentas> consultarListaVigenciasCuentasCredito(BigInteger secuenciaC) {
+      try {
+         return persistenciaVigenciasCuentas.buscarVigenciasCuentasPorCredito(getEm(), secuenciaC);
+      } catch (Exception e) {
+         log.warn("Error listVigenciasCuentasCredito Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public Cuentas mostrarCuenta(BigInteger secuencia) {
-        try {
-            Cuentas cuentaActual = persistenciaCuentas.buscarCuentasSecuencia(em,secuencia);
-            return cuentaActual;
-        } catch (Exception e) {
-            log.warn("Error cuentaActual Admi: " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<VigenciasCuentas> consultarListaVigenciasCuentasDebito(BigInteger secuenciaC) {
+      try {
+         return persistenciaVigenciasCuentas.buscarVigenciasCuentasPorDebito(getEm(), secuenciaC);
+      } catch (Exception e) {
+         log.warn("Error listVigenciasCuentasDebito Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public Cuentas mostrarCuenta(BigInteger secuencia) {
+      try {
+         return persistenciaCuentas.buscarCuentasSecuencia(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("Error cuentaActual Admi: " + e.toString());
+         return null;
+      }
+   }
 }

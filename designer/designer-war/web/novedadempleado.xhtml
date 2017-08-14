@@ -534,11 +534,11 @@
                         <h:outputText value="#{conceptos.descripcion}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{conceptos.empresa.nombre}" filterBy="#{conceptos.empresa.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
+                     <p:column sortBy="#{conceptos.nombreEmpresa}" filterBy="#{conceptos.nombreEmpresa}" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreEm']}"/>
                         </f:facet>
-                        <h:outputText value="#{conceptos.empresa.nombre}"/>  
+                        <h:outputText value="#{conceptos.nombreEmpresa}"/>  
                      </p:column>
 
                   </p:dataTable>

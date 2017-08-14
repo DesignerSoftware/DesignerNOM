@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -50,72 +51,103 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarHvReferencias(List<HvReferencias> listaHvReferencias) {
-      for (int i = 0; i < listaHvReferencias.size(); i++) {
-         log.warn("Administrar Borrando...");
-         persistenciaHvReferencias.borrar(em, listaHvReferencias.get(i));
+      try {
+         for (int i = 0; i < listaHvReferencias.size(); i++) {
+            log.warn("Administrar Borrando...");
+            persistenciaHvReferencias.borrar(getEm(), listaHvReferencias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void crearHvReferencias(List<HvReferencias> listaHvReferencias) {
-      for (int i = 0; i < listaHvReferencias.size(); i++) {
-         log.warn("Administrar Creando...");
-         persistenciaHvReferencias.crear(em, listaHvReferencias.get(i));
+      try {
+         for (int i = 0; i < listaHvReferencias.size(); i++) {
+            log.warn("Administrar Creando...");
+            persistenciaHvReferencias.crear(getEm(), listaHvReferencias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void modificarHvReferencias(List<HvReferencias> listaHvReferencias) {
-      for (int i = 0; i < listaHvReferencias.size(); i++) {
-         log.warn("Administrar Modificando...");
-         persistenciaHvReferencias.editar(em, listaHvReferencias.get(i));
+      try {
+         for (int i = 0; i < listaHvReferencias.size(); i++) {
+            log.warn("Administrar Modificando...");
+            persistenciaHvReferencias.editar(getEm(), listaHvReferencias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public List<HvReferencias> consultarHvReferenciasFamiliaresPorPersona(BigInteger secEmpleado) {
-      List<HvReferencias> listHvReferencias;
       try {
-         listHvReferencias = persistenciaHvReferencias.consultarHvReferenciasFamiliarPorPersona(em, secEmpleado);
+         return persistenciaHvReferencias.consultarHvReferenciasFamiliarPorPersona(getEm(), secEmpleado);
       } catch (Exception e) {
          log.warn("Error en AdministrarHvReferencias hvEntrevistasPorEmplado");
-         listHvReferencias = null;
+         return null;
       }
-      return listHvReferencias;
    }
 
    @Override
    public HvReferencias consultarHvReferencia(BigInteger secHvEntrevista) {
-      persistenciaHvReferencias.buscarHvReferencia(em, secHvEntrevista);
-      return hvReferencias;
+      try {
+         persistenciaHvReferencias.buscarHvReferencia(getEm(), secHvEntrevista);
+         return hvReferencias;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Personas consultarPersonas(BigInteger secuencia) {
-      Personas persona;
       try {
-         persona = persistenciaPersonas.buscarPersona(em, secuencia);
-         return persona;
+         return persistenciaPersonas.buscarPersona(getEm(), secuencia);
       } catch (Exception e) {
-         persona = null;
          log.warn("ERROR AdministrarHvReferencias  consultarPersonas ERROR =====" + e);
-         return persona;
+         return null;
       }
    }
 
    @Override
    public List<HVHojasDeVida> consultarHvHojasDeVida(BigInteger secuencia) {
       try {
-         hvHojasDeVida = persistenciaHvReferencias.consultarHvHojaDeVidaPorPersona(em, secuencia);
+         hvHojasDeVida = persistenciaHvReferencias.consultarHvHojaDeVidaPorPersona(getEm(), secuencia);
          return hvHojasDeVida;
       } catch (Exception e) {
          hvHojasDeVida = null;
@@ -127,9 +159,7 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
    @Override
    public List<TiposFamiliares> consultarLOVTiposFamiliares() {
       try {
-         List<TiposFamiliares> listTiposFamiliares;
-         listTiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em);
-         return listTiposFamiliares;
+         return persistenciaTiposFamiliares.buscarTiposFamiliares(getEm());
       } catch (Exception e) {
          log.error("ERROR EN ADMINISTRAR HV REFERENCIAS 1 ERROR " + e);
          return null;
@@ -139,8 +169,7 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
    @Override
    public Empleados empleadoActual(BigInteger secuenciaP) {
       try {
-         Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaP);
-         return retorno;
+         return persistenciaEmpleado.buscarEmpleado(getEm(), secuenciaP);
       } catch (Exception e) {
          log.warn("Error empleadoActual Admi : " + e.toString());
          return null;

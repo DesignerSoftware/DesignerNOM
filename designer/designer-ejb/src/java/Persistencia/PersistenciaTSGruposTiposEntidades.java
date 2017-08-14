@@ -98,13 +98,13 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
    @Override
    public List<TSGruposTiposEntidades> buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo(EntityManager em, BigInteger secTipoSueldo) {
       try {
-         log.error("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
+         log.warn("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
          em.clear();
          Query query = em.createQuery("SELECT t FROM TSGruposTiposEntidades t WHERE t.tiposueldo.secuencia =:secTipoSueldo");
          query.setParameter("secTipoSueldo", secTipoSueldo);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<TSGruposTiposEntidades> tSGruposTiposEntidades = (List<TSGruposTiposEntidades>) query.getResultList();
-         log.error("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo()2");
+         log.warn("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo()2");
          return tSGruposTiposEntidades;
       } catch (Exception e) {
          log.error("Error buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo PersistenciaTSGruposTiposEntidades : " + e.toString());

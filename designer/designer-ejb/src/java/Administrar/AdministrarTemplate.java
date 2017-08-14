@@ -20,6 +20,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -71,91 +72,137 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
    @EJB
    PersistenciaParametrosAnualesInterface persistenciaParametrosAnuales;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
    private Generales general;
 
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
    @Override
    public boolean obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
-      return em != null;
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+      return emf != null;
    }
 
    @Override
    public ActualUsuario consultarActualUsuario() {
-      return persistenciaActualUsuario.actualUsuarioBD(em);
+      try {
+         return persistenciaActualUsuario.actualUsuarioBD(getEm());
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public String logoEmpresa() {
-      String rutaLogo;
-      general = persistenciaGenerales.obtenerRutas(em);
-      if (general != null) {
-         Empresas empresa = persistenciaEmpresas.consultarPrimeraEmpresaSinPaquete(em);
-         if (empresa != null) {
-            rutaLogo = general.getPathfoto() + empresa.getNit() + ".png";
+      try {
+         String rutaLogo;
+         general = persistenciaGenerales.obtenerRutas(getEm());
+         if (general != null) {
+            Empresas empresa = persistenciaEmpresas.consultarPrimeraEmpresaSinPaquete(getEm());
+            if (empresa != null) {
+               rutaLogo = general.getPathfoto() + empresa.getNit() + ".png";
+            } else {
+               rutaLogo = general.getPathfoto() + "sinLogo.png";
+            }
          } else {
-            rutaLogo = general.getPathfoto() + "sinLogo.png";
+            return null;
          }
-      } else {
+         return rutaLogo;
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
-      return rutaLogo;
    }
 
    @Override
    public String rutaFotoUsuario() {
-      String rutaFoto;
-      general = persistenciaGenerales.obtenerRutas(em);
-      if (general != null) {
-         rutaFoto = general.getPathfoto();
-      } else {
+      try {
+         String rutaFoto;
+         general = persistenciaGenerales.obtenerRutas(getEm());
+         if (general != null) {
+            rutaFoto = general.getPathfoto();
+         } else {
+            return null;
+         }
+         return rutaFoto;
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
-      return rutaFoto;
    }
 
    @Override
    public void cerrarSession(String idSesion) {
-      if (em.isOpen()) {
-         em.getEntityManagerFactory().close();
-         administrarSesiones.borrarSesion(idSesion);
+      try {
+         if (getEm().isOpen()) {
+            emf.close();
+            administrarSesiones.borrarSesion(idSesion);
+         }
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public DetallesEmpresas consultarDetalleEmpresaUsuario() {
       try {
-         Short codigoEmpresa = persistenciaEmpresas.codigoEmpresa(em);
-         //log.warn("Codigo empresa: "+codigoEmpresa);
-         DetallesEmpresas detallesEmpresas = persistenciaDetallesEmpresas.buscarDetalleEmpresa(em, codigoEmpresa);
-         //log.warn("detallesempresas: "+detallesEmpresas);
+         Short codigoEmpresa = persistenciaEmpresas.codigoEmpresa(getEm());
+         log.warn("consultarDetalleEmpresaUsuario() Codigo empresa: " + codigoEmpresa);
+         DetallesEmpresas detallesEmpresas = persistenciaDetallesEmpresas.buscarDetalleEmpresa(getEm(), codigoEmpresa);
+         log.warn("consultarDetalleEmpresaUsuario() detallesempresas: " + detallesEmpresas);
          return detallesEmpresas;
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
    @Override
    public ParametrosEstructuras consultarParametrosUsuario() {
-      //log.warn("AdministrarTemplate.consultarParametrosUsuario");
+      log.warn("AdministrarTemplate.consultarParametrosUsuario");
       try {
-         ParametrosEstructuras parametrosEstructuras = persistenciaParametrosEstructuras.buscarParametro(em, consultarActualUsuario().getAlias());
-         return parametrosEstructuras;
+         ActualUsuario au = consultarActualUsuario();
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), au.getAlias());
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
    @Override
    public String consultarNombrePerfil() {
-      return persistenciaPerfiles.consultarPerfil(em, consultarActualUsuario().getPerfil()).getDescripcion();
+      try {
+         log.warn("AdministrarTemplate.consultarNombrePerfil()");
+         ActualUsuario au = consultarActualUsuario();
+         return persistenciaPerfiles.consultarPerfil(getEm(), au.getPerfil()).getDescripcion();
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public BigDecimal consultarSMLV() {
       try {
-         BigDecimal smlv = persistenciaParametrosAnuales.consultarSMLV(em);
-         return smlv;
+         return persistenciaParametrosAnuales.consultarSMLV(getEm());
       } catch (Exception e) {
          log.warn("error en consultarSMLV admi " + e.toString());
          return null;
@@ -165,8 +212,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
    @Override
    public BigDecimal consultarAuxTrans() {
       try {
-         BigDecimal auxtrans = persistenciaParametrosAnuales.consultarAuxTransporte(em);
-         return auxtrans;
+         return persistenciaParametrosAnuales.consultarAuxTransporte(getEm());
       } catch (Exception e) {
          log.warn("error en consultarAuxTrans admi " + e.toString());
          return null;
@@ -176,8 +222,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
    @Override
    public BigDecimal consultarUVT() {
       try {
-         BigDecimal uvt = persistenciaParametrosAnuales.consultarValorUVT(em);
-         return uvt;
+         return persistenciaParametrosAnuales.consultarValorUVT(getEm());
       } catch (Exception e) {
          log.warn("error en consultarUVT admi " + e.toString());
          return null;
@@ -187,8 +232,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
    @Override
    public BigDecimal consultarMinIBC() {
       try {
-         BigDecimal minibc = persistenciaParametrosAnuales.consultarvalorMinIBC(em);
-         return minibc;
+         return persistenciaParametrosAnuales.consultarvalorMinIBC(getEm());
       } catch (Exception e) {
          log.warn("error en consultarMinIBC admi " + e.toString());
          return null;
@@ -198,8 +242,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
    @Override
    public BigDecimal consultarTopeSegSocial() {
       try {
-         BigDecimal segsocial = persistenciaParametrosAnuales.consultarTopeMaxSegSocial(em);
-         return segsocial;
+         return persistenciaParametrosAnuales.consultarTopeMaxSegSocial(getEm());
       } catch (Exception e) {
          log.warn("error en consultarTopeSegSocial admi " + e.toString());
          return null;

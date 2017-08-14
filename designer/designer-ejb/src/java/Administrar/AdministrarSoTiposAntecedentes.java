@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -20,46 +21,76 @@ public class AdministrarSoTiposAntecedentes implements AdministrarSoTiposAnteced
 
    private static Logger log = Logger.getLogger(AdministrarSoTiposAntecedentes.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaSoTiposAntecedentesInterface persistenciaTiposAntecedentes;
-    private EntityManager em;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaSoTiposAntecedentesInterface persistenciaTiposAntecedentes;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-         em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarTipoAntecedente(List<SoTiposAntecedentes> listaModificar) {
-        for (int i = 0; i < listaModificar.size(); i++) {
-            persistenciaTiposAntecedentes.editar(em, listaModificar.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTipoAntecedente(List<SoTiposAntecedentes> listaCrear) {
-        for (int i = 0; i < listaCrear.size(); i++) {
-            persistenciaTiposAntecedentes.crear(em, listaCrear.get(i));
-        }
-    }
+   @Override
+   public void modificarTipoAntecedente(List<SoTiposAntecedentes> listaModificar) {
+      try {
+         for (int i = 0; i < listaModificar.size(); i++) {
+            persistenciaTiposAntecedentes.editar(getEm(), listaModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTipoAntecedente(List<SoTiposAntecedentes> listaBorrar) {
-        for (int i = 0; i < listaBorrar.size(); i++) {
-            persistenciaTiposAntecedentes.borrar(em, listaBorrar.get(i));
-        }
-    }
+   @Override
+   public void crearTipoAntecedente(List<SoTiposAntecedentes> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            persistenciaTiposAntecedentes.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SoTiposAntecedentes> consultarTiposAntecedentes() {
-        try{
-         List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.listaTiposAntecedentes(em);
-        return lovTiposAntecedentes;
-        } catch(Exception e){
-            log.warn("error en consultarTiposAntecedentes : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void borrarTipoAntecedente(List<SoTiposAntecedentes> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaTiposAntecedentes.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<SoTiposAntecedentes> consultarTiposAntecedentes() {
+      try {
+         return persistenciaTiposAntecedentes.listaTiposAntecedentes(getEm());
+      } catch (Exception e) {
+         log.warn("error en consultarTiposAntecedentes : " + e.toString());
+         return null;
+      }
+   }
 }

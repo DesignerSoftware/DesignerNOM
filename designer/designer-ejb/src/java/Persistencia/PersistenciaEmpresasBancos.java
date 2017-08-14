@@ -31,13 +31,13 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
      private EntityManager em;*/
    public void crear(EntityManager em, EmpresasBancos empresasBancos) {
       try {
-         log.error("PERSISTENCIAEMPRESASBANCOS  EMPRESA " + empresasBancos.getEmpresa().getNombre());
-         log.error("PERSISTENCIAEMPRESASBANCOS  BANCO " + empresasBancos.getBanco().getNombre());
-         log.error("PERSISTENCIAEMPRESASBANCOS  CIUDAD " + empresasBancos.getCiudad().getNombre());
-         log.error("PERSISTENCIAEMPRESASBANCOS  NUMERO CUENTA " + empresasBancos.getNumerocuenta());
-         log.error("PERSISTENCIAEMPRESASBANCOS  TIPOCUENCITA " + empresasBancos.getTipocuenta());
+         log.warn("PERSISTENCIAEMPRESASBANCOS  EMPRESA " + empresasBancos.getEmpresa().getNombre());
+         log.warn("PERSISTENCIAEMPRESASBANCOS  BANCO " + empresasBancos.getBanco().getNombre());
+         log.warn("PERSISTENCIAEMPRESASBANCOS  CIUDAD " + empresasBancos.getCiudad().getNombre());
+         log.warn("PERSISTENCIAEMPRESASBANCOS  NUMERO CUENTA " + empresasBancos.getNumerocuenta());
+         log.warn("PERSISTENCIAEMPRESASBANCOS  TIPOCUENCITA " + empresasBancos.getTipocuenta());
          if (empresasBancos.getTipocuenta() == null) {
-            log.error("PERSISTENCIA TIPO CUENTA ES NULO");
+            log.warn("PERSISTENCIA TIPO CUENTA ES NULO");
          } else if (empresasBancos.getTipocuenta().isEmpty() || empresasBancos.getTipocuenta().equals("") || empresasBancos.getTipocuenta().equals(" ")) {
             empresasBancos.setTipocuenta(null);
          }
@@ -65,7 +65,7 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
    public void editar(EntityManager em, EmpresasBancos empresasBancos) {
       try {
          if (empresasBancos.getTipocuenta() == null) {
-            log.error("PERSISTENCIA TIPO CUENTA ES NULO");
+            log.warn("PERSISTENCIA TIPO CUENTA ES NULO");
          } else if (empresasBancos.getTipocuenta().isEmpty() || empresasBancos.getTipocuenta().equals("") || empresasBancos.getTipocuenta().equals(" ")) {
             empresasBancos.setTipocuenta(null);
          }
@@ -75,7 +75,6 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
             tx.begin();
             em.merge(empresasBancos);
             tx.commit();
-
          } catch (Exception e) {
             try {
                if (tx.isActive()) {
@@ -85,7 +84,6 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
                log.error("Error PersistenciaEmpresasBancos.editar: " + e);
             }
          }
-
       } catch (Exception e) {
          log.error("Error editar PersistenciaEmpresasBancos : " + e.toString());
       }
@@ -98,7 +96,6 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
          tx.begin();
          em.remove(em.merge(empresasBancos));
          tx.commit();
-
       } catch (Exception e) {
          if (tx.isActive()) {
             tx.rollback();

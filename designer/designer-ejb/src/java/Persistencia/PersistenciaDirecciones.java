@@ -37,7 +37,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
      */
     @Override
     public boolean crear(EntityManager em, Direcciones direcciones) {
-        log.error(this.getClass().getName() + ".crear()");
+        log.warn(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -58,7 +58,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public void editar(EntityManager em, Direcciones direcciones) {
-        log.error(this.getClass().getName() + ".editar()");
+        log.warn(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -77,7 +77,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public void borrar(EntityManager em, Direcciones direcciones) {
-        log.error(this.getClass().getName() + ".borrar()");
+        log.warn(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -95,7 +95,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public Direcciones buscarDireccion(EntityManager em, BigInteger secuencia) {
-        log.error(this.getClass().getName() + "buscarDireccion()");
+        log.warn(this.getClass().getName() + "buscarDireccion()");
         try {
             em.clear();
             return em.find(Direcciones.class, secuencia);
@@ -108,7 +108,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public List<Direcciones> buscarDirecciones(EntityManager em) {
-        log.error(this.getClass().getName() + ".buscarDirecciones()");
+        log.warn(this.getClass().getName() + ".buscarDirecciones()");
         try {
             em.clear();
             javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -122,7 +122,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
     }
 
     private Long contarDireccionesPersona(EntityManager em, BigInteger secuenciaPersona) {
-        log.error(this.getClass().getName() + ".contarDireccionesPersona()");
+        log.warn(this.getClass().getName() + ".contarDireccionesPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -141,7 +141,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
     @Override
     public List<Direcciones> direccionPersona(EntityManager em, BigInteger secuenciaPersona) {
         Long resultado = this.contarDireccionesPersona(em, secuenciaPersona);
-        log.error(this.getClass().getName() + ".direccionPersona()");
+        log.warn(this.getClass().getName() + ".direccionPersona()");
         if (resultado != null && resultado > 0) {
             try {
                 /*em.clear();
@@ -166,7 +166,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public List<Direcciones> direccionesPersona(EntityManager em, BigInteger secuenciaPersona) {
-        log.error(this.getClass().getName() + ".direccionesPersona()");
+        log.warn(this.getClass().getName() + ".direccionesPersona()");
         Long resultado = this.contarDireccionesPersona(em, secuenciaPersona);
         if (resultado != null && resultado > 0) {
             try {

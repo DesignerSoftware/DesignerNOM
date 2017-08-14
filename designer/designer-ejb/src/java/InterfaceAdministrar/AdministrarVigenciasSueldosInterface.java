@@ -106,10 +106,6 @@ public interface AdministrarVigenciasSueldosInterface {
      */
     public void crearTerceroSurcursal(TercerosSucursales tercerosSucursales);
     /**
-     * Cierra la sesion
-     */
-    public void salir();
-    /**
      * Obtiene las VigenciasSueldos Actuales de un Empleado
      * @param secEmpleado Secuencia Empleado
      * @return Lista de VigenciasSueldos Actuales del empleado en cuestion

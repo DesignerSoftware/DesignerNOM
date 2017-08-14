@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,72 +26,106 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
 
    private static Logger log = Logger.getLogger(AdministrarTiposIndicadores.class);
 
-    @EJB
-    PersistenciaTiposIndicadoresInterface persistenciaTiposIndicadores;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaTiposIndicadoresInterface persistenciaTiposIndicadores;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void modificarTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
-        for (int i = 0; i < listTiposIndicadores.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
+      try {
+         for (int i = 0; i < listTiposIndicadores.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposIndicadores.editar(em, listTiposIndicadores.get(i));
-        }
-    }
+            persistenciaTiposIndicadores.editar(getEm(), listTiposIndicadores.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
-        for (int i = 0; i < listTiposIndicadores.size(); i++) {
+   @Override
+   public void borrarTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
+      try {
+         for (int i = 0; i < listTiposIndicadores.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposIndicadores.borrar(em, listTiposIndicadores.get(i));
-        }
-    }
+            persistenciaTiposIndicadores.borrar(getEm(), listTiposIndicadores.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
-        for (int i = 0; i < listTiposIndicadores.size(); i++) {
+   @Override
+   public void crearTiposIndicadores(List<TiposIndicadores> listTiposIndicadores) {
+      try {
+         for (int i = 0; i < listTiposIndicadores.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposIndicadores.crear(em, listTiposIndicadores.get(i));
-        }
-    }
+            persistenciaTiposIndicadores.crear(getEm(), listTiposIndicadores.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposIndicadores> consultarTiposIndicadores() {
-        List<TiposIndicadores> listTiposIndicadores;
-        listTiposIndicadores = persistenciaTiposIndicadores.buscarTiposIndicadores(em);
-        return listTiposIndicadores;
-    }
+   @Override
+   public List<TiposIndicadores> consultarTiposIndicadores() {
+      try {
+         return persistenciaTiposIndicadores.buscarTiposIndicadores(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposIndicadores consultarTipoIndicador(BigInteger secMotivoDemanda) {
-        TiposIndicadores tiposIndicadores;
-        tiposIndicadores = persistenciaTiposIndicadores.buscarTiposIndicadoresSecuencia(em, secMotivoDemanda);
-        return tiposIndicadores;
-    }
+   @Override
+   public TiposIndicadores consultarTipoIndicador(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaTiposIndicadores.buscarTiposIndicadoresSecuencia(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarVigenciasIndicadoresTipoIndicador(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger verificadorVigenciasIndicadores = null;
-
-        try {
-            log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
-            verificadorVigenciasIndicadores = persistenciaTiposIndicadores.contadorVigenciasIndicadores(em, secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarTiposIndicadores verificarBorradoVigenciasIndicadores ERROR :" + e);
-        } finally {
-            return verificadorVigenciasIndicadores;
-        }
-    }
+   @Override
+   public BigInteger contarVigenciasIndicadoresTipoIndicador(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
+         return persistenciaTiposIndicadores.contadorVigenciasIndicadores(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarTiposIndicadores verificarBorradoVigenciasIndicadores ERROR :" + e);
+         return null;
+      }
+   }
 }

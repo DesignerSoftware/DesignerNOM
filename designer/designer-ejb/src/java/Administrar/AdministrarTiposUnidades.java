@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Administrar;
 
 import Entidades.TiposUnidades;
@@ -15,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,71 +26,105 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
 
    private static Logger log = Logger.getLogger(AdministrarTiposUnidades.class);
 
-    @EJB
-    PersistenciaTiposUnidadesInterface persistenciaTiposUnidades;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaTiposUnidadesInterface persistenciaTiposUnidades;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
-        for (int i = 0; i < listaTiposUnidades.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
+      try {
+         for (int i = 0; i < listaTiposUnidades.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposUnidades.editar(em, listaTiposUnidades.get(i));
-        }
-    }
+            persistenciaTiposUnidades.editar(getEm(), listaTiposUnidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
-        for (int i = 0; i < listaTiposUnidades.size(); i++) {
+   @Override
+   public void borrarTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
+      try {
+         for (int i = 0; i < listaTiposUnidades.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposUnidades.borrar(em, listaTiposUnidades.get(i));
-        }
-    }
+            persistenciaTiposUnidades.borrar(getEm(), listaTiposUnidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
-        for (int i = 0; i < listaTiposUnidades.size(); i++) {
+   @Override
+   public void crearTiposUnidades(List<TiposUnidades> listaTiposUnidades) {
+      try {
+         for (int i = 0; i < listaTiposUnidades.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposUnidades.crear(em, listaTiposUnidades.get(i));
-        }
-    }
+            persistenciaTiposUnidades.crear(getEm(), listaTiposUnidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<TiposUnidades> consultarTiposUnidades() {
-        List<TiposUnidades> listaTiposUnidades;
-        listaTiposUnidades = persistenciaTiposUnidades.consultarTiposUnidades(em);
-        return listaTiposUnidades;
-    }
+   public List<TiposUnidades> consultarTiposUnidades() {
+      try {
+         return persistenciaTiposUnidades.consultarTiposUnidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposUnidades consultarTipoIndicador(BigInteger secMotivoDemanda) {
-        TiposUnidades tiposIndicadores;
-        tiposIndicadores = persistenciaTiposUnidades.consultarTipoUnidad(em, secMotivoDemanda);
-        return tiposIndicadores;
-    }
+   @Override
+   public TiposUnidades consultarTipoIndicador(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaTiposUnidades.consultarTipoUnidad(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarUnidadesTipoUnidad(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger contarCursosTipoCurso = null;
-
-        try {
-            log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
-            contarCursosTipoCurso = persistenciaTiposUnidades.contarUnidadesTipoUnidad(em, secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarTiposUnidades contarUnidadesTipoUnidad ERROR :" + e);
-        } finally {
-            return contarCursosTipoCurso;
-        }
-    }
+   @Override
+   public BigInteger contarUnidadesTipoUnidad(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
+         return persistenciaTiposUnidades.contarUnidadesTipoUnidad(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarTiposUnidades contarUnidadesTipoUnidad ERROR :" + e);
+         return null;
+      }
+   }
 }

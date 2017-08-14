@@ -17,11 +17,11 @@ import InterfacePersistencia.PersistenciaPantallasInterface;
 import InterfacePersistencia.PersistenciaParametrosEstructurasInterface;
 import InterfacePersistencia.PersistenciaTablasInterface;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 import javax.persistence.NoResultException;
 
@@ -58,21 +58,41 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    //--------------------------------------------------------------------------
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<Modulos> consultarModulos() {
       try {
-         return persistenciaModulos.buscarModulos(em);
+         return persistenciaModulos.buscarModulos(getEm());
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -80,8 +100,9 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
    @Override
    public List<Tablas> consultarTablas(BigInteger secuenciaMod) {
       try {
-         return persistenciaTablas.buscarTablas(em, secuenciaMod);
+         return persistenciaTablas.buscarTablas(getEm(), secuenciaMod);
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -89,17 +110,19 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
    @Override
    public Pantallas consultarPantalla(BigInteger secuenciaTab) {
       try {
-         return persistenciaPantallas.buscarPantalla(em, secuenciaTab);
+         return persistenciaPantallas.buscarPantalla(getEm(), secuenciaTab);
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
    public String consultarNombrePantalla(BigInteger secuenciaTab) {
       try {
-         Pantallas p = persistenciaPantallas.buscarPantalla(em, secuenciaTab);
+         Pantallas p = persistenciaPantallas.buscarPantalla(getEm(), secuenciaTab);
          return p.getNombre();
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -107,49 +130,77 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
    @Override
    public List<Aficiones> consultarAficiones() {
       try {
-         return persistenciaAficiones.buscarAficiones(em);
+         return persistenciaAficiones.buscarAficiones(getEm());
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
    @Override
    public Aficiones consultarAficion(BigInteger secuencia) {
-      aficion = persistenciaAficiones.buscarAficion(em, secuencia);
-      return aficion;
+      try {
+         aficion = persistenciaAficiones.buscarAficion(getEm(), secuencia);
+         return aficion;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void modificarAficiones(List<Aficiones> listAficiones) {
-      for (int i = 0; i < listAficiones.size(); i++) {
-         aficion = listAficiones.get(i);
-         persistenciaAficiones.editar(em, aficion);
+      try {
+         for (int i = 0; i < listAficiones.size(); i++) {
+            aficion = listAficiones.get(i);
+            persistenciaAficiones.editar(getEm(), aficion);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public Integer sugerirCodigoAficiones() {
-      Integer max;
-      Short respuesta;
-      respuesta = persistenciaAficiones.maximoCodigoAficiones(em);
-      max = respuesta.intValue();
-      max = max + 1;
-      return max;
+      try {
+         Integer max;
+         Short respuesta;
+         respuesta = persistenciaAficiones.maximoCodigoAficiones(getEm());
+         max = respuesta.intValue();
+         max = max + 1;
+         return max;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void crearAficion(Aficiones aficion) {
-      persistenciaAficiones.crear(em, aficion);
+      try {
+         persistenciaAficiones.crear(getEm(), aficion);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarAficion(Aficiones aficion) {
-      persistenciaAficiones.borrar(em, aficion);
+      try {
+         persistenciaAficiones.borrar(getEm(), aficion);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public Aficiones consultarAficionCodigo(Short cod) {
-      return persistenciaAficiones.buscarAficionCodigo(em, cod);
+      try {
+         return persistenciaAficiones.buscarAficionCodigo(getEm(), cod);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
@@ -158,7 +209,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       String nomPantalla = " ";
       BigInteger secEmpresa = BigInteger.ZERO;
       try {
-         listaempresas = persistenciaEmpresas.consultarEmpresas(em);
+         listaempresas = persistenciaEmpresas.consultarEmpresas(getEm());
       } catch (NoResultException nre) {
          log.error("Error: AdministrarCarpetaDesigner consultarNombrePantallaPorEmpresa " + nre.getMessage());
          //return " ";
@@ -170,7 +221,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
                secEmpresa = listaempresas.get(0).getSecuencia();
             } else {
                try {
-                  secEmpresa = persistenciaParametrosEstructuras.buscarEmpresaParametros(em);
+                  secEmpresa = persistenciaParametrosEstructuras.buscarEmpresaParametros(getEm());
                } catch (NoResultException nre) {
                   throw new Exception("El usuario no tiene configurada la empresa.");
                }
@@ -178,10 +229,10 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
          }
       }
       try {
-         nomPantalla = persistenciaPantallas.buscarPantallaPorCodigoEmpresa(em, secEmpresa, codPantalla);
+         nomPantalla = persistenciaPantallas.buscarPantallaPorCodigoEmpresa(getEm(), secEmpresa, codPantalla);
       } catch (NoResultException nre) {
          try {
-            nomPantalla = persistenciaPantallas.buscarPantallaPorCodigo(em, codPantalla);
+            nomPantalla = persistenciaPantallas.buscarPantallaPorCodigo(getEm(), codPantalla);
          } catch (NoResultException nre2) {
             throw new Exception("No hay pantalla configurada para el código " + codPantalla);
          }
@@ -192,8 +243,9 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
    @Override
    public List<Tablas> consultarTablas() {
       try {
-         return persistenciaTablas.consultarTablas(em);
+         return persistenciaTablas.consultarTablas(getEm());
       } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

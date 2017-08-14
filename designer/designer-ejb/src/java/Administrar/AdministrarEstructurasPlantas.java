@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -75,7 +76,22 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
     */
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
    private Organigramas org;
    //--------------------------------------------------------------------------
    //MÉTODOS
@@ -83,7 +99,11 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
@@ -91,14 +111,13 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
       List<Empresas> listaEmpresas = consultarEmpresas();
       List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
       log.warn("listaEmpresas : " + listaEmpresas);
-      log.warn("em : " + em);
 
       if (listaEmpresas != null) {
          log.warn("listaEmpresas.size() : " + listaEmpresas.size());
 
          for (int i = 0; i < listaEmpresas.size(); i++) {
             try {
-               List<Organigramas> lista = persistenciaOrganigramas.buscarOrganigramasEmpresa(em,
+               List<Organigramas> lista = persistenciaOrganigramas.buscarOrganigramasEmpresa(getEm(),
                        listaEmpresas.get(i).getSecuencia());
                listaOrganigramas.addAll(lista);
             } catch (Exception e) {
@@ -115,7 +134,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public List<Empresas> consultarEmpresas() {
       List<Empresas> listaEmpresas = null;
       try {
-         listaEmpresas = persistenciaEmpresas.buscarEmpresas(em);
+         listaEmpresas = persistenciaEmpresas.buscarEmpresas(getEm());
          return listaEmpresas;
       } catch (Exception e) {
          log.warn("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
@@ -128,7 +147,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public List<Organigramas> listaTodosOrganigramas() {
       List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
       try {
-         listaOrganigramas = persistenciaOrganigramas.buscarOrganigramas(em);
+         listaOrganigramas = persistenciaOrganigramas.buscarOrganigramas(getEm());
          log.warn("Ya salio del EJB");
       } catch (Exception e) {
          log.warn("Error listaOrganigramas : "
@@ -141,7 +160,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public void modificarOrganigramas(List<Organigramas> listaO) {
       try {
          for (int i = 0; i < listaO.size(); i++) {
-            persistenciaOrganigramas.editar(em, listaO.get(i));
+            persistenciaOrganigramas.editar(getEm(), listaO.get(i));
          }
       } catch (Exception e) {
          log.warn("Error modificarOrganigramas Admi : " + e.toString());
@@ -152,7 +171,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public String cantidadCargosAControlar(BigInteger secEstructura) {
       try {
          String retorno = "";
-         BigInteger valor = persistenciaPlantasPersonales.consultarCantidadEstructuras(em, secEstructura);
+         BigInteger valor = persistenciaPlantasPersonales.consultarCantidadEstructuras(getEm(), secEstructura);
          if (valor != null) {
             retorno = String.valueOf(valor);
          }
@@ -168,7 +187,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public String cantidadCargosEmplActivos(BigInteger secEstructura) {
       try {
          String retorno = "0";
-         Long valor = persistenciaVWActualesCargos.conteoCodigosEmpleados(em, secEstructura);
+         Long valor = persistenciaVWActualesCargos.conteoCodigosEmpleados(getEm(), secEstructura);
          if (valor > 0 && valor != null) {
             retorno = String.valueOf(valor);
          }
@@ -183,12 +202,12 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    @Override
    public List<Estructuras> listaEstructurasPorSecuenciaOrganigrama(BigInteger secOrganigrama) {
       try {
-         List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPorOrganigrama(em, secOrganigrama);
+         List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPorOrganigrama(getEm(), secOrganigrama);
          int tam = lista.size();
          if (tam > 0) {
             for (int i = 0; i < tam; i++) {
-               BigInteger cantidad = persistenciaPlantasPersonales.consultarCantidadEstructuras(em, lista.get(i).getSecuencia());
-               Long real = persistenciaVWActualesCargos.conteoCodigosEmpleados(em, lista.get(i).getSecuencia());
+               BigInteger cantidad = persistenciaPlantasPersonales.consultarCantidadEstructuras(getEm(), lista.get(i).getSecuencia());
+               Long real = persistenciaVWActualesCargos.conteoCodigosEmpleados(getEm(), lista.get(i).getSecuencia());
                if (cantidad != null) {
                   lista.get(i).setCantidadCargosControlar(cantidad.toString());
                } else {
@@ -212,7 +231,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public void crearEstructura(List<Estructuras> listaE) {
       try {
          for (Estructuras recEstructura : listaE) {
-            persistenciaEstructuras.crear(em, recEstructura);
+            persistenciaEstructuras.crear(getEm(), recEstructura);
          }
       } catch (Exception e) {
          log.warn("Error crearEstructura Admi : " + e.toString());
@@ -223,7 +242,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public void editarEstructura(List<Estructuras> listaE) {
       try {
          for (Estructuras recEstructura : listaE) {
-            persistenciaEstructuras.editar(em, recEstructura);
+            persistenciaEstructuras.editar(getEm(), recEstructura);
          }
       } catch (Exception e) {
          log.warn("Error editarEstructura Admi : " + e.toString());
@@ -234,7 +253,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    public void borrarEstructura(List<Estructuras> listaE) {
       try {
          for (Estructuras recEstructura : listaE) {
-            persistenciaEstructuras.borrar(em, recEstructura);
+            persistenciaEstructuras.borrar(getEm(), recEstructura);
          }
       } catch (Exception e) {
          log.warn("Error borrarEstructura Admi : " + e.toString());
@@ -244,8 +263,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    @Override
    public List<Estructuras> lovEstructurasPadres(BigInteger secOrganigrama, BigInteger secEstructura) {
       try {
-         List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPadres(em, secOrganigrama, secEstructura);
-         return lista;
+         return persistenciaEstructuras.buscarEstructurasPadres(getEm(), secOrganigrama, secEstructura);
       } catch (Exception e) {
          log.warn("Error lovEstructurasPadres Admi : " + e.toString());
          return null;
@@ -255,8 +273,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    @Override
    public List<CentrosCostos> lovCentrosCostos(BigInteger secEmpresa) {
       try {
-         List<CentrosCostos> lista = persistenciaCentrosCostos.buscarCentroCostoPorSecuenciaEmpresa(em, secEmpresa);
-         return lista;
+         return persistenciaCentrosCostos.buscarCentroCostoPorSecuenciaEmpresa(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("Error lovCentrosCostos Admi : " + e.toString());
          return null;
@@ -266,8 +283,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
    @Override
    public List<Estructuras> lovEstructuras() {
       try {
-         List<Estructuras> lista = persistenciaEstructuras.buscarEstructuras(em);
-         return lista;
+         return persistenciaEstructuras.buscarEstructuras(getEm());
       } catch (Exception e) {
          log.warn("Error lovEstructuras Admi : " + e.toString());
          return null;
@@ -276,20 +292,32 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
 
    @Override
    public void modificarOrganigrama(List<Organigramas> listOrganigramasModificados) {
-      for (int i = 0; i < listOrganigramasModificados.size(); i++) {
-         log.warn("Modificando...");
-         org = listOrganigramasModificados.get(i);
-         persistenciaOrganigramas.editar(em, org);
+      try {
+         for (int i = 0; i < listOrganigramasModificados.size(); i++) {
+            log.warn("Modificando...");
+            org = listOrganigramasModificados.get(i);
+            persistenciaOrganigramas.editar(getEm(), org);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarOrganigrama(Organigramas organigrama) {
-      persistenciaOrganigramas.borrar(em, organigrama);
+      try {
+         persistenciaOrganigramas.borrar(getEm(), organigrama);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearOrganigrama(Organigramas organigrama) {
-      persistenciaOrganigramas.crear(em, organigrama);
+      try {
+         persistenciaOrganigramas.crear(getEm(), organigrama);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 }

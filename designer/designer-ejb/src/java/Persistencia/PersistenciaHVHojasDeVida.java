@@ -34,7 +34,7 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
      */
     @Override
     public void editar(EntityManager em, HVHojasDeVida hVHojasDeVida) {
-        log.error(this.getClass().getName() + ".hvHoaDeVidaPersona()");
+        log.warn(this.getClass().getName() + ".hvHoaDeVidaPersona()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -52,7 +52,7 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
 
     @Override
     public HVHojasDeVida hvHojaDeVidaPersona(EntityManager em, BigInteger secuenciaPersona) {
-        log.error(this.getClass().getName() + ".hvHojaDeVidaPersona()");
+        log.warn(this.getClass().getName() + ".hvHojaDeVidaPersona()");
         HVHojasDeVida hVHojasDeVida = null;
         try {
             em.clear();
@@ -63,9 +63,7 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
             hVHojasDeVida = (HVHojasDeVida) query.getSingleResult();
             return hVHojasDeVida;
         } catch (Exception e) {
-            log.error("error en hvHojaDeVidaPersona");
-//            e.printStackTrace();
-            log.error("Mensaje de excepcion: "+e.getMessage());
+            log.error("error en hvHojaDeVidaPersona Mensaje de excepcion: "+e.getMessage());
             return hVHojasDeVida;
         }
     }

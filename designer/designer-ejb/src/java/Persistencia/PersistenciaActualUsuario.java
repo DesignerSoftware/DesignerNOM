@@ -85,10 +85,10 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
    @Override
    public List<CambiosMasivos> consultarCambiosMasivos(EntityManager em) {
 //      try {
-      log.warn("Persistencia.PersistenciaActualUsuario.consultarCambiosMasivos()");
+      log.warn("Persistencia.PersistenciaActualUsuario.consultarCambiosMasivos() NO HACE NADA");
 //         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
 //                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
-//         log.error("q : " + q);
+//         log.warn("q : " + q);
 //         Query query = em.createNativeQuery(q, CambiosMasivos.class);
 //         List<CambiosMasivos> lista = query.getResultList();
 //         return lista;
@@ -102,15 +102,15 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
    public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
       //         em.clear();
 //      try {
-      log.warn("Persistencia.PersistenciaActualUsuario.consultarParametroCambiosMasivos()");
+      log.warn("Persistencia.PersistenciaActualUsuario.consultarParametroCambiosMasivos() NO HACE NADA");
 //         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
 //         Query query = em.createNativeQuery(q);
-//         log.error("q : " + q);
+//         log.warn("q : " + q);
 //         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
 //         return parametro;
 //      } catch (Exception e) {
 //         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
       return null;
-//      }
+//      } 
    }
 }

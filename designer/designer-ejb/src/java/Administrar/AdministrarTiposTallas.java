@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,82 +26,117 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarTiposTallas.class);
 
-    @EJB
-    PersistenciaTiposTallasInterface persistenciaTiposTallas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaTiposTallasInterface persistenciaTiposTallas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarTiposTallas(List<TiposTallas> listTiposTallas) {
-        for (int i = 0; i < listTiposTallas.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposTallas(List<TiposTallas> listTiposTallas) {
+      try {
+         for (int i = 0; i < listTiposTallas.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposTallas.editar(em, listTiposTallas.get(i));
-        }
-    }
+            persistenciaTiposTallas.editar(getEm(), listTiposTallas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposTallas(List<TiposTallas> listTiposTallas) {
-        for (int i = 0; i < listTiposTallas.size(); i++) {
+   @Override
+   public void borrarTiposTallas(List<TiposTallas> listTiposTallas) {
+      try {
+         for (int i = 0; i < listTiposTallas.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposTallas.borrar(em, listTiposTallas.get(i));
-        }
-    }
+            persistenciaTiposTallas.borrar(getEm(), listTiposTallas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposTallas(List<TiposTallas> listTiposTallas) {
-        for (int i = 0; i < listTiposTallas.size(); i++) {
+   @Override
+   public void crearTiposTallas(List<TiposTallas> listTiposTallas) {
+      try {
+         for (int i = 0; i < listTiposTallas.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposTallas.crear(em, listTiposTallas.get(i));
-        }
-    }
+            persistenciaTiposTallas.crear(getEm(), listTiposTallas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposTallas> consultarTiposTallas() {
-        List<TiposTallas> listTiposTallas;
-        listTiposTallas = persistenciaTiposTallas.buscarTiposTallas(em);
-        return listTiposTallas;
-    }
+   @Override
+   public List<TiposTallas> consultarTiposTallas() {
+      try {
+         return persistenciaTiposTallas.buscarTiposTallas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposTallas consultarTipoTalla(BigInteger secTipoEmpresa) {
-        TiposTallas tiposTallas;
-        tiposTallas = persistenciaTiposTallas.buscarTipoTalla(em, secTipoEmpresa);
-        return tiposTallas;
-    }
+   @Override
+   public TiposTallas consultarTipoTalla(BigInteger secTipoEmpresa) {
+      try {
+         return persistenciaTiposTallas.buscarTipoTalla(getEm(), secTipoEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarElementosTipoTalla(BigInteger secuenciaElementos) {
-        try {
-            BigInteger verificadorElementos;
-            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
-            return verificadorElementos = persistenciaTiposTallas.contadorElementos(em, secuenciaElementos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposTallas verificarBorradoElementos ERROR :" + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarElementosTipoTalla(BigInteger secuenciaElementos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaElementos);
+         return persistenciaTiposTallas.contadorElementos(getEm(), secuenciaElementos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposTallas verificarBorradoElementos ERROR :" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarVigenciasTallasTipoTalla(BigInteger secuenciaVigenciasTallas) {
-        try {
-            BigInteger verificadorVigenciasTallas;
-            log.error("Secuencia Borrado Vigencias Tallas" + secuenciaVigenciasTallas);
-            return verificadorVigenciasTallas = persistenciaTiposTallas.contadorVigenciasTallas(em, secuenciaVigenciasTallas);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposTallas verificarBorradoVigenciasTallas ERROR :" + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarVigenciasTallasTipoTalla(BigInteger secuenciaVigenciasTallas) {
+      try {
+         log.error("Secuencia Borrado Vigencias Tallas" + secuenciaVigenciasTallas);
+         return persistenciaTiposTallas.contadorVigenciasTallas(getEm(), secuenciaVigenciasTallas);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposTallas verificarBorradoVigenciasTallas ERROR :" + e);
+         return null;
+      }
+   }
 }

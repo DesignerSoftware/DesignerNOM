@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,58 +25,95 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
 
    private static Logger log = Logger.getLogger(AdministrarTiposCertificados.class);
 
-    @EJB
-    PersistenciaTiposCertificadosInterface persistenciaTiposCertificados;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaTiposCertificadosInterface persistenciaTiposCertificados;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
-        for (int i = 0; i < listaTiposCertificados.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
+      try {
+         for (int i = 0; i < listaTiposCertificados.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposCertificados.editar(em, listaTiposCertificados.get(i));
-        }
-    }
+            persistenciaTiposCertificados.editar(getEm(), listaTiposCertificados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
-        for (int i = 0; i < listaTiposCertificados.size(); i++) {
+   @Override
+   public void borrarTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
+      try {
+         for (int i = 0; i < listaTiposCertificados.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposCertificados.borrar(em, listaTiposCertificados.get(i));
-        }
-    }
+            persistenciaTiposCertificados.borrar(getEm(), listaTiposCertificados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
-        for (int i = 0; i < listaTiposCertificados.size(); i++) {
+   @Override
+   public void crearTiposCertificados(List<TiposCertificados> listaTiposCertificados) {
+      try {
+         for (int i = 0; i < listaTiposCertificados.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposCertificados.crear(em, listaTiposCertificados.get(i));
-        }
-    }
+            persistenciaTiposCertificados.crear(getEm(), listaTiposCertificados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposCertificados> consultarTiposCertificados() {
-        List<TiposCertificados> listTipoCertificado;
-        listTipoCertificado = persistenciaTiposCertificados.buscarTiposCertificados(em);
-        return listTipoCertificado;
-    }
+   @Override
+   public List<TiposCertificados> consultarTiposCertificados() {
+      try {
+         return persistenciaTiposCertificados.buscarTiposCertificados(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposCertificados consultarTipoCertificado(BigInteger secTipoCertificado) {
-        TiposCertificados tipoCertificado;
-        tipoCertificado = persistenciaTiposCertificados.buscarTipoCertificado(em, secTipoCertificado);
-        return tipoCertificado;
-    }
+   @Override
+   public TiposCertificados consultarTipoCertificado(BigInteger secTipoCertificado) {
+      try {
+         return persistenciaTiposCertificados.buscarTipoCertificado(getEm(), secTipoCertificado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

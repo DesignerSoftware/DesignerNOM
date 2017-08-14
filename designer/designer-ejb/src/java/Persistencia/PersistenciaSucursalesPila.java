@@ -83,13 +83,13 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
     public List<SucursalesPila> consultarSucursalesPilaPorEmpresa(EntityManager em, BigInteger secEmpresa) {
         try {
             em.clear();
-            log.error("PersistenciaSucursalesPila consultarSucursalesPilaPorEmpresa secuenciaEmpresa : " + secEmpresa);
+            log.warn("PersistenciaSucursalesPila consultarSucursalesPilaPorEmpresa secuenciaEmpresa : " + secEmpresa);
             Query query = em.createQuery("SELECT cce FROM SucursalesPila cce WHERE cce.empresa.secuencia = :secuenciaEmpr ORDER BY cce.codigo ASC");
             query.setParameter("secuenciaEmpr", secEmpresa);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<SucursalesPila> listaSucursalesPila = query.getResultList();
             if (listaSucursalesPila != null) {
-                log.error("tamano lista retorno :" + listaSucursalesPila.size());
+                log.warn("tamano lista retorno :" + listaSucursalesPila.size());
             }
             return listaSucursalesPila;
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class PersistenciaSucursalesPila implements PersistenciaSucursalesPilaInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila Retorno " + retorno);
+            log.warn("Contador PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);

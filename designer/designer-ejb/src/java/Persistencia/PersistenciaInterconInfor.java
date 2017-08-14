@@ -94,7 +94,7 @@ public class PersistenciaInterconInfor implements PersistenciaInterconInforInter
    @Override
    public List<InterconInfor> buscarInterconInforParametroContable(EntityManager em, Date fechaInicial, Date fechaFinal) {
       try {
-         log.error("Entre al metodo intercon");
+         log.warn("Entre al metodo intercon");
          em.clear();
          String sql = "select * from INTERCON_Infor i where fechacontabilizacion between \n"
                  + " ? and ? and FLAG = 'CONTABILIZADO' AND SALIDA <> 'NETO'\n"

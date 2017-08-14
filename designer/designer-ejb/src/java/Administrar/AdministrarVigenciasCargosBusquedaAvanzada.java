@@ -21,6 +21,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -87,21 +88,39 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    //--------------------------------------------------------------------------
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<Estructuras> lovEstructura() {
       try {
-         List<Estructuras> lista = persistenciaEstructuras.buscarEstructuras(em);
-         return lista;
+         return persistenciaEstructuras.buscarEstructuras(getEm());
       } catch (Exception e) {
          log.warn("Error lovEstructura Admi : " + e.toString());
          return null;
@@ -111,8 +130,7 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @Override
    public List<MotivosCambiosCargos> lovMotivosCambiosCargos() {
       try {
-         List<MotivosCambiosCargos> lista = persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(em);
-         return lista;
+         return persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(getEm());
       } catch (Exception e) {
          log.warn("Error lovMotivosCambiosCargos Admi : " + e.toString());
          return null;
@@ -122,8 +140,7 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @Override
    public List<CentrosCostos> lovCentrosCostos() {
       try {
-         List<CentrosCostos> lista = persistenciaCentrosCostos.buscarCentrosCostos(em);
-         return lista;
+         return persistenciaCentrosCostos.buscarCentrosCostos(getEm());
       } catch (Exception e) {
          log.warn("Error lovCentrosCostos Admi : " + e.toString());
          return null;
@@ -133,8 +150,7 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @Override
    public List<Papeles> lovPapeles() {
       try {
-         List<Papeles> lista = persistenciaPapeles.consultarPapeles(em);
-         return lista;
+         return persistenciaPapeles.consultarPapeles(getEm());
       } catch (Exception e) {
          log.warn("Error lovPapeles Admi : " + e.toString());
          return null;
@@ -144,8 +160,7 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @Override
    public List<Cargos> lovCargos() {
       try {
-         List<Cargos> lista = persistenciaCargos.consultarCargos(em);
-         return lista;
+         return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
          log.warn("Error lovCargos Admi : " + e.toString());
          return null;
@@ -155,8 +170,7 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         List<Empleados> lista = persistenciaEmpleado.buscarEmpleados(em);
-         return lista;
+         return persistenciaEmpleado.buscarEmpleados(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;

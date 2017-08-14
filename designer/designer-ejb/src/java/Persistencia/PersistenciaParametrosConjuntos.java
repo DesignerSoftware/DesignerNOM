@@ -76,7 +76,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.clear();
             Query query = em.createNativeQuery("SELECT * FROM PARAMETROSCONJUNTOS p WHERE p.USUARIOBD = USER", ParametrosConjuntos.class);
             ParametrosConjuntos pc = (ParametrosConjuntos) query.getSingleResult();
-            log.error("PersistenciaParametrosConjuntos.consultarParametros pc : " + pc);
+            log.warn("PersistenciaParametrosConjuntos.consultarParametros pc : " + pc);
             return pc;
         } catch (Exception e) {
             log.error("Error PersistenciaParametrosConjuntos.consultarParametros : " + e.toString());

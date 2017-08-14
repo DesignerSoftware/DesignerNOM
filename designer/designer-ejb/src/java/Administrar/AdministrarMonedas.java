@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,67 +26,106 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarMonedas.class);
 
-    @EJB
-    PersistenciaMonedasInterface persistenciaMonedas;
-    private Monedas monedaSeleccionado;
-    private Monedas monedas;
-    private List<Monedas> listMonedas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMonedasInterface persistenciaMonedas;
+   private Monedas monedaSeleccionado;
+   private Monedas monedas;
+   private List<Monedas> listMonedas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarMonedas(List<Monedas> listMonedasModificadas) {
-        for (int i = 0; i < listMonedasModificadas.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarMonedas(List<Monedas> listMonedasModificadas) {
+      try {
+         for (int i = 0; i < listMonedasModificadas.size(); i++) {
             log.warn("Administrar Modificando...");
             monedaSeleccionado = listMonedasModificadas.get(i);
-            persistenciaMonedas.editar(em, monedaSeleccionado);
-        }
-    }
+            persistenciaMonedas.editar(getEm(), monedaSeleccionado);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMonedas(Monedas monedas) {
-        persistenciaMonedas.borrar(em, monedas);
-    }
+   @Override
+   public void borrarMonedas(Monedas monedas) {
+      try {
+         persistenciaMonedas.borrar(getEm(), monedas);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMonedas(Monedas monedas) {
-        persistenciaMonedas.crear(em, monedas);
-    }
+   @Override
+   public void crearMonedas(Monedas monedas) {
+      try {
+         persistenciaMonedas.crear(getEm(), monedas);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Monedas> consultarMonedas() {
-        listMonedas = persistenciaMonedas.consultarMonedas(em);
-        return listMonedas;
-    }
+   @Override
+   public List<Monedas> consultarMonedas() {
+      try {
+         listMonedas = persistenciaMonedas.consultarMonedas(getEm());
+         return listMonedas;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Monedas consultarMoneda(BigInteger secMoneda) {
-        monedas = persistenciaMonedas.consultarMoneda(em, secMoneda);
-        return monedas;
-    }
+   @Override
+   public Monedas consultarMoneda(BigInteger secMoneda) {
+      try {
+         monedas = persistenciaMonedas.consultarMoneda(getEm(), secMoneda);
+         return monedas;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger verificarMonedasProyecto(BigInteger secuenciaIdiomas) {
-        BigInteger verificadorProyectos = null;
-        try {
-            log.error("Secuencia Borrado Proyecto" + secuenciaIdiomas);
-            verificadorProyectos = persistenciaMonedas.contadorProyectos(em, secuenciaIdiomas);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarMonedas verificarBorradoProyecto ERROR :" + e);
-        } finally {
-            return verificadorProyectos;
-        }
-    }
+   @Override
+   public BigInteger verificarMonedasProyecto(BigInteger secuenciaIdiomas) {
+      try {
+         log.error("Secuencia Borrado Proyecto" + secuenciaIdiomas);
+         return persistenciaMonedas.contadorProyectos(getEm(), secuenciaIdiomas);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarMonedas verificarBorradoProyecto ERROR :" + e);
+         return null;
+      }
+   }
 }

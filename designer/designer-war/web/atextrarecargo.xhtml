@@ -309,14 +309,14 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['empresa']}" sortBy="#{infoD.concepto.empresa.nombre}" filterBy="#{infoD.concepto.empresa.nombre}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['empresa']}" sortBy="#{infoD.concepto.nombreEmpresa}" filterBy="#{infoD.concepto.nombreEmpresa}" filterMatchMode="contains" 
                                            id="detalleEmpresa" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoD.concepto.empresa.nombre}">
+                                        <f:facet name="output"><h:outputText value="#{infoD.concepto.nombreEmpresa}">
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off"  value="#{infoD.concepto.empresa.nombre}" id="editarDetalleEmpresa" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
-                                                <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD, 'EMPRESA', infoD.concepto.empresa.nombre)}" process="@this" update="editarDetalleEmpresa"/>
+                                            <p:inputText autocomplete="off"  value="#{infoD.concepto.nombreEmpresa}" id="editarDetalleEmpresa" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD, 'EMPRESA', infoD.concepto.nombreEmpresa)}" process="@this" update="editarDetalleEmpresa"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indiceD,1,0,1)}" process="@this" update="editarDetalleEmpresa"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 3)}" process="@this" 
                                                         onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});"/>
@@ -681,11 +681,11 @@
                                 </f:facet>
                                 <h:outputText value="#{concepto.naturaleza}"/>
                             </p:column>
-                            <p:column filterBy="#{concepto.empresa.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{concepto.nombreEmpresa}" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['empresaC']}"/>
                                 </f:facet>
-                                <h:outputText value="#{concepto.empresa.nombre}"/>
+                                <h:outputText value="#{concepto.nombreEmpresa}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -852,10 +852,10 @@
                             <p:watermark value="#{msg['conceptoWM']}" for="nuevoDetalleConcepto"/>
 
                             <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                            <p:inputText autocomplete="off"  id="nuevoExtraEmpresa" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText autocomplete="off"  id="nuevoExtraEmpresa" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'EMPRESA',1)}"/>
-                                <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre, 1)}"/>
+                                <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.nombreEmpresa, 1)}"/>
                             </p:inputText>
                             <p:watermark value="#{msg['empresaWM']}" for="nuevoExtraEmpresa"/>
 
@@ -934,10 +934,10 @@
                             <p:watermark value="#{msg['conceptoWM']}" for="duplicarDetalleConcepto"/>
 
                             <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                            <p:inputText autocomplete="off"  id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
+                            <p:inputText autocomplete="off"  id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'EMPRESA',1)}"/>
-                                <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre, 2)}"/>
+                                <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.nombreEmpresa, 2)}"/>
                             </p:inputText>
                             <p:watermark value="#{msg['empresa']}" for="duplicarExtraEmpresa"/>
 
@@ -1031,7 +1031,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -1115,7 +1115,7 @@
 
                         <p:column headerText="#{msg['empresaX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/> </f:facet> 
-                            <h:outputText value="#{expDER.concepto.empresa.nombre}">
+                            <h:outputText value="#{expDER.concepto.nombreEmpresa}">
                             </h:outputText>
                         </p:column>
 

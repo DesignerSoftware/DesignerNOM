@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,6 +29,8 @@ import org.apache.log4j.Logger;
  *
  * @author betelgeuse.
  */
+
+
 @Stateful
 public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacionInterface {
 
@@ -93,63 +96,130 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
    //--------------------------------------------------------------------------
    //MÉTODOS
    //--------------------------------------------------------------------------
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public Integer contarEmpleadosParaLiquidar() {
-      return persistenciaParametrosEstados.empleadosParaLiquidar(em, consultarAliasUsuarioBD());
+      try {
+         return persistenciaParametrosEstados.empleadosParaLiquidar(getEm(), consultarAliasUsuarioBD());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public boolean verificarPermisosLiquidar(String usuarioBD) {
-      return persistenciaCandados.permisoLiquidar(em, usuarioBD);
+      try {
+         return persistenciaCandados.permisoLiquidar(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public String consultarAliasUsuarioBD() {
-      return persistenciaActualUsuario.actualAliasBD(em);
+      try {
+         return persistenciaActualUsuario.actualAliasBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public ParametrosEstructuras consultarParametrosLiquidacion() {
-      return persistenciaParametrosEstructuras.buscarParametro(em, consultarAliasUsuarioBD());
+      try {
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), consultarAliasUsuarioBD());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Parametros> consultarEmpleadosCerrarLiquidacion(String usuarioBD) {
-      return persistenciaParametros.parametrosComprobantes(em, usuarioBD);
+      try {
+         return persistenciaParametros.parametrosComprobantes(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void cerrarLiquidacionAutomatico() {
-      persistenciaCandados.cerrarLiquidacionAutomatico(em);
+      try {
+         persistenciaCandados.cerrarLiquidacionAutomatico(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void cerrarLiquidacionNoAutomatico() {
-      persistenciaCandados.cerrarLiquidacionNoAutomatico(em);
+      try {
+         persistenciaCandados.cerrarLiquidacionNoAutomatico(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public Integer consultarConteoProcesoSN(BigInteger secProceso) {
-      return persistenciaSolucionesNodos.ContarProcesosSN(em, secProceso);
+      try {
+         return persistenciaSolucionesNodos.ContarProcesosSN(getEm(), secProceso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Integer contarLiquidacionesCerradas(BigInteger secProceso, String fechaDesde, String fechaHasta) {
-      return persistenciaCortesProcesos.contarLiquidacionesCerradas(em, secProceso, fechaDesde, fechaHasta);
+      try {
+         return persistenciaCortesProcesos.contarLiquidacionesCerradas(getEm(), secProceso, fechaDesde, fechaHasta);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public String abrirLiquidacion(Short codigoProceso, String fechaDesde, String fechaHasta) {
-      return persistenciaCortesProcesos.eliminarComprobante(em, codigoProceso, fechaDesde, fechaHasta);
+      try {
+         return persistenciaCortesProcesos.eliminarComprobante(getEm(), codigoProceso, fechaDesde, fechaHasta);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 }

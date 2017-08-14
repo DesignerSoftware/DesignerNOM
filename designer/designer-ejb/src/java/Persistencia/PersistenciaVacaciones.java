@@ -116,7 +116,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(1, secEmpleado);
          query.setParameter(2, fechainicialDisfrute);
          jornada = (BigDecimal) query.getSingleResult();
-         log.error("el codigo de la jornada es : " + jornada);
+         log.warn("el codigo de la jornada es : " + jornada);
          return jornada;
 
       } catch (Exception e) {
@@ -166,14 +166,13 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(2, dia);
          String diaresultado;
          diaresultado = query.getSingleResult().toString();
-         log.error("diasdasi" + diaresultado);
+         log.warn("diasdasi" + diaresultado);
          if (diaresultado.isEmpty()) {
             eslaboral = true;
          } else {
             eslaboral = false;
          }
          return eslaboral;
-
       } catch (Exception e) {
          log.error("error en validarDiaLaboralVacaciones : " + e.getMessage());
          return true;
@@ -183,7 +182,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
    @Override
    public Date siguienteDia(EntityManager em, Date fecha, BigInteger numeroDias, BigDecimal jornada) {
       EntityTransaction tx = em.getTransaction();
-
       try {
          em.clear();
          tx.begin();
@@ -196,7 +194,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.executeUpdate();
          tx.commit();
          return siguienteDia;
-
       } catch (Exception e) {
          log.error("error en siguiente dia: " + e.getMessage());
          if (tx.isActive()) {
@@ -282,7 +279,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          fechaUltimoCorte = (Date) query.getSingleResult();
          query.executeUpdate();
          tx.commit();
-         log.error("fechaUltimoCorte : " + fechaUltimoCorte);
+         log.warn("fechaUltimoCorte : " + fechaUltimoCorte);
          return fechaUltimoCorte;
       } catch (Exception e) {
          log.error("Error persistenciaNovedadesSistema.fechaUltimoCorte " + e.getMessage());

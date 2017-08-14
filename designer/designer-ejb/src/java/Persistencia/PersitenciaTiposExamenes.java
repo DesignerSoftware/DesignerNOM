@@ -112,7 +112,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            log.error("Contador contadorTiposExamenesCargos persistencia " + retorno);
+            log.warn("Contador contadorTiposExamenesCargos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaTiposExamenes contadorTiposExamenesCargos. " + e.getMessage());

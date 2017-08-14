@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,76 +26,109 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarJornadas.class);
 
-    @EJB
-    PersistenciaJornadasInterface persistenciaJornadas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaJornadasInterface persistenciaJornadas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    public void modificarJornadas(List<Jornadas> listaJornadas) {
-        for (int i = 0; i < listaJornadas.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarJornadas(List<Jornadas> listaJornadas) {
+      try {
+         for (int i = 0; i < listaJornadas.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaJornadas.editar(em, listaJornadas.get(i));
-        }
-    }
+            persistenciaJornadas.editar(getEm(), listaJornadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarJornadas(List<Jornadas> listaJornadas) {
-        for (int i = 0; i < listaJornadas.size(); i++) {
+   public void borrarJornadas(List<Jornadas> listaJornadas) {
+      try {
+         for (int i = 0; i < listaJornadas.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaJornadas.borrar(em, listaJornadas.get(i));
-        }
-    }
+            persistenciaJornadas.borrar(getEm(), listaJornadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearJornadas(List<Jornadas> listaJornadas) {
-        for (int i = 0; i < listaJornadas.size(); i++) {
+   public void crearJornadas(List<Jornadas> listaJornadas) {
+      try {
+         for (int i = 0; i < listaJornadas.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaJornadas.crear(em, listaJornadas.get(i));
-        }
-    }
+            persistenciaJornadas.crear(getEm(), listaJornadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Jornadas> consultarJornadas() {
-        List<Jornadas> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaJornadas.consultarJornadas(em);
-        return listMotivosCambiosCargos;
-    }
+   @Override
+   public List<Jornadas> consultarJornadas() {
+      try {
+         return persistenciaJornadas.consultarJornadas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public Jornadas consultarJornada(BigInteger secJornadas) {
-        Jornadas subCategoria;
-        subCategoria = persistenciaJornadas.consultarJornada(em, secJornadas);
-        return subCategoria;
-    }
+   public Jornadas consultarJornada(BigInteger secJornadas) {
+      try {
+         return persistenciaJornadas.consultarJornada(getEm(), secJornadas);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarJornadasLaboralesJornada(BigInteger secJornadas) {
-        BigInteger contarJornadasLaboralesJornada = null;
+   public BigInteger contarJornadasLaboralesJornada(BigInteger secJornadas) {
+      try {
+         return persistenciaJornadas.contarJornadasLaboralesJornada(getEm(), secJornadas);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarJornadas contarJornadasLaboralesJornada ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarJornadasLaboralesJornada = persistenciaJornadas.contarJornadasLaboralesJornada(em, secJornadas);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarJornadas contarJornadasLaboralesJornada ERROR : " + e);
-            return null;
-        }
-    }
-
-    public BigInteger contarTarifasEscalafonesJornada(BigInteger secJornadas) {
-        BigInteger contarTarifasEscalafonesJornada = null;
-
-        try {
-            return contarTarifasEscalafonesJornada = persistenciaJornadas.contarTarifasEscalafonesJornada(em, secJornadas);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarJornadas contarTarifasEscalafonesJornada ERROR : " + e);
-            return null;
-        }
-    }
+   public BigInteger contarTarifasEscalafonesJornada(BigInteger secJornadas) {
+      try {
+         return persistenciaJornadas.contarTarifasEscalafonesJornada(getEm(), secJornadas);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarJornadas contarTarifasEscalafonesJornada ERROR : " + e);
+         return null;
+      }
+   }
 }

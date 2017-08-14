@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,163 +30,231 @@ import org.apache.log4j.Logger;
  *
  * @author betelgeuse
  */
+
+
 @Stateful
 public class AdministrarConceptos implements AdministrarConceptosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarConceptos.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaConceptos'.
-     */
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaConceptos'.
-     */
-    @EJB
-    PersistenciaClavesSapInterface persistenciaClavesSap;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaUnidades'.
-     */
-    @EJB
-    PersistenciaUnidadesInterface persistenciaUnidades;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaTerceros'.
-     */
-    @EJB
-    PersistenciaTercerosInterface persistenciaTerceros;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaEmpresas'.
-     */
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    /**
-     * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
-     * conexión del usuario que está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
-    @EJB
-    PersistenciaSolucionesNodosInterface persistenciaSolucionesNodos;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaConceptos'.
+    */
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaConceptos'.
+    */
+   @EJB
+   PersistenciaClavesSapInterface persistenciaClavesSap;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaUnidades'.
+    */
+   @EJB
+   PersistenciaUnidadesInterface persistenciaUnidades;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaTerceros'.
+    */
+   @EJB
+   PersistenciaTercerosInterface persistenciaTerceros;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaEmpresas'.
+    */
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   /**
+    * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
+    * conexión del usuario que está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   @EJB
+   PersistenciaSolucionesNodosInterface persistenciaSolucionesNodos;
 
-    @Override
-    public List<Conceptos> consultarConceptosEmpresa(BigInteger secEmpresa) {
-        return persistenciaConceptos.conceptosPorEmpresa(em, secEmpresa);
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Conceptos> consultarConceptosEmpresaActivos_Inactivos(BigInteger secEmpresa, String estado) {
-        return persistenciaConceptos.conceptosEmpresaActivos_Inactivos(em, secEmpresa, estado);
-    }
+   @Override
+   public List<Conceptos> consultarConceptosEmpresa(BigInteger secEmpresa) {
+      try {
+         return persistenciaConceptos.conceptosPorEmpresa(getEm(), secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Conceptos> consultarConceptosEmpresaSinPasivos(BigInteger secEmpresa) {
-        return persistenciaConceptos.conceptosEmpresaSinPasivos(em, secEmpresa);
-    }
+   @Override
+   public List<Conceptos> consultarConceptosEmpresaActivos_Inactivos(BigInteger secEmpresa, String estado) {
+      try {
+         return persistenciaConceptos.conceptosEmpresaActivos_Inactivos(getEm(), secEmpresa, estado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Empresas> consultarEmpresas() {
-        return persistenciaEmpresas.consultarEmpresas(em);
-    }
+   @Override
+   public List<Conceptos> consultarConceptosEmpresaSinPasivos(BigInteger secEmpresa) {
+      try {
+         return persistenciaConceptos.conceptosEmpresaSinPasivos(getEm(), secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Empresas> consultarEmpresaPorSecuencia(BigInteger secEmpresa) {
-        return persistenciaEmpresas.buscarEmpresasLista(em, secEmpresa);
-    }
+   @Override
+   public List<Empresas> consultarEmpresas() {
+      try {
+         return persistenciaEmpresas.consultarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Unidades> consultarLOVUnidades() {
-        return persistenciaUnidades.consultarUnidades(em);
-    }
+   public List<Empresas> consultarEmpresaPorSecuencia(BigInteger secEmpresa) {
+      try {
+         return persistenciaEmpresas.buscarEmpresasLista(getEm(), secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Terceros> consultarLOVTerceros(BigInteger secEmpresa) {
-        return persistenciaTerceros.lovTerceros(em, secEmpresa);
-    }
+   @Override
+   public List<Unidades> consultarLOVUnidades() {
+      try {
+         return persistenciaUnidades.consultarUnidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarConceptos(List<Conceptos> listConceptosModificados) {
-        for (int i = 0; i < listConceptosModificados.size(); i++) {
+   @Override
+   public List<Terceros> consultarLOVTerceros(BigInteger secEmpresa) {
+      try {
+         return persistenciaTerceros.lovTerceros(getEm(), secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarConceptos(List<Conceptos> listConceptosModificados) {
+      try {
+         for (int i = 0; i < listConceptosModificados.size(); i++) {
             if (listConceptosModificados.get(i).isIndependienteConcepto() == true) {
-                listConceptosModificados.get(i).setIndependiente("S");
+               listConceptosModificados.get(i).setIndependiente("S");
             }
             if (listConceptosModificados.get(i).isIndependienteConcepto() == false) {
-                listConceptosModificados.get(i).setIndependiente("N");
+               listConceptosModificados.get(i).setIndependiente("N");
             }
-            if (listConceptosModificados.get(i).getTercero().getSecuencia() == null) {
-                listConceptosModificados.get(i).setTercero(null);
-            }
-            persistenciaConceptos.editar(em, listConceptosModificados.get(i));
+            persistenciaConceptos.editar(getEm(), listConceptosModificados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-        }
-    }
-
-    @Override
-    public void borrarConceptos(List<Conceptos> listaConceptos) {
-        for (int i = 0; i < listaConceptos.size(); i++) {
+   @Override
+   public void borrarConceptos(List<Conceptos> listaConceptos) {
+      try {
+         for (int i = 0; i < listaConceptos.size(); i++) {
             if (listaConceptos.get(i).isIndependienteConcepto() == true) {
-                listaConceptos.get(i).setIndependiente("S");
+               listaConceptos.get(i).setIndependiente("S");
             }
             if (listaConceptos.get(i).isIndependienteConcepto() == false) {
-                listaConceptos.get(i).setIndependiente("N");
+               listaConceptos.get(i).setIndependiente("N");
             }
+            persistenciaConceptos.borrar(getEm(), listaConceptos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-            if (listaConceptos.get(i).getTercero().getSecuencia() == null) {
-                listaConceptos.get(i).setTercero(null);
-            }
-            persistenciaConceptos.borrar(em, listaConceptos.get(i));
-
-        }
-    }
-
-    @Override
-    public void crearConceptos(List<Conceptos> listaConceptos) {
-        for (int i = 0; i < listaConceptos.size(); i++) {
+   @Override
+   public void crearConceptos(List<Conceptos> listaConceptos) {
+      try {
+         for (int i = 0; i < listaConceptos.size(); i++) {
             if (listaConceptos.get(i).isIndependienteConcepto() == true) {
-                listaConceptos.get(i).setIndependiente("S");
+               listaConceptos.get(i).setIndependiente("S");
             }
             if (listaConceptos.get(i).isIndependienteConcepto() == false) {
-                listaConceptos.get(i).setIndependiente("N");
+               listaConceptos.get(i).setIndependiente("N");
             }
-            if (listaConceptos.get(i).getTercero().getSecuencia() == null) {
-                listaConceptos.get(i).setTercero(null);
+            persistenciaConceptos.crear(getEm(), listaConceptos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-            }
-            persistenciaConceptos.crear(em, listaConceptos.get(i));
+   @Override
+   public void clonarConcepto(BigInteger secConceptoOrigen, BigInteger codigoConceptoNuevo, String descripcionConceptoNuevo) {
+      try {
+         persistenciaConceptos.clonarConcepto(getEm(), secConceptoOrigen, codigoConceptoNuevo, descripcionConceptoNuevo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-        }
-    }
+   @Override
+   public List<ClavesSap> consultarLOVClavesSap() {
+      try {
+         List<ClavesSap> listaClavesSap = persistenciaClavesSap.consultarClavesSap(getEm());
+         return listaClavesSap;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void clonarConcepto(BigInteger secConceptoOrigen, BigInteger codigoConceptoNuevo, String descripcionConceptoNuevo) {
-        persistenciaConceptos.clonarConcepto(em, secConceptoOrigen, codigoConceptoNuevo, descripcionConceptoNuevo);
-    }
-
-    @Override
-    public List<ClavesSap> consultarLOVClavesSap() {
-        List<ClavesSap> listaClavesSap = persistenciaClavesSap.consultarClavesSap(em);
-        return listaClavesSap;
-    }
-
-    @Override
-    public boolean ValidarUpdateConceptoAcumulados(BigInteger secuencia) {
-        boolean retorno = persistenciaSolucionesNodos.solucionesNodosParaConcepto(em, secuencia);
-        return retorno;
-    }
+   @Override
+   public boolean ValidarUpdateConceptoAcumulados(BigInteger secuencia) {
+      try {
+         boolean retorno = persistenciaSolucionesNodos.solucionesNodosParaConcepto(getEm(), secuencia);
+         return retorno;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
+   }
 }

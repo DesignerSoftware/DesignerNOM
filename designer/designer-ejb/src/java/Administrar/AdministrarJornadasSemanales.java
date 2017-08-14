@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,64 +29,104 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
 
    private static Logger log = Logger.getLogger(AdministrarJornadasSemanales.class);
 
-    @EJB
-    PersistenciaJornadasSemanalesInterface persistenciaJornadasSemanales;
-    @EJB
-    PersistenciaJornadasInterface persistenciaJornadasInterface;
-    @EJB
-    PersistenciaJornadasLaboralesInterface persistenciaJornadasLaboralesInterface;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaJornadasSemanalesInterface persistenciaJornadasSemanales;
+   @EJB
+   PersistenciaJornadasInterface persistenciaJornadasInterface;
+   @EJB
+   PersistenciaJornadasLaboralesInterface persistenciaJornadasLaboralesInterface;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public List<JornadasSemanales> consultarJornadasSemanales() {
-        List<JornadasSemanales> listaJornadasSemanales;
-        listaJornadasSemanales = persistenciaJornadasSemanales.buscarJornadasSemanales(em);
-        return listaJornadasSemanales;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    public List<JornadasLaborales> consultarJornadasLaborales() {
-        List<JornadasLaborales> listaJornadasLaborales;
-        listaJornadasLaborales = persistenciaJornadasLaboralesInterface.buscarJornadasLaborales(em);
-        return listaJornadasLaborales;
-    }
+   public List<JornadasSemanales> consultarJornadasSemanales() {
+      try {
+         return persistenciaJornadasSemanales.buscarJornadasSemanales(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Jornadas> consultarJornadas() {
-        List<Jornadas> listaJornadas;
-        listaJornadas = persistenciaJornadasInterface.consultarJornadas(em);
-        return listaJornadas;
-    }
+   public List<JornadasLaborales> consultarJornadasLaborales() {
+      try {
+         return persistenciaJornadasLaboralesInterface.buscarJornadasLaborales(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
-        JornadasSemanales c;
-        for (int i = 0; i < listaJornadasSemanales.size(); i++) {
+   public List<Jornadas> consultarJornadas() {
+      try {
+         return persistenciaJornadasInterface.consultarJornadas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
+      try {
+         JornadasSemanales c;
+         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
             log.warn("Modificando...");
             c = listaJornadasSemanales.get(i);
-            persistenciaJornadasSemanales.editar(em, c);
-        }
-    }
+            persistenciaJornadasSemanales.editar(getEm(), c);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
-        for (int i = 0; i < listaJornadasSemanales.size(); i++) {
+   @Override
+   public void borrarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
+      try {
+         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
             log.warn("Borrando...");
-            persistenciaJornadasSemanales.borrar(em, listaJornadasSemanales.get(i));
-        }
-    }
+            persistenciaJornadasSemanales.borrar(getEm(), listaJornadasSemanales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
-        for (int i = 0; i < listaJornadasSemanales.size(); i++) {
+   @Override
+   public void crearJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
+      try {
+         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
             log.warn("Creando...");
-            persistenciaJornadasSemanales.crear(em, listaJornadasSemanales.get(i));
-        }
-    }
+            persistenciaJornadasSemanales.crear(getEm(), listaJornadasSemanales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
 }

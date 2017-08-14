@@ -23,6 +23,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -90,14 +91,33 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    //--------------------------------------------------------------------------
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
@@ -105,7 +125,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
       try {
          List<DetallesEmpresas> lista = null;
          if (secEmpresa != null) {
-            DetallesEmpresas detalle = persistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia(em, secEmpresa);
+            DetallesEmpresas detalle = persistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia(getEm(), secEmpresa);
             lista = new ArrayList<DetallesEmpresas>();
             lista.add(detalle);
          }
@@ -119,8 +139,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
 
    public List<DetallesEmpresas> listaDetallesEmpresas() {
       try {
-         log.warn("AdministrarDetallesEmpresas.listaDetallesEmpresas() em: " + em);
-         return persistenciaDetallesEmpresas.buscarDetallesEmpresas(em);
+         return persistenciaDetallesEmpresas.buscarDetallesEmpresas(getEm());
       } catch (Exception e) {
          log.warn("Error listaDetallesEmpresas Admi : " + e.toString());
          return null;
@@ -152,7 +171,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
 //            if (listaDE.get(i).getCiudad().getSecuencia() == null) {
 //               listaDE.get(i).setCiudad(null);
 //            }
-            persistenciaDetallesEmpresas.crear(em, listaDE.get(i));
+            persistenciaDetallesEmpresas.crear(getEm(), listaDE.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearDetalleEmpresa Admi : " + e.toString());
@@ -164,7 +183,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
       try {
          log.warn("AdministrarDetallesEmpresas.editarDetalleEmpresa()");
          for (int i = 0; i < listaDE.size(); i++) {
-            persistenciaDetallesEmpresas.editar(em, listaDE.get(i));
+            persistenciaDetallesEmpresas.editar(getEm(), listaDE.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarDetalleEmpresa Admi : " + e.toString());
@@ -196,7 +215,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
 //            if (listaDE.get(i).getCiudad().getSecuencia() == null) {
 //               listaDE.get(i).setCiudad(null);
 //            }
-            persistenciaDetallesEmpresas.borrar(em, listaDE.get(i));
+            persistenciaDetallesEmpresas.borrar(getEm(), listaDE.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarDetalleEmpresa Admi : " + e.toString());
@@ -206,8 +225,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public List<Ciudades> lovCiudades() {
       try {
-         List<Ciudades> lista = persistenciaCiudades.consultarCiudades(em);
-         return lista;
+         return persistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
          log.warn("Error lovCiudades Admi : " + e.toString());
          return null;
@@ -217,8 +235,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(em);
-         return lista;
+         return persistenciaEmpleados.buscarEmpleados(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;
@@ -228,8 +245,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public List<Personas> lovPersonas() {
       try {
-         List<Personas> lista = persistenciaPersonas.consultarPersonas(em);
-         return lista;
+         return persistenciaPersonas.consultarPersonas(getEm());
       } catch (Exception e) {
          log.warn("Error lovPersonas Admi : " + e.toString());
          return null;
@@ -239,8 +255,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public List<Cargos> lovCargos() {
       try {
-         List<Cargos> lista = persistenciaCargos.consultarCargos(em);
-         return lista;
+         return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
          log.warn("Error lovCargos Admi : " + e.toString());
          return null;
@@ -250,8 +265,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public List<Empresas> lovEmpresas() {
       try {
-         List<Empresas> lista = persistenciaEmpresas.consultarEmpresas(em);
-         return lista;
+         return persistenciaEmpresas.consultarEmpresas(getEm());
       } catch (Exception e) {
          log.warn("Error lovPersonas Admi : " + e.toString());
          return null;
@@ -261,8 +275,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public Empresas empresaActual(BigInteger secEmpresa) {
       try {
-         Empresas empr = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
-         return empr;
+         return persistenciaEmpresas.buscarEmpresasSecuencia(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("Error empresaActual Admi : " + e.toString());
          return null;

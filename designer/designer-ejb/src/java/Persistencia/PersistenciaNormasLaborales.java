@@ -113,7 +113,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             query.setParameter("secNormaLaboral", secuencia);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PersistenciaMotivosCambiosSueldos retorno ==" + retorno.intValue());
+            log.warn("PersistenciaMotivosCambiosSueldos retorno ==" + retorno.intValue());
 
         } catch (Exception e) {
             log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());

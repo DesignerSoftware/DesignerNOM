@@ -107,7 +107,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador TiposEmpresas contadorIdiomasPersonas persistencia " + retorno);
+            log.warn("Contador TiposEmpresas contadorIdiomasPersonas persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaTiposEmpresas.contadorSueldosMercados()" + e.getMessage());

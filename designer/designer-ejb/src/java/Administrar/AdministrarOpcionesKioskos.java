@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,22 +25,45 @@ public class AdministrarOpcionesKioskos implements AdministrarOpcionesKioskosInt
 
    private static Logger log = Logger.getLogger(AdministrarOpcionesKioskos.class);
 
-    @EJB
-    PersistenciaOpcionesKioskosInterface persistenciaOpcionesKioskos;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaOpcionesKioskosInterface persistenciaOpcionesKioskos;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-         em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<OpcionesKioskos> consultarOpcionesKioskos() {
-        List<OpcionesKioskos> lista = persistenciaOpcionesKioskos.consultarOpcionesKioskos(em);
-        return lista;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<OpcionesKioskos> consultarOpcionesKioskos() {
+      try {
+         return persistenciaOpcionesKioskos.consultarOpcionesKioskos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

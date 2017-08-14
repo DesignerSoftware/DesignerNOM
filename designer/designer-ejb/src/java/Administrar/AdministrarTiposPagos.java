@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,65 +26,100 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarTiposPagos.class);
 
-    @EJB
-    PersistenciaTiposPagosInterface persistenciaTiposPagos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaTiposPagosInterface persistenciaTiposPagos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void modificarTiposPagos(List<Tipospagos> listaTiposPagos) {
-        for (int i = 0; i < listaTiposPagos.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarTiposPagos(List<Tipospagos> listaTiposPagos) {
+      try {
+         for (int i = 0; i < listaTiposPagos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposPagos.editar(em, listaTiposPagos.get(i));
-        }
-    }
+            persistenciaTiposPagos.editar(getEm(), listaTiposPagos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarTiposPagos(List<Tipospagos> listaTiposPagos) {
-        for (int i = 0; i < listaTiposPagos.size(); i++) {
+   public void borrarTiposPagos(List<Tipospagos> listaTiposPagos) {
+      try {
+         for (int i = 0; i < listaTiposPagos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposPagos.borrar(em, listaTiposPagos.get(i));
-        }
-    }
+            persistenciaTiposPagos.borrar(getEm(), listaTiposPagos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearTiposPagos(List<Tipospagos> listaTiposPagos) {
-        for (int i = 0; i < listaTiposPagos.size(); i++) {
+   public void crearTiposPagos(List<Tipospagos> listaTiposPagos) {
+      try {
+         for (int i = 0; i < listaTiposPagos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposPagos.crear(em, listaTiposPagos.get(i));
-        }
-    }
+            persistenciaTiposPagos.crear(getEm(), listaTiposPagos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Tipospagos> consultarTiposPagos() {
-        List<Tipospagos> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaTiposPagos.consultarTiposPagos(em);
-        return listMotivosCambiosCargos;
-    }
+   @Override
+   public List<Tipospagos> consultarTiposPagos() {
+      try {
+         return persistenciaTiposPagos.consultarTiposPagos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public Tipospagos consultarTipoPago(BigInteger secTiposPagos) {
-        Tipospagos subCategoria;
-        subCategoria = persistenciaTiposPagos.consultarTipoPago(em, secTiposPagos);
-        return subCategoria;
-    }
+   public Tipospagos consultarTipoPago(BigInteger secTiposPagos) {
+      try {
+         return persistenciaTiposPagos.consultarTipoPago(getEm(), secTiposPagos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarProcesosTipoPago(BigInteger secTiposPagos) {
-        BigInteger contarProcesosTipoPago = null;
-
-        try {
-            return contarProcesosTipoPago = persistenciaTiposPagos.contarProcesosTipoPago(em, secTiposPagos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposPagos contarProcesosTipoPago ERROR : " + e);
-            return null;
-        }
-    }
+   public BigInteger contarProcesosTipoPago(BigInteger secTiposPagos) {
+      try {
+         return persistenciaTiposPagos.contarProcesosTipoPago(getEm(), secTiposPagos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposPagos contarProcesosTipoPago ERROR : " + e);
+         return null;
+      }
+   }
 }

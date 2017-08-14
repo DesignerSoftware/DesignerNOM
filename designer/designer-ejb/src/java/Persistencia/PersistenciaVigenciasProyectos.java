@@ -37,7 +37,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
      */
     @Override
     public void crear(EntityManager em, VigenciasProyectos vigenciasProyectos) {
-        log.error(this.getClass().getName() + ".crear()");
+        log.warn(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -54,7 +54,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
 
     @Override
     public void editar(EntityManager em, VigenciasProyectos vigenciasProyectos) {
-        log.error(this.getClass().getName() + ".editar()");
+        log.warn(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -71,7 +71,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
 
     @Override
     public void borrar(EntityManager em, VigenciasProyectos vigenciasProyectos) {
-        log.error(this.getClass().getName() + ".borrar()");
+        log.warn(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -88,7 +88,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
 
     @Override
     public List<VigenciasProyectos> buscarVigenciasProyectos(EntityManager em) {
-        log.error(this.getClass().getName() + ".buscarVigenciasProyectos()");
+        log.warn(this.getClass().getName() + ".buscarVigenciasProyectos()");
         try {
             em.clear();
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -125,7 +125,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
 
     @Override
     public List<VigenciasProyectos> vigenciasProyectosEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
-        log.error(this.getClass().getName() + ".vigenciasProyectosEmpleado()");
+        log.warn(this.getClass().getName() + ".vigenciasProyectosEmpleado()");
         try {
             em.clear();
             Query query = em.createQuery("SELECT vp FROM VigenciasProyectos vp WHERE vp.empleado.secuencia= :secuenciaEmpleado ORDER BY vp.fechainicial DESC");

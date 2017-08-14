@@ -1,5 +1,5 @@
 /**
- * Documentación a cargo de Hugo David Sin Gutiérrez
+ * DocumentaciÃ³n a cargo de Hugo David Sin GutiÃ©rrez
  */
 package Persistencia;
 
@@ -67,8 +67,8 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          query.execute();
          query.hasMoreResults();
          BigDecimal empleado_Sec = (BigDecimal) query.getOutputParameterValue(1);
-         log.error("PersistenciaEmpleados crearConVCargo() se supone creo el empleado con V cargo");
-         log.error("crearConVCargo() retorno parametro ''SECUENCIA_EMPLEADO'' : " + empleado_Sec);
+         log.warn("PersistenciaEmpleados crearConVCargo() se supone creo el empleado con V cargo");
+         log.warn("crearConVCargo() retorno parametro ''SECUENCIA_EMPLEADO'' : " + empleado_Sec);
          return empleado_Sec.toBigInteger();
       } catch (Exception e) {
          log.error(this.getClass().getName() + ".crearConVCargo()");
@@ -346,10 +346,10 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                  + "and tt.tipo IN ('ACTIVO','PENSIONADO','RETIRADO'))";
          Query query = em.createNativeQuery(sqlQuery);
          Long resultado = new Long(query.getSingleResult().toString());
-         log.error("contarEmpleadosNovedad resultado : " + resultado);
+         log.warn("contarEmpleadosNovedad resultado : " + resultado);
 
          int N = new Integer(query.getSingleResult().toString());
-         log.error("contarEmpleadosNovedad retorno : " + N);
+         log.warn("contarEmpleadosNovedad retorno : " + N);
          return N;
       } catch (Exception e) {
          log.error("Error contarEmpleadosNovedad() : " + e);
@@ -371,7 +371,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                  + "and tt.tipo IN ('ACTIVO','PENSIONADO','RETIRADO')) and ROWNUM < 50";
          Query query = em.createNativeQuery(sqlQuery, Empleados.class);
          List<Empleados> listaEmpleados = query.getResultList();
-         log.error("");
          return listaEmpleados;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaEmpleados.empleadosNovedadSoloAlgunos() e: " + e);
@@ -387,7 +386,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                  + "from empleados v where EXISTS (SELECT 'X' from  VWACTUALESTIPOSTRABAJADORES vtt, tipostrabajadores  tt\n"
                  + "where tt.secuencia = vtt.tipotrabajador\n"
                  + "and vtt.empleado = v.secuencia\n"
-                 + "and tt.tipo ='ACTIVO')";
+                 + "and tt.tipo IN ('ACTIVO'))";
          Query query = em.createNativeQuery(sqlQuery, Empleados.class);
          List<Empleados> listaEmpleados = query.getResultList();
          return listaEmpleados;
@@ -494,15 +493,15 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
    @Override
    public Empleados obtenerUltimoEmpleadoAlmacenado(EntityManager em, BigInteger secuenciaEmpresa, BigDecimal codigoEmpleado) {
       try {
-         log.error(this.getClass().getName() + "obtenerUltimoEmpleadoAlmacenado :");
-         log.error("em" + em + ",  secuenciaEmpresa : " + secuenciaEmpresa + ",  codigoEmpleado : " + codigoEmpleado);
+         log.warn(this.getClass().getName() + "obtenerUltimoEmpleadoAlmacenado :");
+         log.warn("em" + em + ",  secuenciaEmpresa : " + secuenciaEmpresa + ",  codigoEmpleado : " + codigoEmpleado);
          em.clear();
          String sql = "SELECT * FROM EMPLEADOS WHERE EMPRESA = ? AND CODIGOEMPLEADO = ?";
          Query query = em.createNativeQuery(sql, Empleados.class);
          query.setParameter(1, secuenciaEmpresa);
          query.setParameter(2, codigoEmpleado);
          Empleados empl = (Empleados) query.getSingleResult();
-         log.error("empleado Retornado : " + empl);
+         log.warn("empleado Retornado : " + empl);
          return empl;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaEmpleados.obtenerUltimoEmpleadoAlmacenado()  e: " + e);
@@ -561,7 +560,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          query.setParameter(2, secuenciaPersona);
          query.executeUpdate();
          tx.commit();
-         log.error(this.getClass().getName() + " eliminarEmpleadoNominaF Ya Elimino");
+         log.warn(this.getClass().getName() + " eliminarEmpleadoNominaF Ya Elimino");
          return true;
       } catch (Exception e) {
          if (tx.isActive()) {
@@ -578,10 +577,10 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
       try {
          em.clear();
          tx.begin();
-         log.error("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
-         log.error("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
+         log.warn("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
+         log.warn("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
          StoredProcedureQuery procedimiento = em.createStoredProcedureQuery("ELIMINAREMPLEADO.reingresar_empleado");
-         log.error("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + procedimiento);
+         log.warn("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + procedimiento);
          procedimiento.registerStoredProcedureParameter(1, BigDecimal.class, ParameterMode.IN);
          procedimiento.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
          procedimiento.registerStoredProcedureParameter(3, Date.class, ParameterMode.IN);
@@ -592,27 +591,27 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          procedimiento.setParameter(3, fechaReingreso);
          procedimiento.setParameter(4, empresa);
          procedimiento.setParameter(5, fechaFinal);
-         log.error("PersistenciaEmpleados.reingresarEmpleado() 3");
+         log.warn("PersistenciaEmpleados.reingresarEmpleado() 3");
          procedimiento.execute();
-         log.error("PersistenciaEmpleados.reingresarEmpleado() 4");
+         log.warn("PersistenciaEmpleados.reingresarEmpleado() 4");
          tx.commit();
-         log.error("PersistenciaEmpleados.reingresarEmpleado() Ya ejecuto el commit");
+         log.warn("PersistenciaEmpleados.reingresarEmpleado() Ya ejecuto el commit");
 //         em.clear();
 //         tx.begin();
-//         log.error("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
-//         log.error("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
+//         log.warn("PersistenciaEmpleados.reingresarEmpleado() 1 Parametros: ");
+//         log.warn("codigoEmpleado: " + codigoEmpleado + ", centroCosto: " + centroCosto + ", fechaReingreso: " + fechaReingreso + ", empresa: " + empresa + ", fechaFinal: " + fechaFinal + "");
 //         Query query = em.createNativeQuery("call ELIMINAREMPLEADO.reingresar_empleado(?,?,?)");
-//         log.error("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + query);
+//         log.warn("PersistenciaEmpleados.reingresarEmpleado() 2 query: " + query);
 //         query.setParameter(1, codigoEmpleado);
 //         query.setParameter(2, centroCosto);
 //         query.setParameter(3, fechaReingreso);
 ////         query.setParameter(4, empresa);
 ////         query.setParameter(5, fechaFinal);
-//         log.error("PersistenciaEmpleados.reingresarEmpleado() 3");
+//         log.warn("PersistenciaEmpleados.reingresarEmpleado() 3");
 //         query.executeUpdate();
-//         log.error("PersistenciaEmpleados.reingresarEmpleado() 4");
+//         log.warn("PersistenciaEmpleados.reingresarEmpleado() 4");
 //         tx.commit();
-//         log.error("PersistenciaEmpleados.reingresarEmpleado() Ya ejecuto el commit");
+//         log.warn("PersistenciaEmpleados.reingresarEmpleado() Ya ejecuto el commit");
       } catch (Exception e) {
          log.error("PersistenciaEmpleados.reingresarEmpleado() ERROR : " + e);
          if (tx.isActive()) {
@@ -816,9 +815,9 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
 
    @Override
    public List<Empleados> empleadosAusentismos(EntityManager em) {
-      log.error("entró a  empleadosAusentismos");
+      log.warn("entrÃ³ a  empleadosAusentismos");
       try {
-         log.error("entro al try");
+         log.warn("entro al try");
          em.clear();
          String sql = "SELECT * \n"
                  + "FROM  EMPLEADOS E \n"
@@ -828,7 +827,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                  + "   AND   TT.TIPO = 'ACTIVO')";
          Query query = em.createNativeQuery(sql, Empleados.class);
          List<Empleados> empleadosAusentismos = query.getResultList();
-         log.error("empleadosAusentismos : " + empleadosAusentismos.size());
+         log.warn("empleadosAusentismos : " + empleadosAusentismos.size());
          return empleadosAusentismos;
       } catch (Exception e) {
          log.error("error persistenciaEmpledos.empleadoAusentismos() e: " + e);
@@ -847,7 +846,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                  + "   AND   TT.TIPO IN ( 'ACTIVO'	,'PENSIONADO'))";
          Query query = em.createNativeQuery(sql, Empleados.class);
          List<Empleados> empleadosDefinitiva = query.getResultList();
-         log.error("empleadosDefinitiva : " + empleadosDefinitiva.size());
+         log.warn("empleadosDefinitiva : " + empleadosDefinitiva.size());
          return empleadosDefinitiva;
       } catch (Exception e) {
          log.error("error persistenciaEmpledos.empleadosDefinitiva() e: " + e);

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,87 +28,133 @@ public class AdministrarContratos implements AdministrarContratosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarContratos.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaContratos'.
-     */
-    @EJB
-    PersistenciaContratosInterface persistenciaContratos;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaTiposCotizantes'.
-     */
-    @EJB
-    PersistenciaTiposCotizantesInterface persistenciaTiposCotizantes;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaContratos'.
+    */
+   @EJB
+   PersistenciaContratosInterface persistenciaContratos;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaTiposCotizantes'.
+    */
+   @EJB
+   PersistenciaTiposCotizantesInterface persistenciaTiposCotizantes;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<Contratos> consultarContratos() {
-        return persistenciaContratos.lovContratos(em);
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposCotizantes> consultaLOVTiposCotizantes() {
-        return persistenciaTiposCotizantes.lovTiposCotizantes(em);
-    }
+   @Override
+   public List<Contratos> consultarContratos() {
+      try {
+         return persistenciaContratos.lovContratos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarConceptos(List<Contratos> listContratosModificados) {
-        for (int i = 0; i < listContratosModificados.size(); i++) {
+   @Override
+   public List<TiposCotizantes> consultaLOVTiposCotizantes() {
+      try {
+         return persistenciaTiposCotizantes.lovTiposCotizantes(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+      return null;
+   }
+
+   @Override
+   public void modificarConceptos(List<Contratos> listContratosModificados) {
+      try {
+         for (int i = 0; i < listContratosModificados.size(); i++) {
             if (listContratosModificados.get(i).getTipocotizante().getSecuencia() == null) {
-                listContratosModificados.get(i).setTipocotizante(null);
+               listContratosModificados.get(i).setTipocotizante(null);
             }
-            persistenciaContratos.editar(em, listContratosModificados.get(i));
-        }
-    }
+            persistenciaContratos.editar(getEm(), listContratosModificados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarConceptos(List<Contratos> listaContratos) {
-        for (int i = 0; i < listaContratos.size(); i++) {
+   @Override
+   public void borrarConceptos(List<Contratos> listaContratos) {
+      try {
+         for (int i = 0; i < listaContratos.size(); i++) {
             if (listaContratos.get(i).getTipocotizante().getSecuencia() == null) {
-                listaContratos.get(i).setTipocotizante(null);
-                persistenciaContratos.borrar(em, listaContratos.get(i));
+               listaContratos.get(i).setTipocotizante(null);
+               persistenciaContratos.borrar(getEm(), listaContratos.get(i));
             } else {
-                persistenciaContratos.borrar(em, listaContratos.get(i));
+               persistenciaContratos.borrar(getEm(), listaContratos.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearConceptos(List<Contratos> listaContratos) {
-        for (int i = 0; i < listaContratos.size(); i++) {
+   @Override
+   public void crearConceptos(List<Contratos> listaContratos) {
+      try {
+         for (int i = 0; i < listaContratos.size(); i++) {
             if (listaContratos.get(i).getTipocotizante().getSecuencia() == null) {
-                listaContratos.get(i).setTipocotizante(null);
-                persistenciaContratos.crear(em, listaContratos.get(i));
+               listaContratos.get(i).setTipocotizante(null);
+               persistenciaContratos.crear(getEm(), listaContratos.get(i));
             } else {
-                persistenciaContratos.crear(em, listaContratos.get(i));
+               persistenciaContratos.crear(getEm(), listaContratos.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void reproducirContrato(Short codigoOrigen, Short codigoDestino) {
-        persistenciaContratos.reproducirContrato(em, codigoOrigen, codigoDestino);
-    }
+   @Override
+   public void reproducirContrato(Short codigoOrigen, Short codigoDestino) {
+      try {
+         persistenciaContratos.reproducirContrato(getEm(), codigoOrigen, codigoDestino);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,82 +26,98 @@ public class AdministrarPreguntasKioscos implements AdministrarPreguntasKioscosI
 
    private static Logger log = Logger.getLogger(AdministrarPreguntasKioscos.class);
 
-    @EJB
-    PersistenciaPreguntasKioscosInterface persistenciaPreguntasKioskos;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaPreguntasKioscosInterface persistenciaPreguntasKioskos;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public void modificarPreguntasKioskos(List<PreguntasKioskos> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaPreguntasKioskos.editar(em, lista.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("error en modificarPreguntasKioskos admi : " + e.getMessage());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarPreguntasKioskos(List<PreguntasKioskos> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaPreguntasKioskos.borrar(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en borrarPreguntasKioskos admi : " + e.getMessage());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearPreguntasKioskos(List<PreguntasKioskos> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaPreguntasKioskos.crear(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en crearPreguntasKioskos admi : " + e.getMessage());
-        }
-    }
+   @Override
+   public void modificarPreguntasKioskos(List<PreguntasKioskos> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaPreguntasKioskos.editar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en modificarPreguntasKioskos admi : " + e.getMessage());
+      }
+   }
 
-    @Override
-    public List<PreguntasKioskos> consultarPreguntasKioskos() {
-        try {
-            List<PreguntasKioskos> listPreguntasK = persistenciaPreguntasKioskos.consultarPreguntasKioskos(em);
-            return listPreguntasK;
-        } catch (Exception e) {
-            log.warn("error en consultarPreguntasKioskos  admi : " + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public void borrarPreguntasKioskos(List<PreguntasKioskos> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaPreguntasKioskos.borrar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en borrarPreguntasKioskos admi : " + e.getMessage());
+      }
+   }
 
-    @Override
-    public PreguntasKioskos consultarPreguntaKiosko(BigInteger secPreguntaKiosko) {
-        try {
-            PreguntasKioskos preguntaK = persistenciaPreguntasKioskos.consultarPreguntaKiosko(em, secPreguntaKiosko);
-            return preguntaK;
-        } catch (Exception e) {
-            log.warn("error en consultarPreguntasKiosko : " + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public void crearPreguntasKioskos(List<PreguntasKioskos> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaPreguntasKioskos.crear(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en crearPreguntasKioskos admi : " + e.getMessage());
+      }
+   }
 
-    @Override
-    public BigInteger contarPreguntasKioskos(BigInteger secuencia) {
-        try {
-            BigInteger conteo = persistenciaPreguntasKioskos.contarPreguntasKioskos(em, secuencia);
-            return conteo;
-        } catch (Exception e) {
-            log.warn("error en consultarPreguntasKiosko : " + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public List<PreguntasKioskos> consultarPreguntasKioskos() {
+      try {
+         return persistenciaPreguntasKioskos.consultarPreguntasKioskos(getEm());
+      } catch (Exception e) {
+         log.warn("error en consultarPreguntasKioskos  admi : " + e.getMessage());
+         return null;
+      }
+   }
+
+   @Override
+   public PreguntasKioskos consultarPreguntaKiosko(BigInteger secPreguntaKiosko) {
+      try {
+         return persistenciaPreguntasKioskos.consultarPreguntaKiosko(getEm(), secPreguntaKiosko);
+      } catch (Exception e) {
+         log.warn("error en consultarPreguntasKiosko : " + e.getMessage());
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarPreguntasKioskos(BigInteger secuencia) {
+      try {
+         return persistenciaPreguntasKioskos.contarPreguntasKioskos(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("error en consultarPreguntasKiosko : " + e.getMessage());
+         return null;
+      }
+   }
 
 }

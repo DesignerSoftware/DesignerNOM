@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,89 +30,131 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarSucursales.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaSucursales'.
-     */
-    @EJB
-    PersistenciaSucursalesInterface persistenciaSucursales;
-    @EJB
-    PersistenciaBancosInterface persistenciaBancos;
-    @EJB
-    PersistenciaCiudadesInterface persistenciaCiudades;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaSucursales'.
+    */
+   @EJB
+   PersistenciaSucursalesInterface persistenciaSucursales;
+   @EJB
+   PersistenciaBancosInterface persistenciaBancos;
+   @EJB
+   PersistenciaCiudadesInterface persistenciaCiudades;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarSucursales(List<Sucursales> listaSucursales) {
-        //for (int i = 0; i < listaSucursales.size(); i++) {
-        for (Sucursales listaSucursale : listaSucursales) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarSucursales(List<Sucursales> listaSucursales) {
+      //for (int i = 0; i < listaSucursales.size(); i++) {
+      try {
+         for (Sucursales listaSucursale : listaSucursales) {
             log.warn("Administrar Modificando...");
-            //persistenciaSucursales.editar(em, listaSucursales.get(i));
-            persistenciaSucursales.editar(em, listaSucursale);
-        }
-    }
+            //persistenciaSucursales.editar(getEm(), listaSucursales.get(i));
+            persistenciaSucursales.editar(getEm(), listaSucursale);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarSucursales(List<Sucursales> listaSucursales) {
-        for (int i = 0; i < listaSucursales.size(); i++) {
+   @Override
+   public void borrarSucursales(List<Sucursales> listaSucursales) {
+      try {
+         for (int i = 0; i < listaSucursales.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaSucursales.borrar(em, listaSucursales.get(i));
-        }
-    }
+            persistenciaSucursales.borrar(getEm(), listaSucursales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearSucursales(List<Sucursales> listaSucursales) {
-        for (int i = 0; i < listaSucursales.size(); i++) {
-            persistenciaSucursales.crear(em, listaSucursales.get(i));
-        }
-    }
+   @Override
+   public void crearSucursales(List<Sucursales> listaSucursales) {
+      try {
+         for (int i = 0; i < listaSucursales.size(); i++) {
+            persistenciaSucursales.crear(getEm(), listaSucursales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Sucursales> consultarSucursales() {
-        List<Sucursales> listaSucursales;
-        listaSucursales = persistenciaSucursales.consultarSucursales(em);
-        return listaSucursales;
-    }
+   @Override
+   public List<Sucursales> consultarSucursales() {
+      try {
+         return persistenciaSucursales.consultarSucursales(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Bancos> consultarLOVBancos() {
-        List<Bancos> listLOVBancos;
-        listLOVBancos = persistenciaBancos.buscarBancos(em);
-        return listLOVBancos;
-    }
+   @Override
+   public List<Bancos> consultarLOVBancos() {
+      try {
+         return persistenciaBancos.buscarBancos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Ciudades> consultarLOVCiudades() {
-        List<Ciudades> listLOVCiudades;
-        listLOVCiudades = persistenciaCiudades.consultarCiudades(em);
-        return listLOVCiudades;
-    }
+   @Override
+   public List<Ciudades> consultarLOVCiudades() {
+      try {
+         return persistenciaCiudades.consultarCiudades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarVigenciasFormasPagosSucursal(BigInteger secuenciaSucursal) {
-        BigInteger contarVigenciasFormasPagosSucursal;
-        contarVigenciasFormasPagosSucursal = persistenciaSucursales.contarVigenciasFormasPagosSucursal(em, secuenciaSucursal);
-        return contarVigenciasFormasPagosSucursal;
-    }
+   @Override
+   public BigInteger contarVigenciasFormasPagosSucursal(BigInteger secuenciaSucursal) {
+      try {
+         return persistenciaSucursales.contarVigenciasFormasPagosSucursal(getEm(), secuenciaSucursal);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

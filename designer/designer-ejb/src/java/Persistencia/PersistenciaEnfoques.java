@@ -106,7 +106,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAENFOQUES contadorTiposDetalles = " + retorno);
+            log.warn("PERSISTENCIAENFOQUES contadorTiposDetalles = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFOQUES contadorTiposDetalles  ERROR = " + e);

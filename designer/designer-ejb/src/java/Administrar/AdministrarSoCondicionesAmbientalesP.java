@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,70 +26,106 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
 
    private static Logger log = Logger.getLogger(AdministrarSoCondicionesAmbientalesP.class);
 
-    @EJB
-    PersistenciaSoCondicionesAmbientalesPInterface persistenciaSoCondicionesAmbientalesP;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaSoCondicionesAmbientalesPInterface persistenciaSoCondicionesAmbientalesP;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
-        for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
+      try {
+         for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaSoCondicionesAmbientalesP.editar(em, listSoCondicionesAmbientalesP.get(i));
-        }
-    }
+            persistenciaSoCondicionesAmbientalesP.editar(getEm(), listSoCondicionesAmbientalesP.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
-        for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
+   @Override
+   public void borrarSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
+      try {
+         for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaSoCondicionesAmbientalesP.borrar(em, listSoCondicionesAmbientalesP.get(i));
-        }
-    }
+            persistenciaSoCondicionesAmbientalesP.borrar(getEm(), listSoCondicionesAmbientalesP.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
-        for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
+   @Override
+   public void crearSoCondicionesAmbientalesP(List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP) {
+      try {
+         for (int i = 0; i < listSoCondicionesAmbientalesP.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaSoCondicionesAmbientalesP.crear(em, listSoCondicionesAmbientalesP.get(i));
-        }
-    }
+            persistenciaSoCondicionesAmbientalesP.crear(getEm(), listSoCondicionesAmbientalesP.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SoCondicionesAmbientalesP> consultarSoCondicionesAmbientalesP() {
-        List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP;
-        listSoCondicionesAmbientalesP = persistenciaSoCondicionesAmbientalesP.buscarSoCondicionesAmbientalesP(em);
-        return listSoCondicionesAmbientalesP;
-    }
+   @Override
+   public List<SoCondicionesAmbientalesP> consultarSoCondicionesAmbientalesP() {
+      try {
+         return persistenciaSoCondicionesAmbientalesP.buscarSoCondicionesAmbientalesP(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public SoCondicionesAmbientalesP consultarSoCondicionAmbientalP(BigInteger secSoCondicionesAmbientalesP) {
-        SoCondicionesAmbientalesP soCondicionesAmbientalesP;
-        soCondicionesAmbientalesP = persistenciaSoCondicionesAmbientalesP.buscarSoCondicionAmbientalP(em, secSoCondicionesAmbientalesP);
-        return soCondicionesAmbientalesP;
-    }
+   @Override
+   public SoCondicionesAmbientalesP consultarSoCondicionAmbientalP(BigInteger secSoCondicionesAmbientalesP) {
+      try {
+         return persistenciaSoCondicionesAmbientalesP.buscarSoCondicionAmbientalP(getEm(), secSoCondicionesAmbientalesP);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger verificarSoAccidentesMedicos(BigInteger secuenciaElementos) {
-        BigInteger verificarSoAccidtenesMedicos;
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
-            return verificarSoAccidtenesMedicos = persistenciaSoCondicionesAmbientalesP.contadorSoAccidentesMedicos(em, secuenciaElementos);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARSOCONDICIONSEAMBIENTALESP verificarSoAccidtenesMedicos ERROR :" + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger verificarSoAccidentesMedicos(BigInteger secuenciaElementos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaElementos);
+         return persistenciaSoCondicionesAmbientalesP.contadorSoAccidentesMedicos(getEm(), secuenciaElementos);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARSOCONDICIONSEAMBIENTALESP verificarSoAccidtenesMedicos ERROR :" + e);
+         return null;
+      }
+   }
 }

@@ -112,7 +112,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             query.setParameter(1, secuencia);
             query.setParameter(2, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PreguntasKioskos  persistencia " + retorno);
+            log.warn("Contador PreguntasKioskos  persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaPreguntasKioscos.contarPreguntasKioskos()" + e.getMessage());

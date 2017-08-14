@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -30,139 +31,158 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
 
    private static Logger log = Logger.getLogger(AdministrarATAprobacionHE.class);
 
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaEstructurasInterface persistenciaEstructuras;
-    @EJB
-    PersistenciaEersCabecerasInterface persistenciaEersCabeceras;
-    @EJB
-    PersistenciaEersDetallesInterface persistenciaEersDetalles;
-    @EJB
-    PersistenciaEersFlujosInterface persistenciaEersFlujos;
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaEstructurasInterface persistenciaEstructuras;
+   @EJB
+   PersistenciaEersCabecerasInterface persistenciaEersCabeceras;
+   @EJB
+   PersistenciaEersDetallesInterface persistenciaEersDetalles;
+   @EJB
+   PersistenciaEersFlujosInterface persistenciaEersFlujos;
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<EersCabeceras> obtenerTotalesEersCabeceras() {
-        try {
-            List<EersCabeceras> lista = persistenciaEersCabeceras.buscarEersCabecerasTotales(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error obtenerTotalesEersCabeceras Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<EersCabeceras> obtenerEersCabecerasPorEmpleado(BigInteger secuencia) {
-        try {
-            List<EersCabeceras> lista = persistenciaEersCabeceras.buscarEersCabecerasTotalesPorEmpleado(em, secuencia);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error obtenerEersCabecerasPorEmpleado Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearEersCabeceras(List<EersCabeceras> listaEC) {
-        try {
-            for (int i = 0; i < listaEC.size(); i++) {
-                persistenciaEersCabeceras.crear(em, listaEC.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("Error crearEersCabeceras Admi : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void editarEersCabeceras(List<EersCabeceras> listaEC) {
-        try {
-            for (int i = 0; i < listaEC.size(); i++) {
-                persistenciaEersCabeceras.editar(em, listaEC.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error editarEersCabeceras Admi : " + e.toString());
-        }
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarEersCabeceras(List<EersCabeceras> listaEC) {
-        try {
-            for (int i = 0; i < listaEC.size(); i++) {
-                persistenciaEersCabeceras.borrar(em, listaEC.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error borrarEersCabeceras Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<EersCabeceras> obtenerTotalesEersCabeceras() {
+      try {
+         List<EersCabeceras> lista = persistenciaEersCabeceras.buscarEersCabecerasTotales(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error obtenerTotalesEersCabeceras Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public List<EersDetalles> obtenerDetallesEersCabecera(BigInteger secuencia) {
-        try {
-            List<EersDetalles> lista = persistenciaEersDetalles.buscarEersDetallesPorEersCabecera(em, secuencia);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error obtenerDetallesEersCabecera Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<EersCabeceras> obtenerEersCabecerasPorEmpleado(BigInteger secuencia) {
+      try {
+         List<EersCabeceras> lista = persistenciaEersCabeceras.buscarEersCabecerasTotalesPorEmpleado(getEm(), secuencia);
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error obtenerEersCabecerasPorEmpleado Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public List<EersFlujos> obtenerFlujosEersCabecera(BigInteger secuencia) {
-        try {
-            List<EersFlujos> lista = persistenciaEersFlujos.buscarEersFlujosPorEersCabecera(em, secuencia);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error obtenerFlujosEersCabecera Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void crearEersCabeceras(List<EersCabeceras> listaEC) {
+      try {
+         for (int i = 0; i < listaEC.size(); i++) {
+            persistenciaEersCabeceras.crear(getEm(), listaEC.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearEersCabeceras Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<Estructuras> lovEstructuras(BigInteger secuenciaEstado) {
-        try {
-            List<Estructuras> lista = persistenciaEstructuras.consultarEstructurasEersCabeceras(em, secuenciaEstado);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovEstructuras Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void editarEersCabeceras(List<EersCabeceras> listaEC) {
+      try {
+         for (int i = 0; i < listaEC.size(); i++) {
+            persistenciaEersCabeceras.editar(getEm(), listaEC.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarEersCabeceras Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<Empleados> lovEmpleados() {
-        try {
-            List<Empleados> lista = persistenciaEmpleado.consultarEmpleadosParaAprobarHorasExtras(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovEmpleados Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void borrarEersCabeceras(List<EersCabeceras> listaEC) {
+      try {
+         for (int i = 0; i < listaEC.size(); i++) {
+            persistenciaEersCabeceras.borrar(getEm(), listaEC.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarEersCabeceras Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public ActualUsuario obtenerActualUsuarioSistema() {
-        try {
-            ActualUsuario usuario = persistenciaActualUsuario.actualUsuarioBD(em);
-            return usuario;
-        } catch (Exception e) {
-            log.warn("Error obtenerActualUsuarioSistema Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<EersDetalles> obtenerDetallesEersCabecera(BigInteger secuencia) {
+      try {
+         List<EersDetalles> lista = persistenciaEersDetalles.buscarEersDetallesPorEersCabecera(getEm(), secuencia);
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error obtenerDetallesEersCabecera Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<EersFlujos> obtenerFlujosEersCabecera(BigInteger secuencia) {
+      try {
+         List<EersFlujos> lista = persistenciaEersFlujos.buscarEersFlujosPorEersCabecera(getEm(), secuencia);
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error obtenerFlujosEersCabecera Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Estructuras> lovEstructuras(BigInteger secuenciaEstado) {
+      try {
+         List<Estructuras> lista = persistenciaEstructuras.consultarEstructurasEersCabeceras(getEm(), secuenciaEstado);
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error lovEstructuras Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Empleados> lovEmpleados() {
+      try {
+         List<Empleados> lista = persistenciaEmpleado.consultarEmpleadosParaAprobarHorasExtras(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error lovEmpleados Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public ActualUsuario obtenerActualUsuarioSistema() {
+      try {
+         ActualUsuario usuario = persistenciaActualUsuario.actualUsuarioBD(getEm());
+         return usuario;
+      } catch (Exception e) {
+         log.warn("Error obtenerActualUsuarioSistema Admi : " + e.toString());
+         return null;
+      }
+   }
 
 }

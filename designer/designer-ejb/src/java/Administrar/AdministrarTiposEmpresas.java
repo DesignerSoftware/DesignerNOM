@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -36,61 +37,96 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
    AdministrarSesionesInterface administrarSesiones;
 
    private TiposEmpresas tiposEmpresasSeleccionada;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarTiposEmpresas(List<TiposEmpresas> listTiposEmpresas) {
-      for (int i = 0; i < listTiposEmpresas.size(); i++) {
-         log.warn("Administrar Modificando...");
-         persistenciaTiposEmpresas.editar(em, listTiposEmpresas.get(i));
+      try {
+         for (int i = 0; i < listTiposEmpresas.size(); i++) {
+            log.warn("Administrar Modificando...");
+            persistenciaTiposEmpresas.editar(getEm(), listTiposEmpresas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarTiposEmpresas(List<TiposEmpresas> listTiposEmpresas) {
-      for (int i = 0; i < listTiposEmpresas.size(); i++) {
-         log.warn("Administrar Borrando...");
-         persistenciaTiposEmpresas.borrar(em, listTiposEmpresas.get(i));
+      try {
+         for (int i = 0; i < listTiposEmpresas.size(); i++) {
+            log.warn("Administrar Borrando...");
+            persistenciaTiposEmpresas.borrar(getEm(), listTiposEmpresas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void crearTiposEmpresas(List<TiposEmpresas> listTiposEmpresas) {
-      for (int i = 0; i < listTiposEmpresas.size(); i++) {
-         log.warn("Administrar Creando...");
-         persistenciaTiposEmpresas.crear(em, listTiposEmpresas.get(i));
+      try {
+         for (int i = 0; i < listTiposEmpresas.size(); i++) {
+            log.warn("Administrar Creando...");
+            persistenciaTiposEmpresas.crear(getEm(), listTiposEmpresas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public List<TiposEmpresas> consultarTiposEmpresas() {
-      List<TiposEmpresas> listTiposEmpresas;
-      listTiposEmpresas = persistenciaTiposEmpresas.buscarTiposEmpresas(em);
-      return listTiposEmpresas;
+      try {
+         return persistenciaTiposEmpresas.buscarTiposEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public TiposEmpresas consultarTipoEmpresa(BigInteger secTipoEmpresa) {
-      TiposEmpresas tiposEmpresas;
-      tiposEmpresas = persistenciaTiposEmpresas.buscarTipoEmpresa(em, secTipoEmpresa);
-      return tiposEmpresas;
+      try {
+         return persistenciaTiposEmpresas.buscarTipoEmpresa(getEm(), secTipoEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public BigInteger contarSueldosMercadosTipoEmpresa(BigInteger secuenciaSueldosMercados) {
-      BigInteger verificadorSueldoMercados = null;
       try {
          log.error("Secuencia Borrado Sueldos Proyectos" + secuenciaSueldosMercados);
-         verificadorSueldoMercados = persistenciaTiposEmpresas.contadorSueldosMercados(em, secuenciaSueldosMercados);
+         return persistenciaTiposEmpresas.contadorSueldosMercados(getEm(), secuenciaSueldosMercados);
       } catch (Exception e) {
          log.error("ERROR AministrarTiposEmpresas verificarBorradoSueldosMercados ERROR :" + e);
-      } finally {
-         return verificadorSueldoMercados;
+         return null;
       }
    }
 }

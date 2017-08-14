@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,200 +32,252 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarEstructuras.class);
 
-    //------------------------------------------------------------------------------------------
-    //EJB
-    //------------------------------------------------------------------------------------------
-    @EJB
-    PersistenciaEstructurasInterface persistenciaEstructuras;
-    @EJB
-    PersistenciaCargosInterface persistenciaCargos;
-    @EJB
-    PersistenciaOrganigramasInterface persistenciaOrganigramas;
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    /**
-     * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
-     * conexión del usuario que está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
-    //------------------------------------------------------------------------------------------
-    //ATRIBUTOS
-    //------------------------------------------------------------------------------------------
-    //ESTRUCTURAS
-    private List<Estructuras> estructuras;
-    private List<Estructuras> estructurasLOV;
-    private Estructuras estr;
-    //CARGOS
-    private List<Cargos> cargos;
-    private Cargos cargo;
-    private Organigramas org;
-    //------------------------------------------------------------------------------------------
-    //CONSTRUCTOR
-    //------------------------------------------------------------------------------------------
+   //------------------------------------------------------------------------------------------
+   //EJB
+   //------------------------------------------------------------------------------------------
+   @EJB
+   PersistenciaEstructurasInterface persistenciaEstructuras;
+   @EJB
+   PersistenciaCargosInterface persistenciaCargos;
+   @EJB
+   PersistenciaOrganigramasInterface persistenciaOrganigramas;
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   /**
+    * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
+    * conexión del usuario que está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   //------------------------------------------------------------------------------------------
+   //ATRIBUTOS
+   //------------------------------------------------------------------------------------------
+   //ESTRUCTURAS
+   private List<Estructuras> estructuras;
+   private List<Estructuras> estructurasLOV;
+   private Estructuras estr;
+   //CARGOS
+   private List<Cargos> cargos;
+   private Cargos cargo;
+   private Organigramas org;
+   //------------------------------------------------------------------------------------------
+   //CONSTRUCTOR
+   //------------------------------------------------------------------------------------------
 /*
      * public AdministrarEstructuras() { //Estructuras persistenciaEstructuras =
      * new PersistenciaEstructuras(); estructurasLOV = new
      * ArrayList<Estructuras>(); //Cargos persistenciaCargos = new
      * PersistenciaCargos(); }
-     */
-    //------------------------------------------------------------------------------------------
-    //METODOS DE LA INTERFACE
-    //------------------------------------------------------------------------------------------
-    //Estructuras--------------------------------------------------------
+    */
+   //------------------------------------------------------------------------------------------
+   //METODOS DE LA INTERFACE
+   //------------------------------------------------------------------------------------------
+   //Estructuras--------------------------------------------------------
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Estructuras> consultarTodoEstructuras() {
-        try {
-            estructuras = persistenciaEstructuras.buscarEstructuras(em);
-        } catch (Exception ex) {
-            estructuras = null;
-        }
-        return estructuras;
-    }
+   @Override
+   public List<Estructuras> consultarTodoEstructuras() {
+      try {
+         estructuras = persistenciaEstructuras.buscarEstructuras(getEm());
+      } catch (Exception ex) {
+         estructuras = null;
+      }
+      return estructuras;
+   }
 
-    @Override
-    public Estructuras consultarEstructuraPorSecuencia(BigInteger secuenciaE) {
-        try {
-            estr = persistenciaEstructuras.buscarEstructura(em, secuenciaE);
-        } catch (Exception ex) {
-            estr = null;
-        }
-        return estr;
-    }
+   @Override
+   public Estructuras consultarEstructuraPorSecuencia(BigInteger secuenciaE) {
+      try {
+         estr = persistenciaEstructuras.buscarEstructura(getEm(), secuenciaE);
+      } catch (Exception ex) {
+         estr = null;
+      }
+      return estr;
+   }
 
-    @Override
-    public List<Estructuras> consultarNativeQueryEstructuras(String fechaVigencia) {
-        try {
-            estructurasLOV = persistenciaEstructuras.buscarlistaValores(em, fechaVigencia);
-            return estructurasLOV;
-        } catch (Exception ex) {
-            log.warn("Administrar: Fallo al consultar el nativeQuery");
-            return estructurasLOV = null;
-        }
-    }
-    //Cargos-----------------------------------------------------------
+   @Override
+   public List<Estructuras> consultarNativeQueryEstructuras(String fechaVigencia) {
+      try {
+         estructurasLOV = persistenciaEstructuras.buscarlistaValores(getEm(), fechaVigencia);
+         return estructurasLOV;
+      } catch (Exception ex) {
+         log.warn("Administrar: Fallo al consultar el nativeQuery");
+         return estructurasLOV = null;
+      }
+   }
+   //Cargos-----------------------------------------------------------
 
-    @Override
-    public List<Cargos> consultarTodoCargos() {
-        try {
-            cargos = persistenciaCargos.consultarCargos(em);
-        } catch (Exception ex) {
-            cargos = null;
-        }
-        return cargos;
-    }
+   @Override
+   public List<Cargos> consultarTodoCargos() {
+      try {
+         cargos = persistenciaCargos.consultarCargos(getEm());
+      } catch (Exception ex) {
+         cargos = null;
+      }
+      return cargos;
+   }
 
-    @Override
-    public Cargos consultarCargoPorSecuencia(BigInteger secuenciaC) {
-        try {
-            cargo = persistenciaCargos.buscarCargoSecuencia(em, secuenciaC);
-        } catch (Exception ex) {
-            cargo = null;
-        }
-        return cargo;
-    }
+   @Override
+   public Cargos consultarCargoPorSecuencia(BigInteger secuenciaC) {
+      try {
+         cargo = persistenciaCargos.buscarCargoSecuencia(getEm(), secuenciaC);
+      } catch (Exception ex) {
+         cargo = null;
+      }
+      return cargo;
+   }
 
-    //PANTALLA ESTRUCTURAS
-    @Override
-    public List<Estructuras> estructuraPadre(short codigoOrg) {
-        List<Estructuras> listaEstructurasPadre;
-        Organigramas organigrama = persistenciaOrganigramas.organigramaBaseArbol(em, codigoOrg);
-        if (organigrama != null) {
-            listaEstructurasPadre = persistenciaEstructuras.estructuraPadre(em, organigrama.getSecuencia());
-        } else {
+   //PANTALLA ESTRUCTURAS
+   @Override
+   public List<Estructuras> estructuraPadre(short codigoOrg) {
+      try {
+         List<Estructuras> listaEstructurasPadre;
+         Organigramas organigrama = persistenciaOrganigramas.organigramaBaseArbol(getEm(), codigoOrg);
+         if (organigrama != null) {
+            listaEstructurasPadre = persistenciaEstructuras.estructuraPadre(getEm(), organigrama.getSecuencia());
+         } else {
             listaEstructurasPadre = null;
-        }
-        return listaEstructurasPadre;
-    }
+         }
+         return listaEstructurasPadre;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Estructuras> estructurasHijas(BigInteger secEstructuraPadre, Short codigoEmpresa) {
-        List<Estructuras> listaEstructurasHijas;
-        listaEstructurasHijas = persistenciaEstructuras.estructurasHijas(em, secEstructuraPadre, codigoEmpresa);
-        return listaEstructurasHijas;
-    }
+   @Override
+   public List<Estructuras> estructurasHijas(BigInteger secEstructuraPadre, Short codigoEmpresa) {
+      try {
+         return persistenciaEstructuras.estructurasHijas(getEm(), secEstructuraPadre, codigoEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Organigramas> obtenerOrganigramas() {
+   @Override
+   public List<Organigramas> obtenerOrganigramas() {
+      try {
 //        List<Organigramas> listaOrganigramas;
-//        listaOrganigramas = persistenciaOrganigramas.buscarOrganigramas(em);
+//        listaOrganigramas = persistenciaOrganigramas.buscarOrganigramas(getEm());
 
-        List<Empresas> listaEmpresas = consultarEmpresas();
-        List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
-        log.warn("listaEmpresas : " + listaEmpresas);
-        log.warn("em : " + em);
+         List<Empresas> listaEmpresas = consultarEmpresas();
+         List<Organigramas> listaOrganigramas = new ArrayList<Organigramas>();
+         log.warn("listaEmpresas : " + listaEmpresas);
 
-        if (listaEmpresas != null) {
+         if (listaEmpresas != null) {
             log.warn("listaEmpresas.size() : " + listaEmpresas.size());
 
             for (int i = 0; i < listaEmpresas.size(); i++) {
-                try {
-                    List<Organigramas> lista = persistenciaOrganigramas.buscarOrganigramasEmpresa(em, listaEmpresas.get(i).getSecuencia());
-                    listaOrganigramas.addAll(lista);
-                } catch (Exception e) {
-                    log.warn("Error listaOrganigramas Empresa: " + listaEmpresas.get(i).getSecuencia() + " ex: " + e.toString());
-                }
+               try {
+                  List<Organigramas> lista = persistenciaOrganigramas.buscarOrganigramasEmpresa(getEm(), listaEmpresas.get(i).getSecuencia());
+                  listaOrganigramas.addAll(lista);
+               } catch (Exception e) {
+                  log.warn("Error listaOrganigramas Empresa: " + listaEmpresas.get(i).getSecuencia() + " ex: " + e.toString());
+               }
             }
-        } else {
+         } else {
             log.warn("listaEmpresas = null");
-        }
-        return listaOrganigramas;
-    }
+         }
+         return listaOrganigramas;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Empresas> consultarEmpresas() {
-        List<Empresas> listaEmpresas = null;
-        try {
-            listaEmpresas = persistenciaEmpresas.buscarEmpresas(em);
-            return listaEmpresas;
-        } catch (Exception e) {
-            log.warn("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
-            e.printStackTrace();
-            return listaEmpresas;
-        }
-    }
+   public List<Empresas> consultarEmpresas() {
+      try {
+         return persistenciaEmpresas.buscarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn("Error AdministrarEstructurasPlantas.consutlarEmpresas()");
+         e.printStackTrace();
+         return null;
+      }
+   }
 
-    @Override
-    public List<Empresas> obtenerEmpresas() {
-        List<Empresas> listaEmpresas;
-        listaEmpresas = persistenciaEmpresas.consultarEmpresas(em);
-        return listaEmpresas;
-    }
+   @Override
+   public List<Empresas> obtenerEmpresas() {
+      try {
+         return persistenciaEmpresas.consultarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarOrganigrama(List<Organigramas> listOrganigramasModificados) {
-        for (int i = 0; i < listOrganigramasModificados.size(); i++) {
+   @Override
+   public void modificarOrganigrama(List<Organigramas> listOrganigramasModificados) {
+      try {
+         for (int i = 0; i < listOrganigramasModificados.size(); i++) {
             log.warn("Modificando...");
             org = listOrganigramasModificados.get(i);
-            persistenciaOrganigramas.editar(em, org);
-        }
-    }
+            persistenciaOrganigramas.editar(getEm(), org);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarOrganigrama(Organigramas organigrama) {
-        persistenciaOrganigramas.borrar(em, organigrama);
-    }
+   @Override
+   public void borrarOrganigrama(Organigramas organigrama) {
+      try {
+         persistenciaOrganigramas.borrar(getEm(), organigrama);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearOrganigrama(Organigramas organigrama) {
-        persistenciaOrganigramas.crear(em, organigrama);
-    }
+   @Override
+   public void crearOrganigrama(Organigramas organigrama) {
+      try {
+         persistenciaOrganigramas.crear(getEm(), organigrama);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Estructuras> Estructuras() {
-        List<Estructuras> listaEstructuras;
-        listaEstructuras = persistenciaEstructuras.estructuras(em);
-        return listaEstructuras;
-    }
+   @Override
+   public List<Estructuras> Estructuras() {
+      try {
+         return persistenciaEstructuras.estructuras(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Estructuras> lovEstructuras() {
-        return persistenciaEstructuras.estructuras(em);
-    }
+   @Override
+   public List<Estructuras> lovEstructuras() {
+      try {
+         return persistenciaEstructuras.estructuras(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

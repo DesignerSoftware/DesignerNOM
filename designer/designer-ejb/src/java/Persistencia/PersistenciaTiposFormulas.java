@@ -79,7 +79,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          List<TiposFormulas> tiposFormulas = query.getResultList();
          List<TiposFormulas> tiposFormulasResult = new ArrayList<TiposFormulas>(tiposFormulas);
 
-         log.error("tiposFormulas" + tiposFormulasResult);
+         log.warn(this.getClass().getName() + ".tiposFormulas() tiposFormulasResult: " + tiposFormulasResult);
          return tiposFormulasResult;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaTiposFormulas.tiposFormulas()" + e.getMessage());

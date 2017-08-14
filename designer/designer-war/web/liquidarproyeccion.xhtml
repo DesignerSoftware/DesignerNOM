@@ -5,22 +5,22 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <p:panel  id="PanelTotal" header="Indices y Proyecciones" style=" ; position: absolute; width: 335px; height: 185px; left: 300px; top: 100px;text-align: left">  
-                        <fieldset style="position: absolute; left: 10px; top: 35px; width: 300px; height: 100px; border-radius: 10px;">
-                            <legend style="font-size: 13px; color: blue;"><strong>Opciones</strong></legend>
-                            <p:commandButton style="; border-color:#045491; width:300px; border-width: 2px; position: absolute; top: 20px; left: 8px;" value="INDICADORES DE GESTIÓN"></p:commandButton>
-                            <p:commandButton style=";border-color:#045491; width:300px; border-width: 2px; position: absolute; top: 60px; left: 8px;" action="#{controlListaNavegacion.guardarNavegacion('liquidarproyeccion', 'liquidarproyeccion1')}" value="PROYECCIONES Y RETROACTIVOS"></p:commandButton>
-                        </fieldset>
-                        <p:commandButton class="cssBotonCancelar" style="position: absolute; top: 155px; left: 245px;" actionListener="#{controlListaNavegacion.quitarPagina('liquidarproyeccion')}" value=" "></p:commandButton>
-                    </p:panel>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <p:panel  id="PanelTotal" header="Indices y Proyecciones" style=" ; position: absolute; width: 335px; height: 185px; left: 300px; top: 100px;text-align: left">  
+                  <fieldset style="position: absolute; left: 10px; top: 35px; width: 300px; height: 100px; border-radius: 10px;">
+                     <legend style="font-size: 13px; color: blue;"><strong>Opciones</strong></legend>
+                     <p:commandButton style="; border-color:#045491; width:300px; border-width: 2px; position: absolute; top: 20px; left: 8px;" value="INDICADORES DE GESTIÓN"></p:commandButton>
+                     <p:commandButton style=";border-color:#045491; width:300px; border-width: 2px; position: absolute; top: 60px; left: 8px;" action="#{controlListaNavegacion.guardarNavegacion('liquidarproyeccion', 'liquidarproyeccion1')}" value="PROYECCIONES Y RETROACTIVOS"></p:commandButton>
+                  </fieldset>
+                  <p:commandButton class="cssBotonCancelar" style="position: absolute; top: 155px; left: 245px;" actionListener="#{controlListaNavegacion.quitarPagina('liquidarproyeccion', 'NN')}" value=" "></p:commandButton>
+               </p:panel>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

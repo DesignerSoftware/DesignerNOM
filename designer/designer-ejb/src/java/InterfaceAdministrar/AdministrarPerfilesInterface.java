@@ -8,7 +8,6 @@ package InterfaceAdministrar;
 import Entidades.Perfiles;
 import Entidades.PermisosObjetosDB;
 import Entidades.PermisosPantallas;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 

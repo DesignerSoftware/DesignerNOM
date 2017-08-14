@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,62 +25,79 @@ public class AdministrarRiesgosProfesionales implements AdministrarRiesgosProfes
 
    private static Logger log = Logger.getLogger(AdministrarRiesgosProfesionales.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaRiesgosProfesionalesInterface persistenciaRiesgos;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaRiesgosProfesionalesInterface persistenciaRiesgos;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<RiesgosProfesionales> listRiesgoProfesional() {
-        try {
-            List<RiesgosProfesionales> listaRiesgos = persistenciaRiesgos.riesgosProfesionales(em);
-            return listaRiesgos;
-        } catch (Exception e) {
-            log.warn("error en AdministrarRiesgosProfesionales.listRiesgoProfesional " + e.getMessage());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearRiesgoProfesional(List<RiesgosProfesionales> listaVD) {
-        try {
-            for (int i = 0; i < listaVD.size(); i++) {
-                persistenciaRiesgos.crear(em, listaVD.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-        } catch (Exception e) {
-            log.warn("error en crearRiesgoProfesional administrar :" + e.getMessage());
-        }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    }
+   @Override
+   public List<RiesgosProfesionales> listRiesgoProfesional() {
+      try {
+         return persistenciaRiesgos.riesgosProfesionales(getEm());
+      } catch (Exception e) {
+         log.warn("error en AdministrarRiesgosProfesionales.listRiesgoProfesional " + e.getMessage());
+         return null;
+      }
+   }
 
-    @Override
-    public void editarRiesgoProfesional(List<RiesgosProfesionales> listaVD) {
-        try {
-            for (int i = 0; i < listaVD.size(); i++) {
-                persistenciaRiesgos.editar(em, listaVD.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en editarRiesgoProfesional administrar :" + e.getMessage());
-        }
-    }
+   @Override
+   public void crearRiesgoProfesional(List<RiesgosProfesionales> listaVD) {
+      try {
+         for (int i = 0; i < listaVD.size(); i++) {
+            persistenciaRiesgos.crear(getEm(), listaVD.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en crearRiesgoProfesional administrar :" + e.getMessage());
+      }
 
-    @Override
-    public void borrarRiesgoProfesional(List<RiesgosProfesionales> listaVD) {
-        try {
-            for (int i = 0; i < listaVD.size(); i++) {
-                persistenciaRiesgos.borrar(em, listaVD.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en borrarRiesgoProfesional administrar :" + e.getMessage());
-        }
-    }
+   }
+
+   @Override
+   public void editarRiesgoProfesional(List<RiesgosProfesionales> listaVD) {
+      try {
+         for (int i = 0; i < listaVD.size(); i++) {
+            persistenciaRiesgos.editar(getEm(), listaVD.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en editarRiesgoProfesional administrar :" + e.getMessage());
+      }
+   }
+
+   @Override
+   public void borrarRiesgoProfesional(List<RiesgosProfesionales> listaVD) {
+      try {
+         for (int i = 0; i < listaVD.size(); i++) {
+            persistenciaRiesgos.borrar(getEm(), listaVD.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en borrarRiesgoProfesional administrar :" + e.getMessage());
+      }
+   }
 
 }

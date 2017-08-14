@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,81 +26,114 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
 
    private static Logger log = Logger.getLogger(AdministrarTiposAusentismos.class);
 
-    @EJB
-    PersistenciaTiposAusentismosInterface persistenciaTiposAusentismos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaTiposAusentismosInterface persistenciaTiposAusentismos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
-        for (int i = 0; i < listaTiposAusentismos.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
+      try {
+         for (int i = 0; i < listaTiposAusentismos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposAusentismos.editar(em, listaTiposAusentismos.get(i));
-        }
-    }
+            persistenciaTiposAusentismos.editar(getEm(), listaTiposAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
-        for (int i = 0; i < listaTiposAusentismos.size(); i++) {
+   @Override
+   public void borrarTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
+      try {
+         for (int i = 0; i < listaTiposAusentismos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposAusentismos.borrar(em, listaTiposAusentismos.get(i));
-        }
-    }
+            persistenciaTiposAusentismos.borrar(getEm(), listaTiposAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
-        for (int i = 0; i < listaTiposAusentismos.size(); i++) {
+   @Override
+   public void crearTiposAusentismos(List<Tiposausentismos> listaTiposAusentismos) {
+      try {
+         for (int i = 0; i < listaTiposAusentismos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposAusentismos.crear(em, listaTiposAusentismos.get(i));
-        }
-    }
+            persistenciaTiposAusentismos.crear(getEm(), listaTiposAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Tiposausentismos> consultarTiposAusentismos() {
-        List<Tiposausentismos> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaTiposAusentismos.consultarTiposAusentismos(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<Tiposausentismos> consultarTiposAusentismos() {
+      try {
+         return persistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Tiposausentismos consultarTipoAusentismo(BigInteger secTiposAusentismos) {
-        Tiposausentismos subCategoria;
-        subCategoria = persistenciaTiposAusentismos.consultarTipoAusentismo(em, secTiposAusentismos);
-        return subCategoria;
-    }
+   @Override
+   public Tiposausentismos consultarTipoAusentismo(BigInteger secTiposAusentismos) {
+      try {
+         return persistenciaTiposAusentismos.consultarTipoAusentismo(getEm(), secTiposAusentismos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarClasesAusentimosTipoAusentismo(BigInteger secTiposAusentismos) {
-        BigInteger contarClasesAusentimosTipoAusentismo = null;
+   @Override
+   public BigInteger contarClasesAusentimosTipoAusentismo(BigInteger secTiposAusentismos) {
+      try {
+         return persistenciaTiposAusentismos.contarClasesAusentimosTipoAusentismo(getEm(), secTiposAusentismos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarClasesAusentimosTipoAusentismo = persistenciaTiposAusentismos.contarClasesAusentimosTipoAusentismo(em, secTiposAusentismos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigInteger contarSOAusentimosTipoAusentismo(BigInteger secTiposAusentismos) {
-        BigInteger contarSOAusentimosTipoAusentismo = null;
-
-        try {
-            return contarSOAusentimosTipoAusentismo = persistenciaTiposAusentismos.contarSOAusentimosTipoAusentismo(em, secTiposAusentismos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarSOAusentimosTipoAusentismo(BigInteger secTiposAusentismos) {
+      try {
+         return persistenciaTiposAusentismos.contarSOAusentimosTipoAusentismo(getEm(), secTiposAusentismos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
+         return null;
+      }
+   }
 }

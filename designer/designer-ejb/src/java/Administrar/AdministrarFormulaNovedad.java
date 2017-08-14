@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,91 +24,108 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
 
    private static Logger log = Logger.getLogger(AdministrarFormulaNovedad.class);
 
-    @EJB
-    PersistenciaFormulasNovedadesInterface persistenciaFormulasNovedades;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaFormulasNovedadesInterface persistenciaFormulasNovedades;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<FormulasNovedades> listFormulasNovedadesParaFormula(BigInteger secuencia) {
-       log.warn("Administrar.AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
-        try {
-            List<FormulasNovedades> lista = persistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia(em,secuencia);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listFormulasNovedadesParaFormula Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearFormulasNovedades(List<FormulasNovedades> listFN) {
-        try {
-            for (int i = 0; i < listFN.size(); i++) {
-                persistenciaFormulasNovedades.crear(em,listFN.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("Error crearFormulasNovedades Admi : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void editarFormulasNovedades(List<FormulasNovedades> listFN) {
-        try {
-            for (int i = 0; i < listFN.size(); i++) {
-                persistenciaFormulasNovedades.editar(em,listFN.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error crearFormulasNovedades Admi : " + e.toString());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarFormulasNovedades(List<FormulasNovedades> listFN) {
-        try {
-            for (int i = 0; i < listFN.size(); i++) {
-                persistenciaFormulasNovedades.borrar(em,listFN.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error borrarFormulasNovedades Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<FormulasNovedades> listFormulasNovedadesParaFormula(BigInteger secuencia) {
+      log.warn("Administrar.AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
+      try {
+         return persistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("Error listFormulasNovedadesParaFormula Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public List<Formulas> listFormulas(BigInteger secuencia) {
-        try {
-            Formulas form = persistenciaFormulas.buscarFormula(em,secuencia);
-            List<Formulas> lista = new ArrayList<Formulas>();
-            lista.add(form);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listFormulas Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void crearFormulasNovedades(List<FormulasNovedades> listFN) {
+      try {
+         for (int i = 0; i < listFN.size(); i++) {
+            persistenciaFormulasNovedades.crear(getEm(), listFN.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearFormulasNovedades Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public Formulas formulaActual(BigInteger secuencia) {
-        try {
-            Formulas form = persistenciaFormulas.buscarFormula(em,secuencia);
-            return form;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+   @Override
+   public void editarFormulasNovedades(List<FormulasNovedades> listFN) {
+      try {
+         for (int i = 0; i < listFN.size(); i++) {
+            persistenciaFormulasNovedades.editar(getEm(), listFN.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearFormulasNovedades Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void borrarFormulasNovedades(List<FormulasNovedades> listFN) {
+      try {
+         for (int i = 0; i < listFN.size(); i++) {
+            persistenciaFormulasNovedades.borrar(getEm(), listFN.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarFormulasNovedades Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public List<Formulas> listFormulas(BigInteger secuencia) {
+      try {
+         Formulas form = persistenciaFormulas.buscarFormula(getEm(), secuencia);
+         List<Formulas> lista = new ArrayList<Formulas>();
+         lista.add(form);
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error listFormulas Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public Formulas formulaActual(BigInteger secuencia) {
+      try {
+         return persistenciaFormulas.buscarFormula(getEm(), secuencia);
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
 }

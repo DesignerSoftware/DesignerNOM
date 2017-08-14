@@ -36,20 +36,20 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
             DateFormat formatoF = new SimpleDateFormat("ddMMyyyy");
             String fecha = formatoF.format(fechaParametro);
             em.clear();
-            log.error("PersistenciaVWDSolucionesNodosN.consultarDSolucionesNodosN()");
+            log.warn("PersistenciaVWDSolucionesNodosN.consultarDSolucionesNodosN()");
             String sqlQuery = "SELECT VW.*, E.CODIGOEMPLEADO CODIGOEMPLEADO, C.NOMBRE CARGO, ES.NOMBRE ESTRUCTURA\n"
                     + "FROM VWDSOLUCIONESNODOS0 VW, EMPLEADOS E, VIGENCIASCARGOS VC, CARGOS C, ESTRUCTURAS ES WHERE \n"
                     + "VW.Y = E.SECUENCIA AND VC.EMPLEADO = E.SECUENCIA AND VC.CARGO = C.SECUENCIA \n"
                     + "AND VC.ESTRUCTURA = ES.SECUENCIA AND VC.FECHAVIGENCIA = "
                     + "(SELECT MAX(VCI.FECHAVIGENCIA) FROM VIGENCIASCARGOS VCI WHERE VCI.EMPLEADO=VC.EMPLEADO\n"
                     + "AND VCI.FECHAVIGENCIA <= TO_DATE('" + fecha + "', 'ddmmyyyy'))";
-            log.error(this.getClass().getName() + " sqlQuery : " + sqlQuery);
+            log.warn(this.getClass().getName() + " sqlQuery : " + sqlQuery);
             Query query = em.createNativeQuery(sqlQuery, VWDSolucionesNodosN.class);
             listaSN = query.getResultList();
          } else {
             em.clear();
             String sqlQuery = "SELECT * FROM " + vistaConsultar;
-            log.error(this.getClass().getName() + " sqlQuery : " + sqlQuery);
+            log.warn(this.getClass().getName() + " sqlQuery : " + sqlQuery);
             Query query = em.createNativeQuery(sqlQuery, VWDSolucionesNodosN.class);
             listaSN = query.getResultList();
          }
@@ -74,13 +74,13 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
                     + "AND VC.ESTRUCTURA = ES.SECUENCIA AND VC.FECHAVIGENCIA = "
                     + "(SELECT MAX(VCI.FECHAVIGENCIA) FROM VIGENCIASCARGOS VCI WHERE VCI.EMPLEADO=VC.EMPLEADO\n"
                     + "AND VCI.FECHAVIGENCIA <= TO_DATE('" + fecha + "', 'ddmmyyyy'))";
-            log.error(this.getClass().getName() + " sqlQuery : " + sqlQuery);
+            log.warn(this.getClass().getName() + " sqlQuery : " + sqlQuery);
             Query query = em.createNativeQuery(sqlQuery, VWDSolucionesNodosN.class);
             listaSNLB = query.getResultList();
          } else {
             em.clear();
             String sqlQuery = "SELECT * FROM " + vistaConsultar + "LB";
-            log.error(this.getClass().getName() + " sqlQuery : " + sqlQuery);
+            log.warn(this.getClass().getName() + " sqlQuery : " + sqlQuery);
             Query query = em.createNativeQuery(sqlQuery, VWDSolucionesNodosN.class);
             listaSNLB = query.getResultList();
          }
@@ -101,7 +101,7 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
 
          em.clear();
          Query query = em.createNativeQuery(q, VWDSolucionesNodosNDetalle.class);
-         log.error("consultarDetalleN query q : " + q);
+         log.warn("consultarDetalleN query q : " + q);
          List<VWDSolucionesNodosNDetalle> listaSNDetalle = query.getResultList();
          return listaSNDetalle;
       } catch (Exception e) {
@@ -119,8 +119,8 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
                  + "PERSONAS P, CONCEPTOS C WHERE VW.Y = " + secDescripcion + " AND VW." + conjunto + "<>0 AND VW.EMPLEADO = E.SECUENCIA AND P.SECUENCIA = E.PERSONA AND C.SECUENCIA = VW.X";
          em.clear();
          Query query = em.createNativeQuery(q, VWDSolucionesNodosNDetalle.class);
-         log.error("consultarDetalleNLB q : " + q);
-         log.error(this.getClass().getName() + " query : " + query.toString());
+         log.warn("consultarDetalleNLB q : " + q);
+         log.warn(this.getClass().getName() + " query : " + query.toString());
          List<VWDSolucionesNodosNDetalle> listaSNLBDetalle = query.getResultList();
          return listaSNLBDetalle;
       } catch (Exception e) {

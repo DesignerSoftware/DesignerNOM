@@ -8,6 +8,7 @@ package InterfaceAdministrar;
 
 import ClasesAyuda.SessionEntityManager;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface AdministrarSesionesInterface {
     public void adicionarSesion(SessionEntityManager session);
     public void consultarSessionesActivas();
     public EntityManager obtenerConexionSesion(String idSesion);
+    public EntityManagerFactory obtenerConexionSesionEMF(String idSesion);
     public void borrarSesion(String idSesion);
 }

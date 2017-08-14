@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,110 +27,128 @@ public class AdministrarGrupoSalarial implements AdministrarGrupoSalarialInterfa
 
    private static Logger log = Logger.getLogger(AdministrarGrupoSalarial.class);
 
-    @EJB
-    PersistenciaGruposSalarialesInterface persistenciaGruposSalariales;
-    @EJB
-    PersistenciaVigenciasGruposSalarialesInterface persistenciaVigenciasGruposSalariales;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaGruposSalarialesInterface persistenciaGruposSalariales;
+   @EJB
+   PersistenciaVigenciasGruposSalarialesInterface persistenciaVigenciasGruposSalariales;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<GruposSalariales> listGruposSalariales() {
-        try {
-            List<GruposSalariales> gruposSalariales = persistenciaGruposSalariales.buscarGruposSalariales(em);
-            return gruposSalariales;
-        } catch (Exception e) {
-            log.warn("Error listGruposSalariales Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearGruposSalariales(List<GruposSalariales> listaCrear) {
-        try {
-            for (int i = 0; i < listaCrear.size(); i++) {
-                persistenciaGruposSalariales.crear(em, listaCrear.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("Error crearGruposSalariales Admi : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void editarGruposSalariales(List<GruposSalariales> listaEditar) {
-        try {
-            for (int i = 0; i < listaEditar.size(); i++) {
-                persistenciaGruposSalariales.editar(em, listaEditar.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error editarGruposSalariales Admi : " + e.toString());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarGruposSalariales(List<GruposSalariales> listaBorrar) {
-        try {
-            for (int i = 0; i < listaBorrar.size(); i++) {
-                persistenciaGruposSalariales.borrar(em, listaBorrar.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error borrarGruposSalariales Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<GruposSalariales> listGruposSalariales() {
+      try {
+         return persistenciaGruposSalariales.buscarGruposSalariales(getEm());
+      } catch (Exception e) {
+         log.warn("Error listGruposSalariales Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public List<VigenciasGruposSalariales> lisVigenciasGruposSalarialesSecuencia(BigInteger secuencia) {
-        try {
-            List<VigenciasGruposSalariales> VgruposSalariales = persistenciaVigenciasGruposSalariales.buscarVigenciaGrupoSalarialSecuenciaGrupoSal(em, secuencia);
-            return VgruposSalariales;
-        } catch (Exception e) {
-            log.warn("Error lisVigenciasGruposSalarialesSecuencia Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void crearGruposSalariales(List<GruposSalariales> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            persistenciaGruposSalariales.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearGruposSalariales Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public void crearVigenciasGruposSalariales(List<VigenciasGruposSalariales> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaVigenciasGruposSalariales.crear(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error crearVigenciasGruposSalariales Admi : " + e.toString());
-        }
-    }
+   @Override
+   public void editarGruposSalariales(List<GruposSalariales> listaEditar) {
+      try {
+         for (int i = 0; i < listaEditar.size(); i++) {
+            persistenciaGruposSalariales.editar(getEm(), listaEditar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarGruposSalariales Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public void editarVigenciasGruposSalariales(List<VigenciasGruposSalariales> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaVigenciasGruposSalariales.editar(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error editarVigenciasGruposSalariales Admi : " + e.toString());
-        }
-    }
+   @Override
+   public void borrarGruposSalariales(List<GruposSalariales> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaGruposSalariales.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarGruposSalariales Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public void borrarVigenciasGruposSalariales(List<VigenciasGruposSalariales> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaVigenciasGruposSalariales.borrar(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error borrarVigenciasGruposSalariales Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<VigenciasGruposSalariales> lisVigenciasGruposSalarialesSecuencia(BigInteger secuencia) {
+      try {
+         List<VigenciasGruposSalariales> VgruposSalariales = persistenciaVigenciasGruposSalariales.buscarVigenciaGrupoSalarialSecuenciaGrupoSal(getEm(), secuencia);
+         return VgruposSalariales;
+      } catch (Exception e) {
+         log.warn("Error lisVigenciasGruposSalarialesSecuencia Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public void crearVigenciasGruposSalariales(List<VigenciasGruposSalariales> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaVigenciasGruposSalariales.crear(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearVigenciasGruposSalariales Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void editarVigenciasGruposSalariales(List<VigenciasGruposSalariales> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaVigenciasGruposSalariales.editar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarVigenciasGruposSalariales Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void borrarVigenciasGruposSalariales(List<VigenciasGruposSalariales> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaVigenciasGruposSalariales.borrar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarVigenciasGruposSalariales Admi : " + e.toString());
+      }
+   }
 }

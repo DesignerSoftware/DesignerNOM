@@ -87,7 +87,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, usuarioBD);
          query.executeUpdate();
-         log.error("PersistenciaTempProrrateos.borrarRegistrosTempProrrateos() Ya ejecuto");
+         log.warn("PersistenciaTempProrrateos.borrarRegistrosTempProrrateos() Ya ejecuto");
          tx.commit();
       } catch (Exception e) {
          log.error("No se pudo borrar el registro en borrarRegistrosTempProrrateos() : " + e.toString());
@@ -188,7 +188,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
                  + " AND ARCHIVO = ?");
          query.setParameter(1, documentoSoporte);
          Date fecha = (Date) query.getSingleResult();
-         log.error("PersistenciaTempProrrateos.reversarTempProrrateos() Paso1 Consulto fecha: " + fecha);
+         log.warn("PersistenciaTempProrrateos.reversarTempProrrateos() Paso1 Consulto fecha: " + fecha);
          if (fecha != null) {
             em.clear();
             StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOS");
@@ -201,7 +201,7 @@ public class PersistenciaTempProrrateos implements PersistenciaTempProrrateosInt
             queryProcedure.execute();
             queryProcedure.hasMoreResults();
             String strRetorno = (String) queryProcedure.getOutputParameterValue(1);
-            log.error("PersistenciaTempProrrateos.reversarTempProrrateos() Paso2 Consulto strRetorno: " + strRetorno);
+            log.warn("PersistenciaTempProrrateos.reversarTempProrrateos() Paso2 Consulto strRetorno: " + strRetorno);
          }
          tx.commit();
          return 1;

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,49 +36,85 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<Operandos> buscarOperandos() {
-      List<Operandos> listaOperandos;
-      listaOperandos = persistenciaOperandos.buscarOperandos(em);
-      return listaOperandos;
+      try {
+         return persistenciaOperandos.buscarOperandos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void borrarOperando(Operandos operandos) {
-      persistenciaOperandos.borrar(em, operandos);
+      try {
+         persistenciaOperandos.borrar(getEm(), operandos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearOperando(Operandos operandos) {
-      persistenciaOperandos.crear(em, operandos);
+      try {
+         persistenciaOperandos.crear(getEm(), operandos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarOperando(List<Operandos> listaOperandosModificar) {
-      for (int i = 0; i < listaOperandosModificar.size(); i++) {
-         log.warn("Modificando...");
-         persistenciaOperandos.editar(em, listaOperandosModificar.get(i));
+      try {
+         for (int i = 0; i < listaOperandosModificar.size(); i++) {
+            log.warn("Modificando...");
+            persistenciaOperandos.editar(getEm(), listaOperandosModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    public String buscarValores(BigInteger secuenciaOperando) {
-      String valores;
-      valores = persistenciaOperandos.valores(em, secuenciaOperando);
-      return valores;
+      try {
+         return persistenciaOperandos.valores(getEm(), secuenciaOperando);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Operandos consultarOperandoActual(BigInteger secOperando) {
       try {
-         Operandos actual = persistenciaOperandos.operandosPorSecuencia(em, secOperando);
-         return actual;
+         return persistenciaOperandos.operandosPorSecuencia(getEm(), secOperando);
       } catch (Exception e) {
          log.warn("Error conceptoActual Admi : " + e.toString());
          return null;
@@ -86,7 +123,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
 
    public String clonarOperando(short codigoO, String nombreDes, String descripcionDes) {
       try {
-         return persistenciaOperandos.clonarOperando(em, codigoO, nombreDes, descripcionDes);
+         return persistenciaOperandos.clonarOperando(getEm(), codigoO, nombreDes, descripcionDes);
       } catch (Exception e) {
          log.warn("AdministrarOperandos.clonarOperando() Error : " + e.toString());
          return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";

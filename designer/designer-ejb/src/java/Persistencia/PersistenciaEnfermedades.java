@@ -114,7 +114,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAENFERMEDADES contadorAusentimos = " + retorno);
+            log.warn("PERSISTENCIAENFERMEDADES contadorAusentimos = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorAusentimos  ERROR = " + e);
@@ -131,7 +131,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAENFERMEDADES contadorDetallesLicencias = " + retorno);
+            log.warn("PERSISTENCIAENFERMEDADES contadorDetallesLicencias = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorDetallesLicencias  ERROR = " + e);
@@ -148,7 +148,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas = " + retorno);
+            log.warn("PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas  ERROR = " + e);
@@ -165,7 +165,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAENFERMEDADES contadorSoausentismos = " + retorno);
+            log.warn("PERSISTENCIAENFERMEDADES contadorSoausentismos = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorSoausentismos  ERROR = " + e);
@@ -182,7 +182,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas = " + retorno);
+            log.warn("PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas  ERROR = " + e);

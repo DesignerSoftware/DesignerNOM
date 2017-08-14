@@ -71,10 +71,6 @@ public interface AdministrarVigenciaLocalizacionInterface {
      */
     public List<Proyectos> proyectos();
     /**
-     * Limpia el VigenciaLocalizaion, cierra la sesion
-     */
-    public void salir();
-    /**
      * Obtiene la lista de VigenciasProrrateos de una VigenciaLocalizacion
      * @param secVigencia Secuencia VigenciaLocalizacion
      * @return listVPVL Lista de Vigencias Prorrateos de una Vigencia Localizacion

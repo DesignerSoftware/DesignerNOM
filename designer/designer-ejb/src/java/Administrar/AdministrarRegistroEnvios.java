@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,80 +28,97 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
 
    private static Logger log = Logger.getLogger(AdministrarRegistroEnvios.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaEnvioCorreosInterface persistenciaEnvioCorreos;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEnvioCorreosInterface persistenciaEnvioCorreos;
 
-    private EntityManager em;
-    private EnvioCorreos ec;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   private EnvioCorreos ec;
 
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<EnvioCorreos> consultarEnvioCorreos(BigInteger reporte) {
-        log.warn("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
-        List<EnvioCorreos> enviocorreos;
-        try {
-            enviocorreos = persistenciaEnvioCorreos.consultarEnvios(em, reporte);
-        } catch (Exception e) {
-            log.warn("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
-            enviocorreos = new ArrayList<>();
-        }
-        return enviocorreos;
-    }
+   @Override
+   public List<EnvioCorreos> consultarEnvioCorreos(BigInteger reporte) {
+      log.warn("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
+      try {
+         return persistenciaEnvioCorreos.consultarEnvios(getEm(), reporte);
+      } catch (Exception e) {
+         log.warn("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
+         return new ArrayList<>();
+      }
+   }
 
-    @Override
-    public Inforeportes consultarPorSecuencia(BigInteger envio) {
-        log.warn("Administrar.AdministrarRegistroEnvios.consultarPorSecuencia()");
-        log.warn("envio: " + envio);
-        Inforeportes envioConsultado;
-        try {
-            envioConsultado = persistenciaEnvioCorreos.buscarEnvioCorreoporSecuencia(em, envio);
-        } catch (Exception e) {
-            envioConsultado = null;
-        }
-        log.warn("ec: " + ec);
-        return envioConsultado;
-    }
+   @Override
+   public Inforeportes consultarPorSecuencia(BigInteger envio) {
+      log.warn("Administrar.AdministrarRegistroEnvios.consultarPorSecuencia()");
+      log.warn("envio: " + envio);
+      try {
+         return persistenciaEnvioCorreos.buscarEnvioCorreoporSecuencia(getEm(), envio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void editarEnvioCorreos(EnvioCorreos listaEC) {
-        try {
-            log.warn("Administrar.AdministrarRegistroEnvios.editarEnvioCorreos()  " + listaEC.getSecuencia());
-            persistenciaEnvioCorreos.editar(em, listaEC);
-        } catch (Exception ex) {
-            log.warn("Error Administrar.AdministrarRegistroEnvios.editarEnvioCorreos() " + ex);
-        }
-    }
+   @Override
+   public void editarEnvioCorreos(EnvioCorreos listaEC) {
+      try {
+         log.warn("Administrar.AdministrarRegistroEnvios.editarEnvioCorreos()  " + listaEC.getSecuencia());
+         persistenciaEnvioCorreos.editar(getEm(), listaEC);
+      } catch (Exception ex) {
+         log.warn("Error Administrar.AdministrarRegistroEnvios.editarEnvioCorreos() " + ex);
+      }
+   }
 
-    @Override
-    public void modificarEC(List<EnvioCorreos> listECModificadas) {
-        for (int i = 0; i < listECModificadas.size(); i++) {
+   @Override
+   public void modificarEC(List<EnvioCorreos> listECModificadas) {
+      try {
+         for (int i = 0; i < listECModificadas.size(); i++) {
             log.warn("Modificando...");
             if (listECModificadas.get(i).getCodigoEmpleado() != null && listECModificadas.get(i).getCodigoEmpleado().getSecuencia() == null) {
-                listECModificadas.get(i).setCodigoEmpleado(null);
-                ec = listECModificadas.get(i);
-                persistenciaEnvioCorreos.editar(em, ec);
+               listECModificadas.get(i).setCodigoEmpleado(null);
+               ec = listECModificadas.get(i);
+               persistenciaEnvioCorreos.editar(getEm(), ec);
             } else {
-                ec = listECModificadas.get(i);
-                persistenciaEnvioCorreos.editar(em, ec);
+               ec = listECModificadas.get(i);
+               persistenciaEnvioCorreos.editar(getEm(), ec);
             }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-        }
-    }
-
-    @Override
-    public void borrarEnvioCorreos(EnvioCorreos listaEC) {
-        try {
-            persistenciaEnvioCorreos.borrar(em, listaEC);
-        } catch (Exception e) {
-            log.warn("Error" + e);
-        }
-    }
+   @Override
+   public void borrarEnvioCorreos(EnvioCorreos listaEC) {
+      try {
+         persistenciaEnvioCorreos.borrar(getEm(), listaEC);
+      } catch (Exception e) {
+         log.warn("Error" + e);
+      }
+   }
 
 }

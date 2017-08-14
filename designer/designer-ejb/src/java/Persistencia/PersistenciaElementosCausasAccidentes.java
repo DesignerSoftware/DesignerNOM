@@ -109,7 +109,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos = " + retorno);
+            log.warn("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES verificarBorradoVigenciasDeportes  ERROR = " + e);
@@ -126,7 +126,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes = " + retorno);
+            log.warn("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoAccidentes  ERROR = " + e);
@@ -143,7 +143,7 @@ public class PersistenciaElementosCausasAccidentes implements PersistenciaElemen
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr = " + retorno);
+            log.warn("PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISCENTIAELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr  ERROR = " + e);

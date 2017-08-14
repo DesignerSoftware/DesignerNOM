@@ -58,9 +58,5 @@ public interface AdministrarVigenciasContratosInterface {
      * @return listTC Lista de todos los TiposContratos
      */
     public List<TiposContratos> tiposContratos();
-    /**
-     * Metodo que cierra la sesion
-     */
-    public void salir();
     
 }

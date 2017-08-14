@@ -203,7 +203,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras");
+         log.error("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras " + e);
          e.printStackTrace();
          return null;
       }
@@ -591,7 +591,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
 
    @Override
    public void adicionaEstructuraCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio) {
-      log.error("Persistencia.PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
+      log.warn("Persistencia.PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -603,7 +603,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
+         log.warn(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
          log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
@@ -628,7 +628,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         log.error(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() Ya ejecuto");
+         log.warn(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
          log.error(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
@@ -653,15 +653,14 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
+         log.warn(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
+         tx.commit();
       } catch (Exception e) {
          log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
          }
-      } finally {
-         tx.commit();
       }
    }
 
@@ -678,15 +677,14 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.setParameter(1, secEstructura);
          query.setParameter(2, fechaCambio);
          query.execute();
-         log.error(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() Ya ejecuto");
+         log.warn(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() Ya ejecuto");
+         tx.commit();
       } catch (Exception e) {
          log.error(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() ERROR: " + e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
          }
-      } finally {
-         tx.commit();
       }
    }
 }

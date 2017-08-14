@@ -85,11 +85,11 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT * FROM PROCESOS ORDER BY codigo ASC", Procesos.class);
-         log.error("buscarProcesos() va a consultar");
+         log.warn("buscarProcesos() va a consultar");
 //            Query query = em.createQuery("SELECT t FROM Procesos t ORDER BY t.codigo ASC", Procesos.class);
 //            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<Procesos> procesos = query.getResultList();
-//            log.error("procesos : " + procesos);
+//            log.warn("procesos : " + procesos);
          return procesos;
       } catch (Exception e) {
          log.error("Error buscarProcesos : " + e.getMessage());
@@ -202,7 +202,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          query.execute();
          query.hasMoreResults();
          String strRetorno = (String) query.getOutputParameterValue(1);
-         log.error("Persistencia.PersistenciaProcesos.clonarProceso() Ya clono strRetorno:_" + strRetorno + "_");
+         log.warn("Persistencia.PersistenciaProcesos.clonarProceso() Ya clono strRetorno:_" + strRetorno + "_");
          return strRetorno;
       } catch (Exception e) {
          log.error("ERROR: " + this.getClass().getName() + ".clonarProceso()");

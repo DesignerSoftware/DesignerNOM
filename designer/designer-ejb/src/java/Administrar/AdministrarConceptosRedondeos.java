@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,79 +29,110 @@ public class AdministrarConceptosRedondeos implements AdministrarConceptosRedond
 
    private static Logger log = Logger.getLogger(AdministrarConceptosRedondeos.class);
 
-    @EJB
-    PersistenciaConceptosRedondeosInterface persistenciaConceptosRedondeos;
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    @EJB
-    PersistenciaTiposRedondeosInterface persistenciaTiposRedondeos;
+   @EJB
+   PersistenciaConceptosRedondeosInterface persistenciaConceptosRedondeos;
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   @EJB
+   PersistenciaTiposRedondeosInterface persistenciaTiposRedondeos;
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
 //Conceptos Redondeos
-    @Override
-    public void borrarConceptosRedondeos(ConceptosRedondeos conceptosRedondeos) {
-        persistenciaConceptosRedondeos.borrar(em,conceptosRedondeos);
-    }
+   @Override
+   public void borrarConceptosRedondeos(ConceptosRedondeos conceptosRedondeos) {
+      try {
+         persistenciaConceptosRedondeos.borrar(getEm(), conceptosRedondeos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearConceptosRedondeos(ConceptosRedondeos conceptosRedondeos) {
-        persistenciaConceptosRedondeos.crear(em,conceptosRedondeos);
-    }
+   @Override
+   public void crearConceptosRedondeos(ConceptosRedondeos conceptosRedondeos) {
+      try {
+         persistenciaConceptosRedondeos.crear(getEm(), conceptosRedondeos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarConceptosRedondeos(List<ConceptosRedondeos> listaConceptosRedondeosModificar) {
-        for (int i = 0; i < listaConceptosRedondeosModificar.size(); i++) {
+   @Override
+   public void modificarConceptosRedondeos(List<ConceptosRedondeos> listaConceptosRedondeosModificar) {
+      try {
+         for (int i = 0; i < listaConceptosRedondeosModificar.size(); i++) {
             log.warn("Modificando...");
-            persistenciaConceptosRedondeos.editar(em,listaConceptosRedondeosModificar.get(i));
-        }
-    }
+            persistenciaConceptosRedondeos.editar(getEm(), listaConceptosRedondeosModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<ConceptosRedondeos> consultarConceptosRedondeos() {
-        try {
-            List<ConceptosRedondeos> actual = persistenciaConceptosRedondeos.buscarConceptosRedondeos(em);
-            return actual;
-        } catch (Exception e) {
-            log.warn("Error consultarVigenciasRetenciones: " + e.toString());
-            return null;
-        }
-    }
+   public List<ConceptosRedondeos> consultarConceptosRedondeos() {
+      try {
+         List<ConceptosRedondeos> actual = persistenciaConceptosRedondeos.buscarConceptosRedondeos(getEm());
+         return actual;
+      } catch (Exception e) {
+         log.warn("Error consultarVigenciasRetenciones: " + e.toString());
+         return null;
+      }
+   }
 
-    //LOV Conceptos
-    @Override
-    public List<Conceptos> lovConceptos() {
-        try {
-            List<Conceptos> actual = persistenciaConceptos.buscarConceptos(em);
-            return actual;
-        } catch (Exception e) {
-            log.warn("Error lovConceptos: " + e.toString());
-            return null;
-        }
-    }
+   //LOV Conceptos
+   @Override
+   public List<Conceptos> lovConceptos() {
+      try {
+         List<Conceptos> actual = persistenciaConceptos.buscarConceptos(getEm());
+         return actual;
+      } catch (Exception e) {
+         log.warn("Error lovConceptos: " + e.toString());
+         return null;
+      }
+   }
 
-    //LOV Tipos Redondeos
-    @Override
-    public List<TiposRedondeos> lovTiposRedondeos() {
-        try {
-            List<TiposRedondeos> actual = persistenciaTiposRedondeos.buscarTiposRedondeos(em);
-            return actual;
-        } catch (Exception e) {
-            log.warn("Error lovTiposRedondeos: " + e.toString());
-            return null;
-        }
-    }
+   //LOV Tipos Redondeos
+   @Override
+   public List<TiposRedondeos> lovTiposRedondeos() {
+      try {
+         List<TiposRedondeos> actual = persistenciaTiposRedondeos.buscarTiposRedondeos(getEm());
+         return actual;
+      } catch (Exception e) {
+         log.warn("Error lovTiposRedondeos: " + e.toString());
+         return null;
+      }
+   }
 
 }

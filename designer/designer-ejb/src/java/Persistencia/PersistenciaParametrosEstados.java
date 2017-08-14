@@ -49,7 +49,8 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
    }
 
    @Override
-   public Integer empleadosLiquidados(EntityManager em, String usuarioBD) {
+   public Integer empleadosLiquidados(EntityManager em, String usuarioBD
+   ) {
       try {
          em.clear();
          String sqlQuery = "SELECT COUNT(*) FROM PARAMETROSESTADOS pe WHERE exists (select p.secuencia from parametros p, parametrosinstancias pi, usuariosinstancias ui , usuarios u where p.secuencia = pe.parametro and u.secuencia = p.usuario and pi.parametro = p.secuencia and ui.instancia = pi.instancia and u.alias = ? and proceso = (SELECT PROCESO FROM PARAMETROSESTRUCTURAS pe, usuarios u where u.secuencia = pe.usuario and u.alias=?)) and pe.estado = 'LIQUIDADO'";
@@ -66,7 +67,8 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
    }
 
    @Override
-   public void inicializarParametrosEstados(EntityManager em) {
+   public void inicializarParametrosEstados(EntityManager em
+   ) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -84,7 +86,8 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
    }
 
    @Override
-   public String parametrosComprobantes(EntityManager em, BigInteger secuenciaParametro) {
+   public String parametrosComprobantes(EntityManager em, BigInteger secuenciaParametro
+   ) {
       try {
          em.clear();
          Query query = em.createQuery("SELECT pe.estado FROM ParametrosEstados pe WHERE pe.parametros.secuencia = :secuenciaParametro");

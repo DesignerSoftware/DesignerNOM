@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -27,105 +28,159 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
 
    private static Logger log = Logger.getLogger(AdministrarNovedadesVacaciones.class);
 
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaVigenciasTiposContratosInterface persistenciaVigenciasTiposContratos;
-    @EJB
-    PersistenciaNovedadesSistemaInterface persistenciaNovedadesSistema;
-    @EJB
-    PersistenciaVacacionesInterface persistenciaVacaciones;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaVigenciasTiposContratosInterface persistenciaVigenciasTiposContratos;
+   @EJB
+   PersistenciaNovedadesSistemaInterface persistenciaNovedadesSistema;
+   @EJB
+   PersistenciaVacacionesInterface persistenciaVacaciones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public List<Empleados> empleadosVacaciones() {
-        return persistenciaEmpleados.empleadosVacaciones(em);
-    }
-    
-    @Override
-    public Date obtenerFechaContratacionEmpleado(BigInteger secEmpleado) {
-        try {
-            Date ultimaFecha = persistenciaVigenciasTiposContratos.fechaFinalContratacionVacaciones(em, secEmpleado);
-            return ultimaFecha;
-        } catch (Exception e) {
-            log.warn("Error obtenerFechaContratacionEmpleado Admi : " + e.toString());
-            return null;
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void adelantarPeriodo(BigInteger secEmpleado) {
-        log.warn("Administrar novedades Vacaciones. adelantar Periodo para el empleado : " + secEmpleado);
-       persistenciaVacaciones.adelantarPeriodo(em, secEmpleado); 
-    }
-    
-    
-    @Override
-    public BigDecimal validarJornadaVacaciones(BigInteger secEmpleado, Date fechaInicialDisfrute) {
-        log.warn("entró a validarJornadaVacaciones");
-        log.warn("empleado a consultar : " + secEmpleado);
-        log.warn("fecha inicial : " + fechaInicialDisfrute);
-        BigDecimal jornada = persistenciaVacaciones.consultarJornadaVacaciones(em, secEmpleado, fechaInicialDisfrute);
-        return jornada;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public boolean validarFestivoVacaciones(Date fechaInicial, BigDecimal tipoJornada) {
-        boolean festivo = persistenciaVacaciones.validarFestivoVacaciones(em, fechaInicial, tipoJornada);
-        return festivo;
-    }
+   @Override
+   public List<Empleados> empleadosVacaciones() {
+      try {
+         return persistenciaEmpleados.empleadosVacaciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public boolean validarDiaLaboralVacaciones( BigDecimal tipoJornada,String dia) {
-        boolean dialaboral = persistenciaVacaciones.validarDiaLaboralVacaciones(em,tipoJornada,dia);
-        return dialaboral;
-    }
+   @Override
+   public Date obtenerFechaContratacionEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaVigenciasTiposContratos.fechaFinalContratacionVacaciones(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn("Error obtenerFechaContratacionEmpleado Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public Date fechaSiguiente(Date fecha, BigInteger numeroDias, BigDecimal jornada) {
-       Date fechaSiguiente = persistenciaVacaciones.siguienteDia(em, fecha, numeroDias,jornada);
-       return fechaSiguiente;
-    }
+   @Override
+   public void adelantarPeriodo(BigInteger secEmpleado) {
+      try {
+         log.warn("Administrar novedades Vacaciones. adelantar Periodo para el empleado : " + secEmpleado);
+         persistenciaVacaciones.adelantarPeriodo(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public BigInteger periodicidadEmpleado(BigInteger secEmpleado) {
-       BigInteger secPeriodicidad = persistenciaVacaciones.periodicidadEmpleado(em, secEmpleado);
-       return secPeriodicidad;
-    }
+   @Override
+   public BigDecimal validarJornadaVacaciones(BigInteger secEmpleado, Date fechaInicialDisfrute) {
+      try {
+         log.warn("entró a validarJornadaVacaciones");
+         log.warn("empleado a consultar : " + secEmpleado);
+         log.warn("fecha inicial : " + fechaInicialDisfrute);
+         return persistenciaVacaciones.consultarJornadaVacaciones(getEm(), secEmpleado, fechaInicialDisfrute);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Date anteriorFechaLimite(Date fechafinvaca, BigInteger secPeriodicidad) {
-       Date anteriorFechaLimite = persistenciaVacaciones.anteriorFechaLimiteCalendario(em, fechafinvaca, secPeriodicidad);
-       return anteriorFechaLimite;
-    }
+   @Override
+   public boolean validarFestivoVacaciones(Date fechaInicial, BigDecimal tipoJornada) {
+      try {
+         return persistenciaVacaciones.validarFestivoVacaciones(getEm(), fechaInicial, tipoJornada);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
+   }
 
-    @Override
-    public Date despuesFechaLimite(Date fechafinvaca, BigInteger secPeriodicidad) {
-        Date despuesFechaLimite = persistenciaVacaciones.despuesFechaLimiteCalendario(em, fechafinvaca, secPeriodicidad);
-        return despuesFechaLimite;
-    }
+   @Override
+   public boolean validarDiaLaboralVacaciones(BigDecimal tipoJornada, String dia) {
+      try {
+         return persistenciaVacaciones.validarDiaLaboralVacaciones(getEm(), tipoJornada, dia);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
+   }
 
-    @Override
-    public Date fechaUltimoCorte(BigInteger secEmpleado, int codigoProceso) {
-        Date fechaUltimoCorte = persistenciaVacaciones.fechaUltimoCorte(em, secEmpleado, codigoProceso);
-        return fechaUltimoCorte;
-    }
-    
-    
-    
-    
-    
+   @Override
+   public Date fechaSiguiente(Date fecha, BigInteger numeroDias, BigDecimal jornada) {
+      try {
+         return persistenciaVacaciones.siguienteDia(getEm(), fecha, numeroDias, jornada);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger periodicidadEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaVacaciones.periodicidadEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Date anteriorFechaLimite(Date fechafinvaca, BigInteger secPeriodicidad) {
+      try {
+         return persistenciaVacaciones.anteriorFechaLimiteCalendario(getEm(), fechafinvaca, secPeriodicidad);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Date despuesFechaLimite(Date fechafinvaca, BigInteger secPeriodicidad) {
+      try {
+         return persistenciaVacaciones.despuesFechaLimiteCalendario(getEm(), fechafinvaca, secPeriodicidad);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Date fechaUltimoCorte(BigInteger secEmpleado, int codigoProceso) {
+      try {
+         return persistenciaVacaciones.fechaUltimoCorte(getEm(), secEmpleado, codigoProceso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
 }

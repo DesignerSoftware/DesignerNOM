@@ -97,22 +97,21 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
 
    @Override
    public List<TSFormulasConceptos> buscarTSFormulasConceptosPorSecuenciaTipoSueldo(EntityManager em, BigInteger secTipoSueldo) {
-      log.error("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
+      log.warn("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo() secTipoSueldo: " + secTipoSueldo);
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT t.* FROM TSFormulasConceptos t, EMPRESAS E WHERE\n"
                  + " t.tiposueldo = ? AND E.SECUENCIA = t.EMPRESA", TSFormulasConceptos.class);
          query.setParameter(1, secTipoSueldo);
          List<TSFormulasConceptos> tEFormulasConceptos = (List<TSFormulasConceptos>) query.getResultList();
-         log.error("PersistenciaTSFormulasConceptos.buscarTSFormulasConceptosPorSecuenciaTipoSueldo()2");
          if (tEFormulasConceptos != null) {
-            if (!tEFormulasConceptos.isEmpty()) {
-               log.error("tEFormulasConceptos: " + tEFormulasConceptos);
-               log.error("tEFormulasConceptos.get(0).getTiposueldo(): " + tEFormulasConceptos.get(0).getTiposueldo());
-               log.error("tEFormulasConceptos.get(0).getConcepto(): " + tEFormulasConceptos.get(0).getConcepto());
-               log.error("tEFormulasConceptos.get(0).getEmpresa(): " + tEFormulasConceptos.get(0).getEmpresa());
-               log.error("tEFormulasConceptos.get(0).getFormula(): " + tEFormulasConceptos.get(0).getFormula());
-            }
+//            if (!tEFormulasConceptos.isEmpty()) {
+//               log.warn("tEFormulasConceptos: " + tEFormulasConceptos);
+//               log.warn("tEFormulasConceptos.get(0).getTiposueldo(): " + tEFormulasConceptos.get(0).getTiposueldo());
+//               log.warn("tEFormulasConceptos.get(0).getConcepto(): " + tEFormulasConceptos.get(0).getConcepto());
+//               log.warn("tEFormulasConceptos.get(0).getEmpresa(): " + tEFormulasConceptos.get(0).getEmpresa());
+//               log.warn("tEFormulasConceptos.get(0).getFormula(): " + tEFormulasConceptos.get(0).getFormula());
+//            }
          }
          return tEFormulasConceptos;
       } catch (Exception e) {

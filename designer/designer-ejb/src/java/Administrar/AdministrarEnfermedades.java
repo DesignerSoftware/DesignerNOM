@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,109 +26,136 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
 
    private static Logger log = Logger.getLogger(AdministrarEnfermedades.class);
 
-    @EJB
-    PersistenciaEnfermedadesInterface persistenciaEnfermedades;
+   @EJB
+   PersistenciaEnfermedadesInterface persistenciaEnfermedades;
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public void modificarEnfermedades(List<Enfermedades> listDeportesModificadas) {
-        for (int i = 0; i < listDeportesModificadas.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarEnfermedades(List<Enfermedades> listDeportesModificadas) {
+      try {
+         for (int i = 0; i < listDeportesModificadas.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaEnfermedades.editar(em,listDeportesModificadas.get(i));
-        }
-    }
+            persistenciaEnfermedades.editar(getEm(), listDeportesModificadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarEnfermedades(List<Enfermedades> listDeportesModificadas) {
-        for (int i = 0; i < listDeportesModificadas.size(); i++) {
+   public void borrarEnfermedades(List<Enfermedades> listDeportesModificadas) {
+      try {
+         for (int i = 0; i < listDeportesModificadas.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaEnfermedades.borrar(em,listDeportesModificadas.get(i));
-        }
-    }
+            persistenciaEnfermedades.borrar(getEm(), listDeportesModificadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearEnfermedades(List<Enfermedades> listDeportesModificadas) {
-        for (int i = 0; i < listDeportesModificadas.size(); i++) {
+   public void crearEnfermedades(List<Enfermedades> listDeportesModificadas) {
+      try {
+         for (int i = 0; i < listDeportesModificadas.size(); i++) {
             log.warn("Administrar Crear...");
-            persistenciaEnfermedades.crear(em,listDeportesModificadas.get(i));
-        }
-    }
+            persistenciaEnfermedades.crear(getEm(), listDeportesModificadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Enfermedades> consultarEnfermedades() {
-        List<Enfermedades> listEnfermedades;
-        listEnfermedades = persistenciaEnfermedades.buscarEnfermedades(em);
-        return listEnfermedades;
-    }
+   public List<Enfermedades> consultarEnfermedades() {
+      try {
+         return persistenciaEnfermedades.buscarEnfermedades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public Enfermedades consultarEnfermedad(BigInteger secDeportes) {
-        Enfermedades enfermedad;
-        enfermedad = persistenciaEnfermedades.buscarEnfermedad(em,secDeportes);
-        return enfermedad;
-    }
+   public Enfermedades consultarEnfermedad(BigInteger secDeportes) {
+      try {
+         return persistenciaEnfermedades.buscarEnfermedad(getEm(), secDeportes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger verificarAusentimos(BigInteger secuenciaTiposAuxilios) {
-        BigInteger contadorAusentimos = null;
-        try {
-            contadorAusentimos = persistenciaEnfermedades.contadorAusentimos(em,secuenciaTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARENFERMEDADES contadorAusentimos ERROR :" + e);
-        } finally {
-            return contadorAusentimos;
-        }
-    }
+   public BigInteger verificarAusentimos(BigInteger secuenciaTiposAuxilios) {
+      try {
+         return persistenciaEnfermedades.contadorAusentimos(getEm(), secuenciaTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARENFERMEDADES contadorAusentimos ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger verificarDetallesLicencias(BigInteger secuenciaTiposAuxilios) {
-        BigInteger contadorDetallesLicencias = null;
-        try {
-            contadorDetallesLicencias = persistenciaEnfermedades.contadorDetallesLicencias(em,secuenciaTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARENFERMEDADES contadorDetallesLicencias ERROR :" + e);
-        } finally {
-            return contadorDetallesLicencias;
-        }
-    }
+   public BigInteger verificarDetallesLicencias(BigInteger secuenciaTiposAuxilios) {
+      try {
+         return persistenciaEnfermedades.contadorDetallesLicencias(getEm(), secuenciaTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARENFERMEDADES contadorDetallesLicencias ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger verificarEnfermedadesPadecidas(BigInteger secuenciaTiposAuxilios) {
-        BigInteger contadorEnfermedadesPadecidas = null;
-        try {
-            contadorEnfermedadesPadecidas = persistenciaEnfermedades.contadorEnfermedadesPadecidas(em,secuenciaTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARENFERMEDADES contadorEnfermedadesPadecidas ERROR :" + e);
-        } finally {
-            return contadorEnfermedadesPadecidas;
-        }
-    }
+   public BigInteger verificarEnfermedadesPadecidas(BigInteger secuenciaTiposAuxilios) {
+      try {
+         return persistenciaEnfermedades.contadorEnfermedadesPadecidas(getEm(), secuenciaTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARENFERMEDADES contadorEnfermedadesPadecidas ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger verificarSoAusentismos(BigInteger secuenciaTiposAuxilios) {
-        BigInteger contadorSoausentismos = null;
-        try {
-            contadorSoausentismos = persistenciaEnfermedades.contadorSoausentismos(em,secuenciaTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARENFERMEDADES contadorSoausentismos ERROR :" + e);
-        } finally {
-            return contadorSoausentismos;
-        }
-    }
+   public BigInteger verificarSoAusentismos(BigInteger secuenciaTiposAuxilios) {
+      try {
+         return persistenciaEnfermedades.contadorSoausentismos(getEm(), secuenciaTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARENFERMEDADES contadorSoausentismos ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger verificarSoRevisionesSistemas(BigInteger secuenciaTiposAuxilios) {
-        BigInteger contadorSorevisionessSistemas = null;
-        try {
-            contadorSorevisionessSistemas = persistenciaEnfermedades.contadorSorevisionessSistemas(em,secuenciaTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARENFERMEDADES contadorSorevisionessSistemas ERROR :" + e);
-        } finally {
-            return contadorSorevisionessSistemas;
-        }
-    }
+   public BigInteger verificarSoRevisionesSistemas(BigInteger secuenciaTiposAuxilios) {
+      try {
+         return persistenciaEnfermedades.contadorSorevisionessSistemas(getEm(), secuenciaTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARENFERMEDADES contadorSorevisionessSistemas ERROR :" + e);
+         return null;
+      }
+   }
 }

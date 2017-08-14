@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,54 +36,86 @@ public class AdministrarEstadosCiviles implements AdministrarEstadosCivilesInter
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarEstadosCiviles(List<EstadosCiviles> listaEstadosCiviles) {
-      for (int i = 0; i < listaEstadosCiviles.size(); i++) {
-         log.warn("Administrar Modificando...");
-         persistenciaEstadosCiviles.editar(em, listaEstadosCiviles.get(i));
+      try {
+         for (int i = 0; i < listaEstadosCiviles.size(); i++) {
+            log.warn("Administrar Modificando...");
+            persistenciaEstadosCiviles.editar(getEm(), listaEstadosCiviles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarEstadosCiviles(List<EstadosCiviles> listaEstadosCiviles) {
-      for (int i = 0; i < listaEstadosCiviles.size(); i++) {
-         log.warn("Administrar Borrando...");
-         persistenciaEstadosCiviles.borrar(em, listaEstadosCiviles.get(i));
+      try {
+         for (int i = 0; i < listaEstadosCiviles.size(); i++) {
+            log.warn("Administrar Borrando...");
+            persistenciaEstadosCiviles.borrar(getEm(), listaEstadosCiviles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void crearEstadosCiviles(List<EstadosCiviles> listaEstadosCiviles) {
-      for (int i = 0; i < listaEstadosCiviles.size(); i++) {
-         log.warn("Administrar Creando...");
-         persistenciaEstadosCiviles.crear(em, listaEstadosCiviles.get(i));
+      try {
+         for (int i = 0; i < listaEstadosCiviles.size(); i++) {
+            log.warn("Administrar Creando...");
+            persistenciaEstadosCiviles.crear(getEm(), listaEstadosCiviles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public List<EstadosCiviles> consultarEstadosCiviles() {
-      List<EstadosCiviles> listEstadosCiviles;
-      listEstadosCiviles = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
-      return listEstadosCiviles;
+      try {
+         return persistenciaEstadosCiviles.consultarEstadosCiviles(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public BigInteger verificarVigenciasEstadosCiviles(BigInteger secuenciaEstadosCiviles) {
-      BigInteger verificadorVigenciasEstadosCiviles = null;
       try {
-         log.error("Secuencia verificarBorradoVigenciasEstadoCiviles  " + secuenciaEstadosCiviles);
-         verificadorVigenciasEstadosCiviles = persistenciaEstadosCiviles.contadorVigenciasEstadosCiviles(em, secuenciaEstadosCiviles);
+         log.warn("Secuencia verificarBorradoVigenciasEstadoCiviles  " + secuenciaEstadosCiviles);
+         return persistenciaEstadosCiviles.contadorVigenciasEstadosCiviles(getEm(), secuenciaEstadosCiviles);
       } catch (Exception e) {
          log.error("ERROR AdministrarEstadosCiviles verificarBorradoVigenciasEstadoCiviles ERROR :" + e);
-      } finally {
-         return verificadorVigenciasEstadosCiviles;
+         return null;
       }
    }
 }

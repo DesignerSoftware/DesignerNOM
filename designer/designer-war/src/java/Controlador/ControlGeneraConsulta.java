@@ -60,7 +60,7 @@ public class ControlGeneraConsulta implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -83,8 +83,15 @@ public class ControlGeneraConsulta implements Serializable {
 
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      administrarGeneraConsulta.salir();
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       log.info("ControlGeneraConsulta.inicializarAdministrador");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
@@ -113,12 +120,6 @@ public class ControlGeneraConsulta implements Serializable {
       Exporter exporter = new ExportarPDF();
       exporter.export(context, tablaEx, "consultasRecordatoriosPDF", false, false, "UTF-8", null, null);
       context.responseComplete();
-   }
-
-   @PreDestroy
-   public void salir() {
-      limpiarListasValor();
-      administrarGeneraConsulta.salir();
    }
 
    public String getSecuencia() {

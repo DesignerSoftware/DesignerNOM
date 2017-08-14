@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -23,137 +24,177 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
 
    private static Logger log = Logger.getLogger(AdministrarInforeportes.class);
 
-    @EJB
-    PersistenciaInforeportesInterface persistenciaInforeportes;
-    @EJB
-    PersistenciaModulosInterface persistenciaModulos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaInforeportesInterface persistenciaInforeportes;
+   @EJB
+   PersistenciaModulosInterface persistenciaModulos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public List<Inforeportes> inforeportes() {
-        List<Inforeportes> listaInforeportes;
-        listaInforeportes = persistenciaInforeportes.buscarInforeportes(em);
-        return listaInforeportes;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    public Modulos buscarModuloPorSecuencia(BigInteger secModulo) {
-        Modulos modu;
-        modu = persistenciaModulos.buscarModulosPorSecuencia(em, secModulo);
-        return modu;
-    }
+   public List<Inforeportes> inforeportes() {
+      try {
+         return persistenciaInforeportes.buscarInforeportes(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Modulos> lovmodulos() {
-        List<Modulos> listaModulos;
-        listaModulos = persistenciaModulos.buscarModulos(em);
-        return listaModulos;
-    }
+   public Modulos buscarModuloPorSecuencia(BigInteger secModulo) {
+      try {
+         return persistenciaModulos.buscarModulosPorSecuencia(getEm(), secModulo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void borrarInforeporte(Inforeportes inforeportes) {
-        persistenciaInforeportes.borrar(em, inforeportes);
-    }
+   public List<Modulos> lovmodulos() {
+      try {
+         return persistenciaModulos.buscarModulos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void crearInforeporte(Inforeportes inforeportes) {
-        persistenciaInforeportes.crear(em, inforeportes);
-    }
+   @Override
+   public void borrarInforeporte(Inforeportes inforeportes) {
+      try {
+         persistenciaInforeportes.borrar(getEm(), inforeportes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarInforeporte(List<Inforeportes> listaInforeportesModificar) {
-        for (int i = 0; i < listaInforeportesModificar.size(); i++) {
+   @Override
+   public void crearInforeporte(Inforeportes inforeportes) {
+      try {
+         persistenciaInforeportes.crear(getEm(), inforeportes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarInforeporte(List<Inforeportes> listaInforeportesModificar) {
+      try {
+         for (int i = 0; i < listaInforeportesModificar.size(); i++) {
             log.warn("Modificando...");
             if (listaInforeportesModificar.get(i).getAficion() == null) {
-                listaInforeportesModificar.get(i).setAficion(null);
+               listaInforeportesModificar.get(i).setAficion(null);
             }
             if (listaInforeportesModificar.get(i).getCiudad() == null) {
-                listaInforeportesModificar.get(i).setCiudad(null);
+               listaInforeportesModificar.get(i).setCiudad(null);
             }
             if (listaInforeportesModificar.get(i).getCodigo() == null) {
-                listaInforeportesModificar.get(i).setCodigo(null);
+               listaInforeportesModificar.get(i).setCodigo(null);
             }
             if (listaInforeportesModificar.get(i).getContador() == null) {
-                listaInforeportesModificar.get(i).setContador(null);
+               listaInforeportesModificar.get(i).setContador(null);
             }
             if (listaInforeportesModificar.get(i).getDeporte() == null) {
-                listaInforeportesModificar.get(i).setDeporte(null);
+               listaInforeportesModificar.get(i).setDeporte(null);
             }
             if (listaInforeportesModificar.get(i).getEmdesde() == null) {
-                listaInforeportesModificar.get(i).setEmdesde(null);
+               listaInforeportesModificar.get(i).setEmdesde(null);
             }
             if (listaInforeportesModificar.get(i).getEmhasta() == null) {
-                listaInforeportesModificar.get(i).setEmhasta(null);
+               listaInforeportesModificar.get(i).setEmhasta(null);
             }
             if (listaInforeportesModificar.get(i).getEnviomasivo() == null) {
-                listaInforeportesModificar.get(i).setEnviomasivo(null);
+               listaInforeportesModificar.get(i).setEnviomasivo(null);
             }
             if (listaInforeportesModificar.get(i).getEstado() == null) {
-                listaInforeportesModificar.get(i).setEstado(null);
+               listaInforeportesModificar.get(i).setEstado(null);
             }
             if (listaInforeportesModificar.get(i).getEstadocivil() == null) {
-                listaInforeportesModificar.get(i).setEstadocivil(null);
+               listaInforeportesModificar.get(i).setEstadocivil(null);
             }
             if (listaInforeportesModificar.get(i).getFecdesde() == null) {
-                listaInforeportesModificar.get(i).setFecdesde(null);
+               listaInforeportesModificar.get(i).setFecdesde(null);
             }
             if (listaInforeportesModificar.get(i).getFechasta() == null) {
-                listaInforeportesModificar.get(i).setFechasta(null);
+               listaInforeportesModificar.get(i).setFechasta(null);
             }
             if (listaInforeportesModificar.get(i).getGrupo() == null) {
-                listaInforeportesModificar.get(i).setGrupo(null);
+               listaInforeportesModificar.get(i).setGrupo(null);
             }
             if (listaInforeportesModificar.get(i).getIdioma() == null) {
-                listaInforeportesModificar.get(i).setIdioma(null);
+               listaInforeportesModificar.get(i).setIdioma(null);
             }
             if (listaInforeportesModificar.get(i).getJefedivision() == null) {
-                listaInforeportesModificar.get(i).setJefedivision(null);
+               listaInforeportesModificar.get(i).setJefedivision(null);
             }
             if (listaInforeportesModificar.get(i).getLocalizacion() == null) {
-                listaInforeportesModificar.get(i).setLocalizacion(null);
+               listaInforeportesModificar.get(i).setLocalizacion(null);
             }
             if (listaInforeportesModificar.get(i).getModulo().getSecuencia() == null) {
-                listaInforeportesModificar.get(i).setModulo(null);
+               listaInforeportesModificar.get(i).setModulo(null);
             }
             if (listaInforeportesModificar.get(i).getNombre() == null) {
-                listaInforeportesModificar.get(i).setNombre(null);
+               listaInforeportesModificar.get(i).setNombre(null);
             }
             if (listaInforeportesModificar.get(i).getNombrereporte() == null) {
-                listaInforeportesModificar.get(i).setNombrereporte(null);
+               listaInforeportesModificar.get(i).setNombrereporte(null);
             }
             if (listaInforeportesModificar.get(i).getRodamiento() == null) {
-                listaInforeportesModificar.get(i).setRodamiento(null);
+               listaInforeportesModificar.get(i).setRodamiento(null);
             }
             if (listaInforeportesModificar.get(i).getSolicitud() == null) {
-                listaInforeportesModificar.get(i).setSolicitud(null);
+               listaInforeportesModificar.get(i).setSolicitud(null);
             }
             if (listaInforeportesModificar.get(i).getTercero() == null) {
-                listaInforeportesModificar.get(i).setTercero(null);
+               listaInforeportesModificar.get(i).setTercero(null);
             }
             if (listaInforeportesModificar.get(i).getTipo() == null) {
-                listaInforeportesModificar.get(i).setTipo(null);
+               listaInforeportesModificar.get(i).setTipo(null);
             }
             if (listaInforeportesModificar.get(i).getTipotelefono() == null) {
-                listaInforeportesModificar.get(i).setTipotelefono(null);
+               listaInforeportesModificar.get(i).setTipotelefono(null);
             }
             if (listaInforeportesModificar.get(i).getTipotrabajador() == null) {
-                listaInforeportesModificar.get(i).setTipotrabajador(null);
+               listaInforeportesModificar.get(i).setTipotrabajador(null);
             }
             if (listaInforeportesModificar.get(i).getTrabajador() == null) {
-                listaInforeportesModificar.get(i).setTrabajador(null);
+               listaInforeportesModificar.get(i).setTrabajador(null);
             }
-            persistenciaInforeportes.editar(em, listaInforeportesModificar.get(i));
-        }
-    }
+            persistenciaInforeportes.editar(getEm(), listaInforeportesModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
 }

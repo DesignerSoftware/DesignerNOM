@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -135,8 +136,14 @@ public class ControlFormulaConcepto implements Serializable {
       lovFormulasConceptosOrden = null;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -177,7 +184,7 @@ public class ControlFormulaConcepto implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -233,8 +240,8 @@ public class ControlFormulaConcepto implements Serializable {
             formulaConceptoSeleccionada.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
             formulaConceptoSeleccionada.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
             formulaConceptoSeleccionada.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-            formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-            formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+            formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+            formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
          } else {
             permitirIndex = false;
             contarRegistrosLovConceptos();
@@ -247,8 +254,8 @@ public class ControlFormulaConcepto implements Serializable {
          formulaConceptoSeleccionada.setNombreConcepto(concepto);
          formulaConceptoSeleccionada.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
          formulaConceptoSeleccionada.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-         formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-         formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+         formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+         formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
          for (int i = 0; i < lovConceptos.size(); i++) {
             if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -287,7 +294,7 @@ public class ControlFormulaConcepto implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
          formulaConceptoSeleccionada.setNombreEmpresa(empresa);
          for (int i = 0; i < lovConceptos.size(); i++) {
-            if (lovConceptos.get(i).getEmpresa().getNombre().startsWith(valorConfirmar.toUpperCase())) {
+            if (lovConceptos.get(i).getNombreEmpresa().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -296,8 +303,8 @@ public class ControlFormulaConcepto implements Serializable {
             formulaConceptoSeleccionada.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
             formulaConceptoSeleccionada.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
             formulaConceptoSeleccionada.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-            formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-            formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+            formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+            formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
          } else {
             permitirIndex = false;
             contarRegistrosLovConceptos();
@@ -309,7 +316,7 @@ public class ControlFormulaConcepto implements Serializable {
       if (confirmarCambio.equalsIgnoreCase("NIT")) {
          formulaConceptoSeleccionada.setNitEmpresa(Long.parseLong(nitEmpresa));
          for (int i = 0; i < lovConceptos.size(); i++) {
-            if (lovConceptos.get(i).getEmpresa().getStrNit().startsWith(valorConfirmar.toUpperCase())) {
+            if (("" + lovConceptos.get(i).getNitEmpresa()).startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -318,8 +325,8 @@ public class ControlFormulaConcepto implements Serializable {
             formulaConceptoSeleccionada.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
             formulaConceptoSeleccionada.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
             formulaConceptoSeleccionada.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-            formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-            formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+            formulaConceptoSeleccionada.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+            formulaConceptoSeleccionada.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
          } else {
             permitirIndex = false;
             contarRegistrosLovConceptos();
@@ -405,8 +412,8 @@ public class ControlFormulaConcepto implements Serializable {
                nuevaFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                nuevaFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                nuevaFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresa");
@@ -415,8 +422,8 @@ public class ControlFormulaConcepto implements Serializable {
                duplicarFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                duplicarFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                duplicarFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");
@@ -450,8 +457,8 @@ public class ControlFormulaConcepto implements Serializable {
                nuevaFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                nuevaFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                nuevaFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresa");
@@ -460,8 +467,8 @@ public class ControlFormulaConcepto implements Serializable {
                duplicarFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                duplicarFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                duplicarFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");
@@ -516,7 +523,7 @@ public class ControlFormulaConcepto implements Serializable {
             duplicarFormulaConcepto.setNombreEmpresa(empresa);
          }
          for (int i = 0; i < lovConceptos.size(); i++) {
-            if (lovConceptos.get(i).getEmpresa().getNombre().startsWith(valor.toUpperCase())) {
+            if (lovConceptos.get(i).getNombreEmpresa().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -526,8 +533,8 @@ public class ControlFormulaConcepto implements Serializable {
                nuevaFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                nuevaFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                nuevaFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresa");
@@ -536,8 +543,8 @@ public class ControlFormulaConcepto implements Serializable {
                duplicarFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                duplicarFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                duplicarFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");
@@ -561,7 +568,7 @@ public class ControlFormulaConcepto implements Serializable {
             duplicarFormulaConcepto.setNitEmpresa(Long.parseLong(nitEmpresa));
          }
          for (int i = 0; i < lovConceptos.size(); i++) {
-            if (lovConceptos.get(i).getEmpresa().getStrNit().startsWith(valor.toUpperCase())) {
+            if (("" + lovConceptos.get(i).getNitEmpresa()).startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -571,8 +578,8 @@ public class ControlFormulaConcepto implements Serializable {
                nuevaFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                nuevaFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                nuevaFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               nuevaFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               nuevaFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresa");
@@ -581,8 +588,8 @@ public class ControlFormulaConcepto implements Serializable {
                duplicarFormulaConcepto.setConcepto(lovConceptos.get(indiceUnicoElemento).getSecuencia());
                duplicarFormulaConcepto.setNombreConcepto(lovConceptos.get(indiceUnicoElemento).getDescripcion());
                duplicarFormulaConcepto.setCodigoConcepto(lovConceptos.get(indiceUnicoElemento).getCodigo());
-               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNombre());
-               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getEmpresa().getNit());
+               duplicarFormulaConcepto.setNombreEmpresa(lovConceptos.get(indiceUnicoElemento).getNombreEmpresa());
+               duplicarFormulaConcepto.setNitEmpresa(lovConceptos.get(indiceUnicoElemento).getNitEmpresa());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");
@@ -648,7 +655,7 @@ public class ControlFormulaConcepto implements Serializable {
 
    public void guardadoYSalir() {
       guardadoGeneral();
-      salir();
+      navegar("atras");
    }
 
    //GUARDAR
@@ -1158,8 +1165,8 @@ public class ControlFormulaConcepto implements Serializable {
          formulaConceptoSeleccionada.setConcepto(conceptoLovSeleccionada.getSecuencia());
          formulaConceptoSeleccionada.setNombreConcepto(conceptoLovSeleccionada.getDescripcion());
          formulaConceptoSeleccionada.setCodigoConcepto(conceptoLovSeleccionada.getCodigo());
-         formulaConceptoSeleccionada.setNombreEmpresa(conceptoLovSeleccionada.getEmpresa().getNombre());
-         formulaConceptoSeleccionada.setNitEmpresa(conceptoLovSeleccionada.getEmpresa().getNit());
+         formulaConceptoSeleccionada.setNombreEmpresa(conceptoLovSeleccionada.getNombreEmpresa());
+         formulaConceptoSeleccionada.setNitEmpresa(conceptoLovSeleccionada.getNitEmpresa());
 
          if (!listFormulasConceptosCrear.contains(formulaConceptoSeleccionada)) {
             if (listFormulasConceptosModificar.isEmpty()) {
@@ -1179,8 +1186,8 @@ public class ControlFormulaConcepto implements Serializable {
          nuevaFormulaConcepto.setConcepto(conceptoLovSeleccionada.getSecuencia());
          nuevaFormulaConcepto.setNombreConcepto(conceptoLovSeleccionada.getDescripcion());
          nuevaFormulaConcepto.setCodigoConcepto(conceptoLovSeleccionada.getCodigo());
-         nuevaFormulaConcepto.setNombreEmpresa(conceptoLovSeleccionada.getEmpresa().getNombre());
-         nuevaFormulaConcepto.setNitEmpresa(conceptoLovSeleccionada.getEmpresa().getNit());
+         nuevaFormulaConcepto.setNombreEmpresa(conceptoLovSeleccionada.getNombreEmpresa());
+         nuevaFormulaConcepto.setNitEmpresa(conceptoLovSeleccionada.getNitEmpresa());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigo");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConcepto");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresa");
@@ -1189,8 +1196,8 @@ public class ControlFormulaConcepto implements Serializable {
          duplicarFormulaConcepto.setConcepto(conceptoLovSeleccionada.getSecuencia());
          duplicarFormulaConcepto.setNombreConcepto(conceptoLovSeleccionada.getDescripcion());
          duplicarFormulaConcepto.setCodigoConcepto(conceptoLovSeleccionada.getCodigo());
-         duplicarFormulaConcepto.setNombreEmpresa(conceptoLovSeleccionada.getEmpresa().getNombre());
-         duplicarFormulaConcepto.setNitEmpresa(conceptoLovSeleccionada.getEmpresa().getNit());
+         duplicarFormulaConcepto.setNombreEmpresa(conceptoLovSeleccionada.getNombreEmpresa());
+         duplicarFormulaConcepto.setNitEmpresa(conceptoLovSeleccionada.getNitEmpresa());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigo");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConcepto");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");

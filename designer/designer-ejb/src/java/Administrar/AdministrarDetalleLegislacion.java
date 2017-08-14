@@ -21,6 +21,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,170 +36,188 @@ public class AdministrarDetalleLegislacion implements AdministrarDetalleLegislac
 
    private static Logger log = Logger.getLogger(AdministrarDetalleLegislacion.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaTerceros'.
-     */
-    @EJB
-    PersistenciaTercerosInterface persistenciaTerceros;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaPeriodicidades'.
-     */
-    @EJB
-    PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaConceptos'.
-     */
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaFormulasContratos'.
-     */
-    @EJB
-    PersistenciaFormulasContratosInterface persistenciaFormulasContratos;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaFormulas'.
-     */
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaContratos'.
-     */
-    @EJB
-    PersistenciaContratosInterface persistenciaContratos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaTerceros'.
+    */
+   @EJB
+   PersistenciaTercerosInterface persistenciaTerceros;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaPeriodicidades'.
+    */
+   @EJB
+   PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaConceptos'.
+    */
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaFormulasContratos'.
+    */
+   @EJB
+   PersistenciaFormulasContratosInterface persistenciaFormulasContratos;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaFormulas'.
+    */
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaContratos'.
+    */
+   @EJB
+   PersistenciaContratosInterface persistenciaContratos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<Terceros> consultarLOVTerceros() {
-        try {
-            List<Terceros> lista = persistenciaTerceros.buscarTerceros(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listTerceros Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<Periodicidades> consultarLOVPeriodicidades() {
-        try {
-            List<Periodicidades> lista = persistenciaPeriodicidades.consultarPeriodicidades(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listPeriodicidades Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<Formulas> consultarLOVFormulas() {
-        try {
-            List<Formulas> lista = persistenciaFormulas.buscarFormulas(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listFormulas Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<Formulascontratos> consultarListaFormulasContratosContrato(BigInteger secContrato) {
-        try {
-            List<Formulascontratos> lista = persistenciaFormulasContratos.formulasContratosParaContratoSecuencia(em,secContrato);
-            int tam = lista.size();
-            if (tam >= 1) {
-                for (int i = 0; i < tam; i++) {
-                    String aux = persistenciaConceptos.conceptoParaFormulaContrato(em,lista.get(i).getFormula().getSecuencia(), lista.get(i).getFechafinal());
-                    lista.get(i).setStrConcepto(aux);
-                }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listFormulasContratosParaFormula Admi : " + e.toString());
-            return null;
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void crearFormulasContratos(List<Formulascontratos> listaFormulasContratos) {
-        try {
-            for (int i = 0; i < listaFormulasContratos.size(); i++) {
-                if (listaFormulasContratos.get(i).getTercero().getSecuencia() == null) {
-                    listaFormulasContratos.get(i).setTercero(null);
-                }
-                persistenciaFormulasContratos.crear(em,listaFormulasContratos.get(i));
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<Terceros> consultarLOVTerceros() {
+      try {
+         List<Terceros> lista = persistenciaTerceros.buscarTerceros(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error listTerceros Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Periodicidades> consultarLOVPeriodicidades() {
+      try {
+         List<Periodicidades> lista = persistenciaPeriodicidades.consultarPeriodicidades(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error listPeriodicidades Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Formulas> consultarLOVFormulas() {
+      try {
+         List<Formulas> lista = persistenciaFormulas.buscarFormulas(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error listFormulas Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Formulascontratos> consultarListaFormulasContratosContrato(BigInteger secContrato) {
+      try {
+         List<Formulascontratos> lista = persistenciaFormulasContratos.formulasContratosParaContratoSecuencia(getEm(), secContrato);
+         int tam = lista.size();
+         if (tam >= 1) {
+            for (int i = 0; i < tam; i++) {
+               String aux = persistenciaConceptos.conceptoParaFormulaContrato(getEm(), lista.get(i).getFormula().getSecuencia(), lista.get(i).getFechafinal());
+               lista.get(i).setStrConcepto(aux);
             }
-        } catch (Exception e) {
-            log.warn("Error crearFormulaContrato Admi : " + e.toString());
-        }
-    }
+         }
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error listFormulasContratosParaFormula Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public void borrarFormulasContratos(List<Formulascontratos> listaFormulasContratos) {
-        try {
-            for (int i = 0; i < listaFormulasContratos.size(); i++) {
-                if (listaFormulasContratos.get(i).getTercero().getSecuencia() == null) {
-                    listaFormulasContratos.get(i).setTercero(null);
-                }
-                persistenciaFormulasContratos.borrar(em,listaFormulasContratos.get(i));
+   @Override
+   public void crearFormulasContratos(List<Formulascontratos> listaFormulasContratos) {
+      try {
+         for (int i = 0; i < listaFormulasContratos.size(); i++) {
+            if (listaFormulasContratos.get(i).getTercero().getSecuencia() == null) {
+               listaFormulasContratos.get(i).setTercero(null);
             }
-        } catch (Exception e) {
-            log.warn("Error borrarrFormulaContrato Admi : " + e.toString());
-        }
-    }
+            persistenciaFormulasContratos.crear(getEm(), listaFormulasContratos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearFormulaContrato Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public void modificarFormulasContratos(List<Formulascontratos> listaFormulasContratos) {
-        try {
-            for (int i = 0; i < listaFormulasContratos.size(); i++) {
-                if (listaFormulasContratos.get(i).getTercero().getSecuencia() == null) {
-                    listaFormulasContratos.get(i).setTercero(null);
-                }
-                persistenciaFormulasContratos.editar(em,listaFormulasContratos.get(i));
+   @Override
+   public void borrarFormulasContratos(List<Formulascontratos> listaFormulasContratos) {
+      try {
+         for (int i = 0; i < listaFormulasContratos.size(); i++) {
+            if (listaFormulasContratos.get(i).getTercero().getSecuencia() == null) {
+               listaFormulasContratos.get(i).setTercero(null);
             }
-        } catch (Exception e) {
-            log.warn("Error editarFormulaContrato Admi : " + e.toString());
-        }
-    }
+            persistenciaFormulasContratos.borrar(getEm(), listaFormulasContratos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarrFormulaContrato Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public Contratos consultarContrato(BigInteger secContrato) {
-        try {
-            Contratos act = persistenciaContratos.buscarContratoSecuencia(em,secContrato);
-            return act;
-        } catch (Exception e) {
-            log.warn("Error contratoActual Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void modificarFormulasContratos(List<Formulascontratos> listaFormulasContratos) {
+      try {
+         for (int i = 0; i < listaFormulasContratos.size(); i++) {
+            if (listaFormulasContratos.get(i).getTercero().getSecuencia() == null) {
+               listaFormulasContratos.get(i).setTercero(null);
+            }
+            persistenciaFormulasContratos.editar(getEm(), listaFormulasContratos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarFormulaContrato Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public Contratos consultarContrato(BigInteger secContrato) {
+      try {
+         return persistenciaContratos.buscarContratoSecuencia(getEm(), secContrato);
+      } catch (Exception e) {
+         log.warn("Error contratoActual Admi : " + e.toString());
+         return null;
+      }
+   }
 }

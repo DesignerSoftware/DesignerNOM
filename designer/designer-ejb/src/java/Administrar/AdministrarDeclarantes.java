@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,77 +30,116 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarDeclarantes.class);
 
-    @EJB
-    PersistenciaDeclarantesInterface persistenciaDeclarantes;
-    @EJB
-    PersistenciaRetencionesMinimasInterface persistenciaRetencionesMinimas;
-    @EJB
-    PersistenciaTarifaDeseoInterface persistenciaTarifaDeseo;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaDeclarantesInterface persistenciaDeclarantes;
+   @EJB
+   PersistenciaRetencionesMinimasInterface persistenciaRetencionesMinimas;
+   @EJB
+   PersistenciaTarifaDeseoInterface persistenciaTarifaDeseo;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    List<Declarantes> declarantesLista;
-    List<TarifaDeseo> retencionesLista;
-    List<RetencionesMinimas> retencionesMinimasLista;
-    Declarantes declarantes;
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   List<Declarantes> declarantesLista;
+   List<TarifaDeseo> retencionesLista;
+   List<RetencionesMinimas> retencionesMinimasLista;
+   Declarantes declarantes;
 
-    @Override
-    public List<Declarantes> declarantesPersona(BigInteger secPersona) {
-        try {
-            declarantesLista = persistenciaDeclarantes.buscarDeclarantesPersona(em,secPersona);
-        } catch (Exception e) {
-            log.warn("Error en Administrar Declarantes (declarantesPersona)");
-            declarantesLista = null;
-        }
-        return declarantesLista;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarDeclarantes(List<Declarantes> listaDeclarantesModificados) {
-        for (int i = 0; i < listaDeclarantesModificados.size(); i++) {
+   @Override
+   public List<Declarantes> declarantesPersona(BigInteger secPersona) {
+      try {
+         declarantesLista = persistenciaDeclarantes.buscarDeclarantesPersona(getEm(), secPersona);
+      } catch (Exception e) {
+         log.warn("Error en Administrar Declarantes (declarantesPersona)");
+         declarantesLista = null;
+      }
+      return declarantesLista;
+   }
+
+   @Override
+   public void modificarDeclarantes(List<Declarantes> listaDeclarantesModificados) {
+      try {
+         for (int i = 0; i < listaDeclarantesModificados.size(); i++) {
             if (listaDeclarantesModificados.get(i).getRetenciondeseada() == null) {
-                listaDeclarantesModificados.get(i).setRetenciondeseada(null);
+               listaDeclarantesModificados.get(i).setRetenciondeseada(null);
             }
 
             if (listaDeclarantesModificados.get(i).getRetencionminima().getSecuencia() == null) {
-                listaDeclarantesModificados.get(i).setRetencionminima(null);
+               listaDeclarantesModificados.get(i).setRetencionminima(null);
             }
             log.warn("Modificando...");
 
-            persistenciaDeclarantes.editar(em,listaDeclarantesModificados.get(i));
-        }
-    }
+            persistenciaDeclarantes.editar(getEm(), listaDeclarantesModificados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarDeclarantes(Declarantes declarantes) {
-        persistenciaDeclarantes.borrar(em,declarantes);
-    }
+   @Override
+   public void borrarDeclarantes(Declarantes declarantes) {
+      try {
+         persistenciaDeclarantes.borrar(getEm(), declarantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearDeclarantes(Declarantes declarantes) {
-        persistenciaDeclarantes.crear(em,declarantes);
-    }
+   @Override
+   public void crearDeclarantes(Declarantes declarantes) {
+      try {
+         persistenciaDeclarantes.crear(getEm(), declarantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<TarifaDeseo> retencionesMinimas() {
-        retencionesLista = persistenciaTarifaDeseo.retenciones(em);
-        return retencionesLista;
-    }
+   public List<TarifaDeseo> retencionesMinimas() {
+      try {
+         return persistenciaTarifaDeseo.retenciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<RetencionesMinimas> retencionesMinimasLista() {
-        retencionesMinimasLista = persistenciaRetencionesMinimas.retenciones(em);
-        return retencionesMinimasLista;
-    }
+   public List<RetencionesMinimas> retencionesMinimasLista() {
+      try {
+         return persistenciaRetencionesMinimas.retenciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

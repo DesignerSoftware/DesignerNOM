@@ -82,7 +82,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
 
    @Override
    public List<FormulasNovedades> formulasNovedadesParaFormulaSecuencia(EntityManager em, BigInteger secuencia) {
-      log.error("Persistencia.PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia() secuencia : " + secuencia);
+      log.warn("Persistencia.PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia() secuencia : " + secuencia);
       String st = "";
       if (secuencia == null) {
          st = "SELECT fn FROM FormulasNovedades fn";

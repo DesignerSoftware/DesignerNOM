@@ -113,7 +113,7 @@ public class PersistenciaEvalEvaluadores implements PersistenciaEvalEvaluadoresI
          Query query = em.createNativeQuery(sqql);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("PersistenciaEvalEvaluadores retorno ==" + retorno.intValue());
+         log.warn("PersistenciaEvalEvaluadores retorno ==" + retorno.intValue());
       } catch (Exception e) {
          log.error("ERROR EN PersistenciaEvalEvaluadores verificarBorrado ERROR :" + e);
       } finally {

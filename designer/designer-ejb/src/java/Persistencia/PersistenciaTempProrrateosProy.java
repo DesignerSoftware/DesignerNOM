@@ -184,7 +184,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
                  + " AND ARCHIVO = ?");
          query.setParameter(1, documentoSoporte);
          Date fecha = (Date) query.getSingleResult();
-         log.error("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso1 Consulto fecha: " + fecha);
+         log.warn("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso1 Consulto fecha: " + fecha);
          if (fecha != null) {
             em.clear();
             StoredProcedureQuery queryProcedure = em.createStoredProcedureQuery("TEMPPRORRATEOS_PKG.REVERSAR_PRORRATEOSPROY");
@@ -197,7 +197,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
             queryProcedure.execute();
             queryProcedure.hasMoreResults();
             String strRetorno = (String) queryProcedure.getOutputParameterValue(1);
-            log.error("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso2 Consulto strRetorno: " + strRetorno);
+            log.warn("PersistenciaTempProrrateosProy.reversarTempProrrateosProy() Paso2 Consulto strRetorno: " + strRetorno);
          }
          tx.commit();
          return 1;

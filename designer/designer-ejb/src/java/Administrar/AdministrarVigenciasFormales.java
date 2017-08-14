@@ -25,6 +25,7 @@ import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -32,150 +33,198 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
 
    private static Logger log = Logger.getLogger(AdministrarVigenciasFormales.class);
 
-    @EJB
-    PersistenciaVigenciasFormalesInterface persistenciaVigenciasFormales;
-    @EJB
-    PersistenciaPersonasInterface persistenciaPersonas;
-    @EJB
-    PersistenciaTiposEducacionesInterface persistenciaTiposEducaciones;
-    @EJB
-    PersistenciaProfesionesInterface persistenciaProfesiones;
-    @EJB
-    PersistenciaInstitucionesInterface persistenciaInstituciones;
-    @EJB
-    PersistenciaAdiestramientosFInterface persistenciaAdiestramientosF;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaVigenciasFormalesInterface persistenciaVigenciasFormales;
+   @EJB
+   PersistenciaPersonasInterface persistenciaPersonas;
+   @EJB
+   PersistenciaTiposEducacionesInterface persistenciaTiposEducaciones;
+   @EJB
+   PersistenciaProfesionesInterface persistenciaProfesiones;
+   @EJB
+   PersistenciaInstitucionesInterface persistenciaInstituciones;
+   @EJB
+   PersistenciaAdiestramientosFInterface persistenciaAdiestramientosF;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private VigenciasFormales vF;
-    private EntityManager em;
+   private VigenciasFormales vF;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<VigenciasFormales> vigenciasFormalesPersona(BigInteger secPersona) {
-        try {
-            return persistenciaVigenciasFormales.vigenciasFormalesPersona(em, secPersona);
-        } catch (Exception e) {
-            log.error("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
-            return null;
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public Personas encontrarPersona(BigInteger secPersona) {
-        return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
-    }
+   @Override
+   public List<VigenciasFormales> vigenciasFormalesPersona(BigInteger secPersona) {
+      try {
+         return persistenciaVigenciasFormales.vigenciasFormalesPersona(getEm(), secPersona);
+      } catch (Exception e) {
+         log.error("Error AdministrarVigenciasFormales.vigenciasFormalesPersona " + e);
+         return null;
+      }
+   }
 
-    //Listas de Valores Educacion, Profesion, Instituciones, Adiestramiento
-    @Override
-    public List<TiposEducaciones> lovTiposEducaciones() {
-        return persistenciaTiposEducaciones.tiposEducaciones(em);
-    }
+   @Override
+   public Personas encontrarPersona(BigInteger secPersona) {
+      try {
+         return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Profesiones> lovProfesiones() {
-        return persistenciaProfesiones.profesiones(em);
-    }
+   //Listas de Valores Educacion, Profesion, Instituciones, Adiestramiento
+   @Override
+   public List<TiposEducaciones> lovTiposEducaciones() {
+      try {
+         return persistenciaTiposEducaciones.tiposEducaciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Instituciones> lovInstituciones() {
-        return persistenciaInstituciones.instituciones(em);
-    }
+   @Override
+   public List<Profesiones> lovProfesiones() {
+      try {
+         return persistenciaProfesiones.profesiones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<AdiestramientosF> lovAdiestramientosF() {
-        return persistenciaAdiestramientosF.adiestramientosF(em);
-    }
+   @Override
+   public List<Instituciones> lovInstituciones() {
+      try {
+         return persistenciaInstituciones.instituciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar) {
-        for (int i = 0; i < listaVigenciasFormalesModificar.size(); i++) {
+   @Override
+   public List<AdiestramientosF> lovAdiestramientosF() {
+      try {
+         return persistenciaAdiestramientosF.adiestramientosF(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar) {
+      try {
+         for (int i = 0; i < listaVigenciasFormalesModificar.size(); i++) {
             log.warn("Modificando...");
             if (listaVigenciasFormalesModificar.get(i).getTipoeducacion().getSecuencia() == null) {
-                listaVigenciasFormalesModificar.get(i).setTipoeducacion(null);
+               listaVigenciasFormalesModificar.get(i).setTipoeducacion(null);
             }
             if (listaVigenciasFormalesModificar.get(i).getProfesion().getSecuencia() == null) {
-                listaVigenciasFormalesModificar.get(i).setProfesion(null);
+               listaVigenciasFormalesModificar.get(i).setProfesion(null);
             }
             if (listaVigenciasFormalesModificar.get(i).getInstitucion().getSecuencia() == null) {
-                listaVigenciasFormalesModificar.get(i).setInstitucion(null);
+               listaVigenciasFormalesModificar.get(i).setInstitucion(null);
             }
-//            if (listaVigenciasFormalesModificar.get(i).getAdiestramientof().getSecuencia() == null) {
-//                listaVigenciasFormalesModificar.get(i).setAdiestramientof(null);
-//            }
-            persistenciaVigenciasFormales.editar(em, listaVigenciasFormalesModificar.get(i));
-        }
-    }
+            persistenciaVigenciasFormales.editar(getEm(), listaVigenciasFormalesModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar) {
-        for (int i = 0; i < listaVigenciasFormalesBorrar.size(); i++) {
+   @Override
+   public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar) {
+      try {
+         for (int i = 0; i < listaVigenciasFormalesBorrar.size(); i++) {
             log.warn("Borrando...");
             if (listaVigenciasFormalesBorrar.get(i).getTipoeducacion().getSecuencia() == null) {
-                listaVigenciasFormalesBorrar.get(i).setTipoeducacion(null);
+               listaVigenciasFormalesBorrar.get(i).setTipoeducacion(null);
             }
             if (listaVigenciasFormalesBorrar.get(i).getProfesion().getSecuencia() == null) {
-                listaVigenciasFormalesBorrar.get(i).setProfesion(null);
+               listaVigenciasFormalesBorrar.get(i).setProfesion(null);
             }
             if (listaVigenciasFormalesBorrar.get(i).getInstitucion().getSecuencia() == null) {
-                listaVigenciasFormalesBorrar.get(i).setInstitucion(null);
+               listaVigenciasFormalesBorrar.get(i).setInstitucion(null);
             }
-//            if (listaVigenciasFormalesBorrar.get(i).getAdiestramientof().getSecuencia() == null) {
-//                listaVigenciasFormalesBorrar.get(i).setAdiestramientof(null);
-//            }
-            persistenciaVigenciasFormales.borrar(em, listaVigenciasFormalesBorrar.get(i));
-        }
-    }
+            persistenciaVigenciasFormales.borrar(getEm(), listaVigenciasFormalesBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
-        for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
+   @Override
+   public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
+      try {
+         for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
             log.warn("Creando...");
             if (listaVigenciasFormalesCrear.get(i).getTipoeducacion().getSecuencia() == null) {
-                listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
+               listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
             }
             if (listaVigenciasFormalesCrear.get(i).getProfesion().getSecuencia() == null) {
-                listaVigenciasFormalesCrear.get(i).setProfesion(null);
+               listaVigenciasFormalesCrear.get(i).setProfesion(null);
             }
             if (listaVigenciasFormalesCrear.get(i).getInstitucion().getSecuencia() == null) {
-                listaVigenciasFormalesCrear.get(i).setInstitucion(null);
+               listaVigenciasFormalesCrear.get(i).setInstitucion(null);
             }
             if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getSecuencia() == null) {
-                listaVigenciasFormalesCrear.get(i).setAcargo("N");
-                listaVigenciasFormalesCrear.get(i).setAdiestramientof(null);
+               listaVigenciasFormalesCrear.get(i).setAcargo("N");
+               listaVigenciasFormalesCrear.get(i).setAdiestramientof(null);
             } else {
-                listaVigenciasFormalesCrear.get(i).setAcargo("S");
+               listaVigenciasFormalesCrear.get(i).setAcargo("S");
             }
             if (listaVigenciasFormalesCrear.get(i).getNumerotarjeta() != null) {
-                listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("S");
+               listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("S");
             } else {
-                listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("N");
+               listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("N");
             }
+            persistenciaVigenciasFormales.crear(getEm(), listaVigenciasFormalesCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-            persistenciaVigenciasFormales.crear(em, listaVigenciasFormalesCrear.get(i));
-        }
-    }
-
-    @Override
-    public Empleados empleadoActual(BigInteger secuenciaE) {
-        try {
-            Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
-            return retorno;
-        } catch (Exception e) {
-            log.warn("Error empleadoActual Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public Empleados empleadoActual(BigInteger secuenciaE) {
+      try {
+         return persistenciaEmpleado.buscarEmpleado(getEm(), secuenciaE);
+      } catch (Exception e) {
+         log.warn("Error empleadoActual Admi : " + e.toString());
+         return null;
+      }
+   }
 
 }

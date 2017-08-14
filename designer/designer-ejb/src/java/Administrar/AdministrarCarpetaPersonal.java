@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -275,12 +276,28 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
     */
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+
    @EJB
    PersistenciaSolucionesNodosInterface persistenciaSolucionesNodos;
    @EJB
    PersistenciaVwTiposEmpleadosInterface persistenciaVwTiposEmpleados;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
    private BigDecimal resultadoActivos;
    private final SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
    private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
@@ -290,17 +307,19 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    //--------------------------------------------------------------------------    
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public VWActualesCargos consultarActualCargoEmpleado(BigInteger secuenciaEmpleado) {
       try {
-         VWActualesCargos vwActualesCargos = persistenciaVWActualesCargos.buscarCargoEmpleado(em, secuenciaEmpleado);
-         return vwActualesCargos;
+         return persistenciaVWActualesCargos.buscarCargoEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn("ConsultarCargo.");
-         log.warn("Exception" + e);
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -308,8 +327,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public Date consultarActualesFechas() {
       try {
-         Date actualFechaHasta = persistenciaVWActualesFechas.actualFechaHasta(em);
-         return actualFechaHasta;
+         return persistenciaVWActualesFechas.actualFechaHasta(getEm());
       } catch (Exception e) {
          log.warn("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
          return null;
@@ -319,8 +337,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public String consultarActualARP(BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
       try {
-         String actualARP = persistenciaVigenciasArps.actualARP(em, secEstructura, secCargo, fechaHasta);
-         return actualARP;
+         return persistenciaVigenciasArps.actualARP(getEm(), secEstructura, secCargo, fechaHasta);
       } catch (Exception e) {
          log.warn("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
          return null;
@@ -330,9 +347,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesTiposContratos consultarActualTipoContratoEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesTiposContratos vwActualesTiposContratos = persistenciaActualesTiposContratos.buscarTiposContratosEmpleado(em, secEmpleado);
-         return vwActualesTiposContratos;
+         return persistenciaActualesTiposContratos.buscarTiposContratosEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -340,9 +357,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesNormasEmpleados consultarActualNormaLaboralEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesNormasEmpleados vwActualesNormasEmpleados = persistenciaVWActualesNormasEmpleados.buscarNormaLaboral(em, secEmpleado);
-         return vwActualesNormasEmpleados;
+         return persistenciaVWActualesNormasEmpleados.buscarNormaLaboral(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -350,9 +367,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesAfiliacionesSalud consultarActualAfiliacionSaludEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesAfiliacionesSalud vwActualesAfiliacionesSalud = persistenciaVWActualesAfiliacionesSalud.buscarAfiliacionSalud(em, secEmpleado);
-         return vwActualesAfiliacionesSalud;
+         return persistenciaVWActualesAfiliacionesSalud.buscarAfiliacionSalud(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -360,9 +377,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesAfiliacionesPension consultarActualAfiliacionPensionEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesAfiliacionesPension vwActualesAfiliacionesPension = persistenciaVWActualesAfiliacionesPension.buscarAfiliacionPension(em, secEmpleado);
-         return vwActualesAfiliacionesPension;
+         return persistenciaVWActualesAfiliacionesPension.buscarAfiliacionPension(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -370,9 +387,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesLocalizaciones consultarActualLocalizacionEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesLocalizaciones vwActualesLocalizaciones = persistenciaVWActualesLocalizaciones.buscarLocalizacion(em, secEmpleado);
-         return vwActualesLocalizaciones;
+         return persistenciaVWActualesLocalizaciones.buscarLocalizacion(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -380,9 +397,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesTiposTrabajadores consultarActualTipoTrabajadorEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(em, secEmpleado);
-         return vwActualesTiposTrabajadores;
+         return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -390,9 +407,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesTiposTrabajadores consultarActualTipoTrabajadorCodEmpleado(BigInteger codEmpleado) {
       try {
-         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl(em, codEmpleado);
-         log.warn("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() vwActualesTiposTrabajadores : " + vwActualesTiposTrabajadores);
-         return vwActualesTiposTrabajadores;
+         return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl(getEm(), codEmpleado);
       } catch (Exception e) {
          log.warn("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() ERROR: " + e);
          return null;
@@ -402,9 +417,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesContratos consultarActualContratoEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesContratos vwActualesContratos = persistenciaVWActualesContratos.buscarContrato(em, secEmpleado);
-         return vwActualesContratos;
+         return persistenciaVWActualesContratos.buscarContrato(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -412,9 +427,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesJornadas consultarActualJornadaEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesJornadas vwActualesJornadas = persistenciaVWActualesJornadas.buscarJornada(em, secEmpleado);
-         return vwActualesJornadas;
+         return persistenciaVWActualesJornadas.buscarJornada(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -423,15 +438,16 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public BigDecimal consultarActualSueldoEmpleado(BigInteger secEmpleado) {
       BigDecimal valor = null;
       try {
-         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(em, secEmpleado);
+         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(getEm(), secEmpleado);
          String tipo = vwActualesTiposTrabajadores.getTipoTrabajador().getTipo();
 
          if (tipo.equalsIgnoreCase("ACTIVO")) {
-            valor = persistenciaVWActualesSueldos.buscarSueldoActivo(em, secEmpleado);
+            valor = persistenciaVWActualesSueldos.buscarSueldoActivo(getEm(), secEmpleado);
          } else if (tipo.equalsIgnoreCase("PENSIONADO")) {
-            valor = persistenciaVWActualesPensiones.buscarSueldoPensionado(em, secEmpleado);
+            valor = persistenciaVWActualesPensiones.buscarSueldoPensionado(getEm(), secEmpleado);
          }
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          valor = null;
       }
       return valor;
@@ -440,9 +456,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesReformasLaborales consultarActualReformaLaboralEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesReformasLaborales vwActualesReformasLaborales = persistenciaVWActualesReformasLaborales.buscarReformaLaboral(em, secEmpleado);
-         return vwActualesReformasLaborales;
+         return persistenciaVWActualesReformasLaborales.buscarReformaLaboral(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -450,9 +466,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesUbicaciones consultarActualUbicacionEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesUbicaciones vWActualesUbicaciones = persistenciaVWActualesUbicaciones.buscarUbicacion(em, secEmpleado);
-         return vWActualesUbicaciones;
+         return persistenciaVWActualesUbicaciones.buscarUbicacion(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -460,9 +476,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesFormasPagos consultarActualFormaPagoEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesFormasPagos vwActualesFormasPagos = persistenciaVWActualesFormasPagos.buscarFormaPago(em, secEmpleado);
-         return vwActualesFormasPagos;
+         return persistenciaVWActualesFormasPagos.buscarFormaPago(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -470,9 +486,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesVigenciasViajeros consultarActualTipoViajeroEmpleado(BigInteger secEmpleado) {
       try {
-         VWActualesVigenciasViajeros vwActualesVigenciasViajeros = persistenciaVWActualesVigenciasViajeros.buscarTipoViajero(em, secEmpleado);
-         return vwActualesVigenciasViajeros;
+         return persistenciaVWActualesVigenciasViajeros.buscarTipoViajero(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -480,9 +496,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public String consultarActualEstadoVacaciones(BigInteger secEmpleado) {
       try {
-         String estadoVacaciones = persistenciaNovedadesSistema.buscarEstadoVacaciones(em, secEmpleado);
-         return estadoVacaciones;
+         return persistenciaNovedadesSistema.buscarEstadoVacaciones(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -490,9 +506,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public BigDecimal consultarActualMVR(BigInteger secEmpleado) {
       try {
-         BigDecimal actualMVR = PersistenciaVWActualesMvrs.buscarActualMVR(em, secEmpleado);
-         return actualMVR;
+         return PersistenciaVWActualesMvrs.buscarActualMVR(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -502,14 +518,14 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          String ibcEmpleado;
          if (RETENCIONYSEGSOCXPERSONA == null || RETENCIONYSEGSOCXPERSONA.equals("N")) {
-            VWActualesIBCS actualIbc = persistenciaVWActualesIBCS.buscarIbcEmpleado(em, secEmpleado);
+            VWActualesIBCS actualIbc = persistenciaVWActualesIBCS.buscarIbcEmpleado(getEm(), secEmpleado);
             if (actualIbc != null) {
                ibcEmpleado = formato.format(actualIbc.getFechaFinal()) + "  " + nf.format(actualIbc.getValor());
             } else {
                return null;
             }
          } else {
-            IbcsPersona actualIbc = persistenciaIbcsPersona.buscarIbcPersona(em, secEmpleado);
+            IbcsPersona actualIbc = persistenciaIbcsPersona.buscarIbcPersona(getEm(), secEmpleado);
             if (actualIbc != null) {
                ibcEmpleado = formato.format(actualIbc.getFechafinal()) + "  " + nf.format(actualIbc.getValor());
             } else {
@@ -518,6 +534,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          }
          return ibcEmpleado;
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -526,7 +543,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public String consultarActualSet(BigInteger secEmpleado) {
       try {
          String actualSetEmpleado;
-         VWActualesSets actualSet = persistenciaVWActualesSets.buscarSetEmpleado(em, secEmpleado);
+         VWActualesSets actualSet = persistenciaVWActualesSets.buscarSetEmpleado(getEm(), secEmpleado);
          if (actualSet != null) {
             actualSetEmpleado = actualSet.getPorcentaje().toString() + "%   " + nf.format(actualSet.getPromedio());
          } else {
@@ -534,6 +551,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          }
          return actualSetEmpleado;
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -542,7 +560,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public String consultarActualComprobante(BigInteger secEmpleado) {
       try {
          String actualComprobante;
-         CortesProcesos corteProceso = persistenciaCortesProcesos.buscarComprobante(em, secEmpleado);
+         CortesProcesos corteProceso = persistenciaCortesProcesos.buscarComprobante(getEm(), secEmpleado);
          if (corteProceso != null && corteProceso.getComprobante() != null) {
             actualComprobante = nf.format(corteProceso.getComprobante().getValor()) + " - " + formato.format(corteProceso.getCorte());
          } else {
@@ -550,6 +568,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          }
          return actualComprobante;
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -557,9 +576,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public List<VwTiposEmpleados> consultarEmpleadosTipoTrabajador(String tipo) {
       try {
-         List<VwTiposEmpleados> tipoEmpleadoLista = persistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo(em, tipo);
-         return tipoEmpleadoLista;
+         return persistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo(getEm(), tipo);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -567,9 +586,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public VWActualesTiposTrabajadores consultarEmpleadosTipoTrabajadorPosicion(String tipo, int posicion) {
       try {
-         VWActualesTiposTrabajadores tipoEmpleado = persistenciaVWActualesTiposTrabajadores.filtrarTipoTrabajadorPosicion(em, tipo, posicion);
-         return tipoEmpleado;
+         return persistenciaVWActualesTiposTrabajadores.filtrarTipoTrabajadorPosicion(getEm(), tipo, posicion);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -577,10 +596,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public int obtenerTotalRegistrosTipoTrabajador(String tipo) {
       try {
-         int totalRegistros = persistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador(em, tipo);
-         log.warn(this.getClass().getName() + " obtenerTotalRegistrosTipoTrabajador() totalRegistros: " + totalRegistros);
-         return totalRegistros;
+         return persistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador(getEm(), tipo);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }
@@ -588,10 +606,10 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public DetallesEmpresas consultarDetalleEmpresaUsuario() {
       try {
-         Short codigoEmpresa = persistenciaEmpresas.codigoEmpresa(em);
-         DetallesEmpresas detallesEmpresas = persistenciaDetallesEmpresas.buscarDetalleEmpresa(em, codigoEmpresa);
-         return detallesEmpresas;
+         Short codigoEmpresa = persistenciaEmpresas.codigoEmpresa(getEm());
+         return persistenciaDetallesEmpresas.buscarDetalleEmpresa(getEm(), codigoEmpresa);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -599,14 +617,12 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public Empresas obtenerEmpresa(BigInteger secEmpresa) {
       log.warn(this.getClass().getName() + ".obtenerEmpresa()");
-      Empresas empresa = null;
       try {
-         empresa = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
-         return empresa;
+         return persistenciaEmpresas.buscarEmpresasSecuencia(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn(this.getClass().getName() + " Error en obtenerEmpresa.");
          e.printStackTrace();
-         return empresa;
+         return null;
       }
    }
 
@@ -614,8 +630,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public List<Empresas> consultarEmpresas() {
       List<Empresas> listaEmpresas = new ArrayList<Empresas>();
       try {
-         listaEmpresas = persistenciaEmpresas.buscarEmpresas(em);
-         return listaEmpresas;
+         return persistenciaEmpresas.buscarEmpresas(getEm());
       } catch (Exception e) {
          log.warn(this.getClass().getName() + " Error en consultarEmpresas");
          e.printStackTrace();
@@ -626,9 +641,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public Usuarios consultarUsuario(String alias) {
       try {
-         Usuarios usuarios = persistenciaUsuarios.buscarUsuario(em, alias);
-         return usuarios;
+         return persistenciaUsuarios.buscarUsuario(getEm(), alias);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -636,9 +651,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public ParametrosEstructuras consultarParametrosUsuario() {
       try {
-         ParametrosEstructuras parametrosEstructuras = persistenciaParametrosEstructuras.buscarParametro(em, consultarAliasActualUsuario());
-         return parametrosEstructuras;
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), consultarAliasActualUsuario());
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -646,9 +661,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public List<VigenciasCargos> consultarVigenciasCargosEmpleado(BigInteger secEmpleado) {
       try {
-         List<VigenciasCargos> vigenciasCargos = persistenciaVigenciasCargos.buscarVigenciasCargosEmpleado(em, secEmpleado);
-         return vigenciasCargos;
+         return persistenciaVigenciasCargos.buscarVigenciasCargosEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -656,9 +671,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public List<VwTiposEmpleados> consultarRapidaEmpleados() {
       try {
-         List<VwTiposEmpleados> busquedaRapidaEmpleado = persistenciaVwTiposEmpleados.buscarTiposEmpleados(em);
-         return busquedaRapidaEmpleado;
+         return persistenciaVwTiposEmpleados.buscarTiposEmpleados(getEm());
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -666,9 +681,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public Personas consultarFotoPersona(BigInteger identificacion) {
       try {
-         Personas persona = persistenciaPersonas.buscarFotoPersona(em, identificacion);
-         return persona;
+         return persistenciaPersonas.buscarFotoPersona(getEm(), identificacion);
       } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -676,20 +691,19 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    @Override
    public void actualizarFotoPersona(BigInteger identificacion) {
       try {
-         persistenciaPersonas.actualizarFotoPersona(em, identificacion);
+         persistenciaPersonas.actualizarFotoPersona(getEm(), identificacion);
       } catch (Exception e) {
-         log.warn("No se puede actalizar el estado de la Foto.");
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public Empleados consultarEmpleado(BigInteger secuencia) {
       try {
-         Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
-         return empleado;
+         return persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
       } catch (Exception e) {
-         Empleados empleado = null;
-         return empleado;
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
       }
    }
 
@@ -697,7 +711,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    public void editarVigenciasCargos(List<VigenciasCargos> vigenciasCargos) {
       try {
          for (int i = 0; i < vigenciasCargos.size(); i++) {
-            persistenciaVigenciasCargos.editar(em, vigenciasCargos.get(i));
+            persistenciaVigenciasCargos.editar(getEm(), vigenciasCargos.get(i));
          }
       } catch (Exception e) {
          log.warn("Excepcion Administrar - No Se Guardo Nada ¬¬");
@@ -706,29 +720,52 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
 
    @Override
    public String consultarAliasActualUsuario() {
-      return persistenciaActualUsuario.actualAliasBD(em);
+      try {
+         return persistenciaActualUsuario.actualAliasBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void borrarLiquidacionAutomatico() {
-      persistenciaCandados.borrarLiquidacionAutomatico(em);
+      try {
+         persistenciaCandados.borrarLiquidacionAutomatico(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarLiquidacionNoAutomatico() {
-      persistenciaCandados.borrarLiquidacionNoAutomatico(em);
+      try {
+         persistenciaCandados.borrarLiquidacionNoAutomatico(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    //METODOS QUE TENGAN QUE VER CON EL BOTON DE LAS FOTOS DE NOMINA F
    @Override
    public BigDecimal borrarActivo(BigInteger secuencia) {
-      resultadoActivos = persistenciaSolucionesNodos.activos(em, secuencia);
-      return resultadoActivos;
+      try {
+         resultadoActivos = persistenciaSolucionesNodos.activos(getEm(), secuencia);
+         return resultadoActivos;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public boolean borrarEmpleadoActivo(BigInteger secuenciaEmpleado, BigInteger secuenciaPersona) {
-      return persistenciaEmpleado.eliminarEmpleadoNominaF(em, secuenciaEmpleado, secuenciaPersona);
+      try {
+         return persistenciaEmpleado.eliminarEmpleadoNominaF(getEm(), secuenciaEmpleado, secuenciaPersona);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
 }

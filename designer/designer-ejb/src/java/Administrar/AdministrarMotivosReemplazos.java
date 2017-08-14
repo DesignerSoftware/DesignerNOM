@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -20,60 +21,103 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
 
    private static Logger log = Logger.getLogger(AdministrarMotivosReemplazos.class);
 
-    @EJB
-    PersistenciaMotivosReemplazosInterface persistenciaMotivosReemplazos;
+   @EJB
+   PersistenciaMotivosReemplazosInterface persistenciaMotivosReemplazos;
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<MotivosReemplazos> MotivosReemplazos() {
-        List<MotivosReemplazos> listaMotivosReemplazos;
-        listaMotivosReemplazos = persistenciaMotivosReemplazos.motivosReemplazos(em);
-        return listaMotivosReemplazos;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<MotivosReemplazos> lovTiposReemplazos() {
-        return persistenciaMotivosReemplazos.motivosReemplazos(em);
-    }
+   @Override
+   public List<MotivosReemplazos> MotivosReemplazos() {
+      try {
+         return persistenciaMotivosReemplazos.motivosReemplazos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public void modificarMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
-        for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
+   @Override
+   public List<MotivosReemplazos> lovTiposReemplazos() {
+      try {
+         return persistenciaMotivosReemplazos.motivosReemplazos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public void modificarMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
+      try {
+         for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaMotivosReemplazos.editar(em, listaMotivosReemplazos.get(i));
-        }
-    }
+            persistenciaMotivosReemplazos.editar(getEm(), listaMotivosReemplazos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
-        for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
+   public void borrarMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
+      try {
+         for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaMotivosReemplazos.borrar(em, listaMotivosReemplazos.get(i));
-        }
-    }
+            persistenciaMotivosReemplazos.borrar(getEm(), listaMotivosReemplazos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
-        for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
+   public void crearMotivosReemplazos(List<MotivosReemplazos> listaMotivosReemplazos) {
+      try {
+         for (int i = 0; i < listaMotivosReemplazos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaMotivosReemplazos.crear(em, listaMotivosReemplazos.get(i));
-        }
-    }
+            persistenciaMotivosReemplazos.crear(getEm(), listaMotivosReemplazos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public BigInteger contarEncargaturasMotivoReemplazo(BigInteger secMotivoReemplazo) {
-        BigInteger encargaturasMotivoReemplazo = persistenciaMotivosReemplazos.contarEncargaturasMotivoReemplazo(em, secMotivoReemplazo);
-        return encargaturasMotivoReemplazo;
-    }
+   public BigInteger contarEncargaturasMotivoReemplazo(BigInteger secMotivoReemplazo) {
+      try {
+         return persistenciaMotivosReemplazos.contarEncargaturasMotivoReemplazo(getEm(), secMotivoReemplazo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

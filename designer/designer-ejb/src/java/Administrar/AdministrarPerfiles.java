@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,143 +30,214 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarPerfiles.class);
 
-    @EJB
-    PersistenciaPerfilesInterface persistenciaPerfiles;
-    @EJB
-    PersistenciaPermisosPantallasInterface persistenciaPermisosPantallas;
-    @EJB
-    PersistenciaPermisosObjetosDBInterface persistenciaPermisosDB;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaPerfilesInterface persistenciaPerfiles;
+   @EJB
+   PersistenciaPermisosPantallasInterface persistenciaPermisosPantallas;
+   @EJB
+   PersistenciaPermisosObjetosDBInterface persistenciaPermisosDB;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarPerfiles(List<Perfiles> listaPerfiles) {
-        for (int i = 0; i < listaPerfiles.size(); i++) {
-            persistenciaPerfiles.editar(em, listaPerfiles.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarPerfiles(List<Perfiles> listaPerfiles) {
-        for (int i = 0; i < listaPerfiles.size(); i++) {
-            persistenciaPerfiles.borrar(em, listaPerfiles.get(i));
-        }
-    }
+   @Override
+   public void modificarPerfiles(List<Perfiles> listaPerfiles) {
+      try {
+         for (int i = 0; i < listaPerfiles.size(); i++) {
+            persistenciaPerfiles.editar(getEm(), listaPerfiles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearPerfiles(List<Perfiles> listaPerfiles) {
-        for (int i = 0; i < listaPerfiles.size(); i++) {
-            persistenciaPerfiles.crear(em, listaPerfiles.get(i));
-        }
-    }
+   @Override
+   public void borrarPerfiles(List<Perfiles> listaPerfiles) {
+      try {
+         for (int i = 0; i < listaPerfiles.size(); i++) {
+            persistenciaPerfiles.borrar(getEm(), listaPerfiles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Perfiles> consultarPerfiles() {
-        List<Perfiles> listaPerfiles = persistenciaPerfiles.consultarPerfilesAdmon(em);
-        return listaPerfiles;
-    }
+   @Override
+   public void crearPerfiles(List<Perfiles> listaPerfiles) {
+      try {
+         for (int i = 0; i < listaPerfiles.size(); i++) {
+            persistenciaPerfiles.crear(getEm(), listaPerfiles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<PermisosPantallas> consultarPermisosPantallas(BigInteger secPerfil) {
-        List<PermisosPantallas> lista = persistenciaPermisosPantallas.consultarPermisosPorPerfil(em, secPerfil);
-        return lista;
-    }
+   @Override
+   public List<Perfiles> consultarPerfiles() {
+      try {
+         return persistenciaPerfiles.consultarPerfilesAdmon(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void crearPermisoPantalla(List<PermisosPantallas> permisop) {
-        for (int i = 0; i < permisop.size(); i++) {
-            persistenciaPermisosPantallas.crear(em, permisop.get(i));
-        }
-    }
+   @Override
+   public List<PermisosPantallas> consultarPermisosPantallas(BigInteger secPerfil) {
+      try {
+         return persistenciaPermisosPantallas.consultarPermisosPorPerfil(getEm(), secPerfil);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void editarPermisoPantalla(List<PermisosPantallas> permisop) {
-        for (int i = 0; i < permisop.size(); i++) {
-            persistenciaPermisosPantallas.editar(em, permisop.get(i));
-        }
-    }
+   @Override
+   public void crearPermisoPantalla(List<PermisosPantallas> permisop) {
+      try {
+         for (int i = 0; i < permisop.size(); i++) {
+            persistenciaPermisosPantallas.crear(getEm(), permisop.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarPermisoPantalla(List<PermisosPantallas> permisop) {
-        for (int i = 0; i < permisop.size(); i++) {
-            persistenciaPermisosPantallas.borrar(em, permisop.get(i));
-        }
-    }
+   @Override
+   public void editarPermisoPantalla(List<PermisosPantallas> permisop) {
+      try {
+         for (int i = 0; i < permisop.size(); i++) {
+            persistenciaPermisosPantallas.editar(getEm(), permisop.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<PermisosObjetosDB> consultarPermisosObjetos(BigInteger secPerfil) {
-        List<PermisosObjetosDB> lista = persistenciaPermisosDB.consultarPermisosPorPerfil(em, secPerfil);
-        return lista;
-    }
+   @Override
+   public void borrarPermisoPantalla(List<PermisosPantallas> permisop) {
+      try {
+         for (int i = 0; i < permisop.size(); i++) {
+            persistenciaPermisosPantallas.borrar(getEm(), permisop.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearPermisoObjeto(List<PermisosObjetosDB> permisosOb) {
-        for (int i = 0; i < permisosOb.size(); i++) {
-            persistenciaPermisosDB.crear(em, permisosOb.get(i));
-        }
-    }
+   @Override
+   public List<PermisosObjetosDB> consultarPermisosObjetos(BigInteger secPerfil) {
+      try {
+         return persistenciaPermisosDB.consultarPermisosPorPerfil(getEm(), secPerfil);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void editarPermisoObjeto(List<PermisosObjetosDB> permisosOb) {
-        for (int i = 0; i < permisosOb.size(); i++) {
-            persistenciaPermisosDB.editar(em, permisosOb.get(i));
-        }
-    }
+   @Override
+   public void crearPermisoObjeto(List<PermisosObjetosDB> permisosOb) {
+      try {
+         for (int i = 0; i < permisosOb.size(); i++) {
+            persistenciaPermisosDB.crear(getEm(), permisosOb.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarPermisoObjeto(List<PermisosObjetosDB> permisosOb) {
-        for (int i = 0; i < permisosOb.size(); i++) {
-            persistenciaPermisosDB.borrar(em, permisosOb.get(i));
-        }
-    }
+   @Override
+   public void editarPermisoObjeto(List<PermisosObjetosDB> permisosOb) {
+      try {
+         for (int i = 0; i < permisosOb.size(); i++) {
+            persistenciaPermisosDB.editar(getEm(), permisosOb.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void ejcutarPKGRecrearPerfil(String descripcion, String pwd) {
-        try {
-            persistenciaPerfiles.ejecutarPKGRecrearPerfil(em, descripcion, pwd);
-        } catch (Exception e) {
-            log.warn("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
-        }
-    }
+   @Override
+   public void borrarPermisoObjeto(List<PermisosObjetosDB> permisosOb) {
+      try {
+         for (int i = 0; i < permisosOb.size(); i++) {
+            persistenciaPermisosDB.borrar(getEm(), permisosOb.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void ejcutarPKGEliminarPerfil(String descripcion) {
-        try {
-            persistenciaPerfiles.ejecutarPKGEliminarPerfil(em, descripcion);
-        } catch (Exception e) {
-            log.warn("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
-        }
-    }
+   @Override
+   public void ejcutarPKGRecrearPerfil(String descripcion, String pwd) {
+      try {
+         persistenciaPerfiles.ejecutarPKGRecrearPerfil(getEm(), descripcion, pwd);
+      } catch (Exception e) {
+         log.warn("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
+      }
+   }
 
-    @Override
-    public Perfiles consultarPerfilUsuario() {
-        Perfiles perfil = persistenciaPerfiles.consultarPerfilPorUsuario(em);
-        return perfil;
-    }
+   @Override
+   public void ejcutarPKGEliminarPerfil(String descripcion) {
+      try {
+         persistenciaPerfiles.ejecutarPKGEliminarPerfil(getEm(), descripcion);
+      } catch (Exception e) {
+         log.warn("Error ejcutarPKGUbicarnuevointercon_total admi: " + e.getMessage());
+      }
+   }
 
-    @Override
-    public void clonarPantallas(String nomPerfil) {
-        try {
-            persistenciaPerfiles.clonarPantallas(em, nomPerfil);
-        } catch (Exception e) {
-            log.warn("Error en administrar.clonarPantallas() : " + e.getMessage());
-        }
-    }
+   @Override
+   public Perfiles consultarPerfilUsuario() {
+      try {
+         return persistenciaPerfiles.consultarPerfilPorUsuario(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void clonarPermisosObjetos(String nomPerfil) {
-        try {
-            persistenciaPerfiles.clonarPermisosObjetos(em, nomPerfil);
-        } catch (Exception e) {
-            log.warn("Error en administrar.clonarPermisosObjetos() : " + e.getMessage());
-        }
-    }
+   @Override
+   public void clonarPantallas(String nomPerfil) {
+      try {
+         persistenciaPerfiles.clonarPantallas(getEm(), nomPerfil);
+      } catch (Exception e) {
+         log.warn("Error en administrar.clonarPantallas() : " + e.getMessage());
+      }
+   }
+
+   @Override
+   public void clonarPermisosObjetos(String nomPerfil) {
+      try {
+         persistenciaPerfiles.clonarPermisosObjetos(getEm(), nomPerfil);
+      } catch (Exception e) {
+         log.warn("Error en administrar.clonarPermisosObjetos() : " + e.getMessage());
+      }
+   }
 
 }

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,41 +36,75 @@ public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInter
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<TiposFunciones> buscarTiposFunciones(BigInteger secuenciaOperando) {
-      List<TiposFunciones> listaTiposFunciones;
-      listaTiposFunciones = persistenciaTiposFunciones.tiposFunciones(em, secuenciaOperando);
-      return listaTiposFunciones;
+      try {
+         return persistenciaTiposFunciones.tiposFunciones(getEm(), secuenciaOperando);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void borrarTiposFunciones(TiposFunciones tiposFunciones) {
-      persistenciaTiposFunciones.borrar(em, tiposFunciones);
+      try {
+         persistenciaTiposFunciones.borrar(getEm(), tiposFunciones);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearTiposFunciones(TiposFunciones tiposFunciones) {
-      persistenciaTiposFunciones.crear(em, tiposFunciones);
+      try {
+         persistenciaTiposFunciones.crear(getEm(), tiposFunciones);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarTiposFunciones(List<TiposFunciones> listaTiposFuncionesModificar) {
-      for (int i = 0; i < listaTiposFuncionesModificar.size(); i++) {
-         log.warn("Modificando...");
-         if (listaTiposFuncionesModificar.get(i).getFechafinal() == null) {
-            listaTiposFuncionesModificar.get(i).setFechafinal(null);
+      try {
+         for (int i = 0; i < listaTiposFuncionesModificar.size(); i++) {
+            log.warn("Modificando...");
+            if (listaTiposFuncionesModificar.get(i).getFechafinal() == null) {
+               listaTiposFuncionesModificar.get(i).setFechafinal(null);
+            }
+            if (listaTiposFuncionesModificar.get(i).getNombreobjeto() == null) {
+               listaTiposFuncionesModificar.get(i).setNombreobjeto(null);
+            }
+            persistenciaTiposFunciones.editar(getEm(), listaTiposFuncionesModificar.get(i));
          }
-         if (listaTiposFuncionesModificar.get(i).getNombreobjeto() == null) {
-            listaTiposFuncionesModificar.get(i).setNombreobjeto(null);
-         }
-         persistenciaTiposFunciones.editar(em, listaTiposFuncionesModificar.get(i));
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

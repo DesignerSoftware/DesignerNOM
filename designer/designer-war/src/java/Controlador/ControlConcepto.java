@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -138,8 +139,6 @@ public class ControlConcepto implements Serializable {
       guardado = true;
       //Crear VC
       nuevoConcepto = new Conceptos();
-      nuevoConcepto.setUnidad(new Unidades());
-      nuevoConcepto.setTercero(new Terceros());
       nuevoConcepto.setConjunto(Short.parseShort("45"));
       duplicarConcepto = new Conceptos();
       //CLON
@@ -176,8 +175,14 @@ public class ControlConcepto implements Serializable {
       lovUnidades = null;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -254,7 +259,7 @@ public class ControlConcepto implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -321,21 +326,21 @@ public class ControlConcepto implements Serializable {
    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
       if (Campo.equals("CODIGOUNIDAD")) {
          if (tipoNuevo == 1) {
-            codigoUnidad = nuevoConcepto.getUnidad().getCodigo();
+            codigoUnidad = nuevoConcepto.getCodigoUnidad();
          } else if (tipoNuevo == 2) {
-            codigoUnidad = duplicarConcepto.getUnidad().getCodigo();
+            codigoUnidad = duplicarConcepto.getCodigoUnidad();
          }
       } else if (Campo.equals("NOMBREUNIDAD")) {
          if (tipoNuevo == 1) {
-            nombreUnidad = nuevoConcepto.getUnidad().getNombre();
+            nombreUnidad = nuevoConcepto.getNombreUnidad();
          } else if (tipoNuevo == 2) {
-            nombreUnidad = duplicarConcepto.getUnidad().getNombre();
+            nombreUnidad = duplicarConcepto.getNombreUnidad();
          }
       } else if (Campo.equals("TERCERO")) {
          if (tipoNuevo == 1) {
-            tercero = nuevoConcepto.getTercero().getNombre();
+            tercero = nuevoConcepto.getNombreTercero();
          } else if (tipoNuevo == 2) {
-            tercero = duplicarConcepto.getTercero().getNombre();
+            tercero = duplicarConcepto.getNombreTercero();
          }
       }
    }
@@ -346,9 +351,9 @@ public class ControlConcepto implements Serializable {
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("CODIGOUNIDAD")) {
          if (tipoNuevo == 1) {
-            nuevoConcepto.getUnidad().setCodigo(codigoUnidad);
+            nuevoConcepto.setCodigoUnidad(codigoUnidad);
          } else if (tipoNuevo == 2) {
-            duplicarConcepto.getUnidad().setCodigo(codigoUnidad);
+            duplicarConcepto.setCodigoUnidad(codigoUnidad);
          }
          for (int i = 0; i < lovUnidades.size(); i++) {
             if (lovUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
@@ -358,11 +363,15 @@ public class ControlConcepto implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento));
+               nuevoConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento).getSecuencia());
+               nuevoConcepto.setNombreUnidad(lovUnidades.get(indiceUnicoElemento).getNombre());
+               nuevoConcepto.setCodigoUnidad(lovUnidades.get(indiceUnicoElemento).getCodigo());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigoUnidad");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreUnidad");
             } else if (tipoNuevo == 2) {
-               duplicarConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento));
+               duplicarConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento).getSecuencia());
+               duplicarConcepto.setNombreUnidad(lovUnidades.get(indiceUnicoElemento).getNombre());
+               duplicarConcepto.setCodigoUnidad(lovUnidades.get(indiceUnicoElemento).getCodigo());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoUnidad");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreUnidad");
             }
@@ -382,9 +391,9 @@ public class ControlConcepto implements Serializable {
          }
       } else if (confirmarCambio.equalsIgnoreCase("NOMBREUNIDAD")) {
          if (tipoNuevo == 1) {
-            nuevoConcepto.getUnidad().setNombre(nombreUnidad);
+            nuevoConcepto.setNombreUnidad(nombreUnidad);
          } else if (tipoNuevo == 2) {
-            duplicarConcepto.getUnidad().setNombre(nombreUnidad);
+            duplicarConcepto.setNombreUnidad(nombreUnidad);
          }
          for (int i = 0; i < lovUnidades.size(); i++) {
             if (lovUnidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -394,11 +403,15 @@ public class ControlConcepto implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento));
+               nuevoConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento).getSecuencia());
+               nuevoConcepto.setNombreUnidad(lovUnidades.get(indiceUnicoElemento).getNombre());
+               nuevoConcepto.setCodigoUnidad(lovUnidades.get(indiceUnicoElemento).getCodigo());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigoUnidad");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreUnidad");
             } else if (tipoNuevo == 2) {
-               duplicarConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento));
+               duplicarConcepto.setUnidad(lovUnidades.get(indiceUnicoElemento).getSecuencia());
+               duplicarConcepto.setNombreUnidad(lovUnidades.get(indiceUnicoElemento).getNombre());
+               duplicarConcepto.setCodigoUnidad(lovUnidades.get(indiceUnicoElemento).getCodigo());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoUnidad");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreUnidad");
             }
@@ -419,9 +432,9 @@ public class ControlConcepto implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("TERCERO")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevoConcepto.getTercero().setNombre(tercero);
+               nuevoConcepto.setNombreTercero(tercero);
             } else if (tipoNuevo == 2) {
-               duplicarConcepto.getTercero().setNombre(tercero);
+               duplicarConcepto.setNombreTercero(tercero);
             }
             for (int i = 0; i < lovTerceros.size(); i++) {
                if (lovTerceros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -431,14 +444,14 @@ public class ControlConcepto implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevoConcepto.setTercero(lovTerceros.get(indiceUnicoElemento));
+                  nuevoConcepto.setTercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
+                  nuevoConcepto.setNombreTercero(lovTerceros.get(indiceUnicoElemento).getNombre());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTercero");
                } else if (tipoNuevo == 2) {
-                  duplicarConcepto.setTercero(lovTerceros.get(indiceUnicoElemento));
+                  duplicarConcepto.setTercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
+                  duplicarConcepto.setNombreTercero(lovTerceros.get(indiceUnicoElemento).getNombre());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTercero");
                }
-               lovTerceros.clear();
-               getLovTerceros();
             } else {
                RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
                RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
@@ -451,12 +464,10 @@ public class ControlConcepto implements Serializable {
             }
          }
       } else {
-         lovTerceros.clear();
-         getLovTerceros();
          if (tipoNuevo == 1) {
-            nuevoConcepto.setTercero(new Terceros());
+            nuevoConcepto.setTercero(null);
          } else if (tipoNuevo == 2) {
-            duplicarConcepto.setTercero(new Terceros());
+            duplicarConcepto.setTercero(null);
          }
          if (tipoNuevo == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTercero");
@@ -669,7 +680,7 @@ public class ControlConcepto implements Serializable {
             coincidencias++;
 
          } else if (columCambio.equalsIgnoreCase("UNIDADESCODIGO")) {
-            conseptoS.getUnidad().setCodigo(codigoUnidad);
+            conseptoS.setCodigoUnidad(codigoUnidad);
             for (int i = 0; i < lovUnidades.size(); i++) {
                if (lovUnidades.get(i).getCodigo().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -677,7 +688,9 @@ public class ControlConcepto implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               conseptoS.setUnidad(lovUnidades.get(indiceUnicoElemento));
+               conseptoS.setUnidad(lovUnidades.get(indiceUnicoElemento).getSecuencia());
+               conseptoS.setCodigoUnidad(lovUnidades.get(indiceUnicoElemento).getCodigo());
+               conseptoS.setNombreUnidad(lovUnidades.get(indiceUnicoElemento).getNombre());
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("formularioDialogos:unidadesDialogo");
@@ -685,7 +698,7 @@ public class ControlConcepto implements Serializable {
             }
 
          } else if (columCambio.equalsIgnoreCase("UNIDADESNOMBRE")) {
-            conseptoS.getUnidad().setNombre(nombreUnidad);
+            conseptoS.setNombreUnidad(nombreUnidad);
             for (int i = 0; i < lovUnidades.size(); i++) {
                if (lovUnidades.get(i).getNombre().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -693,7 +706,9 @@ public class ControlConcepto implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               conseptoS.setUnidad(lovUnidades.get(indiceUnicoElemento));
+               conseptoS.setUnidad(lovUnidades.get(indiceUnicoElemento).getSecuencia());
+               conseptoS.setCodigoUnidad(lovUnidades.get(indiceUnicoElemento).getCodigo());
+               conseptoS.setNombreUnidad(lovUnidades.get(indiceUnicoElemento).getNombre());
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("formularioDialogos:unidadesDialogo");
@@ -702,7 +717,7 @@ public class ControlConcepto implements Serializable {
 
          } else if (columCambio.equalsIgnoreCase("TERCERO")) {
             if (!valor.isEmpty()) {
-               conseptoS.getTercero().setNombre(tercero);
+               conseptoS.setNombreTercero(tercero);
                for (int i = 0; i < lovTerceros.size(); i++) {
                   if (lovTerceros.get(i).getNombre().startsWith(valor.toUpperCase())) {
                      indiceUnicoElemento = i;
@@ -710,14 +725,15 @@ public class ControlConcepto implements Serializable {
                   }
                }
                if (coincidencias == 1) {
-                  conseptoS.setTercero(lovTerceros.get(indiceUnicoElemento));
+                  conseptoS.setTercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
+                  conseptoS.setNombreTercero(lovTerceros.get(indiceUnicoElemento).getNombre());
                } else {
                   permitirIndex = false;
                   RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
                   RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
                }
             } else {
-               conseptoS.setTercero(new Terceros());
+               conseptoS.setTercero(null);
                coincidencias = 1;
             }
          }
@@ -756,9 +772,9 @@ public class ControlConcepto implements Serializable {
          conceptoSeleccionado = conceptoS;
          cualCelda = celda;
          if (tipoLista == 0) {
-            codigoUnidad = conceptoSeleccionado.getUnidad().getCodigo();
-            nombreUnidad = conceptoSeleccionado.getUnidad().getNombre();
-            tercero = conceptoSeleccionado.getTercero().getNombre();
+            codigoUnidad = conceptoSeleccionado.getCodigoUnidad();
+            nombreUnidad = conceptoSeleccionado.getNombreUnidad();
+            tercero = conceptoSeleccionado.getNombreTercero();
             deshabilitarBotonLov();
             activoDetalle = false;
             //unaVez = false;
@@ -807,7 +823,9 @@ public class ControlConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
 //            habilitarBotonLov();
-         conceptoSeleccionado.setUnidad(unidadSeleccionada);
+         conceptoSeleccionado.setUnidad(unidadSeleccionada.getSecuencia());
+         conceptoSeleccionado.setCodigoUnidad(unidadSeleccionada.getCodigo());
+         conceptoSeleccionado.setNombreUnidad(unidadSeleccionada.getNombre());
          if (!listaConceptosEmpresaCrear.contains(conceptoSeleccionado)) {
             if (listaConceptosEmpresaModificar.isEmpty()) {
                listaConceptosEmpresaModificar.add(conceptoSeleccionado);
@@ -824,12 +842,16 @@ public class ControlConcepto implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosConceptos");
       } else if (tipoActualizacion == 1) {
 //            habilitarBotonLov();
-         nuevoConcepto.setUnidad(unidadSeleccionada);
+         nuevoConcepto.setUnidad(unidadSeleccionada.getSecuencia());
+         nuevoConcepto.setNombreUnidad(unidadSeleccionada.getNombre());
+         nuevoConcepto.setCodigoUnidad(unidadSeleccionada.getCodigo());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigoUnidad");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreUnidad");
       } else if (tipoActualizacion == 2) {
 //            habilitarBotonLov();
-         duplicarConcepto.setUnidad(unidadSeleccionada);
+         duplicarConcepto.setUnidad(unidadSeleccionada.getSecuencia());
+         duplicarConcepto.setNombreUnidad(unidadSeleccionada.getNombre());
+         duplicarConcepto.setCodigoUnidad(unidadSeleccionada.getCodigo());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoUnidad");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreUnidad");
       }
@@ -872,7 +894,8 @@ public class ControlConcepto implements Serializable {
    public void actualizarTercero() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         conceptoSeleccionado.setTercero(terceroSeleccionado);
+         conceptoSeleccionado.setTercero(terceroSeleccionado.getSecuencia());
+         conceptoSeleccionado.setNombreTercero(terceroSeleccionado.getNombre());
          if (!listaConceptosEmpresaCrear.contains(conceptoSeleccionado)) {
             if (listaConceptosEmpresaModificar.isEmpty()) {
                listaConceptosEmpresaModificar.add(conceptoSeleccionado);
@@ -888,10 +911,12 @@ public class ControlConcepto implements Serializable {
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("form:datosConceptos");
       } else if (tipoActualizacion == 1) {
-         nuevoConcepto.setTercero(terceroSeleccionado);
+         nuevoConcepto.setTercero(terceroSeleccionado.getSecuencia());
+         nuevoConcepto.setNombreTercero(terceroSeleccionado.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTercero");
       } else if (tipoActualizacion == 2) {
-         duplicarConcepto.setTercero(terceroSeleccionado);
+         duplicarConcepto.setTercero(terceroSeleccionado.getSecuencia());
+         duplicarConcepto.setNombreTercero(terceroSeleccionado.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTercero");
       }
       filtradoTerceros = null;
@@ -1108,7 +1133,7 @@ public class ControlConcepto implements Serializable {
    }
 
    public void cancelarSalir() {
-      refrescar();
+//      refrescar();
       navegar("atras");
    }
 
@@ -1248,8 +1273,6 @@ public class ControlConcepto implements Serializable {
    }
 
    public void agregarNuevoConcepto() {
-
-      RequestContext context = RequestContext.getCurrentInstance();
       int pasa = 0;
       mensajeValidacion = "";
       if (nuevoConcepto.getCodigo() == null) {
@@ -1264,7 +1287,7 @@ public class ControlConcepto implements Serializable {
          mensajeValidacion = mensajeValidacion + " *Naturaleza\n";
          pasa++;
       }
-      if (nuevoConcepto.getUnidad().getSecuencia() == null) {
+      if (nuevoConcepto.getUnidad() == null) {
          mensajeValidacion = mensajeValidacion + " *Unidad\n";
          pasa++;
       }
@@ -1299,10 +1322,9 @@ public class ControlConcepto implements Serializable {
                paraNuevoConcepto++;
                nuevoConceptoSecuencia = BigInteger.valueOf(paraNuevoConcepto);
                nuevoConcepto.setSecuencia(nuevoConceptoSecuencia);
-               nuevoConcepto.setEmpresa(empresaActual);
-               if (nuevoConcepto.getTercero().getSecuencia() == null) {
-                  nuevoConcepto.setTercero(null);
-               }
+               nuevoConcepto.setEmpresa(empresaActual.getSecuencia());
+               nuevoConcepto.setNombreEmpresa(empresaActual.getNombre());
+               nuevoConcepto.setNitEmpresa(empresaActual.getNit());
 
                if (nuevoConcepto.getNaturalezaConcepto().equals("NETO")) {
                   nuevoConcepto.setNaturaleza("N");
@@ -1338,8 +1360,8 @@ public class ControlConcepto implements Serializable {
                listaConceptosEmpresa.add(nuevoConcepto);
                contarRegistros();
                nuevoConcepto = new Conceptos();
-               nuevoConcepto.setUnidad(new Unidades());
-               nuevoConcepto.setTercero(new Terceros());
+               nuevoConcepto.setUnidad(null);
+               nuevoConcepto.setTercero(null);
                nuevoConcepto.setConjunto(Short.parseShort("45"));
 
                if (guardado) {
@@ -1371,8 +1393,8 @@ public class ControlConcepto implements Serializable {
 
    public void limpiarNuevoConcepto() {
       nuevoConcepto = new Conceptos();
-      nuevoConcepto.setUnidad(new Unidades());
-      nuevoConcepto.setTercero(new Terceros());
+      nuevoConcepto.setUnidad(null);
+      nuevoConcepto.setTercero(null);
       activoDetalle = true;
 //        RequestContext.getCurrentInstance().update("form:DETALLES");
    }
@@ -1417,7 +1439,7 @@ public class ControlConcepto implements Serializable {
          mensajeValidacion = mensajeValidacion + " *Descripción\n";
          pasa++;
       }
-      if (duplicarConcepto.getUnidad().getSecuencia() == null) {
+      if (duplicarConcepto.getUnidad() == null) {
          mensajeValidacion = mensajeValidacion + " *Unidad\n";
          pasa++;
       }
@@ -1501,7 +1523,6 @@ public class ControlConcepto implements Serializable {
    }
 
    public void salir() {
-      refrescar();
       navegar("atras");
    }
 
@@ -1523,8 +1544,8 @@ public class ControlConcepto implements Serializable {
       tipoLista = 0;
       guardado = true;
       nuevoConcepto = new Conceptos();
-      nuevoConcepto.setUnidad(new Unidades());
-      nuevoConcepto.setTercero(new Terceros());
+      nuevoConcepto.setUnidad(null);
+      nuevoConcepto.setTercero(null);
       nuevoConcepto.setConjunto(Short.parseShort("45"));
       duplicarConcepto = new Conceptos();
       conceptoClon = new Conceptos();
@@ -1546,9 +1567,16 @@ public class ControlConcepto implements Serializable {
       if (verMostrarTodos) {
          mostrarTodosConceptos();
       }
-      listaConceptosEmpresa.clear();
-      for (int i = 0; i < lovConceptosEmpresa.size(); i++) {
-         listaConceptosEmpresa.add(lovConceptosEmpresa.get(i));
+      if (listaConceptosEmpresa != null) {
+         listaConceptosEmpresa.clear();
+         if (lovConceptosEmpresa == null) {
+            lovConceptosEmpresa = administrarConceptos.consultarConceptosEmpresa(empresaActual.getSecuencia());
+         }
+         if (lovConceptosEmpresa != null) {
+            for (int i = 0; i < lovConceptosEmpresa.size(); i++) {
+               listaConceptosEmpresa.add(lovConceptosEmpresa.get(i));
+            }
+         }
       }
       contarRegistros();
       deshabilitarBotonLov();
@@ -1776,7 +1804,8 @@ public class ControlConcepto implements Serializable {
    public List<Conceptos> getListaConceptosEmpresa() {
 
       if (listaConceptosEmpresa == null) {
-         if (!estadoConceptoEmpresa.equals("TODOS")) {//Si la consulta no es para todos los conceptos (activos o inactivos))
+         //Si la consulta no es para todos los conceptos (activos o inactivos))
+         if (!estadoConceptoEmpresa.equals("TODOS")) {
             listaConceptosEmpresa = administrarConceptos.consultarConceptosEmpresaActivos_Inactivos(empresaActual.getSecuencia(), estadoConceptoEmpresa);
             //LLenamos la lista de valores para todos los conceptos de la empresa solo una vez
             if (lovConceptosEmpresa == null) {

@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -248,8 +249,14 @@ public class ControlParametroAutoliq implements Serializable {
         lovTiposTrabajadores = null;
     }
 
+    @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
     @PostConstruct
     public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -307,15 +314,15 @@ public class ControlParametroAutoliq implements Serializable {
         if (pag.equals("atras")) {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
-            controlListaNavegacion.quitarPagina(pagActual);
+            controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
         } else {
             controlListaNavegacion.guardarNavegacion(pagActual, pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
             //mapParaEnviar.put("paginaAnterior", pagActual);
             //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //         if (pag.equals("rastrotabla")) {
+            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
             //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
             //      } else if (pag.equals("rastrotablaH")) {
             //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -327,7 +334,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void modificarParametroAutoliq(ParametrosAutoliq parametro) {
-        RequestContext context = RequestContext.getCurrentInstance();
         parametroTablaSeleccionado = parametro;
         if (tipoLista == 0) {
             if (!listParametrosAutoliqCrear.contains(parametroTablaSeleccionado)) {
@@ -372,7 +378,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void modificarAporteEntidad(AportesEntidades aporte) {
-        RequestContext context = RequestContext.getCurrentInstance();
         if (tipoListaAporte == 0) {
             if (listAportesEntidadesModificar.isEmpty()) {
                 listAportesEntidadesModificar.add(aporteTablaSeleccionado);
@@ -403,7 +408,6 @@ public class ControlParametroAutoliq implements Serializable {
         parametroTablaSeleccionado = parametro;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("TIPOTRABAJADOR")) {
             if (!valorConfirmar.isEmpty()) {
                 if (tipoLista == 0) {

@@ -409,11 +409,11 @@
                         <h:outputText value="#{cr.tiporedondeo.descripcion}"/>
                      </p:column>
 
-                     <p:column filterBy="#{cr.concepto.empresa.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains">
+                     <p:column filterBy="#{cr.concepto.nombreEmpresa}" filterStyle="width: 85% !important;" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresaCR']}"/>
                         </f:facet>
-                        <h:outputText value="#{cr.concepto.empresa.nombre}"/>
+                        <h:outputText value="#{cr.concepto.nombreEmpresa}"/>
                      </p:column>
 
                   </p:dataTable>

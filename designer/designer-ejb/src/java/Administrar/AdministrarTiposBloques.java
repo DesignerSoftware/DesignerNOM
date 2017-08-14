@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -35,38 +36,67 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<TiposBloques> buscarTiposBloques(BigInteger secuenciaOperando) {
-      List<TiposBloques> listaTiposBloques = persistenciaTiposBloques.tiposBloques(em, secuenciaOperando);
-//      if (listaTiposBloques != null) {
-//         if (!listaTiposBloques.isEmpty()) {
-//            log.warn("AdministrarTiposBloques.buscarTiposBloques() pos(0) : " + listaTiposBloques.get(0).getBloqueplsql());
-//         }
-//      }
-      return listaTiposBloques;
+      try {
+         return persistenciaTiposBloques.tiposBloques(getEm(), secuenciaOperando);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void borrarTiposBloques(TiposBloques tiposConstantes) {
-      persistenciaTiposBloques.borrar(em, tiposConstantes);
+      try {
+         persistenciaTiposBloques.borrar(getEm(), tiposConstantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearTiposBloques(TiposBloques tiposConstantes) {
-      persistenciaTiposBloques.crear(em, tiposConstantes);
+      try {
+         persistenciaTiposBloques.crear(getEm(), tiposConstantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarTiposBloques(TiposBloques tiposConstantes) {
-      persistenciaTiposBloques.editar(em, tiposConstantes);
-
+      try {
+         persistenciaTiposBloques.editar(getEm(), tiposConstantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
 }

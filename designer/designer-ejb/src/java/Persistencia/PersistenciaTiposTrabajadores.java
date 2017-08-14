@@ -211,7 +211,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          query.execute();
          query.hasMoreResults();
          String strRetorno = (String) query.getOutputParameterValue(1);
-         log.error("PersistenciaTiposTrabajadores.clonarTipoT() strRetorno : " + strRetorno);
+         log.warn("PersistenciaTiposTrabajadores.clonarTipoT() strRetorno : " + strRetorno);
          tx.commit();
          return strRetorno;
       } catch (Exception e) {
@@ -238,7 +238,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, secuencia);
          BigDecimal r = (BigDecimal) query.getSingleResult();
-         log.error("Resultado : " + r);
+         log.warn("Resultado : " + r);
          if (r.intValue() > 0) {
             return true;
          } else {

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,70 +26,107 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
 
    private static Logger log = Logger.getLogger(AdministrarTiposFamiliares.class);
 
-    @EJB
-    PersistenciaTiposFamiliaresInterface persistenciaTiposFamiliares;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private TiposFamiliares tiposFamiliaresSeleccionada;
-    private TiposFamiliares tiposFamiliares;
-    private List<TiposFamiliares> listTiposFamiliares;
-    private EntityManager em;
+   @EJB
+   PersistenciaTiposFamiliaresInterface persistenciaTiposFamiliares;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
-        for (int i = 0; i < listTiposFamiliares.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
+      try {
+         for (int i = 0; i < listTiposFamiliares.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposFamiliares.editar(em, listTiposFamiliares.get(i));
-        }
-    }
+            persistenciaTiposFamiliares.editar(getEm(), listTiposFamiliares.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
    @Override
-    public void borrarTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
-        for (int i = 0; i < listTiposFamiliares.size(); i++) {
+   public void borrarTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
+      try {
+         for (int i = 0; i < listTiposFamiliares.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposFamiliares.borrar(em, listTiposFamiliares.get(i));
-        }
-    }
+            persistenciaTiposFamiliares.borrar(getEm(), listTiposFamiliares.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
    @Override
-    public void crearTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
-        for (int i = 0; i < listTiposFamiliares.size(); i++) {
+   public void crearTiposFamiliares(List<TiposFamiliares> listTiposFamiliares) {
+      try {
+         for (int i = 0; i < listTiposFamiliares.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposFamiliares.crear(em, listTiposFamiliares.get(i));
-        }
-    }
+            persistenciaTiposFamiliares.crear(getEm(), listTiposFamiliares.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposFamiliares> consultarTiposFamiliares() {
-        listTiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em);
-        return listTiposFamiliares;
-    }
    @Override
-    public TiposFamiliares consultarTipoExamen(BigInteger secTipoEmpresa) {
-        tiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em, secTipoEmpresa);
-        return tiposFamiliares;
-    }
-   @Override
-    public BigInteger contarHvReferenciasTipoFamiliar(BigInteger secuenciaTiposFamiliares) {
-        BigInteger verificadorHvReferencias = null;
+   public List<TiposFamiliares> consultarTiposFamiliares() {
+      try {
+         return persistenciaTiposFamiliares.buscarTiposFamiliares(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaTiposFamiliares);
-            verificadorHvReferencias = persistenciaTiposFamiliares.contadorHvReferencias(em, secuenciaTiposFamiliares);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposFamiliares verificarBorradoElementos ERROR :" + e);
-        } finally {
-            return verificadorHvReferencias;
-        }
-    }
+   @Override
+   public TiposFamiliares consultarTipoExamen(BigInteger secTipoEmpresa) {
+      try {
+         return persistenciaTiposFamiliares.buscarTiposFamiliares(getEm(), secTipoEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarHvReferenciasTipoFamiliar(BigInteger secuenciaTiposFamiliares) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaTiposFamiliares);
+         return persistenciaTiposFamiliares.contadorHvReferencias(getEm(), secuenciaTiposFamiliares);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposFamiliares verificarBorradoElementos ERROR :" + e);
+         return null;
+      }
+   }
 
 }

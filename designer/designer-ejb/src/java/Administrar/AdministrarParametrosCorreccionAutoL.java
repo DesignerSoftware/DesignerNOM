@@ -33,6 +33,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -44,348 +45,355 @@ public class AdministrarParametrosCorreccionAutoL implements AdministrarParametr
 
    private static Logger log = Logger.getLogger(AdministrarParametrosCorreccionAutoL.class);
 
-    @EJB
-    PersistenciaTiposTrabajadoresInterface persistenciaTiposTrabajadores;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaTercerosInterface persistenciaTerceros;
-    @EJB
-    PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    @EJB
-    PersistenciaAportesCorreccionesInterface persistenciaAportesCorrecciones;
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    @EJB
-    PersistenciaParametrosCorreccionAutoLInterface persistenciaParametrosCorreccionAuto;
-    @EJB
-    PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
-    @EJB
-    PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
+   @EJB
+   PersistenciaTiposTrabajadoresInterface persistenciaTiposTrabajadores;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaTercerosInterface persistenciaTerceros;
+   @EJB
+   PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   @EJB
+   PersistenciaAportesCorreccionesInterface persistenciaAportesCorrecciones;
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   @EJB
+   PersistenciaParametrosCorreccionAutoLInterface persistenciaParametrosCorreccionAuto;
+   @EJB
+   PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
+   @EJB
+   PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<ParametrosCorreccionesAutoL> consultarParametrosCorreccionesAutoliq() {
-        try {
-            List<ParametrosCorreccionesAutoL> lista = persistenciaParametrosCorreccionAuto.consultarParametrosCorreccionesAutoL(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error consultarParametrosAutoliq Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearParametrosCorreccionAutoliq(List<ParametrosCorreccionesAutoL> listaPCA) {
-        try {
-            for (int i = 0; i < listaPCA.size(); i++) {
-                if (listaPCA.get(i).getTipotrabajador().getSecuencia() == null) {
-                    listaPCA.get(i).setTipotrabajador(null);
-                }
-                if (listaPCA.get(i).getEmpresa().getSecuencia() == null) {
-                    listaPCA.get(i).setEmpresa(null);
-                }
-                persistenciaParametrosCorreccionAuto.crearCorreccion(em, listaPCA.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("Error crearParametrosCorreccionAutoliq Admi : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void editarParametrosCorreccionAutoliq(List<ParametrosCorreccionesAutoL> listaPCA) {
-        try {
-            for (int i = 0; i < listaPCA.size(); i++) {
-                if (listaPCA.get(i).getTipotrabajador().getSecuencia() == null) {
-                    listaPCA.get(i).setTipotrabajador(null);
-                }
-                if (listaPCA.get(i).getEmpresa().getSecuencia() == null) {
-                    listaPCA.get(i).setEmpresa(null);
-                }
-                persistenciaParametrosCorreccionAuto.editarCorreccion(em, listaPCA.get(i));
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<ParametrosCorreccionesAutoL> consultarParametrosCorreccionesAutoliq() {
+      try {
+         List<ParametrosCorreccionesAutoL> lista = persistenciaParametrosCorreccionAuto.consultarParametrosCorreccionesAutoL(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error consultarParametrosAutoliq Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public void crearParametrosCorreccionAutoliq(List<ParametrosCorreccionesAutoL> listaPCA) {
+      try {
+         for (int i = 0; i < listaPCA.size(); i++) {
+            if (listaPCA.get(i).getTipotrabajador().getSecuencia() == null) {
+               listaPCA.get(i).setTipotrabajador(null);
             }
-        } catch (Exception e) {
-            log.warn("Error editarParametrosCorreccionAutoliq Admi : " + e.toString());
-        }
-    }
-
-    @Override
-    public void borrarParametrosCorreccionAutoliq(List<ParametrosCorreccionesAutoL> listaPCA) {
-        try {
-            for (int i = 0; i < listaPCA.size(); i++) {
-                if (listaPCA.get(i).getTipotrabajador().getSecuencia() == null) {
-                    listaPCA.get(i).setTipotrabajador(null);
-                }
-                if (listaPCA.get(i).getEmpresa().getSecuencia() == null) {
-                    listaPCA.get(i).setEmpresa(null);
-                }
-                persistenciaParametrosCorreccionAuto.borrarCorreccion(em, listaPCA.get(i));
+            if (listaPCA.get(i).getEmpresa().getSecuencia() == null) {
+               listaPCA.get(i).setEmpresa(null);
             }
-        } catch (Exception e) {
-            log.warn("Error borrarParametrosCorreccionAutoliq Admi : " + e.toString());
-        }
-    }
+            persistenciaParametrosCorreccionAuto.crearCorreccion(getEm(), listaPCA.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearParametrosCorreccionAutoliq Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public void crearAportesCorrecciones(List<AportesCorrecciones> listaAC) {
-        try {
-            for (int i = 0; i < listaAC.size(); i++) {
-
-                if (listaAC.get(i).getTipoentidad().getSecuencia() == null) {
-                    listaAC.get(i).setTipoentidad(new TiposEntidades());
-                } else if (listaAC.get(i).getEmpleado().getSecuencia() == null) {
-                    listaAC.get(i).setEmpleado(null);
-                }
-                
-                 if (listaAC.get(i).getTerceroRegistro() != null) {
-                    if (listaAC.get(i).getTerceroRegistro().getSecuencia() == null) {
-                        listaAC.get(i).setTercero(null);
-                    } else {
-                        listaAC.get(i).setTercero(listaAC.get(i).getTerceroRegistro().getSecuencia());
-
-                    }
-                }
-                persistenciaAportesCorrecciones.crear(em, listaAC.get(i));
+   @Override
+   public void editarParametrosCorreccionAutoliq(List<ParametrosCorreccionesAutoL> listaPCA) {
+      try {
+         for (int i = 0; i < listaPCA.size(); i++) {
+            if (listaPCA.get(i).getTipotrabajador().getSecuencia() == null) {
+               listaPCA.get(i).setTipotrabajador(null);
             }
-        } catch (Exception e) {
-            log.warn("Error crearAportesCorrecciones Admi : " + e.toString());
-        }
-    }
-
-    @Override
-    public void editarAportesCorrecciones(List<AportesCorrecciones> listAC) {
-        try {
-            for (int i = 0; i < listAC.size(); i++) {
-
-                if (listAC.get(i).getTipoentidad().getSecuencia() == null) {
-                    listAC.get(i).setTipoentidad(new TiposEntidades());
-                } else if (listAC.get(i).getEmpleado().getSecuencia() == null) {
-                    listAC.get(i).setEmpleado(null);
-                }else if (listAC.get(i).getTerceroRegistro().getSecuencia() == null) {
-                    listAC.get(i).setTercero(null);
-                } else if (listAC.get(i).getTerceroRegistro().getSecuencia() != null) {
-                    listAC.get(i).setTercero(listAC.get(i).getTerceroRegistro().getSecuencia());
-                }
-                persistenciaAportesCorrecciones.editar(em, listAC.get(i));
+            if (listaPCA.get(i).getEmpresa().getSecuencia() == null) {
+               listaPCA.get(i).setEmpresa(null);
             }
-        } catch (Exception e) {
-            log.warn("Error editarAportesCorrecciones Admi : " + e.toString());
-        }
-    }
+            persistenciaParametrosCorreccionAuto.editarCorreccion(getEm(), listaPCA.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarParametrosCorreccionAutoliq Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public void borrarAportesCorrecciones(List<AportesCorrecciones> listAC) {
-        try {
-            for (int i = 0; i < listAC.size(); i++) {
-
-                if (listAC.get(i).getTipoentidad().getSecuencia() == null) {
-                    listAC.get(i).setTipoentidad(new TiposEntidades());
-                } else if (listAC.get(i).getEmpleado().getSecuencia() == null) {
-                    listAC.get(i).setEmpleado(null);
-                }else if (listAC.get(i).getTerceroRegistro().getSecuencia() == null) {
-                    listAC.get(i).setTercero(null);
-                } else if (listAC.get(i).getTerceroRegistro().getSecuencia() != null) {
-                    listAC.get(i).setTercero(listAC.get(i).getTerceroRegistro().getSecuencia());
-                }
-                persistenciaAportesCorrecciones.borrar(em, listAC.get(i));
+   @Override
+   public void borrarParametrosCorreccionAutoliq(List<ParametrosCorreccionesAutoL> listaPCA) {
+      try {
+         for (int i = 0; i < listaPCA.size(); i++) {
+            if (listaPCA.get(i).getTipotrabajador().getSecuencia() == null) {
+               listaPCA.get(i).setTipotrabajador(null);
             }
-        } catch (Exception e) {
-            log.warn("Error editarAportesCorrecciones Admi : " + e.toString());
-        }
-    }
-
-    @Override
-    public List<AportesCorrecciones> consultarAportesCorrecciones() {
-        try {
-            List<AportesCorrecciones> lista = persistenciaAportesCorrecciones.consultarAportesEntidades(em);
-             if (lista != null) {
-                for (int i = 0; i < lista.size(); i++) {
-                    if (lista.get(i).getTercero() != null) {
-                        Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(em, lista.get(i).getTercero());
-                        if (tercero != null) {
-                            lista.get(i).setTerceroRegistro(tercero);
-                        } else {
-                            lista.get(i).setTerceroRegistro(new Terceros());
-                        }
-                    } else {
-                        lista.get(i).setTerceroRegistro(new Terceros());
-                    }
-                }
+            if (listaPCA.get(i).getEmpresa().getSecuencia() == null) {
+               listaPCA.get(i).setEmpresa(null);
             }
-            
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error consultarAportesCorrecciones Admi : " + e.toString());
-            return null;
-        }
-    }
+            persistenciaParametrosCorreccionAuto.borrarCorreccion(getEm(), listaPCA.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarParametrosCorreccionAutoliq Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<AportesCorrecciones> consultarLovAportesCorrecciones() {
-        try {
-            List<AportesCorrecciones> lista = persistenciaAportesCorrecciones.consultarAportesEntidades(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error consultarAportesCorrecciones Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void crearAportesCorrecciones(List<AportesCorrecciones> listaAC) {
+      try {
+         for (int i = 0; i < listaAC.size(); i++) {
 
-    @Override
-    public List<TiposTrabajadores> lovTiposTrabajadores() {
-        try {
-            List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovTiposTrabajadores Admi : " + e.toString());
-            return null;
-        }
-    }
+            if (listaAC.get(i).getTipoentidad().getSecuencia() == null) {
+               listaAC.get(i).setTipoentidad(new TiposEntidades());
+            } else if (listaAC.get(i).getEmpleado().getSecuencia() == null) {
+               listaAC.get(i).setEmpleado(null);
+            }
 
-    @Override
-    public List<Empleados> lovEmpleados() {
-        try {
-            List<Empleados> lista = persistenciaEmpleados.consultarEmpleadosParametroAutoliq(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovEmpleados Admi : " + e.toString());
-            return null;
-        }
-    }
+            if (listaAC.get(i).getTerceroRegistro() != null) {
+               if (listaAC.get(i).getTerceroRegistro().getSecuencia() == null) {
+                  listaAC.get(i).setTercero(null);
+               } else {
+                  listaAC.get(i).setTercero(listaAC.get(i).getTerceroRegistro().getSecuencia());
 
-    @Override
-    public List<TiposEntidades> lovTiposEntidades() {
-        try {
-            List<TiposEntidades> lista = persistenciaTiposEntidades.buscarTiposEntidadesParametroAutoliq(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovTiposEntidades Admi : " + e.toString());
-            return null;
-        }
-    }
+               }
+            }
+            persistenciaAportesCorrecciones.crear(getEm(), listaAC.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearAportesCorrecciones Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<Terceros> lovTerceros() {
-        try {
-            List<Terceros> lista = persistenciaTerceros.buscarTercerosParametrosAutoliq(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovTerceros Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void editarAportesCorrecciones(List<AportesCorrecciones> listAC) {
+      try {
+         for (int i = 0; i < listAC.size(); i++) {
 
-    @Override
-    public List<Empresas> lovEmpresas() {
-        try {
-            List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error lovEmpresas Admi : " + e.toString());
-            return null;
-        }
-    }
+            if (listAC.get(i).getTipoentidad().getSecuencia() == null) {
+               listAC.get(i).setTipoentidad(new TiposEntidades());
+            } else if (listAC.get(i).getEmpleado().getSecuencia() == null) {
+               listAC.get(i).setEmpleado(null);
+            } else if (listAC.get(i).getTerceroRegistro().getSecuencia() == null) {
+               listAC.get(i).setTercero(null);
+            } else if (listAC.get(i).getTerceroRegistro().getSecuencia() != null) {
+               listAC.get(i).setTercero(listAC.get(i).getTerceroRegistro().getSecuencia());
+            }
+            persistenciaAportesCorrecciones.editar(getEm(), listAC.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarAportesCorrecciones Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public ActualUsuario obtenerActualUsuario() {
-        try {
-            ActualUsuario actual = persistenciaActualUsuario.actualUsuarioBD(em);
-            return actual;
-        } catch (Exception e) {
-            log.warn("Error obtenerActualUsuario Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void borrarAportesCorrecciones(List<AportesCorrecciones> listAC) {
+      try {
+         for (int i = 0; i < listAC.size(); i++) {
 
-    @Override
-    public ParametrosInformes buscarParametroInforme(String usuario) {
-        try {
-            ParametrosInformes parametro = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuario);
-            return parametro;
-        } catch (Exception e) {
-            log.warn("Error buscarParametroInforme Admi : " + e.toString());
-            return null;
-        }
+            if (listAC.get(i).getTipoentidad().getSecuencia() == null) {
+               listAC.get(i).setTipoentidad(new TiposEntidades());
+            } else if (listAC.get(i).getEmpleado().getSecuencia() == null) {
+               listAC.get(i).setEmpleado(null);
+            } else if (listAC.get(i).getTerceroRegistro().getSecuencia() == null) {
+               listAC.get(i).setTercero(null);
+            } else if (listAC.get(i).getTerceroRegistro().getSecuencia() != null) {
+               listAC.get(i).setTercero(listAC.get(i).getTerceroRegistro().getSecuencia());
+            }
+            persistenciaAportesCorrecciones.borrar(getEm(), listAC.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarAportesCorrecciones Admi : " + e.toString());
+      }
+   }
 
-    }
+   @Override
+   public List<AportesCorrecciones> consultarAportesCorrecciones() {
+      try {
+         List<AportesCorrecciones> lista = persistenciaAportesCorrecciones.consultarAportesEntidades(getEm());
+         if (lista != null) {
+            for (int i = 0; i < lista.size(); i++) {
+               if (lista.get(i).getTercero() != null) {
+                  Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(getEm(), lista.get(i).getTercero());
+                  if (tercero != null) {
+                     lista.get(i).setTerceroRegistro(tercero);
+                  } else {
+                     lista.get(i).setTerceroRegistro(new Terceros());
+                  }
+               } else {
+                  lista.get(i).setTerceroRegistro(new Terceros());
+               }
+            }
+         }
 
-    @Override
-    public void modificarParametroInforme(ParametrosInformes parametro) {
-        try {
-            persistenciaParametrosInformes.editar(em, parametro);
-        } catch (Exception e) {
-            log.warn("Error modificarParametroInforme Admi : " + e.toString());
-        }
-    }
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error consultarAportesCorrecciones Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public ParametrosEstructuras buscarParametroEstructura(String usuario) {
-        try {
-            ParametrosEstructuras parametro = persistenciaParametrosEstructuras.buscarParametro(em, usuario);
-            return parametro;
-        } catch (Exception e) {
-            log.warn("Error buscarParametroEstructura Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<AportesCorrecciones> consultarLovAportesCorrecciones() {
+      try {
+         return persistenciaAportesCorrecciones.consultarAportesEntidades(getEm());
+      } catch (Exception e) {
+         log.warn("Error consultarAportesCorrecciones Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarParametroEstructura(ParametrosEstructuras parametro) {
-        try {
-            persistenciaParametrosEstructuras.editar(em, parametro);
-        } catch (Exception e) {
-            log.warn("Error modificarParametroEstructura Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<TiposTrabajadores> lovTiposTrabajadores() {
+      try {
+         return persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
+      } catch (Exception e) {
+         log.warn("Error lovTiposTrabajadores Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public void borrarAportesCorreccionesProcesoAutomatico(BigInteger empresa, short mes, short ano) {
-        try {
-            persistenciaAportesCorrecciones.borrarAportesCorreccionesProcesoAutomatico(em, empresa, mes, ano);
-        } catch (Exception e) {
-            log.warn("Error borrarAportesCorreccionesProcesoAutomatico Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<Empleados> lovEmpleados() {
+      try {
+         return persistenciaEmpleados.consultarEmpleadosParametroAutoliq(getEm());
+      } catch (Exception e) {
+         log.warn("Error lovEmpleados Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public String ejecutarPKGActualizarNovedadesCorreccion(short ano, short mes, BigInteger secuenciaEmpresa) {
-       try {
-            String proceso = persistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion(em, secuenciaEmpresa, mes, ano);
-            return proceso;
-        } catch (Exception e) {
-            log.warn("Error ejecutarPKGActualizarNovedadesCorreccion Admi : " + e.toString());
-            return "ERROR_ADMINISTRAR";
-        }
-    }
+   @Override
+   public List<TiposEntidades> lovTiposEntidades() {
+      try {
+         return persistenciaTiposEntidades.buscarTiposEntidadesParametroAutoliq(getEm());
+      } catch (Exception e) {
+         log.warn("Error lovTiposEntidades Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public String ejecutarPKGInsertarCorreccion(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa) {
-        try {
-            String proceso = persistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion(em, fechaIni, fechaFin, secTipoTrabajador, secuenciaEmpresa);
-            return proceso;
-        } catch (Exception e) {
-            log.warn("Error ejecutarPKGInsertarCorreccion Admi : " + e.toString());
-            return "ERROR_ADMINISTRAR";
-        }
-    }
+   @Override
+   public List<Terceros> lovTerceros() {
+      try {
+         return persistenciaTerceros.buscarTercerosParametrosAutoliq(getEm());
+      } catch (Exception e) {
+         log.warn("Error lovTerceros Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public String ejecutarPKGIdentificaCorreccion(short ano, short mes, BigInteger secuenciaEmpresa) {
-        try {
-            String proceso = persistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion(em, secuenciaEmpresa, mes, ano);
-            return proceso;
-        } catch (Exception e) {
-            log.warn("Error ejecutarPKGIdentificaCorreccion Admi : " + e.toString());
-            return "ERROR_ADMINISTRAR";
-        }
-    }
+   @Override
+   public List<Empresas> lovEmpresas() {
+      try {
+         return persistenciaEmpresas.buscarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn("Error lovEmpresas Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public ActualUsuario obtenerActualUsuario() {
+      try {
+         return persistenciaActualUsuario.actualUsuarioBD(getEm());
+      } catch (Exception e) {
+         log.warn("Error obtenerActualUsuario Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public ParametrosInformes buscarParametroInforme(String usuario) {
+      try {
+         return persistenciaParametrosInformes.buscarParametroInformeUsuario(getEm(), usuario);
+      } catch (Exception e) {
+         log.warn("Error buscarParametroInforme Admi : " + e.toString());
+         return null;
+      }
+
+   }
+
+   @Override
+   public void modificarParametroInforme(ParametrosInformes parametro) {
+      try {
+         persistenciaParametrosInformes.editar(getEm(), parametro);
+      } catch (Exception e) {
+         log.warn("Error modificarParametroInforme Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public ParametrosEstructuras buscarParametroEstructura(String usuario) {
+      try {
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuario);
+      } catch (Exception e) {
+         log.warn("Error buscarParametroEstructura Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarParametroEstructura(ParametrosEstructuras parametro) {
+      try {
+         persistenciaParametrosEstructuras.editar(getEm(), parametro);
+      } catch (Exception e) {
+         log.warn("Error modificarParametroEstructura Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void borrarAportesCorreccionesProcesoAutomatico(BigInteger empresa, short mes, short ano) {
+      try {
+         persistenciaAportesCorrecciones.borrarAportesCorreccionesProcesoAutomatico(getEm(), empresa, mes, ano);
+      } catch (Exception e) {
+         log.warn("Error borrarAportesCorreccionesProcesoAutomatico Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public String ejecutarPKGActualizarNovedadesCorreccion(short ano, short mes, BigInteger secuenciaEmpresa) {
+      try {
+         return persistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion(getEm(), secuenciaEmpresa, mes, ano);
+      } catch (Exception e) {
+         log.warn("Error ejecutarPKGActualizarNovedadesCorreccion Admi : " + e.toString());
+         return "ERROR_ADMINISTRAR";
+      }
+   }
+
+   @Override
+   public String ejecutarPKGInsertarCorreccion(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa) {
+      try {
+         return persistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion(getEm(), fechaIni, fechaFin, secTipoTrabajador, secuenciaEmpresa);
+      } catch (Exception e) {
+         log.warn("Error ejecutarPKGInsertarCorreccion Admi : " + e.toString());
+         return "ERROR_ADMINISTRAR";
+      }
+   }
+
+   @Override
+   public String ejecutarPKGIdentificaCorreccion(short ano, short mes, BigInteger secuenciaEmpresa) {
+      try {
+         return persistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion(getEm(), secuenciaEmpresa, mes, ano);
+      } catch (Exception e) {
+         log.warn("Error ejecutarPKGIdentificaCorreccion Admi : " + e.toString());
+         return "ERROR_ADMINISTRAR";
+      }
+   }
 }

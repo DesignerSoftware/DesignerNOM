@@ -83,7 +83,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          List<FormulasAseguradas> formulasAseguradas = query.getResultList();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasAseguradas");
+         log.error("Error consultarFormulasAseguradas " + e);
          return null;
       }
    }
@@ -97,7 +97,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          FormulasAseguradas formulasAseguradas = (FormulasAseguradas) query.getSingleResult();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasAseguradas");
+         log.error("Error consultarFormulasAseguradas " + e);
          FormulasAseguradas formulasAseguradas = null;
          return formulasAseguradas;
       }

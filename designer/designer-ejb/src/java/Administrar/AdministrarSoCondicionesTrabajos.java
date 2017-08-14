@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,99 +26,140 @@ public class AdministrarSoCondicionesTrabajos implements AdministrarSoCondicione
 
    private static Logger log = Logger.getLogger(AdministrarSoCondicionesTrabajos.class);
 
-    @EJB
-    PersistenciaSoCondicionesTrabajosInterface persistenciaSoCondicionesTrabajos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarSoCondicionesTrabajos(List<SoCondicionesTrabajos> listSoCondicionesTrabajos) {
-        for (int i = 0; i < listSoCondicionesTrabajos.size(); i++) {
+   @EJB
+   PersistenciaSoCondicionesTrabajosInterface persistenciaSoCondicionesTrabajos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarSoCondicionesTrabajos(List<SoCondicionesTrabajos> listSoCondicionesTrabajos) {
+      try {
+         for (int i = 0; i < listSoCondicionesTrabajos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaSoCondicionesTrabajos.editar(em, listSoCondicionesTrabajos.get(i));
-        }
-    }
-    @Override
-    public void borrarSoCondicionesTrabajos(List<SoCondicionesTrabajos> listSoCondicionesTrabajos) {
-        for (int i = 0; i < listSoCondicionesTrabajos.size(); i++) {
+            persistenciaSoCondicionesTrabajos.editar(getEm(), listSoCondicionesTrabajos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void borrarSoCondicionesTrabajos(List<SoCondicionesTrabajos> listSoCondicionesTrabajos) {
+      try {
+         for (int i = 0; i < listSoCondicionesTrabajos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaSoCondicionesTrabajos.borrar(em, listSoCondicionesTrabajos.get(i));
-        }
-    }
-    @Override
-    public void crearSoCondicionesTrabajos(List<SoCondicionesTrabajos> listSoCondicionesTrabajos) {
-        for (int i = 0; i < listSoCondicionesTrabajos.size(); i++) {
+            persistenciaSoCondicionesTrabajos.borrar(getEm(), listSoCondicionesTrabajos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearSoCondicionesTrabajos(List<SoCondicionesTrabajos> listSoCondicionesTrabajos) {
+      try {
+         for (int i = 0; i < listSoCondicionesTrabajos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaSoCondicionesTrabajos.crear(em, listSoCondicionesTrabajos.get(i));
-        }
-    }
-    @Override
-    public List<SoCondicionesTrabajos> consultarSoCondicionesTrabajos() {
-        List<SoCondicionesTrabajos> listSoCondicionesTrabajos;
-        listSoCondicionesTrabajos = persistenciaSoCondicionesTrabajos.buscarSoCondicionesTrabajos(em);
-        return listSoCondicionesTrabajos;
-    }
-    @Override
-    public SoCondicionesTrabajos consultarSoCondicionTrabajo(BigInteger secSoCondicionesTrabajos) {
-        SoCondicionesTrabajos soCondicionesTrabajos;
-        soCondicionesTrabajos = persistenciaSoCondicionesTrabajos.buscarSoCondicionTrabajo(em, secSoCondicionesTrabajos);
-        return soCondicionesTrabajos;
-    }
-    @Override
-    public BigInteger contarInspeccionesSoCondicionTrabajo(BigInteger secuenciaElementos) {
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
-            BigInteger verificarInspecciones;
-            return verificarInspecciones = persistenciaSoCondicionesTrabajos.contadorInspecciones(em, secuenciaElementos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSoCondicionesTrabajos verificarInspecciones ERROR :" + e);
-            return null;
-        }
-    }
-    @Override
-    public BigInteger contarSoAccidentesMedicosSoCondicionTrabajo(BigInteger secuenciaElementos) {
-        try {
-            BigInteger verificarSoAccidtenesMedicos;
-            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
-            return verificarSoAccidtenesMedicos = persistenciaSoCondicionesTrabajos.contadorSoAccidentesMedicos(em, secuenciaElementos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSoCondicionesTrabajos verificarSoAccidtenesMedicos ERROR :" + e);
-            return null;
-        }
-    }
-    @Override
-    public BigInteger contarSoDetallesPanoramasSoCondicionTrabajo(BigInteger secuenciaElementos) {
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
-            BigInteger verificarSoDetallesPanoramas;
-            return verificarSoDetallesPanoramas = persistenciaSoCondicionesTrabajos.contadorSoDetallesPanoramas(em, secuenciaElementos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSoCondicionesTrabajos verificarSoDetallesPanoramas ERROR :" + e);
-            return null;
-        }
-    }
-    @Override
-    public BigInteger contarSoExposicionesFrSoCondicionTrabajo(BigInteger secuenciaElementos) {
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaElementos);
-            BigInteger verificarSoExposicionesFr;
-            return verificarSoExposicionesFr = persistenciaSoCondicionesTrabajos.contadorSoExposicionesFr(em, secuenciaElementos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarClasesAccidentes verificarSoExposicionesFr ERROR :" + e);
-            return null;
-        }
-    }
+            persistenciaSoCondicionesTrabajos.crear(getEm(), listSoCondicionesTrabajos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<SoCondicionesTrabajos> consultarSoCondicionesTrabajos() {
+      try {
+         return persistenciaSoCondicionesTrabajos.buscarSoCondicionesTrabajos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public SoCondicionesTrabajos consultarSoCondicionTrabajo(BigInteger secSoCondicionesTrabajos) {
+      try {
+         return persistenciaSoCondicionesTrabajos.buscarSoCondicionTrabajo(getEm(), secSoCondicionesTrabajos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarInspeccionesSoCondicionTrabajo(BigInteger secuenciaElementos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaElementos);
+         return persistenciaSoCondicionesTrabajos.contadorInspecciones(getEm(), secuenciaElementos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSoCondicionesTrabajos verificarInspecciones ERROR :" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarSoAccidentesMedicosSoCondicionTrabajo(BigInteger secuenciaElementos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaElementos);
+         return persistenciaSoCondicionesTrabajos.contadorSoAccidentesMedicos(getEm(), secuenciaElementos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSoCondicionesTrabajos verificarSoAccidtenesMedicos ERROR :" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarSoDetallesPanoramasSoCondicionTrabajo(BigInteger secuenciaElementos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaElementos);
+         return persistenciaSoCondicionesTrabajos.contadorSoDetallesPanoramas(getEm(), secuenciaElementos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSoCondicionesTrabajos verificarSoDetallesPanoramas ERROR :" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarSoExposicionesFrSoCondicionTrabajo(BigInteger secuenciaElementos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaElementos);
+         return persistenciaSoCondicionesTrabajos.contadorSoExposicionesFr(getEm(), secuenciaElementos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarClasesAccidentes verificarSoExposicionesFr ERROR :" + e);
+         return null;
+      }
+   }
 
 }

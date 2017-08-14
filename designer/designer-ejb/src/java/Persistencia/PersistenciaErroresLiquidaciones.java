@@ -44,13 +44,13 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
 
    public List<ErroresLiquidacion> consultarErroresLiquidacion(EntityManager em) {
       try {
-         log.error("PersistenciaErroresLiquidaciones.consultarErroresLiquidacion()");
+         log.warn("PersistenciaErroresLiquidaciones.consultarErroresLiquidacion()");
          em.clear();
          String SqlQuery = "SELECT ER.* FROM erroresliquidacion ER where exists (select 'x' from empleados e where e.secuencia = ER.empleado)";
          Query query = em.createNativeQuery(SqlQuery, ErroresLiquidacion.class);
          List<ErroresLiquidacion> listaErroresLiquidacionEmpleado = query.getResultList();
          if (listaErroresLiquidacionEmpleado != null) {
-            log.error("listaErroresLiquidacionEmpleado.size() : " + listaErroresLiquidacionEmpleado.size());
+            log.warn("listaErroresLiquidacionEmpleado.size() : " + listaErroresLiquidacionEmpleado.size());
             em.clear();
             String SqlQuery2 = "SELECT ER.EMPLEADO, VL.* FROM erroresliquidacion ER, VIGENCIASLOCALIZACIONES VL \n"
                     + "WHERE VL.EMPLEADO = ER.EMPLEADO \n"
@@ -60,14 +60,14 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
             List<VigenciasLocalizaciones> listaVigenciasLocalizaciones = query2.getResultList();
             if (listaVigenciasLocalizaciones != null) {
                if (!listaVigenciasLocalizaciones.isEmpty()) {
-                  log.error("listaVigenciasLocalizaciones.size() : " + listaVigenciasLocalizaciones.size());
+                  log.warn("listaVigenciasLocalizaciones.size() : " + listaVigenciasLocalizaciones.size());
                   for (int i = 0; i < listaErroresLiquidacionEmpleado.size(); i++) {
                      try {
                         for (int j = 0; j < listaVigenciasLocalizaciones.size(); j++) {
                            if (listaErroresLiquidacionEmpleado.get(i).getEmpleado().getSecuencia().equals(listaVigenciasLocalizaciones.get(j).getEmpleado().getSecuencia())) {
                               listaErroresLiquidacionEmpleado.get(i).setVigenciaLocalizacion(listaVigenciasLocalizaciones.get(j));
                               listaVigenciasLocalizaciones.remove(listaVigenciasLocalizaciones.get(j));
-                              log.error("Ya " + i);
+                              log.warn("Ya " + i);
                               break;
                            }
                         }
@@ -96,20 +96,20 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
       try {
          tx.begin();
          StoredProcedureQuery query = em.createStoredProcedureQuery("ERRORESLIQUIDACION_PKG.BORRARERRORESLIQUIDACION");
-         log.error("BorrarTotosErroresLiquidaciones 1");
+         log.warn("BorrarTotosErroresLiquidaciones 1");
          query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.OUT);
-         log.error("BorrarTotosErroresLiquidaciones 2");
+         log.warn("BorrarTotosErroresLiquidaciones 2");
          query.setParameter(1, n1);
-         log.error("BorrarTotosErroresLiquidaciones 3");
+         log.warn("BorrarTotosErroresLiquidaciones 3");
          query.execute();
-         log.error("BorrarTotosErroresLiquidaciones 4");
+         log.warn("BorrarTotosErroresLiquidaciones 4");
          query.hasMoreResults();
-         log.error("BorrarTotosErroresLiquidaciones 5");
+         log.warn("BorrarTotosErroresLiquidaciones 5");
          n1 = (BigInteger) query.getOutputParameterValue(1);
-         log.error("BorrarTotosErroresLiquidaciones 6");
+         log.warn("BorrarTotosErroresLiquidaciones 6");
          tx.commit();
          n = n1.intValue();
-         log.error("PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones() n: _" + n + "_");
+         log.warn("PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones() n: _" + n + "_");
       } catch (Exception e) {
          log.error("Error PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones. " + e);
          if (tx.isActive()) {

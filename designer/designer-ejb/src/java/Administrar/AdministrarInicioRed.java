@@ -40,7 +40,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
    private EntityManager em;
    private Perfiles perfilUsuario;
    private BigInteger secPerfil;
-   private final SesionEntityManagerFactory sessionEMF;
+   private SesionEntityManagerFactory sessionEMF;
 
    public AdministrarInicioRed() {
       // FactoryGlobal = new EntityManagerGlobal();
@@ -61,6 +61,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
 
    @Override
    public boolean conexionInicial(String baseDatos) {
+      log.warn("AdministrarInicioRed.conexionInicial() baseDatos: " + baseDatos);
       try {
          if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
             sessionEMF.getEmf().close();
@@ -78,18 +79,19 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
    }
 
    @Override
-   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña) {
+   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña, String usapool) {
       try {
-         log.warn("conexionUsuario 1");
-         secPerfil = persistenciaConexionInicial.usuarioLogin(sessionEMF.getEmf().createEntityManager(), usuario);
-         log.warn("conexionUsuario 2");
-         perfilUsuario = persistenciaConexionInicial.perfilUsuario(sessionEMF.getEmf().createEntityManager(), secPerfil);
-         log.warn("conexionUsuario 3");
+         log.warn("AdministrarInicioRed.conexionUsuario() usuario: " + usuario + ", usapool: " + usapool);
+         if (usapool.equals("S")) {
+            secPerfil = persistenciaConexionInicial.usuarioLoginConJPA(sessionEMF.getEmf().createEntityManager(), usuario);
+            perfilUsuario = persistenciaConexionInicial.perfilUsuarioConJPA(sessionEMF.getEmf().createEntityManager(), secPerfil);
+         } else {
+            secPerfil = persistenciaConexionInicial.usuarioLogin(sessionEMF.getEmf().createEntityManager(), usuario);
+            perfilUsuario = persistenciaConexionInicial.perfilUsuario(sessionEMF.getEmf().createEntityManager(), secPerfil);
+         }
+         log.warn("AdministrarInicioRed.conexionUsuario() Cerrano la conexion Inicial...");
          sessionEMF.getEmf().close();
-         log.warn("conexionUsuario 4");
          boolean resultado = sessionEMF.crearFactoryUsuario(usuario, contraseña, baseDatos);
-         log.warn("conexionUsuario 5");
-         log.warn("RESULTADO: " + resultado);
          return resultado;
       } catch (Exception e) {
          log.fatal("Error creando EMF AdministrarLogin.conexionUsuario: " + e);
@@ -98,9 +100,15 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
    }
 
    @Override
-   public boolean validarUsuario(String usuario) {
+   public boolean validarUsuario(String usuario, String usapool) {
       try {
-         boolean resultado = persistenciaConexionInicial.validarUsuario(sessionEMF.getEmf().createEntityManager(), usuario);
+         log.warn("Administrar.AdministrarInicioRed.validarUsuario() usuario: " + usuario + ", usapool: " + usapool);
+         boolean resultado = false;
+         if (usapool.equals("S")) {
+            resultado = persistenciaConexionInicial.validarUsuarioConJPA(sessionEMF.getEmf().createEntityManager(), usuario);
+         } else {
+            resultado = persistenciaConexionInicial.validarUsuario(sessionEMF.getEmf().createEntityManager(), usuario);
+         }
          return resultado;
       } catch (Exception e) {
          log.fatal("Error AdministrarLogin.validarUsuario: " + e);
@@ -176,40 +184,64 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
 
    @Override
    public List<String> recordatoriosInicio() {
-      if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
-         List<String> listaRecordatorios = persistenciaRecordatorios.recordatoriosInicio(sessionEMF.getEmf().createEntityManager());
-         return listaRecordatorios;
-      } else {
+      try {
+         if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
+            List<String> listaRecordatorios = persistenciaRecordatorios.recordatoriosInicio(sessionEMF.getEmf().createEntityManager());
+            return listaRecordatorios;
+         } else {
+            return null;
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
    @Override
    public List<Recordatorios> consultasInicio() {
-      if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
-         List<Recordatorios> listaConsultas = persistenciaRecordatorios.consultasInicio(sessionEMF.getEmf().createEntityManager());
-         return listaConsultas;
-      } else {
+      try {
+         if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
+            List<Recordatorios> listaConsultas = persistenciaRecordatorios.consultasInicio(sessionEMF.getEmf().createEntityManager());
+            return listaConsultas;
+         } else {
+            return null;
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
    @Override
    public int cambioClave(String usuario, String nuevaClave) {
-      if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
-         return persistenciaConexionInicial.cambiarClave(em, usuario, nuevaClave);
-      } else {
-         return -1;
+      try {
+         if (sessionEMF.getEmf() != null && sessionEMF.getEmf().isOpen()) {
+            return persistenciaConexionInicial.cambiarClave(em, usuario, nuevaClave);
+         } else {
+            return -1;
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
       }
    }
 
    @Override
    public void guardarDatosConexion(Conexiones conexion) {
-      persistenciaConexiones.verificarSID(em, conexion);
+      try {
+         persistenciaConexiones.verificarSID(em, conexion);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public String usuarioBD() {
-      return persistenciaActualUsuario.actualAliasBD_EM(em);
+      try {
+         return persistenciaActualUsuario.actualAliasBD_EM(em);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 }

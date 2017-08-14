@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,72 +26,109 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
 
    private static Logger log = Logger.getLogger(AdministrarEvalEvaluadores.class);
 
-    @EJB
-    PersistenciaEvalEvaluadoresInterface persistenciaEvalEvaluadores;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEvalEvaluadoresInterface persistenciaEvalEvaluadores;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    private EvalEvaluadores valEvaluadoresSeleccionado;
-    private EvalEvaluadores valEvaluadores;
-    private List<EvalEvaluadores> listEvalEvaluadores;
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EvalEvaluadores valEvaluadoresSeleccionado;
+   private EvalEvaluadores valEvaluadores;
+   private List<EvalEvaluadores> listEvalEvaluadores;
 
-    @Override
-    public void modificarEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
-        for (int i = 0; i < listEvalEvaluadores.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
+      try {
+         for (int i = 0; i < listEvalEvaluadores.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaEvalEvaluadores.editar(em,listEvalEvaluadores.get(i));
-        }
-    }
+            persistenciaEvalEvaluadores.editar(getEm(), listEvalEvaluadores.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
-        for (int i = 0; i < listEvalEvaluadores.size(); i++) {
+   @Override
+   public void borrarEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
+      try {
+         for (int i = 0; i < listEvalEvaluadores.size(); i++) {
             log.warn("Administrar Borrar...");
-            persistenciaEvalEvaluadores.borrar(em,listEvalEvaluadores.get(i));
-        }
-    }
+            persistenciaEvalEvaluadores.borrar(getEm(), listEvalEvaluadores.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
-        for (int i = 0; i < listEvalEvaluadores.size(); i++) {
+   @Override
+   public void crearEvalEvaluadores(List<EvalEvaluadores> listEvalEvaluadores) {
+      try {
+         for (int i = 0; i < listEvalEvaluadores.size(); i++) {
             log.warn("Administrar Crear...");
-            persistenciaEvalEvaluadores.crear(em,listEvalEvaluadores.get(i));
-        }
-    }
+            persistenciaEvalEvaluadores.crear(getEm(), listEvalEvaluadores.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<EvalEvaluadores> consultarEvalEvaluadores() {
-        listEvalEvaluadores = persistenciaEvalEvaluadores.buscarEvalEvaluadores(em);
-        return listEvalEvaluadores;
-    }
+   @Override
+   public List<EvalEvaluadores> consultarEvalEvaluadores() {
+      try {
+         return persistenciaEvalEvaluadores.buscarEvalEvaluadores(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public EvalEvaluadores consultarEvalEvaluador(BigInteger secEvalEvaluadores) {
-        valEvaluadores = persistenciaEvalEvaluadores.buscarEvalEvaluador(em,secEvalEvaluadores);
-        return valEvaluadores;
-    }
+   @Override
+   public EvalEvaluadores consultarEvalEvaluador(BigInteger secEvalEvaluadores) {
+      try {
+         return persistenciaEvalEvaluadores.buscarEvalEvaluador(getEm(), secEvalEvaluadores);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger verificarEvalPruebas(BigInteger secuenciaMovitoCambioCargo) {
-        BigInteger verificadorVP = new BigInteger("-1");
-        try {
-            verificadorVP = persistenciaEvalEvaluadores.verificarBorradoEvalPruebas(em,secuenciaMovitoCambioCargo);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarEvalEvaluadores verificarBorradoVC ERROR :" + e);
-        } finally {
-            return verificadorVP;
-        }
-    }
+   @Override
+   public BigInteger verificarEvalPruebas(BigInteger secuenciaMovitoCambioCargo) {
+      try {
+         return persistenciaEvalEvaluadores.verificarBorradoEvalPruebas(getEm(), secuenciaMovitoCambioCargo);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarEvalEvaluadores verificarBorradoVC ERROR :" + e);
+         return new BigInteger("-1");
+      }
+   }
 }

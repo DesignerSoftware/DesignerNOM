@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,42 +25,77 @@ public class AdministrarIndicesExternos implements AdministrarIndicesExternosInt
 
    private static Logger log = Logger.getLogger(AdministrarIndicesExternos.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaIndicesExternosInterface persitenciaIndices;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaIndicesExternosInterface persitenciaIndices;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-         em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void crearIndice(List<IndicesExternos> listaCrear) {
-        for (int i = 0; i < listaCrear.size(); i++) {
-            persitenciaIndices.crear(em,listaCrear.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarIndice(List<IndicesExternos> listaModificar) {
-        for (int i = 0; i < listaModificar.size(); i++) {
-            persitenciaIndices.editar(em,listaModificar.get(i));
-        }
-    }
+   @Override
+   public void crearIndice(List<IndicesExternos> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            persitenciaIndices.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarIndice(List<IndicesExternos> listaBorrar) {
-        for (int i = 0; i < listaBorrar.size(); i++) {
-            persitenciaIndices.borrar(em,listaBorrar.get(i));
-        }
-    }
+   @Override
+   public void modificarIndice(List<IndicesExternos> listaModificar) {
+      try {
+         for (int i = 0; i < listaModificar.size(); i++) {
+            persitenciaIndices.editar(getEm(), listaModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<IndicesExternos> consultarIndicesExternos() {
-       List<IndicesExternos> listIndicesExternos = persitenciaIndices.buscarIndicesExternos(em);
-        return listIndicesExternos;
-    }
+   @Override
+   public void borrarIndice(List<IndicesExternos> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            persitenciaIndices.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<IndicesExternos> consultarIndicesExternos() {
+      try {
+         return persitenciaIndices.buscarIndicesExternos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

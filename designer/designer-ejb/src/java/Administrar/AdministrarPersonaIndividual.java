@@ -107,6 +107,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -225,20 +226,38 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    PersistenciaVWActualesFechasInterface persistenciaVWActualesFechas;
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
    @EJB
    PersistenciaPlantillasTTInterface PersistenciaPlantillasTT;
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<Empresas> lovEmpresas() {
       try {
-         List<Empresas> lista = persistenciaEmpresas.buscarEmpresas(em);
-         return lista;
+         return persistenciaEmpresas.buscarEmpresas(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpresas AdministrarPersonaIndividualPersona : " + e.toString());
          return null;
@@ -249,8 +268,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    public Empresas obtenerEmpresa(BigInteger secEmpresa) {
       Empresas empresa = null;
       try {
-         empresa = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
-         return empresa;
+         return persistenciaEmpresas.buscarEmpresasSecuencia(getEm(), secEmpresa);
       } catch (Exception e) {
          e.printStackTrace();
          return empresa;
@@ -260,8 +278,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<TiposDocumentos> lovTiposDocumentos() {
       try {
-         List<TiposDocumentos> lista = persistenciaTiposDocumentos.consultarTiposDocumentos(em);
-         return lista;
+         return persistenciaTiposDocumentos.consultarTiposDocumentos(getEm());
       } catch (Exception e) {
          log.warn("Error lovTiposDocumentos Admi : " + e.toString());
          return null;
@@ -271,8 +288,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Ciudades> lovCiudades() {
       try {
-         List<Ciudades> lista = persistenciaCiudades.consultarCiudades(em);
-         return lista;
+         return persistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
          log.warn("Error lovCiudades Admi : " + e.toString());
          return null;
@@ -282,8 +298,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Cargos> lovCargos() {
       try {
-         List<Cargos> lista = persistenciaCargos.consultarCargos(em);
-         return lista;
+         return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
          log.warn("Error lovCargos Admi : " + e.toString());
          return null;
@@ -293,8 +308,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Cargos> lovCargosXEmpresa(BigInteger secEmpresa) {
       try {
-         List<Cargos> lista = persistenciaCargos.buscarCargosPorSecuenciaEmpresa(em, secEmpresa);
-         return lista;
+         return persistenciaCargos.buscarCargosPorSecuenciaEmpresa(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("Error lovCargos Admi : " + e.toString());
          return null;
@@ -304,8 +318,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<MotivosCambiosCargos> lovMotivosCambiosCargos() {
       try {
-         List<MotivosCambiosCargos> lista = persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(em);
-         return lista;
+         return persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(getEm());
       } catch (Exception e) {
          log.warn("Error lovMotivosCambiosCargos Admi : " + e.toString());
          return null;
@@ -315,8 +328,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Estructuras> lovEstructurasModCargos(BigInteger secEmpresa, Date fechaIngreso) {
       try {
-         List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPorEmpresaFechaIngreso(em, secEmpresa, fechaIngreso);
-         return lista;
+         return persistenciaEstructuras.buscarEstructurasPorEmpresaFechaIngreso(getEm(), secEmpresa, fechaIngreso);
       } catch (Exception e) {
          log.warn("Error lovEstructurasModCargos Admi : " + e.toString());
          return null;
@@ -326,8 +338,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Estructuras> lovEstructurasModCentroCosto(BigInteger secEmpresa) {
       try {
-         List<Estructuras> lista = persistenciaEstructuras.buscarEstructurasPorEmpresa(em, secEmpresa);
-         return lista;
+         return persistenciaEstructuras.buscarEstructurasPorEmpresa(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("Error lovEstructurasModCentroCosto Admi : " + e.toString());
          return null;
@@ -337,8 +348,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<MotivosLocalizaciones> lovMotivosLocalizaciones() {
       try {
-         List<MotivosLocalizaciones> lista = persistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(em);
-         return lista;
+         return persistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(getEm());
       } catch (Exception e) {
          log.warn("Error lovMotivosLocalizaciones Admi : " + e.toString());
          return null;
@@ -348,8 +358,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<UbicacionesGeograficas> lovUbicacionesGeograficas(BigInteger secuencia) {
       try {
-         List<UbicacionesGeograficas> lista = persistenciaUbicacionesGeograficas.consultarUbicacionesGeograficasPorEmpresa(em, secuencia);
-         return lista;
+         return persistenciaUbicacionesGeograficas.consultarUbicacionesGeograficasPorEmpresa(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error lovUbicacionesGeograficas Admi : " + e.toString());
          return null;
@@ -359,8 +368,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<JornadasLaborales> lovJornadasLaborales() {
       try {
-         List<JornadasLaborales> lista = persistenciaJornadasLaborales.buscarJornadasLaborales(em);
-         return lista;
+         return persistenciaJornadasLaborales.buscarJornadasLaborales(getEm());
       } catch (Exception e) {
          log.warn("Error lovJornadasLaborales Admi : " + e.toString());
          return null;
@@ -370,8 +378,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<MotivosContratos> lovMotivosContratos() {
       try {
-         List<MotivosContratos> lista = persistenciaMotivosContratos.buscarMotivosContratos(em);
-         return lista;
+         return persistenciaMotivosContratos.buscarMotivosContratos(getEm());
       } catch (Exception e) {
          log.warn("Error lovMotivosContratos Admi : " + e.toString());
          return null;
@@ -381,8 +388,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<TiposTrabajadores> lovTiposTrabajadores() {
       try {
-         List<TiposTrabajadores> lista = persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
-         return lista;
+         return persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
       } catch (Exception e) {
          log.error("Error AdministrarP..I.. lovTiposTrabajadores() : " + e.toString());
          return null;
@@ -392,8 +398,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<TiposSueldos> lovTiposSueldosValidos(BigInteger secTT) {
       try {
-         List<TiposSueldos> lista = PersistenciaPlantillasTT.consultarTiposSueldosValidos(em, secTT);
-         return lista;
+         return PersistenciaPlantillasTT.consultarTiposSueldosValidos(getEm(), secTT);
       } catch (Exception e) {
          log.error("Error lovTiposSueldosValidos : " + e.toString());
          return null;
@@ -403,8 +408,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Contratos> lovContratosValidos(BigInteger secTT) {
       try {
-         List<Contratos> lista = PersistenciaPlantillasTT.consultarContratosValidos(em, secTT);
-         return lista;
+         return PersistenciaPlantillasTT.consultarContratosValidos(getEm(), secTT);
       } catch (Exception e) {
          log.error("Error lovContratosValidos : " + e.toString());
          return null;
@@ -414,8 +418,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<NormasLaborales> lovNormasLaboralesValidos(BigInteger secTT) {
       try {
-         List<NormasLaborales> lista = PersistenciaPlantillasTT.consultarNormasLaboralesValidas(em, secTT);
-         return lista;
+         return PersistenciaPlantillasTT.consultarNormasLaboralesValidas(getEm(), secTT);
       } catch (Exception e) {
          log.error("Error lovNormasLaboralesValidos : " + e.toString());
          return null;
@@ -425,8 +428,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<ReformasLaborales> lovReformasLaboralesValidos(BigInteger secTT) {
       try {
-         List<ReformasLaborales> lista = PersistenciaPlantillasTT.consultarReformasLaboralesValidas(em, secTT);
-         return lista;
+         return PersistenciaPlantillasTT.consultarReformasLaboralesValidas(getEm(), secTT);
       } catch (Exception e) {
          log.error("Error lovReformasLaboralesValidos : " + e.toString());
          return null;
@@ -436,8 +438,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<TiposContratos> lovTiposContratosValidos(BigInteger secTT) {
       try {
-         List<TiposContratos> lista = PersistenciaPlantillasTT.consultarTiposContratosValidos(em, secTT);
-         return lista;
+         return PersistenciaPlantillasTT.consultarTiposContratosValidos(getEm(), secTT);
       } catch (Exception e) {
          log.error("Error lovTiposContratosValidos : " + e.toString());
          return null;
@@ -447,8 +448,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<MotivosCambiosSueldos> lovMotivosCambiosSueldos() {
       try {
-         List<MotivosCambiosSueldos> lista = persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(em);
-         return lista;
+         return persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(getEm());
       } catch (Exception e) {
          log.warn("Error lovMotivosCambiosSueldos Admi : " + e.toString());
          return null;
@@ -458,8 +458,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Unidades> lovUnidades() {
       try {
-         List<Unidades> lista = persistenciaUnidades.consultarUnidades(em);
-         return lista;
+         return persistenciaUnidades.consultarUnidades(getEm());
       } catch (Exception e) {
          log.warn("Error lovUnidades Admi : " + e.toString());
          return null;
@@ -469,8 +468,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Periodicidades> lovPeriodicidades() {
       try {
-         List<Periodicidades> lista = persistenciaPeriodicidades.consultarPeriodicidades(em);
-         return lista;
+         return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
          log.warn("Error lovPeriodicidades Admi : " + e.toString());
          return null;
@@ -480,8 +478,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Sucursales> lovSucursales() {
       try {
-         List<Sucursales> lista = persistenciaSucursales.consultarSucursales(em);
-         return lista;
+         return persistenciaSucursales.consultarSucursales(getEm());
       } catch (Exception e) {
          log.warn("Error lovSucursales Admi : " + e.toString());
          return null;
@@ -491,8 +488,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<MetodosPagos> lovMetodosPagos() {
       try {
-         List<MetodosPagos> lista = persistenciaMetodosPagos.buscarMetodosPagos(em);
-         return lista;
+         return persistenciaMetodosPagos.buscarMetodosPagos(getEm());
       } catch (Exception e) {
          log.warn("Error lovMetodosPagos Admi : " + e.toString());
          return null;
@@ -502,8 +498,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<TercerosSucursales> lovTercerosSucursales(BigInteger secuencia) {
       try {
-         List<TercerosSucursales> lista = persistenciaTercerosSucursales.buscarTercerosSucursalesPorEmpresa(em, secuencia);
-         return lista;
+         return persistenciaTercerosSucursales.buscarTercerosSucursalesPorEmpresa(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error lovTercerosSucursales Admi : " + e.toString());
          return null;
@@ -513,8 +508,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<EstadosCiviles> lovEstadosCiviles() {
       try {
-         List<EstadosCiviles> lista = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
-         return lista;
+         return persistenciaEstadosCiviles.consultarEstadosCiviles(getEm());
       } catch (Exception e) {
          log.warn("Error lovEstadosCiviles Admi : " + e.toString());
          return null;
@@ -524,8 +518,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<TiposTelefonos> lovTiposTelefonos() {
       try {
-         List<TiposTelefonos> lista = persistenciaTiposTelefonos.tiposTelefonos(em);
-         return lista;
+         return persistenciaTiposTelefonos.tiposTelefonos(getEm());
       } catch (Exception e) {
          log.warn("Error lovTiposTelefonos Admi : " + e.toString());
          return null;
@@ -535,8 +528,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         List<Empleados> lista = persistenciaEmpleado.buscarEmpleados(em);
-         return lista;
+         return persistenciaEmpleado.buscarEmpleados(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;
@@ -546,7 +538,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public void crearPersona(Personas persona) {
       try {
-         persistenciaPersonas.crear(em, persona);
+         persistenciaPersonas.crear(getEm(), persona);
       } catch (Exception e) {
          log.warn("Error crearPersona Admi : " + e.toString());
       }
@@ -555,8 +547,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Papeles> lovPapeles() {
       try {
-         List<Papeles> lista = persistenciaPapeles.consultarPapeles(em);
-         return lista;
+         return persistenciaPapeles.consultarPapeles(getEm());
       } catch (Exception e) {
          log.warn("Error lovPapeles Admi : " + e.toString());
          return null;
@@ -566,8 +557,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public TiposEntidades buscarTipoEntidadPorCodigo(Short codigo) {
       try {
-         TiposEntidades entidad = persistenciaTiposEntidades.buscarTipoEntidadPorCodigo(em, codigo);
-         return entidad;
+         return persistenciaTiposEntidades.buscarTipoEntidadPorCodigo(getEm(), codigo);
       } catch (Exception e) {
          log.warn("Error buscarTipoEntidadPorCodigo Admi : " + e.toString());
          return null;
@@ -577,8 +567,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String buscarCodigoSSTercero(BigInteger secuencia) {
       try {
-         String codigo = persistenciaTerceros.buscarCodigoSSPorSecuenciaTercero(em, secuencia);
-         return codigo;
+         return persistenciaTerceros.buscarCodigoSSPorSecuenciaTercero(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error buscarCodigoSSTercero Admi : " + e.toString());
          return null;
@@ -588,8 +577,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String buscarCodigoSPTercero(BigInteger secuencia) {
       try {
-         String codigo = persistenciaTerceros.buscarCodigoSPPorSecuenciaTercero(em, secuencia);
-         return codigo;
+         return persistenciaTerceros.buscarCodigoSPPorSecuenciaTercero(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error buscarCodigoSPTercero Admi : " + e.toString());
          return null;
@@ -599,8 +587,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String buscarCodigoSCTercero(BigInteger secuencia) {
       try {
-         String codigo = persistenciaTerceros.buscarCodigoSCPorSecuenciaTercero(em, secuencia);
-         return codigo;
+         return persistenciaTerceros.buscarCodigoSCPorSecuenciaTercero(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error buscarCodigoSCTercero Admi : " + e.toString());
          return null;
@@ -611,8 +598,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public BigInteger calcularNumeroEmpleadosEmpresa(BigInteger secuencia) {
       try {
-         BigInteger valor = persistenciaEmpresas.calcularControlEmpleadosEmpresa(em, secuencia);
-         return valor;
+         return persistenciaEmpresas.calcularControlEmpleadosEmpresa(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error calcularNumeroEmpleadosEmpresa Admi : " + e.toString());
          return null;
@@ -623,8 +609,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public BigInteger obtenerMaximoEmpleadosEmpresa(BigInteger secuencia) {
       try {
-         BigInteger valor = persistenciaEmpresas.obtenerMaximoEmpleadosEmpresa(em, secuencia);
-         return valor;
+         return persistenciaEmpresas.obtenerMaximoEmpleadosEmpresa(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error obtenerMaximoEmpleadosEmpresa Admi : " + e.toString());
          return null;
@@ -633,8 +618,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
 
    public Empleados buscarEmpleadoPorCodigoyEmpresa(BigDecimal codigo, BigInteger empresa) {
       try {
-         Empleados empl = persistenciaEmpleado.buscarEmpleadoPorCodigoyEmpresa(em, codigo, empresa);
-         return empl;
+         return persistenciaEmpleado.buscarEmpleadoPorCodigoyEmpresa(getEm(), codigo, empresa);
       } catch (Exception e) {
          log.warn("Error buscarEmpleadoPorCodigoyEmpresa Admi : " + e.toString());
          return null;
@@ -644,8 +628,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public Personas buscarPersonaPorNumeroDocumento(BigInteger numeroDocumento) {
       try {
-         Personas persona = persistenciaPersonas.buscarPersonaPorNumeroDocumento(em, numeroDocumento);
-         return persona;
+         return persistenciaPersonas.buscarPersonaPorNumeroDocumento(getEm(), numeroDocumento);
       } catch (Exception e) {
          log.warn("Error buscarPersonaPorNumeroDocumento Admi : " + e.toString());
          return null;
@@ -655,8 +638,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String obtenerPreValidadContabilidad() {
       try {
-         String variable = persistenciaGenerales.obtenerPreValidadContabilidad(em);
-         return variable;
+         return persistenciaGenerales.obtenerPreValidadContabilidad(getEm());
       } catch (Exception e) {
          log.warn("Error obtenerPreValidadContabilidad Admi : " + e.toString());
          return null;
@@ -666,8 +648,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String obtenerPreValidaBloqueAIngreso() {
       try {
-         String variable = persistenciaGenerales.obtenerPreValidaBloqueAIngreso(em);
-         return variable;
+         return persistenciaGenerales.obtenerPreValidaBloqueAIngreso(getEm());
       } catch (Exception e) {
          log.warn("Error obtenerPreValidaBloqueAIngreso Admi : " + e.toString());
          return null;
@@ -677,8 +658,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public VWValidaBancos validarCodigoPrimarioVWValidaBancos(BigInteger documento) {
       try {
-         VWValidaBancos valida = persistenciaVWValidaBancos.validarDocumentoVWValidaBancos(em, documento);
-         return valida;
+         return persistenciaVWValidaBancos.validarDocumentoVWValidaBancos(getEm(), documento);
       } catch (Exception e) {
          log.warn("Error validarCodigoPrimarioVWValidaBancos Admi : " + e.toString());
          return null;
@@ -689,7 +669,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String validarTipoTrabajadorReformaLaboral(BigInteger tipoTrabajador, BigInteger reformaLaboral) {
       try {
-         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorReformaLaboral(em, tipoTrabajador, reformaLaboral);
+         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorReformaLaboral(getEm(), tipoTrabajador, reformaLaboral);
          if (validar == null) {
             validar = " ";
          }
@@ -704,7 +684,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String validarTipoTrabajadorTipoSueldo(BigInteger tipoTrabajador, BigInteger tipoSueldo) {
       try {
-         String retorno = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorTipoSueldo(em, tipoTrabajador, tipoSueldo);
+         String retorno = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorTipoSueldo(getEm(), tipoTrabajador, tipoSueldo);
          if (retorno == null) {
             retorno = " ";
          }
@@ -719,7 +699,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String validarTipoTrabajadorTipoContrato(BigInteger tipoTrabajador, BigInteger tipoContrato) {
       try {
-         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorTipoContrato(em, tipoTrabajador, tipoContrato);
+         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorTipoContrato(getEm(), tipoTrabajador, tipoContrato);
          if (validar == null) {
             validar = " ";
          }
@@ -734,7 +714,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String validarTipoTrabajadorNormaLaboral(BigInteger tipoTrabajador, BigInteger normaLaboral) {
       try {
-         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorNormaLaboral(em, tipoTrabajador, normaLaboral);
+         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorNormaLaboral(getEm(), tipoTrabajador, normaLaboral);
          if (validar == null) {
             validar = " ";
          }
@@ -749,7 +729,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String validarTipoTrabajadorContrato(BigInteger tipoTrabajador, BigInteger contrato) {
       try {
-         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorContrato(em, tipoTrabajador, contrato);
+         String validar = persistenciaTiposTrabajadores.plantillaValidarTipoTrabajadorContrato(getEm(), tipoTrabajador, contrato);
          if (validar == null) {
             validar = " ";
          }
@@ -764,8 +744,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public String obtenerCheckIntegralReformaLaboral(BigInteger reformaLaboral) {
       try {
-         String variable = persistenciaReformasLaborales.obtenerCheckIntegralReformaLaboral(em, reformaLaboral);
-         return variable;
+         return persistenciaReformasLaborales.obtenerCheckIntegralReformaLaboral(getEm(), reformaLaboral);
       } catch (Exception e) {
          log.warn("Error obtenerCheckIntegralReformaLaboral Admi : " + e.toString());
          return null;
@@ -776,7 +755,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public void crearNuevaPersona(Personas persona) {
       try {
-         persistenciaPersonas.crear(em, persona);
+         persistenciaPersonas.crear(getEm(), persona);
       } catch (Exception e) {
          log.warn("Error crearNuevaPersona Admi : " + e.toString());
       }
@@ -785,8 +764,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public Personas obtenerUltimoRegistroPersona(BigInteger documento) {
       try {
-         Personas persona = persistenciaPersonas.obtenerUltimaPersonaAlmacenada(em, documento);
-         return persona;
+         return persistenciaPersonas.obtenerUltimaPersonaAlmacenada(getEm(), documento);
       } catch (Exception e) {
          log.warn("Error obtenerUltimoRegistroPersona Admi : " + e.toString());
          return null;
@@ -796,9 +774,9 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public Empleados crearEmpl_Con_VCargo(BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo) {
       try {
-         BigInteger secEmpleado = persistenciaEmpleado.crearConVCargo(em, codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
+         BigInteger secEmpleado = persistenciaEmpleado.crearConVCargo(getEm(), codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
                  vigenciaCargo.getEstructura().getSecuencia(), vigenciaCargo.getFechavigencia(), vigenciaCargo.getMotivocambiocargo().getSecuencia());
-         Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secEmpleado);
+         Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secEmpleado);
          return empleado;
       } catch (Exception e) {
          log.error(this.getClass().getName() + " Error crearConVCargo() : " + e.toString());
@@ -809,8 +787,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public VigenciasCargos obtenerUltimaVigenciaCargo(BigInteger secEmpleado, BigInteger empresa) {
       try {
-         VigenciasCargos vCargo = persistenciaVigenciasCargos.buscarVigenciaCargoXEmpleado(em, secEmpleado, empresa);
-         return vCargo;
+         return persistenciaVigenciasCargos.buscarVigenciaCargoXEmpleado(getEm(), secEmpleado, empresa);
       } catch (Exception e) {
          log.warn("Error obtenerUltimoRegistroEmpleado Admi : " + e.toString());
          return null;
@@ -820,7 +797,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public void modificarVigenciaCargo(VigenciasCargos vigencia) {
       try {
-         persistenciaVigenciasCargos.editar(em, vigencia);
+         persistenciaVigenciasCargos.editar(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error modificarVigenciaCargo Admi : " + e.toString());
       }
@@ -829,7 +806,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaLocalizacion(VigenciasLocalizaciones vigencia) {
       try {
-         return persistenciaVigenciasLocalizaciones.crear(em, vigencia);
+         return persistenciaVigenciasLocalizaciones.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaLocalizacion Admi : " + e.toString());
          return false;
@@ -839,7 +816,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia) {
       try {
-         return persistenciaVigenciasTiposTrabajadores.crear(em, vigencia);
+         return persistenciaVigenciasTiposTrabajadores.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaTipoTrabajador Admi : " + e.toString());
          return false;
@@ -849,7 +826,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia) {
       try {
-         return persistenciaVigenciasReformasLaborales.crear(em, vigencia);
+         return persistenciaVigenciasReformasLaborales.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaReformaLaboral Admi : " + e.toString());
          return false;
@@ -859,7 +836,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaSueldo(VigenciasSueldos vigencia) {
       try {
-         return persistenciaVigenciasSueldos.crear(em, vigencia);
+         return persistenciaVigenciasSueldos.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaSueldo Admi : " + e.toString());
          return false;
@@ -869,7 +846,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaTipoContrato(VigenciasTiposContratos vigencia) {
       try {
-         return persistenciaVigenciasTiposContratos.crear(em, vigencia);
+         return persistenciaVigenciasTiposContratos.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaTipoContrato Admi : " + e.toString());
          return false;
@@ -879,7 +856,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaNormaEmpleado(VigenciasNormasEmpleados vigencia) {
       try {
-         return persistenciaVigenciasNormasEmpleados.crear(em, vigencia);
+         return persistenciaVigenciasNormasEmpleados.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaNormaEmpleado Admi : " + e.toString());
          return false;
@@ -889,7 +866,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaContrato(VigenciasContratos vigencia) {
       try {
-         return persistenciaVigenciasContratos.crear(em, vigencia);
+         return persistenciaVigenciasContratos.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaContrato Admi : " + e.toString());
          return false;
@@ -899,7 +876,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaUbicacion(VigenciasUbicaciones vigencia) {
       try {
-         return persistenciaVigenciasUbicaciones.crear(em, vigencia);
+         return persistenciaVigenciasUbicaciones.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaUbicacion Admi : " + e.toString());
          return false;
@@ -909,7 +886,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaJornada(VigenciasJornadas vigencia) {
       try {
-         return persistenciaVigenciasJornadas.crear(em, vigencia);
+         return persistenciaVigenciasJornadas.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaJornada Admi : " + e.toString());
          return false;
@@ -919,7 +896,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaFormaPago(VigenciasFormasPagos vigencia) {
       try {
-         return persistenciaVigenciasFormasPagos.crear(em, vigencia);
+         return persistenciaVigenciasFormasPagos.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaFormaPago Admi : " + e.toString());
          return false;
@@ -934,7 +911,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearVigenciaAfiliacion(VigenciasAfiliaciones vigencia) {
       try {
-         return persistenciaVigenciasAfiliaciones.crear(em, vigencia);
+         return persistenciaVigenciasAfiliaciones.crear(getEm(), vigencia);
       } catch (Exception e) {
          log.warn("Error crearVigenciaAfiliacion Admi : " + e.toString());
          return false;
@@ -949,8 +926,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearEstadoCivil(VigenciasEstadosCiviles estado) {
       try {
-         boolean b = persistenciaVigenciasEstadosCiviles.crear(em, estado);
-         return b;
+         return persistenciaVigenciasEstadosCiviles.crear(getEm(), estado);
       } catch (Exception e) {
          log.warn("Error crearEstadoCivil Admi : " + e.toString());
          return false;
@@ -960,7 +936,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearDireccion(Direcciones direccion) {
       try {
-         return persistenciaDirecciones.crear(em, direccion);
+         return persistenciaDirecciones.crear(getEm(), direccion);
       } catch (Exception e) {
          log.warn("Error crearDireccion Admi : " + e.toString());
          return false;
@@ -970,7 +946,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearTelefono(Telefonos telefono) {
       try {
-         return persistenciaTelefonos.crear(em, telefono);
+         return persistenciaTelefonos.crear(getEm(), telefono);
       } catch (Exception e) {
          log.warn("Error crearTelefono Admi : " + e.toString());
          return false;
@@ -980,7 +956,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearSets(Sets set) {
       try {
-         return persistenciaSets.crear(em, set);
+         return persistenciaSets.crear(getEm(), set);
       } catch (Exception e) {
          log.warn("Error crearSets Admi : " + e.toString());
          return false;
@@ -990,8 +966,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public Procesos buscarProcesoPorCodigo(short codigo) {
       try {
-         Procesos proceso = persistenciaProcesos.buscarProcesosPorCodigo(em, codigo);
-         return proceso;
+         return persistenciaProcesos.buscarProcesosPorCodigo(getEm(), codigo);
       } catch (Exception e) {
          log.warn("Error buscarProcesoPorCodigo Admi : " + e.toString());
          return null;
@@ -1001,8 +976,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public BigDecimal obtenerNumeroMaximoComprobante() {
       try {
-         BigDecimal valor = persistenciaComprobantes.buscarValorNumeroMaximo(em);
-         return valor;
+         return persistenciaComprobantes.buscarValorNumeroMaximo(getEm());
       } catch (Exception e) {
          log.warn("Error obtenerNumeroMaximoComprobante Admi : " + e.toString());
          return null;
@@ -1012,7 +986,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearComprobante(Comprobantes comprobante) {
       try {
-         return persistenciaComprobantes.crear(em, comprobante);
+         return persistenciaComprobantes.crear(getEm(), comprobante);
       } catch (Exception e) {
          log.warn("Error crearComprobante Admi : " + e.toString());
          return false;
@@ -1022,8 +996,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public Comprobantes buscarComprobanteParaPrimerRegistroEmpleado(BigInteger secEmpleado) {
       try {
-         Comprobantes comprobante = persistenciaComprobantes.buscarComprobanteParaPrimerRegistroEmpleado(em, secEmpleado);
-         return comprobante;
+         return persistenciaComprobantes.buscarComprobanteParaPrimerRegistroEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
          log.warn("Error buscarComprobanteParaPrimerRegistroEmpleado Admi : " + e.toString());
          return null;
@@ -1038,7 +1011,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearCortesProcesos(CortesProcesos corte) {
       try {
-         return persistenciaCortesProcesos.crear(em, corte);
+         return persistenciaCortesProcesos.crear(getEm(), corte);
       } catch (Exception e) {
          log.warn("Error crearCortesProcesos Admi : " + e.toString());
          return false;
@@ -1048,8 +1021,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public TiposTrabajadores buscarTipoTrabajadorPorCodigo(short codigo) {
       try {
-         TiposTrabajadores tipo = persistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort(em, codigo);
-         return tipo;
+         return persistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort(getEm(), codigo);
       } catch (Exception e) {
          log.warn("Error buscarTipoTrabajadorPorCodigo Admi : " + e.toString());
          return null;
@@ -1059,8 +1031,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public TercerosSucursales consultarARL(BigInteger secEmpresa) {
       try {
-         TercerosSucursales sucursal = persistenciadetallesEmpresas.buscarARLPorEmpresa(em, secEmpresa);
-         return sucursal;
+         return persistenciadetallesEmpresas.buscarARLPorEmpresa(getEm(), secEmpresa);
       } catch (Exception e) {
          log.warn("Error consultarARL Admin : " + e.toString());
          return null;
@@ -1070,7 +1041,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public Date consultarFechaHastaCausado() {
       try {
-         return persistenciaVWActualesFechas.actualFechaHasta(em);
+         return persistenciaVWActualesFechas.actualFechaHasta(getEm());
       } catch (Exception e) {
          log.warn("Error consultando fecha en : " + this.getClass().getName());
          return null;
@@ -1079,7 +1050,12 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
 
    @Override
    public boolean eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona) {
-      return persistenciaEmpleado.eliminarEmpleadoNominaF(em, secEmpleado, secPersona);
+      try {
+         return persistenciaEmpleado.eliminarEmpleadoNominaF(getEm(), secEmpleado, secPersona);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
 }

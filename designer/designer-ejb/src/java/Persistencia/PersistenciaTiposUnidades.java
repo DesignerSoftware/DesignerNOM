@@ -108,7 +108,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador TiposUnidades contadorVigenciasIndicadores persistencia " + retorno);
+            log.warn("Contador TiposUnidades contadorVigenciasIndicadores persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error TiposUnidades contadorVigenciasIndicadores. " + e.getMessage());

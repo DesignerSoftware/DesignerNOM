@@ -33,13 +33,13 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
    @Override
    public boolean permisoLiquidar(EntityManager em, String usuarioBD) {
       try {
-         log.error("Entro en permisoLiquidar() con usuarioBD : " + usuarioBD);
+         log.warn("Entro en permisoLiquidar() con usuarioBD : " + usuarioBD);
          em.clear();
          Query query = em.createQuery("SELECT COUNT(c) FROM Candados c WHERE c.usuario.alias = :usuarioBD");
          query.setParameter("usuarioBD", usuarioBD);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          Long resultado = (Long) query.getSingleResult();
-         log.error("permisoLiquidar() resultado : " + resultado);
+         log.warn("permisoLiquidar() resultado : " + resultado);
          return (resultado > 0);
       } catch (Exception e) {
          log.error("Exepcion: permisoLiquidar : " + e);
@@ -53,12 +53,12 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
       EntityTransaction tx = em.getTransaction();
       int i = -100;
       try {
-         log.error("Esta en la persistencia y va a liquidar");
+         log.warn("Esta en la persistencia y va a liquidar");
          tx.begin();
          String sqlQuery = "call PRCUTL_FORMSLIQUIDAR()";
          Query query = em.createNativeQuery(sqlQuery);
          i = query.executeUpdate();
-         log.error("i : " + i);
+         log.warn("i : " + i);
          tx.commit();
       } catch (Exception e) {
          log.error("Error PersistenciaCandados.liquidar. " + e);
@@ -163,7 +163,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          String sqlQuery = "call UTL_FORMS.ELIMINARLIQUIDACION()";
          Query query = em.createNativeQuery(sqlQuery);
          int resultado = query.executeUpdate();
-         log.error("resultado del borrado: " + resultado);
+         log.warn("resultado del borrado: " + resultado);
          tx.commit();
       } catch (Exception e) {
          log.error("Error cerrarLiquidacion. " + e);

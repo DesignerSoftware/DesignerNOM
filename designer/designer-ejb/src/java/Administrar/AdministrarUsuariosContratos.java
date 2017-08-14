@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,43 +25,78 @@ public class AdministrarUsuariosContratos implements AdministrarUsuariosContrato
 
    private static Logger log = Logger.getLogger(AdministrarUsuariosContratos.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaUsuariosContratosInterface persistenciaUsuariosContratos;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaUsuariosContratosInterface persistenciaUsuariosContratos;
 
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public List<UsuariosContratos> consultarUsuariosC() {
-         List<UsuariosContratos> lista = persistenciaUsuariosContratos.buscarUsuariosContratos(em);
-        return lista;
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarUsuarioC(List<UsuariosContratos> listaUsuarios) {
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            persistenciaUsuariosContratos.editar(em, listaUsuarios.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarUsuarioC(List<UsuariosContratos> listaUsuarios) {
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            persistenciaUsuariosContratos.borrar(em, listaUsuarios.get(i));
-        }
-    }
+   @Override
+   public List<UsuariosContratos> consultarUsuariosC() {
+      try {
+         return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
+      }
+   }
 
-    @Override
-    public void crearUsuarioC(List<UsuariosContratos> listaUsuarios) {
-       for (int i = 0; i < listaUsuarios.size(); i++) {
-            persistenciaUsuariosContratos.crear(em, listaUsuarios.get(i));
-        }
-    }
+   @Override
+   public void modificarUsuarioC(List<UsuariosContratos> listaUsuarios) {
+      try {
+         for (int i = 0; i < listaUsuarios.size(); i++) {
+            persistenciaUsuariosContratos.editar(getEm(), listaUsuarios.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void borrarUsuarioC(List<UsuariosContratos> listaUsuarios) {
+      try {
+         for (int i = 0; i < listaUsuarios.size(); i++) {
+            persistenciaUsuariosContratos.borrar(getEm(), listaUsuarios.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearUsuarioC(List<UsuariosContratos> listaUsuarios) {
+      try {
+         for (int i = 0; i < listaUsuarios.size(); i++) {
+            persistenciaUsuariosContratos.crear(getEm(), listaUsuarios.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
 }

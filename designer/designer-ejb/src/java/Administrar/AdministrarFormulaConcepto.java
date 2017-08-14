@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -36,19 +37,37 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
     */
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<FormulasConceptos> formulasConceptosParaFormula(BigInteger secuencia) {
       try {
          log.warn("Administrar.AdministrarFormulaConcepto.formulasConceptosParaFormula() secuencia : " + secuencia);
-         List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosParaFormulaSecuencia(em, secuencia);
-         return lista;
+         return persistenciaFormulasConceptos.formulasConceptosParaFormulaSecuencia(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error formulasConceptosParaFormula Admi : " + e.toString());
          return null;
@@ -59,7 +78,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    public void crearFormulasConceptos(List<FormulasConceptos> lista) {
       try {
          for (int i = 0; i < lista.size(); i++) {
-            persistenciaFormulasConceptos.crear(em, lista.get(i));
+            persistenciaFormulasConceptos.crear(getEm(), lista.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearFormulasConceptos Admi : " + e.toString());
@@ -70,7 +89,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    public void editarFormulasConceptos(List<FormulasConceptos> lista) {
       try {
          for (int i = 0; i < lista.size(); i++) {
-            persistenciaFormulasConceptos.editar(em, lista.get(i));
+            persistenciaFormulasConceptos.editar(getEm(), lista.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarFormulasConceptos Admi : " + e.toString());
@@ -81,7 +100,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    public void borrarFormulasConceptos(List<FormulasConceptos> lista) {
       try {
          for (int i = 0; i < lista.size(); i++) {
-            persistenciaFormulasConceptos.borrar(em, lista.get(i));
+            persistenciaFormulasConceptos.borrar(getEm(), lista.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarFormulasConceptos Admi : " + e.toString());
@@ -90,10 +109,8 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
 
    @Override
    public List<FormulasConceptos> listFormulasConceptos() {
-      log.warn("listFormulasConceptos() : em" + em);
       try {
-         List<FormulasConceptos> lista = persistenciaFormulasConceptos.buscarFormulasConceptos(em);
-         return lista;
+         return persistenciaFormulasConceptos.buscarFormulasConceptos(getEm());
       } catch (Exception e) {
          log.warn("Error listFormulasConceptos Admi : " + e.toString());
          return null;
@@ -102,10 +119,8 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
 
    @Override
    public List<Conceptos> listConceptos() {
-      log.warn("listConceptos() : em" + em);
       try {
-         List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
-         return lista;
+         return persistenciaConceptos.buscarConceptos(getEm());
       } catch (Exception e) {
          log.warn("Error listConceptos Admi : " + e.toString());
          return null;
@@ -115,8 +130,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    @Override
    public Formulas formulaActual(BigInteger secuencia) {
       try {
-         Formulas form = persistenciaFormulas.buscarFormula(em, secuencia);
-         return form;
+         return persistenciaFormulas.buscarFormula(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error formulaActual Admi : " + e.toString());
          return null;
@@ -126,7 +140,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    @Override
    public List<FormulasConceptos> cargarFormulasConcepto(BigInteger secConcepto) {
       try {
-         List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
+         List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(getEm(), secConcepto);
          if (lista.isEmpty() || lista == null) {
             log.warn("Error cargarFormulasConcepto: formulasConcepto trae lista vacia o nula Admi");
             return null;
@@ -142,14 +156,14 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
      * @Override public boolean
      * verificarExistenciaConceptoFormulasConcepto(EntityManager em, BigInteger
      * secConcepto) { try { boolean lista =
-     * persistenciaFormulasConceptos.verificarExistenciaConceptoFormulasConcepto(em,
+     * persistenciaFormulasConceptos.verificarExistenciaConceptoFormulasConcepto(getEm(),
      * secConcepto); return lista; } catch (Exception e) {
      * log.warn("Error verificarExistenciaConceptoFormulasConcepto
      * Admi : " + e.toString()); return false; } }
      *
      * @Override public boolean cargarFormulasConcepto(EntityManager em,
      * BigInteger secuencia, BigInteger secFormula) { try { boolean lista =
-     * persistenciaFormulasConceptos.verificarFormulaCargue_Concepto(em,
+     * persistenciaFormulasConceptos.verificarFormulaCargue_Concepto(getEm(),
      * secuencia, secFormula); return lista; } catch (Exception e) {
      * log.warn("Error cargarFormulaConcepto Admi : " + e.toString());
      * return false; }

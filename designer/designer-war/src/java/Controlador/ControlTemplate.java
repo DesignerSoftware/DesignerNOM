@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 //import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import java.math.BigDecimal;
 import javax.faces.bean.ManagedBean;
@@ -58,8 +59,14 @@ public class ControlTemplate implements Serializable {
       formato = new SimpleDateFormat("dd/MM/yyyy");
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       log.info("Inicializando Template.");
       try {
          FacesContext x = FacesContext.getCurrentInstance();

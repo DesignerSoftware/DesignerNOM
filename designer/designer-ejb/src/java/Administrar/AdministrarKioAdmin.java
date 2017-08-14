@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,57 +27,84 @@ public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
 
    private static Logger log = Logger.getLogger(AdministrarKioAdmin.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaKioAdminInterface persistencisKioAdmin;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaKioAdminInterface persistencisKioAdmin;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<Empleados> listEmpleadosCK() {
-        List<Empleados> empleadosck = persistencisKioAdmin.consultarEmpleadosCK(em);
-        return empleadosck;
-    }
-
-    @Override
-    public ConexionesKioskos listCK(BigInteger secEmpleado) {
-        ConexionesKioskos ck = persistencisKioAdmin.conexionesKioskos(em,secEmpleado);
-        return ck;
-    }
-
-    @Override
-    public void editarCK(List<ConexionesKioskos> ck) {
-        try {
-            for (int i = 0; i < ck.size(); i++) {
-                persistencisKioAdmin.modificarck(em, ck.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("error en editarCK : " + e.getMessage());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void resetUsuario(BigInteger secEmpleado) {
-        try{
-         persistencisKioAdmin.resetUsuario(em, secEmpleado);
-        }catch(Exception e){
-            log.warn("erro en reset Usuario admin : "  + e.getMessage());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void unlockUsuario(BigInteger secEmpleado) {
-       try{
-         persistencisKioAdmin.unlockUsuario(em, secEmpleado);
-        }catch(Exception e){
-            log.warn("erro en unlock Usuario admin : "  + e.getMessage());
-        }
-    }
+   @Override
+   public List<Empleados> listEmpleadosCK() {
+      try {
+         return persistencisKioAdmin.consultarEmpleadosCK(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public ConexionesKioskos listCK(BigInteger secEmpleado) {
+      try {
+         return persistencisKioAdmin.conexionesKioskos(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void editarCK(List<ConexionesKioskos> ck) {
+      try {
+         for (int i = 0; i < ck.size(); i++) {
+            persistencisKioAdmin.modificarck(getEm(), ck.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en editarCK : " + e.getMessage());
+      }
+   }
+
+   @Override
+   public void resetUsuario(BigInteger secEmpleado) {
+      try {
+         persistencisKioAdmin.resetUsuario(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn("erro en reset Usuario admin : " + e.getMessage());
+      }
+   }
+
+   @Override
+   public void unlockUsuario(BigInteger secEmpleado) {
+      try {
+         persistencisKioAdmin.unlockUsuario(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn("erro en unlock Usuario admin : " + e.getMessage());
+      }
+   }
 
 }

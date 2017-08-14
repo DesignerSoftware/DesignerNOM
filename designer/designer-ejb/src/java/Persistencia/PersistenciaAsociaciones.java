@@ -88,7 +88,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
 
          return asociaciones;
       } catch (Exception e) {
-         log.error("Error buscarAsociaciones");
+         log.error("Error buscarAsociaciones " + e);
          return null;
       }
    }
@@ -104,7 +104,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
          Asociaciones asociaciones = (Asociaciones) query.getSingleResult();
          return asociaciones;
       } catch (Exception e) {
-         log.error("Error buscarAsociacionesSecuencia");
+         log.error("Error buscarAsociacionesSecuencia " + e);
          Asociaciones asociaciones = null;
          return asociaciones;
       }

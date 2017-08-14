@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,78 +26,116 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
 
    private static Logger log = Logger.getLogger(AdministrarTiposChequeos.class);
 
-    @EJB
-    PersistenciaTiposChequeosInterface persistenciaTiposChequeos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaTiposChequeosInterface persistenciaTiposChequeos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
-        for (int i = 0; i < listaTiposChequeos.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
+      try {
+         for (int i = 0; i < listaTiposChequeos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposChequeos.editar(em, listaTiposChequeos.get(i));
-        }
-    }
-    @Override
-    public void borrarTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
-        for (int i = 0; i < listaTiposChequeos.size(); i++) {
-            log.warn("Administrar Borrando...");
-            persistenciaTiposChequeos.borrar(em, listaTiposChequeos.get(i));
-        }
-    }
-    @Override
-    public void crearTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
-        for (int i = 0; i < listaTiposChequeos.size(); i++) {
-            log.warn("Administrar Creando...");
-            persistenciaTiposChequeos.crear(em, listaTiposChequeos.get(i));
-        }
-    }
-    @Override
-    public List<TiposChequeos> consultarTiposChequeos() {
-        List<TiposChequeos> listTiposChequeos;
-        listTiposChequeos = persistenciaTiposChequeos.buscarTiposChequeos(em);
-        return listTiposChequeos;
-    }
+            persistenciaTiposChequeos.editar(getEm(), listaTiposChequeos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public TiposChequeos consultarTipoChequeo(BigInteger secTipoEmpresa) {
-        TiposChequeos tiposChequeos;
-        tiposChequeos = persistenciaTiposChequeos.buscarTipoChequeo(em, secTipoEmpresa);
-        return tiposChequeos;
-    }
-    @Override
-    public BigInteger contarChequeosMedicosTipoChequeo(BigInteger secuenciaJuzgados) {
-        BigInteger verificarChequeosMedicos = null;
-        try {
-            log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
-            verificarChequeosMedicos = persistenciaTiposChequeos.contadorChequeosMedicos(em, secuenciaJuzgados);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARCHEQUEOSMEDICOS ERROR :" + e);
-        } finally {
-            return verificarChequeosMedicos;
-        }
-    }
-    @Override
-    public BigInteger contarTiposExamenesCargosTipoChequeo(BigInteger secuenciaJuzgados) {
-        BigInteger verificarTiposExamenesCargos = null;
-        try {
-            log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
-            verificarTiposExamenesCargos = persistenciaTiposChequeos.contadorTiposExamenesCargos(em, secuenciaJuzgados);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARTIPOSEXAMENESCARGOS ERROR :" + e);
-        } finally {
-            return verificarTiposExamenesCargos;
-        }
-    }
+   @Override
+   public void borrarTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
+      try {
+         for (int i = 0; i < listaTiposChequeos.size(); i++) {
+            log.warn("Administrar Borrando...");
+            persistenciaTiposChequeos.borrar(getEm(), listaTiposChequeos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearTiposChequeos(List<TiposChequeos> listaTiposChequeos) {
+      try {
+         for (int i = 0; i < listaTiposChequeos.size(); i++) {
+            log.warn("Administrar Creando...");
+            persistenciaTiposChequeos.crear(getEm(), listaTiposChequeos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<TiposChequeos> consultarTiposChequeos() {
+      try {
+         return persistenciaTiposChequeos.buscarTiposChequeos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public TiposChequeos consultarTipoChequeo(BigInteger secTipoEmpresa) {
+      try {
+         return persistenciaTiposChequeos.buscarTipoChequeo(getEm(), secTipoEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarChequeosMedicosTipoChequeo(BigInteger secuenciaJuzgados) {
+      try {
+         log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
+         return persistenciaTiposChequeos.contadorChequeosMedicos(getEm(), secuenciaJuzgados);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARCHEQUEOSMEDICOS ERROR :" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarTiposExamenesCargosTipoChequeo(BigInteger secuenciaJuzgados) {
+      try {
+         log.warn("Administrar SecuenciaBorrar " + secuenciaJuzgados);
+         return persistenciaTiposChequeos.contadorTiposExamenesCargos(getEm(), secuenciaJuzgados);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSCHEQUEOS VERIFICARTIPOSEXAMENESCARGOS ERROR :" + e);
+         return null;
+      }
+   }
 }

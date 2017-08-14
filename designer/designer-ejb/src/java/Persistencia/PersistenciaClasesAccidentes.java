@@ -106,7 +106,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PERSISTENCIACLASESACCIDENTES  contadorSoAccidentesMedicos  " + retorno);
+         log.warn("Contador PERSISTENCIACLASESACCIDENTES  contadorSoAccidentesMedicos  " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PERSISTENCIACLASESACCIDENTES   contadorSoAccidentesMedicos. " + e);

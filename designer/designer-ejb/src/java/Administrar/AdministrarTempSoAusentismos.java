@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -42,48 +43,98 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
    @EJB
    PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void crearTempSoAusentismos(List<TempSoAusentismos> listaTempSoAusentismos) {
-      for (int i = 0; i < listaTempSoAusentismos.size(); i++) {
-         persistenciaTempSoAusentismos.crear(em, listaTempSoAusentismos.get(i));
+      try {
+         for (int i = 0; i < listaTempSoAusentismos.size(); i++) {
+            persistenciaTempSoAusentismos.crear(getEm(), listaTempSoAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void modificarTempSoAusentismos(TempSoAusentismos tempNovedades) {
-      persistenciaTempSoAusentismos.editar(em, tempNovedades);
+      try {
+         persistenciaTempSoAusentismos.editar(getEm(), tempNovedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarTempSoAusentismos(TempSoAusentismos tempNovedades) {
-      persistenciaTempSoAusentismos.borrar(em, tempNovedades);
+      try {
+         persistenciaTempSoAusentismos.borrar(getEm(), tempNovedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarRegistrosTempSoAusentismos(String usuarioBD) {
-      persistenciaTempSoAusentismos.borrarRegistrosTempNovedades(em, usuarioBD);
+      persistenciaTempSoAusentismos.borrarRegistrosTempNovedades(getEm(), usuarioBD);
+      try {
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public List<TempSoAusentismos> consultarTempSoAusentismos(String usuarioBD) {
-      return persistenciaTempSoAusentismos.obtenerTempAusentismos(em, usuarioBD);
+      try {
+         return persistenciaTempSoAusentismos.obtenerTempAusentismos(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public ActualUsuario actualUsuario() {
-      return persistenciaActualUsuario.actualUsuarioBD(em);
+      try {
+         return persistenciaActualUsuario.actualUsuarioBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<String> consultarDocumentosSoporteCargadosUsuario(String usuarioBD) {
-      return persistenciaTempSoAusentismos.obtenerDocumentosSoporteCargados(em, usuarioBD);
+      try {
+         return persistenciaTempSoAusentismos.obtenerDocumentosSoporteCargados(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 //
 //   @Override
@@ -93,13 +144,18 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
 
    @Override
    public int reversarNovedades(ActualUsuario usuarioBD, String documentoSoporte) {
-      return persistenciaTempSoAusentismos.reversarTempAusentismos(em, usuarioBD.getAlias(), documentoSoporte);
+      try {
+         return persistenciaTempSoAusentismos.reversarTempAusentismos(getEm(), usuarioBD.getAlias(), documentoSoporte);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
+      }
    }
 
    @Override
    public String consultarRuta() {
       try {
-         Generales general = persistenciaGenerales.obtenerRutas(em);
+         Generales general = persistenciaGenerales.obtenerRutas(getEm());
          return general.getUbicareportes();
       } catch (Exception e) {
          log.warn("ERROR Administrar.AdministrarCargueArchivos.consultarRuta() e : " + e);
@@ -114,7 +170,12 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
 
    @Override
    public BigInteger consultarParametrosEmpresa(String usuarioBD) {
-      return persistenciaParametrosEstructuras.buscarEmpresaParametros(em, usuarioBD);
+      try {
+         return persistenciaParametrosEstructuras.buscarEmpresaParametros(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
 }

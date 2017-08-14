@@ -107,7 +107,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("persistenciapryclientes contadorProyectos Contador " + retorno);
+            log.warn("persistenciapryclientes contadorProyectos Contador " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error  persistenciapryclientes contadorProyectos. " + e);

@@ -57,7 +57,7 @@ public class ControlListaNavegacion implements Serializable {
       log.info("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
    }
 
-   public void quitarPagina(String pagParametro) {
+   public void quitarPagina(String pagParametro, String nombreControlador) {
       FacesContext fc = FacesContext.getCurrentInstance();
 //      log.info("quitarPagina(pag) : " + pagParametro + ", paginaActual : " + paginaActual);
       if (paginaActual.equals(pagParametro)) {
@@ -69,16 +69,20 @@ public class ControlListaNavegacion implements Serializable {
       } else {
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "nominaf");
       }
+      matarPagina(nombreControlador);
       log.info("ListaPaginasAnteriores : " + listaPaginasAnteriores + "::[" + paginaActual + "]");
    }
 
    public void matarPagina(String nombrePagina) {
       try {
          //nombrePagina = nombre del controlador empezando en minuuscula
+         char[] caracteres = nombrePagina.toCharArray();
+         caracteres[0] = Character.toLowerCase(caracteres[0]);
+         nombrePagina = new String(caracteres);
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(nombrePagina, null);
          log.warn("ControlListaNavegacion.matarPagina() : " + nombrePagina + " : YA");
       } catch (Exception e) {
-         log.error("ControlListaNavegacion.matarPagina() e: " + e);
+         log.error("ERROR ControlListaNavegacion.matarPagina() e: " + e);
       }
    }
 

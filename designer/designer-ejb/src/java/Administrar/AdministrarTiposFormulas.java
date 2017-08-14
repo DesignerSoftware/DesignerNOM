@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,52 +27,71 @@ import org.apache.log4j.Logger;
 public class AdministrarTiposFormulas implements AdministrarTiposFormulasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarTiposFormulas.class);
-    
-    @EJB
-    PersistenciaTiposFormulasInterface persistenciaTiposFormulas;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }    
 
-    @Override
-    public List<TiposFormulas> buscarTiposFormulas(BigInteger secuenciaOperando) {
-        List<TiposFormulas> listaTiposFormulas;
-        listaTiposFormulas = persistenciaTiposFormulas.tiposFormulas(em, secuenciaOperando);
-        return listaTiposFormulas;
-    }
+   @EJB
+   PersistenciaTiposFormulasInterface persistenciaTiposFormulas;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void borrarTiposFormulas(TiposFormulas tiposFormulas) {
-        persistenciaTiposFormulas.borrar(em, tiposFormulas);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void crearTiposFormulas(TiposFormulas tiposFormulas) {
-        persistenciaTiposFormulas.crear(em, tiposFormulas);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarTiposFormulas(TiposFormulas tiposFormulas) {
-        persistenciaTiposFormulas.editar(em, tiposFormulas);
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    }
-    
-    public List<Formulas> lovFormulas(){
-        List<Formulas> listaFormulas;
-        listaFormulas = persistenciaFormulas.buscarFormulas(em);
-        return listaFormulas;
-    }
+   @Override
+   public List<TiposFormulas> buscarTiposFormulas(BigInteger secuenciaOperando) {
+      List<TiposFormulas> listaTiposFormulas;
+      listaTiposFormulas = persistenciaTiposFormulas.tiposFormulas(getEm(), secuenciaOperando);
+      return listaTiposFormulas;
+   }
+
+   @Override
+   public void borrarTiposFormulas(TiposFormulas tiposFormulas) {
+      persistenciaTiposFormulas.borrar(getEm(), tiposFormulas);
+   }
+
+   @Override
+   public void crearTiposFormulas(TiposFormulas tiposFormulas) {
+      persistenciaTiposFormulas.crear(getEm(), tiposFormulas);
+   }
+
+   @Override
+   public void modificarTiposFormulas(TiposFormulas tiposFormulas) {
+      persistenciaTiposFormulas.editar(getEm(), tiposFormulas);
+
+   }
+
+   public List<Formulas> lovFormulas() {
+      List<Formulas> listaFormulas;
+      listaFormulas = persistenciaFormulas.buscarFormulas(getEm());
+      return listaFormulas;
+   }
 }

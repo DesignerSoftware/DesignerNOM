@@ -22,6 +22,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -41,81 +42,142 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void crear(List<TempProrrateos> listaTempPP) {
-      for (int i = 0; i < listaTempPP.size(); i++) {
-         persistenciaTempProrrateos.crear(em, listaTempPP.get(i));
+      try {
+         for (int i = 0; i < listaTempPP.size(); i++) {
+            persistenciaTempProrrateos.crear(getEm(), listaTempPP.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void editar(TempProrrateos tempPP) {
-      persistenciaTempProrrateos.editar(em, tempPP);
+      try {
+         persistenciaTempProrrateos.editar(getEm(), tempPP);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrar(TempProrrateos tempPP) {
-      persistenciaTempProrrateos.borrar(em, tempPP);
+      try {
+         persistenciaTempProrrateos.borrar(getEm(), tempPP);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarRegistrosTempProrrateos(String usuarioBD) {
-      persistenciaTempProrrateos.borrarRegistrosTempProrrateos(em, usuarioBD);
+      try {
+         persistenciaTempProrrateos.borrarRegistrosTempProrrateos(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public List<TempProrrateos> obtenerTempProrrateos(String usuarioBD) {
-      return persistenciaTempProrrateos.obtenerTempProrrateos(em, usuarioBD);
+      try {
+         return persistenciaTempProrrateos.obtenerTempProrrateos(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<NombresEmpleadosAux> consultarNombresEmpleados() {
-      List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(em);
-      List<NombresEmpleadosAux> listaNombres = new ArrayList<NombresEmpleadosAux>();
-      if (listaEmpleados != null) {
-         if (!listaEmpleados.isEmpty()) {
-            for (Empleados recEmp : listaEmpleados) {
-               listaNombres.add(new NombresEmpleadosAux(recEmp.getCodigoempleado().toBigInteger(), recEmp.getPersona().getNombreCompleto()));
+      try {
+         List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(getEm());
+         List<NombresEmpleadosAux> listaNombres = new ArrayList<NombresEmpleadosAux>();
+         if (listaEmpleados != null) {
+            if (!listaEmpleados.isEmpty()) {
+               for (Empleados recEmp : listaEmpleados) {
+                  listaNombres.add(new NombresEmpleadosAux(recEmp.getCodigoempleado().toBigInteger(), recEmp.getPersona().getNombreCompleto()));
+               }
             }
          }
+         return listaNombres;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
       }
-      return listaNombres;
    }
 
    @Override
    public List<String> obtenerDocumentosSoporteCargados() {
-      return persistenciaTempProrrateos.obtenerDocumentosSoporteCargados(em);
+      try {
+         return persistenciaTempProrrateos.obtenerDocumentosSoporteCargados(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public ActualUsuario actualUsuario() {
-      return persistenciaActualUsuario.actualUsuarioBD(em);
+      try {
+         return persistenciaActualUsuario.actualUsuarioBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
-//   public void cargarTempProrrateos(String fechaInicial, BigInteger secEmpresa) {
    public void cargarTempProrrateos() {
-//      SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-//      String fechaR = formatoFecha.format(fechaInicial);
-      persistenciaTempProrrateos.cargarTempProrrateos(em);
+      try {
+         persistenciaTempProrrateos.cargarTempProrrateos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public int reversarTempProrrateos(ActualUsuario usuarioBD, String documentoSoporte) {
-      return persistenciaTempProrrateos.reversarTempProrrateos(em, usuarioBD.getAlias(), documentoSoporte);
+      try {
+         return persistenciaTempProrrateos.reversarTempProrrateos(getEm(), usuarioBD.getAlias(), documentoSoporte);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
+      }
    }
 
    @Override
    public String consultarRuta() {
       try {
-         Generales general = persistenciaGenerales.obtenerRutas(em);
+         Generales general = persistenciaGenerales.obtenerRutas(getEm());
          return general.getUbicareportes();
       } catch (Exception e) {
          log.warn("ERROR AdministrarArchivoPlanoCentroCosto.consultarRuta() e: " + e);

@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,58 +30,100 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
 
    private static Logger log = Logger.getLogger(AdministrarSoAntecedentesMedicos.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaSoAntecedentesMedicosInterface PersistenciaAntecedentesM;
-    @EJB
-    PersistenciaSoAntecedentesInterface persistenciaAntecedentes;
-    @EJB
-    PersistenciaSoTiposAntecedentesInterface persistenciaTiposAntecedentes;
-    private EntityManager em;
-    
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaSoAntecedentesMedicosInterface PersistenciaAntecedentesM;
+   @EJB
+   PersistenciaSoAntecedentesInterface persistenciaAntecedentes;
+   @EJB
+   PersistenciaSoTiposAntecedentesInterface persistenciaTiposAntecedentes;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void modificarAntecedentesM(List<SoAntecedentesMedicos> listaModificar) {
-        for (int i = 0; i < listaModificar.size(); i++) {
-            PersistenciaAntecedentesM.editar(em, listaModificar.get(i));
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void crearAntecedentesM(List<SoAntecedentesMedicos> listaCrear) {
-        for (int i = 0; i < listaCrear.size(); i++) {
-            PersistenciaAntecedentesM.crear(em, listaCrear.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarAntecedentesM(List<SoAntecedentesMedicos> listaBorrar) {
-        for (int i = 0; i < listaBorrar.size(); i++) {
-            PersistenciaAntecedentesM.borrar(em, listaBorrar.get(i));
-        }
-    }
+   @Override
+   public void modificarAntecedentesM(List<SoAntecedentesMedicos> listaModificar) {
+      try {
+         for (int i = 0; i < listaModificar.size(); i++) {
+            PersistenciaAntecedentesM.editar(getEm(), listaModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SoTiposAntecedentes> consultarTiposAntecedentes() {
-         List<SoTiposAntecedentes> listTiposAntecedentes = persistenciaTiposAntecedentes.listaTiposAntecedentes(em);
-        return listTiposAntecedentes;
-    }
+   @Override
+   public void crearAntecedentesM(List<SoAntecedentesMedicos> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            PersistenciaAntecedentesM.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SoAntecedentes> consultarAntecedentes(BigInteger secTipoAntecedente) {
-        List<SoAntecedentes> listAntecedentes = persistenciaAntecedentes.lovAntecedentes(em, secTipoAntecedente);
-        return listAntecedentes;
-    }
+   @Override
+   public void borrarAntecedentesM(List<SoAntecedentesMedicos> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            PersistenciaAntecedentesM.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SoAntecedentesMedicos> consultarAntecedentesMedicos(BigInteger secPersona) {
-        List<SoAntecedentesMedicos> listAntecedentesM = PersistenciaAntecedentesM.listaAntecedentesMedicos(em, secPersona);
-        return listAntecedentesM;
-    }
+   @Override
+   public List<SoTiposAntecedentes> consultarTiposAntecedentes() {
+      try {
+         return persistenciaTiposAntecedentes.listaTiposAntecedentes(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<SoAntecedentes> consultarAntecedentes(BigInteger secTipoAntecedente) {
+      try {
+         return persistenciaAntecedentes.lovAntecedentes(getEm(), secTipoAntecedente);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<SoAntecedentesMedicos> consultarAntecedentesMedicos(BigInteger secPersona) {
+      try {
+         return PersistenciaAntecedentesM.listaAntecedentesMedicos(getEm(), secPersona);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

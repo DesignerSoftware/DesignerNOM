@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,75 +28,138 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
 
    private static Logger log = Logger.getLogger(AdministrarUsuariosInfoReportes.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaUsuariosInfoReportesInterface persistenciaUsuariosIR;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaUsuariosInfoReportesInterface persistenciaUsuariosIR;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void crear(List<UsuariosInforeportes> lista) {
-        for (int i = 0; i < lista.size(); i++) {
-            persistenciaUsuariosIR.crear(em, lista.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void editar(List<UsuariosInforeportes> lista) {
-        for (int i = 0; i < lista.size(); i++) {
-            persistenciaUsuariosIR.editar(em, lista.get(i));
-        }
-    }
+   @Override
+   public void crear(List<UsuariosInforeportes> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaUsuariosIR.crear(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrar(List<UsuariosInforeportes> lista) {
-        for (int i = 0; i < lista.size(); i++) {
-            persistenciaUsuariosIR.borrar(em, lista.get(i));
-        }
-    }
+   @Override
+   public void editar(List<UsuariosInforeportes> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaUsuariosIR.editar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<UsuariosInforeportes> listaUsuariosIR(BigInteger secUsuario) {
-        List<UsuariosInforeportes> lista = persistenciaUsuariosIR.listaUsuariosIR(em, secUsuario);
-        return lista;
-    }
+   @Override
+   public void borrar(List<UsuariosInforeportes> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaUsuariosIR.borrar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Inforeportes> lovIR() {
-        List<Inforeportes> lovIR = persistenciaUsuariosIR.lovIR(em);
-        return lovIR;
-    }
+   @Override
+   public List<UsuariosInforeportes> listaUsuariosIR(BigInteger secUsuario) {
+      try {
+         return persistenciaUsuariosIR.listaUsuariosIR(getEm(), secUsuario);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Usuarios> listaUsuarios() {
-        List<Usuarios> listaUsuarios = persistenciaUsuariosIR.listaUsuarios(em);
-        return listaUsuarios;
-    }
+   @Override
+   public List<Inforeportes> lovIR() {
+      try {
+         return persistenciaUsuariosIR.lovIR(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Long getTotalRegistros(BigInteger secUsuario) {
-        return persistenciaUsuariosIR.getTotalRegistros(em, secUsuario);
-    }
+   @Override
+   public List<Usuarios> listaUsuarios() {
+      try {
+         return persistenciaUsuariosIR.listaUsuarios(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<UsuariosInforeportes> getFind(int firstRow, int max, BigInteger secUsuario) {
-        return persistenciaUsuariosIR.getFind(em, firstRow, max, secUsuario);
-    }
+   @Override
+   public Long getTotalRegistros(BigInteger secUsuario) {
+      try {
+         return persistenciaUsuariosIR.getTotalRegistros(getEm(), secUsuario);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<UsuariosInforeportes> getBuscarIR(int firstRow, int max, BigInteger secUsuarioIR) {
-       return persistenciaUsuariosIR.getBuscarUIR(em, firstRow, max, secUsuarioIR);
-    }
+   @Override
+   public List<UsuariosInforeportes> getFind(int firstRow, int max, BigInteger secUsuario) {
+      try {
+         return persistenciaUsuariosIR.getFind(getEm(), firstRow, max, secUsuario);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Long getTotalRegistrosBuscar(BigInteger secUsuario) {
-       return persistenciaUsuariosIR.getTotalRegistrosBuscar(em, secUsuario);
-    }
+   @Override
+   public List<UsuariosInforeportes> getBuscarIR(int firstRow, int max, BigInteger secUsuarioIR) {
+      try {
+         return persistenciaUsuariosIR.getBuscarUIR(getEm(), firstRow, max, secUsuarioIR);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Long getTotalRegistrosBuscar(BigInteger secUsuario) {
+      try {
+         return persistenciaUsuariosIR.getTotalRegistrosBuscar(getEm(), secUsuario);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

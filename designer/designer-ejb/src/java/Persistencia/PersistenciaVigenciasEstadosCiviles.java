@@ -92,7 +92,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
 
     @Override
     public VigenciasEstadosCiviles buscarVigenciaEstadoCivil(EntityManager em, BigInteger secuencia) {
-        log.error(this.getClass().getName() + ".buscarVigenciaEstadoCivil()");
+        log.warn(this.getClass().getName() + ".buscarVigenciaEstadoCivil()");
         try {
             em.clear();
             return em.find(VigenciasEstadosCiviles.class, secuencia);
@@ -118,7 +118,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
     }
 
     private Long contarVigenciasEstadosCivielesPersona(EntityManager em, BigInteger secuenciaPersona) {
-        log.error(this.getClass().getName() + ".contarVigenciasEstadosCivielesPersona()");
+        log.warn(this.getClass().getName() + ".contarVigenciasEstadosCivielesPersona()");
         Long resultado = null;
         try {
             em.clear();

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,32 +25,51 @@ public class AdministrarConfigurarColumnas implements AdministrarConfigurarColum
 
    private static Logger log = Logger.getLogger(AdministrarConfigurarColumnas.class);
 
-    @EJB
-    PersistenciaColumnasEscenariosInterface persistenciaColumnasEscenarios;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaColumnasEscenariosInterface persistenciaColumnasEscenarios;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<ColumnasEscenarios> listaColumnasEscenarios() {
-        try {
-            List<ColumnasEscenarios> lista = persistenciaColumnasEscenarios.buscarColumnasEscenarios(em);
-            return lista;
-        } catch (Exception e) {
-            log.warn("Error listaColumnasEscenarios Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<ColumnasEscenarios> listaColumnasEscenarios() {
+      try {
+         List<ColumnasEscenarios> lista = persistenciaColumnasEscenarios.buscarColumnasEscenarios(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn("Error listaColumnasEscenarios Admi : " + e.toString());
+         return null;
+      }
+   }
 
 }

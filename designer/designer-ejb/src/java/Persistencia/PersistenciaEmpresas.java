@@ -73,7 +73,6 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          tx.begin();
          em.remove(em.merge(empresas));
          tx.commit();
-
       } catch (Exception e) {
          if (tx.isActive()) {
             tx.rollback();
@@ -189,9 +188,6 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
             codigoEmpresa = (Short) query.getSingleResult();
             //return codigoEmpresa;
          }
-         /*else {
-             return 1;
-             }*/
          return codigoEmpresa;
       } catch (Exception e) {
          log.error("Exepcion en PersistenciaEmpleados.codigoEmpresa" + e);
@@ -379,7 +375,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          query.setParameter(6, codOrigen);
          query.setParameter(7, codDestino);
          BigInteger num = (BigInteger) query.getSingleResult();
-         log.error("Persistencia.PersistenciaEmpresas.clonarEmpresa() Confirmo Conteo : " + num.intValue());
+         log.warn("Persistencia.PersistenciaEmpresas.clonarEmpresa() Confirmo Conteo : " + num.intValue());
          if (num.intValue() > 0) {
             return "NO";
          } else {

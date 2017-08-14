@@ -56,6 +56,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -63,7 +64,22 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    private static Logger log = Logger.getLogger(AdministrarCambiosMasivos.class);
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
    @EJB
    AdministrarSesionesInterface administrarSesiones;
    @EJB
@@ -124,15 +140,19 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
    @Override
    public void obtenerConexion(String idSesion) {
       log.warn("Administrar.AdministrarCambiosMasivos.obtenerConexion()");
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<Parametros> consultarEmpleadosParametros() {
       log.warn("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
       try {
-         String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-         return persistenciaParametros.empleadosParametros(em, usuarioBD);
+         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         return persistenciaParametros.empleadosParametros(getEm(), usuarioBD);
       } catch (Exception e) {
          log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
          log.warn("ERROR : " + e);
@@ -143,7 +163,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
    @Override
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
       try {
-         return persistenciaParametros.listcambiosmasivos(em);
+         return persistenciaParametros.listcambiosmasivos(getEm());
       } catch (Exception e) {
          log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
          log.warn("ERROR : " + e);
@@ -155,8 +175,8 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
       log.warn("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
-         String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-         ParametrosCambiosMasivos parametro = persistenciaParametros.parametrosCambiosMasivos(em, usuarioBD);
+         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         ParametrosCambiosMasivos parametro = persistenciaParametros.parametrosCambiosMasivos(getEm(), usuarioBD);
          if (parametro == null) {
             parametro = new ParametrosCambiosMasivos();
             parametro.setSecuencia(new BigInteger("0"));
@@ -185,204 +205,380 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
    }
 
    public boolean actualizarParametroCM(ParametrosCambiosMasivos parametro) {
-      return persistenciaParametros.actualizarParametroCambioMasivo(em, parametro);
+      try {
+         return persistenciaParametros.actualizarParametroCambioMasivo(getEm(), parametro);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    public boolean comprobarConceptoManual(BigInteger secuenciaConcepto) {
-      return persistenciaConceptos.verificarConceptoManual(em, secuenciaConcepto);
+      try {
+         return persistenciaConceptos.verificarConceptoManual(getEm(), secuenciaConcepto);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public List<Estructuras> consultarLovCargos_Estructuras() {
-      return persistenciaEstructuras.buscarEstructuras(em);
+      try {
+         return persistenciaEstructuras.buscarEstructuras(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<MotivosDefinitivas> consultarLovMotivosDefinitivas() {
-      return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(em);
+      try {
+         return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<MotivosRetiros> consultarLovMotivosRetiros() {
-      return persistenciaMotivosRetiros.consultarMotivosRetiros(em);
+      try {
+         return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<TiposEntidades> consultarLovTiposEntidades() {
-      return persistenciaTiposEntidades.buscarTiposEntidades(em);
+      try {
+         return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<TercerosSucursales> consultarLovTercerosSucursales() {
-      return persistenciaTercerosSucursales.buscarTercerosSucursales(em);
+      try {
+         return persistenciaTercerosSucursales.buscarTercerosSucursales(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<CentrosCostos> consultarLovCentrosCostos() {
-      return persistenciaCentrosCostos.buscarCentrosCostosCM(em);
+      try {
+         return persistenciaCentrosCostos.buscarCentrosCostosCM(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Periodicidades> consultarLovPeriodicidades() {
-      return persistenciaPeriodicidades.consultarPeriodicidades(em);
+      try {
+         return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Conceptos> consultarLovConceptos() {
-      return persistenciaConceptos.buscarConceptosLovNovedades(em);
+      try {
+         return persistenciaConceptos.buscarConceptosLovNovedades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Formulas> consultarLovFormulas() {
-      return persistenciaFormulas.buscarFormulas(em);
+      try {
+         return persistenciaFormulas.buscarFormulas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Terceros> consultarLovTerceros() {
-      return persistenciaTerceros.buscarTerceros(em);
+      try {
+         return persistenciaTerceros.buscarTerceros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<MotivosCambiosSueldos> consultarLovMotivosCambiosSueldos() {
-      return persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(em);
+      try {
+         return persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<TiposSueldos> consultarLovTiposSueldos() {
-      return persistenciaTiposSueldos.buscarTiposSueldos(em);
+      try {
+         return persistenciaTiposSueldos.buscarTiposSueldos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Tiposausentismos> consultarLovTiposausentismos() {
-      return persistenciaTiposAusentismos.consultarTiposAusentismos(em);
+      try {
+         return persistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Unidades> consultarLovUnidades() {
-      return persistenciaUnidades.consultarUnidades(em);
+      try {
+         return persistenciaUnidades.consultarUnidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Empleados> consultarLovEmpleados() {
-      return persistenciaEmpleados.buscarEmpleados(em);
+      try {
+         return persistenciaEmpleados.buscarEmpleados(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Papeles> consultarLovPapeles() {
-      return persistenciaPapeles.consultarPapeles(em);
+      try {
+         return persistenciaPapeles.consultarPapeles(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Causasausentismos> consultarLovCausasausentismos() {
-      return persistenciaCausasAusentismos.buscarCausasAusentismos(em);
+      try {
+         return persistenciaCausasAusentismos.buscarCausasAusentismos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Clasesausentismos> consultarLovClasesausentismos() {
-      return persistenciaClasesAusentismos.buscarClasesAusentismos(em);
+      try {
+         return persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void adicionaEstructuraCM2(BigInteger secEstructura, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaEstructuraCM2()");
-      persistenciaEstructuras.adicionaEstructuraCambiosMasivos(em, secEstructura, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaEstructuraCM2()");
+         persistenciaEstructuras.adicionaEstructuraCambiosMasivos(getEm(), secEstructura, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaEstructuraCM2(BigInteger secEstructura, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaEstructuraCM2()");
-      persistenciaEstructuras.undoAdicionaEstructuraCambiosMasivos(em, secEstructura, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaEstructuraCM2()");
+         persistenciaEstructuras.undoAdicionaEstructuraCambiosMasivos(getEm(), secEstructura, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaVacacionCM2(BigInteger ndias, Date fechaCambio, Date fechaPago) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaVacacionCM2()");
-      persistenciaVacaciones.adicionaVacacionCambiosMasivos(em, ndias, fechaCambio, fechaPago);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaVacacionCM2()");
+         persistenciaVacaciones.adicionaVacacionCambiosMasivos(getEm(), ndias, fechaCambio, fechaPago);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaVacacionCM2(BigInteger ndias, Date fechaCambio, Date fechaPago) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaVacacionCM2()");
-      persistenciaVacaciones.undoAdicionaVacacionCambiosMasivos(em, ndias, fechaCambio, fechaPago);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaVacacionCM2()");
+         persistenciaVacaciones.undoAdicionaVacacionCambiosMasivos(getEm(), ndias, fechaCambio, fechaPago);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaRetiroCM2(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaRetiroCM2()");
-      persistenciaRetirados.adicionaRetiroCambiosMasivos(em, indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaRetiroCM2()");
+         persistenciaRetirados.adicionaRetiroCambiosMasivos(getEm(), indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaRetiroCM2(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaRetiroCM2()");
-      persistenciaRetirados.undoAdicionaRetiroCambiosMasivos(em, indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaRetiroCM2()");
+         persistenciaRetirados.undoAdicionaRetiroCambiosMasivos(getEm(), indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaAfiliacionCM2(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaAfiliacionCM2()");
-      persistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos(em, secTipoEntidad, secTerceroSuc, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaAfiliacionCM2()");
+         persistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos(getEm(), secTipoEntidad, secTerceroSuc, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaAfiliacionCM2(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAfiliacionCM2()");
-      persistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos(em, secTipoEntidad, secTerceroSuc, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAfiliacionCM2()");
+         persistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos(getEm(), secTipoEntidad, secTerceroSuc, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaLocalizacionCM2(BigInteger secEstructura, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaLocalizacionCM2()");
-      persistenciaEstructuras.adicionaLocalizacionCambiosMasivos(em, secEstructura, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaLocalizacionCM2()");
+         persistenciaEstructuras.adicionaLocalizacionCambiosMasivos(getEm(), secEstructura, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaLocalizacionCM2(BigInteger secEstructura, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaLocalizacionCM2()");
-      persistenciaEstructuras.undoAdicionaLocalizacionCambiosMasivos(em, secEstructura, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaLocalizacionCM2()");
+         persistenciaEstructuras.undoAdicionaLocalizacionCambiosMasivos(getEm(), secEstructura, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaSueldoCM2(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaSueldoCM2()");
-      persistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos(em, secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaSueldoCM2()");
+         persistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos(getEm(), secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaSueldoCM2(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaSueldoCM2()");
-      persistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos(em, secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaSueldoCM2()");
+         persistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos(getEm(), secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaNovedadCM2(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
            BigInteger secTercero, BigInteger secFormula, BigInteger valor,
            BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal,
            BigInteger unidadParteEntera, BigInteger unidadParteFraccion) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaNovedadCM2()");
-      persistenciaNovedadesSistema.adicionaNovedadCambiosMasivos(em, tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal, unidadParteEntera, unidadParteFraccion);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaNovedadCM2()");
+         persistenciaNovedadesSistema.adicionaNovedadCambiosMasivos(getEm(), tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal, unidadParteEntera, unidadParteFraccion);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaNovedadCM2(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
            BigInteger secTercero, BigInteger secFormula, BigInteger valor,
            BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaNovedadCM2()");
-      persistenciaNovedadesSistema.undoAdicionaNovedadCambiosMasivos(em, tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaNovedadCM2()");
+         persistenciaNovedadesSistema.undoAdicionaNovedadCambiosMasivos(getEm(), tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaReingresoCM2(Date fechaIni, Date fechaFin) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaReingresoCM2()");
-      persistenciaRetirados.adicionaReingresoCambiosMasivos(em, fechaIni, fechaFin);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaReingresoCM2()");
+         persistenciaRetirados.adicionaReingresoCambiosMasivos(getEm(), fechaIni, fechaFin);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaEmplJefeCM2(BigInteger secEmpleado, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaEmplJefeCM2()");
-      persistenciaVigenciasCargos.adicionaEmplJefeCambiosMasivos(em, secEmpleado, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaEmplJefeCM2()");
+         persistenciaVigenciasCargos.adicionaEmplJefeCambiosMasivos(getEm(), secEmpleado, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaPapelCM2(BigInteger secPapel, Date fechaCambio) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaPapelCM2()");
-      persistenciaPapeles.adicionaPapelCambiosMasivos(em, secPapel, fechaCambio);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaPapelCM2()");
+         persistenciaPapeles.adicionaPapelCambiosMasivos(getEm(), secPapel, fechaCambio);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void adicionaAusentismoCM2(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias,
            BigInteger horas, Date fechaIniAusen, Date fechaFinAusen, Date fechaExpedicion,
            Date fechaIpago, Date fechaPago, BigInteger porcent, BigInteger baseliq, String forma) {
-      log.warn("Administrar.AdministrarCambiosMasivos.adicionaAusentismoCM2()");
-      persistenciaSoausentismos.adicionaAusentismoCambiosMasivos(em, secTipo, secClase, secCausa, dias, horas, fechaIniAusen, fechaFinAusen, fechaExpedicion, fechaIpago, fechaPago, porcent, baseliq, forma);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.adicionaAusentismoCM2()");
+         persistenciaSoausentismos.adicionaAusentismoCambiosMasivos(getEm(), secTipo, secClase, secCausa, dias, horas, fechaIniAusen, fechaFinAusen, fechaExpedicion, fechaIpago, fechaPago, porcent, baseliq, forma);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void undoAdicionaAusentismoCM2(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias, Date fechaIniAusen, Date fechaFinAusen) {
-      log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAusentismoCM2()");
-      persistenciaSoausentismos.undoAdicionaAusentismoCambiosMasivos(em, secTipo, secClase, secCausa, dias, fechaIniAusen, fechaFinAusen);
+      try {
+         log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAusentismoCM2()");
+         persistenciaSoausentismos.undoAdicionaAusentismoCambiosMasivos(getEm(), secTipo, secClase, secCausa, dias, fechaIniAusen, fechaFinAusen);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
 }

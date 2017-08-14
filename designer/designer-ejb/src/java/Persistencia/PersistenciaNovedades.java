@@ -115,7 +115,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
 
    @Override
    public List<Novedades> todasNovedadesEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
-      log.error("Persistencia.PersistenciaNovedades.todasNovedadesEmpleado() secuenciaEmpleado : " + secuenciaEmpleado);
+      log.warn("Persistencia.PersistenciaNovedades.todasNovedadesEmpleado() secuenciaEmpleado : " + secuenciaEmpleado);
       try {
          em.clear();
 //            Query query = em.createQuery("SELECT n FROM Novedades n WHERE n.empleado.secuencia = :secuenciaEmpleado");

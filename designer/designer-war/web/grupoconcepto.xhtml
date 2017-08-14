@@ -281,13 +281,13 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['empresa']}" width="200" sortBy="#{v.concepto.empresa.nombre}" filterBy="#{v.concepto.empresa.nombre}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['empresa']}" width="200" sortBy="#{v.concepto.nombreEmpresa}" filterBy="#{v.concepto.nombreEmpresa}" filterMatchMode="contains"
                                   id="colEmpresa" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{v.concepto.empresa.nombre}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{v.concepto.nombreEmpresa}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{v.concepto.empresa.nombre}" id="editarEmpresaVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(v, 'EMPRESA', v.concepto.empresa.nombre)}"/>
+                                 <p:inputText autocomplete="off" value="#{v.concepto.nombreEmpresa}" id="editarEmpresaVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(v, 'EMPRESA', v.concepto.nombreEmpresa)}"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(v,5)}"
                                             onstart="PF('datosVigenciasGruposConceptos').unselectAllRows(); PF('datosVigenciasGruposConceptos').selectRow(#{indiceD});"/>
                                     <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(v,0,0)}"/>
@@ -590,11 +590,11 @@
                         <h:outputText value="#{con.descripcion}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{con.empresa.nombre}" filterBy="#{con.empresa.nombre}" width="250" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
+                     <p:column sortBy="#{con.nombreEmpresa}" filterBy="#{con.nombreEmpresa}" width="250" filterStyle="width: 85% !important;" filterMatchMode="contains"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresaC']}"/>
                         </f:facet>
-                        <h:outputText value="#{con.empresa.nombre}"/>  
+                        <h:outputText value="#{con.nombreEmpresa}"/>  
                      </p:column>
 
                      <p:column sortBy="#{con.naturalezaConcepto}" filterBy="#{con.naturalezaConcepto}" filterStyle="width: 85% !important;" width="80" filterMatchMode="contains"> 
@@ -654,7 +654,7 @@
                </p:dialog>
 
                <p:dialog id="editarEmpresaV" header="#{msg['editarEmpresaV']}" widgetVar="editarEmpresaV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
@@ -860,7 +860,7 @@
                      <f:facet name="header">
                         <h:outputText value="#{msg['empresaX']}"/>
                      </f:facet>
-                     <h:outputText value="#{v.concepto.empresa.nombre}"/>
+                     <h:outputText value="#{v.concepto.nombreEmpresa}"/>
                   </p:column>
 
                </p:dataTable>

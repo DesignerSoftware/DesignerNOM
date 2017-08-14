@@ -13,71 +13,92 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
+
+
 @Stateful
 public class AdministrarEmpresasOpcionesKioskos implements AdministrarEmpresasOpcionesKioskosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarEmpresasOpcionesKioskos.class);
 
-    @EJB
-    PersistenciaEmpresasOpcionesKioskosInterface persistenciaEmpresasOK;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEmpresasOpcionesKioskosInterface persistenciaEmpresasOK;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-            em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public void modificarEmpresasOpcionesKioskos(List<EmpresasOpcionesKioskos> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaEmpresasOK.editar(em, lista.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("error en modificarEmpresasOpcionesKioskos admi : " + e.getMessage());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarEmpresasOpcionesKioskos(List<EmpresasOpcionesKioskos> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaEmpresasOK.borrar(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en borrarEmpresasOpcionesKioskos admi : " + e.getMessage());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearEmpresasOpcionesKioskos(List<EmpresasOpcionesKioskos> lista) {
-        try {
-            for (int i = 0; i < lista.size(); i++) {
-                persistenciaEmpresasOK.crear(em, lista.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en crearEmpresasOpcionesKioskos admi : " + e.getMessage());
-        }
-    }
+   @Override
+   public void modificarEmpresasOpcionesKioskos(List<EmpresasOpcionesKioskos> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaEmpresasOK.editar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en modificarEmpresasOpcionesKioskos admi : " + e.getMessage());
+      }
+   }
 
-    @Override
-    public List<EmpresasOpcionesKioskos> consultarEmpresasOpcionesKioskos() {
-       try {
-            List<EmpresasOpcionesKioskos> empresaOK = persistenciaEmpresasOK.consultarEmpresaOpKioskos(em);
-            return empresaOK;
-        } catch (Exception e) {
-            log.warn("error en consultarEmpresasOpcionesKioskos : " + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public void borrarEmpresasOpcionesKioskos(List<EmpresasOpcionesKioskos> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaEmpresasOK.borrar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en borrarEmpresasOpcionesKioskos admi : " + e.getMessage());
+      }
+   }
+
+   @Override
+   public void crearEmpresasOpcionesKioskos(List<EmpresasOpcionesKioskos> lista) {
+      try {
+         for (int i = 0; i < lista.size(); i++) {
+            persistenciaEmpresasOK.crear(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en crearEmpresasOpcionesKioskos admi : " + e.getMessage());
+      }
+   }
+
+   @Override
+   public List<EmpresasOpcionesKioskos> consultarEmpresasOpcionesKioskos() {
+      try {
+         return persistenciaEmpresasOK.consultarEmpresaOpKioskos(getEm());
+      } catch (Exception e) {
+         log.warn("error en consultarEmpresasOpcionesKioskos : " + e.getMessage());
+         return null;
+      }
+   }
 
 }

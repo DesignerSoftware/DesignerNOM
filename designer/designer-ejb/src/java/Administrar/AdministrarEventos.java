@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,73 +25,108 @@ public class AdministrarEventos implements AdministrarEventosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarEventos.class);
 
-    @EJB
-    PersistenciaEventosInterface persistenciaEventos;
+   @EJB
+   PersistenciaEventosInterface persistenciaEventos;
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarEventos(List<Eventos> listaEventos) {
-        for (int i = 0; i < listaEventos.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarEventos(List<Eventos> listaEventos) {
+      try {
+         for (int i = 0; i < listaEventos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaEventos.editar(em,listaEventos.get(i));
-        }
-    }
+            persistenciaEventos.editar(getEm(), listaEventos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarEventos(List<Eventos> listaEventos) {
-        for (int i = 0; i < listaEventos.size(); i++) {
+   @Override
+   public void borrarEventos(List<Eventos> listaEventos) {
+      try {
+         for (int i = 0; i < listaEventos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaEventos.borrar(em,listaEventos.get(i));
-        }
-    }
+            persistenciaEventos.borrar(getEm(), listaEventos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearEventos(List<Eventos> listaEventos) {
-        for (int i = 0; i < listaEventos.size(); i++) {
+   @Override
+   public void crearEventos(List<Eventos> listaEventos) {
+      try {
+         for (int i = 0; i < listaEventos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaEventos.crear(em,listaEventos.get(i));
-        }
-    }
+            persistenciaEventos.crear(getEm(), listaEventos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Eventos> consultarEventos() {
-        List<Eventos> listEventos;
-        listEventos = persistenciaEventos.buscarEventos(em);
-        return listEventos;
-    }
+   @Override
+   public List<Eventos> consultarEventos() {
+      try {
+         return persistenciaEventos.buscarEventos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Eventos consultarEvento(BigInteger secDeportes) {
-        Eventos eventos;
-        eventos = persistenciaEventos.buscarEvento(em,secDeportes);
-        return eventos;
-    }
+   @Override
+   public Eventos consultarEvento(BigInteger secDeportes) {
+      try {
+         return persistenciaEventos.buscarEvento(getEm(), secDeportes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger verificarVigenciasEventos(BigInteger secuenciaEventos) {
-        BigInteger verificadorVigenciasEventos = null;
-        try {
-            log.error("Secuencia VigenciasEventos " + secuenciaEventos);
-            verificadorVigenciasEventos = persistenciaEventos.contadorVigenciasEventos(em,secuenciaEventos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarEventos VigenciasEstadoCiviles ERROR :" + e);
-        } finally {
-            return verificadorVigenciasEventos;
-        }
-    }
+   @Override
+   public BigInteger verificarVigenciasEventos(BigInteger secuenciaEventos) {
+      try {
+         log.error("Secuencia VigenciasEventos " + secuenciaEventos);
+         return persistenciaEventos.contadorVigenciasEventos(getEm(), secuenciaEventos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarEventos VigenciasEstadoCiviles ERROR :" + e);
+         return null;
+      }
+   }
 
 }

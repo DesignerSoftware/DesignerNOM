@@ -139,8 +139,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          }
          return detalleEmpresa;
       } catch (Exception e) {
-         log.error("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. ");
-         log.error(e.getMessage());
+         log.error("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. " + e.getMessage());
          return null;
       }
    }

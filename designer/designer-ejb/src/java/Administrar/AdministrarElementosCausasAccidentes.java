@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,105 +27,138 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
 
    private static Logger log = Logger.getLogger(AdministrarElementosCausasAccidentes.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaElementosCausasAccidentes'.
-     */
-    @EJB
-    PersistenciaElementosCausasAccidentesInterface persistenciaElementosCausasAccidentes;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaElementosCausasAccidentes'.
+    */
+   @EJB
+   PersistenciaElementosCausasAccidentesInterface persistenciaElementosCausasAccidentes;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
-        ElementosCausasAccidentes elementosCausasAccidentesSeleccionada;
-        for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
+      try {
+         ElementosCausasAccidentes elementosCausasAccidentesSeleccionada;
+         for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
             log.warn("Administrar Modificando...");
             elementosCausasAccidentesSeleccionada = listaElementosCausasAccidentes.get(i);
-            persistenciaElementosCausasAccidentes.editar(em,elementosCausasAccidentesSeleccionada);
-        }
-    }
+            persistenciaElementosCausasAccidentes.editar(getEm(), elementosCausasAccidentesSeleccionada);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
-        for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
+   @Override
+   public void borrarElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
+      try {
+         for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
             log.warn("Borrando...");
-            persistenciaElementosCausasAccidentes.borrar(em,listaElementosCausasAccidentes.get(i));
-        }
-    }
+            persistenciaElementosCausasAccidentes.borrar(getEm(), listaElementosCausasAccidentes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
-        for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
+   @Override
+   public void crearElementosCausasAccidentes(List<ElementosCausasAccidentes> listaElementosCausasAccidentes) {
+      try {
+         for (int i = 0; i < listaElementosCausasAccidentes.size(); i++) {
             log.warn("Creando...");
-            persistenciaElementosCausasAccidentes.crear(em,listaElementosCausasAccidentes.get(i));
-        }
-    }
+            persistenciaElementosCausasAccidentes.crear(getEm(), listaElementosCausasAccidentes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<ElementosCausasAccidentes> consultarElementosCausasAccidentes() {
-        List<ElementosCausasAccidentes> listElementosCausasAccidentes = persistenciaElementosCausasAccidentes.buscarElementosCausasAccidentes(em);
-        return listElementosCausasAccidentes;
-    }
+   @Override
+   public List<ElementosCausasAccidentes> consultarElementosCausasAccidentes() {
+      try {
+         return persistenciaElementosCausasAccidentes.buscarElementosCausasAccidentes(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public ElementosCausasAccidentes consultarElementoCausaAccidente(BigInteger secElementosCausasAccidentes) {
-        ElementosCausasAccidentes elementosCausasAccidentes = persistenciaElementosCausasAccidentes.buscarElementoCausaAccidente(em,secElementosCausasAccidentes);
-        return elementosCausasAccidentes;
-    }
+   @Override
+   public ElementosCausasAccidentes consultarElementoCausaAccidente(BigInteger secElementosCausasAccidentes) {
+      try {
+         return persistenciaElementosCausasAccidentes.buscarElementoCausaAccidente(getEm(), secElementosCausasAccidentes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarSoAccidentesCausa(BigInteger secTiposAuxilios) {
-        BigInteger contadorSoAccidentes = null;
-        try {
-            contadorSoAccidentes = persistenciaElementosCausasAccidentes.contadorSoAccidentes(em,secTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentes ERROR :" + e);
-        } finally {
-            return contadorSoAccidentes;
-        }
-    }
+   @Override
+   public BigInteger contarSoAccidentesCausa(BigInteger secTiposAuxilios) {
+      try {
+         return persistenciaElementosCausasAccidentes.contadorSoAccidentes(getEm(), secTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentes ERROR :" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarSoAccidentesMedicosElementoCausaAccidente(BigInteger secTiposAuxilios) {
-        BigInteger contadorSoAccidentesMedicos = null;
-        try {
-            contadorSoAccidentesMedicos = persistenciaElementosCausasAccidentes.contadorSoAccidentesMedicos(em,secTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos ERROR :" + e);
-        } finally {
-            return contadorSoAccidentesMedicos;
-        }
-    }
+   @Override
+   public BigInteger contarSoAccidentesMedicosElementoCausaAccidente(BigInteger secTiposAuxilios) {
+      try {
+         return persistenciaElementosCausasAccidentes.contadorSoAccidentesMedicos(getEm(), secTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoAccidentesMedicos ERROR :" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarSoIndicadoresFrElementoCausaAccidente(BigInteger secTiposAuxilios) {
-        BigInteger contadorSoIndicadoresFr = null;
-        try {
-            contadorSoIndicadoresFr = persistenciaElementosCausasAccidentes.contadorSoIndicadoresFr(em,secTiposAuxilios);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr ERROR :" + e);
-        } finally {
-            return contadorSoIndicadoresFr;
-        }
-    }
+   @Override
+   public BigInteger contarSoIndicadoresFrElementoCausaAccidente(BigInteger secTiposAuxilios) {
+      try {
+         return persistenciaElementosCausasAccidentes.contadorSoIndicadoresFr(getEm(), secTiposAuxilios);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARELEMENTOSCAUSASACCIDENTES contadorSoIndicadoresFr ERROR :" + e);
+         return null;
+      }
+   }
 }

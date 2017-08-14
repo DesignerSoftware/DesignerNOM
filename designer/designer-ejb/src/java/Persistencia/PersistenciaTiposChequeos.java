@@ -113,12 +113,12 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
         BigInteger retorno;
         try {
             em.clear();
-            log.error("Persistencia secuencia borrado " + secuencia);
+            log.warn("Persistencia secuencia borrado " + secuencia);
             String sqlQuery = " SELECT COUNT(*)FROM tiposexamenescargos cm WHERE cm.tipochequeo = ? ";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAJUZGADOS CONTADORCHEQUEOSMEDICOS = " + retorno);
+            log.warn("PERSISTENCIAJUZGADOS CONTADORCHEQUEOSMEDICOS = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaTiposChequeos.contadorTiposExamenesCargos()" + e.getMessage());

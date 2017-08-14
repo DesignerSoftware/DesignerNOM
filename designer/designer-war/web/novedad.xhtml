@@ -4,298 +4,310 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">
-                <script type="text/javascript">
-                    $(window).load(function () {
-                        foco('form:novEmpl');
-                    });
-                    function foco(idElemento) {
-                        document.getElementById(idElemento).focus();
-                    }
-                    ;
-                </script>
-                <h:form id="form">
-                    <p:panel  id="PanelTotal" header="Novedades" styleClass="panelTotal">    
-                        <p:panel style="border-radius: 10px; position: absolute; width: 842px; height: 445px;">
-                            <div style="display: inline-flex;">
-                                <fieldset style="position: relative; left: 0px; width: 245px; border-radius: 10px;">
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novEmpl" widgetVar="novEmpl" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad01.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadempleado')}" disabled="#{controlNovedad.consultarPermisosPorId('novEmpl')}"/>
-                                        <h:commandLink  id="txtnovEmpl" style="font-weight: bold; color: #14388B;" value="Por Empleado..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadempleado')}"
-                                                        disabled="#{controlNovedad.consultarPermisosPorId('txtnovEmpl')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novConcepto" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad02.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" 
-                                                         value="" actionListener="#{controlNovedadesConceptos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadconcepto')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('novConcepto')}"/>
-                                        <h:commandLink id="txtnovConcepto" style="font-weight: bold; color: #14388B;" value="Por Concepto..." actionListener="#{controlNovedadesConceptos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadconcepto')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovConcepto')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por concepto"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton  id="novedadTercero" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad03.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                          value=""  action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadtercero')}" 
-                                                          disabled="#{controlNovedad.consultarPermisosPorId('novedadTercero')}"/>
-                                        <h:commandLink id="txtnovedadTercero" style="font-weight: bold; color: #14388B;" value="Por Tercero..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadtercero')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadTercero')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por tercero"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novedadPlano" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad04.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadplano')}" actionListener="#{cargarArchivoPlano.recibirPaginaEntrante('novedad')}" 
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('novedadPlano')}"/>
-                                        <h:commandLink id="txtnovedadPlano" style="font-weight: bold; color: #14388B;" value="Cargue de Novedades" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadplano')}" actionListener="#{cargarArchivoPlano.recibirPaginaEntrante('novedad')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadPlano')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Cargue de novedades manuales y semiautomáticas"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="ausentismos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad05.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlAusentismos.recibirPaginaEntrante('novedad')}"  action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atausentismos')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('ausentismos')}"> 
-                                        </p:commandButton>
-                                        <h:commandLink id="txtausentismos" style="font-weight: bold; color: #14388B;" value="Ausentismos..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atausentismos')}" actionListener="#{controlAusentismos.recibirPaginaEntrante('novedad')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtausentismos')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Registro de ausentismo por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novedadVacaciones" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad06.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacacionesarmor')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('novedadVacaciones')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtnovedadVacaciones" style="font-weight: bold; color: #14388B;" value="Vacaciones" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacacionesarmor')}" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadVacaciones')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novedadDefinitiva" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad07.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedadesDefinitivas.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedaddefinitivas')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('novedadDefinitiva')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtnovedadDefinitiva" style="font-weight: bold; color: #14388B;" value="Liquidacion Definitiva" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedaddefinitivas')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadDefinitiva')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Registro de retiros por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="cesantias" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad08.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value=""  action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadcesantiasrc')}" 
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('cesantias')}">
-                                        </p:commandButton>   <!--actionListener="#/{controlNovedadCesantiasRC.recibirPag('novedad')}" -->
-                                        <h:commandLink id="txtcesantias" style="font-weight: bold; color: #14388B;" value="Pago Parcial de Cesantías" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadcesantiasrc')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtcesantias')}"/>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Registro de cesantías anticipadas por empleado"/>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <!--<hr style="float: left; height: 120px;"/>-->
-                                <fieldset style="position: relative; left: 5px; width: 245px; border-radius: 10px;">
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="recargoshe" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad12.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlATExtraRecargo.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atextrarecargo')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('recargoshe')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtrecargoshe" style="font-weight: bold; color: #14388B; " value="Configuración Recargos H. E." actionListener="#{controlATExtraRecargo.recibirPaginaEntrante('novedad')}"
-                                                       action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atextrarecargo')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtrecargoshe')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Configuración general de las cuadrillas"/>
-                                        </div>
-                                    </div>
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">
+            <script type="text/javascript">
+               $(window).load(function () {
+                  foco('form:novEmpl');
+               });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               }
+               ;
+            </script>
+            <h:form id="form">
+               <p:panel  id="PanelTotal" header="Novedades" styleClass="panelTotal">    
+                  <p:panel style="border-radius: 10px; position: absolute; width: 842px; height: 445px;">
+                     <div style="display: inline-flex;">
+                        <fieldset style="position: relative; left: 0px; width: 245px; border-radius: 10px;">
+                           <div style="height: 50px;">
+                              <p:commandButton id="novEmpl" widgetVar="novEmpl" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad01.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadempleado')}" disabled="#{controlNovedad.consultarPermisosPorId('novEmpl')}"/>
+                              <h:commandLink  id="txtnovEmpl" style="font-weight: bold; color: #14388B;" value="Por Empleado..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadempleado')}"
+                                              disabled="#{controlNovedad.consultarPermisosPorId('txtnovEmpl')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="novConcepto" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad02.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" 
+                                               value="" actionListener="#{controlNovedadesConceptos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadconcepto')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('novConcepto')}"/>
+                              <h:commandLink id="txtnovConcepto" style="font-weight: bold; color: #14388B;" value="Por Concepto..." actionListener="#{controlNovedadesConceptos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadconcepto')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovConcepto')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por concepto"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton  id="novedadTercero" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad03.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                                value=""  action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadtercero')}" 
+                                                disabled="#{controlNovedad.consultarPermisosPorId('novedadTercero')}"/>
+                              <h:commandLink id="txtnovedadTercero" style="font-weight: bold; color: #14388B;" value="Por Tercero..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadtercero')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadTercero')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por tercero"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="novedadPlano" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad04.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadplano')}" actionListener="#{cargarArchivoPlano.recibirPaginaEntrante('novedad')}" 
+                                               disabled="#{controlNovedad.consultarPermisosPorId('novedadPlano')}"/>
+                              <h:commandLink id="txtnovedadPlano" style="font-weight: bold; color: #14388B;" value="Cargue de Novedades" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadplano')}" actionListener="#{cargarArchivoPlano.recibirPaginaEntrante('novedad')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadPlano')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Cargue de novedades manuales y semiautomáticas"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="ausentismos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad05.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlAusentismos.recibirPaginaEntrante('novedad')}"  action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atausentismos')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('ausentismos')}"> 
+                              </p:commandButton>
+                              <h:commandLink id="txtausentismos" style="font-weight: bold; color: #14388B;" value="Ausentismos..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atausentismos')}" actionListener="#{controlAusentismos.recibirPaginaEntrante('novedad')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtausentismos')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Registro de ausentismo por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="novedadVacaciones" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad06.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacacionesarmor')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('novedadVacaciones')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtnovedadVacaciones" style="font-weight: bold; color: #14388B;" value="Vacaciones" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadvacacionesarmor')}" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadVacaciones')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="novedadDefinitiva" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad07.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlNovedadesDefinitivas.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedaddefinitivas')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('novedadDefinitiva')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtnovedadDefinitiva" style="font-weight: bold; color: #14388B;" value="Liquidacion Definitiva" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedaddefinitivas')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadDefinitiva')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Registro de retiros por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="cesantias" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad08.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value=""  action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadcesantiasrc')}" 
+                                               disabled="#{controlNovedad.consultarPermisosPorId('cesantias')}">
+                              </p:commandButton>   <!--actionListener="#/{controlNovedadCesantiasRC.recibirPag('novedad')}" -->
+                              <h:commandLink id="txtcesantias" style="font-weight: bold; color: #14388B;" value="Pago Parcial de Cesantías" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadcesantiasrc')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtcesantias')}"/>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Registro de cesantías anticipadas por empleado"/>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <!--<hr style="float: left; height: 120px;"/>-->
+                        <fieldset style="position: relative; left: 5px; width: 245px; border-radius: 10px;">
+                           <div style="height: 50px;">
+                              <p:commandButton id="recargoshe" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad12.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlATExtraRecargo.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atextrarecargo')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('recargoshe')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtrecargoshe" style="font-weight: bold; color: #14388B; " value="Configuración Recargos H. E." actionListener="#{controlATExtraRecargo.recibirPaginaEntrante('novedad')}"
+                                             action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atextrarecargo')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtrecargoshe')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Configuración general de las cuadrillas"/>
+                              </div>
+                           </div>
 
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="cuadrillas" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad13.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlATCuadrilla.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atcuadrilla')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('cuadrillas')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtcuadrillas" style="font-weight: bold; color: #14388B; " value="Configuración Cuadrillas..." actionListener="#{controlATCuadrilla.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atcuadrilla')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtcuadrillas')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Configuración de cuadrillas y turnos"/>
-                                        </div>
-                                    </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="cuadrillas" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad13.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlATCuadrilla.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atcuadrilla')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('cuadrillas')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtcuadrillas" style="font-weight: bold; color: #14388B; " value="Configuración Cuadrillas..." actionListener="#{controlATCuadrilla.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atcuadrilla')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtcuadrillas')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Configuración de cuadrillas y turnos"/>
+                              </div>
+                           </div>
 
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="tiempo" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad14.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlATParametroTiempo.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atparametrotiempo')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('tiempo')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txttiempo" style="font-weight: bold; color: #14388B; " value="Parametros Tiempos..." actionListener="#{controlATParametroTiempo.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atparametrotiempo')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txttiempo')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Ejecución de las marcaciones y de las simulaciones"/>
-                                        </div>
-                                    </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="tiempo" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad14.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlATParametroTiempo.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atparametrotiempo')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('tiempo')}">
+                              </p:commandButton>
+                              <h:commandLink id="txttiempo" style="font-weight: bold; color: #14388B; " value="Parametros Tiempos..." actionListener="#{controlATParametroTiempo.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'atparametrotiempo')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txttiempo')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Ejecución de las marcaciones y de las simulaciones"/>
+                              </div>
+                           </div>
 
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novedadhe" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad15.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlATHoraExtra.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'athoraextra')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('novedadhe')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtnovedadhe" style="font-weight: bold; color: #14388B; " value="Novedad Horas Extras..." actionListener="#{controlATHoraExtra.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'athoraextra')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadhe')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Horas extra adicionales a las cuadrillas"/>
-                                        </div>   
-                                    </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="novedadhe" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad15.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlATHoraExtra.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'athoraextra')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('novedadhe')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtnovedadhe" style="font-weight: bold; color: #14388B; " value="Novedad Horas Extras..." actionListener="#{controlATHoraExtra.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'athoraextra')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovedadhe')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Horas extra adicionales a las cuadrillas"/>
+                              </div>   
+                           </div>
 
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="aprobacionhe" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad16.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlATAprobacionHE.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'ataprobacionhe')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('aprobacionhe')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtaprobacionhe" style="font-weight: bold; color: #14388B; " value="Aprobación Horas Extras..." actionListener="#{controlATAprobacionHE.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'ataprobacionhe')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtaprobacionhe')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Aprobación de las horas extra para las cuadrillas"/>
-                                        </div>   
-                                    </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="aprobacionhe" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad16.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlATAprobacionHE.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'ataprobacionhe')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('aprobacionhe')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtaprobacionhe" style="font-weight: bold; color: #14388B; " value="Aprobación Horas Extras..." actionListener="#{controlATAprobacionHE.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'ataprobacionhe')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtaprobacionhe')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Aprobación de las horas extra para las cuadrillas"/>
+                              </div>   
+                           </div>
 
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="viaticos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad09.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Configuracion De Viaticos...')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('viaticos')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtviaticos" style="font-weight: bold; color: #14388B;" value="Conf. de Viaticos" actionListener="#{controlNovedad.recibir('Configuracion De Viaticos...')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtviaticos')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Configuración de viáticos"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="tramiteviaticos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad10.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Tramitar Viaticos...')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('tramiteviaticos')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txttramiteviaticos" style="font-weight: bold; color: #14388B;" value="Tramitar Viaticos" actionListener="#{controlNovedad.recibir('Tramitar Viaticos...')}"
-                                                       action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txttramiteviaticos')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Tramite de viaticos"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="autoviaticos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad11.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Autorizacion De Viaticos')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('autoviaticos')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtautoviaticos" style="font-weight: bold; color: #14388B;" value="Autorización de Viáticos" actionListener="#{controlNovedad.recibir('Autorizacion De Viaticos')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtautoviaticos')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Autorización de viáticos"/>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <!--<hr style="float: left; height: 120px;"/>-->
-                                <fieldset style="position: relative; left: 10px; width: 245px; border-radius: 10px;">
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="cartera" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad17.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Cartera')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('cartera')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtcartera" style="font-weight: bold; color: #14388B; " value="Cartera..." actionListener="#{controlNovedad.recibir('Cartera')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                        disabled="#{controlNovedad.consultarPermisosPorId('txtcartera')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Información de cartera"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="embargos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad18.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Embargos')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('embargos')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtembargos" style="font-weight: bold; color: #14388B; " value="Embargos..." actionListener="#{controlNovedad.recibir('Embargos')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtembargos')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Embargos por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="novreemplazos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad19.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedadesReemplazos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadesreemplazos')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('novreemplazos')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtnovreemplazos" style="font-weight: bold; color: #14388B;" value="Reemplazos" actionListener="#{controlNovedadesReemplazos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadesreemplazos')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtnovreemplazos')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Reemplazos por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="cobrosinca" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad20.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Cobros Incapacidades')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                         disabled="#{controlNovedad.consultarPermisosPorId('cobrosinca')}">
-                                        </p:commandButton>
-                                        <h:commandLink id="txtcobrosinca" style="font-weight: bold; color: #14388B;" value="Cobro Incapacidades" actionListener="#{controlNovedad.recibir('Cobros Incapacidades')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
-                                                       disabled="#{controlNovedad.consultarPermisosPorId('txtcobrosinca')}">
-                                        </h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Cobro de incapacidades por empleado"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="unidadesp" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad21.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
-                                        <h:commandLink id="txtunidadesp" style="font-weight: bold; color: #14388B;" value="Unidades producidas" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Configuración y registro de las unidades producidas"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="hcatedra"  style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad22.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
-                                        <h:commandLink id="txthcatedra" style="font-weight: bold; color: #14388B;" value="Hora catedra" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Registro y configuración de las horas cátedra"/>
-                                        </div>
-                                    </div>
-                                    <div style="height: 50px;">
-                                        <p:commandButton id="cuotasp" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad23.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
-                                        <h:commandLink id="txtcuotasp" style="font-weight: bold; color: #14388B;" value="Cuotas Partes" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
-                                        <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
-                                            <h:outputText style="color: #000;" value="Registro y configuración de las cuotas parte"/>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <p:commandButton id="ATRAS" value="" actionListener="#{controlListaNavegacion.quitarPagina('novedad')}" style="position: absolute; left: 760px; top: 462px;
-                                             width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
-                                             background-repeat: no-repeat; border: none; "></p:commandButton>
-                        </p:panel>
-                    </p:panel>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                           <div style="height: 50px;">
+                              <p:commandButton id="viaticos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad09.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('viaticos')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Configuracion De Viaticos...')}"-->
+                              </p:commandButton>
+                              <h:commandLink id="txtviaticos" style="font-weight: bold; color: #14388B;" value="Conf. de Viaticos" actionListener="#{controlNovedad.recibir('Configuracion De Viaticos...')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtviaticos')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Configuración de viáticos"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="tramiteviaticos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad10.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('tramiteviaticos')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Tramitar Viaticos...')}"-->
+                              </p:commandButton>
+                              <h:commandLink id="txttramiteviaticos" style="font-weight: bold; color: #14388B;" value="Tramitar Viaticos" actionListener="#{controlNovedad.recibir('Tramitar Viaticos...')}"
+                                             action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txttramiteviaticos')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Tramite de viaticos"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="autoviaticos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad11.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlNovedad.recibir('Autorizacion De Viaticos')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('autoviaticos')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtautoviaticos" style="font-weight: bold; color: #14388B;" value="AutorizaciÃ³n de ViÃ¡ticos" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtautoviaticos')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Autorizacion De Viaticos')}"-->
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Autorización de viáticos"/>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <!--<hr style="float: left; height: 120px;"/>-->
+                        <fieldset style="position: relative; left: 10px; width: 245px; border-radius: 10px;">
+                           <div style="height: 50px;">
+                              <p:commandButton id="cartera" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad17.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlNovedad.recibir('Cartera')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('cartera')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtcartera" style="font-weight: bold; color: #14388B; " value="Cartera..." action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtcartera')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Cartera')}"-->
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Información de cartera"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="embargos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad18.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('embargos')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Embargos')}"-->
+                              </p:commandButton>
+                              <h:commandLink id="txtembargos" style="font-weight: bold; color: #14388B; " value="Embargos..." actionListener="#{controlNovedad.recibir('Embargos')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtembargos')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Embargos por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="novreemplazos" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad19.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" actionListener="#{controlNovedadesReemplazos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadesreemplazos')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('novreemplazos')}">
+                              </p:commandButton>
+                              <h:commandLink id="txtnovreemplazos" style="font-weight: bold; color: #14388B;" value="Reemplazos" actionListener="#{controlNovedadesReemplazos.recibirPaginaEntrante('novedad')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'novedadesreemplazos')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtnovreemplazos')}">
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Reemplazos por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="cobrosinca" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad20.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                               disabled="#{controlNovedad.consultarPermisosPorId('cobrosinca')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Cobros Incapacidades')}"-->
+                              </p:commandButton>
+                              <h:commandLink id="txtcobrosinca" style="font-weight: bold; color: #14388B;" value="Cobro Incapacidades" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"
+                                             disabled="#{controlNovedad.consultarPermisosPorId('txtcobrosinca')}">
+                                 <!--actionListener="#/{controlNovedad.recibir('Cobros Incapacidades')}"-->
+                              </h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Cobro de incapacidades por empleado"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="unidadesp" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad21.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
+                              <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
+                              <h:commandLink id="txtunidadesp" style="font-weight: bold; color: #14388B;" value="Unidades producidas" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
+                              <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Configuración y registro de las unidades producidas"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="hcatedra"  style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad22.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
+                              <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
+                              <h:commandLink id="txthcatedra" style="font-weight: bold; color: #14388B;" value="Hora catedra" actionListener="#{controlNovedad.recibir('Cuotas Partes')}" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Registro y configuración de las horas cátedra"/>
+                              </div>
+                           </div>
+                           <div style="height: 50px;">
+                              <p:commandButton id="cuotasp" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad23.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                               value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
+                              <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
+                              <h:commandLink id="txtcuotasp" style="font-weight: bold; color: #14388B;" value="Cuotas Partes" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
+                              <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
+                              <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
+                                 <h:outputText style="color: #000;" value="Registro y configuración de las cuotas parte"/>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </div>
+                     <p:commandButton id="ATRAS" value="" actionListener="#{controlListaNavegacion.quitarPagina('novedad', 'controlNovedad')}" style="position: absolute; left: 760px; top: 462px;
+                                      width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
+                                      background-repeat: no-repeat; border: none; "></p:commandButton>
+                  </p:panel>
+               </p:panel>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

@@ -127,9 +127,9 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         log.error("nuevoNombre : " + nuevoNombre);
-         log.error("codigoNuevo : " + codigoNuevo);
-         log.error("codOrigen : " + codOrigen);
+         log.warn("nuevoNombre : " + nuevoNombre);
+         log.warn("codigoNuevo : " + codigoNuevo);
+         log.warn("codOrigen : " + codOrigen);
          StoredProcedureQuery query = em.createStoredProcedureQuery("REFORMASLABORALES_PKG.CLONARREFORMALABORAL");
          query.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
          query.registerStoredProcedureParameter(2, short.class, ParameterMode.IN);
@@ -142,7 +142,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          query.execute();
          query.hasMoreResults();
          String strRetorno = (String) query.getOutputParameterValue(1);
-         log.error("PersistenciaDetallesReformasLaborales.clonarReformaLaboral() Ya clono strRetorno:_" + strRetorno + "_");
+         log.warn("PersistenciaDetallesReformasLaborales.clonarReformaLaboral() Ya clono strRetorno:_" + strRetorno + "_");
          return strRetorno;
       } catch (Exception e) {
          log.error("ERROR: " + this.getClass().getName() + ".clonarReformaLaboral()");

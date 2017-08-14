@@ -51,7 +51,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             }
             return null;
         } catch (Exception e) {
-            log.error("Error PersistenciaFamiliares.familiaresPersona" + e);
+            log.error("Error PersistenciaFamiliares.familiaresPersona " + e);
             return null;
         }
     }
@@ -118,8 +118,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             Query query = em.createNativeQuery(consulta);
             resultado = (String) query.getSingleResult();
         } catch (Exception e) {
-            log.error(this.getClass().getName() + ".consultaFamiliar()");
-            log.error("error: " + e.getMessage());
+            log.error(this.getClass().getName() + ".consultaFamiliar() error: " + e.getMessage());
         }
         return resultado;
     }

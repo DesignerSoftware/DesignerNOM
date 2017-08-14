@@ -15,63 +15,113 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
+
+
 @Stateful
 public class AdministrarConceptosRetroactivos implements AdministrarConceptosRetroactivosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarConceptosRetroactivos.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaConceptosRetroactivosInterface persistenciaConceptosRetroactivos;
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    private EntityManager em;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaConceptosRetroactivosInterface persistenciaConceptosRetroactivos;
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public void crearConceptosRetroactivos(List<ConceptosRetroactivos> lista) {
-        for (int j = 0; j < lista.size(); j++) {
-            persistenciaConceptosRetroactivos.crear(em, lista.get(j));
-        }
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    public void borrarConceptosRetroactivos(List<ConceptosRetroactivos> lista) {
-        for (int j = 0; j < lista.size(); j++) {
-            persistenciaConceptosRetroactivos.borrar(em, lista.get(j));
-        }
-    }
+   public void crearConceptosRetroactivos(List<ConceptosRetroactivos> lista) {
+      try {
+         for (int j = 0; j < lista.size(); j++) {
+            persistenciaConceptosRetroactivos.crear(getEm(), lista.get(j));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void modificarConceptosRetroactivos(List<ConceptosRetroactivos> lista) {
-        for (int j = 0; j < lista.size(); j++) {
-            persistenciaConceptosRetroactivos.editar(em, lista.get(j));
-        }
-    }
+   public void borrarConceptosRetroactivos(List<ConceptosRetroactivos> lista) {
+      try {
+         for (int j = 0; j < lista.size(); j++) {
+            persistenciaConceptosRetroactivos.borrar(getEm(), lista.get(j));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<ConceptosRetroactivos> consultarConceptosRetroactivos() {
-        List<ConceptosRetroactivos> lista = persistenciaConceptosRetroactivos.buscarConceptosRetroactivos(em);
-        return lista;
-    }
+   public void modificarConceptosRetroactivos(List<ConceptosRetroactivos> lista) {
+      try {
+         for (int j = 0; j < lista.size(); j++) {
+            persistenciaConceptosRetroactivos.editar(getEm(), lista.get(j));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Conceptos> consultarLOVConceptos() {
-        List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
-        return lista;
-    }
-    public List<Conceptos> consultarLOVConceptosRetro() {
-        List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
-        return lista;
-    }
+   @Override
+   public List<ConceptosRetroactivos> consultarConceptosRetroactivos() {
+      try {
+         List<ConceptosRetroactivos> lista = persistenciaConceptosRetroactivos.buscarConceptosRetroactivos(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<Conceptos> consultarLOVConceptos() {
+      try {
+         List<Conceptos> lista = persistenciaConceptos.buscarConceptos(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<Conceptos> consultarLOVConceptosRetro() {
+      try {
+         List<Conceptos> lista = persistenciaConceptos.buscarConceptos(getEm());
+         return lista;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

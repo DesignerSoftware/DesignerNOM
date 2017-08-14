@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -33,40 +34,78 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
    AdministrarSesionesInterface administrarSesiones;
    @EJB
    PersistenciaVigenciasLocalizacionesInterface persistenciaVigenciasLocalicaciones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    public List<ErroresLiquidacion> consultarErroresLiquidacion() {
-      log.warn("AdministrarErroresLiquidaciones.consultarErroresLiquidacion()");
-      return persistenciaErroresLiquidacionesInterface.consultarErroresLiquidacion(em);
+      try {
+         log.warn("AdministrarErroresLiquidaciones.consultarErroresLiquidacion()");
+         return persistenciaErroresLiquidacionesInterface.consultarErroresLiquidacion(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<ErroresLiquidacion> consultarErroresLiquidacionEmpleado(BigInteger secEmpleado) {
-      List<ErroresLiquidacion> listaLiquidacionesLog = persistenciaErroresLiquidacionesInterface.consultarErroresLiquidacionPorEmpleado(em, secEmpleado);
-      List<VigenciasLocalizaciones> vigenciaSeleccionada;
-      if (listaLiquidacionesLog != null || !listaLiquidacionesLog.isEmpty()) {
-         for (int i = 0; i < listaLiquidacionesLog.size(); i++) {
-            vigenciaSeleccionada = persistenciaVigenciasLocalicaciones.buscarVigenciasLocalizacionesEmpleado(em, listaLiquidacionesLog.get(i).getEmpleado().getSecuencia());
-            listaLiquidacionesLog.get(i).setVigenciaLocalizacion(vigenciaSeleccionada.get(0));
+      try {
+         List<ErroresLiquidacion> listaLiquidacionesLog = persistenciaErroresLiquidacionesInterface.consultarErroresLiquidacionPorEmpleado(getEm(), secEmpleado);
+         List<VigenciasLocalizaciones> vigenciaSeleccionada;
+         if (listaLiquidacionesLog != null || !listaLiquidacionesLog.isEmpty()) {
+            for (int i = 0; i < listaLiquidacionesLog.size(); i++) {
+               vigenciaSeleccionada = persistenciaVigenciasLocalicaciones.buscarVigenciasLocalizacionesEmpleado(getEm(), listaLiquidacionesLog.get(i).getEmpleado().getSecuencia());
+               listaLiquidacionesLog.get(i).setVigenciaLocalizacion(vigenciaSeleccionada.get(0));
+            }
          }
+         return listaLiquidacionesLog;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
       }
-      return listaLiquidacionesLog;
    }
 
    public void borrarErroresLiquidaciones(List<ErroresLiquidacion> listaErroresLiquidacion) {
-      log.warn("ADMINISTRARLIQUDACIONES listaErroresLiquidacion : " + listaErroresLiquidacion.size());
-      for (int i = 0; i < listaErroresLiquidacion.size(); i++) {
-         persistenciaErroresLiquidacionesInterface.borrar(em, listaErroresLiquidacion.get(i));
+      try {
+         log.warn("ADMINISTRARLIQUDACIONES listaErroresLiquidacion : " + listaErroresLiquidacion.size());
+         for (int i = 0; i < listaErroresLiquidacion.size(); i++) {
+            persistenciaErroresLiquidacionesInterface.borrar(getEm(), listaErroresLiquidacion.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public int borrarTodosErroresLiquidacion() {
-      return persistenciaErroresLiquidacionesInterface.BorrarTotosErroresLiquidaciones(em);
+      try {
+         return persistenciaErroresLiquidacionesInterface.BorrarTotosErroresLiquidaciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
+      }
    }
 }

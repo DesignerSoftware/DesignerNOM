@@ -8,8 +8,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.Remove;
-import javax.ejb.Singleton;
-
+import javax.ejb.Stateless;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.log4j.Logger;
@@ -22,7 +21,7 @@ import org.apache.log4j.Logger;
  *
  * @author Felipe Triviño
  */
-@Singleton
+@Stateless
 public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInterface, Serializable {
 
    private static Logger log = Logger.getLogger(SesionEntityManagerFactory.class);
@@ -35,11 +34,11 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
    @Override
    public boolean crearFactoryInicial(String baseDatos) {
       try {
-         log.warn("Entro y la bd es: " + baseDatos);
          emf = Persistence.createEntityManagerFactory(baseDatos);
+         log.warn(this.getClass().getSimpleName() + " CONEXION : ENTRADA, BD: " + baseDatos);
          return true;
       } catch (Exception e) {
-         log.fatal("error crearFactoryInicial" + e.getMessage());
+         log.fatal(this.getClass().getName() + " ERROR crearFactoryInicial" + e.getMessage());
          return false;
       }
    }
@@ -50,11 +49,11 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
          Map<String, String> properties = new HashMap<String, String>();
          properties.put("javax.persistence.jdbc.user", usuario);
          properties.put("javax.persistence.jdbc.password", contraseña);
-         log.warn("Usuario: " + usuario);
-         log.warn("Contraseña: " + contraseña);
-         log.warn("Base de Datos: " + baseDatos);
+         log.warn("crearFactoryUsuario() Usuario: " + usuario);
+         log.warn("crearFactoryUsuario() Contraseña: " + contraseña);
+         log.warn("crearFactoryUsuario() Base de Datos: " + baseDatos);
          emf = Persistence.createEntityManagerFactory(baseDatos, properties);
-         log.warn("emf=Persistence.createEntityManagerFactory(baseDatos, properties)" + emf.getProperties());
+         log.warn(this.getClass().getSimpleName() + " CONEXION : " + usuario + " , BD: " + baseDatos);
          return true;
       } catch (Exception e) {
          log.fatal("Error crearFactoryUsuario: " + e.getMessage());

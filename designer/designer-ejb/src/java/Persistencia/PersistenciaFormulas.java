@@ -82,7 +82,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
    public Formulas buscarFormula(EntityManager em, BigInteger secuencia) {
       try {
          em.clear();
-         log.error("Entro en buscarFormula()");
+         log.warn("Entro en buscarFormula()");
          return em.find(Formulas.class, secuencia);
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaFormulas.buscarFormula() e: " + e);

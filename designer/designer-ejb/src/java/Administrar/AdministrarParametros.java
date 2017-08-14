@@ -26,6 +26,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -60,69 +61,135 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    public Usuarios usuarioActual() {
-      String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-      return persistenciaUsuarios.buscarUsuario(em, usuarioBD);
+      try {
+         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         return persistenciaUsuarios.buscarUsuario(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public ParametrosEstructuras parametrosLiquidacion() {
-      String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-      return persistenciaParametrosEstructuras.buscarParametro(em, usuarioBD);
+      try {
+         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Estructuras> lovEstructuras() {
-      return persistenciaEstructuras.estructuras(em);
+      try {
+         return persistenciaEstructuras.estructuras(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    public List<TiposTrabajadores> lovTiposTrabajadores() {
-      return persistenciaTiposTrabajadores.buscarTiposTrabajadores(em);
+      try {
+         return persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Procesos> lovProcesos(String aut) {
-      return persistenciaProcesos.procesosParametros(em, aut);
+      try {
+         return persistenciaProcesos.procesosParametros(getEm(), aut);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Parametros> empleadosParametros() {
-      String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-      return persistenciaParametros.empleadosParametros(em, usuarioBD);
+      try {
+         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         return persistenciaParametros.empleadosParametros(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public String estadoParametro(BigInteger secuenciaParametro) {
-      return persistenciaParametrosEstados.parametrosComprobantes(em, secuenciaParametro);
+      try {
+         return persistenciaParametrosEstados.parametrosComprobantes(getEm(), secuenciaParametro);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    public void crearParametroEstructura(ParametrosEstructuras parametroEstructura) {
-      persistenciaParametrosEstructuras.editar(em, parametroEstructura);
+      try {
+         persistenciaParametrosEstructuras.editar(getEm(), parametroEstructura);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public void eliminarParametros(List<Parametros> listaParametros) {
-      for (int i = 0; i < listaParametros.size(); i++) {
-         persistenciaParametros.borrar(em, listaParametros.get(i));
+      try {
+         for (int i = 0; i < listaParametros.size(); i++) {
+            persistenciaParametros.borrar(getEm(), listaParametros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    public void crearParametros(List<Parametros> listaParametros) {
-      for (int i = 0; i < listaParametros.size(); i++) {
-         persistenciaParametros.crear(em, listaParametros.get(i));
+      try {
+         for (int i = 0; i < listaParametros.size(); i++) {
+            persistenciaParametros.crear(getEm(), listaParametros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void adicionarEmpleados(BigInteger secParametroEstructura) {
       try {
-         persistenciaParametrosEstructuras.adicionarEmpleados(em, secParametroEstructura);
+         persistenciaParametrosEstructuras.adicionarEmpleados(getEm(), secParametroEstructura);
       } catch (Exception e) {
          log.warn(this.getClass().getName() + " adicionarEmpleados() Entro al Catch");
          log.warn("Error : " + e);
@@ -130,20 +197,39 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    }
 
    public void borrarParametros(BigInteger secParametroEstructura) {
-      persistenciaParametros.borrarParametros(em, secParametroEstructura);
+      try {
+         persistenciaParametros.borrarParametros(getEm(), secParametroEstructura);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    public Integer empleadosParametrizados(BigInteger secProceso) {
-      return persistenciaParametrosEstructuras.empleadosParametrizados(em, secProceso);
+      try {
+         return persistenciaParametrosEstructuras.empleadosParametrizados(getEm(), secProceso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    public Integer diferenciaDias(String fechaInicial, String fechaFinal) {
-      return persistenciaParametrosEstructuras.diasDiferenciaFechas(em, fechaInicial, fechaFinal);
+      try {
+         return persistenciaParametrosEstructuras.diasDiferenciaFechas(getEm(), fechaInicial, fechaFinal);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Empleados> empleadosLov() {
-      return persistenciaEmpleado.lovEmpleadosParametros(em);
+      try {
+         return persistenciaEmpleado.lovEmpleadosParametros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    // Para Cambios Masivos : 
@@ -151,8 +237,8 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
 //   public List<Parametros> consultarEmpleadosParametros() {
 //      log.warn("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
 //      try {
-//         String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-//         return persistenciaParametros.empleadosParametros(em, usuarioBD);
+//         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+//         return persistenciaParametros.empleadosParametros(getEm(), usuarioBD);
 //      } catch (Exception e) {
 //         log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
 //         log.warn("ERROR : " + e);
@@ -163,7 +249,6 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
       log.warn("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
       try {
-//         return persistenciaCambiosMasivos.consultarCambiosMasivos(em);
          return new ArrayList<CambiosMasivos>();
       } catch (Exception e) {
          log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
@@ -176,8 +261,6 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
       log.warn("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
-//         String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-//         return persistenciaCambiosMasivos.consultarParametroCambiosMasivos(em, usuarioBD);
          return new ParametrosCambiosMasivos();
       } catch (Exception e) {
          log.warn("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");

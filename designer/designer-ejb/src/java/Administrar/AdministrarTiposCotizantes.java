@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,69 +26,91 @@ public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInt
 
    private static Logger log = Logger.getLogger(AdministrarTiposCotizantes.class);
 
-    @EJB
-    PersistenciaTiposCotizantesInterface persistenciaTiposCotizantes;
-    /**
-     * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
-     * conexión del usuario que está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
+   @EJB
+   PersistenciaTiposCotizantesInterface persistenciaTiposCotizantes;
+   /**
+    * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
+    * conexión del usuario que está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<TiposCotizantes> tiposCotizantes() {
-        try {
-            List<TiposCotizantes> listaTiposCotizantes;
-            listaTiposCotizantes = persistenciaTiposCotizantes.lovTiposCotizantes(em);
-            return listaTiposCotizantes;
-        } catch (Exception e) {
-            log.warn("error en AdminsitrarTiposCotizantes.tiposCotizantes : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void borrarTipoCotizante(List<TiposCotizantes> listBorrar) {
-        for (int i = 0; i < listBorrar.size(); i++) {
-            persistenciaTiposCotizantes.borrar(em, listBorrar.get(i));
-        }
-    }
-
-    @Override
-    public void crearTipoCotizante(List<TiposCotizantes> listCrear) {
-        for (int i = 0; i < listCrear.size(); i++) {
-            persistenciaTiposCotizantes.crear(em, listCrear.get(i));
-        }
-    }
-
-    @Override
-    public void modificarTipoCotizante(List<TiposCotizantes> listEditar) {
-        try {
-
-            for (int i = 0; i < listEditar.size(); i++) {
-                log.warn("Modificando...");
-                persistenciaTiposCotizantes.editar(em, listEditar.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("error en modificarTipoCotizante : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public BigInteger clonarTipoCotizante(BigInteger codOrigen, BigInteger codDestino, String descripcion, BigInteger secClonado) {
-       try{
-           BigInteger secuenciaClonado = persistenciaTiposCotizantes.clonarTipoCotizante(em, codOrigen, codDestino, descripcion, secClonado);
-           log.warn("secuencia clonado en el administrar : " + secuenciaClonado);
-           return secuenciaClonado;
-       }catch(Exception e){
-           log.warn("error AdministrarTiposCotizantes.clonarTipoCotizante : " + e.toString());
-           return null;
-       }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<TiposCotizantes> tiposCotizantes() {
+      try {
+         return persistenciaTiposCotizantes.lovTiposCotizantes(getEm());
+      } catch (Exception e) {
+         log.warn("error en AdminsitrarTiposCotizantes.tiposCotizantes : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public void borrarTipoCotizante(List<TiposCotizantes> listBorrar) {
+      try {
+         for (int i = 0; i < listBorrar.size(); i++) {
+            persistenciaTiposCotizantes.borrar(getEm(), listBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearTipoCotizante(List<TiposCotizantes> listCrear) {
+      try {
+         for (int i = 0; i < listCrear.size(); i++) {
+            persistenciaTiposCotizantes.crear(getEm(), listCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTipoCotizante(List<TiposCotizantes> listEditar) {
+      try {
+         for (int i = 0; i < listEditar.size(); i++) {
+            log.warn("Modificando...");
+            persistenciaTiposCotizantes.editar(getEm(), listEditar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en modificarTipoCotizante : " + e.toString());
+      }
+   }
+
+   @Override
+   public BigInteger clonarTipoCotizante(BigInteger codOrigen, BigInteger codDestino, String descripcion, BigInteger secClonado) {
+      try {
+         return persistenciaTiposCotizantes.clonarTipoCotizante(getEm(), codOrigen, codDestino, descripcion, secClonado);
+      } catch (Exception e) {
+         log.warn("error AdministrarTiposCotizantes.clonarTipoCotizante : " + e.toString());
+         return null;
+      }
+   }
 }

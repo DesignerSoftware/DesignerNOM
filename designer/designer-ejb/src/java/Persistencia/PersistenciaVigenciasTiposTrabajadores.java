@@ -41,11 +41,11 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-            log.error("Entro en el try de PersistenciaVigenciasTiposTrabajadores.crear()");
+            log.warn("Entro en el try de PersistenciaVigenciasTiposTrabajadores.crear()");
             tx.begin();
             em.persist(vigenciasTiposTrabajadores);
             tx.commit();
-            log.error("Ya creo V tipoTrabajador");
+            log.warn("Ya creo V tipoTrabajador");
             return true;
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.crear()" + e.getMessage());

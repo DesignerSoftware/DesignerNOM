@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,57 +32,84 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
 
    private static Logger log = Logger.getLogger(AdministrarFirmasReportes.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaFirmasReportes'.
-     */
-    @EJB
-    PersistenciaFirmasReportesInterface persistenciaFirmasReportes;
-    @EJB
-    PersistenciaCargosInterface persistenciaCargos;
-    @EJB
-    PersistenciaPersonasInterface persistenciaPersonas;
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaFirmasReportes'.
+    */
+   @EJB
+   PersistenciaFirmasReportesInterface persistenciaFirmasReportes;
+   @EJB
+   PersistenciaCargosInterface persistenciaCargos;
+   @EJB
+   PersistenciaPersonasInterface persistenciaPersonas;
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    public void modificarFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
-        for (int i = 0; i < listaFirmasReportes.size(); i++) {
+   public void modificarFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
+      try {
+         for (int i = 0; i < listaFirmasReportes.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaFirmasReportes.editar(em,listaFirmasReportes.get(i));
-        }
-    }
+            persistenciaFirmasReportes.editar(getEm(), listaFirmasReportes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
-        for (int i = 0; i < listaFirmasReportes.size(); i++) {
+   public void borrarFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
+      try {
+         for (int i = 0; i < listaFirmasReportes.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaFirmasReportes.borrar(em,listaFirmasReportes.get(i));
-        }
-    }
+            persistenciaFirmasReportes.borrar(getEm(), listaFirmasReportes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
-        for (int i = 0; i < listaFirmasReportes.size(); i++) {
+   public void crearFirmasReportes(List<FirmasReportes> listaFirmasReportes) {
+      try {
+         for (int i = 0; i < listaFirmasReportes.size(); i++) {
             log.warn("Administrar Creando...");
             log.warn("--------------DUPLICAR------------------------");
             log.warn("CODIGO : " + listaFirmasReportes.get(i).getCodigo());
@@ -91,39 +119,57 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
             log.warn("PERSONA : " + listaFirmasReportes.get(i).getPersonafirma().getNombre());
             log.warn("CARGO : " + listaFirmasReportes.get(i).getCargofirma().getNombre());
             log.warn("--------------DUPLICAR------------------------");
-            persistenciaFirmasReportes.crear(em,listaFirmasReportes.get(i));
-        }
-    }
+            persistenciaFirmasReportes.crear(getEm(), listaFirmasReportes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<FirmasReportes> consultarFirmasReportes() {
-        List<FirmasReportes> listaFirmasReportes;
-        listaFirmasReportes = persistenciaFirmasReportes.consultarFirmasReportes(em);
-        return listaFirmasReportes;
-    }
+   @Override
+   public List<FirmasReportes> consultarFirmasReportes() {
+      try {
+         return persistenciaFirmasReportes.consultarFirmasReportes(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public FirmasReportes consultarTipoIndicador(BigInteger secMotivoDemanda) {
-        FirmasReportes tiposIndicadores;
-        tiposIndicadores = persistenciaFirmasReportes.consultarFirmaReporte(em,secMotivoDemanda);
-        return tiposIndicadores;
-    }
+   public FirmasReportes consultarTipoIndicador(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaFirmasReportes.consultarFirmaReporte(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Cargos> consultarLOVCargos() {
-        List<Cargos> listLOVCargos;
-        listLOVCargos = persistenciaCargos.consultarCargos(em);
-        return listLOVCargos;
-    }
+   public List<Cargos> consultarLOVCargos() {
+      try {
+         return persistenciaCargos.consultarCargos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Personas> consultarLOVPersonas() {
-        List<Personas> listLOVPersonas;
-        listLOVPersonas = persistenciaPersonas.consultarPersonas(em);
-        return listLOVPersonas;
-    }
+   public List<Personas> consultarLOVPersonas() {
+      try {
+         return persistenciaPersonas.consultarPersonas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Empresas> consultarLOVEmpresas() {
-        List<Empresas> listLOVEmpresas;
-        listLOVEmpresas = persistenciaEmpresas.consultarEmpresas(em);
-        return listLOVEmpresas;
-    }
+   public List<Empresas> consultarLOVEmpresas() {
+      try {
+         return persistenciaEmpresas.consultarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

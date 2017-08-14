@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -46,17 +47,36 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<Formulascontratos> listFormulasContratosParaFormula(BigInteger secuencia) {
       try {
-         List<Formulascontratos> lista = persistenciaFormulasContratos.formulasContratosParaFormulaSecuencia(em, secuencia);
+         List<Formulascontratos> lista = persistenciaFormulasContratos.formulasContratosParaFormulaSecuencia(getEm(), secuencia);
          return lista;
       } catch (Exception e) {
          log.warn("Error listFormulasContratosParaFormula Admi : " + e.toString());
@@ -71,7 +91,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
             if (listaFC.get(i).getTercero().getSecuencia() == null) {
                listaFC.get(i).setTercero(null);
             }
-            persistenciaFormulasContratos.crear(em, listaFC.get(i));
+            persistenciaFormulasContratos.crear(getEm(), listaFC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearFormulasContratos Admi : " + e.toString());
@@ -85,7 +105,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
             if (listaFC.get(i).getTercero().getSecuencia() == null) {
                listaFC.get(i).setTercero(null);
             }
-            persistenciaFormulasContratos.borrar(em, listaFC.get(i));
+            persistenciaFormulasContratos.borrar(getEm(), listaFC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarFormulasContratos Admi : " + e.toString());
@@ -99,7 +119,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
             if (listaFC.get(i).getTercero().getSecuencia() == null) {
                listaFC.get(i).setTercero(null);
             }
-            persistenciaFormulasContratos.editar(em, listaFC.get(i));
+            persistenciaFormulasContratos.editar(getEm(), listaFC.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarFormulasContratos Admi : " + e.toString());
@@ -109,8 +129,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
    @Override
    public List<Contratos> listContratos() {
       try {
-         List<Contratos> lista = persistenciaContratos.buscarContratos(em);
-         return lista;
+         return persistenciaContratos.buscarContratos(getEm());
       } catch (Exception e) {
          log.warn("Error listContratos Admi : " + e.toString());
          return null;
@@ -120,8 +139,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
    @Override
    public List<Periodicidades> listPeriodicidades() {
       try {
-         List<Periodicidades> lista = persistenciaPeriodicidades.consultarPeriodicidades(em);
-         return lista;
+         return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
          log.warn("Error listPeriodicidades Admi : " + e.toString());
          return null;
@@ -131,8 +149,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
    @Override
    public List<Terceros> listTerceros() {
       try {
-         List<Terceros> lista = persistenciaTerceros.buscarTerceros(em);
-         return lista;
+         return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
          log.warn("Error listTerceros Admi : " + e.toString());
          return null;
@@ -141,8 +158,7 @@ public class AdministrarFormulaContrato implements AdministrarFormulaContratoInt
 
    public Formulas actualFormula(BigInteger secuencia) {
       try {
-         Formulas form = persistenciaFormulas.buscarFormula(em, secuencia);
-         return form;
+         return persistenciaFormulas.buscarFormula(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error actualFormula Admi : " + e.toString());
          return null;

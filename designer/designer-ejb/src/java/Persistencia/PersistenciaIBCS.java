@@ -94,8 +94,8 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
 
    @Override
    public List<Ibcs> buscarIbcsPorEmpleado(EntityManager em, BigInteger secEmpleado) {
-      log.error("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
-      log.error("empleado en buscar IBC por empleado : " + secEmpleado);
+      log.warn("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
+      log.warn("empleado en buscar IBC por empleado : " + secEmpleado);
       try {
          em.clear();
          String sql = "SELECT * FROM Ibcs ib WHERE ib.empleado = ? ORDER BY ib.fechainicial DESC";

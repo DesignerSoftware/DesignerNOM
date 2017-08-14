@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,59 +28,98 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
 
    private static Logger log = Logger.getLogger(AdministrarDependenciasOperandos.class);
 
-    @EJB
-    PersistenciaDependenciasOperandosInterface persistenciaDependenciasOperandos;
-    @EJB
-    PersistenciaOperandosInterface persistenciaOperandos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaDependenciasOperandosInterface persistenciaDependenciasOperandos;
+   @EJB
+   PersistenciaOperandosInterface persistenciaOperandos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<DependenciasOperandos> buscarDependenciasOperandos(BigInteger secuenciaOperando) {
-        List<DependenciasOperandos> listaDependenciasOperandos;
-        listaDependenciasOperandos = persistenciaDependenciasOperandos.dependenciasOperandos(em,secuenciaOperando);
-        return listaDependenciasOperandos;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarDependenciasOperandos(DependenciasOperandos tiposConstantes) {
-        persistenciaDependenciasOperandos.borrar(em,tiposConstantes);
-    }
+   @Override
+   public List<DependenciasOperandos> buscarDependenciasOperandos(BigInteger secuenciaOperando) {
+      try {
+         return persistenciaDependenciasOperandos.dependenciasOperandos(getEm(), secuenciaOperando);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void crearDependenciasOperandos(DependenciasOperandos tiposConstantes) {
-        persistenciaDependenciasOperandos.crear(em,tiposConstantes);
-    }
+   @Override
+   public void borrarDependenciasOperandos(DependenciasOperandos tiposConstantes) {
+      try {
+         persistenciaDependenciasOperandos.borrar(getEm(), tiposConstantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarDependenciasOperandos(DependenciasOperandos tiposConstantes) {
-        persistenciaDependenciasOperandos.editar(em,tiposConstantes);
+   @Override
+   public void crearDependenciasOperandos(DependenciasOperandos tiposConstantes) {
+      try {
+         persistenciaDependenciasOperandos.crear(getEm(), tiposConstantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    }
+   @Override
+   public void modificarDependenciasOperandos(DependenciasOperandos tiposConstantes) {
+      try {
+         persistenciaDependenciasOperandos.editar(getEm(), tiposConstantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Operandos> buscarOperandos() {
-        List<Operandos> listaOperandos;
-        listaOperandos = persistenciaOperandos.buscarOperandos(em);
-        return listaOperandos;
-    }
+   @Override
+   public List<Operandos> buscarOperandos() {
+      try {
+         return persistenciaOperandos.buscarOperandos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public String nombreOperandos(int codigo) {
-        String nombre;
-        nombre = persistenciaDependenciasOperandos.nombreOperandos(em,codigo);
-        return nombre;
-    }
+   @Override
+   public String nombreOperandos(int codigo) {
+      try {
+         return persistenciaDependenciasOperandos.nombreOperandos(getEm(), codigo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

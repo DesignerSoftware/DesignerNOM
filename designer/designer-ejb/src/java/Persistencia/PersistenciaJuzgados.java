@@ -126,12 +126,12 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
         BigInteger retorno;
         try {
             em.clear();
-            log.error("Persistencia secuencia borrado " + secuencia);
+            log.warn("Persistencia secuencia borrado " + secuencia);
             String sqlQuery = " SELECT COUNT(*)FROM eersprestamos ers , juzgados juz WHERE ers.juzgado = juz.secuencia AND juz.secuencia = ? ";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS = " + retorno);
+            log.warn("PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS = " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("ERROR PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS ERROR = " + e.getMessage());

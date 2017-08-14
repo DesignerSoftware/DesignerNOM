@@ -22,111 +22,184 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
 public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaInterface {
 
    private static Logger log = Logger.getLogger(AdministrarNovedadesSistema.class);
-    
-    @EJB
-    PersistenciaNovedadesSistemaInterface persistenciaNovedades;
-    @EJB
-    PersistenciaMotivosDefinitivasInterface persistenciaMotivos;
-    @EJB
-    PersistenciaMotivosRetirosInterface persistenciaRetiros;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaVacacionesInterface persistenciaVacaciones;
-        /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   @EJB
+   PersistenciaNovedadesSistemaInterface persistenciaNovedades;
+   @EJB
+   PersistenciaMotivosDefinitivasInterface persistenciaMotivos;
+   @EJB
+   PersistenciaMotivosRetirosInterface persistenciaRetiros;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaVacacionesInterface persistenciaVacaciones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    //Trae las novedades del empleado cuya secuencia se envía como parametro//
-    @Override
-    public List<NovedadesSistema> novedadesEmpleado(BigInteger secuenciaEmpleado) {
-        try {
-            return persistenciaNovedades.novedadesEmpleado(em, secuenciaEmpleado);
-        } catch (Exception e) {
-            log.error("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
-            return null;
-        }
-    }
-    
-    @Override
-    public void borrarNovedades(NovedadesSistema novedades) {
-        persistenciaNovedades.borrar(em, novedades);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void crearNovedades(NovedadesSistema novedades) {
-        persistenciaNovedades.crear(em, novedades);
-    }
-    
-    
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarNovedades(NovedadesSistema novedades) {
-            persistenciaNovedades.editar(em, novedades);
-        
-    }
-    
-    @Override
-    public List<Empleados> buscarEmpleados(){
-        return persistenciaEmpleados.empleadosDefinitiva(em);
-    }
-    
-    public List<Empleados> lovEmpleados(){
-        return persistenciaEmpleados.empleadosDefinitiva(em);
-    }
-    
-    @Override
-    public List<MotivosDefinitivas> lovMotivos(){
-        return persistenciaMotivos.buscarMotivosDefinitivas(em);
-    }
-    
-    @Override
-    public List<MotivosRetiros> lovRetiros(){
-        return persistenciaRetiros.consultarMotivosRetiros(em);
-    }
-    
-    @Override
-    public List<NovedadesSistema> vacacionesEmpleado(BigInteger secuenciaEmpleado){
-        return persistenciaNovedades.novedadesEmpleadoVacaciones(em, secuenciaEmpleado);
-    }
-     
-   
-    @Override
-    public List<NovedadesSistema> cesantiasEmpleado(BigInteger secuenciaEmpleado){
-        return persistenciaNovedades.novedadesEmpleadoCesantias(em, secuenciaEmpleado);
-    }
-     
-    
-    @Override
-    public List<Vacaciones> periodosEmpleado(BigInteger secuenciaEmpleado){
-        return persistenciaVacaciones.periodoVacaciones(em, secuenciaEmpleado);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public BigDecimal valorCesantias(BigInteger secuenciaEmpleado) {
-        return persistenciaNovedades.valorCesantias(em, secuenciaEmpleado);
-    }
+   //Trae las novedades del empleado cuya secuencia se envía como parametro//
+   @Override
+   public List<NovedadesSistema> novedadesEmpleado(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaNovedades.novedadesEmpleado(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.error("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
+         return null;
+      }
+   }
 
-    @Override
-        public BigDecimal valorIntCesantias(BigInteger secuenciaEmpleado) {
-        return persistenciaNovedades.valorIntCesantias(em, secuenciaEmpleado);
-    }
+   @Override
+   public void borrarNovedades(NovedadesSistema novedades) {
+      try {
+         persistenciaNovedades.borrar(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearNovedades(NovedadesSistema novedades) {
+      try {
+         persistenciaNovedades.crear(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarNovedades(NovedadesSistema novedades) {
+      try {
+         persistenciaNovedades.editar(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<Empleados> buscarEmpleados() {
+      try {
+         return persistenciaEmpleados.empleadosDefinitiva(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<Empleados> lovEmpleados() {
+      try {
+         return persistenciaEmpleados.empleadosDefinitiva(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<MotivosDefinitivas> lovMotivos() {
+      try {
+         return persistenciaMotivos.buscarMotivosDefinitivas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<MotivosRetiros> lovRetiros() {
+      try {
+         return persistenciaRetiros.consultarMotivosRetiros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<NovedadesSistema> vacacionesEmpleado(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaNovedades.novedadesEmpleadoVacaciones(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<NovedadesSistema> cesantiasEmpleado(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaNovedades.novedadesEmpleadoCesantias(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<Vacaciones> periodosEmpleado(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaVacaciones.periodoVacaciones(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigDecimal valorCesantias(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaNovedades.valorCesantias(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+
+   public BigDecimal valorIntCesantias(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaNovedades.valorIntCesantias(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

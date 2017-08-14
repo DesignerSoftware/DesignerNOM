@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Administrar;
 
 import Entidades.Pantallas;
@@ -21,8 +20,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
-
 
 /**
  *
@@ -32,130 +31,197 @@ import org.apache.log4j.Logger;
 public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface {
 
    private static Logger log = Logger.getLogger(AdministrarUsuariosClon.class);
-    
-    @EJB
-    PersistenciaUsuariosInterface persistenciaUsuarios;
-    @EJB
-    PersistenciaPersonasInterface persistenciaPersonas;
-    @EJB
-    PersistenciaPerfilesInterface persistenciaPerfiles;
-    @EJB
-    PersistenciaPantallasInterface persistenciaPantallas;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    
-    // Metodos
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaUsuariosInterface persistenciaUsuarios;
+   @EJB
+   PersistenciaPersonasInterface persistenciaPersonas;
+   @EJB
+   PersistenciaPerfilesInterface persistenciaPerfiles;
+   @EJB
+   PersistenciaPantallasInterface persistenciaPantallas;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    public List<Usuarios> consultarUsuarios() {
-        List<Usuarios> listaUsuarios;
-        listaUsuarios = persistenciaUsuarios.buscarUsuarios(em);
-        return listaUsuarios;
-    }
-    @Override
-    public void crearUsuariosBD(String alias, String perfil) {        
-        persistenciaUsuarios.crearUsuario(em, alias);        
-        persistenciaUsuarios.crearUsuarioPerfil(em, alias, perfil);  
-    }
-    @Override
-    public void eliminarUsuariosBD(String alias) {        
-        persistenciaUsuarios.borrarUsuario(em, alias);         
-        persistenciaUsuarios.borrarUsuarioTotal(em, alias);
-        log.warn("algo estará haciendo de eliminar");          
-    }
-    @Override
-    public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {        
-        persistenciaUsuarios.clonarUsuario(em, usuarioOrigen, usuarioDestino);
-    }
-    @Override
-    public void desbloquearUsuariosBD(String alias) {        
-           persistenciaUsuarios.desbloquearUsuario(em, alias);
-        log.warn("está haciendo algo de desbloquear");   
-       }
-    @Override
-    public void restaurarUsuariosBD(String alias, String fecha) {        
-        persistenciaUsuarios.restaurarUsuario(em, alias, fecha);
-        log.warn("está haciendo algo de restaurar");   
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public List<Personas> consultarPersonas() {
-        List<Personas> listaPersonas;
-        listaPersonas = persistenciaPersonas.consultarPersonas(em);
-        return listaPersonas;
-    }
-    
-    public List<Perfiles> consultarPerfiles() {
-        List<Perfiles> listaPerfiles;
-        listaPerfiles = persistenciaPerfiles.consultarPerfiles(em);
-        return listaPerfiles;
-    }    
-    
-    public List<Pantallas> consultarPantallas() {
-        List<Pantallas> listaPantallas;
-        listaPantallas = persistenciaPantallas.buscarPantallas(em);
-        return listaPantallas;
-    }    
-    
-    @Override
-    public void modificarUsuarios(List<Usuarios> listaUsuarios) {
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (listaUsuarios.get(i).getAlias().equals(null)) {
-                listaUsuarios.get(i).setAlias(null);
-                persistenciaUsuarios.editar(em, listaUsuarios.get(i));
-            } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
-                listaUsuarios.get(i).setPersona(null);
-            } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
-                listaUsuarios.get(i).setPerfil(null);
-            } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
-                listaUsuarios.get(i).setPantallainicio(null);
-            } else {
-                persistenciaUsuarios.editar(em, listaUsuarios.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarUsuarios(List<Usuarios> listaUsuarios) {
-        for (int i = 0; i < listaUsuarios.size(); i++) {
+   // Metodos
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public List<Usuarios> consultarUsuarios() {
+      try {
+         return persistenciaUsuarios.buscarUsuarios(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void crearUsuariosBD(String alias, String perfil) {
+      try {
+         persistenciaUsuarios.crearUsuario(getEm(), alias);
+         persistenciaUsuarios.crearUsuarioPerfil(getEm(), alias, perfil);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void eliminarUsuariosBD(String alias) {
+      try {
+         persistenciaUsuarios.borrarUsuario(getEm(), alias);
+         persistenciaUsuarios.borrarUsuarioTotal(getEm(), alias);
+         log.warn("algo estarÃ¡ haciendo de eliminar");
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {
+      try {
+         persistenciaUsuarios.clonarUsuario(getEm(), usuarioOrigen, usuarioDestino);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void desbloquearUsuariosBD(String alias) {
+      try {
+         persistenciaUsuarios.desbloquearUsuario(getEm(), alias);
+         log.warn("estÃ¡ haciendo algo de desbloquear");
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void restaurarUsuariosBD(String alias, String fecha) {
+      try {
+         persistenciaUsuarios.restaurarUsuario(getEm(), alias, fecha);
+         log.warn("estÃ¡ haciendo algo de restaurar");
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   public List<Personas> consultarPersonas() {
+      try {
+         return persistenciaPersonas.consultarPersonas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<Perfiles> consultarPerfiles() {
+      try {
+         return persistenciaPerfiles.consultarPerfiles(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<Pantallas> consultarPantallas() {
+      try {
+         return persistenciaPantallas.buscarPantallas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarUsuarios(List<Usuarios> listaUsuarios) {
+      try {
+         for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getAlias().equals(null)) {
+               listaUsuarios.get(i).setAlias(null);
+               persistenciaUsuarios.editar(getEm(), listaUsuarios.get(i));
+            } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
+               listaUsuarios.get(i).setPersona(null);
+            } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
+               listaUsuarios.get(i).setPerfil(null);
+            } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
+               listaUsuarios.get(i).setPantallainicio(null);
+            } else {
+               persistenciaUsuarios.editar(getEm(), listaUsuarios.get(i));
+            }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void borrarUsuarios(List<Usuarios> listaUsuarios) {
+      try {
+         for (int i = 0; i < listaUsuarios.size(); i++) {
             log.warn("Borrando..Usuarios.");
             if (listaUsuarios.get(i).getAlias().equals(null)) {
-                listaUsuarios.get(i).setAlias(null);
-                persistenciaUsuarios.borrar(em, listaUsuarios.get(i));
+               listaUsuarios.get(i).setAlias(null);
+               persistenciaUsuarios.borrar(getEm(), listaUsuarios.get(i));
             } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
-                listaUsuarios.get(i).setPersona(null);
+               listaUsuarios.get(i).setPersona(null);
             } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
-                listaUsuarios.get(i).setPerfil(null);
+               listaUsuarios.get(i).setPerfil(null);
             } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
-                listaUsuarios.get(i).setPantallainicio(null);
+               listaUsuarios.get(i).setPantallainicio(null);
             } else {
-                persistenciaUsuarios.borrar(em, listaUsuarios.get(i));
+               persistenciaUsuarios.borrar(getEm(), listaUsuarios.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearUsuarios(List<Usuarios> listaUsuarios) {
-        for (int i = 0; i < listaUsuarios.size(); i++) {
+   @Override
+   public void crearUsuarios(List<Usuarios> listaUsuarios) {
+      try {
+         for (int i = 0; i < listaUsuarios.size(); i++) {
             log.warn("Creando. Usuarios..");
             if (listaUsuarios.get(i).getAlias().equals(null)) {
-                listaUsuarios.get(i).setAlias(null);
-                persistenciaUsuarios.crear(em, listaUsuarios.get(i));
+               listaUsuarios.get(i).setAlias(null);
+               persistenciaUsuarios.crear(getEm(), listaUsuarios.get(i));
             } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
-                listaUsuarios.get(i).setPersona(null);
+               listaUsuarios.get(i).setPersona(null);
             } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
-                listaUsuarios.get(i).setPerfil(null);
+               listaUsuarios.get(i).setPerfil(null);
             } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
-                listaUsuarios.get(i).setPantallainicio(null);
+               listaUsuarios.get(i).setPantallainicio(null);
             } else {
-                persistenciaUsuarios.crear(em, listaUsuarios.get(i));
+               persistenciaUsuarios.crear(getEm(), listaUsuarios.get(i));
             }
-        }
-    }   
-    
-    
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
 }

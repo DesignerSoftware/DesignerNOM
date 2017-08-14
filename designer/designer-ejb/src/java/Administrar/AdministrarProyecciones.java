@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,60 +28,89 @@ public class AdministrarProyecciones implements AdministrarProyeccionesInterface
 
    private static Logger log = Logger.getLogger(AdministrarProyecciones.class);
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaProyeccionesInterface persistenciaProyecciones;
-    private EntityManager em;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaProyeccionesInterface persistenciaProyecciones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public void borrarProyecciones(List<Proyecciones> lista) {
-        log.warn("AdministrarProyecciones borrarProyecciones");
-        for (int i = 0; i < lista.size(); i++) {
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void borrarProyecciones(List<Proyecciones> lista) {
+      try {
+         log.warn("AdministrarProyecciones borrarProyecciones");
+         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).getCentroCosto().getSecuencia() == null) {
-                lista.get(i).setCentroCosto(null);
+               lista.get(i).setCentroCosto(null);
             }
             if (lista.get(i).getEmpleado().getSecuencia() == null) {
-                lista.get(i).setEmpleado(null);
+               lista.get(i).setEmpleado(null);
             }
             if (lista.get(i).getFormula().getSecuencia() == null) {
-                lista.get(i).setFormula(null);
+               lista.get(i).setFormula(null);
             }
             if (lista.get(i).getCuentaC().getSecuencia() == null) {
-                lista.get(i).setCuentaC(null);
+               lista.get(i).setCuentaC(null);
             }
             if (lista.get(i).getCuentaD().getSecuencia() == null) {
-                lista.get(i).setCuentaD(null);
+               lista.get(i).setCuentaD(null);
             }
             if (lista.get(i).getNit().getSecuencia() == null) {
-                lista.get(i).setNit(null);
+               lista.get(i).setNit(null);
             }
-            persistenciaProyecciones.borrar(em, lista.get(i));
-        }
-    }
+            persistenciaProyecciones.borrar(getEm(), lista.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Proyecciones> consultarProyeccionesEmpleado(BigInteger secEmpleado) {
-        List<Proyecciones> lista;
-        lista = persistenciaProyecciones.consultarProyecciones(em, secEmpleado);
-        return lista;
-    }
+   public List<Proyecciones> consultarProyeccionesEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaProyecciones.consultarProyecciones(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Empleados> consultarLOVEmpleados() {
-        List<Empleados> lista;
-        lista = persistenciaEmpleado.consultarEmpleadosParaProyecciones(em);
-        return lista;
-    }
+   public List<Empleados> consultarLOVEmpleados() {
+      try {
+         return persistenciaEmpleado.consultarEmpleadosParaProyecciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

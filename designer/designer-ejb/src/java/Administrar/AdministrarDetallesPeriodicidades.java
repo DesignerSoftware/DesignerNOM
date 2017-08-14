@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,70 +29,87 @@ public class AdministrarDetallesPeriodicidades implements AdministrarDetallesPer
 
    private static Logger log = Logger.getLogger(AdministrarDetallesPeriodicidades.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaDetallesPeriodicidadesInterface persistenciaDetallesPeriodicidades;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaDetallesPeriodicidadesInterface persistenciaDetallesPeriodicidades;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public void modificarDetallePeriodicidad(List<DetallesPeriodicidades> listaModificar) {
-        try {
-            for (int i = 0; i < listaModificar.size(); i++) {
-                persistenciaDetallesPeriodicidades.editar(em, listaModificar.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("error en AdministrarDetallesPeriodicidades.modificarDetallePeriodicidad () " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarDetallePeriodicidad(List<DetallesPeriodicidades> listaBorrar) {
-        try {
-            for (int i = 0; i < listaBorrar.size(); i++) {
-                persistenciaDetallesPeriodicidades.borrar(em, listaBorrar.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en AdministrarDetallesPeriodicidades.borrarDetallePeriodicidad () " + e.toString());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearDetallePeriodicidad(List<DetallesPeriodicidades> listaCrear) {
-        try {
-            for (int i = 0; i < listaCrear.size(); i++) {
-                persistenciaDetallesPeriodicidades.crear(em, listaCrear.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("error en AdministrarDetallesPeriodicidades.crearDetallePeriodicidad () " + e.toString());
-        }
-    }
+   @Override
+   public void modificarDetallePeriodicidad(List<DetallesPeriodicidades> listaModificar) {
+      try {
+         for (int i = 0; i < listaModificar.size(); i++) {
+            persistenciaDetallesPeriodicidades.editar(getEm(), listaModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en AdministrarDetallesPeriodicidades.modificarDetallePeriodicidad () " + e.toString());
+      }
+   }
 
-    @Override
-    public List<DetallesPeriodicidades> consultarDetallesPeriodicidades(BigInteger secuenciaPeriodicidad) {
-        try {
-            List<DetallesPeriodicidades> listaDetallesP = persistenciaDetallesPeriodicidades.buscarDetallesPeriodicidad(em, secuenciaPeriodicidad);
-            return listaDetallesP;
-        } catch (Exception e) {
-            log.warn("error en AdministrarDetallesPeriodicidades.consultarDetallesPeriodicidades() " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void borrarDetallePeriodicidad(List<DetallesPeriodicidades> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaDetallesPeriodicidades.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en AdministrarDetallesPeriodicidades.borrarDetallePeriodicidad () " + e.toString());
+      }
+   }
 
-    @Override
-    public Periodicidades consultarPeriodicidadPorSecuencia(BigInteger secuenciaPeriodicidad) {
-         try {
-            Periodicidades periodicidad = persistenciaDetallesPeriodicidades.buscarPeriodicidadPorSecuencia(em, secuenciaPeriodicidad);
-            return periodicidad;
-        } catch (Exception e) {
-            log.warn("error en AdministrarDetallesPeriodicidades.consultarPeriodicidadPorSecuencia() " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void crearDetallePeriodicidad(List<DetallesPeriodicidades> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            persistenciaDetallesPeriodicidades.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("error en AdministrarDetallesPeriodicidades.crearDetallePeriodicidad () " + e.toString());
+      }
+   }
+
+   @Override
+   public List<DetallesPeriodicidades> consultarDetallesPeriodicidades(BigInteger secuenciaPeriodicidad) {
+      try {
+         return persistenciaDetallesPeriodicidades.buscarDetallesPeriodicidad(getEm(), secuenciaPeriodicidad);
+      } catch (Exception e) {
+         log.warn("error en AdministrarDetallesPeriodicidades.consultarDetallesPeriodicidades() " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public Periodicidades consultarPeriodicidadPorSecuencia(BigInteger secuenciaPeriodicidad) {
+      try {
+         return persistenciaDetallesPeriodicidades.buscarPeriodicidadPorSecuencia(getEm(), secuenciaPeriodicidad);
+      } catch (Exception e) {
+         log.warn("error en AdministrarDetallesPeriodicidades.consultarPeriodicidadPorSecuencia() " + e.toString());
+         return null;
+      }
+   }
 }

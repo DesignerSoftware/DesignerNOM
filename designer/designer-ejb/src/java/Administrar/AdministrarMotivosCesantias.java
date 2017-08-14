@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,70 +26,105 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
 
    private static Logger log = Logger.getLogger(AdministrarMotivosCesantias.class);
 
-    @EJB
-    PersistenciaMotivosCesantiasInterface persistenciaMotivosCensantias;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMotivosCesantiasInterface persistenciaMotivosCensantias;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
-        for (int i = 0; i < listaMotivosCesantias.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
+      try {
+         for (int i = 0; i < listaMotivosCesantias.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaMotivosCensantias.editar(em, listaMotivosCesantias.get(i));
-        }
-    }
+            persistenciaMotivosCensantias.editar(getEm(), listaMotivosCesantias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
-        for (int i = 0; i < listaMotivosCesantias.size(); i++) {
+   @Override
+   public void borrarMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
+      try {
+         for (int i = 0; i < listaMotivosCesantias.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaMotivosCensantias.borrar(em, listaMotivosCesantias.get(i));
-        }
-    }
+            persistenciaMotivosCensantias.borrar(getEm(), listaMotivosCesantias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
-        for (int i = 0; i < listaMotivosCesantias.size(); i++) {
+   @Override
+   public void crearMotivosCesantias(List<MotivosCesantias> listaMotivosCesantias) {
+      try {
+         for (int i = 0; i < listaMotivosCesantias.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaMotivosCensantias.crear(em, listaMotivosCesantias.get(i));
-        }
-    }
+            persistenciaMotivosCensantias.crear(getEm(), listaMotivosCesantias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<MotivosCesantias> consultarMotivosCesantias() {
-        List<MotivosCesantias> listMotivosCensantias;
-        listMotivosCensantias = persistenciaMotivosCensantias.buscarMotivosCesantias(em);
-        return listMotivosCensantias;
-    }
+   @Override
+   public List<MotivosCesantias> consultarMotivosCesantias() {
+      try {
+         return persistenciaMotivosCensantias.buscarMotivosCesantias(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public MotivosCesantias consultarMotivoCesantia(BigInteger secMotivoPrestamo) {
-        MotivosCesantias motivosCensantias;
-        motivosCensantias = persistenciaMotivosCensantias.buscarMotivoCensantia(em, secMotivoPrestamo);
-        return motivosCensantias;
-    }
+   @Override
+   public MotivosCesantias consultarMotivoCesantia(BigInteger secMotivoPrestamo) {
+      try {
+         return persistenciaMotivosCensantias.buscarMotivoCensantia(getEm(), secMotivoPrestamo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarNovedadesSistemasMotivoCesantia(BigInteger secuenciaMotivosCesantias) {
-        BigInteger verificarNovedadesSistema = null;
-        try {
-            verificarNovedadesSistema = persistenciaMotivosCensantias.contadorNovedadesSistema(em, secuenciaMotivosCesantias);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARMOTIVOSCESANTIAS verificarNovedadesSistema ERROR :" + e);
-        } finally {
-            return verificarNovedadesSistema;
-        }
-    }
+   @Override
+   public BigInteger contarNovedadesSistemasMotivoCesantia(BigInteger secuenciaMotivosCesantias) {
+      try {
+         return persistenciaMotivosCensantias.contadorNovedadesSistema(getEm(), secuenciaMotivosCesantias);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARMOTIVOSCESANTIAS verificarNovedadesSistema ERROR :" + e);
+         return null;
+      }
+   }
 }

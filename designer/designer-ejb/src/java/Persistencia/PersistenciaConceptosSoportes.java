@@ -91,7 +91,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          ConceptosSoportes conceptosSoportes = (ConceptosSoportes) query.getSingleResult();
          return conceptosSoportes;
       } catch (Exception e) {
-         log.error("Error consultarConceptosSoportes");
+         log.error("Error consultarConceptosSoportes " + e);
          ConceptosSoportes conceptosSoportes = null;
          return conceptosSoportes;
       }
@@ -107,8 +107,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          BigInteger conceptosSoportes = new BigInteger(query.getSingleResult().toString());
          return conceptosSoportes;
       } catch (Exception e) {
-         log.error("Error consultarConceptosSoportes");
-         ConceptosSoportes conceptosSoportes = null;
+         log.error("Error consultarConceptosSoportes " + e);
          return null;
       }
    }

@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,55 +30,82 @@ public class AdministrarNovedadesOperandos implements AdministrarNovedadesOperan
 
    private static Logger log = Logger.getLogger(AdministrarNovedadesOperandos.class);
 
-    @EJB
-    PersistenciaNovedadesOperandosInterface persistenciaNovedadesOperandos;
-    @EJB
-    PersistenciaOperandosInterface persistenciaOperandos;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaNovedadesOperandosInterface persistenciaNovedadesOperandos;
+   @EJB
+   PersistenciaOperandosInterface persistenciaOperandos;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public List<NovedadesOperandos> buscarNovedadesOperandos(BigInteger secuenciaOperando) {
-        List<NovedadesOperandos> listaNovedadesOperandos;
-        listaNovedadesOperandos = persistenciaNovedadesOperandos.novedadesOperandos(em, secuenciaOperando);
-        return listaNovedadesOperandos;
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarNovedadesOperandos(NovedadesOperandos novedadesOperandos) {
-        persistenciaNovedadesOperandos.borrar(em, novedadesOperandos);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearNovedadesOperandos(NovedadesOperandos novedadesOperandos) {
-        persistenciaNovedadesOperandos.crear(em, novedadesOperandos);
-    }
+   @Override
+   public List<NovedadesOperandos> buscarNovedadesOperandos(BigInteger secuenciaOperando) {
+      return persistenciaNovedadesOperandos.novedadesOperandos(getEm(), secuenciaOperando);
+   }
 
-    @Override
-    public void modificarNovedadesOperandos(NovedadesOperandos novedadesOperandos) {
-        persistenciaNovedadesOperandos.editar(em, novedadesOperandos);
+   @Override
+   public void borrarNovedadesOperandos(NovedadesOperandos novedadesOperandos) {
+      persistenciaNovedadesOperandos.borrar(getEm(), novedadesOperandos);
+   }
 
-    }
+   @Override
+   public void crearNovedadesOperandos(NovedadesOperandos novedadesOperandos) {
+      try {
+         persistenciaNovedadesOperandos.crear(getEm(), novedadesOperandos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Operandos> buscarOperandos() {
-        List<Operandos> listaOperandos;
-        listaOperandos = persistenciaOperandos.buscarOperandos(em);
-        return listaOperandos;
-    }
+   @Override
+   public void modificarNovedadesOperandos(NovedadesOperandos novedadesOperandos) {
+      try {
+         persistenciaNovedadesOperandos.editar(getEm(), novedadesOperandos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<Operandos> buscarOperandos() {
+      try {
+         return persistenciaOperandos.buscarOperandos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

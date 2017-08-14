@@ -26,6 +26,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -56,136 +57,251 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void crearTT(TiposTrabajadores tiposTrabajadores) {
-      persistenciaTipoTrabajador.crear(em, tiposTrabajadores);
+      try {
+         persistenciaTipoTrabajador.crear(getEm(), tiposTrabajadores);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void editarTT(TiposTrabajadores tiposTrabajadores) {
-      persistenciaTipoTrabajador.editar(em, tiposTrabajadores);
+      try {
+         persistenciaTipoTrabajador.editar(getEm(), tiposTrabajadores);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarTT(TiposTrabajadores tiposTrabajadores) {
-      persistenciaTipoTrabajador.borrar(em, tiposTrabajadores);
+      try {
+         persistenciaTipoTrabajador.borrar(getEm(), tiposTrabajadores);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearPlantillaTC(PlantillasValidaTC plantilla) {
-      persistenciaPlantillasTC.crear(em, plantilla);
+      try {
+         persistenciaPlantillasTC.crear(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void editarPlantillaTC(PlantillasValidaTC plantilla) {
-      persistenciaPlantillasTC.editar(em, plantilla);
+      try {
+         persistenciaPlantillasTC.editar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarPlantillaTC(PlantillasValidaTC plantilla) {
-      persistenciaPlantillasTC.borrar(em, plantilla);
+      try {
+         persistenciaPlantillasTC.borrar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearPlantillaTS(PlantillasValidaTS plantilla) {
-      persistenciaPlantillasTS.crear(em, plantilla);
+      try {
+         persistenciaPlantillasTS.crear(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void editarPlantillaTS(PlantillasValidaTS plantilla) {
-      persistenciaPlantillasTS.editar(em, plantilla);
+      try {
+         persistenciaPlantillasTS.editar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarPlantillaTS(PlantillasValidaTS plantilla) {
-      persistenciaPlantillasTS.borrar(em, plantilla);
+      try {
+         persistenciaPlantillasTS.borrar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearPlantillaRL(PlantillasValidaRL plantilla) {
-      persistenciaPlantillasRL.crear(em, plantilla);
+      try {
+         persistenciaPlantillasRL.crear(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void editarPlantillaRL(PlantillasValidaRL plantilla) {
-      persistenciaPlantillasRL.editar(em, plantilla);
+      try {
+         persistenciaPlantillasRL.editar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarPlantillaRL(PlantillasValidaRL plantilla) {
-      persistenciaPlantillasRL.borrar(em, plantilla);
+      try {
+         persistenciaPlantillasRL.borrar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearPlantillaLL(PlantillasValidaLL plantilla) {
-      persistenciaPlantillasLL.crear(em, plantilla);
+      try {
+         persistenciaPlantillasLL.crear(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void editarPlantillaLL(PlantillasValidaLL plantilla) {
-      persistenciaPlantillasLL.editar(em, plantilla);
+      try {
+         persistenciaPlantillasLL.editar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarPlantillaLL(PlantillasValidaLL plantilla) {
-      persistenciaPlantillasLL.borrar(em, plantilla);
+      try {
+         persistenciaPlantillasLL.borrar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearPlantillaNL(PlantillasValidaNL plantilla) {
-      persistenciaPlantillasNL.crear(em, plantilla);
+      try {
+         persistenciaPlantillasNL.crear(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void editarPlantillaNL(PlantillasValidaNL plantilla) {
-      persistenciaPlantillasNL.editar(em, plantilla);
+      try {
+         persistenciaPlantillasNL.editar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarPlantillaNL(PlantillasValidaNL plantilla) {
-      persistenciaPlantillasNL.borrar(em, plantilla);
+      try {
+         persistenciaPlantillasNL.borrar(getEm(), plantilla);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public List<TiposTrabajadores> listaTT() {
-      List<TiposTrabajadores> lista = persistenciaTTPlantillas.consultarTiposTrabajadores(em);
-      return lista;
+      try {
+         return persistenciaTTPlantillas.consultarTiposTrabajadores(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<PlantillasValidaTC> listaPlantillaTC(BigInteger secTT) {
-      List<PlantillasValidaTC> lista = persistenciaTTPlantillas.consultarPlanillaTC(em, secTT);
-      return lista;
+      try {
+         return persistenciaTTPlantillas.consultarPlanillaTC(getEm(), secTT);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<PlantillasValidaTS> listaPlantillaTS(BigInteger secTT) {
-      List<PlantillasValidaTS> lista = persistenciaTTPlantillas.consultarPlanillaTS(em, secTT);
-      return lista;
+      try {
+         return persistenciaTTPlantillas.consultarPlanillaTS(getEm(), secTT);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<PlantillasValidaRL> listaPlantillaRL(BigInteger secTT) {
-      List<PlantillasValidaRL> lista = persistenciaTTPlantillas.consultarPlanillaRL(em, secTT);
-      return lista;
+      try {
+         return persistenciaTTPlantillas.consultarPlanillaRL(getEm(), secTT);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<PlantillasValidaLL> listaPlantillaLL(BigInteger secTT) {
-      List<PlantillasValidaLL> lista = persistenciaTTPlantillas.consultarPlanillaLL(em, secTT);
-      return lista;
+      try {
+         return persistenciaTTPlantillas.consultarPlanillaLL(getEm(), secTT);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<PlantillasValidaNL> listaPlantillaNL(BigInteger secTT) {
-      List<PlantillasValidaNL> lista = persistenciaTTPlantillas.consultarPlanillaNL(em, secTT);
-      return lista;
+      try {
+         return persistenciaTTPlantillas.consultarPlanillaNL(getEm(), secTT);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 }

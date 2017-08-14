@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,70 +26,105 @@ public class AdministrarMetodosPagos implements AdministrarMetodosPagosInterface
 
    private static Logger log = Logger.getLogger(AdministrarMetodosPagos.class);
 
-    @EJB
-    PersistenciaMetodosPagosInterface persistenciaMetodosPagos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMetodosPagosInterface persistenciaMetodosPagos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
-        for (int i = 0; i < listaMetodosPagos.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
+      try {
+         for (int i = 0; i < listaMetodosPagos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaMetodosPagos.editar(em, listaMetodosPagos.get(i));
-        }
-    }
+            persistenciaMetodosPagos.editar(getEm(), listaMetodosPagos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
-        for (int i = 0; i < listaMetodosPagos.size(); i++) {
+   @Override
+   public void borrarMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
+      try {
+         for (int i = 0; i < listaMetodosPagos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaMetodosPagos.borrar(em, listaMetodosPagos.get(i));
-        }
-    }
+            persistenciaMetodosPagos.borrar(getEm(), listaMetodosPagos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
-        for (int i = 0; i < listaMetodosPagos.size(); i++) {
+   @Override
+   public void crearMetodosPagos(List<MetodosPagos> listaMetodosPagos) {
+      try {
+         for (int i = 0; i < listaMetodosPagos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaMetodosPagos.crear(em, listaMetodosPagos.get(i));
-        }
-    }
+            persistenciaMetodosPagos.crear(getEm(), listaMetodosPagos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<MetodosPagos> consultarMetodosPagos() {
-        List<MetodosPagos> listMetodosPagos;
-        listMetodosPagos = persistenciaMetodosPagos.buscarMetodosPagos(em);
-        return listMetodosPagos;
-    }
+   @Override
+   public List<MetodosPagos> consultarMetodosPagos() {
+      try {
+         return persistenciaMetodosPagos.buscarMetodosPagos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public MetodosPagos consultarMetodoPago(BigInteger secMetodosPagos) {
-        MetodosPagos metodosPago;
-        metodosPago = persistenciaMetodosPagos.buscarMetodosPagosEmpleado(em, secMetodosPagos);
-        return metodosPago;
-    }
+   @Override
+   public MetodosPagos consultarMetodoPago(BigInteger secMetodosPagos) {
+      try {
+         return persistenciaMetodosPagos.buscarMetodosPagosEmpleado(getEm(), secMetodosPagos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger verificarMetodosPagosVigenciasFormasPagos(BigInteger secuenciaMetodoPago) {
-        BigInteger verificarVigenciasFormasPagos = null;
-        try {
-            verificarVigenciasFormasPagos = persistenciaMetodosPagos.contadorvigenciasformaspagos(em, secuenciaMetodoPago);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARMETODOSPAGOS VERIFICARVIGENCIASFORMASPAGOS ERROR " + e);
-        } finally {
-            return verificarVigenciasFormasPagos;
-        }
-    }
+   @Override
+   public BigInteger verificarMetodosPagosVigenciasFormasPagos(BigInteger secuenciaMetodoPago) {
+      try {
+         return persistenciaMetodosPagos.contadorvigenciasformaspagos(getEm(), secuenciaMetodoPago);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARMETODOSPAGOS VERIFICARVIGENCIASFORMASPAGOS ERROR " + e);
+         return null;
+      }
+   }
 }

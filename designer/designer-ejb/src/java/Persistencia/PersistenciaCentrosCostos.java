@@ -34,7 +34,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
    public void crear(EntityManager em, CentrosCostos centrosCostos) {
       try {
          if (centrosCostos.getManoobra() == null) {
-            log.error("PERSISTENCIA CENTROSCOSTOS MANO DE OBRA ES NULA ");
+            log.warn("PERSISTENCIA CENTROSCOSTOS MANO DE OBRA ES NULA ");
          } else if (centrosCostos.getManoobra().isEmpty() || centrosCostos.getManoobra().equals("") || centrosCostos.getManoobra().equals(" ")) {
             centrosCostos.setManoobra(null);
          }
@@ -101,7 +101,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          List<CentrosCostos> centrosCostos = query.getResultList();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error buscarCentrosCostos PersistenciaCentrosCostos");
+         log.error("Error buscarCentrosCostos PersistenciaCentrosCostos " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          CentrosCostos centrosCostos = (CentrosCostos) query.getSingleResult();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error buscarCentroCostoSecuencia PersistenciaCentrosCostos");
+         log.error("Error buscarCentroCostoSecuencia PersistenciaCentrosCostos " + e);
          CentrosCostos centrosCostos = null;
          return centrosCostos;
       }
@@ -159,7 +159,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          String sqlQuery = "SELECT COUNT(*) FROM centroscostos cc, comprobantescontables ccs WHERE cc.secuencia = ccs.centrocostoconsolidador AND cc.secuencia = ?";
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
-         log.error("PersistenciaCENTROSCOSTOS contadorComprobantesContables  " + query.getSingleResult());
+         log.warn("PersistenciaCENTROSCOSTOS contadorComprobantesContables  " + query.getSingleResult());
          return new BigInteger(query.getSingleResult().toString());
 
       } catch (Exception e) {

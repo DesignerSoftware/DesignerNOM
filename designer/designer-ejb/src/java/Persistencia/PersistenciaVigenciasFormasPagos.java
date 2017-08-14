@@ -128,7 +128,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             Query query = em.createNativeQuery(sql);
             query.setParameter("1", secEmpleado);
             BigDecimal periodicidad = (BigDecimal) query.getSingleResult();
-            log.error("buscarPeriodicidadPorEmpl: " + periodicidad);
+            log.warn("buscarPeriodicidadPorEmpl: " + periodicidad);
             return periodicidad;
         } catch (Exception e) {
             log.error("Error en Persistencia Vigencias Formas Pagos.buscarVigenciaFormaPagoPorEmpl() " + e.getMessage());

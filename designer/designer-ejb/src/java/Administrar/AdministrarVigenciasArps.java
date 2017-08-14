@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -38,26 +39,57 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
    PersistenciaEstructurasInterface persistenciaEstructuras;
    @EJB
    PersistenciaCargosInterface persistenciaCargos;
-   EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarVArp(VigenciasArps vigarp) {
-      persistenciaVigenciasArp.editar(em, vigarp);
+      try {
+         persistenciaVigenciasArp.editar(getEm(), vigarp);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarVArp(VigenciasArps vigarp) {
-      persistenciaVigenciasArp.borrar(em, vigarp);
+      try {
+         persistenciaVigenciasArp.borrar(getEm(), vigarp);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearVArp(VigenciasArps vigarp) {
-      persistenciaVigenciasArp.crear(em, vigarp);
+      try {
+         persistenciaVigenciasArp.crear(getEm(), vigarp);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
@@ -66,41 +98,46 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       log.warn("cargo : " + cargo);
       log.warn("fecha : " + fecha);
       try {
-         String resultado = persistenciaVigenciasArp.actualARP(em, estructura, cargo, fecha);
-         return resultado;
+         return persistenciaVigenciasArp.actualARP(getEm(), estructura, cargo, fecha);
       } catch (Exception e) {
          log.warn("error en AdministrarVigenciasArps.buscarPorcentaje() : " + e.toString());
          return null;
       }
    }
-   
-   public int contarVigenciasARPsPorEstructuraYCargo(BigInteger estructura, BigInteger cargo){
-      return persistenciaVigenciasArp.contarVigenciasARPsPorEstructuraYCargo(em, estructura, cargo);
+
+   public int contarVigenciasARPsPorEstructuraYCargo(BigInteger estructura, BigInteger cargo) {
+      try {
+         return persistenciaVigenciasArp.contarVigenciasARPsPorEstructuraYCargo(getEm(), estructura, cargo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
+      }
    }
 
    public List<VigenciasArps> consultarVigenciasArps() {
-      return persistenciaVigenciasArp.consultarVigenciasArps(em);
+      try {
+         return persistenciaVigenciasArp.consultarVigenciasArps(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Estructuras> consultarTodoEstructuras() {
-      List<Estructuras> estructuras;
       try {
-         estructuras = persistenciaEstructuras.buscarEstructuras(em);
+         return persistenciaEstructuras.buscarEstructuras(getEm());
       } catch (Exception ex) {
-         estructuras = null;
+         return null;
       }
-      return estructuras;
    }
 
    @Override
    public List<Cargos> consultarTodoCargos() {
-      List<Cargos> cargos;
       try {
-         cargos = persistenciaCargos.consultarCargos(em);
+         return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception ex) {
-         cargos = null;
+         return null;
       }
-      return cargos;
    }
 }

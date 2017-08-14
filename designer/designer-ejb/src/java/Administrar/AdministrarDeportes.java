@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,105 +27,137 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarDeportes.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaDeportes'.
+    */
+   @EJB
+   PersistenciaDeportesInterface persistenciaDeportes;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaDeportes'.
-     */
-    @EJB
-    PersistenciaDeportesInterface persistenciaDeportes;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    private EntityManager em;
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------  
-    @Override
-    public void modificarDeportes(List<Deportes> listDeportesModificadas) {
-        for (int i = 0; i < listDeportesModificadas.size(); i++) {
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------  
+   @Override
+   public void modificarDeportes(List<Deportes> listDeportesModificadas) {
+      try {
+         for (int i = 0; i < listDeportesModificadas.size(); i++) {
             log.warn("Administrar Modificando...");
             Deportes deporteSeleccionado = listDeportesModificadas.get(i);
-            persistenciaDeportes.editar(em,deporteSeleccionado);
-        }
-    }
+            persistenciaDeportes.editar(getEm(), deporteSeleccionado);
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarDeportes(List<Deportes> listaDeportes) {
-        for (int i = 0; i < listaDeportes.size(); i++) {
+   @Override
+   public void borrarDeportes(List<Deportes> listaDeportes) {
+      try {
+         for (int i = 0; i < listaDeportes.size(); i++) {
             log.warn("Borrando...");
-            persistenciaDeportes.borrar(em,listaDeportes.get(i));
-        }
-    }
+            persistenciaDeportes.borrar(getEm(), listaDeportes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearDeportes(List<Deportes> listaDeportes) {
-        for (int i = 0; i < listaDeportes.size(); i++) {
+   @Override
+   public void crearDeportes(List<Deportes> listaDeportes) {
+      try {
+         for (int i = 0; i < listaDeportes.size(); i++) {
             log.warn("Creando...");
-            persistenciaDeportes.crear(em,listaDeportes.get(i));
-        }
-    }
+            persistenciaDeportes.crear(getEm(), listaDeportes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Deportes> consultarDeportes() {
-        List<Deportes> listDeportes = persistenciaDeportes.buscarDeportes(em);
-        return listDeportes;
-    }
+   @Override
+   public List<Deportes> consultarDeportes() {
+      try {
+         return persistenciaDeportes.buscarDeportes(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Deportes consultarDeporte(BigInteger secDeportes) {
-        Deportes deportes = persistenciaDeportes.buscarDeporte(em,secDeportes);
-        return deportes;
-    }
+   @Override
+   public Deportes consultarDeporte(BigInteger secDeportes) {
+      try {
+         return persistenciaDeportes.buscarDeporte(getEm(), secDeportes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarVigenciasDeportesDeporte(BigInteger secDeporte) {
-        BigInteger verificarBorradoVigenciasDeportes = null;
-        try {
-            verificarBorradoVigenciasDeportes = persistenciaDeportes.verificarBorradoVigenciasDeportes(em,secDeporte);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARDEPORTES verificarBorradoVigenciasDeportes ERROR :" + e);
-        } finally {
-            return verificarBorradoVigenciasDeportes;
-        }
-    }
+   @Override
+   public BigInteger contarVigenciasDeportesDeporte(BigInteger secDeporte) {
+      try {
+         return persistenciaDeportes.verificarBorradoVigenciasDeportes(getEm(), secDeporte);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARDEPORTES verificarBorradoVigenciasDeportes ERROR :" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarPersonasDeporte(BigInteger secDeporte) {
-        BigInteger contadorDeportesPersonas = null;
-        try {
-            contadorDeportesPersonas = persistenciaDeportes.contadorDeportesPersonas(em,secDeporte);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARDEPORTES contadorDeportesPersonas ERROR :" + e);
-        } finally {
-            return contadorDeportesPersonas;
-        }
-    }
+   @Override
+   public BigInteger contarPersonasDeporte(BigInteger secDeporte) {
+      try {
+         return persistenciaDeportes.contadorDeportesPersonas(getEm(), secDeporte);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARDEPORTES contadorDeportesPersonas ERROR :" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarParametrosInformesDeportes(BigInteger secDeporte) {
-        BigInteger contadorParametrosInformes = null;
-        try {
-            contadorParametrosInformes = persistenciaDeportes.contadorParametrosInformes(em,secDeporte);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARDEPORTES contadorParametrosInformes ERROR :" + e);
-        } finally {
-            return contadorParametrosInformes;
-        }
-    }
+   @Override
+   public BigInteger contarParametrosInformesDeportes(BigInteger secDeporte) {
+      try {
+         return persistenciaDeportes.contadorParametrosInformes(getEm(), secDeporte);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARDEPORTES contadorParametrosInformes ERROR :" + e);
+         return null;
+      }
+   }
 }

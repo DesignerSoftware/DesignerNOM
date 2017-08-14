@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,56 +28,93 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarFestivos.class);
 
-    @EJB
-    PersistenciaPaisesInterface persistenciaPaises;
-    @EJB
-    PersistenciaFestivosInterface persistenciaFestivos;
-    	/**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaPaisesInterface persistenciaPaises;
+   @EJB
+   PersistenciaFestivosInterface persistenciaFestivos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-	
-	@Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void modificarFestivos(List<Festivos> listaFestivos) {
-        for (int i = 0; i < listaFestivos.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarFestivos(List<Festivos> listaFestivos) {
+      try {
+         for (int i = 0; i < listaFestivos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaFestivos.editar(em,listaFestivos.get(i));
-        }
-    }
+            persistenciaFestivos.editar(getEm(), listaFestivos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarFestivos(List<Festivos> listaFestivos) {
-        for (int i = 0; i < listaFestivos.size(); i++) {
+   public void borrarFestivos(List<Festivos> listaFestivos) {
+      try {
+         for (int i = 0; i < listaFestivos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaFestivos.borrar(em,listaFestivos.get(i));
-        }
-    }
+            persistenciaFestivos.borrar(getEm(), listaFestivos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearFestivos(List<Festivos> listaFestivos) {
-        for (int i = 0; i < listaFestivos.size(); i++) {
+   public void crearFestivos(List<Festivos> listaFestivos) {
+      try {
+         for (int i = 0; i < listaFestivos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaFestivos.crear(em,listaFestivos.get(i));
-        }
-    }
+            persistenciaFestivos.crear(getEm(), listaFestivos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Festivos> consultarFestivosPais(BigInteger secPais) {
-        List<Festivos> listFestivos;
-        listFestivos = persistenciaFestivos.consultarFestivosPais(em,secPais);
-        return listFestivos;
-    }
+   public List<Festivos> consultarFestivosPais(BigInteger secPais) {
+      try {
+         return persistenciaFestivos.consultarFestivosPais(getEm(), secPais);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Paises> consultarLOVPaises() {
-        List<Paises> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaPaises.consultarPaises(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<Paises> consultarLOVPaises() {
+      try {
+         return persistenciaPaises.consultarPaises(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

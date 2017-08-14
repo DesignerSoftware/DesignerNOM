@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,70 +26,105 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
 
    private static Logger log = Logger.getLogger(AdministrarSubCategorias.class);
 
-    @EJB
-    PersistenciaSubCategoriasInterface persistenciaSubCategorias;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarSubCategorias(List<SubCategorias> listaSubCategorias) {
-        for (int i = 0; i < listaSubCategorias.size(); i++) {
+   @EJB
+   PersistenciaSubCategoriasInterface persistenciaSubCategorias;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarSubCategorias(List<SubCategorias> listaSubCategorias) {
+      try {
+         for (int i = 0; i < listaSubCategorias.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaSubCategorias.editar(em, listaSubCategorias.get(i));
-        }
-    }
+            persistenciaSubCategorias.editar(getEm(), listaSubCategorias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarSubCategorias(List<SubCategorias> listaSubCategorias) {
-        for (int i = 0; i < listaSubCategorias.size(); i++) {
+   @Override
+   public void borrarSubCategorias(List<SubCategorias> listaSubCategorias) {
+      try {
+         for (int i = 0; i < listaSubCategorias.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaSubCategorias.borrar(em, listaSubCategorias.get(i));
-        }
-    }
+            persistenciaSubCategorias.borrar(getEm(), listaSubCategorias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearSubCategorias(List<SubCategorias> listaSubCategorias) {
-        for (int i = 0; i < listaSubCategorias.size(); i++) {
+   @Override
+   public void crearSubCategorias(List<SubCategorias> listaSubCategorias) {
+      try {
+         for (int i = 0; i < listaSubCategorias.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaSubCategorias.crear(em, listaSubCategorias.get(i));
-        }
-    }
+            persistenciaSubCategorias.crear(getEm(), listaSubCategorias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SubCategorias> consultarSubCategorias() {
-        List<SubCategorias> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaSubCategorias.consultarSubCategorias(em);
-        return listMotivosCambiosCargos;
-    }
+   @Override
+   public List<SubCategorias> consultarSubCategorias() {
+      try {
+         return persistenciaSubCategorias.consultarSubCategorias(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public SubCategorias consultarSubCategoria(BigInteger secSubCategorias) {
-        SubCategorias subCategoria;
-        subCategoria = persistenciaSubCategorias.consultarSubCategoria(em, secSubCategorias);
-        return subCategoria;
-    }
+   @Override
+   public SubCategorias consultarSubCategoria(BigInteger secSubCategorias) {
+      try {
+         return persistenciaSubCategorias.consultarSubCategoria(getEm(), secSubCategorias);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarEscalafones(BigInteger secSubCategorias) {
-        BigInteger contarEscalafones = null;
-
-        try {
-            return contarEscalafones = persistenciaSubCategorias.contarEscalafones(em, secSubCategorias);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSubCategorias contarEscalafones ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarEscalafones(BigInteger secSubCategorias) {
+      try {
+         return persistenciaSubCategorias.contarEscalafones(getEm(), secSubCategorias);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSubCategorias contarEscalafones ERROR : " + e);
+         return null;
+      }
+   }
 }

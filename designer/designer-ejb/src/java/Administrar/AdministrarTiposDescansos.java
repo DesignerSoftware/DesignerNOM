@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,70 +26,106 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
 
    private static Logger log = Logger.getLogger(AdministrarTiposDescansos.class);
 
-    @EJB
-    PersistenciaTiposDescansosInterface persistenciaTiposDescansos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
+   @EJB
+   PersistenciaTiposDescansosInterface persistenciaTiposDescansos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
-        for (int i = 0; i < listaTiposDescansos.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
+      try {
+         for (int i = 0; i < listaTiposDescansos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposDescansos.editar(em, listaTiposDescansos.get(i));
-        }
-    }
+            persistenciaTiposDescansos.editar(getEm(), listaTiposDescansos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
-        for (int i = 0; i < listaTiposDescansos.size(); i++) {
+   @Override
+   public void borrarTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
+      try {
+         for (int i = 0; i < listaTiposDescansos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposDescansos.borrar(em, listaTiposDescansos.get(i));
-        }
-    }
+            persistenciaTiposDescansos.borrar(getEm(), listaTiposDescansos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
-        for (int i = 0; i < listaTiposDescansos.size(); i++) {
+   @Override
+   public void crearTiposDescansos(List<TiposDescansos> listaTiposDescansos) {
+      try {
+         for (int i = 0; i < listaTiposDescansos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposDescansos.crear(em, listaTiposDescansos.get(i));
-        }
-    }
+            persistenciaTiposDescansos.crear(getEm(), listaTiposDescansos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposDescansos> consultarTiposDescansos() {
-        List<TiposDescansos> listTiposTallas;
-        listTiposTallas = persistenciaTiposDescansos.consultarTiposDescansos(em);
-        return listTiposTallas;
-    }
+   @Override
+   public List<TiposDescansos> consultarTiposDescansos() {
+      try {
+         return persistenciaTiposDescansos.consultarTiposDescansos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposDescansos consultarTipoDescanso(BigInteger secTipoDescanso) {
-        TiposDescansos tiposTallas;
-        tiposTallas = persistenciaTiposDescansos.consultarTipoDescanso(em, secTipoDescanso);
-        return tiposTallas;
-    }
+   @Override
+   public TiposDescansos consultarTipoDescanso(BigInteger secTipoDescanso) {
+      try {
+         return persistenciaTiposDescansos.consultarTipoDescanso(getEm(), secTipoDescanso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarVigenciasJornadasTipoDescanso(BigInteger secuenciaTiposDescansos) {
-        BigInteger contarVigenciasJornadasTipoDescanso;
-        try {
-            log.warn("Secuencia Tipos Jornadas" + secuenciaTiposDescansos);
-            return contarVigenciasJornadasTipoDescanso = persistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso(em, secuenciaTiposDescansos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposDescansos contarVigenciasJornadasTipoDescanso ERROR :" + e);
-            return null;
-        }
-    }
+   public BigInteger contarVigenciasJornadasTipoDescanso(BigInteger secuenciaTiposDescansos) {
+      try {
+         log.warn("Secuencia Tipos Jornadas" + secuenciaTiposDescansos);
+         return persistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso(getEm(), secuenciaTiposDescansos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposDescansos contarVigenciasJornadasTipoDescanso ERROR :" + e);
+         return null;
+      }
+   }
 
 }

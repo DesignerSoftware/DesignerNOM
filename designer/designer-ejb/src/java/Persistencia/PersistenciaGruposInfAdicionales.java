@@ -111,7 +111,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("PersistenciaGruposInfAdicionales contadorInformacionesAdicionales : " + retorno);
+         log.warn("PersistenciaGruposInfAdicionales contadorInformacionesAdicionales : " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PersistenciaGruposInfAdicionales contadorInformacionesAdicionales ERROR " + e);

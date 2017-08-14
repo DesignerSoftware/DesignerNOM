@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,81 +25,104 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
 
    private static Logger log = Logger.getLogger(AdministrarMotivosCambiosCargos.class);
 
-    @EJB
-    PersistenciaMotivosCambiosCargosInterface persistenciaMotivosCambiosCargos;
+   @EJB
+   PersistenciaMotivosCambiosCargosInterface persistenciaMotivosCambiosCargos;
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public List<MotivosCambiosCargos> consultarMotivosCambiosCargos() {
-        List<MotivosCambiosCargos> motivosCambiosCargos = null;
-        try {
-            motivosCambiosCargos = persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(em);
-        } catch (Exception e) {
-            motivosCambiosCargos = null;
-            log.warn("AdministrarMotivosCambiosCargos.consultarMotivosCambiosCargos.");
-            log.warn("Excepcion.");
-            log.warn(e);
-        } finally {
-            return motivosCambiosCargos;
-        }
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public MotivosCambiosCargos consultarMotivoCambioCargo(BigInteger secuenciaMCC) {
-        MotivosCambiosCargos mcc = null;
-        try {
-            mcc = persistenciaMotivosCambiosCargos.buscarMotivoCambioCargo(em, secuenciaMCC);
-        } catch (Exception e) {
-            mcc = null;
-        } finally {
-            return mcc;
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
-        for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<MotivosCambiosCargos> consultarMotivosCambiosCargos() {
+      try {
+         return persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(getEm());
+      } catch (Exception e) {
+         log.warn("AdministrarMotivosCambiosCargos.consultarMotivosCambiosCargos.");
+         log.warn("Excepcion.");
+         log.warn(e);
+         return null;
+      }
+   }
+
+   @Override
+   public MotivosCambiosCargos consultarMotivoCambioCargo(BigInteger secuenciaMCC) {
+      try {
+         return persistenciaMotivosCambiosCargos.buscarMotivoCambioCargo(getEm(), secuenciaMCC);
+      } catch (Exception e) {
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
+      try {
+         for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
             log.warn("Administrar Modificando");
-            persistenciaMotivosCambiosCargos.editar(em, listaMotivosCambiosCargos.get(i));
-        }
-    }
+            persistenciaMotivosCambiosCargos.editar(getEm(), listaMotivosCambiosCargos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
-        for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
+   @Override
+   public void borrarMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
+      try {
+         for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
             log.warn("Administrar Borrando");
-            persistenciaMotivosCambiosCargos.borrar(em, listaMotivosCambiosCargos.get(i));
-        }
-    }
+            persistenciaMotivosCambiosCargos.borrar(getEm(), listaMotivosCambiosCargos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
-        for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
+   @Override
+   public void crearMotivosCambiosCargos(List<MotivosCambiosCargos> listaMotivosCambiosCargos) {
+      try {
+         for (int i = 0; i < listaMotivosCambiosCargos.size(); i++) {
             log.warn("Administrar Creando");
-            persistenciaMotivosCambiosCargos.crear(em, listaMotivosCambiosCargos.get(i));
-        }
-    }
+            persistenciaMotivosCambiosCargos.crear(getEm(), listaMotivosCambiosCargos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public BigInteger contarVigenciasCargosMotivoCambioCargo(BigInteger secuenciaMovitoCambioCargo) {
-        BigInteger verificadorVC = null;
-        try {
-            verificadorVC = persistenciaMotivosCambiosCargos.verificarBorradoVigenciasCargos(em, secuenciaMovitoCambioCargo);
-        } catch (Exception e) {
-            log.warn("AdministrarMotivosCambiosCargos.verificarBorradoVC.");
-            log.error("Excepcion.");
-            log.warn(e);
-        } finally {
-            return verificadorVC;
-        }
-    }
+   @Override
+   public BigInteger contarVigenciasCargosMotivoCambioCargo(BigInteger secuenciaMovitoCambioCargo) {
+      try {
+         return persistenciaMotivosCambiosCargos.verificarBorradoVigenciasCargos(getEm(), secuenciaMovitoCambioCargo);
+      } catch (Exception e) {
+         log.warn("AdministrarMotivosCambiosCargos.verificarBorradoVC.");
+         log.error("Excepcion.");
+         log.warn(e);
+         return null;
+      }
+   }
 }

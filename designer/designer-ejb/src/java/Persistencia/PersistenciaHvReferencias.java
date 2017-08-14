@@ -101,7 +101,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<HvReferencias> listHvReferencias = query.getResultList();
             if (listHvReferencias != null) {
-                log.error("PersistenciaHvReferencias Tamaño listHvReferencias : " + listHvReferencias.size());
+                log.warn("PersistenciaHvReferencias Tamaño listHvReferencias : " + listHvReferencias.size());
             }
             return listHvReferencias;
         } catch (Exception e) {
@@ -137,7 +137,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         try {
             em.clear();
             String sql = "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
-            log.error("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
+            log.warn("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
             Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
             query.setParameter(1, secPersona);
             List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();

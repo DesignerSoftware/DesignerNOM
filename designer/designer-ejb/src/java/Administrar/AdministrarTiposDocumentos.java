@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,81 +26,114 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
 
    private static Logger log = Logger.getLogger(AdministrarTiposDocumentos.class);
 
-    @EJB
-    PersistenciaTiposDocumentosInterface persistenciaTiposDocumentos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaTiposDocumentosInterface persistenciaTiposDocumentos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
-        for (int i = 0; i < listaTiposDocumentos.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
+      try {
+         for (int i = 0; i < listaTiposDocumentos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposDocumentos.editar(em, listaTiposDocumentos.get(i));
-        }
-    }
+            persistenciaTiposDocumentos.editar(getEm(), listaTiposDocumentos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
-        for (int i = 0; i < listaTiposDocumentos.size(); i++) {
+   @Override
+   public void borrarTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
+      try {
+         for (int i = 0; i < listaTiposDocumentos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposDocumentos.borrar(em, listaTiposDocumentos.get(i));
-        }
-    }
+            persistenciaTiposDocumentos.borrar(getEm(), listaTiposDocumentos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
-        for (int i = 0; i < listaTiposDocumentos.size(); i++) {
+   @Override
+   public void crearTiposDocumentos(List<TiposDocumentos> listaTiposDocumentos) {
+      try {
+         for (int i = 0; i < listaTiposDocumentos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposDocumentos.crear(em, listaTiposDocumentos.get(i));
-        }
-    }
+            persistenciaTiposDocumentos.crear(getEm(), listaTiposDocumentos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<TiposDocumentos> consultarTiposDocumentos() {
-        List<TiposDocumentos> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaTiposDocumentos.consultarTiposDocumentos(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<TiposDocumentos> consultarTiposDocumentos() {
+      try {
+         return persistenciaTiposDocumentos.consultarTiposDocumentos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposDocumentos consultarTipoDocumento(BigInteger secTiposDocumentos) {
-        TiposDocumentos subCategoria;
-        subCategoria = persistenciaTiposDocumentos.consultarTipoDocumento(em, secTiposDocumentos);
-        return subCategoria;
-    }
+   @Override
+   public TiposDocumentos consultarTipoDocumento(BigInteger secTiposDocumentos) {
+      try {
+         return persistenciaTiposDocumentos.consultarTipoDocumento(getEm(), secTiposDocumentos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarCodeudoresTipoDocumento(BigInteger secTiposDocumentos) {
-        BigInteger contarRetiradosTipoDocumento = null;
+   @Override
+   public BigInteger contarCodeudoresTipoDocumento(BigInteger secTiposDocumentos) {
+      try {
+         return persistenciaTiposDocumentos.contarCodeudoresTipoDocumento(getEm(), secTiposDocumentos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposDocumentos contarCodeudoresTipoDocumento ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarRetiradosTipoDocumento = persistenciaTiposDocumentos.contarCodeudoresTipoDocumento(em, secTiposDocumentos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposDocumentos contarCodeudoresTipoDocumento ERROR : " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigInteger contarPersonasTipoDocumento(BigInteger secTiposDocumentos) {
-        BigInteger contarPersonasTipoDocumento = null;
-
-        try {
-            return contarPersonasTipoDocumento = persistenciaTiposDocumentos.contarPersonasTipoDocumento(em, secTiposDocumentos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarTiposDocumentos contarPersonasTipoDocumento ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarPersonasTipoDocumento(BigInteger secTiposDocumentos) {
+      try {
+         return persistenciaTiposDocumentos.contarPersonasTipoDocumento(getEm(), secTiposDocumentos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarTiposDocumentos contarPersonasTipoDocumento ERROR : " + e);
+         return null;
+      }
+   }
 }

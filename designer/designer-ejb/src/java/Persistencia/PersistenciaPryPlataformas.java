@@ -116,7 +116,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador contadorProyectos persistencia " + retorno);
+            log.warn("Contador contadorProyectos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos. " + e.getMessage());

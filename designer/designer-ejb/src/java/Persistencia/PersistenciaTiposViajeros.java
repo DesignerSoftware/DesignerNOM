@@ -127,7 +127,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaTiposViajeros contarTiposLegalizaciones persistencia " + retorno);
+            log.warn("Contador PersistenciaTiposViajeros contarTiposLegalizaciones persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaTiposViajeros contarTiposLegalizaciones. " + e.getMessage());

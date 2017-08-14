@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,81 +28,116 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
 
    private static Logger log = Logger.getLogger(AdministrarUsuariosVistas.class);
 
-    @EJB
-    PersistenciaUsuariosVistasInterface persistenciaUsuariosVistas;
-    @EJB
-    PersistenciaObjetosDBInterface persistenciaObjetoDB;
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaUsuariosVistasInterface persistenciaUsuariosVistas;
+   @EJB
+   PersistenciaObjetosDBInterface persistenciaObjetoDB;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    // Metodos
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    public List<UsuariosVistas> consultarUsuariosVistas() {
-        List<UsuariosVistas> listaUsuariosVistas;
-        listaUsuariosVistas = persistenciaUsuariosVistas.buscarUsuariosVistas(em);
-        return listaUsuariosVistas;
-    }
-
-    public List<ObjetosDB> consultarObjetosDB() {
-        List<ObjetosDB> listaObjetosDB;
-        listaObjetosDB = persistenciaObjetoDB.consultarObjetoDB(em);
-        return listaObjetosDB;
-    }
-
-    @Override
-    public void modificarUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
-        for (int i = 0; i < listaUsuariosVistas.size(); i++) {
-            if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
-                listaUsuariosVistas.get(i).setObjetodb(null);
-            } else if (listaUsuariosVistas.get(i).getAlias() == null) {
-                listaUsuariosVistas.get(i).setAlias(null);
-            } else {
-                persistenciaUsuariosVistas.editar(em, listaUsuariosVistas.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
-        for (int i = 0; i < listaUsuariosVistas.size(); i++) {
+   // Metodos
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public List<UsuariosVistas> consultarUsuariosVistas() {
+      try {
+         return persistenciaUsuariosVistas.buscarUsuariosVistas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public List<ObjetosDB> consultarObjetosDB() {
+      try {
+         return persistenciaObjetoDB.consultarObjetoDB(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
+      try {
+         for (int i = 0; i < listaUsuariosVistas.size(); i++) {
             if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
-                listaUsuariosVistas.get(i).setObjetodb(null);
+               listaUsuariosVistas.get(i).setObjetodb(null);
             } else if (listaUsuariosVistas.get(i).getAlias() == null) {
-                listaUsuariosVistas.get(i).setAlias(null);
+               listaUsuariosVistas.get(i).setAlias(null);
             } else {
-                persistenciaUsuariosVistas.borrar(em, listaUsuariosVistas.get(i));
+               persistenciaUsuariosVistas.editar(getEm(), listaUsuariosVistas.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
-        for (int i = 0; i < listaUsuariosVistas.size(); i++) {
+   @Override
+   public void borrarUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
+      try {
+         for (int i = 0; i < listaUsuariosVistas.size(); i++) {
             if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
-                listaUsuariosVistas.get(i).setObjetodb(null);
+               listaUsuariosVistas.get(i).setObjetodb(null);
             } else if (listaUsuariosVistas.get(i).getAlias() == null) {
-                listaUsuariosVistas.get(i).setAlias(null);
+               listaUsuariosVistas.get(i).setAlias(null);
             } else {
-                persistenciaUsuariosVistas.crear(em, listaUsuariosVistas.get(i));
+               persistenciaUsuariosVistas.borrar(getEm(), listaUsuariosVistas.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public Integer crearUsuarioVistaDB(BigInteger objeto) {
-        Integer exe = null;
-        try {
-            exe = persistenciaUsuariosVistas.crearUsuarioVista(em, objeto);
-            return exe;
-        } catch (Exception e) {
-            log.warn("Error crearUsuarioVistaDB Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void crearUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
+      try {
+         for (int i = 0; i < listaUsuariosVistas.size(); i++) {
+            if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
+               listaUsuariosVistas.get(i).setObjetodb(null);
+            } else if (listaUsuariosVistas.get(i).getAlias() == null) {
+               listaUsuariosVistas.get(i).setAlias(null);
+            } else {
+               persistenciaUsuariosVistas.crear(getEm(), listaUsuariosVistas.get(i));
+            }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public Integer crearUsuarioVistaDB(BigInteger objeto) {
+      try {
+         return persistenciaUsuariosVistas.crearUsuarioVista(getEm(), objeto);
+      } catch (Exception e) {
+         log.warn("Error crearUsuarioVistaDB Admi : " + e.toString());
+         return null;
+      }
+   }
 
 }

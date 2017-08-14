@@ -47,7 +47,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleado(EntityManager em, List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos) {
       try {
-         log.error("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado()");
+         log.warn("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado()");
          em.clear();
          List<ResultadoBusquedaAvanzada> registrosConDatos = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
@@ -64,7 +64,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
                   String q = "SELECT " + auxiliarCampo + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = " + listaEmpleadosResultados.get(j).getCodigoEmpleado();
                   Query query = em.createNativeQuery(q);
                   if (i == 0) {
-                     log.error("Persistencia - buscarQVWEmpleadosCorteCodigoEmpleado() Query : " + q);
+                     log.warn("Persistencia - buscarQVWEmpleadosCorteCodigoEmpleado() Query : " + q);
                   }
                   String valor = (String) query.getSingleResult();
                   registrosConDatos.get(j).setCodigoEmpleado(listaEmpleadosResultados.get(j).getCodigoEmpleado());
@@ -124,16 +124,16 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigo(EntityManager em, List<BigInteger> listaEmpleadosResultados) {
       try {
-         log.error("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
+         log.warn("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
 
          String queryMap = "SELECT " + camposAux + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = ?";
-         log.error("queryMap: " + queryMap);
+         log.warn("queryMap: " + queryMap);
          List<ResultadoBusquedaAvanzada> registroPrueba = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
             if (j == 0) {
-               log.error("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
+               log.warn("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
             }
             ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
             Query query = em.createNativeQuery(queryMap, "ConsultaBusquedaAvanzada");
@@ -153,7 +153,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(EntityManager em, List<BigInteger> listaEmpleadosResultados, List<String> campos) {
       try {
-         log.error("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         log.warn("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
          if (!campos.isEmpty()) {
@@ -199,11 +199,11 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
             camposAux = camposAux + auxiliarCampo;
          }
          String queryMap = "SELECT " + camposAux + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = ?";
-         log.error("queryMap: " + queryMap);
+         log.warn("queryMap: " + queryMap);
          List<ResultadoBusquedaAvanzada> registroPrueba = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
             if (j == 0) {
-               log.error("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
+               log.warn("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
             }
             ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
             Query query = em.createNativeQuery(queryMap, "ConsultaBusquedaAvanzada");

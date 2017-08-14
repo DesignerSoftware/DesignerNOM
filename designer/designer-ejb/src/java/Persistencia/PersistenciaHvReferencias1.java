@@ -111,7 +111,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
       try {
          em.clear();
          String sql = "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
-         log.error("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
+         log.warn("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
          Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
          query.setParameter(1, secPersona);
          List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();

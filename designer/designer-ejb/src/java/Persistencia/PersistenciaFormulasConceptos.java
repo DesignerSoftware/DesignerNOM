@@ -58,7 +58,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         log.error("Entrando a persistir FormulasConceptos, FormulaConcepto : " + fConceptos);
+         log.warn("Entrando a persistir FormulasConceptos, FormulaConcepto : " + fConceptos);
          tx.begin();
          em.merge(fConceptos);
          tx.commit();
@@ -94,13 +94,13 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C, FORMULAS F \n"
                  + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND FC.FORMULA = F.SECUENCIA";
-         log.error("sqlQuery : " + sqlQuery);
+         log.warn("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          List<FormulasConceptos> resultado = query.getResultList();
 
          if (resultado != null) {
             if (!resultado.isEmpty()) {
-               log.error("resultado.size() : " + resultado.size());
+               log.warn("resultado.size() : " + resultado.size());
                for (int i = 0; i < resultado.size(); i++) {
                   em.clear();
                   String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
@@ -111,7 +111,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
                           + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                           + "AND FC.SECUENCIA = " + resultado.get(i).getSecuencia();
                   if (i == 0) {
-                     log.error("sqlQuery2 : " + sqlQuery2);
+                     log.warn("sqlQuery2 : " + sqlQuery2);
                   }
                   Query query2 = em.createNativeQuery(sqlQuery2, FormulasConceptosAux.class);
                   FormulasConceptosAux resultado2 = (FormulasConceptosAux) query2.getSingleResult();
@@ -133,7 +133,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    @Override
    public boolean verificarExistenciaConceptoFormulasConcepto(EntityManager em, BigInteger secuencia) {
-      log.error("buenas verificarExistenciaConceptoFormulasConcepto");
+      log.warn("buenas verificarExistenciaConceptoFormulasConcepto");
       try {
          em.clear();
          String txtQuery = "SELECT COUNT(fc) FROM FormulasConceptos fc WHERE fc.concepto = ?";
@@ -156,13 +156,13 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
                  + "AND C.EMPRESA = E.SECUENCIA \n"
                  + "AND FC.CONCEPTO = " + secuencia + "\n"
                  + "AND FC.FORMULA = F.SECUENCIA";
-         log.error("sqlQuery : " + sqlQuery);
+         log.warn("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          List<FormulasConceptos> resultado = query.getResultList();
-         log.error("resultado : " + resultado);
+         log.warn("resultado : " + resultado);
          if (resultado != null) {
             if (!resultado.isEmpty()) {
-               log.error("resultado.size() : " + resultado.size());
+               log.warn("resultado.size() : " + resultado.size());
                for (int i = 0; i < resultado.size(); i++) {
                   em.clear();
                   String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"
@@ -192,7 +192,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
 
    @Override
    public boolean verificarFormulaCargue_Concepto(EntityManager em, BigInteger secuencia, BigInteger secFormula) {
-      log.error("Entrando a verificarFormulaCargue_Concepto PersistenciaFormulasConceptos");
+      log.warn("Entrando a verificarFormulaCargue_Concepto PersistenciaFormulasConceptos");
       try {
          em.clear();
          String txtQuery = "SELECT COUNT(fc) FROM FormulasConceptos fc WHERE fc.concepto = ? AND fc.formula = ? ";
@@ -248,14 +248,14 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          String sqlQuery = "SELECT FC.* FROM FormulasConceptos FC, CONCEPTOS C \n"
                  + "WHERE FC.CONCEPTO = C.SECUENCIA \n"
                  + "AND FC.FORMULA = " + secuencia + " \n";
-         log.error("sqlQuery : " + sqlQuery);
+         log.warn("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery, FormulasConceptos.class);
          resultado = query.getResultList();
-         log.error("resultado : " + resultado);
+         log.warn("resultado : " + resultado);
 
          if (resultado != null) {
             if (!resultado.isEmpty()) {
-               log.error("resultado.size() : " + resultado.size());
+               log.warn("resultado.size() : " + resultado.size());
                for (int i = 0; i < resultado.size(); i++) {
                   em.clear();
                   String sqlQuery2 = "SELECT FC.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, \n"

@@ -72,14 +72,14 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          }
          return pruebaEmpleado;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosAsignacion()" + e.getMessage());
+         log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosAsignacion()" + e.getMessage());
          e.printStackTrace();
          return null;
       }
    }
 
    public List<PruebaEmpleados> empleadosNovedadesEmpl(EntityManager em) {
-      log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmpl()");
+      log.warn("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmpl()");
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWA.valor) VALOR, tt.tipo TIPO\n"
@@ -110,7 +110,7 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
    }
 
    public List<PruebaEmpleados> empleadosNovedadesEmple(EntityManager em) {
-      log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmple()");
+      log.warn("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmple()");
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWA.valor) VALOR, tt.tipo TIPO\n"

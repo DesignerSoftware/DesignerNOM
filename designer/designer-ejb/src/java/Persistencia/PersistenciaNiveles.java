@@ -106,7 +106,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaNiveles contarEvalConvocatoriasNivel  " + retorno);
+            log.warn("Contador PersistenciaNiveles contarEvalConvocatoriasNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaNiveles  contarEvalConvocatoriasNivel ERROR. " + e.getMessage());
@@ -122,7 +122,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaNiveles contarPlantasNivel  " + retorno);
+            log.warn("Contador PersistenciaNiveles contarPlantasNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaNiveles  contarPlantasNivel ERROR. " + e.getMessage());
@@ -138,7 +138,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaNiveles contarPlantasPersonalesNivel  " + retorno);
+            log.warn("Contador PersistenciaNiveles contarPlantasPersonalesNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaNiveles  contarPlantasPersonalesNivel ERROR. " + e.getMessage());

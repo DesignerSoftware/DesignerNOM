@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -133,7 +134,7 @@ public class ControlActualizarConceptos implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -157,8 +158,14 @@ public class ControlActualizarConceptos implements Serializable {
       lovEmpresas = null;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -256,17 +263,17 @@ public class ControlActualizarConceptos implements Serializable {
 
          if (cualCelda == 2) {
             if (tipoLista == 0) {
-               backUpClaveDebito = listConceptos.get(index).getClavecontabledebito().getClave();
+//               backUpClaveDebito = listConceptos.get(index).getClavecontabledebito().getClave();
             } else {
-               backUpClaveDebito = filtrarConceptos.get(index).getClavecontabledebito().getClave();
+//               backUpClaveDebito = filtrarConceptos.get(index).getClavecontabledebito().getClave();
             }
             log.info("Cambiar Indice Actualizar Conceptos backUpClaveDebito: " + backUpClaveDebito);
          }
          if (cualCelda == 3) {
             if (tipoLista == 0) {
-               backUpClaveCredito = listConceptos.get(index).getClavecontablecredito().getClave();
+//               backUpClaveCredito = listConceptos.get(index).getClavecontablecredito().getClave();
             } else {
-               backUpClaveCredito = filtrarConceptos.get(index).getClavecontablecredito().getClave();
+//               backUpClaveCredito = filtrarConceptos.get(index).getClavecontablecredito().getClave();
             }
             log.info("Cambiar Indice Actualizar Conceptos backUpClaveCredito: " + backUpClaveCredito);
          }
@@ -655,43 +662,43 @@ public class ControlActualizarConceptos implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("CLAVESAPDEBITO")) {
          log.info("controlActualizarConceptos.modificarActualizarConcepto CLAVESAPDEBITO");
 
-         if (!listConceptos.get(indice).getClavecontabledebito().getClave().equals("")) {
-            if (tipoLista == 0) {
-               listConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
-
-            } else {
-               filtrarConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
-            }
-
-            for (int i = 0; i < lovClavesSap.size(); i++) {
-               if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-
-            if (coincidencias == 1) {
-               if (tipoLista == 0) {
-                  listConceptos.get(indice).setClavecontabledebito(lovClavesSap.get(indiceUnicoElemento));
-               } else {
-                  filtrarConceptos.get(indice).setClavecontabledebito(lovClavesSap.get(indiceUnicoElemento));
-               }
-               lovClavesSap.clear();
-               lovClavesSap = null;
-               getLovClavesSap();
-
-            } else {
-               permitirIndex = false;
-               RequestContext.getCurrentInstance().update("form:clavesSapDebitoDialgo");
-               RequestContext.getCurrentInstance().execute("PF('clavesSapDebitoDialgo').show()");
-               tipoActualizacion = 0;
-            }
-         } else {
-            log.info("PUSE UN VACIO");
-            listConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
-            listConceptos.get(indice).setClavecontabledebito(new ClavesSap());
-            coincidencias = 1;
-         }
+//         if (!listConceptos.get(indice).getClavecontabledebito().getClave().equals("")) {
+//            if (tipoLista == 0) {
+//               listConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
+//
+//            } else {
+//               filtrarConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
+//            }
+//
+//            for (int i = 0; i < lovClavesSap.size(); i++) {
+//               if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
+//                  indiceUnicoElemento = i;
+//                  coincidencias++;
+//               }
+//            }
+//
+//            if (coincidencias == 1) {
+//               if (tipoLista == 0) {
+//                  listConceptos.get(indice).setClavecontabledebito(lovClavesSap.get(indiceUnicoElemento));
+//               } else {
+//                  filtrarConceptos.get(indice).setClavecontabledebito(lovClavesSap.get(indiceUnicoElemento));
+//               }
+//               lovClavesSap.clear();
+//               lovClavesSap = null;
+//               getLovClavesSap();
+//
+//            } else {
+//               permitirIndex = false;
+//               RequestContext.getCurrentInstance().update("form:clavesSapDebitoDialgo");
+//               RequestContext.getCurrentInstance().execute("PF('clavesSapDebitoDialgo').show()");
+//               tipoActualizacion = 0;
+//            }
+//         } else {
+//            log.info("PUSE UN VACIO");
+//            listConceptos.get(indice).getClavecontabledebito().setClave(backUpClaveDebito);
+//            listConceptos.get(indice).setClavecontabledebito(new ClavesSap());
+//            coincidencias = 1;
+//         }
 
          if (coincidencias == 1) {
             if (tipoLista == 0) {
@@ -729,44 +736,44 @@ public class ControlActualizarConceptos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
 
       } else if (confirmarCambio.equalsIgnoreCase("CLAVESAPCREDITO")) {
-         log.info("controlActualizarConceptos.modificarActualizarConcepto CLAVESSAPCREDITO");
-         if (!listConceptos.get(indice).getClavecontablecredito().getClave().equals("")) {
-            if (tipoLista == 0) {
-               listConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
-
-            } else {
-               filtrarConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
-            }
-
-            for (int i = 0; i < lovClavesSap.size(); i++) {
-               if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-
-            if (coincidencias == 1) {
-               if (tipoLista == 0) {
-                  listConceptos.get(indice).setClavecontablecredito(lovClavesSap.get(indiceUnicoElemento));
-               } else {
-                  filtrarConceptos.get(indice).setClavecontablecredito(lovClavesSap.get(indiceUnicoElemento));
-               }
-               lovClavesSap.clear();
-               lovClavesSap = null;
-               getLovClavesSap();
-
-            } else {
-               permitirIndex = false;
-               RequestContext.getCurrentInstance().update("form:claveSapCreditoDialogo");
-               RequestContext.getCurrentInstance().execute("PF('claveSapCreditoDialogo').show()");
-               tipoActualizacion = 0;
-            }
-         } else {
-            log.info("PUSE UN VACIO");
-            listConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
-            listConceptos.get(indice).setClavecontablecredito(new ClavesSap());
-            coincidencias = 1;
-         }
+//         log.info("controlActualizarConceptos.modificarActualizarConcepto CLAVESSAPCREDITO");
+//         if (!listConceptos.get(indice).getClavecontablecredito().getClave().equals("")) {
+//            if (tipoLista == 0) {
+//               listConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
+//
+//            } else {
+//               filtrarConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
+//            }
+//
+//            for (int i = 0; i < lovClavesSap.size(); i++) {
+//               if (lovClavesSap.get(i).getClave().startsWith(valorConfirmar.toUpperCase())) {
+//                  indiceUnicoElemento = i;
+//                  coincidencias++;
+//               }
+//            }
+//
+//            if (coincidencias == 1) {
+//               if (tipoLista == 0) {
+//                  listConceptos.get(indice).setClavecontablecredito(lovClavesSap.get(indiceUnicoElemento));
+//               } else {
+//                  filtrarConceptos.get(indice).setClavecontablecredito(lovClavesSap.get(indiceUnicoElemento));
+//               }
+//               lovClavesSap.clear();
+//               lovClavesSap = null;
+//               getLovClavesSap();
+//
+//            } else {
+//               permitirIndex = false;
+//               RequestContext.getCurrentInstance().update("form:claveSapCreditoDialogo");
+//               RequestContext.getCurrentInstance().execute("PF('claveSapCreditoDialogo').show()");
+//               tipoActualizacion = 0;
+//            }
+//         } else {
+//            log.info("PUSE UN VACIO");
+//            listConceptos.get(indice).getClavecontablecredito().setClave(backUpClaveCredito);
+//            listConceptos.get(indice).setClavecontablecredito(new ClavesSap());
+//            coincidencias = 1;
+//         }
 
          if (coincidencias == 1) {
             if (tipoLista == 0) {
@@ -857,7 +864,7 @@ public class ControlActualizarConceptos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          if (tipoLista == 0) {
-            listConceptos.get(index).setClavecontabledebito(claveSapDebito);
+//            listConceptos.get(index).setClavecontabledebito(claveSapDebito);
 
             if (!crearConceptos.contains(listConceptos.get(index))) {
                if (modificarConceptos.isEmpty()) {
@@ -867,7 +874,7 @@ public class ControlActualizarConceptos implements Serializable {
                }
             }
          } else {
-            filtrarConceptos.get(index).setClavecontabledebito(claveSapDebito);
+//            filtrarConceptos.get(index).setClavecontabledebito(claveSapDebito);
 
             if (!crearConceptos.contains(filtrarConceptos.get(index))) {
                if (modificarConceptos.isEmpty()) {
@@ -899,7 +906,7 @@ public class ControlActualizarConceptos implements Serializable {
    }
 
    public void cancelarCambioClavesSapDebito() {
-      listConceptos.get(index).setClavecontabledebito(claveSapDebito);
+//      listConceptos.get(index).setClavecontabledebito(claveSapDebito);
       filtradoClavesSap = null;
       claveSapDebito = null;
       aceptar = true;
@@ -913,7 +920,7 @@ public class ControlActualizarConceptos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          if (tipoLista == 0) {
-            listConceptos.get(index).setClavecontablecredito(claveSapCredito);
+//            listConceptos.get(index).setClavecontablecredito(claveSapCredito);
 
             if (!crearConceptos.contains(listConceptos.get(index))) {
                if (modificarConceptos.isEmpty()) {
@@ -923,7 +930,7 @@ public class ControlActualizarConceptos implements Serializable {
                }
             }
          } else {
-            filtrarConceptos.get(index).setClavecontablecredito(claveSapCredito);
+//            filtrarConceptos.get(index).setClavecontablecredito(claveSapCredito);
 
             if (!crearConceptos.contains(filtrarConceptos.get(index))) {
                if (modificarConceptos.isEmpty()) {
@@ -955,7 +962,7 @@ public class ControlActualizarConceptos implements Serializable {
    }
 
    public void cancelarCambioClavesSapCredito() {
-      listConceptos.get(index).setClavecontablecredito(claveSapCredito);
+//      listConceptos.get(index).setClavecontablecredito(claveSapCredito);
       filtradoClavesSap = null;
       claveSapCredito = null;
       aceptar = true;
@@ -986,9 +993,9 @@ public class ControlActualizarConceptos implements Serializable {
          log.info("Realizando guardarConcepto");
          if (!modificarConceptos.isEmpty()) {
             for (int i = 0; i < modificarConceptos.size(); i++) {
-               if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
-                  modificarConceptos.get(i).setClavecontabledebito(null);
-               }
+//               if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
+//                  modificarConceptos.get(i).setClavecontabledebito(null);
+//               }
             }
             administrarConceptos.modificarConceptos(modificarConceptos);
             modificarConceptos.clear();
@@ -1019,9 +1026,9 @@ public class ControlActualizarConceptos implements Serializable {
       if (guardado == false) {
          if (!modificarConceptos.isEmpty()) {
             for (int i = 0; i < modificarConceptos.size(); i++) {
-               if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
-                  modificarConceptos.get(i).setClavecontabledebito(null);
-               }
+//               if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
+//                  modificarConceptos.get(i).setClavecontabledebito(null);
+//               }
             }
             administrarConceptos.modificarConceptos(modificarConceptos);
             modificarConceptos.clear();
@@ -1061,9 +1068,9 @@ public class ControlActualizarConceptos implements Serializable {
       if (guardado == false) {
          if (!modificarConceptos.isEmpty()) {
             for (int i = 0; i < modificarConceptos.size(); i++) {
-               if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
-                  modificarConceptos.get(i).setClavecontabledebito(null);
-               }
+//               if (modificarConceptos.get(i).getClavecontabledebito().getSecuencia() == null) {
+//                  modificarConceptos.get(i).setClavecontabledebito(null);
+//               }
             }
             administrarConceptos.modificarConceptos(modificarConceptos);
             modificarConceptos.clear();
@@ -1324,12 +1331,12 @@ public class ControlActualizarConceptos implements Serializable {
          infoRegistro = "Cantidad de registros: 0 ";
       } else {
          for (int z = 0; z < listConceptos.size(); z++) {
-            if (listConceptos.get(z).getClavecontabledebito() == null) {
-               listConceptos.get(z).setClavecontabledebito(new ClavesSap());
-            }
-            if (listConceptos.get(z).getClavecontablecredito() == null) {
-               listConceptos.get(z).setClavecontablecredito(new ClavesSap());
-            }
+//            if (listConceptos.get(z).getClavecontabledebito() == null) {
+//               listConceptos.get(z).setClavecontabledebito(new ClavesSap());
+//            }
+//            if (listConceptos.get(z).getClavecontablecredito() == null) {
+//               listConceptos.get(z).setClavecontablecredito(new ClavesSap());
+//            }
          }
          infoRegistro = "Cantidad de registros: " + listConceptos.size();
       }
@@ -1346,18 +1353,16 @@ public class ControlActualizarConceptos implements Serializable {
       if (listLOVConceptos == null) {
          listLOVConceptos = administrarConceptos.consultarConceptosEmpresa(empresaSeleccionada.getSecuencia());
       }
-
-      RequestContext context = RequestContext.getCurrentInstance();
       if (listLOVConceptos == null || listLOVConceptos.isEmpty()) {
          infoRegistroLOVconceptos = "Cantidad de registros: 0 ";
       } else {
          for (int z = 0; z < listLOVConceptos.size(); z++) {
-            if (listLOVConceptos.get(z).getClavecontabledebito() == null) {
-               listLOVConceptos.get(z).setClavecontabledebito(new ClavesSap());
-            }
-            if (listLOVConceptos.get(z).getClavecontablecredito() == null) {
-               listLOVConceptos.get(z).setClavecontablecredito(new ClavesSap());
-            }
+//            if (listLOVConceptos.get(z).getClavecontabledebito() == null) {
+//               listLOVConceptos.get(z).setClavecontabledebito(new ClavesSap());
+//            }
+//            if (listLOVConceptos.get(z).getClavecontablecredito() == null) {
+//               listLOVConceptos.get(z).setClavecontablecredito(new ClavesSap());
+//            }
          }
          infoRegistroLOVconceptos = "Cantidad de registros: " + listLOVConceptos.size();
       }

@@ -37,12 +37,12 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
    public List<Operandos> buscarOperandos(EntityManager em) {
       try {
          em.clear();
-//         log.error("PersistenciaOperandos.buscarOperandos() 1");
+//         log.warn("PersistenciaOperandos.buscarOperandos() 1");
 //         Query q = em.createNativeQuery("SELECT * FROM OPERANDOS", Operandos.class);
-//         log.error("PersistenciaOperandos.buscarOperandos() 2");
+//         log.warn("PersistenciaOperandos.buscarOperandos() 2");
 //         List<Operandos> lista = q.getResultList();
 //         if (lista != null) {
-//            log.error("PersistenciaOperandos.buscarOperandos() lista.size() : " + lista.size());
+//            log.warn("PersistenciaOperandos.buscarOperandos() lista.size() : " + lista.size());
 //         }
          CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
          log.warn("PersistenciaOperandos.buscarOperandos() 1");

@@ -17,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -44,68 +45,91 @@ public class AdministrarVigenciaNormaLaboral implements AdministrarVigenciaNorma
     */
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    /**
     * Creacion de metodos
     */
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<VigenciasNormasEmpleados> consultarVigenciasNormasEmpleadosPorEmpleado(BigInteger secEmpleado) {
-      List<VigenciasNormasEmpleados> vigenciasNormasEmpleados; //esta lista es la que se mostrara en la tabla de vigencias
-
       try {
-         vigenciasNormasEmpleados = persistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleadosEmpl(em, secEmpleado);
+         return persistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleadosEmpl(getEm(), secEmpleado);
       } catch (Exception e) {
          log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
-         vigenciasNormasEmpleados = null;
+         return null;
       }
-      return vigenciasNormasEmpleados;
    }
 
    @Override
    public void modificarVigenciaNormaLaboral(List<VigenciasNormasEmpleados> listaVigenciasNormasEmpleados) {
-      for (int i = 0; i < listaVigenciasNormasEmpleados.size(); i++) {
-         persistenciaVigenciasNormasEmpleados.editar(em, listaVigenciasNormasEmpleados.get(i));
+      try {
+         for (int i = 0; i < listaVigenciasNormasEmpleados.size(); i++) {
+            persistenciaVigenciasNormasEmpleados.editar(getEm(), listaVigenciasNormasEmpleados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarVigenciaNormaLaboral(List<VigenciasNormasEmpleados> listaVigenciasNormasEmpleados) {
-      for (int i = 0; i < listaVigenciasNormasEmpleados.size(); i++) {
-         persistenciaVigenciasNormasEmpleados.borrar(em, listaVigenciasNormasEmpleados.get(i));
+      try {
+         for (int i = 0; i < listaVigenciasNormasEmpleados.size(); i++) {
+            persistenciaVigenciasNormasEmpleados.borrar(getEm(), listaVigenciasNormasEmpleados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void crearVigenciaNormaLaboral(List<VigenciasNormasEmpleados> listaVigenciasNormasEmpleados) {
-      for (int i = 0; i < listaVigenciasNormasEmpleados.size(); i++) {
-         persistenciaVigenciasNormasEmpleados.crear(em, listaVigenciasNormasEmpleados.get(i));
+      try {
+         for (int i = 0; i < listaVigenciasNormasEmpleados.size(); i++) {
+            persistenciaVigenciasNormasEmpleados.crear(getEm(), listaVigenciasNormasEmpleados.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public Empleados consultarEmpleado(BigInteger secuencia) {
-      Empleados empleado;
       try {
-         empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
-         return empleado;
+         return persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
       } catch (Exception e) {
-         empleado = null;
-         return empleado;
+         return null;
       }
    }
 
    @Override
    public List<NormasLaborales> lovNormasLaborales() {
-      List<NormasLaborales> normasLaborales;
       try {
-         normasLaborales = persistenciaNormasLaborales.consultarNormasLaborales(em);
-         return normasLaborales;
+         return persistenciaNormasLaborales.consultarNormasLaborales(getEm());
       } catch (Exception e) {
          log.error("ERROR EN AdministrarVigencianormaLaboral en NormasLabolares ERROR " + e);
          return null;

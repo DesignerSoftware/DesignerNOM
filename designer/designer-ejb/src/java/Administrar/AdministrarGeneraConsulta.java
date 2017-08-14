@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -21,48 +22,64 @@ public class AdministrarGeneraConsulta implements AdministrarGeneraConsultaInter
 
    private static Logger log = Logger.getLogger(AdministrarGeneraConsulta.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaRecordatoriosInterface persistenciaRecordatorios;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaRecordatoriosInterface persistenciaRecordatorios;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        log.warn("AdministrarGeneraConsulta.obtenerConexion");
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public Recordatorios consultarPorSecuencia(BigInteger secuencia) {
-        try {
-            Recordatorios recordatorio = persistenciaRecordatorios.consultaRecordatorios(em, secuencia);
-            return recordatorio;
-        } catch (Exception e) {
-            log.warn("consultarPorSecuencia en " + this.getClass().getName() + ": ");
-            e.printStackTrace();
-            return null;
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      log.warn("AdministrarGeneraConsulta.obtenerConexion");
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<String> ejecutarConsulta(BigInteger secuencia) {
-        log.warn("AdministrarGeneraConsulta.ejecutarConsulta");
-        try {
-            List<String> lista = persistenciaRecordatorios.ejecutarConsultaRecordatorio(em, secuencia);
-            return lista;
-        } catch (Exception e) {
-            log.warn("ejecutarConsulta en " + this.getClass().getName() + ": ");
-            e.printStackTrace();
-            return null;
-        }
-    }
+   @Override
+   public Recordatorios consultarPorSecuencia(BigInteger secuencia) {
+      try {
+         return persistenciaRecordatorios.consultaRecordatorios(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("consultarPorSecuencia en " + this.getClass().getName() + ": ");
+         e.printStackTrace();
+         return null;
+      }
+   }
 
-    @Override
-    @Remove
-    public void salir() {
+   @Override
+   public List<String> ejecutarConsulta(BigInteger secuencia) {
+      log.warn("AdministrarGeneraConsulta.ejecutarConsulta");
+      try {
+         return persistenciaRecordatorios.ejecutarConsultaRecordatorio(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("ejecutarConsulta en " + this.getClass().getName() + ": ");
+         e.printStackTrace();
+         return null;
+      }
+   }
 
-    }
+   @Override
+   @Remove
+   public void salir() {
+   }
 
 }

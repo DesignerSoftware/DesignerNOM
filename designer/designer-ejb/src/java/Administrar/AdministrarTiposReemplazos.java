@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,102 +25,138 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
 
    private static Logger log = Logger.getLogger(AdministrarTiposReemplazos.class);
 
-    @EJB
-    PersistenciaTiposReemplazosInterface persistenciaTiposReemplazos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaTiposReemplazosInterface persistenciaTiposReemplazos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void modificarTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos) {
-        for (int i = 0; i < listaTiposReemplazos.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos) {
+      try {
+         for (int i = 0; i < listaTiposReemplazos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposReemplazos.editar(em, listaTiposReemplazos.get(i));
-        }
-    }
+            persistenciaTiposReemplazos.editar(getEm(), listaTiposReemplazos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos) {
-        for (int i = 0; i < listaTiposReemplazos.size(); i++) {
+   @Override
+   public void borrarTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos) {
+      try {
+         for (int i = 0; i < listaTiposReemplazos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaTiposReemplazos.borrar(em, listaTiposReemplazos.get(i));
-        }
-    }
+            persistenciaTiposReemplazos.borrar(getEm(), listaTiposReemplazos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos) {
-        for (int i = 0; i < listaTiposReemplazos.size(); i++) {
+   @Override
+   public void crearTiposReemplazos(List<TiposReemplazos> listaTiposReemplazos) {
+      try {
+         for (int i = 0; i < listaTiposReemplazos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaTiposReemplazos.crear(em, listaTiposReemplazos.get(i));
-        }
-    }
+            persistenciaTiposReemplazos.crear(getEm(), listaTiposReemplazos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposReemplazos> consultarTiposReemplazos() {
-        List<TiposReemplazos> listTiposReemplazos;
-        listTiposReemplazos = persistenciaTiposReemplazos.buscarTiposReemplazos(em);
-        return listTiposReemplazos;
-    }
+   @Override
+   public List<TiposReemplazos> consultarTiposReemplazos() {
+      try {
+         return persistenciaTiposReemplazos.buscarTiposReemplazos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposReemplazos consultarTipoReemplazo(BigInteger secMotivoDemanda) {
-        TiposReemplazos tiposReemplazo;
-        tiposReemplazo = persistenciaTiposReemplazos.buscarTipoReemplazo(em, secMotivoDemanda);
-        return tiposReemplazo;
-    }
+   @Override
+   public TiposReemplazos consultarTipoReemplazo(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaTiposReemplazos.buscarTipoReemplazo(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarEncargaturasTipoReemplazo(BigInteger secuenciaTiposReemplazos) {
-        BigInteger verificarBorradoEncargaturas = null;
-        try {
-            log.warn("Secuencia Vigencias Indicadores " + secuenciaTiposReemplazos);
-            return verificarBorradoEncargaturas = persistenciaTiposReemplazos.contadorEncargaturas(em, secuenciaTiposReemplazos);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSREEMPLAZOS VERIFICARBORRADOENCARGATURAS ERROR :" + e);
+   @Override
+   public BigInteger contarEncargaturasTipoReemplazo(BigInteger secuenciaTiposReemplazos) {
+      try {
+         log.warn("Secuencia Vigencias Indicadores " + secuenciaTiposReemplazos);
+         return persistenciaTiposReemplazos.contadorEncargaturas(getEm(), secuenciaTiposReemplazos);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSREEMPLAZOS VERIFICARBORRADOENCARGATURAS ERROR :" + e);
+         return null;
+      }
+   }
 
-            return verificarBorradoEncargaturas;
-        }
-    }
+   @Override
+   public BigInteger contarProgramacionesTiemposTipoReemplazo(BigInteger secuenciaTiposReemplazos) {
+      try {
+         log.warn("Secuencia Vigencias Indicadores " + secuenciaTiposReemplazos);
+         return persistenciaTiposReemplazos.contadorProgramacionesTiempos(getEm(), secuenciaTiposReemplazos);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSREEMPLAZOS VERIFICARBORRADOPROGRAMACIONESTIEMPOS ERROR :" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarProgramacionesTiemposTipoReemplazo(BigInteger secuenciaTiposReemplazos) {
-        BigInteger verificarBorradoProgramacionesTiempos = null;
-        try {
-            log.warn("Secuencia Vigencias Indicadores " + secuenciaTiposReemplazos);
-            return verificarBorradoProgramacionesTiempos = persistenciaTiposReemplazos.contadorProgramacionesTiempos(em, secuenciaTiposReemplazos);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSREEMPLAZOS VERIFICARBORRADOPROGRAMACIONESTIEMPOS ERROR :" + e);
+   @Override
+   public BigInteger contarReemplazosTipoReemplazo(BigInteger secuenciaTiposReemplazos) {
+      try {
+         log.warn("Secuencia Vigencias Indicadores " + secuenciaTiposReemplazos);
+         return persistenciaTiposReemplazos.contadorReemplazos(getEm(), secuenciaTiposReemplazos);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSREEMPLAZOS VERIFICARBORRADOREEMPLAZOS ERROR :" + e);
+         return null;
+      }
+   }
 
-            return verificarBorradoProgramacionesTiempos;
-        }
-    }
-
-    @Override
-    public BigInteger contarReemplazosTipoReemplazo(BigInteger secuenciaTiposReemplazos) {
-        BigInteger verificarBorradoReemplazos = null;
-        try {
-            log.warn("Secuencia Vigencias Indicadores " + secuenciaTiposReemplazos);
-            return verificarBorradoReemplazos = persistenciaTiposReemplazos.contadorReemplazos(em, secuenciaTiposReemplazos);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSREEMPLAZOS VERIFICARBORRADOREEMPLAZOS ERROR :" + e);
-
-            return verificarBorradoReemplazos;
-        }
-    }
-
-    @Override
-    public List<TiposReemplazos> consultarLOVTiposReemplazos() {
-        return persistenciaTiposReemplazos.buscarTiposReemplazos(em);
-    }
+   @Override
+   public List<TiposReemplazos> consultarLOVTiposReemplazos() {
+      try {
+         return persistenciaTiposReemplazos.buscarTiposReemplazos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

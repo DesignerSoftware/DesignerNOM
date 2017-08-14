@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,87 +32,133 @@ public class AdministrarEmpresasBancos implements AdministrarEmpresasBancosInter
 
    private static Logger log = Logger.getLogger(AdministrarEmpresasBancos.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaEmpresasBancos'.
-     */
-    @EJB
-    PersistenciaEmpresasBancosInterface persistenciaEmpresasBancos;
-    @EJB
-    PersistenciaBancosInterface persistenciaBancos;
-    @EJB
-    PersistenciaCiudadesInterface persistenciaCiudades;
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaEmpresasBancos'.
+    */
+   @EJB
+   PersistenciaEmpresasBancosInterface persistenciaEmpresasBancos;
+   @EJB
+   PersistenciaBancosInterface persistenciaBancos;
+   @EJB
+   PersistenciaCiudadesInterface persistenciaCiudades;
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
 
-    public void modificarEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
-        for (int i = 0; i < listaEmpresasBancos.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
+      try {
+         for (int i = 0; i < listaEmpresasBancos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaEmpresasBancos.editar(em,listaEmpresasBancos.get(i));
-        }
-    }
+            persistenciaEmpresasBancos.editar(getEm(), listaEmpresasBancos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
-        for (int i = 0; i < listaEmpresasBancos.size(); i++) {
+   public void borrarEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
+      try {
+         for (int i = 0; i < listaEmpresasBancos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaEmpresasBancos.borrar(em,listaEmpresasBancos.get(i));
-        }
-    }
+            persistenciaEmpresasBancos.borrar(getEm(), listaEmpresasBancos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
-        for (int i = 0; i < listaEmpresasBancos.size(); i++) {
-            persistenciaEmpresasBancos.crear(em,listaEmpresasBancos.get(i));
-        }
-    }
+   public void crearEmpresasBancos(List<EmpresasBancos> listaEmpresasBancos) {
+      try {
+         for (int i = 0; i < listaEmpresasBancos.size(); i++) {
+            persistenciaEmpresasBancos.crear(getEm(), listaEmpresasBancos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<EmpresasBancos> consultarEmpresasBancos() {
-        List<EmpresasBancos> listaEmpresasBancos;
-        listaEmpresasBancos = persistenciaEmpresasBancos.consultarEmpresasBancos(em);
-        return listaEmpresasBancos;
-    }
+   public List<EmpresasBancos> consultarEmpresasBancos() {
+      try {
+         return persistenciaEmpresasBancos.consultarEmpresasBancos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public EmpresasBancos consultarTipoIndicador(BigInteger secMotivoDemanda) {
-        EmpresasBancos tiposIndicadores;
-        tiposIndicadores = persistenciaEmpresasBancos.consultarFirmaReporte(em,secMotivoDemanda);
-        return tiposIndicadores;
-    }
+   public EmpresasBancos consultarTipoIndicador(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaEmpresasBancos.consultarFirmaReporte(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Bancos> consultarLOVBancos() {
-        List<Bancos> listLOVBancos;
-        listLOVBancos = persistenciaBancos.buscarBancos(em);
-        return listLOVBancos;
-    }
+   public List<Bancos> consultarLOVBancos() {
+      try {
+         return persistenciaBancos.buscarBancos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Ciudades> consultarLOVCiudades() {
-        List<Ciudades> listLOVCiudades;
-        listLOVCiudades = persistenciaCiudades.consultarCiudades(em);
-        return listLOVCiudades;
-    }
+   public List<Ciudades> consultarLOVCiudades() {
+      try {
+         return persistenciaCiudades.consultarCiudades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Empresas> consultarLOVEmpresas() {
-        List<Empresas> listLOVEmpresas;
-        listLOVEmpresas = persistenciaEmpresas.consultarEmpresas(em);
-        return listLOVEmpresas;
-    }
+   public List<Empresas> consultarLOVEmpresas() {
+      try {
+         return persistenciaEmpresas.consultarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

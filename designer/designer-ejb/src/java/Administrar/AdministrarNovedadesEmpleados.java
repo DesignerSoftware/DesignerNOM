@@ -33,6 +33,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -68,18 +69,37 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
     */
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
    //Trae los empleados con Novedades dependiendo el Tipo de Trabajador que sea.
 
    @Override
    public int cuantosEmpleadosNovedad() {
       try {
-         return persistenciaEmpleados.contarEmpleadosNovedad(em);
+         return persistenciaEmpleados.contarEmpleadosNovedad(getEm());
       } catch (Exception e) {
          log.error("Error AdministrarNovedadesEmpleados.cuantosEmpleadosNovedad : " + e);
          return -1;
@@ -88,34 +108,39 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
 
    @Override
    public List<PruebaEmpleados> empleadosNovedadSoloAlgunos() {
-      List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedadSoloAlgunos(em);
-      List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
-      for (int i = 0; i < listaEmpleados.size(); i++) {
-         //Traer los datos del empleado con sueldo actual
-         PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(em, listaEmpleados.get(i).getSecuencia());
+      try {
+         List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedadSoloAlgunos(getEm());
+         List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
+         for (int i = 0; i < listaEmpleados.size(); i++) {
+            //Traer los datos del empleado con sueldo actual
+            PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(getEm(), listaEmpleados.get(i).getSecuencia());
 
-         if (p != null) {
+            if (p != null) {
 //                p.setTipo(tipo);
-            listaEmpleadosNovedad.add(p);
-         } else {
-            p = new PruebaEmpleados();
-            p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
-            p.setId(listaEmpleados.get(i).getSecuencia());
-            p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
+               listaEmpleadosNovedad.add(p);
+            } else {
+               p = new PruebaEmpleados();
+               p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
+               p.setId(listaEmpleados.get(i).getSecuencia());
+               p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
 //                p.setTipo(tipo);
-            p.setValor(null);
-            listaEmpleadosNovedad.add(p);
+               p.setValor(null);
+               listaEmpleadosNovedad.add(p);
+            }
          }
+         return listaEmpleadosNovedad;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
       }
-      return listaEmpleadosNovedad;
    }
 
    //
-//        List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedad(em);
+//        List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedad(getEm());
 //        List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
 //        for (int i = 0; i < listaEmpleados.size(); i++) {
 //            //Traer los datos del empleado con sueldo actual
-//            PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(em, listaEmpleados.get(i).getSecuencia());
+//            PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(getEm(), listaEmpleados.get(i).getSecuencia());
 //
 //            if (p != null) {
 ////                p.setTipo(tipo);
@@ -134,10 +159,10 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    public List<PruebaEmpleados> empleadosNovedades() {
       log.warn("Administrar.AdministrarNovedadesEmpleados.empleadosNovedades()");
       try {
-         return persistenciaPruebaEmpleados.empleadosNovedadesEmple(em);
+         return persistenciaPruebaEmpleados.empleadosNovedadesEmple(getEm());
       } catch (Exception e) {
          log.warn("Error empleadosNovedad() e: " + e);
-      return null;
+         return null;
       }
    }
 
@@ -146,7 +171,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    public List<Novedades> novedadesEmpleado(BigInteger secuenciaEmpleado) {
       log.warn("novedadesEmpleado() secuenciaEmpleado: " + secuenciaEmpleado);
       try {
-         return persistenciaNovedades.novedadesEmpleado(em, secuenciaEmpleado);
+         return persistenciaNovedades.novedadesEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
          log.error("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
          return null;
@@ -157,7 +182,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    public List<Novedades> todasNovedades(BigInteger secuenciaEmpleado) {
       log.warn("Administrar.AdministrarNovedadesEmpleados.todasNovedades() secuenciaEmpleado:" + secuenciaEmpleado);
       try {
-         return persistenciaNovedades.todasNovedadesEmpleado(em, secuenciaEmpleado);
+         return persistenciaNovedades.todasNovedadesEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
          log.error("Error AdministrarNovedadesEmpleados.todasNovedades" + e);
          return null;
@@ -167,98 +192,170 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
    //Ver si está en soluciones formulas y de ser asi no borrarlo
    @Override
    public int solucionesFormulas(BigInteger secuenciaNovedad) {
-      return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(em, secuenciaNovedad);
+      try {
+         return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), secuenciaNovedad);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
+      }
    }
 
    @Override
    public String alias() {
-      return persistenciaActualUsuario.actualAliasBD(em);
+      try {
+         return persistenciaActualUsuario.actualAliasBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Usuarios usuarioBD(String alias) {
-      return persistenciaUsuarios.buscarUsuario(em, alias);
+      try {
+         return persistenciaUsuarios.buscarUsuario(getEm(), alias);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    //Procesa un solo empleado para volverlo Pruebaempleado
    @Override
    public PruebaEmpleados novedadEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaPruebaEmpleados.empleadosAsignacion(em, secuenciaEmpleado);
+      try {
+         return persistenciaPruebaEmpleados.empleadosAsignacion(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    //Busca el empleado con el Id que se envía
    @Override
    public Empleados elEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaEmpleados.buscarEmpleado(em, secuenciaEmpleado);
+      try {
+         return persistenciaEmpleados.buscarEmpleado(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    //Listas de Conceptos, Formulas, Periodicidades, Terceros
    @Override
    public List<Conceptos> lovConceptos() {
-      return persistenciaConceptos.buscarConceptosLovNovedades(em);
+      try {
+         return persistenciaConceptos.buscarConceptosLovNovedades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Formulas> lovFormulas() {
-      return persistenciaFormulas.buscarFormulas(em);
+      try {
+         return persistenciaFormulas.buscarFormulas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Periodicidades> lovPeriodicidades() {
-      return persistenciaPeriodicidades.consultarPeriodicidades(em);
+      try {
+         return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Terceros> lovTerceros() {
-      return persistenciaTerceros.buscarTerceros(em);
+      try {
+         return persistenciaTerceros.buscarTerceros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Empleados> lovEmpleados() {
-      return persistenciaEmpleados.empleadosNovedad(em);
+      try {
+         return persistenciaEmpleados.empleadosNovedad(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    // Que tipo de Trabajador es
    @Override
    public List<VWActualesTiposTrabajadores> tiposTrabajadores() {
-      return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(em);
+      try {
+         return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Date vigenciaTipoContratoSecEmpleado(BigInteger secuencia) {
-      return persistenciaVWActualesTiposTrabajadores.consultarFechaVigencia(em, secuencia);
+      try {
+         return persistenciaVWActualesTiposTrabajadores.consultarFechaVigencia(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void borrarNovedades(Novedades novedades) {
-      persistenciaNovedades.borrar(em, novedades);
+      try {
+         persistenciaNovedades.borrar(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void crearNovedades(Novedades novedades) {
-      persistenciaNovedades.crear(em, novedades);
+      try {
+         persistenciaNovedades.crear(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
-      for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-         log.warn("Modificando...");
-         if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
-            listaNovedadesModificar.get(i).setTercero(null);
+      try {
+         for (int i = 0; i < listaNovedadesModificar.size(); i++) {
+            log.warn("Modificando...");
+            if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
+               listaNovedadesModificar.get(i).setTercero(null);
+            }
+            if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
+               listaNovedadesModificar.get(i).setPeriodicidad(null);
+            }
+            if (listaNovedadesModificar.get(i).getSaldo() == null) {
+               listaNovedadesModificar.get(i).setSaldo(null);
+            }
+            if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
+               listaNovedadesModificar.get(i).setUnidadesparteentera(null);
+            }
+            if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
+               listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
+            }
+            persistenciaNovedades.editar(getEm(), listaNovedadesModificar.get(i));
          }
-         if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
-            listaNovedadesModificar.get(i).setPeriodicidad(null);
-         }
-         if (listaNovedadesModificar.get(i).getSaldo() == null) {
-            listaNovedadesModificar.get(i).setSaldo(null);
-         }
-         if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
-            listaNovedadesModificar.get(i).setUnidadesparteentera(null);
-         }
-         if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
-            listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
-         }
-         persistenciaNovedades.editar(em, listaNovedadesModificar.get(i));
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

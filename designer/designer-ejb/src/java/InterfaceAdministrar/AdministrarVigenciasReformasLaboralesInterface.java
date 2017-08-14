@@ -72,11 +72,6 @@ public interface AdministrarVigenciasReformasLaboralesInterface {
      */
     public List<ReformasLaborales> reformasLaborales();
 
-    /**
-     * Metodo que cierra la sesion
-     */
-    public void salir();
-
     public ActualUsuario obtenerActualUsuario();
 
 }

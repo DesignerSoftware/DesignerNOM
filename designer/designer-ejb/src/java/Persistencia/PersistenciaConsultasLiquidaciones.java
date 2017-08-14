@@ -49,7 +49,7 @@ public class PersistenciaConsultasLiquidaciones implements PersistenciaConsultas
          query.setParameter(1, fechaInicial);
          query.setParameter(2, fechaFinal);
          List<ConsultasLiquidaciones> listaLiquidacionesCerradas = query.getResultList();
-         log.error("PersistenciaConsultasLiquidaciones liquidacionesCerradas() retorna : " + listaLiquidacionesCerradas);
+         log.warn("PersistenciaConsultasLiquidaciones liquidacionesCerradas() retorna : " + listaLiquidacionesCerradas);
          return listaLiquidacionesCerradas;
       } catch (Exception e) {
          log.error("Error PersistenciaConsultasLiquidaciones.liquidacionesCerradas. " + e);

@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,103 +30,122 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
 
    private static Logger log = Logger.getLogger(AdministrarVigenciasEstadosCiviles.class);
 
-    /**
-     * CREACION DE LOS EJB
-     */
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaEstadosCivilesInterface persistenciaEstadosCiviles;
-    @EJB
-    PersistenciaVigenciasEstadosCivilesInterface persistenciaVigenciasEstadosCiviles;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * CREACION DE LOS EJB
+    */
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaEstadosCivilesInterface persistenciaEstadosCiviles;
+   @EJB
+   PersistenciaVigenciasEstadosCivilesInterface persistenciaVigenciasEstadosCiviles;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    /**
-     * Creacion de metodos
-     */
-    public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado(BigInteger secEmpleado) {
-        List<VigenciasEstadosCiviles> vigenciasEstadosCiviles; //esta lista es la que se mostrara en la tabla de vigencias
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-        try {
-            vigenciasEstadosCiviles = persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona(em, secEmpleado);
-        } catch (Exception e) {
-            log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
-            vigenciasEstadosCiviles = null;
-        }
-        return vigenciasEstadosCiviles;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado() {
-        List<VigenciasEstadosCiviles> vigenciasEstadosCiviles; //esta lista es la que se mostrara en la tabla de vigencias
+   /**
+    * Creacion de metodos
+    */
+   public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
+         return null;
+      }
+   }
 
-        try {
-            vigenciasEstadosCiviles = persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles(em);
-        } catch (Exception e) {
-            log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
-            vigenciasEstadosCiviles = null;
-        }
-        return vigenciasEstadosCiviles;
-    }
+   public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado() {
+      try {
+         return persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles(getEm());
+      } catch (Exception e) {
+         log.warn("Error en ADMINISTRARVIGENCIANORMALABORAL (vigenciasUbicacionesEmpleado)");
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
-        for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
+   @Override
+   public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
+      try {
+         for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
             log.warn("Modificando...");
-            persistenciaVigenciasEstadosCiviles.editar(em, listaVigenciasEstadosCiviles.get(i));
-        }
-    }
+            persistenciaVigenciasEstadosCiviles.editar(getEm(), listaVigenciasEstadosCiviles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
-        for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
+   @Override
+   public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
+      try {
+         for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
             log.warn("borrar...");
-            persistenciaVigenciasEstadosCiviles.borrar(em, listaVigenciasEstadosCiviles.get(i));
-        }
-    }
+            persistenciaVigenciasEstadosCiviles.borrar(getEm(), listaVigenciasEstadosCiviles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
-        for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
+   @Override
+   public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
+      try {
+         for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
             log.warn("crear...");
-            persistenciaVigenciasEstadosCiviles.crear(em, listaVigenciasEstadosCiviles.get(i));
-        }
-    }
+            persistenciaVigenciasEstadosCiviles.crear(getEm(), listaVigenciasEstadosCiviles.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public Empleados consultarEmpleado(BigInteger secuencia) {
-        Empleados empleado;
-        try {
-            empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
-            return empleado;
-        } catch (Exception e) {
-            empleado = null;
-            return empleado;
-        }
-    }
+   @Override
+   public Empleados consultarEmpleado(BigInteger secuencia) {
+      try {
+         return persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
-    @Override
-    public List<EstadosCiviles> lovEstadosCiviles() {
-        List<EstadosCiviles> normasLaborales;
-
-        try {
-            normasLaborales = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
-            return normasLaborales;
-        } catch (Exception e) {
-            log.error("ERROR EN AdministrarVigencianormaLaboral en NormasLabolares ERROR " + e);
-            return null;
-        }
-    }
+   @Override
+   public List<EstadosCiviles> lovEstadosCiviles() {
+      try {
+         return persistenciaEstadosCiviles.consultarEstadosCiviles(getEm());
+      } catch (Exception e) {
+         log.error("ERROR EN AdministrarVigencianormaLaboral en NormasLabolares ERROR " + e);
+         return null;
+      }
+   }
 }

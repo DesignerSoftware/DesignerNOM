@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 @Stateful
@@ -22,80 +23,121 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
 
    private static Logger log = Logger.getLogger(AdministrarCausasAusentismos.class);
 
-    @EJB
-    PersistenciaClasesAusentismosInterface persistenciaClasesAusentismos;
+   @EJB
+   PersistenciaClasesAusentismosInterface persistenciaClasesAusentismos;
 
-    @EJB
-    PersistenciaCausasAusentismosInterface persistenciaCausasausentismos;
+   @EJB
+   PersistenciaCausasAusentismosInterface persistenciaCausasausentismos;
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<Causasausentismos> consultarCausasAusentismos() {
-        List<Causasausentismos> listaCausasAusentismo;
-        listaCausasAusentismo = persistenciaCausasausentismos.buscarCausasAusentismos(em);
-        return listaCausasAusentismo;
-    }
-
-    @Override
-    public List<Clasesausentismos> consultarClasesAusentismos() {
-        List<Clasesausentismos> listaClasesAusentismos;
-        listaClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(em);
-        return listaClasesAusentismos;
-    }
-
-    @Override
-    public void modificarCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
-        for (int i = 0; i < listaCausasAusentismo.size(); i++) {
-            log.warn("Modificando...CausasAusentismos");
-            log.warn("posicion : " + i + " secuencia : "+ listaCausasAusentismo.get(i).getSecuencia());
-            if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
-                listaCausasAusentismo.get(i).setCodigo(null);
-                persistenciaCausasausentismos.editar(em, listaCausasAusentismo.get(i));
-            } else if (listaCausasAusentismo.get(i).getClase().getSecuencia() == null) {
-                listaCausasAusentismo.get(i).setClase(null);
-            } else {
-                persistenciaCausasausentismos.editar(em, listaCausasAusentismo.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
-        for (int i = 0; i < listaCausasAusentismo.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<Causasausentismos> consultarCausasAusentismos() {
+      try {
+         List<Causasausentismos> listaCausasAusentismo;
+         listaCausasAusentismo = persistenciaCausasausentismos.buscarCausasAusentismos(getEm());
+         return listaCausasAusentismo;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<Clasesausentismos> consultarClasesAusentismos() {
+      try {
+         List<Clasesausentismos> listaClasesAusentismos;
+         listaClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
+         return listaClasesAusentismos;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
+      try {
+         for (int i = 0; i < listaCausasAusentismo.size(); i++) {
+            log.warn("Modificando...CausasAusentismos");
+            log.warn("posicion : " + i + " secuencia : " + listaCausasAusentismo.get(i).getSecuencia());
+            if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
+               listaCausasAusentismo.get(i).setCodigo(null);
+               persistenciaCausasausentismos.editar(getEm(), listaCausasAusentismo.get(i));
+            } else if (listaCausasAusentismo.get(i).getClase().getSecuencia() == null) {
+               listaCausasAusentismo.get(i).setClase(null);
+            } else {
+               persistenciaCausasausentismos.editar(getEm(), listaCausasAusentismo.get(i));
+            }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void borrarCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
+      try {
+         for (int i = 0; i < listaCausasAusentismo.size(); i++) {
             log.warn("Borrando..CausasAusentismos.");
             if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
-                listaCausasAusentismo.get(i).setCodigo(null);
-                persistenciaCausasausentismos.borrar(em, listaCausasAusentismo.get(i));
+               listaCausasAusentismo.get(i).setCodigo(null);
+               persistenciaCausasausentismos.borrar(getEm(), listaCausasAusentismo.get(i));
             } else if (listaCausasAusentismo.get(i).getClase().getSecuencia() == null) {
-                listaCausasAusentismo.get(i).setClase(null);
+               listaCausasAusentismo.get(i).setClase(null);
             } else {
-                persistenciaCausasausentismos.borrar(em, listaCausasAusentismo.get(i));
+               persistenciaCausasausentismos.borrar(getEm(), listaCausasAusentismo.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
-        for (int i = 0; i < listaCausasAusentismo.size(); i++) {
+   @Override
+   public void crearCausasAusentismos(List<Causasausentismos> listaCausasAusentismo) {
+      try {
+         for (int i = 0; i < listaCausasAusentismo.size(); i++) {
             log.warn("Creando. JornadasLaborales..");
             if (listaCausasAusentismo.get(i).getCodigo() == (null)) {
-                listaCausasAusentismo.get(i).setCodigo(null);
-                persistenciaCausasausentismos.crear(em, listaCausasAusentismo.get(i));
+               listaCausasAusentismo.get(i).setCodigo(null);
+               persistenciaCausasausentismos.crear(getEm(), listaCausasAusentismo.get(i));
             } else if (listaCausasAusentismo.get(i).getClase().getSecuencia() == null) {
-                listaCausasAusentismo.get(i).setClase(null);
+               listaCausasAusentismo.get(i).setClase(null);
             } else {
-                persistenciaCausasausentismos.crear(em, listaCausasAusentismo.get(i));
+               persistenciaCausasausentismos.crear(getEm(), listaCausasAusentismo.get(i));
             }
-        }
-    }
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
 }

@@ -454,11 +454,11 @@
                         <h:outputText value="#{conceptos.descripcion}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{conceptos.empresa.nombre}" filterBy="#{conceptos.empresa.nombre}" width="220" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                     <p:column sortBy="#{conceptos.nombreEmpresa}" filterBy="#{conceptos.nombreEmpresa}" width="220" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresaC']}"/>
                         </f:facet>
-                        <h:outputText value="#{conceptos.empresa.nombre}"/>  
+                        <h:outputText value="#{conceptos.nombreEmpresa}"/>  
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV">

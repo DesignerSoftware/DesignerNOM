@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -37,54 +38,89 @@ public class AdministrarVigenciasTallas implements AdministrarVigenciasTallasInt
    PersistenciaTiposTallasInterface persistenciaTiposTallas;
    @EJB
    PersistenciaEmpleadoInterface persistenciaEmpleado;
+   private EntityManagerFactory emf;
    private EntityManager em;
 
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    public void modificarVigenciasTallas(List<VigenciasTallas> listaVigenciasTallas) {
-      for (int i = 0; i < listaVigenciasTallas.size(); i++) {
-         log.warn("Administrar Modificando...");
-         persistenciaVigenciasTallas.editar(em, listaVigenciasTallas.get(i));
+      try {
+         for (int i = 0; i < listaVigenciasTallas.size(); i++) {
+            log.warn("Administrar Modificando...");
+            persistenciaVigenciasTallas.editar(getEm(), listaVigenciasTallas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    public void borrarVigenciasTallas(List<VigenciasTallas> listaVigenciasTallas) {
-      for (int i = 0; i < listaVigenciasTallas.size(); i++) {
-         log.warn("Administrar Borrando...");
-         persistenciaVigenciasTallas.borrar(em, listaVigenciasTallas.get(i));
+      try {
+         for (int i = 0; i < listaVigenciasTallas.size(); i++) {
+            log.warn("Administrar Borrando...");
+            persistenciaVigenciasTallas.borrar(getEm(), listaVigenciasTallas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    public void crearVigenciasTallas(List<VigenciasTallas> listaVigenciasTallas) {
-      for (int i = 0; i < listaVigenciasTallas.size(); i++) {
-         log.warn("Administrar Creando...");
-         persistenciaVigenciasTallas.crear(em, listaVigenciasTallas.get(i));
+      try {
+         for (int i = 0; i < listaVigenciasTallas.size(); i++) {
+            log.warn("Administrar Creando...");
+            persistenciaVigenciasTallas.crear(getEm(), listaVigenciasTallas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    public List<VigenciasTallas> consultarVigenciasTallasPorEmpleado(BigInteger secPersona) {
-      List<VigenciasTallas> listMotivosCambiosCargos;
-      listMotivosCambiosCargos = persistenciaVigenciasTallas.consultarVigenciasTallasPorPersona(em, secPersona);
-      return listMotivosCambiosCargos;
+      try {
+         return persistenciaVigenciasTallas.consultarVigenciasTallasPorPersona(getEm(), secPersona);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<TiposTallas> consultarLOVTiposTallas() {
-      List<TiposTallas> listTiposTallas = persistenciaTiposTallas.buscarTiposTallas(em);
-      return listTiposTallas;
+      try {
+         return persistenciaTiposTallas.buscarTiposTallas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    public Empleados consultarEmpleadoSecuenciaPersona(BigInteger secuencia) {
-      Empleados persona;
       try {
-         persona = persistenciaEmpleado.buscarEmpleadoSecuenciaPersona(em, secuencia);
-         return persona;
+         return persistenciaEmpleado.buscarEmpleadoSecuenciaPersona(getEm(), secuencia);
       } catch (Exception e) {
-         persona = null;
          log.warn("ERROR AdministrarHvReferencias  consultarEmpleadoSecuenciaPersona ERROR =====" + e);
-         return persona;
+         return null;
       }
    }
 

@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,105 +32,150 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarPaises.class);
 
-    @EJB
-    PersistenciaPaisesInterface persistenciaPaises;
-    @EJB
-    PersistenciaFestivosInterface persistenciaFestivos;
-    @EJB
-    PersistenciaCiudadesInterface persistenciaCiudades;
-    @EJB
-    PersistenciaDepartamentosInterface persistenciaDepartamentos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaPaisesInterface persistenciaPaises;
+   @EJB
+   PersistenciaFestivosInterface persistenciaFestivos;
+   @EJB
+   PersistenciaCiudadesInterface persistenciaCiudades;
+   @EJB
+   PersistenciaDepartamentosInterface persistenciaDepartamentos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void modificarPaises(List<Paises> listaPaises) {
-        for (int i = 0; i < listaPaises.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarPaises(List<Paises> listaPaises) {
+      try {
+         for (int i = 0; i < listaPaises.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaPaises.editar(em, listaPaises.get(i));
-        }
-    }
+            persistenciaPaises.editar(getEm(), listaPaises.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarPaises(List<Paises> listaPaises) {
-        for (int i = 0; i < listaPaises.size(); i++) {
+   @Override
+   public void borrarPaises(List<Paises> listaPaises) {
+      try {
+         for (int i = 0; i < listaPaises.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaPaises.borrar(em, listaPaises.get(i));
-        }
-    }
+            persistenciaPaises.borrar(getEm(), listaPaises.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearPaises(List<Paises> listaPaises) {
-        for (int i = 0; i < listaPaises.size(); i++) {
+   @Override
+   public void crearPaises(List<Paises> listaPaises) {
+      try {
+         for (int i = 0; i < listaPaises.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaPaises.crear(em, listaPaises.get(i));
-        }
-    }
+            persistenciaPaises.crear(getEm(), listaPaises.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Paises> consultarPaises() {
-        List<Paises> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaPaises.consultarPaises(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<Paises> consultarPaises() {
+      try {
+         return persistenciaPaises.consultarPaises(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Paises consultarPais(BigInteger secPaises) {
-        Paises subCategoria;
-        subCategoria = persistenciaPaises.consultarPais(em, secPaises);
-        return subCategoria;
-    }
+   @Override
+   public Paises consultarPais(BigInteger secPaises) {
+      try {
+         return persistenciaPaises.consultarPais(getEm(), secPaises);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarDepartamentosPais(BigInteger secPaises) {
-        BigInteger contarDepartamentosPais = null;
+   @Override
+   public BigInteger contarDepartamentosPais(BigInteger secPaises) {
+      try {
+         return persistenciaPaises.contarDepartamentosPais(getEm(), secPaises);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarPaises contarDepartamentosPais ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarDepartamentosPais = persistenciaPaises.contarDepartamentosPais(em, secPaises);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarPaises contarDepartamentosPais ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarFestivosPais(BigInteger secPaises) {
+      try {
+         return persistenciaPaises.contarFestivosPais(getEm(), secPaises);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarPaises contarFestivosPais ERROR : " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarFestivosPais(BigInteger secPaises) {
-        BigInteger contarFestivosPais = null;
+   @Override
+   public List<Festivos> consultarFestivosPorPais(BigInteger secPais) {
+      try {
+         return persistenciaFestivos.consultarFestivosPais(getEm(), secPais);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarFestivosPais = persistenciaPaises.contarFestivosPais(em, secPaises);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarPaises contarFestivosPais ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public List<Ciudades> consultarCiudadesPorDepto(BigInteger secDepto) {
+      try {
+         return persistenciaCiudades.consultarCiudadesPorDepto(getEm(), secDepto);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Festivos> consultarFestivosPorPais(BigInteger secPais) {
-        List<Festivos> festivos = persistenciaFestivos.consultarFestivosPais(em, secPais);
-        return festivos;
-    }
-
-    @Override
-    public List<Ciudades> consultarCiudadesPorDepto(BigInteger secDepto) {
-        List<Ciudades> ciudades = persistenciaCiudades.consultarCiudadesPorDepto(em, secDepto);
-        return ciudades;
-    }
-
-    @Override
-    public List<Departamentos> consultarDeptosPorPais(BigInteger secPais) {
-        List<Departamentos> deptos = persistenciaDepartamentos.consultarDepartamentosPorPais(em, secPais);
-        return deptos;
-    }
+   @Override
+   public List<Departamentos> consultarDeptosPorPais(BigInteger secPais) {
+      try {
+         return persistenciaDepartamentos.consultarDepartamentosPorPais(getEm(), secPais);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

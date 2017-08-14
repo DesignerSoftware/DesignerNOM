@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,68 +25,100 @@ import org.apache.log4j.Logger;
 public class AdministrarActividades implements AdministrarActividadesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarActividades.class);
-    
 
-    @EJB
-    PersistenciaActividadesInterface persistenciaActividades;
-    	/**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaActividadesInterface persistenciaActividades;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void modificarActividades(List<Actividades> listaActividades) {
-        for (int i = 0; i < listaActividades.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarActividades(List<Actividades> listaActividades) {
+      try {
+         for (int i = 0; i < listaActividades.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaActividades.editar(em,listaActividades.get(i));
-        }
-    }
+            persistenciaActividades.editar(getEm(), listaActividades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarActividades(List<Actividades> listaActividades) {
-        for (int i = 0; i < listaActividades.size(); i++) {
+   public void borrarActividades(List<Actividades> listaActividades) {
+      try {
+         for (int i = 0; i < listaActividades.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaActividades.borrar(em,listaActividades.get(i));
-        }
-    }
+            persistenciaActividades.borrar(getEm(), listaActividades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearActividades(List<Actividades> listaActividades) {
-        for (int i = 0; i < listaActividades.size(); i++) {
+   public void crearActividades(List<Actividades> listaActividades) {
+      try {
+         for (int i = 0; i < listaActividades.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaActividades.crear(em,listaActividades.get(i));
-        }
-    }
+            persistenciaActividades.crear(getEm(), listaActividades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Actividades> consultarActividades() {
-        List<Actividades> listActividades;
-        listActividades = persistenciaActividades.buscarActividades(em);
-        return listActividades;
-    }
+   public List<Actividades> consultarActividades() {
+      try {
+         return persistenciaActividades.buscarActividades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarBienNecesidadesActividad(BigInteger secuenciaActividades) {
-        BigInteger contarParametrosInformesActividad = null;
-        try {
-            return contarParametrosInformesActividad = persistenciaActividades.contarBienNecesidadesActividad(em,secuenciaActividades);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARACTIVIDADES contarBienNecesidadesActividad ERROR :" + e);
-            return null;
-        }
-    }
-    public BigInteger contarParametrosInformesActividad(BigInteger secuenciaActividades) {
-        BigInteger contarParametrosInformesActividad = null;
-        try {
-            return contarParametrosInformesActividad = persistenciaActividades.contarParametrosInformesActividad(em,secuenciaActividades);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARACTIVIDADES contarParametrosInformesActividad ERROR :" + e);
-            return null;
-        }
-    }
+   public BigInteger contarBienNecesidadesActividad(BigInteger secuenciaActividades) {
+      try {
+         return persistenciaActividades.contarBienNecesidadesActividad(getEm(), secuenciaActividades);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARACTIVIDADES contarBienNecesidadesActividad ERROR :" + e);
+         return null;
+      }
+   }
+
+   public BigInteger contarParametrosInformesActividad(BigInteger secuenciaActividades) {
+      try {
+         return persistenciaActividades.contarParametrosInformesActividad(getEm(), secuenciaActividades);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARACTIVIDADES contarParametrosInformesActividad ERROR :" + e);
+         return null;
+      }
+   }
 }

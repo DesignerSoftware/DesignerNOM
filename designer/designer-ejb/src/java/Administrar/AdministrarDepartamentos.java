@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,118 +29,149 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
 
    private static Logger log = Logger.getLogger(AdministrarDepartamentos.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaDepartamentos'.
-     */
-    @EJB
-    PersistenciaDepartamentosInterface persistenciaDepartamentos;
-    @EJB
-    PersistenciaPaisesInterface persistenciaPaises;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaDepartamentos'.
+    */
+   @EJB
+   PersistenciaDepartamentosInterface persistenciaDepartamentos;
+   @EJB
+   PersistenciaPaisesInterface persistenciaPaises;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public void modificarDepartamentos(List<Departamentos> listaDepartamentos) {
-        for (int i = 0; i < listaDepartamentos.size(); i++) {
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarDepartamentos(List<Departamentos> listaDepartamentos) {
+      try {
+         for (int i = 0; i < listaDepartamentos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaDepartamentos.editar(em,listaDepartamentos.get(i));
-        }
-    }
+            persistenciaDepartamentos.editar(getEm(), listaDepartamentos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarDepartamentos(List<Departamentos> listaDepartamentos) {
-        for (int i = 0; i < listaDepartamentos.size(); i++) {
+   public void borrarDepartamentos(List<Departamentos> listaDepartamentos) {
+      try {
+         for (int i = 0; i < listaDepartamentos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaDepartamentos.borrar(em,listaDepartamentos.get(i));
-        }
-    }
+            persistenciaDepartamentos.borrar(getEm(), listaDepartamentos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearDepartamentos(List<Departamentos> listaDepartamentos) {
-        for (int i = 0; i < listaDepartamentos.size(); i++) {
+   public void crearDepartamentos(List<Departamentos> listaDepartamentos) {
+      try {
+         for (int i = 0; i < listaDepartamentos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaDepartamentos.crear(em,listaDepartamentos.get(i));
-        }
-    }
+            persistenciaDepartamentos.crear(getEm(), listaDepartamentos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Departamentos> consultarDepartamentos() {
-        List<Departamentos> listaDepartamentos;
-        listaDepartamentos = persistenciaDepartamentos.consultarDepartamentos(em);
-        return listaDepartamentos;
-    }
+   public List<Departamentos> consultarDepartamentos() {
+      try {
+         return persistenciaDepartamentos.consultarDepartamentos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public Departamentos consultarTipoIndicador(BigInteger secMotivoDemanda) {
-        Departamentos tiposIndicadores;
-        tiposIndicadores = persistenciaDepartamentos.consultarDepartamento(em,secMotivoDemanda);
-        return tiposIndicadores;
-    }
+   public Departamentos consultarTipoIndicador(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaDepartamentos.consultarDepartamento(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Paises> consultarLOVPaises() {
-        List<Paises> listLOVPaises;
-        listLOVPaises = persistenciaPaises.consultarPaises(em);
-        return listLOVPaises;
-    }
+   public List<Paises> consultarLOVPaises() {
+      try {
+         return persistenciaPaises.consultarPaises(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarBienProgramacionesDepartamento(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger contarBienProgramacionesDepartamento = null;
+   public BigInteger contarBienProgramacionesDepartamento(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         return persistenciaDepartamentos.contarBienProgramacionesDepartamento(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarDepartamenos contarBienProgramacionesDepartamento ERROR :" + e);
+         return null;
+      }
+   }
 
-        try {
-            contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarBienProgramacionesDepartamento(em,secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarDepartamenos contarBienProgramacionesDepartamento ERROR :" + e);
-        } finally {
-            return contarBienProgramacionesDepartamento;
-        }
-    }
+   public BigInteger contarCapModulosDepartamento(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         return persistenciaDepartamentos.contarCapModulosDepartamento(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarDepartamenos contarCapModulosDepartamento ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarCapModulosDepartamento(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger contarBienProgramacionesDepartamento = null;
-        try {
-            contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarCapModulosDepartamento(em,secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarDepartamenos contarCapModulosDepartamento ERROR :" + e);
-        } finally {
-            return contarBienProgramacionesDepartamento;
-        }
-    }
+   public BigInteger contarSoAccidentesMedicosDepartamento(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         return persistenciaDepartamentos.contarSoAccidentesMedicosDepartamento(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarDepartamenos contarSoAccidentesMedicosDepartamento ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarSoAccidentesMedicosDepartamento(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger contarBienProgramacionesDepartamento = null;
-        try {
-            contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarSoAccidentesMedicosDepartamento(em,secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarDepartamenos contarSoAccidentesMedicosDepartamento ERROR :" + e);
-        } finally {
-            return contarBienProgramacionesDepartamento;
-        }
-    }
-
-    public BigInteger contarCiudadesDepartamento(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger contarBienProgramacionesDepartamento = null;
-        try {
-            contarBienProgramacionesDepartamento = persistenciaDepartamentos.contarCiudadesDepartamento(em,secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarDepartamenos contarCiudadesDepartamento ERROR :" + e);
-        } finally {
-            return contarBienProgramacionesDepartamento;
-        }
-    }
+   public BigInteger contarCiudadesDepartamento(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         return persistenciaDepartamentos.contarCiudadesDepartamento(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarDepartamenos contarCiudadesDepartamento ERROR :" + e);
+         return null;
+      }
+   }
 
 }

@@ -232,11 +232,11 @@
                                     </f:facet>
                                     <h:outputText value="#{concepto.descripcion}"/>
                                 </p:column>
-                                <p:column filterBy="#{concepto.empresa.nombre}" width="70"  filterMatchMode="contains">
+                                <p:column filterBy="#{concepto.nombreEmpresa}" width="70"  filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['empresaC']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{concepto.empresa.nombre}"/>
+                                    <h:outputText value="#{concepto.nombreEmpresa}"/>
                                 </p:column>
                             </p:dataTable>
                             <p:commandButton id="aceptarC" style="position: relative; left: 300px;" value="#{msg['aceptar']}" disabled="#{controlCategoriaEsca.aceptar}" actionListener="#{controlCategoriaEsca.actualizarConcepto()}"  process="@this"/>

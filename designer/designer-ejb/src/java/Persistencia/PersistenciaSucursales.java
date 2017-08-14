@@ -100,7 +100,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
+            log.warn("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());

@@ -573,17 +573,17 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column sortBy="#{detalles.detalleformadto.concepto.empresa.nombre}" filterBy="#{detalles.detalleformadto.concepto.empresa.nombre}" filterMatchMode="contains" id="detallesEmpresa" width="133" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column sortBy="#{detalles.detalleformadto.concepto.nombreEmpresa}" filterBy="#{detalles.detalleformadto.concepto.nombreEmpresa}" filterMatchMode="contains" id="detallesEmpresa" width="133" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="empresaHead" value="#{msg['empresa']}"/>
 
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.empresa.nombre}" style="text-transform: uppercase "/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.nombreEmpresa}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{detalles.detalleformadto.concepto.empresa.nombre}" id="editarEmpresa" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"> 
+                                            <p:inputText autocomplete="off" value="#{detalles.detalleformadto.concepto.nombreEmpresa}" id="editarEmpresa" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height:12px;"> 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 9)}"/>
-                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.empresa.nombre)}"/>
+                                                <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.nombreEmpresa)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1000,7 +1000,7 @@
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute;  top: 57px; left: 390px;"/></strong>
-                                <p:inputText autocomplete="off" readonly="true" id="nuevaEmpresa" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase;" onclick="select();">
+                                <p:inputText autocomplete="off" readonly="true" id="nuevaEmpresa" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.nombreEmpresa}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="nuevaEmpresa"/>
                                 </p:inputText>
 
@@ -1070,7 +1070,7 @@
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['empresaN']}"  style=" position: absolute;  top: 57px; left: 390px;"/></strong>
-                                <p:inputText autocomplete="off" readonly="true" id="duplicarEmpresa" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase;" onclick="select();">
+                                <p:inputText autocomplete="off" readonly="true" id="duplicarEmpresa" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.nombreEmpresa}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase;" onclick="select();">
                                     <p:ajax event="change" update="duplicarEmpresa"/>
                                 </p:inputText>
 
@@ -1253,11 +1253,11 @@
                                 <h:outputText value="#{formas.tipodto.ika}"/>  
                             </p:column>
 
-                            <p:column sortBy="#{formas.concepto.empresa.nombre}" filterBy="#{formas.concepto.empresa.nombre}" width="100" filterMatchMode="contains"> 
+                            <p:column sortBy="#{formas.concepto.nombreEmpresa}" filterBy="#{formas.concepto.nombreEmpresa}" width="100" filterMatchMode="contains"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['empresaF']}"/>
                                 </f:facet>
-                                <h:outputText value="#{formas.concepto.empresa.nombre}"/>  
+                                <h:outputText value="#{formas.concepto.nombreEmpresa}"/>  
                             </p:column>
 
                         </p:dataTable>
@@ -1525,7 +1525,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarEmpresaD" header="#{msg['editarEmpresaD']}" widgetVar="editarEmpresaD" resizable="false" draggable="true" modal="true" height="93" width="240">  
-                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.concepto.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
@@ -1789,7 +1789,7 @@
                         </p:column>
                         <p:column headerText="#{msg['empresaX']}">      
                             <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/></f:facet>
-                            <h:outputText value="#{detalles.detalleformadto.concepto.empresa.nombre}"/>
+                            <h:outputText value="#{detalles.detalleformadto.concepto.nombreEmpresa}"/>
                         </p:column>
 
                     </p:dataTable>

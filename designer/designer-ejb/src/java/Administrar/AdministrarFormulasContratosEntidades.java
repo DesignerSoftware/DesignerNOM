@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,78 +30,125 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
 
    private static Logger log = Logger.getLogger(AdministrarFormulasContratosEntidades.class);
 //ATRIBUTOS
-    //--------------------------------------------------------------------------    
+   //--------------------------------------------------------------------------    
 
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaFormulasContratosEntidades'.
-     */
-    @EJB
-    PersistenciaFormulasContratosEntidadesInterface persistenciaFormulasContratosEntidades;
-    @EJB
-    PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
-    @EJB
-    PersistenciaFormulasContratosInterface persistenciaFormulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaFormulasContratosEntidades'.
+    */
+   @EJB
+   PersistenciaFormulasContratosEntidadesInterface persistenciaFormulasContratosEntidades;
+   @EJB
+   PersistenciaTiposEntidadesInterface persistenciaTiposEntidades;
+   @EJB
+   PersistenciaFormulasContratosInterface persistenciaFormulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
 
-    public void modificarFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
-        for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
+      try {
+         for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaFormulasContratosEntidades.editar(em,listaFormulasContratosEntidades.get(i));
-        }
-    }
+            persistenciaFormulasContratosEntidades.editar(getEm(), listaFormulasContratosEntidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
-        for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
+   public void borrarFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
+      try {
+         for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaFormulasContratosEntidades.borrar(em,listaFormulasContratosEntidades.get(i));
-        }
-    }
+            persistenciaFormulasContratosEntidades.borrar(getEm(), listaFormulasContratosEntidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
-        for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
-            persistenciaFormulasContratosEntidades.crear(em,listaFormulasContratosEntidades.get(i));
-        }
-    }
+   public void crearFormulasContratosEntidades(List<FormulasContratosEntidades> listaFormulasContratosEntidades) {
+      try {
+         for (int i = 0; i < listaFormulasContratosEntidades.size(); i++) {
+            persistenciaFormulasContratosEntidades.crear(getEm(), listaFormulasContratosEntidades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<FormulasContratosEntidades> consultarFormulasContratosEntidades() {
-        List<FormulasContratosEntidades> LOVTiposEntidades;
-        return LOVTiposEntidades = persistenciaFormulasContratosEntidades.consultarFormulasContratosEntidades(em);
-    }
+   @Override
+   public List<FormulasContratosEntidades> consultarFormulasContratosEntidades() {
+      try {
+         return persistenciaFormulasContratosEntidades.consultarFormulasContratosEntidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<FormulasContratosEntidades> consultarFormulasContratosEntidadesPorFormulaContrato(BigInteger secFormulaContrato) {
-        List<FormulasContratosEntidades> LOVTiposEntidades;
-        return LOVTiposEntidades = persistenciaFormulasContratosEntidades.consultarFormulasContratosEntidadesPorFormulaContrato(em,secFormulaContrato);
-    }
+   @Override
+   public List<FormulasContratosEntidades> consultarFormulasContratosEntidadesPorFormulaContrato(BigInteger secFormulaContrato) {
+      try {
+         return persistenciaFormulasContratosEntidades.consultarFormulasContratosEntidadesPorFormulaContrato(getEm(), secFormulaContrato);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<TiposEntidades> consultarLOVTiposEntidades() {
-        List<TiposEntidades> LOVTiposEntidades;
-        return LOVTiposEntidades = persistenciaTiposEntidades.buscarTiposEntidades(em);
-    }
+   public List<TiposEntidades> consultarLOVTiposEntidades() {
+      try {
+         return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Formulascontratos consultarFormulaDeFormulasContratosEntidades(BigInteger secFormulaContrato) {
-        Formulascontratos formulaConcepto = persistenciaFormulas.formulasContratosParaContratoFormulasContratosEntidades(em,secFormulaContrato);
-        return formulaConcepto;
-    }
+   @Override
+   public Formulascontratos consultarFormulaDeFormulasContratosEntidades(BigInteger secFormulaContrato) {
+      try {
+         return persistenciaFormulas.formulasContratosParaContratoFormulasContratosEntidades(getEm(), secFormulaContrato);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

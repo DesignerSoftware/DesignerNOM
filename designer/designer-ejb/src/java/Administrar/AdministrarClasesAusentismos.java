@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,83 +28,117 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
 
    private static Logger log = Logger.getLogger(AdministrarClasesAusentismos.class);
 
-    @EJB
-    PersistenciaClasesAusentismosInterface persistenciaClasesAusentismos;
-    @EJB
-    PersistenciaTiposAusentismosInterface PersistenciaTiposAusentismos;
-    	/**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaClasesAusentismosInterface persistenciaClasesAusentismos;
+   @EJB
+   PersistenciaTiposAusentismosInterface PersistenciaTiposAusentismos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    
-        @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void modificarClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
-        for (int i = 0; i < listClasesAusentismos.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
+      try {
+         for (int i = 0; i < listClasesAusentismos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaClasesAusentismos.editar(em,listClasesAusentismos.get(i));
-        }
-    }
+            persistenciaClasesAusentismos.editar(getEm(), listClasesAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
-        for (int i = 0; i < listClasesAusentismos.size(); i++) {
+   public void borrarClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
+      try {
+         for (int i = 0; i < listClasesAusentismos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaClasesAusentismos.borrar(em,listClasesAusentismos.get(i));
-        }
-    }
+            persistenciaClasesAusentismos.borrar(getEm(), listClasesAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
-        for (int i = 0; i < listClasesAusentismos.size(); i++) {
+   public void crearClasesAusentismos(List<Clasesausentismos> listClasesAusentismos) {
+      try {
+         for (int i = 0; i < listClasesAusentismos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaClasesAusentismos.crear(em,listClasesAusentismos.get(i));
-        }
-    }
+            persistenciaClasesAusentismos.crear(getEm(), listClasesAusentismos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Clasesausentismos> consultarClasesAusentismos() {
+   @Override
+   public List<Clasesausentismos> consultarClasesAusentismos() {
+      try {
+         List<Clasesausentismos> listClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
+         return listClasesAusentismos;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-        List<Clasesausentismos> listClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(em);
-        return listClasesAusentismos;
-    }
+   public BigInteger contarCausasAusentismosClaseAusentismo(BigInteger secuenciaClasesAusentismos) {
 
-    public BigInteger contarCausasAusentismosClaseAusentismo(BigInteger secuenciaClasesAusentismos) {
-        BigInteger verificadorHvReferencias = null;
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
+         return persistenciaClasesAusentismos.contadorCausasAusentismosClaseAusentismo(getEm(), secuenciaClasesAusentismos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarClasesAusentismos contarCausasAusentismosClaseAusentismo ERROR :" + e);
+         return null;
+      }
+   }
 
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
-            verificadorHvReferencias = persistenciaClasesAusentismos.contadorCausasAusentismosClaseAusentismo(em,secuenciaClasesAusentismos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarClasesAusentismos contarCausasAusentismosClaseAusentismo ERROR :" + e);
-        } finally {
-            return verificadorHvReferencias;
-        }
-    }
+   public BigInteger contarSoAusentismosClaseAusentismo(BigInteger secuenciaClasesAusentismos) {
+      try {
+         log.error("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
+         return persistenciaClasesAusentismos.contadorSoAusentismosClaseAusentismo(getEm(), secuenciaClasesAusentismos);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarClasesAusentismos contarSoAusentismosClaseAusentismo ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarSoAusentismosClaseAusentismo(BigInteger secuenciaClasesAusentismos) {
-        BigInteger verificadorHvReferencias = null;
-
-        try {
-            log.error("Secuencia Borrado Elementos" + secuenciaClasesAusentismos);
-            verificadorHvReferencias = persistenciaClasesAusentismos.contadorSoAusentismosClaseAusentismo(em,secuenciaClasesAusentismos);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarClasesAusentismos contarSoAusentismosClaseAusentismo ERROR :" + e);
-        } finally {
-            return verificadorHvReferencias;
-        }
-    }
-
-    public List<Tiposausentismos> consultarLOVTiposAusentismos() {
-        List<Tiposausentismos> listTiposAusentismos = null;
-        listTiposAusentismos = PersistenciaTiposAusentismos.consultarTiposAusentismos(em);
-        return listTiposAusentismos;
-
-    }
+   public List<Tiposausentismos> consultarLOVTiposAusentismos() {
+      try {
+         List<Tiposausentismos> listTiposAusentismos = null;
+         listTiposAusentismos = PersistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
+         return listTiposAusentismos;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

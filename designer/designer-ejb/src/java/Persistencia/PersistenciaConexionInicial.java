@@ -29,28 +29,36 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
    /**
     * Atributo EntityManager. Representa la comunicación con la base de datos.
     */
-   private EntityManager em;
+   private void usuarioActual(EntityManager eManager) {
+      try {
+         eManager.clear();
+         Query q = eManager.createNativeQuery("select user from dual");
+         String s = (String) q.getSingleResult();
+         log.warn("Persistencia.PersistenciaConexionInicial.usuarioActual() select user from dual: " + s);
+      } catch (Exception e) {
+         log.error("Persistencia.PersistenciaConexionInicial.usuarioActual() ERROR: " + e);
+      }
+   }
 
    @Override
    public boolean validarUsuario(EntityManager eManager, String usuario) {
       try {
-         em = eManager;
-         em.getTransaction().begin();
+         eManager.getTransaction().begin();
          String sqlQuery = "SET ROLE ROLENTRADA";
-         Query query = em.createNativeQuery(sqlQuery);
+         Query query = eManager.createNativeQuery(sqlQuery);
          query.executeUpdate();
          sqlQuery = "select COUNT(*) from usuarios where alias = ? AND activo = 'S'";
-         query = em.createNativeQuery(sqlQuery);
+         query = eManager.createNativeQuery(sqlQuery);
          query.setParameter(1, usuario);
          BigDecimal retorno = (BigDecimal) query.getSingleResult();
          Integer instancia = retorno.intValueExact();
-         em.getTransaction().commit();
+         eManager.getTransaction().commit();
          if (instancia > 0) {
             log.warn("El usuario es correcto y esta activo");
             return true;
          } else {
             log.warn("El usuario es incorrecto y/o esta inactivo");
-            em.getEntityManagerFactory().close();
+            eManager.getEntityManagerFactory().close();
             return false;
          }
       } catch (Exception e) {
@@ -60,12 +68,38 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
    }
 
    @Override
+   public boolean validarUsuarioConJPA(EntityManager eManager, String usuario) {
+      try {
+         String sqlQuery = "SET ROLE ROLENTRADA";
+         Query query = eManager.createNativeQuery(sqlQuery);
+         query.executeUpdate();
+         sqlQuery = "select COUNT(*) from usuarios where alias = ? AND activo = 'S'";
+         query = eManager.createNativeQuery(sqlQuery);
+         query.setParameter(1, usuario);
+         BigDecimal retorno = (BigDecimal) query.getSingleResult();
+         Integer instancia = retorno.intValueExact();
+         if (instancia > 0) {
+            log.warn("El usuario es correcto y esta activo");
+            return true;
+         } else {
+            log.warn("El usuario es incorrecto y/o esta inactivo");
+            eManager.getEntityManagerFactory().close();
+            return false;
+         }
+      } catch (Exception e) {
+         log.fatal("Error validarUsuarioConJPA: " + e);
+         return false;
+      }
+   }
+
+   @Override
    public EntityManager validarConexionUsuario(EntityManagerFactory emf) {
       try {
          log.warn("EMFFFFFFFFFF: " + emf + "Esta abierto?: " + emf.isOpen());
          log.warn("Entro al metodo validarConexionUsuario");
-         em = emf.createEntityManager();
+         EntityManager em = emf.createEntityManager();
          log.warn("EM: " + em);
+         log.warn("em.getProperties(): " + em.getProperties());
          if (em.isOpen()) {
             return em;
          }
@@ -79,12 +113,11 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
    @Override
    public void accesoDefault(EntityManager eManager) {
       try {
-         em = eManager;
-         em.getTransaction().begin();
+         eManager.getTransaction().begin();
          String sqlQuery = "SET ROLE ROLENTRADA";
-         Query query = em.createNativeQuery(sqlQuery);
+         Query query = eManager.createNativeQuery(sqlQuery);
          query.executeUpdate();
-         em.getTransaction().commit();
+         eManager.getTransaction().commit();
       } catch (Exception e) {
          log.fatal("Persistencia.PersistenciaConexionInicial.accesoDefault() e: " + e);
       }
@@ -104,13 +137,27 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
 //    }
    @Override
    public Perfiles perfilUsuario(EntityManager eManager, BigInteger secPerfil) {
+      log.warn("PersistenciaConexionInicial.perfilUsuario()");
       try {
-         em = eManager;
-         em.getTransaction().begin();
-         Query query = em.createQuery("SELECT p FROM Perfiles p WHERE p.secuencia = :secPerfil ");
+         eManager.getTransaction().begin();
+         Query query = eManager.createQuery("SELECT p FROM Perfiles p WHERE p.secuencia = :secPerfil ");
          query.setParameter("secPerfil", secPerfil);
          Perfiles perfil = (Perfiles) query.getSingleResult();
-         em.getTransaction().commit();
+         eManager.getTransaction().commit();
+         return perfil;
+      } catch (Exception e) {
+         log.fatal("Persistencia.PersistenciaConexionInicial.perfilUsuario() e: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Perfiles perfilUsuarioConJPA(EntityManager eManager, BigInteger secPerfil) {
+      log.warn("PersistenciaConexionInicial.perfilUsuarioConJPA()");
+      try {
+         Query query = eManager.createQuery("SELECT p FROM Perfiles p WHERE p.secuencia = :secPerfil ");
+         query.setParameter("secPerfil", secPerfil);
+         Perfiles perfil = (Perfiles) query.getSingleResult();
          return perfil;
       } catch (Exception e) {
          log.fatal("Persistencia.PersistenciaConexionInicial.perfilUsuario() e: " + e);
@@ -120,12 +167,26 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
 
    @Override
    public BigInteger usuarioLogin(EntityManager eManager, String usuarioBD) {
+      log.warn("PersistenciaConexionInicial.usuarioLogin()");
       try {
-         em = eManager;
-         em.getTransaction().begin();
-         Query query = em.createQuery("SELECT u.perfil.secuencia FROM Usuarios u WHERE u.alias = :usuarioBD");
+         eManager.getTransaction().begin();
+         Query query = eManager.createQuery("SELECT u.perfil.secuencia FROM Usuarios u WHERE u.alias = :usuarioBD");
          query.setParameter("usuarioBD", usuarioBD);
-         em.getTransaction().commit();
+         eManager.getTransaction().commit();
+         BigInteger secPerfil = (BigInteger) query.getSingleResult();
+         return secPerfil;
+      } catch (Exception e) {
+         log.fatal("Persistencia.PersistenciaConexionInicial.methodName() e: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger usuarioLoginConJPA(EntityManager eManager, String usuarioBD) {
+      log.warn("PersistenciaConexionInicial.usuarioLoginConJPA()");
+      try {
+         Query query = eManager.createQuery("SELECT u.perfil.secuencia FROM Usuarios u WHERE u.alias = :usuarioBD");
+         query.setParameter("usuarioBD", usuarioBD);
          BigInteger secPerfil = (BigInteger) query.getSingleResult();
          return secPerfil;
       } catch (Exception e) {
@@ -137,15 +198,17 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
    @Override
    public void setearUsuario(EntityManager eManager, String rol, String pwd) {
       try {
+         usuarioActual(eManager);
+         log.warn(this.getClass() + "eManager.getProperties(): " + eManager.getProperties());
          String texto = "SET ROLE " + rol + " IDENTIFIED BY " + pwd;
-         em = eManager;
-         em.getTransaction().begin();
+//         em =eManager eManager;
+         eManager.getTransaction().begin();
          String sqlQuery = texto;
-         Query query = em.createNativeQuery(sqlQuery);
+         Query query = eManager.createNativeQuery(sqlQuery);
          query.setParameter(1, rol);
          query.setParameter(2, pwd);
          query.executeUpdate();
-         em.getTransaction().commit();
+         eManager.getTransaction().commit();
       } catch (Exception e) {
          log.fatal("Persistencia.PersistenciaConexionInicial.setearUsuario() e: " + e);
       }
@@ -154,16 +217,15 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
    @Override
    public int cambiarClave(EntityManager eManager, String usuario, String nuevaClave) {
       try {
-         em = eManager;
-         em.getTransaction().begin();
+         eManager.getTransaction().begin();
          String sqlQuery = "ALTER USER " + usuario + " IDENTIFIED BY " + nuevaClave;
-         Query query = em.createNativeQuery(sqlQuery);
+         Query query = eManager.createNativeQuery(sqlQuery);
          int resultado = query.executeUpdate();
-         em.getTransaction().commit();
+         eManager.getTransaction().commit();
          return resultado;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaConexionInicial.cambiarClave() e: " + e);
-         em.getTransaction().rollback();
+         eManager.getTransaction().rollback();
          try {
             int codigo = ExtraeCausaExcepcion.obtenerCodigoSQLException(e);
             return codigo;

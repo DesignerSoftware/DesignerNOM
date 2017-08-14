@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -30,94 +31,137 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
 
    private static Logger log = Logger.getLogger(AdministrarFormulasAseguradas.class);
 
-    //-------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaFormulasAseguradas'.
-     */
-    @EJB
-    PersistenciaFormulasAseguradasInterface persistenciaFormulasAseguradas;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    @EJB
-    PersistenciaProcesosInterface persistenciaProcesos;
-    @EJB
-    PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
+   //-------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaFormulasAseguradas'.
+    */
+   @EJB
+   PersistenciaFormulasAseguradasInterface persistenciaFormulasAseguradas;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   @EJB
+   PersistenciaProcesosInterface persistenciaProcesos;
+   @EJB
+   PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
 
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
 
-    public void modificarFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
-        for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
+      try {
+         for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
             log.warn("Administrar Modificando...");
             if (listaFormulasAseguradas.get(i).getPeriodicidad().getSecuencia() == null) {
-                listaFormulasAseguradas.get(i).setPeriodicidad(null);
+               listaFormulasAseguradas.get(i).setPeriodicidad(null);
             }
-            persistenciaFormulasAseguradas.editar(em, listaFormulasAseguradas.get(i));
-        }
-    }
+            persistenciaFormulasAseguradas.editar(getEm(), listaFormulasAseguradas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
-        for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
+   public void borrarFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
+      try {
+         for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
             log.warn("Administrar Borrando...");
             if (listaFormulasAseguradas.get(i).getPeriodicidad().getSecuencia() == null) {
-                listaFormulasAseguradas.get(i).setPeriodicidad(null);
+               listaFormulasAseguradas.get(i).setPeriodicidad(null);
             }
-            persistenciaFormulasAseguradas.borrar(em, listaFormulasAseguradas.get(i));
-        }
-    }
+            persistenciaFormulasAseguradas.borrar(getEm(), listaFormulasAseguradas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
-        for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
+   public void crearFormulasAseguradas(List<FormulasAseguradas> listaFormulasAseguradas) {
+      try {
+         for (int i = 0; i < listaFormulasAseguradas.size(); i++) {
             if (listaFormulasAseguradas.get(i).getPeriodicidad().getSecuencia() == null) {
-                listaFormulasAseguradas.get(i).setPeriodicidad(null);
+               listaFormulasAseguradas.get(i).setPeriodicidad(null);
             }
-            persistenciaFormulasAseguradas.crear(em, listaFormulasAseguradas.get(i));
-        }
-    }
+            persistenciaFormulasAseguradas.crear(getEm(), listaFormulasAseguradas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<FormulasAseguradas> consultarFormulasAseguradas() {
-        List<FormulasAseguradas> listaFormulasAseguradas;
-        listaFormulasAseguradas = persistenciaFormulasAseguradas.consultarFormulasAseguradas(em);
-        return listaFormulasAseguradas;
-    }
+   @Override
+   public List<FormulasAseguradas> consultarFormulasAseguradas() {
+      try {
+         return persistenciaFormulasAseguradas.consultarFormulasAseguradas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Formulas> consultarLOVFormulas() {
-        List<Formulas> listLOVFormulas;
-        listLOVFormulas = persistenciaFormulas.buscarFormulas(em);
-        return listLOVFormulas;
-    }
+   @Override
+   public List<Formulas> consultarLOVFormulas() {
+      try {
+         return persistenciaFormulas.buscarFormulas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Procesos> consultarLOVProcesos() {
-        List<Procesos> listLOVFormulas;
-        listLOVFormulas = persistenciaProcesos.buscarProcesos(em);
-        return listLOVFormulas;
-    }
+   public List<Procesos> consultarLOVProcesos() {
+      try {
+         return persistenciaProcesos.buscarProcesos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Periodicidades> consultarLOVPPeriodicidades() {
-        List<Periodicidades> listLOVFormulas;
-        listLOVFormulas = persistenciaPeriodicidades.consultarPeriodicidades(em);
-        return listLOVFormulas;
-    }
+   public List<Periodicidades> consultarLOVPPeriodicidades() {
+      try {
+         return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

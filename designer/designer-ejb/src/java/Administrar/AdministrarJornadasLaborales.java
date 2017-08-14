@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -38,12 +39,31 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    // Metodos
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    /**
@@ -52,83 +72,116 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
     */
    @Override
    public List<JornadasLaborales> consultarJornadasLaborales() {
-      List<JornadasLaborales> listaJornadasLaborales;
-      listaJornadasLaborales = persistenciaJornadasLaborales.buscarJornadasLaborales(em);
-      return listaJornadasLaborales;
+      try {
+         return persistenciaJornadasLaborales.buscarJornadasLaborales(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Jornadas> consultarJornadas() {
-      List<Jornadas> listaJornadas;
-      listaJornadas = persistenciaJornadas.consultarJornadas(em);
-      return listaJornadas;
+      try {
+         return persistenciaJornadas.consultarJornadas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void modificarJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
-      for (int i = 0; i < listaJornadasLaborales.size(); i++) {
+      try {
+         for (int i = 0; i < listaJornadasLaborales.size(); i++) {
 //         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
 //            listaJornadasLaborales.get(i).setCodigo(null);
-//            persistenciaJornadasLaborales.editar(em, listaJornadasLaborales.get(i));
+//            persistenciaJornadasLaborales.editar(getEm(), listaJornadasLaborales.get(i));
 //         } else if (listaJornadasLaborales.get(i).getJornada().getSecuencia() == null) {
 //            listaJornadasLaborales.get(i).setJornada(null);
 //         } else {
-         persistenciaJornadasLaborales.editar(em, listaJornadasLaborales.get(i));
+            persistenciaJornadasLaborales.editar(getEm(), listaJornadasLaborales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
-      for (int i = 0; i < listaJornadasLaborales.size(); i++) {
-         log.warn("Borrando..JornadasLaborales.");
+      try {
+         for (int i = 0; i < listaJornadasLaborales.size(); i++) {
+            log.warn("Borrando..JornadasLaborales.");
 //         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
 //            listaJornadasLaborales.get(i).setCodigo(null);
-//            persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
+//            persistenciaJornadasLaborales.borrar(getEm(), listaJornadasLaborales.get(i));
 //         } else if (listaJornadasLaborales.get(i).getJornada().getSecuencia() == null) {
 //            listaJornadasLaborales.get(i).setJornada(null);
 //         } else {
-         persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
+            persistenciaJornadasLaborales.borrar(getEm(), listaJornadasLaborales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void crearJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
-      for (int i = 0; i < listaJornadasLaborales.size(); i++) {
-         log.warn("Creando. JornadasLaborales..");
-         persistenciaJornadasLaborales.crear(em, listaJornadasLaborales.get(i));
+      try {
+         for (int i = 0; i < listaJornadasLaborales.size(); i++) {
+            log.warn("Creando. JornadasLaborales..");
+            persistenciaJornadasLaborales.crear(getEm(), listaJornadasLaborales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void modificarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
-      for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-         log.warn("Modificando JornadasSemanales...");
-         persistenciaJornadasSemanales.editar(em, listaJornadasSemanales.get(i));
+      try {
+         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
+            log.warn("Modificando JornadasSemanales...");
+            persistenciaJornadasSemanales.editar(getEm(), listaJornadasSemanales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
-      for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-         log.warn("Borrando JornadasSemanales...");
-         persistenciaJornadasSemanales.borrar(em, listaJornadasSemanales.get(i));
+      try {
+         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
+            log.warn("Borrando JornadasSemanales...");
+            persistenciaJornadasSemanales.borrar(getEm(), listaJornadasSemanales.get(i));
 
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void crearJornadasSemanales(List<JornadasSemanales> listaJornadasSemanales) {
-      for (int i = 0; i < listaJornadasSemanales.size(); i++) {
-         log.warn("Creando JornadasSemanales...");
-         log.warn("secuencia: " + listaJornadasSemanales.get(i).getSecuencia());
-         persistenciaJornadasSemanales.crear(em, listaJornadasSemanales.get(i));
+      try {
+         for (int i = 0; i < listaJornadasSemanales.size(); i++) {
+            log.warn("Creando JornadasSemanales...");
+            log.warn("secuencia: " + listaJornadasSemanales.get(i).getSecuencia());
+            persistenciaJornadasSemanales.crear(getEm(), listaJornadasSemanales.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public List<JornadasSemanales> consultarJornadasSemanales(BigInteger secuencia) {
-      List<JornadasSemanales> listaJornadasSemanales;
-      listaJornadasSemanales = persistenciaJornadasSemanales.buscarJornadasSemanalesPorJornadaLaboral(em, secuencia);
-      return listaJornadasSemanales;
+      try {
+         return persistenciaJornadasSemanales.buscarJornadasSemanalesPorJornadaLaboral(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 }

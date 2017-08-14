@@ -38,7 +38,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
 
    @Override
    public void editar(EntityManager em, TiposCotizantes tiposCotizantes) {
-      log.error("Persistencia.PersistenciaTiposCotizantes.editar()");
+      log.warn("Persistencia.PersistenciaTiposCotizantes.editar()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {

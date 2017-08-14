@@ -148,7 +148,6 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaPersonas.buscarPersonaSecuencia()" + e.getMessage());
             persona = null;
-            log.error("Error buscarPersonaSecuencia PersistenciaPersonas");
         }
         return persona;
     }
@@ -190,7 +189,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
     public Personas obtenerUltimaPersonaAlmacenada(EntityManager em, BigInteger documento) {
         try {
             em.clear();
-            log.error("documento : " + documento);
+            log.warn("documento : " + documento);
             Query query = em.createQuery("SELECT p FROM Personas p WHERE p.numerodocumento = :documento");
             query.setParameter("documento", documento);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");

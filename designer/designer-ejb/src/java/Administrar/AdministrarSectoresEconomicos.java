@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,56 +28,99 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
 
    private static Logger log = Logger.getLogger(AdministrarSectoresEconomicos.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaSectoresEconomicosInterface persistenciaSectores;
-    @EJB
-    PersistenciaEmpresasInterface persitenciaEmpresas;
-    
-    private EntityManager em;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaSectoresEconomicosInterface persistenciaSectores;
+   @EJB
+   PersistenciaEmpresasInterface persitenciaEmpresas;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void crearSector(List<SectoresEconomicos> listaCrear) {
-        for (int i = 0; i < listaCrear.size(); i++) {
-            persistenciaSectores.crear(em, listaCrear.get(i));
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void borrarSector(List<SectoresEconomicos> listaBorrar) {
-        for (int i = 0; i < listaBorrar.size(); i++) {
-            persistenciaSectores.borrar(em, listaBorrar.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void editarSector(List<SectoresEconomicos> listaModiifcar) {
-        for (int i = 0; i < listaModiifcar.size(); i++) {
-            persistenciaSectores.editar(em, listaModiifcar.get(i));
-        }
-    }
+   @Override
+   public void crearSector(List<SectoresEconomicos> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            persistenciaSectores.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Empresas> consultarEmpresas() {
-        List<Empresas> listEmpresas = persitenciaEmpresas.buscarEmpresas(em);
-        return listEmpresas;
-    }
+   @Override
+   public void borrarSector(List<SectoresEconomicos> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaSectores.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SectoresEconomicos> consultarSectoresEconomicos() {
-        List<SectoresEconomicos> listSectores = persistenciaSectores.buscarSectoresEconomicos(em);
-        return listSectores;
-    }
+   @Override
+   public void editarSector(List<SectoresEconomicos> listaModiifcar) {
+      try {
+         for (int i = 0; i < listaModiifcar.size(); i++) {
+            persistenciaSectores.editar(getEm(), listaModiifcar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<SectoresEconomicos> consultarSectoresEconomicosPorEmpresa(BigInteger secEmpresa) {
-        List<SectoresEconomicos> listSectores = persistenciaSectores.buscarSectoresEconomicosPorEmpresa(em,secEmpresa);
-        return listSectores;
-    }
+   @Override
+   public List<Empresas> consultarEmpresas() {
+      try {
+         return persitenciaEmpresas.buscarEmpresas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<SectoresEconomicos> consultarSectoresEconomicos() {
+      try {
+         return persistenciaSectores.buscarSectoresEconomicos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<SectoresEconomicos> consultarSectoresEconomicosPorEmpresa(BigInteger secEmpresa) {
+      try {
+         return persistenciaSectores.buscarSectoresEconomicosPorEmpresa(getEm(), secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

@@ -102,7 +102,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          cq.select(cq.from(EstadosAfiliaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarBancos persistencia bancos");
+         log.error("Error buscarBancos persistencia bancos " + e);
          return null;
       }
    }

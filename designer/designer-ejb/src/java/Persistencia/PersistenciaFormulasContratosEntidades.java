@@ -24,95 +24,95 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
 
    private static Logger log = Logger.getLogger(PersistenciaFormulasContratosEntidades.class);
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos.
+    */
+   /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
-    public void crear(EntityManager em, FormulasContratosEntidades formulasAseguradas) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(formulasAseguradas);
-            tx.commit();
-        } catch (Exception e) {
-            log.error("Error PersistenciaFormulasContratosEntidades.crear: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   public void crear(EntityManager em, FormulasContratosEntidades formulasAseguradas) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(formulasAseguradas);
+         tx.commit();
+      } catch (Exception e) {
+         log.error("Error PersistenciaFormulasContratosEntidades.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    public void editar(EntityManager em, FormulasContratosEntidades formulasAseguradas) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(formulasAseguradas);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            log.error("Error PersistenciaFormulasContratosEntidades.editar: " + e);
-        }
-    }
+   public void editar(EntityManager em, FormulasContratosEntidades formulasAseguradas) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(formulasAseguradas);
+         tx.commit();
+      } catch (Exception e) {
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         log.error("Error PersistenciaFormulasContratosEntidades.editar: " + e);
+      }
+   }
 
-    public void borrar(EntityManager em, FormulasContratosEntidades formulasAseguradas) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(formulasAseguradas));
-            tx.commit();
-        } catch (Exception e) {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-                log.error("Error PersistenciaFormulasContratosEntidades.borrar: " + e);
-        }
-    }
+   public void borrar(EntityManager em, FormulasContratosEntidades formulasAseguradas) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(formulasAseguradas));
+         tx.commit();
+      } catch (Exception e) {
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         log.error("Error PersistenciaFormulasContratosEntidades.borrar: " + e);
+      }
+   }
 
-    public List<FormulasContratosEntidades> consultarFormulasContratosEntidades(EntityManager em) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT te FROM FormulasContratosEntidades te");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
-            return formulasAseguradas;
-        } catch (Exception e) {
-            log.error("Error consultarFormulasContratosEntidades ERROR : " + e);
-            return null;
-        }
-    }
+   public List<FormulasContratosEntidades> consultarFormulasContratosEntidades(EntityManager em) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT te FROM FormulasContratosEntidades te");
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
+         return formulasAseguradas;
+      } catch (Exception e) {
+         log.error("Error consultarFormulasContratosEntidades ERROR : " + e);
+         return null;
+      }
+   }
 
-    public List<FormulasContratosEntidades> consultarFormulasContratosEntidadesPorFormulaContrato(EntityManager em, BigInteger secFormulaContrato) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT te FROM FormulasContratosEntidades te WHERE te.formulacontrato.secuencia = :formulaContrato");
-            query.setParameter("formulaContrato", secFormulaContrato);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
-            return formulasAseguradas;
-        } catch (Exception e) {
-            log.error("Error consultarFormulasContratosEntidadesPorFormulaContrato ERROR : " + e);
-            return null;
-        }
-    }
+   public List<FormulasContratosEntidades> consultarFormulasContratosEntidadesPorFormulaContrato(EntityManager em, BigInteger secFormulaContrato) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT te FROM FormulasContratosEntidades te WHERE te.formulacontrato.secuencia = :formulaContrato");
+         query.setParameter("formulaContrato", secFormulaContrato);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
+         return formulasAseguradas;
+      } catch (Exception e) {
+         log.error("Error consultarFormulasContratosEntidadesPorFormulaContrato ERROR : " + e);
+         return null;
+      }
+   }
 
-    public FormulasContratosEntidades consultarFormulaContratoEntidad(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT te FROM FormulasContratosEntidades te WHERE te.secuencia = :secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            FormulasContratosEntidades formulasAseguradas = (FormulasContratosEntidades) query.getSingleResult();
-            return formulasAseguradas;
-        } catch (Exception e) {
-            log.error("Error consultarFormulasContratosEntidades");
-            FormulasContratosEntidades formulasAseguradas = null;
-            return formulasAseguradas;
-        }
-    }
+   public FormulasContratosEntidades consultarFormulaContratoEntidad(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT te FROM FormulasContratosEntidades te WHERE te.secuencia = :secuencia");
+         query.setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         FormulasContratosEntidades formulasAseguradas = (FormulasContratosEntidades) query.getSingleResult();
+         return formulasAseguradas;
+      } catch (Exception e) {
+         log.error("Error consultarFormulasContratosEntidades " + e);
+         FormulasContratosEntidades formulasAseguradas = null;
+         return formulasAseguradas;
+      }
+   }
 }

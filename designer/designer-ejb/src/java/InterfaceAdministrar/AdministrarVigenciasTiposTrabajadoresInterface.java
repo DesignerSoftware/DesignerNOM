@@ -167,9 +167,5 @@ public interface AdministrarVigenciasTiposTrabajadoresInterface {
      * @return pension Pension que cumple con la secuencia de la Vigencia
      */
     public Pensionados pensionPorSecuenciaVigencia(BigInteger secVigencia);
-    /**
-     * Metodo para cerrar la sesion
-     */
-    public void salir();
     
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,99 +29,115 @@ public class AdministrarEmplDemanda implements AdministrarEmplDemandaInterface {
 
    private static Logger log = Logger.getLogger(AdministrarEmplDemanda.class);
 
-    @EJB
-    PersistenciaDemandasInterface persistenciaDemadas;
-    @EJB
-    PersistenciaMotivosDemandasInterface persistenciaMotivosDemandas;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaDemandasInterface persistenciaDemadas;
+   @EJB
+   PersistenciaMotivosDemandasInterface persistenciaMotivosDemandas;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public Empleados actualEmpleado(BigInteger secuencia) {
-        try {
-            Empleados empl = persistenciaEmpleado.buscarEmpleado(em,secuencia);
-            return empl;
-        } catch (Exception e) {
-            log.warn("Error actualEmpleado Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<MotivosDemandas> listMotivosDemandas() {
-        try {
-            List<MotivosDemandas> listMotivosD = persistenciaMotivosDemandas.buscarMotivosDemandas(em);
-            return listMotivosD;
-        } catch (Exception e) {
-            log.warn("Error listMotivosDemandas Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<Demandas> listDemandasEmpleadoSecuencia(BigInteger secuencia) {
-        try {
-            List<Demandas> listDemandas = persistenciaDemadas.demandasPersona(em,secuencia);
-            return listDemandas;
-        } catch (Exception e) {
-            log.warn("Error listDemandasEmpleadoSecuencia Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearDemandas(List<Demandas> listD) {
-        try {
-            for (int i = 0; i < listD.size(); i++) {
-                if (listD.get(i).getMotivo().getSecuencia() == null) {
-                    listD.get(i).setMotivo(null);
-                }
-                persistenciaDemadas.crear(em,listD.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("Error crearDemandas Admi : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void editarDemandas(List<Demandas> listD) {
-        try {
-            for (int i = 0; i < listD.size(); i++) {
-                if (listD.get(i).getMotivo().getSecuencia() == null) {
-                    listD.get(i).setMotivo(null);
-                }
-                persistenciaDemadas.editar(em,listD.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error editarDemandas Admi : " + e.toString());
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarDemandas(List<Demandas> listD) {
-        try {
-            for (int i = 0; i < listD.size(); i++) {
-                if (listD.get(i).getMotivo().getSecuencia() == null) {
-                    listD.get(i).setMotivo(null);
-                }
-                persistenciaDemadas.borrar(em,listD.get(i));
+   @Override
+   public Empleados actualEmpleado(BigInteger secuencia) {
+      try {
+         return persistenciaEmpleado.buscarEmpleado(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("Error actualEmpleado Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<MotivosDemandas> listMotivosDemandas() {
+      try {
+         return persistenciaMotivosDemandas.buscarMotivosDemandas(getEm());
+      } catch (Exception e) {
+         log.warn("Error listMotivosDemandas Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Demandas> listDemandasEmpleadoSecuencia(BigInteger secuencia) {
+      try {
+         return persistenciaDemadas.demandasPersona(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("Error listDemandasEmpleadoSecuencia Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public void crearDemandas(List<Demandas> listD) {
+      try {
+         for (int i = 0; i < listD.size(); i++) {
+            if (listD.get(i).getMotivo().getSecuencia() == null) {
+               listD.get(i).setMotivo(null);
             }
-        } catch (Exception e) {
-            log.warn("Error borrarDemandas Admi : " + e.toString());
-        }
-    }
+            persistenciaDemadas.crear(getEm(), listD.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearDemandas Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void editarDemandas(List<Demandas> listD) {
+      try {
+         for (int i = 0; i < listD.size(); i++) {
+            if (listD.get(i).getMotivo().getSecuencia() == null) {
+               listD.get(i).setMotivo(null);
+            }
+            persistenciaDemadas.editar(getEm(), listD.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarDemandas Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void borrarDemandas(List<Demandas> listD) {
+      try {
+         for (int i = 0; i < listD.size(); i++) {
+            if (listD.get(i).getMotivo().getSecuencia() == null) {
+               listD.get(i).setMotivo(null);
+            }
+            persistenciaDemadas.borrar(getEm(), listD.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarDemandas Admi : " + e.toString());
+      }
+   }
 }

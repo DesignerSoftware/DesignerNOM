@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,137 +28,159 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
 
    private static Logger log = Logger.getLogger(AdministrarSucursalesPila.class);
 
-    @EJB
-    PersistenciaSucursalesPilaInterface persistenciaSucursalesPila;
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
+   @EJB
+   PersistenciaSucursalesPilaInterface persistenciaSucursalesPila;
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    //-------------------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public List<Empresas> buscarEmpresas() {
-        try {
-            List<Empresas> listaEmpresas = persistenciaEmpresas.consultarEmpresas(em);
-            return listaEmpresas;
-        } catch (Exception e) {
-            log.warn("AdministrarCentroCostos: Falló al buscar las empresas /n" + e.getMessage());
-            return null;
-        }
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void modificarSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
-        for (int i = 0; i < listaSucursalesPila.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   //-------------------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<Empresas> buscarEmpresas() {
+      try {
+         List<Empresas> listaEmpresas = persistenciaEmpresas.consultarEmpresas(getEm());
+         return listaEmpresas;
+      } catch (Exception e) {
+         log.warn("AdministrarCentroCostos: Falló al buscar las empresas /n" + e.getMessage());
+         return null;
+      }
+   }
+
+   public void modificarSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
+      try {
+         for (int i = 0; i < listaSucursalesPila.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaSucursalesPila.editar(em, listaSucursalesPila.get(i));
-        }
-    }
+            persistenciaSucursalesPila.editar(getEm(), listaSucursalesPila.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
-        for (int i = 0; i < listaSucursalesPila.size(); i++) {
+   public void borrarSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
+      try {
+         for (int i = 0; i < listaSucursalesPila.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaSucursalesPila.borrar(em, listaSucursalesPila.get(i));
-        }
-    }
+            persistenciaSucursalesPila.borrar(getEm(), listaSucursalesPila.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
-        for (int i = 0; i < listaSucursalesPila.size(); i++) {
+   public void crearSucursalesPila(List<SucursalesPila> listaSucursalesPila) {
+      try {
+         for (int i = 0; i < listaSucursalesPila.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaSucursalesPila.crear(em, listaSucursalesPila.get(i));
-        }
-    }
+            persistenciaSucursalesPila.crear(getEm(), listaSucursalesPila.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<SucursalesPila> consultarSucursalesPila() {
-        List<SucursalesPila> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaSucursalesPila.consultarSucursalesPila(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<SucursalesPila> consultarSucursalesPila() {
+      try {
+         return persistenciaSucursalesPila.consultarSucursalesPila(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<SucursalesPila> consultarSucursalPila(BigInteger secSucursalesPila) {
-        List<SucursalesPila> SucursalesPila;
-        SucursalesPila = persistenciaSucursalesPila.consultarSucursalesPilaPorEmpresa(em, secSucursalesPila);
-        return SucursalesPila;
-    }
+   public List<SucursalesPila> consultarSucursalPila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.consultarSucursalesPilaPorEmpresa(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarNovedadesAutoLiquidacionesSucursal_Pila(BigInteger secSucursalesPila) {
-        BigInteger contarNovedadesAutoLiquidacionesSucursal_Pila = null;
+   public BigInteger contarNovedadesAutoLiquidacionesSucursal_Pila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.contarNovedadesAutoLiquidacionesSucursal_Pila(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSucursalesPila contarNovedadesAutoLiquidacionesSucursal_Pila ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarNovedadesAutoLiquidacionesSucursal_Pila = persistenciaSucursalesPila.contarNovedadesAutoLiquidacionesSucursal_Pila(em, secSucursalesPila);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSucursalesPila contarNovedadesAutoLiquidacionesSucursal_Pila ERROR : " + e);
-            return null;
-        }
-    }
+   public BigInteger contarNovedadesCorreccionesAutolSucursal_Pila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.contarNovedadesCorreccionesAutolSucursal_Pila(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarNovedadesCorreccionesAutolSucursal_Pila(BigInteger secSucursalesPila) {
-        BigInteger contarNovedadesCorreccionesAutolSucursal_Pila = null;
+   public BigInteger contarOdisCabecerasSucursal_Pila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.contarOdisCabecerasSucursal_Pila(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSucursalesPila contarOdisCabecerasSucursal_Pila ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarNovedadesCorreccionesAutolSucursal_Pila = persistenciaSucursalesPila.contarNovedadesCorreccionesAutolSucursal_Pila(em, secSucursalesPila);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSucursalesPila contarNovedadesCorreccionesAutolSucursal_Pila ERROR : " + e);
-            return null;
-        }
-    }
+   public BigInteger contarOdiscorReaccionesCabSucursal_Pila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.contarOdiscorReaccionesCabSucursal_Pila(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarOdisCabecerasSucursal_Pila(BigInteger secSucursalesPila) {
-        BigInteger contarOdisCabecerasSucursal_Pila = null;
+   public BigInteger contarParametrosInformesSucursal_Pila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.contarParametrosInformesSucursal_Pila(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSucursalesPila contarParametrosInformesSucursal_Pila ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarOdisCabecerasSucursal_Pila = persistenciaSucursalesPila.contarOdisCabecerasSucursal_Pila(em, secSucursalesPila);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSucursalesPila contarOdisCabecerasSucursal_Pila ERROR : " + e);
-            return null;
-        }
-    }
-
-    public BigInteger contarOdiscorReaccionesCabSucursal_Pila(BigInteger secSucursalesPila) {
-        BigInteger contarOdiscorReaccionesCabSucursal_Pila = null;
-
-        try {
-            return contarOdiscorReaccionesCabSucursal_Pila = persistenciaSucursalesPila.contarOdiscorReaccionesCabSucursal_Pila(em, secSucursalesPila);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSucursalesPila contarOdiscorReaccionesCabSucursal_Pila ERROR : " + e);
-            return null;
-        }
-    }
-
-    public BigInteger contarParametrosInformesSucursal_Pila(BigInteger secSucursalesPila) {
-        BigInteger contarParametrosInformesSucursal_Pila = null;
-
-        try {
-            return contarParametrosInformesSucursal_Pila = persistenciaSucursalesPila.contarParametrosInformesSucursal_Pila(em, secSucursalesPila);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSucursalesPila contarParametrosInformesSucursal_Pila ERROR : " + e);
-            return null;
-        }
-    }
-
-    public BigInteger contarUbicacionesGeograficasSucursal_Pila(BigInteger secSucursalesPila) {
-        BigInteger contarUbicacionesGeograficasSucursal_Pila = null;
-
-        try {
-            contarUbicacionesGeograficasSucursal_Pila = persistenciaSucursalesPila.contarUbicacionesGeograficasSucursal_Pila(em, secSucursalesPila);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarSucursalesPila contarUbicacionesGeograficasSucursal_Pila ERROR : " + e);
-            contarUbicacionesGeograficasSucursal_Pila = null;
-        }
-        finally{
-            return contarUbicacionesGeograficasSucursal_Pila;
-        }
-    }
+   public BigInteger contarUbicacionesGeograficasSucursal_Pila(BigInteger secSucursalesPila) {
+      try {
+         return persistenciaSucursalesPila.contarUbicacionesGeograficasSucursal_Pila(getEm(), secSucursalesPila);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarSucursalesPila contarUbicacionesGeograficasSucursal_Pila ERROR : " + e);
+         return null;
+      }
+   }
 
 }

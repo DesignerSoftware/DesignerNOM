@@ -104,9 +104,9 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          query.setParameter(1, secTSGrupo);
          List<TEFormulasConceptos> tEFormulasConceptos = query.getResultList();
          if (tEFormulasConceptos != null) {
-            log.error("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : " + tEFormulasConceptos.size());
+            log.warn("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : " + tEFormulasConceptos.size());
          } else {
-            log.error("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : NULL");
+            log.warn("PersistenciaTEFormulasConceptos.buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad() : NULL");
          }
          return tEFormulasConceptos;
       } catch (Exception e) {

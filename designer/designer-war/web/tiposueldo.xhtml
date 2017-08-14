@@ -264,14 +264,14 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTSF.concepto.empresa.nombre}" filterBy="#{infoTSF.concepto.empresa.nombre}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTSF.concepto.nombreEmpresa}" filterBy="#{infoTSF.concepto.nombreEmpresa}" filterMatchMode="contains"
                                   id="tsFormulaEmpresa" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{infoTSF.concepto.empresa.nombre}"/>
+                                 <h:outputText value="#{infoTSF.concepto.nombreEmpresa}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" readonly="true"  value="#{infoTSF.concepto.empresa.nombre}"  id="editarFormulaTSEmpresa" style="text-transform: uppercase;"
+                                 <p:inputText autocomplete="off" readonly="true"  value="#{infoTSF.concepto.nombreEmpresa}"  id="editarFormulaTSEmpresa" style="text-transform: uppercase;"
                                               onclick="select();" onselect="posicionTSFormula([{name: 'n', value: '2'}, {name: 't', value: '#{indiceTSF}'}]);
                                                     PF('datosTSFormula').unselectAllRows();
                                                     PF('datosTSFormula').selectRow(#{indiceTSF});"/>
@@ -417,15 +417,15 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTEF.concepto.empresa.nombre}" filterBy="#{infoTEF.concepto.empresa.nombre}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['empresa']}" sortBy="#{infoTEF.concepto.nombreEmpresa}" filterBy="#{infoTEF.concepto.nombreEmpresa}" filterMatchMode="contains" 
                                   id="teFormulaEmpresa" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{infoTEF.concepto.empresa.nombre}">
+                                 <h:outputText value="#{infoTEF.concepto.nombreEmpresa}">
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" readonly="true" onclick="select();" value="#{infoTEF.concepto.empresa.nombre}"  id="editarFormulaTEEmpresa" style="text-transform: uppercase;"
+                                 <p:inputText autocomplete="off" readonly="true" onclick="select();" value="#{infoTEF.concepto.nombreEmpresa}"  id="editarFormulaTEEmpresa" style="text-transform: uppercase;"
                                               onselect="posicionTEFormula([{name: 'n', value: '3'}, {name: 't', value: '#{indiceTEF}'}]);
                                                     PF('datosTEFormula').unselectAllRows();
                                                     PF('datosTEFormula').selectRow(#{indiceTEF});"/> 
@@ -614,11 +614,11 @@
                         </f:facet>
                         <h:outputText value="#{concept.descripcion}"/>
                      </p:column>
-                     <p:column filterBy="#{concept.empresa.nombre}" sortBy="#{concept.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{concept.nombreEmpresa}" sortBy="#{concept.nombreEmpresa}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresa']}"/>
                         </f:facet>
-                        <h:outputText value="#{concept.empresa.nombre}"/>
+                        <h:outputText value="#{concept.nombreEmpresa}"/>
                      </p:column>
                   </p:dataTable>
 
@@ -762,11 +762,11 @@
                         </f:facet>
                         <h:outputText value="#{conceptTE.descripcion}"/>
                      </p:column>
-                     <p:column filterBy="#{conceptTE.empresa.nombre}" sortBy="#{conceptTE.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                     <p:column filterBy="#{conceptTE.nombreEmpresa}" sortBy="#{conceptTE.nombreEmpresa}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresa']}"/>
                         </f:facet>
-                        <h:outputText value="#{conceptTE.empresa.nombre}"/>
+                        <h:outputText value="#{conceptTE.nombreEmpresa}"/>
                      </p:column>
                   </p:dataTable>
 
@@ -913,7 +913,7 @@
                      <p:commandButton style="left: 308px; top: 103px;" class="cssBotonLovDialogos" id="btnNuevoTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(1,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTSF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="nuevoTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTSFormulaConcepto.concepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="nuevoTSFormulaEmpresa"/>
 
                      <strong><h:outputText value="*#{msg['origenNTSF']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
@@ -950,7 +950,7 @@
                      <p:commandButton style="position: absolute; left: 334px; top: 103px;" class="cssBotonLovDialogos" id="btnDuplicarTSFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTsFormulas(1,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTSF']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="duplicarTSFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTSFormulaConcepto.concepto.nombreEmpresa}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="duplicarTSFormulaEmpresa"/>
 
                      <strong><h:outputText value="*#{msg['origenNTSF']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
@@ -1036,7 +1036,7 @@
                      <p:commandButton style="position: absolute; left: 331px; top: 130px;" class="cssBotonLovDialogos" id="btnNuevoTEFormulaConcepto" value="" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,1)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTEF']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="nuevoTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.nuevoTEFormulaConcepto.concepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="nuevoTEFormulaEmpresa"/>
 
                      <p:commandButton id="limpiarNTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarNuevaTEFormula()}" update="nuevoTEFormulaConcepto" process="@this"/>
@@ -1074,7 +1074,7 @@
                      <p:commandButton style=" position: absolute; left: 331px; top: 130px;" id="btnDuplicadoTEFormulaConcepto" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlTipoSueldo.asignarIndexTeFormulas(infoTEF,2,2)}"/>   
 
                      <strong><h:outputText value="*#{msg['empresaNTEF']}" style="position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
+                     <p:inputText autocomplete="off" id="duplicarTEFormulaEmpresa" onclick="select();" readonly="true" value="#{controlTipoSueldo.duplicarTEFormulaConcepto.concepto.nombreEmpresa}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase;"/>
                      <p:watermark value="#{msg['empresa']}" for="duplicarTEFormulaEmpresa"/>
 
                      <p:commandButton id="limpiarDTEF" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 215px;" actionListener="#{controlTipoSueldo.limpiarDuplicarTEFormula()}" update="duplicarTEFormulaConcepto" process="@this"/>
@@ -1104,7 +1104,7 @@
                </p:dialog>
 
                <p:dialog id="editarEmpresaTSFormulaD" header="#{msg['editarEmpresaTSFormulaD']}" widgetVar="editarEmpresaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar celdas ts grupo tipo entidad -->
@@ -1128,7 +1128,7 @@
                </p:dialog>
 
                <p:dialog id="editarEmpresaTEFormulaD" header="#{msg['editarEmpresaTEFormulaD']}" widgetVar="editarEmpresaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
             </h:form>
@@ -1184,7 +1184,7 @@
 
                   <p:column headerText="#{msg['empresaX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/> </f:facet> 
-                     <h:outputText value="#{expTSF.concepto.empresa.nombre}">
+                     <h:outputText value="#{expTSF.concepto.nombreEmpresa}">
                      </h:outputText>
                   </p:column>
 
@@ -1234,7 +1234,7 @@
 
                   <p:column headerText="#{msg['empresaX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['empresaX']}"/> </f:facet> 
-                     <h:outputText value="#{expTEF.concepto.empresa.nombre}">
+                     <h:outputText value="#{expTEF.concepto.nombreEmpresa}">
                      </h:outputText>
                   </p:column>
 

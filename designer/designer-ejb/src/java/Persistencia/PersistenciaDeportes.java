@@ -97,7 +97,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          cq.select(cq.from(Deportes.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarDeportes PersistenciaDeportes");
+         log.error("Error buscarDeportes PersistenciaDeportes " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("PERSISTENCIADEPORTES contadorParametrosInformes = " + retorno);
+         log.warn("PERSISTENCIADEPORTES contadorParametrosInformes = " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("ERROR PERSISTENCIADEPORTES contadorParametrosInformes  ERROR = " + e);
@@ -130,7 +130,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("PERSISTENCIADEPORTES contadorDeportesPersonas = " + retorno);
+         log.warn("PERSISTENCIADEPORTES contadorDeportesPersonas = " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("ERROR PERSISTENCIADEPORTES contadorDeportesPersonas  ERROR = " + e);

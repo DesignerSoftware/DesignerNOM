@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,107 +30,157 @@ import org.apache.log4j.Logger;
  *
  * @author betelgeuse
  */
+
+
 @Stateful
 public class AdministrarComprobantes implements AdministrarComprobantesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarComprobantes.class);
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaSolucionesNodos'.
+    */
+   @EJB
+   PersistenciaSolucionesNodosInterface persistenciaSolucionesNodos;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaParametros'.
+    */
+   @EJB
+   PersistenciaParametrosInterface persistenciaParametros;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaActualUsuario'.
+    */
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaParametrosEstructuras'.
+    */
+   @EJB
+   PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaDetallesFormulas'.
+    */
+   @EJB
+   PersistenciaDetallesFormulasInterface persistenciaDetallesFormulas;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaHistoriasformulas'.
+    */
+   @EJB
+   PersistenciaHistoriasformulasInterface persistenciaHistoriasformulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaSolucionesNodos'.
-     */
-    @EJB
-    PersistenciaSolucionesNodosInterface persistenciaSolucionesNodos;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaParametros'.
-     */
-    @EJB
-    PersistenciaParametrosInterface persistenciaParametros;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaActualUsuario'.
-     */
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaParametrosEstructuras'.
-     */
-    @EJB
-    PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaDetallesFormulas'.
-     */
-    @EJB
-    PersistenciaDetallesFormulasInterface persistenciaDetallesFormulas;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaHistoriasformulas'.
-     */
-    @EJB
-    PersistenciaHistoriasformulasInterface persistenciaHistoriasformulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    private EntityManager em;
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Parametros> consultarParametrosComprobantesActualUsuario() {
-        String usuarioBD;
-        usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-        log.warn("administrarcomprobantes consultarParametrosComprobantesActualUsuario()  actualUsuario: " + usuarioBD );
-        return persistenciaParametros.parametrosComprobantes(em,usuarioBD);
-    }
+   @Override
+   public List<Parametros> consultarParametrosComprobantesActualUsuario() {
+      try {
+         String usuarioBD;
+         usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         log.warn("administrarcomprobantes consultarParametrosComprobantesActualUsuario()  actualUsuario: " + usuarioBD);
+         return persistenciaParametros.parametrosComprobantes(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public ParametrosEstructuras consultarParametroEstructuraActualUsuario() {
-        String usuarioBD;
-        usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-        return persistenciaParametrosEstructuras.buscarParametro(em,usuarioBD);
-    }
+   @Override
+   public ParametrosEstructuras consultarParametroEstructuraActualUsuario() {
+      try {
+         String usuarioBD;
+         usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<SolucionesNodos> consultarSolucionesNodosEmpleado(BigInteger secEmpleado) {
-        return persistenciaSolucionesNodos.solucionNodoEmpleado(em,secEmpleado);
-    }
+   @Override
+   public List<SolucionesNodos> consultarSolucionesNodosEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaSolucionesNodos.solucionNodoEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<SolucionesNodos> consultarSolucionesNodosEmpleador(BigInteger secEmpleado) {
-        return persistenciaSolucionesNodos.solucionNodoEmpleador(em,secEmpleado);
-    }
+   @Override
+   public List<SolucionesNodos> consultarSolucionesNodosEmpleador(BigInteger secEmpleado) {
+      try {
+         return persistenciaSolucionesNodos.solucionNodoEmpleador(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<DetallesFormulas> consultarDetallesFormulasEmpleado(BigInteger secEmpleado, String fechaDesde, String fechaHasta, BigInteger secProceso, BigInteger secHistoriaFormula) {
-        return persistenciaDetallesFormulas.detallesFormula(em,secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
-    }
+   @Override
+   public List<DetallesFormulas> consultarDetallesFormulasEmpleado(BigInteger secEmpleado, String fechaDesde, String fechaHasta, BigInteger secProceso, BigInteger secHistoriaFormula) {
+      try {
+         return persistenciaDetallesFormulas.detallesFormula(getEm(), secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger consultarHistoriaFormulaFormula(BigInteger secFormula, String fechaDesde) {
-        return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(em,secFormula, fechaDesde);
-    }
+   @Override
+   public BigInteger consultarHistoriaFormulaFormula(BigInteger secFormula, String fechaDesde) {
+      try {
+         return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(getEm(), secFormula, fechaDesde);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
    <h:head>
@@ -18,7 +17,7 @@
                      <p:commandButton style=" border-color:#045491; width:210px; border-width: 2px; position: absolute; top: 25px; left: 85px;" value="Borrar Liquidación"></p:commandButton>
                      <p:commandButton style="border-color:#045491; width:210px; border-width: 2px; position: absolute; top: 65px; left: 85px;" value="Cerrar Liquidación"></p:commandButton>
                   </fieldset>
-                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 152px; left: 235px;" action="#{controlListaNavegacion.quitarPagina()}" value="atras"></p:commandButton>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 152px; left: 235px;" action="#{controlListaNavegacion.quitarPagina('opciones', 'NN')}" value="atras"></p:commandButton>
 
                </p:panel>
             </h:form>

@@ -101,7 +101,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PERSISTENCIATIPOSFAMILIARES contadorHvReferencias  " + retorno);
+            log.warn("Contador PERSISTENCIATIPOSFAMILIARES contadorHvReferencias  " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaTiposFamiliares.contadorHvReferencias()" + e.getMessage());

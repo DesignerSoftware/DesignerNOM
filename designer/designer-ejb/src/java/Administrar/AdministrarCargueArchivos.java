@@ -45,6 +45,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -206,11 +207,30 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
    @EJB
    PersistenciaGeneralesInterface persistenciaGenerales;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
    //--------------------------------------------------------------------------
    //MÉTODOS
@@ -218,112 +238,197 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
 
    @Override
    public void crearTempNovedades(List<TempNovedades> listaTempNovedades) {
-      for (int i = 0; i < listaTempNovedades.size(); i++) {
-         persistenciaTempNovedades.crear(em, listaTempNovedades.get(i));
+      try {
+         for (int i = 0; i < listaTempNovedades.size(); i++) {
+            persistenciaTempNovedades.crear(getEm(), listaTempNovedades.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void modificarTempNovedades(TempNovedades tempNovedades) {
-      persistenciaTempNovedades.editar(em, tempNovedades);
+      try {
+         persistenciaTempNovedades.editar(getEm(), tempNovedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarTempNovedad(TempNovedades tempNovedades) {
-      persistenciaTempNovedades.borrar(em, tempNovedades);
+      try {
+         persistenciaTempNovedades.borrar(getEm(), tempNovedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void borrarRegistrosTempNovedades(String usuarioBD) {
-      persistenciaTempNovedades.borrarRegistrosTempNovedades(em, usuarioBD);
+      try {
+         persistenciaTempNovedades.borrarRegistrosTempNovedades(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public ActualUsuario actualUsuario() {
-      return persistenciaActualUsuario.actualUsuarioBD(em);
+      try {
+         return persistenciaActualUsuario.actualUsuarioBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public BigInteger consultarParametrosEmpresa(String usuarioBD) {
-      return persistenciaParametrosEstructuras.buscarEmpresaParametros(em, usuarioBD);
+      try {
+         return persistenciaParametrosEstructuras.buscarEmpresaParametros(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<TempNovedades> consultarTempNovedades(String usuarioBD) {
-      return persistenciaTempNovedades.obtenerTempNovedades(em, usuarioBD);
+      try {
+         return persistenciaTempNovedades.obtenerTempNovedades(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public boolean verificarEmpleadoEmpresa(BigInteger codEmpleado, BigInteger secEmpresa) {
-      return persistenciaEmpleado.verificarCodigoEmpleado_Empresa(em, codEmpleado, secEmpresa);
+      try {
+         return persistenciaEmpleado.verificarCodigoEmpleado_Empresa(getEm(), codEmpleado, secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public boolean verificarConcepto(BigInteger codConcepto) {
-      return persistenciaConceptos.verificarCodigoConcepto(em, codConcepto);
+      try {
+         return persistenciaConceptos.verificarCodigoConcepto(getEm(), codConcepto);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public boolean verificarPeriodicidad(BigInteger codPeriodicidad) {
-      return persistenciaPeriodicidades.verificarCodigoPeriodicidad(em, codPeriodicidad);
+      try {
+         return persistenciaPeriodicidades.verificarCodigoPeriodicidad(getEm(), codPeriodicidad);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public boolean verificarTercero(BigInteger nitTercero) {
-      return persistenciaTerceros.verificarTerceroPorNit(em, nitTercero);
+      try {
+         return persistenciaTerceros.verificarTerceroPorNit(getEm(), nitTercero);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public boolean verificarTipoEmpleadoActivo(BigInteger codEmpleado, BigInteger secEmpresa) {
-      Empleados empleado = consultarEmpleadoEmpresa(codEmpleado, secEmpresa);
-      return persistenciaVWActualesTiposTrabajadores.verificarTipoTrabajador(em, empleado);
+      try {
+         Empleados empleado = consultarEmpleadoEmpresa(codEmpleado, secEmpresa);
+         return persistenciaVWActualesTiposTrabajadores.verificarTipoTrabajador(getEm(), empleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public Empleados consultarEmpleadoEmpresa(BigInteger codEmpleado, BigInteger secEmpresa) {
-      Empleados empleado = persistenciaEmpleado.buscarEmpleadoCodigo_Empresa(em, codEmpleado, secEmpresa);
-      return empleado;
+      try {
+         return persistenciaEmpleado.buscarEmpleadoCodigo_Empresa(getEm(), codEmpleado, secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public VWActualesTiposTrabajadores consultarActualTipoTrabajadorEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(em, secuenciaEmpleado);
+      try {
+         return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public VWActualesReformasLaborales consultarActualReformaLaboralEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaVWActualesReformasLaborales.buscarReformaLaboral(em, secuenciaEmpleado);
+      try {
+         return persistenciaVWActualesReformasLaborales.buscarReformaLaboral(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public VWActualesTiposContratos consultarActualTipoContratoEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaVWActualesTiposContratos.buscarTiposContratosEmpleado(em, secuenciaEmpleado);
+      try {
+         return persistenciaVWActualesTiposContratos.buscarTiposContratosEmpleado(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Conceptos verificarConceptoEmpresa(BigInteger codigoConcepto, BigInteger codigoEmpresa) {
-      return persistenciaConceptos.validarCodigoConcepto(em, codigoConcepto, codigoEmpresa);
+      try {
+         return persistenciaConceptos.validarCodigoConcepto(getEm(), codigoConcepto, codigoEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public String determinarTipoConcepto(BigInteger secConcepto) {
-      String tipo = "MANUAL";
-      boolean verificar = persistenciaFormulasConceptos.verificarExistenciaConceptoFormulasConcepto(em, secConcepto);
-      if (verificar == true) {
-         List<FormulasConceptos> formulasConcepto = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(em, secConcepto);
-         for (int i = 0; i < formulasConcepto.size(); i++) {
-            verificar = persistenciaFormulasNovedades.verificarExistenciaFormulasNovedades(em, formulasConcepto.get(i).getFormula());
-            if (verificar == true) {
-               tipo = "SEMI-AUTOMATICO";
-            } else {
-               tipo = "AUTOMATICO";
-               break;
+      try {
+         String tipo = "MANUAL";
+         boolean verificar = persistenciaFormulasConceptos.verificarExistenciaConceptoFormulasConcepto(getEm(), secConcepto);
+         if (verificar == true) {
+            List<FormulasConceptos> formulasConcepto = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(getEm(), secConcepto);
+            for (int i = 0; i < formulasConcepto.size(); i++) {
+               verificar = persistenciaFormulasNovedades.verificarExistenciaFormulasNovedades(getEm(), formulasConcepto.get(i).getFormula());
+               if (verificar == true) {
+                  tipo = "SEMI-AUTOMATICO";
+               } else {
+                  tipo = "AUTOMATICO";
+                  break;
+               }
             }
+            return tipo;
+         } else {
+            tipo = "MANUAL";
+            return tipo;
          }
-         return tipo;
-      } else {
-         tipo = "MANUAL";
-         return tipo;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
       }
    }
 
@@ -331,11 +436,11 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
    public boolean verificarZonaT(BigInteger secConcepto, BigInteger secRL, BigInteger secTC, BigInteger secTT) {
       try {
          boolean validarZonaT;
-         validarZonaT = persistenciaVigenciasConceptosRL.verificacionZonaTipoReformasLaborales(em, secConcepto, secRL);
+         validarZonaT = persistenciaVigenciasConceptosRL.verificacionZonaTipoReformasLaborales(getEm(), secConcepto, secRL);
          if (validarZonaT == true) {
-            validarZonaT = persistenciaVigenciasConceptosTC.verificacionZonaTipoContrato(em, secConcepto, secTC);
+            validarZonaT = persistenciaVigenciasConceptosTC.verificacionZonaTipoContrato(getEm(), secConcepto, secTC);
             if (validarZonaT == true) {
-               validarZonaT = persistenciaVigenciasConceptosTT.verificacionZonaTipoTrabajador(em, secConcepto, secTT);
+               validarZonaT = persistenciaVigenciasConceptosTT.verificacionZonaTipoTrabajador(getEm(), secConcepto, secTT);
             }
          }
          return validarZonaT;
@@ -347,89 +452,133 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
 
    @Override
    public List<Formulas> consultarFormulasCargue() {
-      return persistenciaFormulas.buscarFormulasCarge(em);
+      try {
+         return persistenciaFormulas.buscarFormulasCarge(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public Formulas consultarFormulaCargueInicial() {
-      return persistenciaFormulas.buscarFormulaCargeInicial(em);
+      try {
+         return persistenciaFormulas.buscarFormulaCargeInicial(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public boolean verificarFormulaCargueConcepto(BigInteger secConcepto, BigInteger secFormula) {
-      return persistenciaFormulasConceptos.verificarFormulaCargue_Concepto(em, secConcepto, secFormula);
+      try {
+         return persistenciaFormulasConceptos.verificarFormulaCargue_Concepto(getEm(), secConcepto, secFormula);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public boolean verificarNecesidadTercero(BigInteger secConcepto) {
-      return persistenciaVigenciasGruposConceptos.verificacionGrupoUnoConcepto(em, secConcepto);
+      try {
+         return persistenciaVigenciasGruposConceptos.verificacionGrupoUnoConcepto(getEm(), secConcepto);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public boolean verificarTerceroEmpresa(BigInteger nit, BigInteger secEmpresa) {
-      return persistenciaTerceros.verificarTerceroParaEmpresaEmpleado(em, nit, secEmpresa);
+      try {
+         return persistenciaTerceros.verificarTerceroParaEmpresaEmpleado(getEm(), nit, secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return false;
+      }
    }
 
    @Override
    public List<String> consultarDocumentosSoporteCargadosUsuario(String usuarioBD) {
-      return persistenciaTempNovedades.obtenerDocumentosSoporteCargados(em, usuarioBD);
+      try {
+         return persistenciaTempNovedades.obtenerDocumentosSoporteCargados(getEm(), usuarioBD);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void cargarTempNovedades(Date fechaReporte, String nombreCorto, String usarFormula) {
-      SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-      String fechaR = formatoFecha.format(fechaReporte);
-      persistenciaTempNovedades.cargarTempNovedades(em, fechaR, nombreCorto, usarFormula);
+      try {
+         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+         String fechaR = formatoFecha.format(fechaReporte);
+         persistenciaTempNovedades.cargarTempNovedades(getEm(), fechaR, nombreCorto, usarFormula);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public int reversarNovedades(ActualUsuario usuarioBD, String documentoSoporte) {
-      List<Novedades> listNovedades = persistenciaNovedades.novedadesParaReversar(em, usuarioBD.getSecuencia(), documentoSoporte);
-      int validarNoLiquidadas = 0;
-      for (int i = 0; i < listNovedades.size(); i++) {
-         if (persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(em, listNovedades.get(i).getSecuencia()) > 0) {
-            validarNoLiquidadas++;
+      try {
+         List<Novedades> listNovedades = persistenciaNovedades.novedadesParaReversar(getEm(), usuarioBD.getSecuencia(), documentoSoporte);
+         int validarNoLiquidadas = 0;
+         for (int i = 0; i < listNovedades.size(); i++) {
+            if (persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), listNovedades.get(i).getSecuencia()) > 0) {
+               validarNoLiquidadas++;
+            }
          }
-      }
-      listNovedades.clear();
-      if (validarNoLiquidadas == 0) {
-         persistenciaTempNovedades.reversarTempNovedades(em, usuarioBD.getAlias(), documentoSoporte);
-         return persistenciaNovedades.reversarNovedades(em, usuarioBD.getSecuencia(), documentoSoporte);
-      } else {
+         listNovedades.clear();
+         if (validarNoLiquidadas == 0) {
+            persistenciaTempNovedades.reversarTempNovedades(getEm(), usuarioBD.getAlias(), documentoSoporte);
+            return persistenciaNovedades.reversarNovedades(getEm(), usuarioBD.getSecuencia(), documentoSoporte);
+         } else {
+            return 0;
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }
 
    @Override
    public ResultadoBorrarTodoNovedades BorrarTodo(ActualUsuario usuarioBD, List<String> documentosSoporte) {
-      ResultadoBorrarTodoNovedades resultadoProceso = new ResultadoBorrarTodoNovedades();
-      int registrosBorrados = 0;
-      for (int j = 0; j < documentosSoporte.size(); j++) {
-         List<Novedades> listNovedades = persistenciaNovedades.novedadesParaReversar(em, usuarioBD.getSecuencia(), documentosSoporte.get(j));
-         int validarNoLiquidadas = 0;
-         for (int i = 0; i < listNovedades.size(); i++) {
-            if (persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(em, listNovedades.get(i).getSecuencia()) > 0) {
-               validarNoLiquidadas++;
+      try {
+         ResultadoBorrarTodoNovedades resultadoProceso = new ResultadoBorrarTodoNovedades();
+         int registrosBorrados = 0;
+         for (int j = 0; j < documentosSoporte.size(); j++) {
+            List<Novedades> listNovedades = persistenciaNovedades.novedadesParaReversar(getEm(), usuarioBD.getSecuencia(), documentosSoporte.get(j));
+            int validarNoLiquidadas = 0;
+            for (int i = 0; i < listNovedades.size(); i++) {
+               if (persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), listNovedades.get(i).getSecuencia()) > 0) {
+                  validarNoLiquidadas++;
+               }
+            }
+            listNovedades.clear();
+            if (validarNoLiquidadas == 0) {
+               registrosBorrados = registrosBorrados + persistenciaNovedades.reversarNovedades(getEm(), usuarioBD.getSecuencia(), documentosSoporte.get(j));
+               persistenciaTempNovedades.reversarTempNovedades(getEm(), usuarioBD.getAlias(), documentosSoporte.get(j));
+            } else {
+               if (resultadoProceso.getDocumentosNoBorrados() == null) {
+                  resultadoProceso.setDocumentosNoBorrados(new ArrayList<String>());
+               }
+               resultadoProceso.getDocumentosNoBorrados().add(documentosSoporte.get(j));
             }
          }
-         listNovedades.clear();
-         if (validarNoLiquidadas == 0) {
-            registrosBorrados = registrosBorrados + persistenciaNovedades.reversarNovedades(em, usuarioBD.getSecuencia(), documentosSoporte.get(j));
-            persistenciaTempNovedades.reversarTempNovedades(em, usuarioBD.getAlias(), documentosSoporte.get(j));
-         } else {
-            if (resultadoProceso.getDocumentosNoBorrados() == null) {
-               resultadoProceso.setDocumentosNoBorrados(new ArrayList<String>());
-            }
-            resultadoProceso.getDocumentosNoBorrados().add(documentosSoporte.get(j));
-         }
+         resultadoProceso.setRegistrosBorrados(registrosBorrados);
+         return resultadoProceso;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
       }
-      resultadoProceso.setRegistrosBorrados(registrosBorrados);
-      return resultadoProceso;
    }
 
    public String consultarRuta() {
       try {
-         Generales general = persistenciaGenerales.obtenerRutas(em);
+         Generales general = persistenciaGenerales.obtenerRutas(getEm());
          return general.getUbicareportes();
       } catch (Exception e) {
          log.warn("ERROR Administrar.AdministrarCargueArchivos.consultarRuta() e : " + e);

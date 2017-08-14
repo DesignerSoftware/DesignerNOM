@@ -102,7 +102,7 @@ public class PersistenciaEvalCompetencias implements PersistenciaEvalCompetencia
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PERSISTENCIAEVALCOMPETENCIAS ContadorCompetenciasCargos Retorno : " + retorno);
+         log.warn("Contador PERSISTENCIAEVALCOMPETENCIAS ContadorCompetenciasCargos Retorno : " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PERSISTENCIAEVALCOMPETENCIAS ContadorCompetenciasCargos. " + e);

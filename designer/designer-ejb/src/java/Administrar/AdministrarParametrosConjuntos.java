@@ -24,6 +24,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -33,144 +34,160 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarParametrosConjuntos implements AdministrarParametrosConjuntosInterface {
 
-    private static Logger log = Logger.getLogger(AdministrarParametrosConjuntos.class);
+   private static Logger log = Logger.getLogger(AdministrarParametrosConjuntos.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaVWDSolucionesNodosNInterface persistenciaVWDSolucionesNodosN;
-    @EJB
-    PersistenciaParametrosConjuntosInterface persistenciaParametrosConjuntos;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaVWDSolucionesNodosNInterface persistenciaVWDSolucionesNodosN;
+   @EJB
+   PersistenciaParametrosConjuntosInterface persistenciaParametrosConjuntos;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public void crearParametros(ParametrosConjuntos parametrosConjuntos) {
-        try {
-            persistenciaParametrosConjuntos.crearParametros(em, parametrosConjuntos);
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.crearParametros : " + e);
-        }
-    }
-
-    @Override
-    public void editarParametros(ParametrosConjuntos parametrosConjuntos) {
-        try {
-            persistenciaParametrosConjuntos.editarParametros(em, parametrosConjuntos);
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.editarParametros : " + e);
-        }
-    }
-
-    @Override
-    public void borrarParametros(ParametrosConjuntos parametrosConjuntos) {
-        try {
-            persistenciaParametrosConjuntos.borrarParametros(em, parametrosConjuntos);
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.borrarParametros : " + e);
-        }
-    }
-
-    @Override
-    public ParametrosConjuntos consultarParametros() {
-        try {
-            ParametrosConjuntos pc = persistenciaParametrosConjuntos.consultarParametros(em);
-            if (pc == null) {
-                pc = new ParametrosConjuntos();
-                pc.setSecuencia(BigDecimal.ONE);
-                pc.setUsuarioBD(persistenciaActualUsuario.actualAliasBD(em));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-            return pc;
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.consultarParametros : " + e);
-            return null;
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<VWDSolucionesNodosN> consultarDSolucionesNodosN(String vistaConsultar, Date fechaVig) {
-        try {
-            List<VWDSolucionesNodosN> lista = persistenciaVWDSolucionesNodosN.consultarDSolucionesNodosN(em, vistaConsultar, fechaVig);
-            if (lista != null) {
-                return lista;
-            } else {
-                log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : La consulta retorno Null");
-                return new ArrayList<VWDSolucionesNodosN>();
-            }
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : " + e);
-            return new ArrayList<VWDSolucionesNodosN>();
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<VWDSolucionesNodosN> consultarDSolucionesNodosNLB(String vistaConsultar, Date fechaVig) {
-        try {
-            List<VWDSolucionesNodosN> lista = persistenciaVWDSolucionesNodosN.consultarDSolucionesNodosNLB(em, vistaConsultar, fechaVig);
-            if (lista != null) {
-                log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : La consulta retorno Null");
-                return lista;
-            } else {
-                return new ArrayList<VWDSolucionesNodosN>();
-            }
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : " + e);
-            return new ArrayList<VWDSolucionesNodosN>();
-        }
-    }
+   @Override
+   public void crearParametros(ParametrosConjuntos parametrosConjuntos) {
+      try {
+         persistenciaParametrosConjuntos.crearParametros(getEm(), parametrosConjuntos);
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.crearParametros : " + e);
+      }
+   }
 
-    @Override
-    public List<VWDSolucionesNodosNDetalle> consultarDetalleN(String vistaConsultar, int numeroConjunto, BigInteger secDescripcion) {
-        try {
-            return persistenciaVWDSolucionesNodosN.consultarDetalleN(em, vistaConsultar, numeroConjunto, secDescripcion);
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.consultarDetalleN : " + e);
-            return null;
-        }
-    }
+   @Override
+   public void editarParametros(ParametrosConjuntos parametrosConjuntos) {
+      try {
+         persistenciaParametrosConjuntos.editarParametros(getEm(), parametrosConjuntos);
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.editarParametros : " + e);
+      }
+   }
 
-    @Override
-    public List<VWDSolucionesNodosNDetalle> consultarDetalleNLB(String vistaConsultar, int numeroConjunto, BigInteger secDescripcion) {
-        try {
-            return persistenciaVWDSolucionesNodosN.consultarDetalleNLB(em, vistaConsultar, numeroConjunto, secDescripcion);
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.consultarDetalleNLB : " + e);
-            return null;
-        }
-    }
+   @Override
+   public void borrarParametros(ParametrosConjuntos parametrosConjuntos) {
+      try {
+         persistenciaParametrosConjuntos.borrarParametros(getEm(), parametrosConjuntos);
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.borrarParametros : " + e);
+      }
+   }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    @Override
-    public List<Conceptos> consultarConceptos() {
-        try {
-//            return persistenciaConceptos.buscarConceptos(em);
-            List<Conceptos> lista = persistenciaConceptos.buscarConceptos(em);
-            log.warn("AdministrarParametrosConjuntos.consultarConceptos() retorno lista con tamaño: " + lista.size());
+   @Override
+   public ParametrosConjuntos consultarParametros() {
+      try {
+         ParametrosConjuntos pc = persistenciaParametrosConjuntos.consultarParametros(getEm());
+         if (pc == null) {
+            pc = new ParametrosConjuntos();
+            pc.setSecuencia(BigDecimal.ONE);
+            pc.setUsuarioBD(persistenciaActualUsuario.actualAliasBD(getEm()));
+         }
+         return pc;
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.consultarParametros : " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<VWDSolucionesNodosN> consultarDSolucionesNodosN(String vistaConsultar, Date fechaVig) {
+      try {
+         List<VWDSolucionesNodosN> lista = persistenciaVWDSolucionesNodosN.consultarDSolucionesNodosN(getEm(), vistaConsultar, fechaVig);
+         if (lista != null) {
             return lista;
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.consultarConceptos : " + e);
-            return null;
-        }
-    }
+         } else {
+            log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : La consulta retorno Null");
+            return new ArrayList<VWDSolucionesNodosN>();
+         }
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosN : " + e);
+         return new ArrayList<VWDSolucionesNodosN>();
+      }
+   }
 
-    @Override
-    public void modificarConcepto(Conceptos concepto) {
-        try {
-            persistenciaConceptos.editar(em, concepto);
-        } catch (Exception e) {
-            log.error("Error AdministrarParametrosConjuntos.editarConcepto : " + e);
-        }
-    }
+   @Override
+   public List<VWDSolucionesNodosN> consultarDSolucionesNodosNLB(String vistaConsultar, Date fechaVig) {
+      try {
+         List<VWDSolucionesNodosN> lista = persistenciaVWDSolucionesNodosN.consultarDSolucionesNodosNLB(getEm(), vistaConsultar, fechaVig);
+         if (lista != null) {
+            log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : La consulta retorno Null");
+            return lista;
+         } else {
+            return new ArrayList<VWDSolucionesNodosN>();
+         }
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.consultarDSolucionesNodosNLB : " + e);
+         return new ArrayList<VWDSolucionesNodosN>();
+      }
+   }
+
+   @Override
+   public List<VWDSolucionesNodosNDetalle> consultarDetalleN(String vistaConsultar, int numeroConjunto, BigInteger secDescripcion) {
+      try {
+         return persistenciaVWDSolucionesNodosN.consultarDetalleN(getEm(), vistaConsultar, numeroConjunto, secDescripcion);
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.consultarDetalleN : " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<VWDSolucionesNodosNDetalle> consultarDetalleNLB(String vistaConsultar, int numeroConjunto, BigInteger secDescripcion) {
+      try {
+         return persistenciaVWDSolucionesNodosN.consultarDetalleNLB(getEm(), vistaConsultar, numeroConjunto, secDescripcion);
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.consultarDetalleNLB : " + e);
+         return null;
+      }
+   }
+
+   // Add business logic below. (Right-click in editor and choose
+   // "Insert Code > Add Business Method")
+   @Override
+   public List<Conceptos> consultarConceptos() {
+      try {
+         return persistenciaConceptos.buscarConceptos(getEm());
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.consultarConceptos : " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarConcepto(Conceptos concepto) {
+      try {
+         persistenciaConceptos.editar(getEm(), concepto);
+      } catch (Exception e) {
+         log.error("Error AdministrarParametrosConjuntos.editarConcepto : " + e);
+      }
+   }
 }

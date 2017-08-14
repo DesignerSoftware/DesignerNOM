@@ -1,6 +1,4 @@
-
 package Administrar;
-
 
 import Entidades.Contratos;
 import Entidades.Empleados;
@@ -14,10 +12,10 @@ import InterfacePersistencia.PersistenciaVigenciasContratosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -30,99 +28,118 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
 
    private static Logger log = Logger.getLogger(AdministrarVigenciasContratos.class);
 
-    @EJB
-    PersistenciaContratosInterface persistenciaContratos;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaTiposContratosInterface persistenciaTiposContratos;
-    @EJB
-    PersistenciaVigenciasContratosInterface persistenciaVigenciasContratos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    List<VigenciasContratos> vigenciasContratos;
-    VigenciasContratos vigenciaContrato;
-    Empleados empleado;
-    List<Contratos> contratos;
-    List<TiposContratos> tiposContratos;
-    private EntityManager em;
+   @EJB
+   PersistenciaContratosInterface persistenciaContratos;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaTiposContratosInterface persistenciaTiposContratos;
+   @EJB
+   PersistenciaVigenciasContratosInterface persistenciaVigenciasContratos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public List<VigenciasContratos> VigenciasContratosEmpleado(BigInteger secEmpleado) {
-        try {
-            vigenciasContratos = persistenciaVigenciasContratos.buscarVigenciaContratoEmpleado(em, secEmpleado);
-        } catch (Exception e) {
-            log.warn("Error en Administrar Vigencias Contratos (VigenciasContratosEmpleado)");
-            vigenciasContratos = null;
-        }
-        return vigenciasContratos;
-    }
+//   List<VigenciasContratos> vigenciasContratos;
+//   VigenciasContratos vigenciaContrato;
+//   Empleados empleado;
+//   List<Contratos> contratos;
+//   List<TiposContratos> tiposContratos;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void modificarVC(List<VigenciasContratos> listVCModificadas) {
-        for (int i = 0; i < listVCModificadas.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public List<VigenciasContratos> VigenciasContratosEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaVigenciasContratos.buscarVigenciaContratoEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn("Error en Administrar Vigencias Contratos (VigenciasContratosEmpleado)");
+         return null;
+      }
+   }
+
+   @Override
+   public void modificarVC(List<VigenciasContratos> listVCModificadas) {
+      try {
+         for (int i = 0; i < listVCModificadas.size(); i++) {
             log.warn("Modificando...");
-            vigenciaContrato = listVCModificadas.get(i);
-            persistenciaVigenciasContratos.editar(em, vigenciaContrato);
-        }
-    }
+            persistenciaVigenciasContratos.editar(getEm(), listVCModificadas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarVC(VigenciasContratos vigenciasContratos) {
-        persistenciaVigenciasContratos.borrar(em, vigenciasContratos);
-    }
+   @Override
+   public void borrarVC(VigenciasContratos vigenciasContratos) {
+      try {
+         persistenciaVigenciasContratos.borrar(getEm(), vigenciasContratos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearVC(VigenciasContratos vigenciasContratos) {
-        persistenciaVigenciasContratos.crear(em, vigenciasContratos);
-    }
+   @Override
+   public void crearVC(VigenciasContratos vigenciasContratos) {
+      try {
+         persistenciaVigenciasContratos.crear(getEm(), vigenciasContratos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public Empleados buscarEmpleado(BigInteger secuencia) {
-        try {
-            empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
-            return empleado;
-        } catch (Exception e) {
-            empleado = null;
-            return empleado;
-        }
-    }
+   @Override
+   public Empleados buscarEmpleado(BigInteger secuencia) {
+      try {
+         return persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
-    @Override
-    public List<Contratos> contratos() {
-        try {
-            contratos = persistenciaContratos.buscarContratos(em);
-            return contratos;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+   @Override
+   public List<Contratos> contratos() {
+      try {
+         return persistenciaContratos.buscarContratos(getEm());
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
-    @Override
-    public List<TiposContratos> tiposContratos() {
-        try {
-            tiposContratos = persistenciaTiposContratos.tiposContratos(em);
-            return tiposContratos;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Remove
-    @Override
-    public void salir() {
-        vigenciaContrato = null;
-    }
+   @Override
+   public List<TiposContratos> tiposContratos() {
+      try {
+         return persistenciaTiposContratos.tiposContratos(getEm());
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
 }

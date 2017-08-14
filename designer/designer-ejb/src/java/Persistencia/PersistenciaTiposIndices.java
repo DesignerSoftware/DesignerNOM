@@ -100,7 +100,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaTiposIndices contarIndicesTipoIndice Retorno " + retorno);
+            log.warn("Contador PersistenciaTiposIndices contarIndicesTipoIndice Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaTiposIndices contarIndicesTipoIndice ERROR : " + e.getMessage());

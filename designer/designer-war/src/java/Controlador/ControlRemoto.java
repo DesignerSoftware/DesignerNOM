@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -56,7 +57,6 @@ public class ControlRemoto implements Serializable {
    private VWActualesAfiliacionesPension vwActualesAfiliacionesPension;
    private VWActualesLocalizaciones vwActualesLocalizaciones;
    private VWActualesTiposTrabajadores vwActualesTiposTrabajadores;
-//   private VWActualesTiposTrabajadores trabajador;
    private VWActualesContratos vwActualesContratos;
    private VWActualesJornadas vwActualesJornadas;
    private VWActualesReformasLaborales vwActualesReformasLaborales;
@@ -213,8 +213,14 @@ public class ControlRemoto implements Serializable {
       lovBuscarEmplTipo = new ArrayList<VwTiposEmpleados>();
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext fc = FacesContext.getCurrentInstance();
          controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
@@ -432,7 +438,7 @@ public class ControlRemoto implements Serializable {
                mostrarT = true;
                log.info("Ya termino de entrar  :)");
                actualizarInformacionTipoTrabajador();
-               controlListaNavegacion.quitarPagina("busquedaavanzada");
+               controlListaNavegacion.quitarPagina("busquedaavanzada", "controlBusquedaAvanzada");
             }
          }
       }
@@ -622,10 +628,8 @@ public class ControlRemoto implements Serializable {
          mostrarT2 = true;
          try {
             valorInputText();
-
          } catch (ParseException ex) {
-            log.info(ControlRemoto.class
-                    .getName() + " error en la entrada");
+            log.info(ControlRemoto.class.getName() + " error en la entrada");
          }
          lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();

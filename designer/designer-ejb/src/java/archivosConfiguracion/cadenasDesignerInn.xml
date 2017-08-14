@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<conexiones>
+   <cadenaDesignerInn id="1">
+      <bd>PROYECTOJ</bd>
+      <nombrepoolJPA>PROYECTOJPOOL</nombrepoolJPA>
+      <usapool>N</usapool>
+   </cadenaDesignerInn>
+   <cadenaDesignerInn id="2">
+      <nombrepoolJPA>BOMEDICAPOOL</nombrepoolJPA>
+      <bd>BOMEDICA</bd>
+      <usapool>N</usapool>
+   </cadenaDesignerInn>
+   <cadenaDesignerInn id="3">
+      <nombrepoolJPA>COSMOPOOL</nombrepoolJPA>
+      <bd>COSMO</bd>
+      <usapool>N</usapool>
+   </cadenaDesignerInn>
+</conexiones>

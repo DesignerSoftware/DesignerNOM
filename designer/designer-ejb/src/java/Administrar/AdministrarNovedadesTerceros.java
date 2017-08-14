@@ -28,141 +28,220 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
+
+
 
 @Stateful
 public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercerosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarNovedadesTerceros.class);
 
-    @EJB
-    PersistenciaNovedadesInterface persistenciaNovedades;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaVWActualesTiposTrabajadoresInterface persistenciaVWActualesTiposTrabajadores;
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    @EJB
-    PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
-    @EJB
-    PersistenciaTercerosInterface persistenciaTerceros;
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    @EJB
-    PersistenciaUsuariosInterface persistenciaUsuarios;
-    @EJB
-    PersistenciaSolucionesFormulasInterface persistenciaSolucionesFormulas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaNovedadesInterface persistenciaNovedades;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaVWActualesTiposTrabajadoresInterface persistenciaVWActualesTiposTrabajadores;
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   @EJB
+   PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
+   @EJB
+   PersistenciaTercerosInterface persistenciaTerceros;
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   @EJB
+   PersistenciaUsuariosInterface persistenciaUsuarios;
+   @EJB
+   PersistenciaSolucionesFormulasInterface persistenciaSolucionesFormulas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    //Trae las novedades del empleado cuya secuencia se envía como parametro//
-    @Override
-    public List<Novedades> novedadesTercero(BigInteger secuenciaTercero) {
-        try {
-            return persistenciaNovedades.novedadesTercero(em, secuenciaTercero);
-        } catch (Exception e) {
-            log.error("Error AdministrarNovedadesTerceros.novedadesTercero" + e);
-            return null;
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    //Listas de Conceptos, Formulas, Periodicidades, Terceros
-    @Override
-    public List<Terceros> Terceros() {
-        return persistenciaTerceros.todosTerceros(em);
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Formulas> lovFormulas() {
-        return persistenciaFormulas.buscarFormulas(em);
-    }
+   //Trae las novedades del empleado cuya secuencia se envía como parametro//
+   @Override
+   public List<Novedades> novedadesTercero(BigInteger secuenciaTercero) {
+      try {
+         return persistenciaNovedades.novedadesTercero(getEm(), secuenciaTercero);
+      } catch (Exception e) {
+         log.error("Error AdministrarNovedadesTerceros.novedadesTercero" + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Periodicidades> lovPeriodicidades() {
-        return persistenciaPeriodicidades.consultarPeriodicidades(em);
-    }
+   //Listas de Conceptos, Formulas, Periodicidades, Terceros
+   @Override
+   public List<Terceros> Terceros() {
+      try {
+         return persistenciaTerceros.todosTerceros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Terceros> lovTerceros() {
-        return persistenciaTerceros.buscarTerceros(em);
-    }
+   @Override
+   public List<Formulas> lovFormulas() {
+      try {
+         return persistenciaFormulas.buscarFormulas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Empleados> lovEmpleados() {
-        return persistenciaEmpleados.empleadosNovedad(em);
-    }
+   @Override
+   public List<Periodicidades> lovPeriodicidades() {
+      try {
+         return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Conceptos> lovConceptos() {
-        return persistenciaConceptos.buscarConceptosLovNovedades(em);
-    }
+   @Override
+   public List<Terceros> lovTerceros() {
+      try {
+         return persistenciaTerceros.buscarTerceros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    //Ver si está en soluciones formulas y de ser asi no borrarlo
-    public int solucionesFormulas(BigInteger secuenciaNovedad) {
-        return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(em, secuenciaNovedad);
-    }
-    //Usuarios
+   @Override
+   public List<Empleados> lovEmpleados() {
+      try {
+         return persistenciaEmpleados.empleadosNovedad(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public String alias() {
-        return persistenciaActualUsuario.actualAliasBD(em);
-    }
+   @Override
+   public List<Conceptos> lovConceptos() {
+      try {
+         return persistenciaConceptos.buscarConceptosLovNovedades(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public Usuarios usuarioBD(String alias) {
-        return persistenciaUsuarios.buscarUsuario(em, alias);
-    }
+   //Ver si está en soluciones formulas y de ser asi no borrarlo
+   public int solucionesFormulas(BigInteger secuenciaNovedad) {
+      try {
+         return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), secuenciaNovedad);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return 0;
+      }
+   }
+   //Usuarios
 
-    @Override
-    public void borrarNovedades(Novedades novedades) {
-        persistenciaNovedades.borrar(em, novedades);
-    }
+   public String alias() {
+      try {
+         return persistenciaActualUsuario.actualAliasBD(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void crearNovedades(Novedades novedades) {
-        persistenciaNovedades.crear(em, novedades);
-    }
+   public Usuarios usuarioBD(String alias) {
+      try {
+         return persistenciaUsuarios.buscarUsuario(getEm(), alias);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
-        for (int i = 0; i < listaNovedadesModificar.size(); i++) {
+   @Override
+   public void borrarNovedades(Novedades novedades) {
+      try {
+         persistenciaNovedades.borrar(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void crearNovedades(Novedades novedades) {
+      try {
+         persistenciaNovedades.crear(getEm(), novedades);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
+      try {
+         for (int i = 0; i < listaNovedadesModificar.size(); i++) {
             log.warn("Modificando...");
 
             if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
-                listaNovedadesModificar.get(i).setPeriodicidad(null);
+               listaNovedadesModificar.get(i).setPeriodicidad(null);
             }
             if (listaNovedadesModificar.get(i).getSaldo() == null) {
-                listaNovedadesModificar.get(i).setSaldo(null);
+               listaNovedadesModificar.get(i).setSaldo(null);
             }
             if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
-                listaNovedadesModificar.get(i).setUnidadesparteentera(null);
+               listaNovedadesModificar.get(i).setUnidadesparteentera(null);
             }
             if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
-                listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
+               listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
             }
-            persistenciaNovedades.editar(em, listaNovedadesModificar.get(i));
-        }
-    }
+            persistenciaNovedades.editar(getEm(), listaNovedadesModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Novedades> todasNovedadesTercero(BigInteger secuenciaTercero) {
-        try {
-            return persistenciaNovedades.todasNovedadesTercero(em, secuenciaTercero);
-        } catch (Exception e) {
-            log.error("Error AdministrarNovedadesTerceros.todasNovedadesConcepto" + e);
-            return null;
-        }
-    }
+   public List<Novedades> todasNovedadesTercero(BigInteger secuenciaTercero) {
+      try {
+         return persistenciaNovedades.todasNovedadesTercero(getEm(), secuenciaTercero);
+      } catch (Exception e) {
+         log.error("Error AdministrarNovedadesTerceros.todasNovedadesConcepto" + e);
+         return null;
+      }
+   }
 }

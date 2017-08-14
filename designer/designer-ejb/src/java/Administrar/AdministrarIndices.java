@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,127 +28,146 @@ public class AdministrarIndices implements AdministrarIndicesInterface {
 
    private static Logger log = Logger.getLogger(AdministrarIndices.class);
 
-    @EJB
-    PersistenciaIndicesInterface persistenciaIndices;
-    @EJB
-    PersistenciaTiposIndicesInterface PersistenciaTiposIndices;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaIndicesInterface persistenciaIndices;
+   @EJB
+   PersistenciaTiposIndicesInterface PersistenciaTiposIndices;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public void modificarIndices(List<Indices> listaIndices) {
-        for (int i = 0; i < listaIndices.size(); i++) {
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarIndices(List<Indices> listaIndices) {
+      try {
+         for (int i = 0; i < listaIndices.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaIndices.editar(em, listaIndices.get(i));
-        }
-    }
+            persistenciaIndices.editar(getEm(), listaIndices.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarIndices(List<Indices> listaIndices) {
-        for (int i = 0; i < listaIndices.size(); i++) {
+   public void borrarIndices(List<Indices> listaIndices) {
+      try {
+         for (int i = 0; i < listaIndices.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaIndices.borrar(em, listaIndices.get(i));
-        }
-    }
+            persistenciaIndices.borrar(getEm(), listaIndices.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearIndices(List<Indices> listaIndices) {
-        for (int i = 0; i < listaIndices.size(); i++) {
+   public void crearIndices(List<Indices> listaIndices) {
+      try {
+         for (int i = 0; i < listaIndices.size(); i++) {
             log.warn("Administrar crear...");
-            persistenciaIndices.crear(em, listaIndices.get(i));
-        }
-    }
+            persistenciaIndices.crear(getEm(), listaIndices.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<Indices> mostrarIndices() {
-        List<Indices> listIndices;
-        listIndices = persistenciaIndices.consultarIndices(em);
-        return listIndices;
-    }
+   public List<Indices> mostrarIndices() {
+      try {
+         return persistenciaIndices.consultarIndices(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<TiposIndices> consultarLOVTiposIndices() {
-        List<TiposIndices> lista;
-        lista = PersistenciaTiposIndices.consultarTiposIndices(em);
-        return lista;
-    }
+   public List<TiposIndices> consultarLOVTiposIndices() {
+      try {
+         return PersistenciaTiposIndices.consultarTiposIndices(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarParametrosIndicesIndice(BigInteger secuenciaIndices) {
-        BigInteger verificadorIndicesPersonas = null;
+   public BigInteger contarParametrosIndicesIndice(BigInteger secuenciaIndices) {
+      try {
+         return persistenciaIndices.contarParametrosIndicesIndice(getEm(), secuenciaIndices);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarIndices contarParametrosIndicesIndice ERROR :" + e);
+         return null;
+      }
+   }
 
-        try {
-            verificadorIndicesPersonas = persistenciaIndices.contarParametrosIndicesIndice(em, secuenciaIndices);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarIndices contarParametrosIndicesIndice ERROR :" + e);
-        } finally {
-            return verificadorIndicesPersonas;
-        }
-    }
+   public BigInteger contarResultadosIndicesDetallesIndice(BigInteger secuenciaIndices) {
+      try {
+         return persistenciaIndices.contarResultadosIndicesDetallesIndice(getEm(), secuenciaIndices);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarIndices contarResultadosIndicesDetallesIndice ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarResultadosIndicesDetallesIndice(BigInteger secuenciaIndices) {
-        BigInteger verificadorIndicesPersonas = null;
+   public BigInteger contarResultadosIndicesIndice(BigInteger secuenciaIndices) {
+      try {
+         return persistenciaIndices.contarResultadosIndicesIndice(getEm(), secuenciaIndices);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarIndices contarResultadosIndicesIndice ERROR :" + e);
+         return null;
+      }
+   }
 
-        try {
-            verificadorIndicesPersonas = persistenciaIndices.contarResultadosIndicesDetallesIndice(em, secuenciaIndices);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarIndices contarResultadosIndicesDetallesIndice ERROR :" + e);
-        } finally {
-            return verificadorIndicesPersonas;
-        }
-    }
+   public BigInteger contarResultadosIndicesSoportesIndice(BigInteger secuenciaIndices) {
+      try {
+         return persistenciaIndices.contarResultadosIndicesSoportesIndice(getEm(), secuenciaIndices);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarIndices contarResultadosIndicesSoportesIndice ERROR :" + e);
+         return null;
+      }
+   }
 
-    public BigInteger contarResultadosIndicesIndice(BigInteger secuenciaIndices) {
-        BigInteger verificadorIndicesPersonas = null;
+   public BigInteger contarUsuariosIndicesIndice(BigInteger secuenciaIndices) {
+      try {
+         return persistenciaIndices.contarUsuariosIndicesIndice(getEm(), secuenciaIndices);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarIndices contarUsuariosIndicesIndice ERROR :" + e);
+         return null;
+      }
+   }
 
-        try {
-            verificadorIndicesPersonas = persistenciaIndices.contarResultadosIndicesIndice(em, secuenciaIndices);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarIndices contarResultadosIndicesIndice ERROR :" + e);
-        } finally {
-            return verificadorIndicesPersonas;
-        }
-    }
-
-    public BigInteger contarResultadosIndicesSoportesIndice(BigInteger secuenciaIndices) {
-        BigInteger verificadorIndicesPersonas = null;
-
-        try {
-            verificadorIndicesPersonas = persistenciaIndices.contarResultadosIndicesSoportesIndice(em, secuenciaIndices);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarIndices contarResultadosIndicesSoportesIndice ERROR :" + e);
-        } finally {
-            return verificadorIndicesPersonas;
-        }
-    }
-
-    public BigInteger contarUsuariosIndicesIndice(BigInteger secuenciaIndices) {
-        BigInteger verificadorIndicesPersonas = null;
-
-        try {
-            verificadorIndicesPersonas = persistenciaIndices.contarUsuariosIndicesIndice(em, secuenciaIndices);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarIndices contarUsuariosIndicesIndice ERROR :" + e);
-        } finally {
-            return verificadorIndicesPersonas;
-        }
-    }
-
-    @Override
-    public BigInteger contarCodigosRepetidosIndices(Short codigo) {
-        BigInteger verificadorIndicesPersonas = null;
-
-        try {
-            verificadorIndicesPersonas = persistenciaIndices.contarCodigosRepetidosIndices(em, codigo);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarIndices contarCodigosRepetidosIndices ERROR :" + e);
-        } finally {
-            return verificadorIndicesPersonas;
-        }
-    }
+   @Override
+   public BigInteger contarCodigosRepetidosIndices(Short codigo) {
+      try {
+         return persistenciaIndices.contarCodigosRepetidosIndices(getEm(), codigo);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarIndices contarCodigosRepetidosIndices ERROR :" + e);
+         return null;
+      }
+   }
 }

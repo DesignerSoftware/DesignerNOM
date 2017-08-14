@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,85 +29,98 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
 
    private static Logger log = Logger.getLogger(AdministrarAportesEntidadesXDia.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaAportesEntidadesXDiaInterface persistenciaAportesEntidadesXDia;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaAportesEntidadesXDiaInterface persistenciaAportesEntidadesXDia;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public List<AportesEntidadesXDia> consultarAportesEntidadesXDia() {
-       List<AportesEntidadesXDia> lista = persistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia(em);
-       return lista;
-    }
-
-    @Override
-    public List<AportesEntidadesXDia> consultarAportesEntidadesPorEmpleadoMesYAnio(BigInteger secEmpleado, short mes, short ano) {
-        List<AportesEntidadesXDia> lista = persistenciaAportesEntidadesXDia.consultarAportesEntidadesPorEmpleadoMesYAnio(em, secEmpleado, mes, ano);
-        return lista;
-    }
-
-    @Override
-    public void crearAportesEntidadesXDia(List<AportesEntidadesXDia> listaAE) {
-     try {
-            for (int i = 0; i < listaAE.size(); i++) {
-
-//                if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
-//                    listAE.get(i).setTipoentidad(null);
-//                } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
-//                    listAE.get(i).setEmpleado(null);
-//                }
-                persistenciaAportesEntidadesXDia.crear(em, listaAE.get(i));
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-        } catch (Exception e) {
-            log.warn("Error crearAportesEntidadesXDia Admi : " + e.toString());
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void editarAportesEntidadesXDia(List<AportesEntidadesXDia> listAE) {
-       try {
-            for (int i = 0; i < listAE.size(); i++) {
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-//                if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
-//                    listAE.get(i).setTipoentidad(null);
-//                } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
-//                    listAE.get(i).setEmpleado(null);
-//                }
-                persistenciaAportesEntidadesXDia.editar(em, listAE.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error editarAportesEntidadesXDia Admi : " + e.toString());
-        }
-    }
+   @Override
+   public List<AportesEntidadesXDia> consultarAportesEntidadesXDia() {
+      try {
+         return persistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void borrarAportesEntidadesXDia(List<AportesEntidadesXDia> listAE) {
-        try {
-            for (int i = 0; i < listAE.size(); i++) {
+   @Override
+   public List<AportesEntidadesXDia> consultarAportesEntidadesPorEmpleadoMesYAnio(BigInteger secEmpleado, short mes, short ano) {
+      try {
+         return persistenciaAportesEntidadesXDia.consultarAportesEntidadesPorEmpleadoMesYAnio(getEm(), secEmpleado, mes, ano);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-//                if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
-//                    listAE.get(i).setTipoentidad(null);
-//                } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
-//                    listAE.get(i).setEmpleado(null);
-//                }
-                persistenciaAportesEntidadesXDia.borrar(em, listAE.get(i));
-            }
-        } catch (Exception e) {
-            log.warn("Error borrarAportesEntidadesXDia Admi : " + e.toString());
-        }
-    }
+   @Override
+   public void crearAportesEntidadesXDia(List<AportesEntidadesXDia> listaAE) {
+      try {
+         for (int i = 0; i < listaAE.size(); i++) {
+            persistenciaAportesEntidadesXDia.crear(getEm(), listaAE.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error crearAportesEntidadesXDia Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public BigDecimal consultarTarifas(BigInteger secEmpresa, short mes, short ano, BigInteger secEmpleado, BigInteger secTipoEntidad) {
-       BigDecimal tarifa = persistenciaAportesEntidadesXDia.cosultarTarifa(em, secEmpresa, secEmpleado, mes, ano, secTipoEntidad);
-       return tarifa;
-    }
+   @Override
+   public void editarAportesEntidadesXDia(List<AportesEntidadesXDia> listAE) {
+      try {
+         for (int i = 0; i < listAE.size(); i++) {
+            persistenciaAportesEntidadesXDia.editar(getEm(), listAE.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error editarAportesEntidadesXDia Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public void borrarAportesEntidadesXDia(List<AportesEntidadesXDia> listAE) {
+      try {
+         for (int i = 0; i < listAE.size(); i++) {
+            persistenciaAportesEntidadesXDia.borrar(getEm(), listAE.get(i));
+         }
+      } catch (Exception e) {
+         log.warn("Error borrarAportesEntidadesXDia Admi : " + e.toString());
+      }
+   }
+
+   @Override
+   public BigDecimal consultarTarifas(BigInteger secEmpresa, short mes, short ano, BigInteger secEmpleado, BigInteger secTipoEntidad) {
+      try {
+         return persistenciaAportesEntidadesXDia.cosultarTarifa(getEm(), secEmpresa, secEmpleado, mes, ano, secTipoEntidad);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

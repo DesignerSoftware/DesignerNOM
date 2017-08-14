@@ -174,15 +174,15 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         log.error(this.getClass().getName() + " Entro en eliminarCPconUndoCierre()");
-         log.error("proceso : " + proceso);
-         log.error("rfEmpleado : " + rfEmpleado);
-         log.error("fechaCorte : " + fechaCorte);
+         log.warn(this.getClass().getName() + " Entro en eliminarCPconUndoCierre()");
+         log.warn("proceso : " + proceso);
+         log.warn("rfEmpleado : " + rfEmpleado);
+         log.warn("fechaCorte : " + fechaCorte);
          DateFormat formatoF = new SimpleDateFormat("ddMMyyyy");
          String fecha = formatoF.format(fechaCorte);
-         log.error("fecha : " + fecha);
+         log.warn("fecha : " + fecha);
          String sqlQuery = "call CORTESPROCESOS_PKG.UndoCierre(" + proceso + ", " + rfEmpleado + ", To_date( '" + fecha + "', 'ddMMyyyy'))";
-         log.error("sqlQuery : " + sqlQuery);
+         log.warn("sqlQuery : " + sqlQuery);
          Query query = em.createNativeQuery(sqlQuery);
 //            query.setParameter(1, proceso);
 //            query.setParameter(2, rfEmpleado);

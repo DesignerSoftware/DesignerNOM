@@ -82,7 +82,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("resultado.size() : " + listSNodos.size());
+               log.warn("resultado.size() : " + listSNodos.size());
                for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
                   String nitTercero = "NULL";
@@ -135,7 +135,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("resultado.size() : " + listSNodos.size());
+               log.warn("resultado.size() : " + listSNodos.size());
                for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
                   String nitTercero = "NULL";
@@ -154,7 +154,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                           + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
                           + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
                   if (i == 0) {
-//                     log.error("stringSQLQuery : " + stringSQLQuery);
+//                     log.warn("stringSQLQuery : " + stringSQLQuery);
                   }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
@@ -197,7 +197,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                      }
                   }
                } catch (Exception e2) {
-                  log.error("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado() CATCH2 : ERROR CONSULTANDO TRANSIENTS");
+                  log.error("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado() CATCH2 : ERROR CONSULTANDO TRANSIENTS "  + e2);
                }
                listSNodos = listaReturn;
             }
@@ -225,7 +225,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("resultado.size() : " + listSNodos.size());
+               log.warn("resultado.size() : " + listSNodos.size());
                for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
                   String nitTercero = "NULL";
@@ -244,7 +244,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                           + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
                           + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
                   if (i == 0) {
-                     log.error("stringSQLQuery : " + stringSQLQuery);
+                     log.warn("stringSQLQuery : " + stringSQLQuery);
                   }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
@@ -262,7 +262,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                listSNodos.remove(0);
                try {
                   while (!listSNodos.isEmpty()) {
-                     log.error("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador() cod(0):" + listSNodos.get(0).getCodigoconcepto());
+                     log.warn("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador() cod(0):" + listSNodos.get(0).getCodigoconcepto());
                      if (listSNodos.get(0).getCodigoconcepto() != null) {
                         List<SolucionesNodos> listaAux = new ArrayList<SolucionesNodos>();
                         int banderita = 0;
@@ -370,7 +370,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          query.setParameter("secuencia", secuencia);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          BigDecimal r = (BigDecimal) query.getSingleResult();
-         log.error("Resultado : " + r);
+         log.warn("Resultado : " + r);
          return r;
       } catch (Exception e) {
          log.error("Error activos Persistencia : " + e.toString());
@@ -391,11 +391,11 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + " ORDER BY c.codigo ASC";
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
          List<SolucionesNodos> listSNodos = query.getResultList();
-         log.error("sql: " + sql);
+         log.warn("sql: " + sql);
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("listSNodos.size() : " + listSNodos.size());
+               log.warn("listSNodos.size() : " + listSNodos.size());
                for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
                   String nitTercero = "NULL";
@@ -450,7 +450,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("listSNodos.size() : " + listSNodos.size());
+               log.warn("listSNodos.size() : " + listSNodos.size());
                for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
                   String nitTercero = "NULL";
@@ -546,7 +546,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("listSNodos.size() : " + listSNodos.size());
+               log.warn("listSNodos.size() : " + listSNodos.size());
 
                String sql2 = "SELECT S.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, T.NIT NITTERCERO, CUD.CODIGO CODIGOCUENTAD, CUC.CODIGO CODIGOCUENTAC,\n"
                        + "              p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, PRO.DESCRIPCION NOMBREPROCESO\n"
@@ -571,7 +571,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
                if (listSNodosAux != null) {
                   if (!listSNodosAux.isEmpty()) {
-                     log.error("listSNodosAux.size() : " + listSNodosAux.size());
+                     log.warn("listSNodosAux.size() : " + listSNodosAux.size());
 
                      for (int i = 0; i < listSNodos.size(); i++) {
                         for (int j = 0; j < listSNodosAux.size(); j++) {
@@ -677,7 +677,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          if (listSNodos != null) {
             if (!listSNodos.isEmpty()) {
-               log.error("resultado.size() : " + listSNodos.size());
+               log.warn("resultado.size() : " + listSNodos.size());
                for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
                   String nitTercero = "NULL";

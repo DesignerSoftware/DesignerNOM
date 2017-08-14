@@ -113,7 +113,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso contador" + retorno);
+            log.warn("PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso contador" + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Persistencia.PersistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso()" + e.getMessage());

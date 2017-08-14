@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Administrar;
 
 import Entidades.SoPoblacionObjetivos;
@@ -15,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,55 +25,92 @@ import org.apache.log4j.Logger;
 public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionObjetivosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarSoPoblacionObjetivos.class);
-    @EJB
-    PersistenciaSoPoblacionObjetivosInterface persistenciaSoPoblacionObjetivos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaSoPoblacionObjetivosInterface persistenciaSoPoblacionObjetivos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    public void modificarSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
-        for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   public void modificarSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
+      try {
+         for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaSoPoblacionObjetivos.editar(em, listSoPoblacionObjetivos.get(i));
-        }
-    }
+            persistenciaSoPoblacionObjetivos.editar(getEm(), listSoPoblacionObjetivos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
-        for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
+   public void borrarSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
+      try {
+         for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaSoPoblacionObjetivos.borrar(em, listSoPoblacionObjetivos.get(i));
-        }
-    }
+            persistenciaSoPoblacionObjetivos.borrar(getEm(), listSoPoblacionObjetivos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
-        for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
+   public void crearSoPoblacionObjetivos(List<SoPoblacionObjetivos> listSoPoblacionObjetivos) {
+      try {
+         for (int i = 0; i < listSoPoblacionObjetivos.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaSoPoblacionObjetivos.crear(em, listSoPoblacionObjetivos.get(i));
-        }
-    }
+            persistenciaSoPoblacionObjetivos.crear(getEm(), listSoPoblacionObjetivos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
- @Override
-    public List<SoPoblacionObjetivos> consultarSoPoblacionObjetivos() {
-        List<SoPoblacionObjetivos> listSoPoblacionObjetivos;
-        listSoPoblacionObjetivos = persistenciaSoPoblacionObjetivos.consultarSoPoblacionObjetivos(em);
-        return listSoPoblacionObjetivos;
-    }
+   @Override
+   public List<SoPoblacionObjetivos> consultarSoPoblacionObjetivos() {
+      try {
+         return persistenciaSoPoblacionObjetivos.consultarSoPoblacionObjetivos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public SoPoblacionObjetivos consultarEvalCompetencia(BigInteger secSoPoblacionObjetivo) {
-        SoPoblacionObjetivos evalCompetencias;
-        evalCompetencias = persistenciaSoPoblacionObjetivos.buscarSoPoblacionObjetivo(em, secSoPoblacionObjetivo);
-        return evalCompetencias;
-    }
+   public SoPoblacionObjetivos consultarEvalCompetencia(BigInteger secSoPoblacionObjetivo) {
+      try {
+         return persistenciaSoPoblacionObjetivos.buscarSoPoblacionObjetivo(getEm(), secSoPoblacionObjetivo);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

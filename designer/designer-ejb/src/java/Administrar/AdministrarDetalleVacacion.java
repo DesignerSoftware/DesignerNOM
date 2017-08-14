@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -37,17 +38,36 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
 
    @EJB
    AdministrarSesionesInterface administrarSesiones;
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarDetalleVacacion(NovedadesSistema novedadSistema) {
       try {
-         persistenciaNovedadesSistema.editar(em, novedadSistema);
+         persistenciaNovedadesSistema.editar(getEm(), novedadSistema);
       } catch (Exception e) {
          log.warn("Error en modificarDetalleVacacion() Admi : " + e.toString());
       }
@@ -56,7 +76,7 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
    @Override
    public List<NovedadesSistema> novedadsistemaPorEmpleadoYVacacion(BigInteger secEmpleado, BigInteger secVacacion) {
       try {
-         return persistenciaNovedadesSistema.novedadsistemaPorEmpleadoYVacacion(em, secEmpleado, secVacacion);
+         return persistenciaNovedadesSistema.novedadsistemaPorEmpleadoYVacacion(getEm(), secEmpleado, secVacacion);
       } catch (Exception e) {
          log.warn("Error en novedadsistemaPorEmpleadoYVacacion() Admi : " + e.toString());
          return null;
@@ -71,7 +91,7 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
    @Override
    public BigDecimal consultarValorTotalDetalleVacacion(BigInteger secNovedadSistema) {
       try {
-         return persistenciaNovedadesSistema.consultarValorTotalDetalleVacacion(em, secNovedadSistema);
+         return persistenciaNovedadesSistema.consultarValorTotalDetalleVacacion(getEm(), secNovedadSistema);
       } catch (Exception e) {
          log.warn("Error en consultarValorTotalDetalleVacacion() Admi : " + e.toString());
          return null;
@@ -80,7 +100,12 @@ public class AdministrarDetalleVacacion implements AdministrarDetalleVacacionInt
 
    @Override
    public List<Vacaciones> periodosEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaVacaciones.periodoVacaciones(em, secuenciaEmpleado);
+      try {
+         return persistenciaVacaciones.periodoVacaciones(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
 }

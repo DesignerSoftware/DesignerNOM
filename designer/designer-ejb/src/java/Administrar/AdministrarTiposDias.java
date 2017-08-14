@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,83 +26,116 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarTiposDias.class);
 
-    @EJB
-    PersistenciaTiposDiasInterface persistenciaTiposDias;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaTiposDiasInterface persistenciaTiposDias;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public void modificarTiposDias(List<TiposDias> listaTiposDias) {
-        for (int i = 0; i < listaTiposDias.size(); i++) {
+   private EntityManagerFactory emf;
+   private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarTiposDias(List<TiposDias> listaTiposDias) {
+      try {
+         for (int i = 0; i < listaTiposDias.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaTiposDias.editar(em, listaTiposDias.get(i));
-        }
-    }
+            persistenciaTiposDias.editar(getEm(), listaTiposDias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarTiposDias(List<TiposDias> listaTiposDias) {
-        for (int i = 0; i < listaTiposDias.size(); i++) {
+   @Override
+   public void borrarTiposDias(List<TiposDias> listaTiposDias) {
+      try {
+         for (int i = 0; i < listaTiposDias.size(); i++) {
             log.warn("Administrar Borrar...");
-            persistenciaTiposDias.borrar(em, listaTiposDias.get(i));
-        }
-    }
+            persistenciaTiposDias.borrar(getEm(), listaTiposDias.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearTiposDias(List<TiposDias> listaTiposDias) {
-        for (int i = 0; i < listaTiposDias.size(); i++) {
-            log.warn("Administrar Creando...");
-            persistenciaTiposDias.crear(em, listaTiposDias.get(i));
-        }
-    }
+   @Override
+   public void crearTiposDias(List<TiposDias> listaTiposDias) {
+      for (int i = 0; i < listaTiposDias.size(); i++) {
+         log.warn("Administrar Creando...");
+         persistenciaTiposDias.crear(getEm(), listaTiposDias.get(i));
+      }
+      try {
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposDias> mostrarTiposDias() {
-        List<TiposDias> listTiposDias;
-        listTiposDias = persistenciaTiposDias.buscarTiposDias(em);
-        return listTiposDias;
-    }
+   @Override
+   public List<TiposDias> mostrarTiposDias() {
+      try {
+         return persistenciaTiposDias.buscarTiposDias(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public TiposDias mostrarTipoDia(BigInteger secTipoDia) {
-        TiposDias tiposDias;
-        tiposDias = persistenciaTiposDias.buscarTipoDia(em, secTipoDia);
-        return tiposDias;
-    }
+   @Override
 
-    @Override
-    public BigInteger verificarDiasLaborales(BigInteger secuenciaTiposDias) {
-        BigInteger verificarBorradoDiasLaborales;
-        try {
-            return verificarBorradoDiasLaborales = persistenciaTiposDias.contadorDiasLaborales(em, secuenciaTiposDias);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSDIAS VERIFICARDIASLABORALES ERROR :" + e);
-            return null;
-        }
-    }
+   public TiposDias mostrarTipoDia(BigInteger secTipoDia) {
+      try {
+         return persistenciaTiposDias.buscarTipoDia(getEm(), secTipoDia);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger verificarExtrasRecargos(BigInteger secuenciaTiposDias) {
-        BigInteger verificarBorradoExtrasRecargos = null;
-        try {
-            verificarBorradoExtrasRecargos = persistenciaTiposDias.contadorExtrasRecargos(em, secuenciaTiposDias);
-        } catch (Exception e) {
-            log.error("ERROR ADMINISTRARTIPOSDIAS VERIFICAREXTRASRECARGOS ERROR :" + e);
-            verificarBorradoExtrasRecargos = null;
-        }
-        finally{
-            return verificarBorradoExtrasRecargos;
-        }
-    }
+   @Override
+   public BigInteger verificarDiasLaborales(BigInteger secuenciaTiposDias) {
+      try {
+         return persistenciaTiposDias.contadorDiasLaborales(getEm(), secuenciaTiposDias);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSDIAS VERIFICARDIASLABORALES ERROR :" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger verificarExtrasRecargos(BigInteger secuenciaTiposDias) {
+      try {
+         return persistenciaTiposDias.contadorExtrasRecargos(getEm(), secuenciaTiposDias);
+      } catch (Exception e) {
+         log.error("ERROR ADMINISTRARTIPOSDIAS VERIFICAREXTRASRECARGOS ERROR :" + e);
+         return null;
+      }
+   }
 }

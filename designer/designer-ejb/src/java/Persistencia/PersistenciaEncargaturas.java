@@ -49,7 +49,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
      */
     @Override
     public List<Encargaturas> reemplazoPersona(EntityManager em, BigInteger secuenciaEmpleado) {
-        log.error(this.getClass().getName() + ".reemplazoPersona()");
+        log.warn(this.getClass().getName() + ".reemplazoPersona()");
         Long resultado = this.contarReemplazoPersona(em, secuenciaEmpleado);
         if (resultado != null && resultado > 0) {
             try {

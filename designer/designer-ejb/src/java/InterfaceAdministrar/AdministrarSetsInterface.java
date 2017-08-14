@@ -48,9 +48,4 @@ public interface AdministrarSetsInterface {
      * @return empl Empleado que tiene la secuencia dada
      */
     public Empleados buscarEmpleado(BigInteger secuencia);
-    /**
-     * Cierra la sesion
-     */
-    public void salir();
-    
 }

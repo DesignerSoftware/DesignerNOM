@@ -19,6 +19,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -185,14 +186,12 @@ public class ControlTipoSueldo implements Serializable {
       nuevoTSFormulaConcepto = new TSFormulasConceptos();
       nuevoTSFormulaConcepto.setFormula(new Formulas());
       nuevoTSFormulaConcepto.setConcepto(new Conceptos());
-      nuevoTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
       nuevoTSGrupoTipoEntidad = new TSGruposTiposEntidades();
       nuevoTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
       nuevoTEFormulaConcepto = new TEFormulasConceptos();
       nuevoTEFormulaConcepto.setFormula(new Formulas());
       nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
       nuevoTEFormulaConcepto.setConcepto(new Conceptos());
-      nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
       duplicarTipoSueldo = new TiposSueldos();
       duplicarTSFormulaConcepto = new TSFormulasConceptos();
       duplicarTEFormulaConcepto = new TEFormulasConceptos();
@@ -212,8 +211,14 @@ public class ControlTipoSueldo implements Serializable {
       lovTiposEntidades = null;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -244,7 +249,7 @@ public class ControlTipoSueldo implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -381,7 +386,7 @@ public class ControlTipoSueldo implements Serializable {
             if (tipoListaTEFormulas == 0) {
                for (int i = 0; i < lista.size(); i++) {
                   TEFormulasConceptos aux = lista.get(i);
-                  if ((aux.getConcepto().getEmpresa().getSecuencia().equals(teFormulaTablaSeleccionado.getConcepto().getEmpresa().getSecuencia()))
+                  if (aux.getConcepto().getEmpresa().equals(teFormulaTablaSeleccionado.getConcepto().getEmpresa())
                           && (aux.getTipoentidad().getSecuencia().equals(teFormulaTablaSeleccionado.getTipoentidad().getSecuencia()))) {
                      conteo++;
                   }
@@ -390,7 +395,7 @@ public class ControlTipoSueldo implements Serializable {
             if (tipoListaTEFormulas == 1) {
                for (int i = 0; i < lista.size(); i++) {
                   TEFormulasConceptos aux = lista.get(i);
-                  if ((aux.getConcepto().getEmpresa().getSecuencia().equals(teFormulaTablaSeleccionado.getConcepto().getEmpresa().getSecuencia()))
+                  if ((aux.getConcepto().getEmpresa().equals(teFormulaTablaSeleccionado.getConcepto().getEmpresa()))
                           && (aux.getTipoentidad().getSecuencia().equals(teFormulaTablaSeleccionado.getTipoentidad().getSecuencia()))) {
                      conteo++;
                   }
@@ -405,7 +410,7 @@ public class ControlTipoSueldo implements Serializable {
          int conteo = 0;
          List<TEFormulasConceptos> lista = administrarTipoSueldo.listaTEFormulasConceptos();
          for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).getConcepto().getEmpresa().getSecuencia().equals(nuevoTEFormulaConcepto.getConcepto().getEmpresa().getSecuencia())
+            if (lista.get(i).getConcepto().getEmpresa().equals(nuevoTEFormulaConcepto.getConcepto().getEmpresa())
                     && lista.get(i).getTipoentidad().getSecuencia().equals(nuevoTEFormulaConcepto.getTipoentidad().getSecuencia())) {
                conteo++;
                break;
@@ -419,7 +424,7 @@ public class ControlTipoSueldo implements Serializable {
          int conteo = 0;
          List<TEFormulasConceptos> lista = administrarTipoSueldo.listaTEFormulasConceptos();
          for (int i = 0; i < lista.size(); i++) {
-            if (lista.get(i).getConcepto().getEmpresa().getSecuencia().equals(duplicarTEFormulaConcepto.getConcepto().getEmpresa().getSecuencia())
+            if (lista.get(i).getConcepto().getEmpresa().equals(duplicarTEFormulaConcepto.getConcepto().getEmpresa())
                     && lista.get(i).getTipoentidad().getSecuencia().equals(duplicarTEFormulaConcepto.getTipoentidad().getSecuencia())) {
                conteo++;
                break;
@@ -857,7 +862,7 @@ public class ControlTipoSueldo implements Serializable {
             tsFormulaTablaSeleccionado.getConcepto().getDescripcion();
             habilitarBotonLov();
          } else if (cualCeldaTSFormulas == 2) {
-            tsFormulaTablaSeleccionado.getConcepto().getEmpresa().getNombre();
+            tsFormulaTablaSeleccionado.getConcepto().getNombreEmpresa();
             deshabiltiarBotonLov();
          }
       }
@@ -897,7 +902,7 @@ public class ControlTipoSueldo implements Serializable {
             teFormulaTablaSeleccionado.getConcepto().getDescripcion();
             habilitarBotonLov();
          } else if (cualCeldaTEFormulas == 3) {
-            teFormulaTablaSeleccionado.getConcepto().getEmpresa().getNombre();
+            teFormulaTablaSeleccionado.getConcepto().getNombreEmpresa();
             deshabiltiarBotonLov();
          }
 
@@ -1292,7 +1297,6 @@ public class ControlTipoSueldo implements Serializable {
          nuevoTSFormulaConcepto = new TSFormulasConceptos();
          nuevoTSFormulaConcepto.setFormula(new Formulas());
          nuevoTSFormulaConcepto.setConcepto(new Conceptos());
-         nuevoTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorDatosNullTSFormula').show()");
       }
@@ -1352,7 +1356,6 @@ public class ControlTipoSueldo implements Serializable {
             nuevoTEFormulaConcepto.setFormula(new Formulas());
             nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
             nuevoTEFormulaConcepto.setConcepto(new Conceptos());
-            nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
             guardadoTEFormulas = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1374,7 +1377,6 @@ public class ControlTipoSueldo implements Serializable {
       nuevoTSFormulaConcepto = new TSFormulasConceptos();
       nuevoTSFormulaConcepto.setFormula(new Formulas());
       nuevoTSFormulaConcepto.setConcepto(new Conceptos());
-      nuevoTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
    }
 
    public void limpiarNuevaTSGrupo() {
@@ -1387,7 +1389,6 @@ public class ControlTipoSueldo implements Serializable {
       nuevoTEFormulaConcepto.setFormula(new Formulas());
       nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
       nuevoTEFormulaConcepto.setConcepto(new Conceptos());
-      nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
    }
 
    //DUPLICAR VC
@@ -1510,7 +1511,6 @@ public class ControlTipoSueldo implements Serializable {
          duplicarTSFormulaConcepto = new TSFormulasConceptos();
          duplicarTSFormulaConcepto.setFormula(new Formulas());
          duplicarTSFormulaConcepto.setConcepto(new Conceptos());
-         duplicarTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorDatosNullTSFormula').show()");
       }
@@ -1579,7 +1579,6 @@ public class ControlTipoSueldo implements Serializable {
             teFormulaTablaSeleccionado = duplicarTEFormulaConcepto;
             contarRegistrosTipoEntidades();
             cambiosPagina = false;
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTEFormula");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTEFormula').hide()");
@@ -1591,13 +1590,10 @@ public class ControlTipoSueldo implements Serializable {
             duplicarTEFormulaConcepto.setFormula(new Formulas());
             duplicarTEFormulaConcepto.setTipoentidad(new TiposEntidades());
             duplicarTEFormulaConcepto.setConcepto(new Conceptos());
-            duplicarTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorNuevoRegistroTEFormula').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorDatosNullTEFormula').show()");
       }
    }
@@ -1614,7 +1610,6 @@ public class ControlTipoSueldo implements Serializable {
       duplicarTSFormulaConcepto = new TSFormulasConceptos();
       duplicarTSFormulaConcepto.setFormula(new Formulas());
       duplicarTSFormulaConcepto.setConcepto(new Conceptos());
-      duplicarTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
    }
 
    public void limpiarDuplicarTSGrupo() {
@@ -1627,7 +1622,6 @@ public class ControlTipoSueldo implements Serializable {
       duplicarTEFormulaConcepto.setFormula(new Formulas());
       duplicarTEFormulaConcepto.setTipoentidad(new TiposEntidades());
       duplicarTEFormulaConcepto.setConcepto(new Conceptos());
-      duplicarTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
    }
 
    public void limpiarMSNRastros() {
@@ -2518,7 +2512,8 @@ public class ControlTipoSueldo implements Serializable {
    public void actualizarConceptoTE() {
       if (tipoActualizacion == 0) {
          teFormulaTablaSeleccionado.setConcepto(conceptoSeleccionado);
-         teFormulaTablaSeleccionado.getConcepto().getEmpresa().setNombre(conceptoSeleccionado.getEmpresa().getNombre());
+         teFormulaTablaSeleccionado.getConcepto().setEmpresa(conceptoSeleccionado.getEmpresa());
+         teFormulaTablaSeleccionado.getConcepto().setNombreEmpresa(conceptoSeleccionado.getNombreEmpresa());
          if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
             if (listTEFormulasConceptosModificar.isEmpty()) {
                listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
@@ -2536,13 +2531,15 @@ public class ControlTipoSueldo implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosTEFormula");
       } else if (tipoActualizacion == 1) {
          nuevoTEFormulaConcepto.setConcepto(conceptoSeleccionado);
-         nuevoTEFormulaConcepto.getConcepto().getEmpresa().setNombre(conceptoSeleccionado.getEmpresa().getNombre());
+         nuevoTEFormulaConcepto.getConcepto().setNombreEmpresa(conceptoSeleccionado.getNombreEmpresa());
+         nuevoTEFormulaConcepto.getConcepto().setEmpresa(conceptoSeleccionado.getEmpresa());
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTEFormulaCConcepto");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTEFormulaEmpresa");
       } else if (tipoActualizacion == 2) {
          duplicarTEFormulaConcepto.setConcepto(conceptoSeleccionado);
-         duplicarTEFormulaConcepto.getConcepto().getEmpresa().setNombre(conceptoSeleccionado.getEmpresa().getNombre());
+         duplicarTEFormulaConcepto.getConcepto().setNombreEmpresa(conceptoSeleccionado.getNombreEmpresa());
+         duplicarTEFormulaConcepto.getConcepto().setEmpresa(conceptoSeleccionado.getEmpresa());
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTEFormulaCConcepto");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTEFormulaEmpresa");

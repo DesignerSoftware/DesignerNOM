@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,108 +26,137 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
 
    private static Logger log = Logger.getLogger(AdministrarMotivosRetiros.class);
 
-    @EJB
-    PersistenciaMotivosRetirosInterface persistenciaMotivosRetiros;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMotivosRetirosInterface persistenciaMotivosRetiros;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
-        for (int i = 0; i < listaMotivosRetiros.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
+      try {
+         for (int i = 0; i < listaMotivosRetiros.size(); i++) {
             log.warn("Administrar Modificando...");
             log.warn("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
-            persistenciaMotivosRetiros.editar(em, listaMotivosRetiros.get(i));
-        }
-    }
+            persistenciaMotivosRetiros.editar(getEm(), listaMotivosRetiros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
-        for (int i = 0; i < listaMotivosRetiros.size(); i++) {
+   @Override
+   public void borrarMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
+      try {
+         for (int i = 0; i < listaMotivosRetiros.size(); i++) {
             log.warn("Administrar Borrando...");
             log.warn("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
-            persistenciaMotivosRetiros.borrar(em, listaMotivosRetiros.get(i));
-        }
-    }
+            persistenciaMotivosRetiros.borrar(getEm(), listaMotivosRetiros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
-        for (int i = 0; i < listaMotivosRetiros.size(); i++) {
+   @Override
+   public void crearMotivosRetiros(List<MotivosRetiros> listaMotivosRetiros) {
+      try {
+         for (int i = 0; i < listaMotivosRetiros.size(); i++) {
             log.warn("Administrar Creando...");
             log.warn("Nombre " + listaMotivosRetiros.get(i).getNombre() + " Codigo " + listaMotivosRetiros.get(i).getCodigo());
-            persistenciaMotivosRetiros.crear(em, listaMotivosRetiros.get(i));
-        }
-    }
+            persistenciaMotivosRetiros.crear(getEm(), listaMotivosRetiros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<MotivosRetiros> consultarMotivosRetiros() {
-        List<MotivosRetiros> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaMotivosRetiros.consultarMotivosRetiros(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<MotivosRetiros> consultarMotivosRetiros() {
+      try {
+         return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public MotivosRetiros consultarMotivoRetiro(BigInteger secMotivosRetiros) {
-        MotivosRetiros subCategoria;
-        subCategoria = persistenciaMotivosRetiros.consultarMotivoRetiro(em, secMotivosRetiros);
-        return subCategoria;
-    }
+   @Override
+   public MotivosRetiros consultarMotivoRetiro(BigInteger secMotivosRetiros) {
+      try {
+         return persistenciaMotivosRetiros.consultarMotivoRetiro(getEm(), secMotivosRetiros);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarHVExperienciasLaboralesMotivoRetiro(BigInteger secMotivosRetiros) {
-        BigInteger contarHVExperienciasLaboralesMotivoRetiro = null;
+   @Override
+   public BigInteger contarHVExperienciasLaboralesMotivoRetiro(BigInteger secMotivosRetiros) {
+      try {
+         return persistenciaMotivosRetiros.contarHVExperienciasLaboralesMotivoRetiro(getEm(), secMotivosRetiros);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarHVExperienciasLaboralesMotivoRetiro = persistenciaMotivosRetiros.contarHVExperienciasLaboralesMotivoRetiro(em, secMotivosRetiros);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarNovedadesSistemasMotivoRetiro(BigInteger secMotivosRetiros) {
+      try {
+         return persistenciaMotivosRetiros.contarNovedadesSistemasMotivoRetiro(getEm(), secMotivosRetiros);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public BigInteger contarNovedadesSistemasMotivoRetiro(BigInteger secMotivosRetiros) {
-        BigInteger contarNovedadesSistemasMotivoRetiro = null;
+   @Override
+   public BigInteger contarRetiMotivosRetirosMotivoRetiro(BigInteger secMotivosRetiros) {
+      try {
+         return persistenciaMotivosRetiros.contarRetiMotivosRetirosMotivoRetiro(getEm(), secMotivosRetiros);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
+         return null;
+      }
+   }
 
-        try {
-            return contarNovedadesSistemasMotivoRetiro = persistenciaMotivosRetiros.contarNovedadesSistemasMotivoRetiro(em, secMotivosRetiros);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigInteger contarRetiMotivosRetirosMotivoRetiro(BigInteger secMotivosRetiros) {
-        BigInteger contarRetiMotivosRetirosMotivoRetiro = null;
-
-        try {
-            return contarRetiMotivosRetirosMotivoRetiro = persistenciaMotivosRetiros.contarRetiMotivosRetirosMotivoRetiro(em, secMotivosRetiros);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarMotivosRetiros contarEscalafones ERROR : " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigInteger contarRetiradosMotivoRetiro(BigInteger secMotivosRetiros) {
-        BigInteger contarRetiradosMotivoRetiro = null;
-
-        try {
-            return contarRetiradosMotivoRetiro = persistenciaMotivosRetiros.contarRetiradosMotivoRetiro(em, secMotivosRetiros);
-        } catch (Exception e) {
-            log.error("ERROR AdministrarMotivosRetiros contarRetiradosMotivoRetiro ERROR : " + e);
-            return null;
-        }
-    }
+   @Override
+   public BigInteger contarRetiradosMotivoRetiro(BigInteger secMotivosRetiros) {
+      try {
+         return persistenciaMotivosRetiros.contarRetiradosMotivoRetiro(getEm(), secMotivosRetiros);
+      } catch (Exception e) {
+         log.error("ERROR AdministrarMotivosRetiros contarRetiradosMotivoRetiro ERROR : " + e);
+         return null;
+      }
+   }
 }

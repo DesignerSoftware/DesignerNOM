@@ -1,6 +1,8 @@
 package Controlador;
 
 import Banner.BannerInicioRed;
+import ClasesAyuda.CadenasDesignerInn;
+import ClasesAyuda.LeerArchivoXML;
 import Entidades.Conexiones;
 import Entidades.Recordatorios;
 import InterfaceAdministrar.AdministrarInicioRedInterface;
@@ -59,13 +61,29 @@ public class ControlInicioRed implements Serializable {
    private String msgSesion;
    private String candadoLogin;
 
+   private static List<CadenasDesignerInn> listaCadenasDesignerInn;
+   private static CadenasDesignerInn cadena;
+
    public ControlInicioRed() {
-      log.info(this.getClass().getName() + ".constructor()");
-      inicializarCampos();
-      asignarImagenCandado(false);
-      inicializarListaActualizaciones();
-      llenarBannerSinEntrar();
-      log.info("estadoinicio constructor: " + estadoInicio);
+      cadena = new CadenasDesignerInn("1", "N", "N", "N");
+      try {
+         log.info(this.getClass().getName() + ".constructor()");
+         inicializarCampos();
+         asignarImagenCandado(false);
+         inicializarListaActualizaciones();
+         llenarBannerSinEntrar();
+         listaCadenasDesignerInn = (new LeerArchivoXML()).leerArchivoDesignerInn();
+         if (listaCadenasDesignerInn != null) {
+            if (!listaCadenasDesignerInn.isEmpty()) {
+               for (CadenasDesignerInn recCadena : listaCadenasDesignerInn) {
+                  log.warn("recCadena.getId(): " + recCadena.getId() + ", getNombrepoolJPA: " + recCadena.getNombrepoolJPA() + ", getBd: " + recCadena.getBd() + ", getUsapool: " + recCadena.getUsapool());
+               }
+            }
+         }
+         log.info("estadoinicio constructor: " + estadoInicio);
+      } catch (Exception e) {
+         log.fatal("ControlInicioRed.<init>()" + e);
+      }
    }
 
    private void inicializarCampos() {
@@ -100,6 +118,26 @@ public class ControlInicioRed implements Serializable {
       actualizaciones.add("form:btnProverbio");
    }
 
+   public CadenasDesignerInn validarCadenas() {
+      cadena.setBd(baseDatos);
+      cadena.setNombrepoolJPA(baseDatos);
+      try {
+         for (CadenasDesignerInn recCadena : listaCadenasDesignerInn) {
+            if (recCadena.getBd().equals(baseDatos) && recCadena.getUsapool().equals("S")) {
+               cadena.setBd(recCadena.getBd());
+               cadena.setId(recCadena.getId());
+               cadena.setNombrepoolJPA(recCadena.getNombrepoolJPA());
+               cadena.setUsapool(recCadena.getUsapool());
+               break;
+            }
+         }
+         return cadena;
+      } catch (Exception e) {
+         log.fatal("ControlInicioRed.obtenerCadenas()" + e);
+         return null;
+      }
+   }
+
    public void ingresar() throws IOException {
       try {
 //         RequestContext context = RequestContext.getCurrentInstance();
@@ -110,13 +148,13 @@ public class ControlInicioRed implements Serializable {
          if (!estadoInicio) {
             // Iniciar sesión.
             if (!baseDatos.equals("") && !usuario.equals("") && !contraseña.equals("")) {
-               // Utiliza los datos ingresados
-               if (administrarInicioRed.conexionInicial(baseDatos)) {
-                  // La base de datos fue verificada.
-                  if (administrarInicioRed.validarUsuario(usuario)) {
-                     // El usuario fue verificado
-                     if (administrarInicioRed.conexionUsuario(baseDatos, usuario, contraseña)) {
-                        // La contraseña fue validada
+               // Utiliza los datos ingresados // Crea una sesion con entrada // Si no usa pool usa el nombre de la BD por default
+               if (administrarInicioRed.conexionInicial((validarCadenas()).getNombrepoolJPA())) {
+                  // La base de datos fue verificada // Da RollEntrada -> compruba el usuario
+                  if (administrarInicioRed.validarUsuario(usuario, cadena.getUsapool())) {
+                     // El usuario fue verificado // Consulta perfil del usuario -> crea la conexion con el usuario y password
+                     if (administrarInicioRed.conexionUsuario(baseDatos, usuario, contraseña, cadena.getUsapool())) {
+                        // La contraseña fue validada // Valida la conexion -> setea el roll -> crea el SessionEntityManager -> lo agraga a AdministrarSesiones
                         if (administrarInicioRed.validarConexionUsuario(ses.getId())) {
                            // La sesión fue otorgada
                            cambioClave = false;
@@ -348,6 +386,9 @@ public class ControlInicioRed implements Serializable {
 
    //GETTER AND SETTER
    public String getUsuario() {
+      if (usuario == null) {
+         usuario = "";
+      }
       return usuario;
    }
 
@@ -356,6 +397,9 @@ public class ControlInicioRed implements Serializable {
    }
 
    public String getContraseña() {
+      if (contraseña == null) {
+         contraseña = "";
+      }
       return contraseña;
    }
 
@@ -364,6 +408,9 @@ public class ControlInicioRed implements Serializable {
    }
 
    public String getBaseDatos() {
+      if (baseDatos == null) {
+         baseDatos = "";
+      }
       return baseDatos;
    }
 

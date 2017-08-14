@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -32,93 +33,172 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
    private static Logger log = Logger.getLogger(AdministrarLiquidacionesLogs.class);
 
    @EJB
-    PersistenciaLiquidacionesLogsInterface persistenciaLiquidacionesLogs;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    @EJB
-    PersistenciaOperandosInterface persistenciaOperandos;
-    @EJB
-    PersistenciaProcesosInterface persistenciaProcesos;
+   PersistenciaLiquidacionesLogsInterface persistenciaLiquidacionesLogs;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   @EJB
+   PersistenciaOperandosInterface persistenciaOperandos;
+   @EJB
+   PersistenciaProcesosInterface persistenciaProcesos;
 
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
-        for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
-            persistenciaLiquidacionesLogs.editar(em, listaLiquidacionesLogs.get(i));
-        }
-    }
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
-        for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
-            persistenciaLiquidacionesLogs.borrar(em, listaLiquidacionesLogs.get(i));
-        }
-    }
+   public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
+      try {
+         for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
+            persistenciaLiquidacionesLogs.editar(getEm(), listaLiquidacionesLogs.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
-        for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
-            persistenciaLiquidacionesLogs.crear(em, listaLiquidacionesLogs.get(i));
-        }
-    }
+   public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
+      try {
+         for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
+            persistenciaLiquidacionesLogs.borrar(getEm(), listaLiquidacionesLogs.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<LiquidacionesLogs> consultarLiquidacionesLogs() {
-        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(em);
-    }
+   public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs) {
+      try {
+         for (int i = 0; i < listaLiquidacionesLogs.size(); i++) {
+            persistenciaLiquidacionesLogs.crear(getEm(), listaLiquidacionesLogs.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
-        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(em, secEmpleado);
-    }
+   public List<LiquidacionesLogs> consultarLiquidacionesLogs() {
+      try {
+         return persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando) {
-        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(em, secOperando);
-    }
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso) {
-        return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(em, secProceso);
-    }
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando) {
+      try {
+         return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(getEm(), secOperando);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Empleados> consultarLOVEmpleados() {
-        List<Empleados> listEmpleados;
-        listEmpleados = persistenciaEmpleados.consultarEmpleadosLiquidacionesLog(em);
-        return listEmpleados;
-    }
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso) {
+      try {
+         return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(getEm(), secProceso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Operandos> consultarLOVOperandos() {
-        return persistenciaOperandos.buscarOperandos(em);
-    }
+   @Override
+   public List<Empleados> consultarLOVEmpleados() {
+      try {
+         return persistenciaEmpleados.consultarEmpleadosLiquidacionesLog(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public List<Procesos> consultarLOVProcesos() {
-        return persistenciaProcesos.lovProcesos(em);
-    }
+   @Override
+   public List<Operandos> consultarLOVOperandos() {
+      try {
+         return persistenciaOperandos.buscarOperandos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Long getTotalRegistrosLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
-        return persistenciaLiquidacionesLogs.getTotalRegistrosLiquidacionesLogsPorEmpleado(em, secEmpleado);
-    }
+   @Override
+   public List<Procesos> consultarLOVProcesos() {
+      try {
+         return persistenciaProcesos.lovProcesos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Long getTotalRegistrosLiquidacionesLogsPorOperando(BigInteger secOperando) {
-        return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorOperando(em, secOperando);
-    }
+   @Override
+   public Long getTotalRegistrosLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaLiquidacionesLogs.getTotalRegistrosLiquidacionesLogsPorEmpleado(getEm(), secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Long getTotalRegistrosLiquidacionesLogsPorProceso(BigInteger secProceso) {
-        return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorProceso(em, secProceso);
-    }
+   @Override
+   public Long getTotalRegistrosLiquidacionesLogsPorOperando(BigInteger secOperando) {
+      try {
+         return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorOperando(getEm(), secOperando);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Long getTotalRegistrosLiquidacionesLogsPorProceso(BigInteger secProceso) {
+      try {
+         return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorProceso(getEm(), secProceso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

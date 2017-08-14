@@ -123,7 +123,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
                        + " FROM VIGENCIASARPS V, ESTRUCTURAS E, CARGOS C WHERE V.ESTRUCTURA = E.SECUENCIA AND V.CARGO = C.SECUENCIA", VigenciasArpsAux.class);
                List<VigenciasArpsAux> listaAux = q2.getResultList();
                if (listaAux != null) {
-                  log.error("Persistencia.PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
+                  log.warn("Persistencia.PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaVigencias.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {

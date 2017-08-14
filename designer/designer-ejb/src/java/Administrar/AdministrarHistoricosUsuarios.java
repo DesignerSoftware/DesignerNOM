@@ -20,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,93 +32,141 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
 
    private static Logger log = Logger.getLogger(AdministrarHistoricosUsuarios.class);
 
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    @EJB
-    PersistenciaHistoricosUsuariosInterface persistenciaHistoricosUsuarios;
-    @EJB
-    PersistenciaPersonasInterface persistenciaPersonas;
-    @EJB
-    PersistenciaUsuariosInterface persistenciaUsuarios;
-    @EJB
-    PersistenciaPerfilesInterface persistenciaPerfiles;
-            
-    private EntityManager em;
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaHistoricosUsuariosInterface persistenciaHistoricosUsuarios;
+   @EJB
+   PersistenciaPersonasInterface persistenciaPersonas;
+   @EJB
+   PersistenciaUsuariosInterface persistenciaUsuarios;
+   @EJB
+   PersistenciaPerfilesInterface persistenciaPerfiles;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public List<HistoricosUsuarios> consultarHistoricosUsuarios(BigInteger secUsuario) {
-        List<HistoricosUsuarios> listaHistoricos =  persistenciaHistoricosUsuarios.buscarHistoricosUsuarios(em, secUsuario);
-        return listaHistoricos;
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void crearHistoricosUsuarios(List<HistoricosUsuarios> listaCrear) {
-        for(int i = 0; i< listaCrear.size();i++){
-            if(listaCrear.get(i).getPerfil().getSecuencia() == null){
-                listaCrear.get(i).setPerfil(new Perfiles());
-            }
-            if(listaCrear.get(i).getUsuario().getSecuencia() == null){
-                listaCrear.get(i).setUsuario(new Usuarios());
-            }
-            if(listaCrear.get(i).getPersona().getSecuencia() == null){
-                listaCrear.get(i).setPersona(new Personas());
-            }
-            persistenciaHistoricosUsuarios.crear(em, listaCrear.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void modificarHistoricosUsuarios(List<HistoricosUsuarios> listaModificar) {
-         for(int i = 0; i< listaModificar.size();i++){
-             if(listaModificar.get(i).getPerfil().getSecuencia() == null){
-                listaModificar.get(i).setPerfil(new Perfiles());
-            }
-            if(listaModificar.get(i).getUsuario().getSecuencia() == null){
-                listaModificar.get(i).setUsuario(new Usuarios());
-            }
-            if(listaModificar.get(i).getPersona().getSecuencia() == null){
-                listaModificar.get(i).setPersona(new Personas());
-            }
-            persistenciaHistoricosUsuarios.editar(em, listaModificar.get(i));
-        }
-    }
+   @Override
+   public List<HistoricosUsuarios> consultarHistoricosUsuarios(BigInteger secUsuario) {
+      try {
+         List<HistoricosUsuarios> listaHistoricos = persistenciaHistoricosUsuarios.buscarHistoricosUsuarios(getEm(), secUsuario);
+         return listaHistoricos;
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public void borrarHistoricosUsuarios(List<HistoricosUsuarios> listaBorrar) {
-         for(int i = 0; i< listaBorrar.size();i++){
-             if(listaBorrar.get(i).getPerfil().getSecuencia() == null){
-                listaBorrar.get(i).setPerfil(new Perfiles());
+   @Override
+   public void crearHistoricosUsuarios(List<HistoricosUsuarios> listaCrear) {
+      try {
+         for (int i = 0; i < listaCrear.size(); i++) {
+            if (listaCrear.get(i).getPerfil().getSecuencia() == null) {
+               listaCrear.get(i).setPerfil(new Perfiles());
             }
-            if(listaBorrar.get(i).getUsuario().getSecuencia() == null){
-                listaBorrar.get(i).setUsuario(new Usuarios());
+            if (listaCrear.get(i).getUsuario().getSecuencia() == null) {
+               listaCrear.get(i).setUsuario(new Usuarios());
             }
-            if(listaBorrar.get(i).getPersona().getSecuencia() == null){
-                listaBorrar.get(i).setPersona(new Personas());
+            if (listaCrear.get(i).getPersona().getSecuencia() == null) {
+               listaCrear.get(i).setPersona(new Personas());
             }
-            persistenciaHistoricosUsuarios.borrar(em, listaBorrar.get(i));
-        }
-    }
+            persistenciaHistoricosUsuarios.crear(getEm(), listaCrear.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Personas> lovPersonas() {
-        List<Personas> lovPersonas = persistenciaPersonas.consultarPersonas(em);
-        return lovPersonas;
-    }
+   @Override
+   public void modificarHistoricosUsuarios(List<HistoricosUsuarios> listaModificar) {
+      try {
+         for (int i = 0; i < listaModificar.size(); i++) {
+            if (listaModificar.get(i).getPerfil().getSecuencia() == null) {
+               listaModificar.get(i).setPerfil(new Perfiles());
+            }
+            if (listaModificar.get(i).getUsuario().getSecuencia() == null) {
+               listaModificar.get(i).setUsuario(new Usuarios());
+            }
+            if (listaModificar.get(i).getPersona().getSecuencia() == null) {
+               listaModificar.get(i).setPersona(new Personas());
+            }
+            persistenciaHistoricosUsuarios.editar(getEm(), listaModificar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Perfiles> lovPerfiles() {
-        List<Perfiles> lovPerfiles = persistenciaPerfiles.consultarPerfiles(em);
-        return lovPerfiles;
-    }
+   @Override
+   public void borrarHistoricosUsuarios(List<HistoricosUsuarios> listaBorrar) {
+      try {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            if (listaBorrar.get(i).getPerfil().getSecuencia() == null) {
+               listaBorrar.get(i).setPerfil(new Perfiles());
+            }
+            if (listaBorrar.get(i).getUsuario().getSecuencia() == null) {
+               listaBorrar.get(i).setUsuario(new Usuarios());
+            }
+            if (listaBorrar.get(i).getPersona().getSecuencia() == null) {
+               listaBorrar.get(i).setPersona(new Personas());
+            }
+            persistenciaHistoricosUsuarios.borrar(getEm(), listaBorrar.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<Usuarios> lovUsuarios(BigInteger secUsuario) {
-       List<Usuarios> lovUsuario = persistenciaUsuarios.buscarUsuariosXSecuencia(em, secUsuario);
-       return lovUsuario;
-    }
+   @Override
+   public List<Personas> lovPersonas() {
+      try {
+         return persistenciaPersonas.consultarPersonas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<Perfiles> lovPerfiles() {
+      try {
+         return persistenciaPerfiles.consultarPerfiles(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<Usuarios> lovUsuarios(BigInteger secUsuario) {
+      try {
+         return persistenciaUsuarios.buscarUsuariosXSecuencia(getEm(), secUsuario);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

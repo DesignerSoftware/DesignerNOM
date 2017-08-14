@@ -34,8 +34,6 @@ public interface AdministrarVigenciasCargosInterface {
 
     public Empleados buscarEmpleado(BigInteger secuencia);
 
-    public void salir();
-
     public List<VwTiposEmpleados> FiltrarTipoTrabajador();
     
     public List<ClasesRiesgos> lovClasesRiesgos();

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,69 +26,103 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
 
    private static Logger log = Logger.getLogger(AdministrarTiposCursos.class);
 
-    @EJB
-    PersistenciaTiposCursosInterface persistenciaTiposCursos;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaTiposCursosInterface persistenciaTiposCursos;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
-    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarTiposCursos(List<TiposCursos> listaTiposCursos) {
-        for (int i = 0; i < listaTiposCursos.size(); i++) {
-            persistenciaTiposCursos.editar(em, listaTiposCursos.get(i));
-        }
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void borrarTiposCursos(List<TiposCursos> listaTiposCursos) {
-        for (int i = 0; i < listaTiposCursos.size(); i++) {
-            persistenciaTiposCursos.borrar(em, listaTiposCursos.get(i));
-        }
-    }
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public void crearTiposCursos(List<TiposCursos> listaTiposCursos) {
-        for (int i = 0; i < listaTiposCursos.size(); i++) {
-            persistenciaTiposCursos.crear(em, listaTiposCursos.get(i));
-        }
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<TiposCursos> consultarTiposCursos() {
-        List<TiposCursos> listaTiposCursos;
-        listaTiposCursos = persistenciaTiposCursos.consultarTiposCursos(em);
-        return listaTiposCursos;
-    }
+   @Override
+   public void modificarTiposCursos(List<TiposCursos> listaTiposCursos) {
+      try {
+         for (int i = 0; i < listaTiposCursos.size(); i++) {
+            persistenciaTiposCursos.editar(getEm(), listaTiposCursos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public TiposCursos consultarTipoIndicador(BigInteger secMotivoDemanda) {
-        TiposCursos tiposIndicadores;
-        tiposIndicadores = persistenciaTiposCursos.consultarTipoCurso(em, secMotivoDemanda);
-        return tiposIndicadores;
-    }
+   @Override
+   public void borrarTiposCursos(List<TiposCursos> listaTiposCursos) {
+      try {
+         for (int i = 0; i < listaTiposCursos.size(); i++) {
+            persistenciaTiposCursos.borrar(getEm(), listaTiposCursos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public BigInteger contarCursosTipoCurso(BigInteger secuenciaVigenciasIndicadores) {
-        BigInteger contarCursosTipoCurso = null;
+   @Override
+   public void crearTiposCursos(List<TiposCursos> listaTiposCursos) {
+      try {
+         for (int i = 0; i < listaTiposCursos.size(); i++) {
+            persistenciaTiposCursos.crear(getEm(), listaTiposCursos.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-        try {
-            log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
-            contarCursosTipoCurso = persistenciaTiposCursos.contarCursosTipoCurso(em, secuenciaVigenciasIndicadores);
-        } catch (Exception e) {
-            log.error("ERROR AdmnistrarTiposCursos contarCursosTipoCurso ERROR :" + e);
-        } finally {
-            return contarCursosTipoCurso;
-        }
-    }
+   @Override
+   public List<TiposCursos> consultarTiposCursos() {
+      try {
+         return persistenciaTiposCursos.consultarTiposCursos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public TiposCursos consultarTipoIndicador(BigInteger secMotivoDemanda) {
+      try {
+         return persistenciaTiposCursos.consultarTipoCurso(getEm(), secMotivoDemanda);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public BigInteger contarCursosTipoCurso(BigInteger secuenciaVigenciasIndicadores) {
+      try {
+         log.error("Secuencia Vigencias Indicadores " + secuenciaVigenciasIndicadores);
+         return persistenciaTiposCursos.contarCursosTipoCurso(getEm(), secuenciaVigenciasIndicadores);
+      } catch (Exception e) {
+         log.error("ERROR AdmnistrarTiposCursos contarCursosTipoCurso ERROR :" + e);
+         return null;
+      }
+   }
 }

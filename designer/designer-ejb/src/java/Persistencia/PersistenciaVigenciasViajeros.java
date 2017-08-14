@@ -95,7 +95,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<VigenciasViajeros> vigenciasViajeros = (List<VigenciasViajeros>) query.getResultList();
             if (vigenciasViajeros != null) {
-                log.error("TIPO VIAJERO: " + vigenciasViajeros.get(0).getTipoViajero().getNombre());
+                log.warn("TIPO VIAJERO: " + vigenciasViajeros.get(0).getTipoViajero().getNombre());
             }
             return vigenciasViajeros;
         } catch (Exception e) {

@@ -86,7 +86,7 @@
 
                         <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlFormulaConcepto.salir()}" process="@this"/>  
+                                         actionListener="#{controlFormulaConcepto.navegar('atras')}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -248,7 +248,7 @@
 
                   <p:commandButton id="ACEPTAR" value="" styleClass="cssBotonAceptar" update=":form:datosFormulaConcepto" process="@this"
                                    onclick="PF('confirmarGuardar').show();" disabled="#{controlFormulaConcepto.guardado}"/>
-                  <p:commandButton id="ATRAS" value="" styleClass="cssBotonCancelar" process="@this" actionListener="#{controlFormulaConcepto.salir()}"/>
+                  <p:commandButton id="ATRAS" value="" styleClass="cssBotonCancelar" process="@this" actionListener="#{controlFormulaConcepto.navegar('atras')}"/>
                </p:panel>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
@@ -328,7 +328,7 @@
                                    actionListener="#{controlFormulaConcepto.guardadoYSalir()}"
                                    style="position: absolute; top: 55px; left: 147px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"
-                                   actionListener="#{controlFormulaConcepto.salir()}"
+                                   actionListener="#{controlFormulaConcepto.navegar('atras')}"
                                    style="position: absolute; top: 55px; left: 208px;" process="@this" icon="ui-icon-close"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();"
                                    style="position: absolute; top: 55px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -403,18 +403,18 @@
                         <h:outputText value="#{concepto.descripcion}"/>
                      </p:column>
 
-                     <p:column filterBy="#{concepto.empresa.nombre}" sortBy="#{concepto.empresa.nombre}" filterStyle="width : 85% !important;" filterMatchMode="contains">
+                     <p:column filterBy="#{concepto.nombreEmpresa}" sortBy="#{concepto.nombreEmpresa}" filterStyle="width : 85% !important;" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empresa']}"/>
                         </f:facet>
-                        <h:outputText value="#{concepto.empresa.nombre}"/>
+                        <h:outputText value="#{concepto.nombreEmpresa}"/>
                      </p:column>
 
-                     <p:column filterBy="#{concepto.empresa.nit}" sortBy="#{concepto.empresa.nit}" width="80" filterStyle="width : 85% !important;" filterMatchMode="contains">
+                     <p:column filterBy="#{concepto.nitEmpresa}" sortBy="#{concepto.nitEmpresa}" width="80" filterStyle="width : 85% !important;" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nit']}"/>
                         </f:facet>
-                        <h:outputText value="#{concepto.empresa.nit}"/>
+                        <h:outputText value="#{concepto.nitEmpresa}"/>
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV">
@@ -620,7 +620,7 @@
                </p:dialog>
 
                <p:dialog id="editarNitFD" header="#{msg['editarNitFD']}" widgetVar="editarNitFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.concepto.empresa.nit}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.concepto.nitEmpresa}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
             </h:form>

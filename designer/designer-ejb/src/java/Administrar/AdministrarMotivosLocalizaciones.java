@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,64 +25,104 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
 
    private static Logger log = Logger.getLogger(AdministrarMotivosLocalizaciones.class);
 
-    @EJB
-    PersistenciaMotivosLocalizacionesInterface PersistenciaMotivosLocalizaciones;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaMotivosLocalizacionesInterface PersistenciaMotivosLocalizaciones;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    
-    @Override
-    public void modificarMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
-        for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public void modificarMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
+      try {
+         for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
             log.warn("Administrar Modificando...");
-            PersistenciaMotivosLocalizaciones.editar(em, listaMotivosLocalizaciones.get(i));
-        }
-    }
+            PersistenciaMotivosLocalizaciones.editar(getEm(), listaMotivosLocalizaciones.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void borrarMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
-        for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
+   @Override
+   public void borrarMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
+      try {
+         for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
             log.warn("Administrar Borrando...");
-            PersistenciaMotivosLocalizaciones.borrar(em, listaMotivosLocalizaciones.get(i));
-        }
-    }
+            PersistenciaMotivosLocalizaciones.borrar(getEm(), listaMotivosLocalizaciones.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public void crearMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
-        for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
+   @Override
+   public void crearMotivosLocalizaciones(List<MotivosLocalizaciones> listaMotivosLocalizaciones) {
+      try {
+         for (int i = 0; i < listaMotivosLocalizaciones.size(); i++) {
             log.warn("Administrar Creando...");
-            PersistenciaMotivosLocalizaciones.crear(em, listaMotivosLocalizaciones.get(i));
-        }
-    }
+            PersistenciaMotivosLocalizaciones.crear(getEm(), listaMotivosLocalizaciones.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<MotivosLocalizaciones> mostrarMotivosCambiosCargos() {
-        List<MotivosLocalizaciones> listMotivosLocalizaciones;
-        listMotivosLocalizaciones = PersistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(em);
-        return listMotivosLocalizaciones;
-    }
+   @Override
+   public List<MotivosLocalizaciones> mostrarMotivosCambiosCargos() {
+      try {
+         return PersistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public MotivosLocalizaciones mostrarMotivoCambioCargo(BigInteger secMotivosCambiosCargos) {
-        MotivosLocalizaciones moticoLocalizacion;
-        moticoLocalizacion = PersistenciaMotivosLocalizaciones.buscarMotivoLocalizacionSecuencia(em, secMotivosCambiosCargos);
-        return moticoLocalizacion;
-    }
-    
-    public BigInteger contarVigenciasLocalizacionesMotivoLocalizacion (BigInteger secMotivoLocalizacion)
-    { BigInteger contarVigencias;
-    contarVigencias = PersistenciaMotivosLocalizaciones.contarVigenciasLocalizacionesMotivoLocalizacion(em, secMotivoLocalizacion);
-    return contarVigencias;
-    }
+   @Override
+   public MotivosLocalizaciones mostrarMotivoCambioCargo(BigInteger secMotivosCambiosCargos) {
+      try {
+         return PersistenciaMotivosLocalizaciones.buscarMotivoLocalizacionSecuencia(getEm(), secMotivosCambiosCargos);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   public BigInteger contarVigenciasLocalizacionesMotivoLocalizacion(BigInteger secMotivoLocalizacion) {
+      try {
+         return PersistenciaMotivosLocalizaciones.contarVigenciasLocalizacionesMotivoLocalizacion(getEm(), secMotivoLocalizacion);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 }

@@ -30,6 +30,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -115,21 +116,40 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    //--------------------------------------------------------------------------
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public Empleados consultarEmpleado(BigInteger secuencia) {
       Empleados empleado;
       try {
-         empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secuencia);
+         empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
          return empleado;
       } catch (Exception e) {
          empleado = null;
@@ -139,52 +159,90 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
 
    @Override
    public BigInteger consultarMaximoNumeroComprobante() {
-      return persistenciaComprobantes.numeroMaximoComprobante(em);
+      try {
+         return persistenciaComprobantes.numeroMaximoComprobante(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Comprobantes> consultarComprobantesEmpleado(BigInteger secuenciaEmpleado) {
-      return persistenciaComprobantes.comprobantesEmpleado(em, secuenciaEmpleado);
+      try {
+         return persistenciaComprobantes.comprobantesEmpleado(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<CortesProcesos> consultarCortesProcesosComprobante(BigInteger secuenciaComprobante) {
-      return persistenciaCortesProcesos.cortesProcesosComprobante(em, secuenciaComprobante);
+      try {
+         return persistenciaCortesProcesos.cortesProcesosComprobante(getEm(), secuenciaComprobante);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<SolucionesNodos> consultarSolucionesNodosEmpleado(BigInteger secuenciaCorteProceso, BigInteger secuenciaEmpleado) {
-      return persistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado(em, secuenciaCorteProceso, secuenciaEmpleado);
+      try {
+         return persistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado(getEm(), secuenciaCorteProceso, secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<SolucionesNodos> consultarSolucionesNodosEmpleador(BigInteger secuenciaCorteProceso, BigInteger secuenciaEmpleado) {
-      return persistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador(em, secuenciaCorteProceso, secuenciaEmpleado);
+      try {
+         return persistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador(getEm(), secuenciaCorteProceso, secuenciaEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Procesos> consultarLOVProcesos() {
-      return persistenciaProcesos.lovProcesos(em);
+      try {
+         return persistenciaProcesos.lovProcesos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Terceros> consultarLOVTerceros(BigInteger secEmpresa) {
-      return persistenciaTerceros.lovTerceros(em, secEmpresa);
+      try {
+         return persistenciaTerceros.lovTerceros(getEm(), secEmpresa);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public void modificarComprobantes(List<Comprobantes> listComprobantes) {
-      for (int i = 0; i < listComprobantes.size(); i++) {
-         log.warn("Modificando Comprobantes...");
-         persistenciaComprobantes.editar(em, listComprobantes.get(i));
+      try {
+         for (int i = 0; i < listComprobantes.size(); i++) {
+            log.warn("Modificando Comprobantes...");
+            persistenciaComprobantes.editar(getEm(), listComprobantes.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
-
    }
 
    @Override
    public void borrarComprobantes(Comprobantes comprobante) {
       try {
-         persistenciaComprobantes.borrar(em, comprobante);
+         persistenciaComprobantes.borrar(getEm(), comprobante);
       } catch (Exception e) {
          log.warn("Error borrarComprobantes" + e);
       }
@@ -192,26 +250,34 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
 
    @Override
    public void crearComprobante(Comprobantes comprobantes) {
-      persistenciaComprobantes.crear(em, comprobantes);
+      try {
+         persistenciaComprobantes.crear(getEm(), comprobantes);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarCortesProcesos(List<CortesProcesos> listaCortesProcesos) {
-      for (int i = 0; i < listaCortesProcesos.size(); i++) {
-         log.warn("Modificando Cortes procesos...");
-         if (listaCortesProcesos.get(i).getProceso().getSecuencia() == null) {
-            listaCortesProcesos.get(i).setProceso(null);
-            persistenciaCortesProcesos.editar(em, listaCortesProcesos.get(i));
-         } else {
-            persistenciaCortesProcesos.editar(em, listaCortesProcesos.get(i));
+      try {
+         for (int i = 0; i < listaCortesProcesos.size(); i++) {
+            log.warn("Modificando Cortes procesos...");
+            if (listaCortesProcesos.get(i).getProceso().getSecuencia() == null) {
+               listaCortesProcesos.get(i).setProceso(null);
+               persistenciaCortesProcesos.editar(getEm(), listaCortesProcesos.get(i));
+            } else {
+               persistenciaCortesProcesos.editar(getEm(), listaCortesProcesos.get(i));
+            }
          }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public void borrarCortesProcesos(CortesProcesos corteProceso) {
       try {
-         persistenciaCortesProcesos.borrar(em, corteProceso);
+         persistenciaCortesProcesos.borrar(getEm(), corteProceso);
       } catch (Exception e) {
          log.warn("Error borrarCortesProcesos" + e);
       }
@@ -219,47 +285,75 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
 
    @Override
    public void crearCorteProceso(CortesProcesos corteProceso) {
-      persistenciaCortesProcesos.crear(em, corteProceso);
+      try {
+         persistenciaCortesProcesos.crear(getEm(), corteProceso);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
    }
 
    @Override
    public void modificarSolucionesNodosEmpleado(List<SolucionesNodos> listaSolucionesNodosEmpleado) {
-      for (int i = 0; i < listaSolucionesNodosEmpleado.size(); i++) {
-         log.warn("Modificando Soluciones Nodo Empleado...");
-         if (listaSolucionesNodosEmpleado.get(i).getNittercero() == null) {
-            listaSolucionesNodosEmpleado.get(i).setNittercero(null);
-            persistenciaSolucionesNodos.editar(em, listaSolucionesNodosEmpleado.get(i));
-         } else {
-            persistenciaSolucionesNodos.editar(em, listaSolucionesNodosEmpleado.get(i));
+      try {
+         for (int i = 0; i < listaSolucionesNodosEmpleado.size(); i++) {
+            log.warn("Modificando Soluciones Nodo Empleado...");
+            if (listaSolucionesNodosEmpleado.get(i).getNittercero() == null) {
+               listaSolucionesNodosEmpleado.get(i).setNittercero(null);
+               persistenciaSolucionesNodos.editar(getEm(), listaSolucionesNodosEmpleado.get(i));
+            } else {
+               persistenciaSolucionesNodos.editar(getEm(), listaSolucionesNodosEmpleado.get(i));
+            }
          }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
    @Override
    public List<DetallesFormulas> consultarDetallesFormula(BigInteger secEmpleado, String fechaDesde, String fechaHasta, BigInteger secProceso, BigInteger secHistoriaFormula) {
-      return persistenciaDetallesFormulas.detallesFormula(em, secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
+      try {
+         return persistenciaDetallesFormulas.detallesFormula(getEm(), secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public BigInteger consultarHistoriaFormula(BigInteger secFormula, String fechaDesde) {
-      return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(em, secFormula, fechaDesde);
+      try {
+         return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(getEm(), secFormula, fechaDesde);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<Cuentas> lovCuentas() {
-      return persistenciaCuentas.buscarCuentas(em);
+      try {
+         return persistenciaCuentas.buscarCuentas(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public List<CentrosCostos> lovCentrosCostos() {
-      return persistenciaCentrosCostos.buscarCentrosCostos(em);
+      try {
+         return persistenciaCentrosCostos.buscarCentrosCostos(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
    }
 
    @Override
    public boolean eliminarCPconUndoCierre(BigInteger secProceso, BigInteger secEmpleado, Date fechaCorte) {
       try {
          log.warn("Entro en eliminarCPconUndoCierre()");
-         return persistenciaCortesProcesos.eliminarCPconUndoCierre(em, secProceso, secEmpleado, fechaCorte);
+         return persistenciaCortesProcesos.eliminarCPconUndoCierre(getEm(), secProceso, secEmpleado, fechaCorte);
       } catch (Exception e) {
          log.warn(this.getClass().getName() + " Error eliminarCPconUndoCierre : " + e);
          return false;

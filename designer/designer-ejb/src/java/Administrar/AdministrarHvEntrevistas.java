@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,105 +30,131 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
 
    private static Logger log = Logger.getLogger(AdministrarHvEntrevistas.class);
 
-    @EJB
-    PersistenciaHvEntrevistasInterface persistenciaHvEntrevistas;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaHVHojasDeVidaInterface persistenciaHVHojasDeVida;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   @EJB
+   PersistenciaHvEntrevistasInterface persistenciaHvEntrevistas;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaHVHojasDeVidaInterface persistenciaHVHojasDeVida;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-
-    @Override
-    public void modificarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
-        for (int i = 0; i < listHvEntrevistas.size(); i++) {
-            log.warn("Modificando...");
-            persistenciaHvEntrevistas.editar(em, listHvEntrevistas.get(i));
-        }
-    }
-
-    @Override
-    public void borrarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
-        for (int i = 0; i < listHvEntrevistas.size(); i++) {
-            log.warn("Borrando...");
-            persistenciaHvEntrevistas.borrar(em, listHvEntrevistas.get(i));
-        }
-    }
-
-    @Override
-    public void crearHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
-        for (int i = 0; i < listHvEntrevistas.size(); i++) {
-            if (listHvEntrevistas.get(i).getHojadevida() == null) {
-                listHvEntrevistas.get(i).setHojadevida(new HVHojasDeVida());
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
             }
-            persistenciaHvEntrevistas.crear(em, listHvEntrevistas.get(i));
-        }
-    }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
-    @Override
-    public List<HvEntrevistas> consultarHvEntrevistasPorEmpleado(BigInteger secPersona) {
-        List<HvEntrevistas> listHvEntrevistas;
-        try {
-            listHvEntrevistas = persistenciaHvEntrevistas.buscarHvEntrevistasPorEmpleado(em, secPersona);
-        } catch (Exception e) {
-            log.warn("Error en AdministrarHvEntrevistas hvEntrevistasPorEmplado");
-            listHvEntrevistas = null;
-        }
-        return listHvEntrevistas;
-    }
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
 
-    @Override
-    public HvEntrevistas consultarHvEntrevista(BigInteger secHvEntrevista) {
-        HvEntrevistas hvEntrevistas;
-        hvEntrevistas = persistenciaHvEntrevistas.buscarHvEntrevista(em, secHvEntrevista);
-        return hvEntrevistas;
-    }
+   @Override
+   public void modificarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
+      try {
+         for (int i = 0; i < listHvEntrevistas.size(); i++) {
+            log.warn("Modificando...");
+            persistenciaHvEntrevistas.editar(getEm(), listHvEntrevistas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public Empleados consultarEmpleado(BigInteger secuencia) {
-        Empleados empleado;
-        try {
-            empleado = persistenciaEmpleados.buscarEmpleadoSecuencia(em, secuencia);
-            return empleado;
-        } catch (Exception e) {
-            empleado = null;
-            log.warn("ERROR AdministrarHvEntrevistas  buscarEmpleado ERROR =====" + e);
-            return empleado;
-        }
-    }
+   @Override
+   public void borrarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
+      try {
+         for (int i = 0; i < listHvEntrevistas.size(); i++) {
+            log.warn("Borrando...");
+            persistenciaHvEntrevistas.borrar(getEm(), listHvEntrevistas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<HVHojasDeVida> buscarHVHojasDeVida(BigInteger secuencia) {
-        List<HVHojasDeVida> hvHojasDeVida;
-        try {
-            hvHojasDeVida = persistenciaHvEntrevistas.buscarHvHojaDeVidaPorPersona(em, secuencia);
-            return hvHojasDeVida;
-        } catch (Exception e) {
-            log.warn("ERROR AdministrarHvEntrevistas  buscarHVHojasDeVida ERROR =====" + e);
-            return null;
-        }
-    }
+   @Override
+   public void crearHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
+      try {
+         for (int i = 0; i < listHvEntrevistas.size(); i++) {
+            if (listHvEntrevistas.get(i).getHojadevida() == null) {
+               listHvEntrevistas.get(i).setHojadevida(new HVHojasDeVida());
+            }
+            persistenciaHvEntrevistas.crear(getEm(), listHvEntrevistas.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia) {
-        try {
-            HVHojasDeVida hojaVida = persistenciaHVHojasDeVida.hvHojaDeVidaPersona(em, secuencia);
-            return hojaVida;
-        } catch (Exception e) {
-            log.warn("Error obtenerHojaVidaPersona Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<HvEntrevistas> consultarHvEntrevistasPorEmpleado(BigInteger secPersona) {
+      try {
+         return persistenciaHvEntrevistas.buscarHvEntrevistasPorEmpleado(getEm(), secPersona);
+      } catch (Exception e) {
+         log.warn("Error en AdministrarHvEntrevistas hvEntrevistasPorEmplado");
+         return null;
+      }
+   }
+
+   @Override
+   public HvEntrevistas consultarHvEntrevista(BigInteger secHvEntrevista) {
+      try {
+         return persistenciaHvEntrevistas.buscarHvEntrevista(getEm(), secHvEntrevista);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public Empleados consultarEmpleado(BigInteger secuencia) {
+      try {
+         return persistenciaEmpleados.buscarEmpleadoSecuencia(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("ERROR AdministrarHvEntrevistas  buscarEmpleado ERROR =====" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public List<HVHojasDeVida> buscarHVHojasDeVida(BigInteger secuencia) {
+      try {
+         return persistenciaHvEntrevistas.buscarHvHojaDeVidaPorPersona(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("ERROR AdministrarHvEntrevistas  buscarHVHojasDeVida ERROR =====" + e);
+         return null;
+      }
+   }
+
+   @Override
+   public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia) {
+      try {
+         return persistenciaHVHojasDeVida.hvHojaDeVidaPersona(getEm(), secuencia);
+      } catch (Exception e) {
+         log.warn("Error obtenerHojaVidaPersona Admi : " + e.toString());
+         return null;
+      }
+   }
 }

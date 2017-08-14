@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -158,8 +159,14 @@ public class ControlGrupoConcepto implements Serializable {
       lovGruposConceptos = null;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -1232,7 +1239,7 @@ public class ControlGrupoConcepto implements Serializable {
             tipoActualizacion = 0;
          }
       } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
-         vigenciaGrupoCSeleccionado.getConcepto().getEmpresa().setNombre(empresa);
+         vigenciaGrupoCSeleccionado.getConcepto().setNombreEmpresa(empresa);
       }
       if (coincidencias == 1) {
          if (!listaVigenciasGruposConceptosCrear.contains(vigenciaGrupoCSeleccionado)) {
@@ -1304,7 +1311,7 @@ public class ControlGrupoConcepto implements Serializable {
          nombreArchivo = "VigenciasGruposConceptosXML";
          log.info("CualTabla = " + cualTabla);
          codigo = vigenciaGrupoCSeleccionado.getConcepto().getCodigoSTR();
-         empresa = vigenciaGrupoCSeleccionado.getConcepto().getEmpresa().getNombre();
+         empresa = vigenciaGrupoCSeleccionado.getConcepto().getNombreEmpresa();
          if (cualCeldaD == 0 || cualCeldaD == 1) {
             habilitarBotonLov();
          } else {
@@ -1483,7 +1490,7 @@ public class ControlGrupoConcepto implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);

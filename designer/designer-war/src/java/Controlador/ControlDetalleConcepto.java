@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -447,7 +448,7 @@ public class ControlDetalleConcepto implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else if (pag.equals("formula")) {
          Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          mapParaEnviar.put("paginaAnterior", pagActual);
@@ -478,8 +479,14 @@ public class ControlDetalleConcepto implements Serializable {
       lovTiposTrabajadores = null;
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
       log.info("Entro en inicializarAdministrador()");
       try {
          FacesContext x = FacesContext.getCurrentInstance();
@@ -1310,9 +1317,9 @@ public class ControlDetalleConcepto implements Serializable {
          }
          log.info("ControlDetalleConcepto.autocompletarTipoCC() error: " + error);
          if (error == 0) {
-            ccLocalizacionTrabajador = administrarDetalleConcepto.centroCostoLocalizacionTrabajador(vigCuenta.getConcepto().getEmpresa().getSecuencia());
-            ccContabilidad = administrarDetalleConcepto.centroCostoContabilidad(vigCuenta.getConcepto().getEmpresa().getSecuencia());
-            cuenta2505 = administrarDetalleConcepto.cuenta2505(vigCuenta.getConcepto().getEmpresa().getSecuencia());
+            ccLocalizacionTrabajador = administrarDetalleConcepto.centroCostoLocalizacionTrabajador(vigCuenta.getConcepto().getEmpresa());
+            ccContabilidad = administrarDetalleConcepto.centroCostoContabilidad(vigCuenta.getConcepto().getEmpresa());
+            cuenta2505 = administrarDetalleConcepto.cuenta2505(vigCuenta.getConcepto().getEmpresa());
             log.info("ccLocalizacionTrabajador: " + ccLocalizacionTrabajador);
             log.info("ccContabilidad: " + ccContabilidad);
             log.info("cuenta2505: " + cuenta2505);
@@ -3637,7 +3644,6 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void agregarNuevoFormulasConceptos() {
-      RequestContext context = RequestContext.getCurrentInstance();
       boolean resp = validarNuevosDatosFormulasConceptos(1);
       if (resp == true) {
          boolean validacion = validarFechasRegistroFormulasConceptos(1);
@@ -3652,8 +3658,8 @@ public class ControlDetalleConcepto implements Serializable {
             nuevaFormulasConceptos.setConcepto(conceptoActual.getSecuencia());
             nuevaFormulasConceptos.setNombreConcepto(conceptoActual.getDescripcion());
             nuevaFormulasConceptos.setCodigoConcepto(conceptoActual.getCodigo());
-            nuevaFormulasConceptos.setNombreEmpresa(conceptoActual.getEmpresa().getNombre());
-            nuevaFormulasConceptos.setNitEmpresa(conceptoActual.getEmpresa().getNit());
+            nuevaFormulasConceptos.setNombreEmpresa(conceptoActual.getNombreEmpresa());
+            nuevaFormulasConceptos.setNitEmpresa(conceptoActual.getNitEmpresa());
             listFormulasConceptosCrear.add(nuevaFormulasConceptos);
             listFormulasConceptos.add(nuevaFormulasConceptos);
             vigFormulaConceptoSeleccionada = listFormulasConceptos.get(listFormulasConceptos.indexOf(nuevaFormulasConceptos));
@@ -4005,8 +4011,8 @@ public class ControlDetalleConcepto implements Serializable {
                duplicarFormulasConceptos.setConcepto(conceptoActual.getSecuencia());
                duplicarFormulasConceptos.setNombreConcepto(conceptoActual.getDescripcion());
                duplicarFormulasConceptos.setCodigoConcepto(conceptoActual.getCodigo());
-               duplicarFormulasConceptos.setNombreEmpresa(conceptoActual.getEmpresa().getNombre());
-               duplicarFormulasConceptos.setNitEmpresa(conceptoActual.getEmpresa().getNit());
+               duplicarFormulasConceptos.setNombreEmpresa(conceptoActual.getNombreEmpresa());
+               duplicarFormulasConceptos.setNitEmpresa(conceptoActual.getNitEmpresa());
                listFormulasConceptosCrear.add(duplicarFormulasConceptos);
                listFormulasConceptos.add(duplicarFormulasConceptos);
                vigFormulaConceptoSeleccionada = listFormulasConceptos.get(listFormulasConceptos.indexOf(duplicarFormulasConceptos));
@@ -4050,7 +4056,6 @@ public class ControlDetalleConcepto implements Serializable {
       } else if (vigFormulaConceptoSeleccionada != null) {
          borrarFormulasConceptos();
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
@@ -4060,7 +4065,6 @@ public class ControlDetalleConcepto implements Serializable {
     * la pagina
     */
    public void borrarVigenciaCuenta() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaCuentaSeleccionada != null) {
          if (!listVigenciasCuentasModificar.isEmpty() && listVigenciasCuentasModificar.contains(vigenciaCuentaSeleccionada)) {
             listVigenciasCuentasModificar.remove(vigenciaCuentaSeleccionada);

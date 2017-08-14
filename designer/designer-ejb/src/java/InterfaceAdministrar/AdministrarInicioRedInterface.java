@@ -15,29 +15,29 @@ import java.util.List;
  */
 public interface AdministrarInicioRedInterface {
 
-    public boolean conexionInicial(String baseDatos);
+   public boolean conexionInicial(String baseDatos);
 
-    public boolean conexionUsuario(String baseDatos, String usuario, String contraseña);
+   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña, String usapool);
 
-    public boolean validarUsuario(String usuario);
+   public boolean validarUsuario(String usuario, String usapool);
 
    public boolean validarConexionUsuario(String idSesion);
 
-    public void cerrarSession(String idSesion);
+   public void cerrarSession(String idSesion);
 
-    public boolean conexionDefault();
+   public boolean conexionDefault();
 
-    public Recordatorios recordatorioAleatorio();
+   public Recordatorios recordatorioAleatorio();
 
-    public String nombreEmpresaPrincipal();
+   public String nombreEmpresaPrincipal();
 
-    public List<String> recordatoriosInicio();
+   public List<String> recordatoriosInicio();
 
-    public List<Recordatorios> consultasInicio();
+   public List<Recordatorios> consultasInicio();
 
-    public int cambioClave(String usuario, String nuevaClave);
+   public int cambioClave(String usuario, String nuevaClave);
 
-    public void guardarDatosConexion(Conexiones conexion);
+   public void guardarDatosConexion(Conexiones conexion);
 
-    public String usuarioBD();
+   public String usuarioBD();
 }

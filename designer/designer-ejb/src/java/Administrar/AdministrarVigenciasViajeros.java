@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,83 +30,123 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
 
    private static Logger log = Logger.getLogger(AdministrarVigenciasViajeros.class);
 
-    @EJB
-    PersistenciaVigenciasViajerosInterface persistenciaVigenciasViajeros;
-    @EJB
-    PersistenciaTiposViajerosInterface persistenciaTiposViajeros;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    
-    private EntityManager em;
-	
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   @EJB
+   PersistenciaVigenciasViajerosInterface persistenciaVigenciasViajeros;
+   @EJB
+   PersistenciaTiposViajerosInterface persistenciaTiposViajeros;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    @Override
-    public Empleados consultarEmpleado(BigInteger secuencia) {
-        Empleados empleado;
-        try {
-            empleado = persistenciaEmpleados.buscarEmpleadoSecuencia(em, secuencia);
-            return empleado;
-        } catch (Exception e) {
-            empleado = null;
-            return empleado;
-        }
-    }
+   private EntityManagerFactory emf;
+   private EntityManager em;
 
-    public void modificarVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
-        for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
+
+   @Override
+   public void obtenerConexion(String idSesion) {
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
+   }
+
+   @Override
+   public Empleados consultarEmpleado(BigInteger secuencia) {
+      try {
+         return persistenciaEmpleados.buscarEmpleadoSecuencia(getEm(), secuencia);
+      } catch (Exception e) {
+         return null;
+      }
+   }
+
+   public void modificarVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
+      try {
+         for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
             log.warn("Administrar Modificando...");
-            persistenciaVigenciasViajeros.editar(em, listaVigenciasViajeros.get(i));
-        }
-    }
+            persistenciaVigenciasViajeros.editar(getEm(), listaVigenciasViajeros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void borrarVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
-        for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
+   public void borrarVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
+      try {
+         for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
             log.warn("Administrar Borrando...");
-            persistenciaVigenciasViajeros.borrar(em, listaVigenciasViajeros.get(i));
-        }
-    }
+            persistenciaVigenciasViajeros.borrar(getEm(), listaVigenciasViajeros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    public void crearVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
-        for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
+   public void crearVigenciasViajeros(List<VigenciasViajeros> listaVigenciasViajeros) {
+      try {
+         for (int i = 0; i < listaVigenciasViajeros.size(); i++) {
             log.warn("Administrar Creando...");
-            persistenciaVigenciasViajeros.crear(em, listaVigenciasViajeros.get(i));
-        }
-    }
+            persistenciaVigenciasViajeros.crear(getEm(), listaVigenciasViajeros.get(i));
+         }
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+      }
+   }
 
-    @Override
-    public List<VigenciasViajeros> consultarVigenciasViajeros() {
-        List<VigenciasViajeros> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaVigenciasViajeros.consultarVigenciasViajeros(em);
-        return listMotivosCambiosCargos;
-    }
+   @Override
+   public List<VigenciasViajeros> consultarVigenciasViajeros() {
+      try {
+         return persistenciaVigenciasViajeros.consultarVigenciasViajeros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public VigenciasViajeros consultarTipoViajero(BigInteger secVigenciasViajeros) {
-        VigenciasViajeros vigennciaViajero;
-        vigennciaViajero = persistenciaVigenciasViajeros.consultarTipoExamen(em, secVigenciasViajeros);
-        return vigennciaViajero;
-    }
+   public VigenciasViajeros consultarTipoViajero(BigInteger secVigenciasViajeros) {
+      try {
+         return persistenciaVigenciasViajeros.consultarTipoExamen(getEm(), secVigenciasViajeros);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<VigenciasViajeros> consultarVigenciasViajerosPorEmpleado(BigInteger secVigenciasViajeros) {
-        List<VigenciasViajeros> listVigenciasViajerosPorEmpleado;
-        listVigenciasViajerosPorEmpleado = persistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado(em, secVigenciasViajeros);
-        return listVigenciasViajerosPorEmpleado;
-    }
+   public List<VigenciasViajeros> consultarVigenciasViajerosPorEmpleado(BigInteger secVigenciasViajeros) {
+      try {
+         return persistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado(getEm(), secVigenciasViajeros);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
-    public List<Tiposviajeros> consultarLOVTiposViajeros() {
-        List<Tiposviajeros> listMotivosCambiosCargos;
-        listMotivosCambiosCargos = persistenciaTiposViajeros.consultarTiposViajeros(em);
-        return listMotivosCambiosCargos;
-    }
+   public List<Tiposviajeros> consultarLOVTiposViajeros() {
+      try {
+         return persistenciaTiposViajeros.consultarTiposViajeros(getEm());
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+   }
 
 }

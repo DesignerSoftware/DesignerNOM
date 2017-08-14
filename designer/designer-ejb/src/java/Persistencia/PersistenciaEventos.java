@@ -112,7 +112,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PersitenciaEventos contadorVigenciasEventos persistencia " + retorno);
+         log.warn("Contador PersitenciaEventos contadorVigenciasEventos persistencia " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PersitenciaEventos contadorVigenciasEventos. " + e);

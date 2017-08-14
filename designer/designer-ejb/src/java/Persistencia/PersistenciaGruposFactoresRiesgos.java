@@ -97,7 +97,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             GruposFactoresRiesgos grupoFactoresRiesgos = (GruposFactoresRiesgos) query.getSingleResult();
             return grupoFactoresRiesgos;
         } catch (Exception e) {
-            log.error("Error buscarGrupoFactorRiesgoSecuencia");
+            log.error("Error buscarGrupoFactorRiesgoSecuencia " + e);
             GruposFactoresRiesgos grupoFactoresRiesgos = null;
             return grupoFactoresRiesgos;
         }
@@ -111,7 +111,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo Retorno " + retorno);
+            log.warn("Contador PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR : " + e);
@@ -127,7 +127,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo Retorno " + retorno);
+            log.warn("Contador PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR : " + e);
@@ -143,7 +143,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            log.error("Contador PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo Retorno " + retorno);
+            log.warn("Contador PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("Error PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR : " + e);

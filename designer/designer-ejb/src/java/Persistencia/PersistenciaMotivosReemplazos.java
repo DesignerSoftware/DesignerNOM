@@ -97,7 +97,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            log.error("persistenciaMotivosReemplazos contarEncargaturasMotivoReemplazo retorno : " + retorno);
+            log.warn("persistenciaMotivosReemplazos contarEncargaturasMotivoReemplazo retorno : " + retorno);
             return retorno;
         } catch (Exception e) {
             log.error("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR : " + e.getMessage());

@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -171,13 +172,31 @@ public class ControlATExtraRecargo implements Serializable {
       nuevoExtraRecargo.setTipolegislacion(new Contratos());
       nuevoDetalleExtraRecargo = new DetallesExtrasRecargos();
       nuevoDetalleExtraRecargo.setConcepto(new Conceptos());
-      nuevoDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
       duplicarExtraRecargo = new ExtrasRecargos();
       duplicarDetalleExtraRecargo = new DetallesExtrasRecargos();
       secRegistro = null;
       secRegistroDER = null;
       backUpSecRegistroDER = null;
       mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
+   @PostConstruct
+   public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarATExtraRecargo.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
+      }
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -199,7 +218,7 @@ public class ControlATExtraRecargo implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina(pagActual);
+         controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
@@ -223,19 +242,6 @@ public class ControlATExtraRecargo implements Serializable {
       lovContratos = null;
       lovTiposDias = null;
       lovTiposJornadas = null;
-   }
-
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarATExtraRecargo.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
-         log.error("Causa: " + e.getCause());
-      }
    }
 
    public String redirigir() {
@@ -626,22 +632,20 @@ public class ControlATExtraRecargo implements Serializable {
             coincidencias = 1;
             if (tipoLista == 0) {
                listDetallesExtrasRecargos.get(indice).setConcepto(new Conceptos());
-               listDetallesExtrasRecargos.get(indice).getConcepto().setEmpresa(new Empresas());
             } else {
                filtrarListDetallesExtrasRecargos.get(indice).setConcepto(new Conceptos());
-               filtrarListDetallesExtrasRecargos.get(indice).getConcepto().setEmpresa(new Empresas());
             }
          }
       }
       if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoLista == 0) {
-               listDetallesExtrasRecargos.get(indice).getConcepto().getEmpresa().setNombre(empresa);
+               listDetallesExtrasRecargos.get(indice).getConcepto().setNombreEmpresa(empresa);
             } else {
-               filtrarListDetallesExtrasRecargos.get(indice).getConcepto().getEmpresa().setNombre(empresa);
+               filtrarListDetallesExtrasRecargos.get(indice).getConcepto().setNombreEmpresa(empresa);
             }
             for (int i = 0; i < lovConceptos.size(); i++) {
-               if (lovConceptos.get(i).getEmpresa().getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovConceptos.get(i).getNombreEmpresa().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -666,10 +670,8 @@ public class ControlATExtraRecargo implements Serializable {
             getLovConceptos();
             if (tipoLista == 0) {
                listDetallesExtrasRecargos.get(indice).setConcepto(new Conceptos());
-               listDetallesExtrasRecargos.get(indice).getConcepto().setEmpresa(new Empresas());
             } else {
                filtrarListDetallesExtrasRecargos.get(indice).setConcepto(new Conceptos());
-               filtrarListDetallesExtrasRecargos.get(indice).getConcepto().setEmpresa(new Empresas());
             }
          }
       }
@@ -777,14 +779,14 @@ public class ControlATExtraRecargo implements Serializable {
             auxDetalleIni = listDetallesExtrasRecargos.get(indexDER).getHorasinicial();
             secRegistroDER = listDetallesExtrasRecargos.get(indexDER).getSecuencia();
             concepto = listDetallesExtrasRecargos.get(indexDER).getConcepto().getDescripcion();
-            empresa = listDetallesExtrasRecargos.get(indexDER).getConcepto().getEmpresa().getNombre();
+            empresa = listDetallesExtrasRecargos.get(indexDER).getConcepto().getNombreEmpresa();
          }
          if (tipoListaDER == 1) {
             auxDetalleFin = filtrarListDetallesExtrasRecargos.get(indexDER).getHorasfinal();
             auxDetalleIni = filtrarListDetallesExtrasRecargos.get(indexDER).getHorasinicial();
             secRegistroDER = filtrarListDetallesExtrasRecargos.get(indexDER).getSecuencia();
             concepto = filtrarListDetallesExtrasRecargos.get(indexDER).getConcepto().getDescripcion();
-            empresa = filtrarListDetallesExtrasRecargos.get(indexDER).getConcepto().getEmpresa().getNombre();
+            empresa = filtrarListDetallesExtrasRecargos.get(indexDER).getConcepto().getNombreEmpresa();
          }
          if (bandera == 0) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -1182,8 +1184,6 @@ public class ControlATExtraRecargo implements Serializable {
          listDetallesExtrasRecargos.add(nuevoDetalleExtraRecargo);
          nuevoDetalleExtraRecargo = new DetallesExtrasRecargos();
          nuevoDetalleExtraRecargo.setConcepto(new Conceptos());
-         nuevoDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosDetalleExtraRecargo");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDetalleExtraRecargo').hide()");
          if (guardadoDER == true) {
@@ -1194,7 +1194,6 @@ public class ControlATExtraRecargo implements Serializable {
          indexDER = -1;
          secRegistroDER = null;
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorDatosNullDetalle').show()");
       }
    }
@@ -1211,7 +1210,6 @@ public class ControlATExtraRecargo implements Serializable {
    public void limpiarNuevaDetalleExtraRecargo() {
       nuevoDetalleExtraRecargo = new DetallesExtrasRecargos();
       nuevoDetalleExtraRecargo.setConcepto(new Conceptos());
-      nuevoDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
       indexDER = -1;
       secRegistroDER = null;
    }
@@ -1413,7 +1411,6 @@ public class ControlATExtraRecargo implements Serializable {
       duplicarDetalleExtraRecargo = new DetallesExtrasRecargos();
       duplicarDetalleExtraRecargo = new DetallesExtrasRecargos();
       duplicarDetalleExtraRecargo.setConcepto(new Conceptos());
-      duplicarDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
    }
 
    public void limpiarMSNRastros() {
@@ -1805,9 +1802,9 @@ public class ControlATExtraRecargo implements Serializable {
             }
          } else if (Campo.equals("EMPRESA")) {
             if (tipoNuevo == 1) {
-               empresa = nuevoDetalleExtraRecargo.getConcepto().getEmpresa().getNombre();
+               empresa = nuevoDetalleExtraRecargo.getConcepto().getNombreEmpresa();
             } else if (tipoNuevo == 2) {
-               empresa = duplicarDetalleExtraRecargo.getConcepto().getEmpresa().getNombre();
+               empresa = duplicarDetalleExtraRecargo.getConcepto().getNombreEmpresa();
             }
          }
       }
@@ -1962,12 +1959,10 @@ public class ControlATExtraRecargo implements Serializable {
             getLovConceptos();
             if (tipoNuevo == 1) {
                nuevoDetalleExtraRecargo.setConcepto(new Conceptos());
-               nuevoDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDetalleConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoExtraEmpresa");
             } else if (tipoNuevo == 2) {
                duplicarDetalleExtraRecargo.setConcepto(new Conceptos());
-               duplicarDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarExtraEmpresa");
             }
@@ -1975,12 +1970,12 @@ public class ControlATExtraRecargo implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevoDetalleExtraRecargo.getConcepto().getEmpresa().setNombre(empresa);
+               nuevoDetalleExtraRecargo.getConcepto().setNombreEmpresa(empresa);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleExtraRecargo.getConcepto().getEmpresa().setNombre(empresa);
+               duplicarDetalleExtraRecargo.getConcepto().setNombreEmpresa(empresa);
             }
             for (int i = 0; i < lovConceptos.size(); i++) {
-               if (lovConceptos.get(i).getEmpresa().getNombre().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovConceptos.get(i).getNombreEmpresa().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
@@ -2014,12 +2009,10 @@ public class ControlATExtraRecargo implements Serializable {
             getLovConceptos();
             if (tipoNuevo == 1) {
                nuevoDetalleExtraRecargo.setConcepto(new Conceptos());
-               nuevoDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDetalleConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoExtraEmpresa");
             } else if (tipoNuevo == 2) {
                duplicarDetalleExtraRecargo.setConcepto(new Conceptos());
-               duplicarDetalleExtraRecargo.getConcepto().setEmpresa(new Empresas());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleConcepto");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarExtraEmpresa");
             }

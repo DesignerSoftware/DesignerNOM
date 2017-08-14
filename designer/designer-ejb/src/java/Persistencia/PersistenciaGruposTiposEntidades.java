@@ -113,7 +113,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad Retorno " + retorno);
+         log.warn("Contador PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
@@ -129,7 +129,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuencia);
          retorno = new BigInteger(query.getSingleResult().toString());
-         log.error("Contador PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad Retorno " + retorno);
+         log.warn("Contador PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
          log.error("Error PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);

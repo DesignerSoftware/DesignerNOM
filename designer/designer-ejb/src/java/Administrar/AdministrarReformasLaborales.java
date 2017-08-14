@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
 /**
@@ -53,18 +54,36 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    @EJB
    AdministrarSesionesInterface administrarSesiones;
 
+   private EntityManagerFactory emf;
    private EntityManager em;
+
+   private EntityManager getEm() {
+      try {
+         if (this.em != null) {
+            if (this.em.isOpen()) {
+               this.em.close();
+            }
+         }
+         this.em = emf.createEntityManager();
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+      }
+      return this.em;
+   }
 
    @Override
    public void obtenerConexion(String idSesion) {
-      em = administrarSesiones.obtenerConexionSesion(idSesion);
+      try {
+         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+      } catch (Exception e) {
+         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+      }
    }
 
    @Override
    public List<ReformasLaborales> listaReformasLaborales() {
       try {
-         List<ReformasLaborales> lista = persistenciaReformasLaborales.buscarReformasLaborales(em);
-         return lista;
+         return persistenciaReformasLaborales.buscarReformasLaborales(getEm());
       } catch (Exception e) {
          log.warn("Error listaReformasLaborales Admi : " + e.toString());
          return null;
@@ -75,7 +94,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    public void crearReformaLaboral(List<ReformasLaborales> listaRL) {
       try {
          for (int i = 0; i < listaRL.size(); i++) {
-            persistenciaReformasLaborales.crear(em, listaRL.get(i));
+            persistenciaReformasLaborales.crear(getEm(), listaRL.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearReformaLaboral Admi : " + e.toString());
@@ -86,7 +105,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    public void editarReformaLaboral(List<ReformasLaborales> listaRL) {
       try {
          for (int i = 0; i < listaRL.size(); i++) {
-            persistenciaReformasLaborales.editar(em, listaRL.get(i));
+            persistenciaReformasLaborales.editar(getEm(), listaRL.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarReformaLaboral Admi : " + e.toString());
@@ -97,7 +116,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    public void borrarReformaLaboral(List<ReformasLaborales> listaRL) {
       try {
          for (int i = 0; i < listaRL.size(); i++) {
-            persistenciaReformasLaborales.borrar(em, listaRL.get(i));
+            persistenciaReformasLaborales.borrar(getEm(), listaRL.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarReformaLaboral Admi : " + e.toString());
@@ -107,7 +126,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    @Override
    public List<DetallesReformasLaborales> listaDetalleReformasLaborales(BigInteger secuencia) {
       try {
-         List<DetallesReformasLaborales> lista = persistenciaDetallesReformasLaborales.buscarDetalleReformasParaReformaSecuencia(em, secuencia);
+         List<DetallesReformasLaborales> lista = persistenciaDetallesReformasLaborales.buscarDetalleReformasParaReformaSecuencia(getEm(), secuencia);
          return lista;
       } catch (Exception e) {
          log.warn("Error listaDetalleReformasLaborales Admi : " + e.toString());
@@ -119,7 +138,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    public void crearDetalleReformaLaboral(List<DetallesReformasLaborales> listaDRL) {
       try {
          for (int i = 0; i < listaDRL.size(); i++) {
-            persistenciaDetallesReformasLaborales.crear(em, listaDRL.get(i));
+            persistenciaDetallesReformasLaborales.crear(getEm(), listaDRL.get(i));
          }
       } catch (Exception e) {
          log.warn("Error crearDetalleReformaLaboral Admi : " + e.toString());
@@ -130,7 +149,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    public void editarDetalleReformaLaboral(List<DetallesReformasLaborales> listaDRL) {
       try {
          for (int i = 0; i < listaDRL.size(); i++) {
-            persistenciaDetallesReformasLaborales.editar(em, listaDRL.get(i));
+            persistenciaDetallesReformasLaborales.editar(getEm(), listaDRL.get(i));
          }
       } catch (Exception e) {
          log.warn("Error editarDetalleReformaLaboral Admi : " + e.toString());
@@ -141,7 +160,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
    public void borrarDetalleReformaLaboral(List<DetallesReformasLaborales> listaDRL) {
       try {
          for (int i = 0; i < listaDRL.size(); i++) {
-            persistenciaDetallesReformasLaborales.borrar(em, listaDRL.get(i));
+            persistenciaDetallesReformasLaborales.borrar(getEm(), listaDRL.get(i));
          }
       } catch (Exception e) {
          log.warn("Error borrarDetalleReformaLaboral Admi : " + e.toString());
@@ -150,7 +169,7 @@ public class AdministrarReformasLaborales implements AdministrarReformasLaborale
 
    public String clonarReformaLaboral(String nuevoNombre, short codigoNuevo, short codOrigen) {
       try {
-         return persistenciaDetallesReformasLaborales.clonarReformaLaboral(em, nuevoNombre, codigoNuevo, codOrigen);
+         return persistenciaDetallesReformasLaborales.clonarReformaLaboral(getEm(), nuevoNombre, codigoNuevo, codOrigen);
       } catch (Exception e) {
          log.warn("ERROR clonarReformaLaboral Administrar e: " + e.toString());
          return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
