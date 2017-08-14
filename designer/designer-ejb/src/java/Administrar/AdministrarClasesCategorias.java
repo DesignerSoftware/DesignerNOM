@@ -70,7 +70,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
             persistenciaClasesCategorias.editar(getEm(), listaClasesCategorias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
             persistenciaClasesCategorias.borrar(getEm(), listaClasesCategorias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
             persistenciaClasesCategorias.crear(getEm(), listaClasesCategorias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
          listMotivosCambiosCargos = persistenciaClasesCategorias.consultarClasesCategorias(getEm());
          return listMotivosCambiosCargos;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
          subCategoria = persistenciaClasesCategorias.consultarClaseCategoria(getEm(), secClasesCategorias);
          return subCategoria;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

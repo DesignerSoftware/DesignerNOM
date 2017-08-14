@@ -127,7 +127,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
          log.warn("administrarcomprobantes consultarParametrosComprobantesActualUsuario()  actualUsuario: " + usuarioBD);
          return persistenciaParametros.parametrosComprobantes(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -139,7 +139,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
          usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -149,7 +149,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaSolucionesNodos.solucionNodoEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaSolucionesNodos.solucionNodoEmpleador(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -169,7 +169,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaDetallesFormulas.detallesFormula(getEm(), secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -179,7 +179,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(getEm(), secFormula, fechaDesde);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

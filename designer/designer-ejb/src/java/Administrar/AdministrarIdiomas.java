@@ -70,7 +70,7 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
             persistenciaIdiomas.editar(getEm(), listaIdiomas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
             persistenciaIdiomas.borrar(getEm(), listaIdiomas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -92,7 +92,7 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
             persistenciaIdiomas.crear(getEm(), listaIdiomas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
       try {
          return persistenciaIdiomas.buscarIdiomas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarIdiomas implements AdministrarIdiomasInterface {
       try {
          return persistenciaIdiomas.buscarIdioma(getEm(), secIdiomas);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

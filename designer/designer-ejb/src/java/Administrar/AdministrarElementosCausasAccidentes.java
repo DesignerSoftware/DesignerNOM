@@ -84,7 +84,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
             persistenciaElementosCausasAccidentes.editar(getEm(), elementosCausasAccidentesSeleccionada);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
             persistenciaElementosCausasAccidentes.borrar(getEm(), listaElementosCausasAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
             persistenciaElementosCausasAccidentes.crear(getEm(), listaElementosCausasAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
       try {
          return persistenciaElementosCausasAccidentes.buscarElementosCausasAccidentes(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class AdministrarElementosCausasAccidentes implements AdministrarElemento
       try {
          return persistenciaElementosCausasAccidentes.buscarElementoCausaAccidente(getEm(), secElementosCausasAccidentes);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

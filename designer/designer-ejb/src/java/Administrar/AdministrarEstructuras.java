@@ -164,7 +164,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
          }
          return listaEstructurasPadre;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -174,7 +174,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
       try {
          return persistenciaEstructuras.estructurasHijas(getEm(), secEstructuraPadre, codigoEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -205,7 +205,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
          }
          return listaOrganigramas;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -225,7 +225,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
       try {
          return persistenciaEmpresas.consultarEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -239,7 +239,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
             persistenciaOrganigramas.editar(getEm(), org);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -248,7 +248,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
       try {
          persistenciaOrganigramas.borrar(getEm(), organigrama);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -257,7 +257,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
       try {
          persistenciaOrganigramas.crear(getEm(), organigrama);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -266,7 +266,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
       try {
          return persistenciaEstructuras.estructuras(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -276,7 +276,7 @@ public class AdministrarEstructuras implements AdministrarEstructurasInterface {
       try {
          return persistenciaEstructuras.estructuras(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

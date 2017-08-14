@@ -70,7 +70,7 @@ public class AdministrarMetodosPagos implements AdministrarMetodosPagosInterface
             persistenciaMetodosPagos.editar(getEm(), listaMetodosPagos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarMetodosPagos implements AdministrarMetodosPagosInterface
             persistenciaMetodosPagos.borrar(getEm(), listaMetodosPagos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarMetodosPagos implements AdministrarMetodosPagosInterface
             persistenciaMetodosPagos.crear(getEm(), listaMetodosPagos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarMetodosPagos implements AdministrarMetodosPagosInterface
       try {
          return persistenciaMetodosPagos.buscarMetodosPagos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarMetodosPagos implements AdministrarMetodosPagosInterface
       try {
          return persistenciaMetodosPagos.buscarMetodosPagosEmpleado(getEm(), secMetodosPagos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

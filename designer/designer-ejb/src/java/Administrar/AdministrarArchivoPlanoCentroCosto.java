@@ -75,7 +75,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
             persistenciaTempProrrateos.crear(getEm(), listaTempPP.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          persistenciaTempProrrateos.editar(getEm(), tempPP);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          persistenciaTempProrrateos.borrar(getEm(), tempPP);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          persistenciaTempProrrateos.borrarRegistrosTempProrrateos(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -111,7 +111,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          return persistenciaTempProrrateos.obtenerTempProrrateos(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -130,7 +130,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
          }
          return listaNombres;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -140,7 +140,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          return persistenciaTempProrrateos.obtenerDocumentosSoporteCargados(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -150,7 +150,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          return persistenciaActualUsuario.actualUsuarioBD(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -160,7 +160,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          persistenciaTempProrrateos.cargarTempProrrateos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -169,7 +169,7 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
       try {
          return persistenciaTempProrrateos.reversarTempProrrateos(getEm(), usuarioBD.getAlias(), documentoSoporte);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }

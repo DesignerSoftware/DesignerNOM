@@ -71,7 +71,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
             persistenciaGruposTiposEntidades.editar(getEm(), listaGruposTiposEntidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
             persistenciaGruposTiposEntidades.borrar(getEm(), listaGruposTiposEntidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
             persistenciaGruposTiposEntidades.crear(getEm(), listaGruposTiposEntidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
       try {
          return persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class AdministrarGruposTiposEntidades implements AdministrarGruposTiposEn
       try {
          return persistenciaGruposTiposEntidades.consultarGrupoTipoEntidad(getEm(), secGruposTiposEntidades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

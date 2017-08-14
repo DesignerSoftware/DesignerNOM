@@ -65,7 +65,7 @@ public class AdministrarPryRoles implements AdministrarPryRolesInterface {
       try {
          return persistenciaPryRoles.pryroles(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -75,7 +75,7 @@ public class AdministrarPryRoles implements AdministrarPryRolesInterface {
       try {
          return persistenciaPryRoles.pryroles(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -87,7 +87,7 @@ public class AdministrarPryRoles implements AdministrarPryRolesInterface {
             persistenciaPryRoles.editar(getEm(), listaPryRoles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarPryRoles implements AdministrarPryRolesInterface {
             persistenciaPryRoles.borrar(getEm(), listaPryRoles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -109,7 +109,7 @@ public class AdministrarPryRoles implements AdministrarPryRolesInterface {
             persistenciaPryRoles.crear(getEm(), listaPryRoles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

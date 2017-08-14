@@ -71,7 +71,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
             persistenciaTiposViajeros.editar(getEm(), listaTiposViajeros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
             persistenciaTiposViajeros.borrar(getEm(), listaTiposViajeros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
             persistenciaTiposViajeros.crear(getEm(), listaTiposViajeros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
       try {
          return persistenciaTiposViajeros.consultarTiposViajeros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
       try {
          return persistenciaTiposViajeros.consultarSubCategoria(getEm(), secTiposViajeros);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

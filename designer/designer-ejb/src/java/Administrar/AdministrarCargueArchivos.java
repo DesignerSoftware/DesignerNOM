@@ -243,7 +243,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
             persistenciaTempNovedades.crear(getEm(), listaTempNovedades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -252,7 +252,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          persistenciaTempNovedades.editar(getEm(), tempNovedades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -261,7 +261,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          persistenciaTempNovedades.borrar(getEm(), tempNovedades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -270,7 +270,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          persistenciaTempNovedades.borrarRegistrosTempNovedades(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -279,7 +279,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaActualUsuario.actualUsuarioBD(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -289,7 +289,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaParametrosEstructuras.buscarEmpresaParametros(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -299,7 +299,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaTempNovedades.obtenerTempNovedades(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -309,7 +309,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaEmpleado.verificarCodigoEmpleado_Empresa(getEm(), codEmpleado, secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -319,7 +319,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaConceptos.verificarCodigoConcepto(getEm(), codConcepto);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -329,7 +329,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaPeriodicidades.verificarCodigoPeriodicidad(getEm(), codPeriodicidad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -339,7 +339,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaTerceros.verificarTerceroPorNit(getEm(), nitTercero);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -350,7 +350,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
          Empleados empleado = consultarEmpleadoEmpresa(codEmpleado, secEmpresa);
          return persistenciaVWActualesTiposTrabajadores.verificarTipoTrabajador(getEm(), empleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -360,7 +360,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaEmpleado.buscarEmpleadoCodigo_Empresa(getEm(), codEmpleado, secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -370,7 +370,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -380,7 +380,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaVWActualesReformasLaborales.buscarReformaLaboral(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -390,7 +390,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaVWActualesTiposContratos.buscarTiposContratosEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -400,7 +400,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaConceptos.validarCodigoConcepto(getEm(), codigoConcepto, codigoEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -427,7 +427,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
             return tipo;
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -455,7 +455,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaFormulas.buscarFormulasCarge(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -465,7 +465,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaFormulas.buscarFormulaCargeInicial(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -475,7 +475,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaFormulasConceptos.verificarFormulaCargue_Concepto(getEm(), secConcepto, secFormula);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -485,7 +485,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaVigenciasGruposConceptos.verificacionGrupoUnoConcepto(getEm(), secConcepto);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -495,7 +495,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaTerceros.verificarTerceroParaEmpresaEmpleado(getEm(), nit, secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -505,7 +505,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          return persistenciaTempNovedades.obtenerDocumentosSoporteCargados(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -517,7 +517,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
          String fechaR = formatoFecha.format(fechaReporte);
          persistenciaTempNovedades.cargarTempNovedades(getEm(), fechaR, nombreCorto, usarFormula);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -539,7 +539,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
             return 0;
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }
@@ -571,7 +571,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
          resultadoProceso.setRegistrosBorrados(registrosBorrados);
          return resultadoProceso;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

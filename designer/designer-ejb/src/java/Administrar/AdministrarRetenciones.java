@@ -72,7 +72,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
       try {
          persistenciaVigenciasRetenciones.borrar(getEm(), vretenciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
       try {
          persistenciaVigenciasRetenciones.crear(getEm(), vretenciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
             persistenciaVigenciasRetenciones.editar(getEm(), listaVigenciasRetencionesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
       try {
          persistenciaRetenciones.borrar(getEm(), retenciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
       try {
          persistenciaRetenciones.crear(getEm(), retenciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -140,7 +140,7 @@ public class AdministrarRetenciones implements AdministrarRetencionesInterface {
             persistenciaRetenciones.editar(getEm(), listaRetencionesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

@@ -1053,7 +1053,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          return persistenciaEmpleado.eliminarEmpleadoNominaF(getEm(), secEmpleado, secPersona);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }

@@ -234,7 +234,7 @@ public class AdministrarInterfaseContableSapBOPQ implements AdministrarInterfase
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

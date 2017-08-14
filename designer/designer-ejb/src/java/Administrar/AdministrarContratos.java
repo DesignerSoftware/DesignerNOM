@@ -78,7 +78,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          return persistenciaContratos.lovContratos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -97,7 +97,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          return persistenciaTiposCotizantes.lovTiposCotizantes(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
       return null;
    }
@@ -112,7 +112,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             persistenciaContratos.editar(getEm(), listContratosModificados.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -128,7 +128,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -144,7 +144,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -153,7 +153,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          persistenciaContratos.reproducirContrato(getEm(), codigoOrigen, codigoDestino);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

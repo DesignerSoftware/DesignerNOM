@@ -67,7 +67,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
       try {
          return persistenciaOperandos.buscarOperandos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -77,7 +77,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
       try {
          persistenciaOperandos.borrar(getEm(), operandos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
       try {
          persistenciaOperandos.crear(getEm(), operandos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
             persistenciaOperandos.editar(getEm(), listaOperandosModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
       try {
          return persistenciaOperandos.valores(getEm(), secuenciaOperando);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -70,7 +70,7 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
             persistenciaPryClientes.editar(getEm(), listaPryClientes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
             persistenciaPryClientes.borrar(getEm(), listaPryClientes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
             persistenciaPryClientes.crear(getEm(), listaPryClientes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
       try {
          return persistenciaPryClientes.buscarPryClientes(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarPryClientes implements AdministrarPryClientesInterface {
       try {
          return persistenciaPryClientes.buscarPryCliente(getEm(), secPryClientes);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

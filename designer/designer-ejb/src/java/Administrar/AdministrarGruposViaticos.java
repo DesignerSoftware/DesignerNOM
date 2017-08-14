@@ -70,7 +70,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
             persistenciaGruposViaticos.editar(getEm(), listGruposViaticos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
             persistenciaGruposViaticos.borrar(getEm(), listGruposViaticos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
             persistenciaGruposViaticos.crear(getEm(), listGruposViaticos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
       try {
          return persistenciaGruposViaticos.buscarGruposViaticos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
       try {
          return persistenciaGruposViaticos.buscarGrupoViatico(getEm(), secGruposViaticos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

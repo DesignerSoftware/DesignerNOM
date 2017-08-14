@@ -80,7 +80,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
       try {
          persistenciaProcesos.borrar(getEm(), procesos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -89,7 +89,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
       try {
          persistenciaProcesos.crear(getEm(), procesos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
             persistenciaProcesos.editar(getEm(), listaVigenciasRetencionesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -137,7 +137,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
       try {
          persistenciaOperandosGruposConceptos.borrar(getEm(), operandos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -146,7 +146,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
       try {
          persistenciaOperandosGruposConceptos.crear(getEm(), operandos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -158,7 +158,7 @@ public class AdministrarOperandosGruposConceptos implements AdministrarOperandos
             persistenciaOperandosGruposConceptos.editar(getEm(), listaOperandosGruposConceptosModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

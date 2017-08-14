@@ -72,7 +72,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
             persistenciaLugaresOcurrencias.editar(getEm(), listaLugaresOcurrencias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
             persistenciaLugaresOcurrencias.borrar(getEm(), listaLugaresOcurrencias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
             persistenciaLugaresOcurrencias.crear(getEm(), listaLugaresOcurrencias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
          listLugarOcurrencia = persistenciaLugaresOcurrencias.buscarLugaresOcurrencias(getEm());
          return listLugarOcurrencia;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class AdministrarLugaresOcurrencias implements AdministrarLugaresOcurrenc
          lugarOcurrencia = persistenciaLugaresOcurrencias.buscarLugaresOcurrencias(getEm(), secLugarOcurrencia);
          return lugarOcurrencia;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

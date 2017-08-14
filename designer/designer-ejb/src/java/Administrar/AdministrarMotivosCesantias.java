@@ -70,7 +70,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
             persistenciaMotivosCensantias.editar(getEm(), listaMotivosCesantias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
             persistenciaMotivosCensantias.borrar(getEm(), listaMotivosCesantias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
             persistenciaMotivosCensantias.crear(getEm(), listaMotivosCesantias.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
       try {
          return persistenciaMotivosCensantias.buscarMotivosCesantias(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
       try {
          return persistenciaMotivosCensantias.buscarMotivoCensantia(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -70,7 +70,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
             persistenciaTiposConclusiones.editar(getEm(), listaTiposConclusiones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
             persistenciaTiposConclusiones.borrar(getEm(), listaTiposConclusiones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
             persistenciaTiposConclusiones.crear(getEm(), listaTiposConclusiones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
       try {
          return persistenciaTiposConclusiones.consultarTiposConclusiones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarTiposConclusiones implements AdministrarTiposConclusione
       try {
          return persistenciaTiposConclusiones.consultarTipoConclusion(getEm(), secTiposConclusiones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

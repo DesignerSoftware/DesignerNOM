@@ -75,7 +75,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
             persistenciaPryPlataformas.editar(getEm(), listaPryClientes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
             persistenciaPryPlataformas.borrar(getEm(), listaPryClientes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
             persistenciaPryPlataformas.crear(getEm(), listaPryClientes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -109,7 +109,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
          listPryPlataformas = persistenciaPryPlataformas.buscarPryPlataformas(getEm());
          return listPryPlataformas;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -120,7 +120,7 @@ public class AdministrarPryPlataformas implements AdministrarPryPlataformasInter
          pryPlataformas = persistenciaPryPlataformas.buscarPryPlataformaSecuencia(getEm(), secPryClientes);
          return pryPlataformas;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -74,7 +74,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
             persistenciaEvalEvaluadores.editar(getEm(), listEvalEvaluadores.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
             persistenciaEvalEvaluadores.borrar(getEm(), listEvalEvaluadores.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
             persistenciaEvalEvaluadores.crear(getEm(), listEvalEvaluadores.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
       try {
          return persistenciaEvalEvaluadores.buscarEvalEvaluadores(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class AdministrarEvalEvaluadores implements AdministrarEvalEvaluadoresInt
       try {
          return persistenciaEvalEvaluadores.buscarEvalEvaluador(getEm(), secEvalEvaluadores);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

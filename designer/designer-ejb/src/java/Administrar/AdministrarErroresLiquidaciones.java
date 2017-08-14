@@ -65,7 +65,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
          log.warn("AdministrarErroresLiquidaciones.consultarErroresLiquidacion()");
          return persistenciaErroresLiquidacionesInterface.consultarErroresLiquidacion(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -83,7 +83,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
          }
          return listaLiquidacionesLog;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -95,7 +95,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
             persistenciaErroresLiquidacionesInterface.borrar(getEm(), listaErroresLiquidacion.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
       try {
          return persistenciaErroresLiquidacionesInterface.BorrarTotosErroresLiquidaciones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }

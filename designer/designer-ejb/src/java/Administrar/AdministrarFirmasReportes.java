@@ -92,7 +92,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
             persistenciaFirmasReportes.editar(getEm(), listaFirmasReportes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
             persistenciaFirmasReportes.borrar(getEm(), listaFirmasReportes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -122,7 +122,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
             persistenciaFirmasReportes.crear(getEm(), listaFirmasReportes.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -131,7 +131,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
       try {
          return persistenciaFirmasReportes.consultarFirmasReportes(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -140,7 +140,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
       try {
          return persistenciaFirmasReportes.consultarFirmaReporte(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -149,7 +149,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
       try {
          return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
       try {
          return persistenciaPersonas.consultarPersonas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -167,7 +167,7 @@ public class AdministrarFirmasReportes implements AdministrarFirmasReportesInter
       try {
          return persistenciaEmpresas.consultarEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

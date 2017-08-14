@@ -90,7 +90,7 @@ public class AdministrarVigenciasTiposContratos implements AdministrarVigenciasT
             persistenciaVigenciasTiposContratos.editar(getEm(), listVTCModificadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarVigenciasTiposContratos implements AdministrarVigenciasT
       try {
          persistenciaVigenciasTiposContratos.borrar(getEm(), vigenciasTipoContrato);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarVigenciasTiposContratos implements AdministrarVigenciasT
       try {
          persistenciaVigenciasTiposContratos.crear(getEm(), vigenciasTipoContrato);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

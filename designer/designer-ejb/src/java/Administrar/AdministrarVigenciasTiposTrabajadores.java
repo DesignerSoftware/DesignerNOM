@@ -108,7 +108,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
             persistenciaVigenciasTiposTrabajadores.editar(getEm(), listVTTModificadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
       try {
          persistenciaVigenciasTiposTrabajadores.borrar(getEm(), vigenciasTiposTrabajadores);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

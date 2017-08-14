@@ -63,7 +63,7 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
       try {
          return persistenciaMotivosReemplazos.motivosReemplazos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -73,7 +73,7 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
       try {
          return persistenciaMotivosReemplazos.motivosReemplazos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -85,7 +85,7 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
             persistenciaMotivosReemplazos.editar(getEm(), listaMotivosReemplazos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
             persistenciaMotivosReemplazos.borrar(getEm(), listaMotivosReemplazos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
             persistenciaMotivosReemplazos.crear(getEm(), listaMotivosReemplazos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -115,7 +115,7 @@ public class AdministrarMotivosReemplazos implements AdministrarMotivosReemplazo
       try {
          return persistenciaMotivosReemplazos.contarEncargaturasMotivoReemplazo(getEm(), secMotivoReemplazo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

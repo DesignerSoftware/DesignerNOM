@@ -70,7 +70,7 @@ public class AdministrarConceptosRetroactivos implements AdministrarConceptosRet
             persistenciaConceptosRetroactivos.crear(getEm(), lista.get(j));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -80,7 +80,7 @@ public class AdministrarConceptosRetroactivos implements AdministrarConceptosRet
             persistenciaConceptosRetroactivos.borrar(getEm(), lista.get(j));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -90,7 +90,7 @@ public class AdministrarConceptosRetroactivos implements AdministrarConceptosRet
             persistenciaConceptosRetroactivos.editar(getEm(), lista.get(j));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarConceptosRetroactivos implements AdministrarConceptosRet
          List<ConceptosRetroactivos> lista = persistenciaConceptosRetroactivos.buscarConceptosRetroactivos(getEm());
          return lista;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class AdministrarConceptosRetroactivos implements AdministrarConceptosRet
          List<Conceptos> lista = persistenciaConceptos.buscarConceptos(getEm());
          return lista;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -120,7 +120,7 @@ public class AdministrarConceptosRetroactivos implements AdministrarConceptosRet
          List<Conceptos> lista = persistenciaConceptos.buscarConceptos(getEm());
          return lista;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

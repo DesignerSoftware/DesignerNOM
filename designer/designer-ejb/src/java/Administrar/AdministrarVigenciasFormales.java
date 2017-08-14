@@ -97,7 +97,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaTiposEducaciones.tiposEducaciones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaProfesiones.profesiones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaInstituciones.instituciones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -138,7 +138,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaAdiestramientosF.adiestramientosF(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -160,7 +160,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             persistenciaVigenciasFormales.editar(getEm(), listaVigenciasFormalesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -181,7 +181,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             persistenciaVigenciasFormales.borrar(getEm(), listaVigenciasFormalesBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -213,7 +213,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             persistenciaVigenciasFormales.crear(getEm(), listaVigenciasFormalesCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

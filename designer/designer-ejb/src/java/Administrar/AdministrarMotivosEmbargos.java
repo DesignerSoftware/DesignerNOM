@@ -69,7 +69,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
             persistenciaMotivosEmbargos.editar(getEm(), listaMotivosEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -80,7 +80,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
             persistenciaMotivosEmbargos.borrar(getEm(), listaMotivosEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
             persistenciaMotivosEmbargos.crear(getEm(), listaMotivosEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
       try {
          return persistenciaMotivosEmbargos.buscarMotivosEmbargos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
       try {
          return persistenciaMotivosEmbargos.buscarMotivoEmbargo(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

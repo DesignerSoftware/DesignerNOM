@@ -66,7 +66,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
             persistenciaUsuariosIR.crear(getEm(), lista.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -77,7 +77,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
             persistenciaUsuariosIR.editar(getEm(), lista.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -88,7 +88,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
             persistenciaUsuariosIR.borrar(getEm(), lista.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.listaUsuariosIR(getEm(), secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.lovIR(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.listaUsuarios(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.getTotalRegistros(getEm(), secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.getFind(getEm(), firstRow, max, secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -147,7 +147,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.getBuscarUIR(getEm(), firstRow, max, secUsuarioIR);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -157,7 +157,7 @@ public class AdministrarUsuariosInfoReportes implements AdministrarUsuariosInfoR
       try {
          return persistenciaUsuariosIR.getTotalRegistrosBuscar(getEm(), secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

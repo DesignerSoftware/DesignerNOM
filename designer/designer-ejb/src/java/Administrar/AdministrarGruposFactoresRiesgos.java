@@ -69,7 +69,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
             persistenciaGruposFactoresRiesgos.editar(getEm(), listaGruposFactoresRiesgos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -80,7 +80,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
             persistenciaGruposFactoresRiesgos.borrar(getEm(), listaGruposFactoresRiesgos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
             persistenciaGruposFactoresRiesgos.crear(getEm(), listaGruposFactoresRiesgos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
       try {
          return persistenciaGruposFactoresRiesgos.consultarGruposFactoresRiesgos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarGruposFactoresRiesgos implements AdministrarGruposFactor
       try {
          return persistenciaGruposFactoresRiesgos.consultarGrupoFactorRiesgo(getEm(), secGruposFactoresRiesgos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

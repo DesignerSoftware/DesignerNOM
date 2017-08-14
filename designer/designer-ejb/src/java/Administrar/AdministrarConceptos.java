@@ -112,7 +112,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaConceptos.conceptosPorEmpresa(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaConceptos.conceptosEmpresaActivos_Inactivos(getEm(), secEmpresa, estado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -132,7 +132,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaConceptos.conceptosEmpresaSinPasivos(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -142,7 +142,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaEmpresas.consultarEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -151,7 +151,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaEmpresas.buscarEmpresasLista(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -161,7 +161,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaUnidades.consultarUnidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -171,7 +171,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          return persistenciaTerceros.lovTerceros(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -189,7 +189,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
             persistenciaConceptos.editar(getEm(), listConceptosModificados.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -206,7 +206,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
             persistenciaConceptos.borrar(getEm(), listaConceptos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -223,7 +223,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
             persistenciaConceptos.crear(getEm(), listaConceptos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -232,7 +232,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
       try {
          persistenciaConceptos.clonarConcepto(getEm(), secConceptoOrigen, codigoConceptoNuevo, descripcionConceptoNuevo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -242,7 +242,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
          List<ClavesSap> listaClavesSap = persistenciaClavesSap.consultarClavesSap(getEm());
          return listaClavesSap;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -253,7 +253,7 @@ public class AdministrarConceptos implements AdministrarConceptosInterface {
          boolean retorno = persistenciaSolucionesNodos.solucionesNodosParaConcepto(getEm(), secuencia);
          return retorno;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }

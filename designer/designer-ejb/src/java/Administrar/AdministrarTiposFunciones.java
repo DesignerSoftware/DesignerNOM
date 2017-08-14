@@ -67,7 +67,7 @@ public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInter
       try {
          return persistenciaTiposFunciones.tiposFunciones(getEm(), secuenciaOperando);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -77,7 +77,7 @@ public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInter
       try {
          persistenciaTiposFunciones.borrar(getEm(), tiposFunciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInter
       try {
          persistenciaTiposFunciones.crear(getEm(), tiposFunciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarTiposFunciones implements AdministrarTiposFuncionesInter
             persistenciaTiposFunciones.editar(getEm(), listaTiposFuncionesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

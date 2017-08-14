@@ -130,7 +130,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
          }
          return listaEmpleadosNovedad;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -195,7 +195,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), secuenciaNovedad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }
@@ -205,7 +205,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaActualUsuario.actualAliasBD(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -215,7 +215,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaUsuarios.buscarUsuario(getEm(), alias);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -226,7 +226,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaPruebaEmpleados.empleadosAsignacion(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -237,7 +237,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaEmpleados.buscarEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -248,7 +248,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaConceptos.buscarConceptosLovNovedades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -258,7 +258,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaFormulas.buscarFormulas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -268,7 +268,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -278,7 +278,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -288,7 +288,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaEmpleados.empleadosNovedad(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -299,7 +299,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -309,7 +309,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          return persistenciaVWActualesTiposTrabajadores.consultarFechaVigencia(getEm(), secuencia);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -319,7 +319,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          persistenciaNovedades.borrar(getEm(), novedades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -328,7 +328,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
       try {
          persistenciaNovedades.crear(getEm(), novedades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -355,7 +355,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
             persistenciaNovedades.editar(getEm(), listaNovedadesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

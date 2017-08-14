@@ -65,7 +65,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
          listaCausasAusentismo = persistenciaCausasausentismos.buscarCausasAusentismos(getEm());
          return listaCausasAusentismo;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -77,7 +77,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
          listaClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
          return listaClasesAusentismos;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -136,7 +136,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

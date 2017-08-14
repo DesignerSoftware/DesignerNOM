@@ -109,7 +109,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaTerceros.todosTerceros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaFormulas.buscarFormulas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -129,7 +129,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -139,7 +139,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -149,7 +149,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaEmpleados.empleadosNovedad(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaConceptos.buscarConceptosLovNovedades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -169,7 +169,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), secuenciaNovedad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }
@@ -179,7 +179,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaActualUsuario.actualAliasBD(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -188,7 +188,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          return persistenciaUsuarios.buscarUsuario(getEm(), alias);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -198,7 +198,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          persistenciaNovedades.borrar(getEm(), novedades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -207,7 +207,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
       try {
          persistenciaNovedades.crear(getEm(), novedades);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -232,7 +232,7 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
             persistenciaNovedades.editar(getEm(), listaNovedadesModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

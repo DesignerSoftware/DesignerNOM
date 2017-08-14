@@ -319,7 +319,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesCargos.buscarCargoEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -723,7 +723,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaActualUsuario.actualAliasBD(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -733,7 +733,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          persistenciaCandados.borrarLiquidacionAutomatico(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -742,7 +742,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          persistenciaCandados.borrarLiquidacionNoAutomatico(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -753,7 +753,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          resultadoActivos = persistenciaSolucionesNodos.activos(getEm(), secuencia);
          return resultadoActivos;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -763,7 +763,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaEmpleado.eliminarEmpleadoNominaF(getEm(), secuenciaEmpleado, secuenciaPersona);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }

@@ -65,7 +65,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
       try {
          return persistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -75,7 +75,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
       try {
          return persistenciaAportesEntidadesXDia.consultarAportesEntidadesPorEmpleadoMesYAnio(getEm(), secEmpleado, mes, ano);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
       try {
          return persistenciaAportesEntidadesXDia.cosultarTarifa(getEm(), secEmpresa, secEmpleado, mes, ano, secTipoEntidad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

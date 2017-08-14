@@ -59,7 +59,7 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface {
       try {
          return persistenciaprofesiones.profesiones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -69,7 +69,7 @@ public class AdministrarProfesiones implements AdministrarProfesionesInterface {
       try {
          return persistenciaprofesiones.profesiones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

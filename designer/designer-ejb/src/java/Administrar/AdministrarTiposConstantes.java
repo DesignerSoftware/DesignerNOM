@@ -70,7 +70,7 @@ public class AdministrarTiposConstantes implements AdministrarTiposConstantesInt
       try {
          return persistenciaTiposConstantes.tiposConstantes(getEm(), secuenciaOperando);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -80,7 +80,7 @@ public class AdministrarTiposConstantes implements AdministrarTiposConstantesInt
       try {
          persistenciaTiposConstantes.borrar(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -89,7 +89,7 @@ public class AdministrarTiposConstantes implements AdministrarTiposConstantesInt
       try {
          persistenciaTiposConstantes.crear(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarTiposConstantes implements AdministrarTiposConstantesInt
       try {
          persistenciaTiposConstantes.editar(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

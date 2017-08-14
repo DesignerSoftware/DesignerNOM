@@ -70,7 +70,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
             persistenciaSectoresEvaluaciones.editar(getEm(), listaSectoresEvaluaciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
             persistenciaSectoresEvaluaciones.borrar(getEm(), listaSectoresEvaluaciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
             persistenciaSectoresEvaluaciones.crear(getEm(), listaSectoresEvaluaciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
       try {
          return persistenciaSectoresEvaluaciones.consultarSectoresEvaluaciones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
       try {
          return persistenciaSectoresEvaluaciones.consultarSectorEvaluacion(getEm(), secSectoresEvaluaciones);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

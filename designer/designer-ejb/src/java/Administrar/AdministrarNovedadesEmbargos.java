@@ -109,7 +109,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaEmpleados.empleadosNovedadEmbargo(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaEmpleados.empleadosNovedadEmbargo(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaTiposEmbargos.buscarTiposEmbargos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaJuzgados.buscarJuzgados(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -146,7 +146,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaMotivosEmbargos.buscarMotivosEmbargos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -155,7 +155,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -164,7 +164,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -173,7 +173,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaFormasDtos.formasDescuentos(getEm(), tipoEmbargo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -183,7 +183,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaEers.eersPrestamosEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -193,7 +193,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaDetallesFormasDtos.detallesFormasDescuentos(getEm(), formasDtos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -202,7 +202,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaFormasDtos.formasDescuentos(getEm(), tipoEmbargo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -212,7 +212,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaEersDtos.eersPrestamosDtosEmpleado(getEm(), secuenciaEersPrestamo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -221,7 +221,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          return persistenciaVWPrestamo.buscarPrestamosDtos(getEm(), secuencia);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -245,7 +245,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
             persistenciaEersDtos.editar(getEm(), dE);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -254,7 +254,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          persistenciaEersDtos.borrar(getEm(), detallesEmbargos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -263,7 +263,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          persistenciaEersDtos.crear(getEm(), detallesEmbargos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
    //AGREGAR, BORRAR Y MODIFICAR DE LA TABLA DE Arriba //
@@ -296,7 +296,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
             persistenciaEers.editar(getEm(), listaEmbargosModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -305,7 +305,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          persistenciaEers.borrar(getEm(), embargos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -314,7 +314,7 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
       try {
          persistenciaEers.crear(getEm(), embargos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

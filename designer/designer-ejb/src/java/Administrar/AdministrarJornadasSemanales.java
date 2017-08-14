@@ -68,7 +68,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
       try {
          return persistenciaJornadasSemanales.buscarJornadasSemanales(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -77,7 +77,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
       try {
          return persistenciaJornadasLaboralesInterface.buscarJornadasLaborales(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -86,7 +86,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
       try {
          return persistenciaJornadasInterface.consultarJornadas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -101,7 +101,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
             persistenciaJornadasSemanales.editar(getEm(), c);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -113,7 +113,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
             persistenciaJornadasSemanales.borrar(getEm(), listaJornadasSemanales.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarJornadasSemanales implements AdministrarJornadasSemanale
             persistenciaJornadasSemanales.crear(getEm(), listaJornadasSemanales.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

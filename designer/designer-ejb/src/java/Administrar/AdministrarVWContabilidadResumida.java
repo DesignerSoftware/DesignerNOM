@@ -89,7 +89,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
       try {
          return persistenciaContabilidadResumida.buscarContabilidadResumidaParametroContable(getEm(), FechaIni, FechaFin, secProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -197,7 +197,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -207,7 +207,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
       try {
          return persistenciaContabilidadResumida.buscarContabilidadDetalladaParametroContable(getEm(), FechaIni, FechaFin, secProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -240,7 +240,7 @@ public class AdministrarVWContabilidadResumida implements AdministrarVWContabili
       try {
          persistenciaContabilidadResumida.actualizarPeriodoContable(getEm(), FechaIni, FechaFin, secProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

@@ -102,7 +102,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
             persistenciaVigenciasEstadosCiviles.editar(getEm(), listaVigenciasEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -114,7 +114,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
             persistenciaVigenciasEstadosCiviles.borrar(getEm(), listaVigenciasEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -126,7 +126,7 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
             persistenciaVigenciasEstadosCiviles.crear(getEm(), listaVigenciasEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

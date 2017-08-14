@@ -78,7 +78,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
             persistenciaHvEntrevistas.editar(getEm(), listHvEntrevistas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -90,7 +90,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
             persistenciaHvEntrevistas.borrar(getEm(), listHvEntrevistas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
             persistenciaHvEntrevistas.crear(getEm(), listHvEntrevistas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -123,7 +123,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
       try {
          return persistenciaHvEntrevistas.buscarHvEntrevista(getEm(), secHvEntrevista);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

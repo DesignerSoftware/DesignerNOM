@@ -82,7 +82,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
             persistenciaPaises.editar(getEm(), listaPaises.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
             persistenciaPaises.borrar(getEm(), listaPaises.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
             persistenciaPaises.crear(getEm(), listaPaises.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -114,7 +114,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
       try {
          return persistenciaPaises.consultarPaises(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -124,7 +124,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
       try {
          return persistenciaPaises.consultarPais(getEm(), secPaises);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -154,7 +154,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
       try {
          return persistenciaFestivos.consultarFestivosPais(getEm(), secPais);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -164,7 +164,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
       try {
          return persistenciaCiudades.consultarCiudadesPorDepto(getEm(), secDepto);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -174,7 +174,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
       try {
          return persistenciaDepartamentos.consultarDepartamentosPorPais(getEm(), secPais);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

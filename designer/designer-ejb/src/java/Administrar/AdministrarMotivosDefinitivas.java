@@ -69,7 +69,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
             persistenciaMotivosDefinitivas.editar(getEm(), listaMotivosDefinitivas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -80,7 +80,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
             persistenciaMotivosDefinitivas.borrar(getEm(), listaMotivosDefinitivas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
             persistenciaMotivosDefinitivas.crear(getEm(), listaMotivosDefinitivas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
       try {
          return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
       try {
          return persistenciaMotivosDefinitivas.buscarMotivoDefinitiva(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

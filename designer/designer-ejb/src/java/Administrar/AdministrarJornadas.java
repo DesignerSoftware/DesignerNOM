@@ -69,7 +69,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
             persistenciaJornadas.editar(getEm(), listaJornadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -80,7 +80,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
             persistenciaJornadas.borrar(getEm(), listaJornadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
             persistenciaJornadas.crear(getEm(), listaJornadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
       try {
          return persistenciaJornadas.consultarJornadas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
       try {
          return persistenciaJornadas.consultarJornada(getEm(), secJornadas);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

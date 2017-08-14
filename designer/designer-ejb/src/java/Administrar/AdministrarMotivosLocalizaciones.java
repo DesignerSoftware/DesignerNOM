@@ -69,7 +69,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
             PersistenciaMotivosLocalizaciones.editar(getEm(), listaMotivosLocalizaciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
             PersistenciaMotivosLocalizaciones.borrar(getEm(), listaMotivosLocalizaciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
             PersistenciaMotivosLocalizaciones.crear(getEm(), listaMotivosLocalizaciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
       try {
          return PersistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
       try {
          return PersistenciaMotivosLocalizaciones.buscarMotivoLocalizacionSecuencia(getEm(), secMotivosCambiosCargos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarMotivosLocalizaciones implements AdministrarMotivosLocal
       try {
          return PersistenciaMotivosLocalizaciones.contarVigenciasLocalizacionesMotivoLocalizacion(getEm(), secMotivoLocalizacion);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

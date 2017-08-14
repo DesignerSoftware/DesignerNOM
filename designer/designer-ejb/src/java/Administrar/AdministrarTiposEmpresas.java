@@ -71,7 +71,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
             persistenciaTiposEmpresas.editar(getEm(), listTiposEmpresas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
             persistenciaTiposEmpresas.borrar(getEm(), listTiposEmpresas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
             persistenciaTiposEmpresas.crear(getEm(), listTiposEmpresas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
       try {
          return persistenciaTiposEmpresas.buscarTiposEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
       try {
          return persistenciaTiposEmpresas.buscarTipoEmpresa(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

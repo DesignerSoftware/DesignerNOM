@@ -79,7 +79,7 @@ public class AdministrarSets implements AdministrarSetsInterface {
             persistenciaSets.editar(getEm(), listSetsModificadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -88,7 +88,7 @@ public class AdministrarSets implements AdministrarSetsInterface {
       try {
          persistenciaSets.borrar(getEm(), sets);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarSets implements AdministrarSetsInterface {
       try {
          persistenciaSets.crear(getEm(), sets);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

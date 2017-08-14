@@ -66,7 +66,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
       try {
          return persistenciaNovedadesAuto.listaEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -76,7 +76,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
       try {
          return persistenciaNovedadesAuto.listaTerceros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -86,7 +86,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
       try {
          return persistenciaNovedadesAuto.listaTiposEntidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -96,7 +96,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
       try {
          return persistenciaNovedadesAuto.listasucursalesPila(getEm(), secuenciaEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class AdministrarNovedadAutoLiquidacion implements AdministrarNovedadAuto
       try {
          return persistenciaNovedadesAuto.listaNovedades(getEm(), anio, mes, secuenciaEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

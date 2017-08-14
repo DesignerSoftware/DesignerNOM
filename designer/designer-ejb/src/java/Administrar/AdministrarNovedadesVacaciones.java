@@ -75,7 +75,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaEmpleados.empleadosVacaciones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -96,7 +96,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
          log.warn("Administrar novedades Vacaciones. adelantar Periodo para el empleado : " + secEmpleado);
          persistenciaVacaciones.adelantarPeriodo(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
          log.warn("fecha inicial : " + fechaInicialDisfrute);
          return persistenciaVacaciones.consultarJornadaVacaciones(getEm(), secEmpleado, fechaInicialDisfrute);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.validarFestivoVacaciones(getEm(), fechaInicial, tipoJornada);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.validarDiaLaboralVacaciones(getEm(), tipoJornada, dia);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return false;
       }
    }
@@ -138,7 +138,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.siguienteDia(getEm(), fecha, numeroDias, jornada);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -148,7 +148,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.periodicidadEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.anteriorFechaLimiteCalendario(getEm(), fechafinvaca, secPeriodicidad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -168,7 +168,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.despuesFechaLimiteCalendario(getEm(), fechafinvaca, secPeriodicidad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -178,7 +178,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
       try {
          return persistenciaVacaciones.fechaUltimoCorte(getEm(), secEmpleado, codigoProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

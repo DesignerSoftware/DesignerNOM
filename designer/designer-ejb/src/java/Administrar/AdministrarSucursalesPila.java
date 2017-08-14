@@ -85,7 +85,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             persistenciaSucursalesPila.editar(getEm(), listaSucursalesPila.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             persistenciaSucursalesPila.borrar(getEm(), listaSucursalesPila.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             persistenciaSucursalesPila.crear(getEm(), listaSucursalesPila.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -115,7 +115,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
       try {
          return persistenciaSucursalesPila.consultarSucursalesPila(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -124,7 +124,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
       try {
          return persistenciaSucursalesPila.consultarSucursalesPilaPorEmpresa(getEm(), secSucursalesPila);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

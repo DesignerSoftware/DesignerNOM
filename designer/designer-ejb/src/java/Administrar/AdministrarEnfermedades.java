@@ -70,7 +70,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
             persistenciaEnfermedades.editar(getEm(), listDeportesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
             persistenciaEnfermedades.borrar(getEm(), listDeportesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -92,7 +92,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
             persistenciaEnfermedades.crear(getEm(), listDeportesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
       try {
          return persistenciaEnfermedades.buscarEnfermedades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
       try {
          return persistenciaEnfermedades.buscarEnfermedad(getEm(), secDeportes);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

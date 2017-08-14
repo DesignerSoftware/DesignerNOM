@@ -62,7 +62,7 @@ public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInter
       try {
          return persistenciaTiposTelefonos.tiposTelefonos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -80,7 +80,7 @@ public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInter
             persistenciaTiposTelefonos.editar(getEm(), tt);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -89,7 +89,7 @@ public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInter
       try {
          persistenciaTiposTelefonos.borrar(getEm(), tipoTelefono);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarTiposTelefonos implements AdministrarTiposTelefonosInter
       try {
          persistenciaTiposTelefonos.crear(getEm(), tipoTelefono);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

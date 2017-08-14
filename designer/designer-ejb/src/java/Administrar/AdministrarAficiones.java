@@ -63,7 +63,7 @@ public class AdministrarAficiones implements AdministrarAficionesInterface {
             persistenciaAficiones.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -75,7 +75,7 @@ public class AdministrarAficiones implements AdministrarAficionesInterface {
             persistenciaAficiones.editar(getEm(), aficion);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarAficiones implements AdministrarAficionesInterface {
             persistenciaAficiones.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarAficiones implements AdministrarAficionesInterface {
       try {
          return persistenciaAficiones.buscarAficiones(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

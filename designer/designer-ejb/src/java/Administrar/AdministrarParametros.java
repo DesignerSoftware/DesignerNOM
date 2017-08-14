@@ -92,7 +92,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaUsuarios.buscarUsuario(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -103,7 +103,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaEstructuras.estructuras(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -132,7 +132,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaProcesos.procesosParametros(getEm(), aut);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -143,7 +143,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametros.empleadosParametros(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -153,7 +153,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaParametrosEstados.parametrosComprobantes(getEm(), secuenciaParametro);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -162,7 +162,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          persistenciaParametrosEstructuras.editar(getEm(), parametroEstructura);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -172,7 +172,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
             persistenciaParametros.borrar(getEm(), listaParametros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -182,7 +182,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
             persistenciaParametros.crear(getEm(), listaParametros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -200,7 +200,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          persistenciaParametros.borrarParametros(getEm(), secParametroEstructura);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -208,7 +208,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaParametrosEstructuras.empleadosParametrizados(getEm(), secProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -217,7 +217,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaParametrosEstructuras.diasDiferenciaFechas(getEm(), fechaInicial, fechaFinal);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -227,7 +227,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
       try {
          return persistenciaEmpleado.lovEmpleadosParametros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

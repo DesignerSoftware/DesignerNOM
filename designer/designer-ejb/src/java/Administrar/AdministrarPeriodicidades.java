@@ -86,7 +86,7 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
             persistenciaPeriodicidades.borrar(getEm(), listaPeriodicidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
             persistenciaPeriodicidades.crear(getEm(), listaPeriodicidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
       try {
          return persistenciaPeriodicidades.consultarPeriodicidad(getEm(), secPeriodicidad);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class AdministrarPeriodicidades implements AdministrarPeriodicidadesInter
       try {
          return persistenciaUnidades.consultarUnidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

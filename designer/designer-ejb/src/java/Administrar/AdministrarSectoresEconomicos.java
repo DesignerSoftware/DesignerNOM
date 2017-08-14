@@ -68,7 +68,7 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
             persistenciaSectores.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -79,7 +79,7 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
             persistenciaSectores.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -90,7 +90,7 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
             persistenciaSectores.editar(getEm(), listaModiifcar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
       try {
          return persitenciaEmpresas.buscarEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
       try {
          return persistenciaSectores.buscarSectoresEconomicos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class AdministrarSectoresEconomicos implements AdministrarSectoresEconomi
       try {
          return persistenciaSectores.buscarSectoresEconomicosPorEmpresa(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -91,7 +91,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaEmpleados.buscarEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaProyectos.proyectos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaPryRoles.pryroles(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -153,7 +153,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
             persistenciaVigenciasProyectos.editar(getEm(), vP);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -162,7 +162,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          persistenciaVigenciasProyectos.borrar(getEm(), vigenciasProyectos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -171,7 +171,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          persistenciaVigenciasProyectos.crear(getEm(), vigenciasProyectos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

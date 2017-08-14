@@ -70,7 +70,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
             persistenciaTiposUnidades.editar(getEm(), listaTiposUnidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
             persistenciaTiposUnidades.borrar(getEm(), listaTiposUnidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
             persistenciaTiposUnidades.crear(getEm(), listaTiposUnidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
       try {
          return persistenciaTiposUnidades.consultarTiposUnidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarTiposUnidades implements AdministrarTiposUnidadesInterfa
       try {
          return persistenciaTiposUnidades.consultarTipoUnidad(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

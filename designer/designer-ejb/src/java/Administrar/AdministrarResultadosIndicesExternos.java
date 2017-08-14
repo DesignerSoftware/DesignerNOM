@@ -64,7 +64,7 @@ public class AdministrarResultadosIndicesExternos implements AdministrarResultad
             persistenciaIndicesExternos.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -75,7 +75,7 @@ public class AdministrarResultadosIndicesExternos implements AdministrarResultad
             persistenciaIndicesExternos.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarResultadosIndicesExternos implements AdministrarResultad
             persistenciaIndicesExternos.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarResultadosIndicesExternos implements AdministrarResultad
       try {
          return persistenciaIndicesExternos.buscarIndicesExternos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class AdministrarResultadosIndicesExternos implements AdministrarResultad
       try {
          return persistenciaIndicesExternos.buscarResultadosIndicesExternos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

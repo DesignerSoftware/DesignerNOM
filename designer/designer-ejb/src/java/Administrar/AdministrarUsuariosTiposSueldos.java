@@ -61,7 +61,7 @@ public class AdministrarUsuariosTiposSueldos implements AdministrarUsuariosTipos
       try {
          return persistenciaUsuariosTiposSueldos.buscarUsuariosTiposSueldos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -73,7 +73,7 @@ public class AdministrarUsuariosTiposSueldos implements AdministrarUsuariosTipos
             persistenciaUsuariosTiposSueldos.editar(getEm(), listaUsuarios.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarUsuariosTiposSueldos implements AdministrarUsuariosTipos
             persistenciaUsuariosTiposSueldos.borrar(getEm(), listaUsuarios.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarUsuariosTiposSueldos implements AdministrarUsuariosTipos
             persistenciaUsuariosTiposSueldos.crear(getEm(), listaUsuarios.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

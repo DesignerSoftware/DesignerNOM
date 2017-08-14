@@ -65,7 +65,7 @@ public class AdministrarPermisosObjetosJsf implements AdministrarPermisosObjetos
          String perfil = consultarPerfilUsuario();
          return persistenciaObjetosJsf.consultarEnableObjetoJsf(getEm(), perfil, nomPantalla);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -75,7 +75,7 @@ public class AdministrarPermisosObjetosJsf implements AdministrarPermisosObjetos
          Perfiles perfil = persistenciaPerfiles.consultarPerfilPorUsuario(em);
          return perfil.getDescripcion();
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

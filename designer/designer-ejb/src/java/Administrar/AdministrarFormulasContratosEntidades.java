@@ -87,7 +87,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
             persistenciaFormulasContratosEntidades.editar(getEm(), listaFormulasContratosEntidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
             persistenciaFormulasContratosEntidades.borrar(getEm(), listaFormulasContratosEntidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
             persistenciaFormulasContratosEntidades.crear(getEm(), listaFormulasContratosEntidades.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
       try {
          return persistenciaFormulasContratosEntidades.consultarFormulasContratosEntidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
       try {
          return persistenciaFormulasContratosEntidades.consultarFormulasContratosEntidadesPorFormulaContrato(getEm(), secFormulaContrato);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
       try {
          return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -146,7 +146,7 @@ public class AdministrarFormulasContratosEntidades implements AdministrarFormula
       try {
          return persistenciaFormulas.formulasContratosParaContratoFormulasContratosEntidades(getEm(), secFormulaContrato);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -72,7 +72,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPerfiles.editar(getEm(), listaPerfiles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPerfiles.borrar(getEm(), listaPerfiles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPerfiles.crear(getEm(), listaPerfiles.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
       try {
          return persistenciaPerfiles.consultarPerfilesAdmon(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
       try {
          return persistenciaPermisosPantallas.consultarPermisosPorPerfil(getEm(), secPerfil);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPermisosPantallas.crear(getEm(), permisop.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -136,7 +136,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPermisosPantallas.editar(getEm(), permisop.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -147,7 +147,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPermisosPantallas.borrar(getEm(), permisop.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -156,7 +156,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
       try {
          return persistenciaPermisosDB.consultarPermisosPorPerfil(getEm(), secPerfil);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -168,7 +168,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPermisosDB.crear(getEm(), permisosOb.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -179,7 +179,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPermisosDB.editar(getEm(), permisosOb.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -190,7 +190,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
             persistenciaPermisosDB.borrar(getEm(), permisosOb.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -217,7 +217,7 @@ public class AdministrarPerfiles implements AdministrarPerfilesInterface {
       try {
          return persistenciaPerfiles.consultarPerfilPorUsuario(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

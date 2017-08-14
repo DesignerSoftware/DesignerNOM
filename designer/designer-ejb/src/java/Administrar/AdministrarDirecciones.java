@@ -111,7 +111,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
       try {
          return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
       try {
          return PersistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             persistenciaDirecciones.editar(getEm(), d);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -156,7 +156,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             persistenciaDirecciones.borrar(getEm(), listaDirecciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -171,7 +171,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             persistenciaDirecciones.crear(getEm(), listaDirecciones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

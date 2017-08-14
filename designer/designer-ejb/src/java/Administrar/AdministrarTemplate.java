@@ -170,7 +170,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          log.warn("consultarDetalleEmpresaUsuario() detallesempresas: " + detallesEmpresas);
          return detallesEmpresas;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -182,7 +182,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          ActualUsuario au = consultarActualUsuario();
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), au.getAlias());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -194,7 +194,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          ActualUsuario au = consultarActualUsuario();
          return persistenciaPerfiles.consultarPerfil(getEm(), au.getPerfil()).getDescripcion();
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

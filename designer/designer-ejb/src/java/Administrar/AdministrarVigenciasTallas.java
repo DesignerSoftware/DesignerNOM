@@ -70,7 +70,7 @@ public class AdministrarVigenciasTallas implements AdministrarVigenciasTallasInt
             persistenciaVigenciasTallas.editar(getEm(), listaVigenciasTallas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarVigenciasTallas implements AdministrarVigenciasTallasInt
             persistenciaVigenciasTallas.borrar(getEm(), listaVigenciasTallas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -92,7 +92,7 @@ public class AdministrarVigenciasTallas implements AdministrarVigenciasTallasInt
             persistenciaVigenciasTallas.crear(getEm(), listaVigenciasTallas.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarVigenciasTallas implements AdministrarVigenciasTallasInt
       try {
          return persistenciaVigenciasTallas.consultarVigenciasTallasPorPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class AdministrarVigenciasTallas implements AdministrarVigenciasTallasInt
       try {
          return persistenciaTiposTallas.buscarTiposTallas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

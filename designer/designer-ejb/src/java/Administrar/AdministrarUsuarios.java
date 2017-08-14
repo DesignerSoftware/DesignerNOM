@@ -82,7 +82,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.buscarUsuarios(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -92,7 +92,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.crearUsuario(getEm(), alias);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.crearUsuarioPerfil(getEm(), alias, perfil);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.borrarUsuario(getEm(), alias);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.borrarUsuarioTotal(getEm(), alias);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -132,7 +132,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.clonarUsuario(getEm(), usuarioOrigen, usuarioDestino);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -142,7 +142,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.desbloquearUsuario(getEm(), alias);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -152,7 +152,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaUsuarios.restaurarUsuario(getEm(), alias, fecha);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -161,7 +161,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaPersonas.consultarPersonas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -170,7 +170,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaPerfiles.consultarPerfiles(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -179,7 +179,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaPantallas.buscarPantallas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -202,7 +202,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -225,7 +225,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -248,7 +248,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
             }
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -257,7 +257,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaCiudades.lovCiudades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -267,7 +267,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          return persistenciaTipoDocumento.consultarTiposDocumentos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -277,7 +277,7 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
       try {
          persistenciaPersonas.crear(getEm(), persona);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

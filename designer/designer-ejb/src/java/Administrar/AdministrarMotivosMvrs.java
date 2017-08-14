@@ -69,7 +69,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
             persistenciaMotivosMvrs.editar(getEm(), listaMotivosMvrs.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
             persistenciaMotivosMvrs.borrar(getEm(), listaMotivosMvrs.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
             persistenciaMotivosMvrs.crear(getEm(), listaMotivosMvrs.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
       try {
          return persistenciaMotivosMvrs.buscarMotivosMvrs(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
       try {
          return persistenciaMotivosMvrs.buscarMotivosMvrs(getEm(), secMotivosMvrs);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

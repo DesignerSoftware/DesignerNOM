@@ -70,7 +70,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
             persistenciaClasesPensiones.editar(getEm(), listaClasesPensiones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
             persistenciaClasesPensiones.borrar(getEm(), listaClasesPensiones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
             persistenciaClasesPensiones.crear(getEm(), listaClasesPensiones.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
          listMotivosCambiosCargos = persistenciaClasesPensiones.consultarClasesPensiones(getEm());
          return listMotivosCambiosCargos;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
          subCategoria = persistenciaClasesPensiones.consultarClasePension(getEm(), secClasesPensiones);
          return subCategoria;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -73,7 +73,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
             persistenciaClasesAusentismos.editar(getEm(), listClasesAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
             persistenciaClasesAusentismos.borrar(getEm(), listClasesAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
             persistenciaClasesAusentismos.crear(getEm(), listClasesAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
          List<Clasesausentismos> listClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
          return listClasesAusentismos;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
          listTiposAusentismos = PersistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
          return listTiposAusentismos;
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

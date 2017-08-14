@@ -417,7 +417,7 @@ public class AdministrarInterfaseContableSapBO implements AdministrarInterfaseCo
             persistenciaSolucionesNodos.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -428,7 +428,7 @@ public class AdministrarInterfaseContableSapBO implements AdministrarInterfaseCo
             persistenciaInterconSap.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 }

@@ -91,7 +91,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
             persistenciaSucursales.editar(getEm(), listaSucursale);
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
             persistenciaSucursales.borrar(getEm(), listaSucursales.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -114,7 +114,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
             persistenciaSucursales.crear(getEm(), listaSucursales.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -123,7 +123,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
       try {
          return persistenciaSucursales.consultarSucursales(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -133,7 +133,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
       try {
          return persistenciaBancos.buscarBancos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -143,7 +143,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
       try {
          return persistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -153,7 +153,7 @@ public class AdministrarSucursales implements AdministrarSucursalesInterface {
       try {
          return persistenciaSucursales.contarVigenciasFormasPagosSucursal(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

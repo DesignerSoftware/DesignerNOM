@@ -69,7 +69,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
             persistenciaTempProrrateosProy.crear(getEm(), listaTempPP.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -78,7 +78,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.editar(getEm(), tempPP);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.borrar(getEm(), tempPP);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.borrarRegistrosTempProrrateosProy(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaTempProrrateosProy.obtenerTempProrrateosProy(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaTempProrrateosProy.obtenerDocumentosSoporteCargados(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaActualUsuario.actualUsuarioBD(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -138,7 +138,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.cargarTempProrrateosProy(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -147,7 +147,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaTempProrrateosProy.reversarTempProrrateosProy(getEm(), usuarioBD.getAlias(), documentoSoporte);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return 0;
       }
    }

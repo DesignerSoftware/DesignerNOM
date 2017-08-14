@@ -65,7 +65,7 @@ public class AdministrarUsuariosFiltros implements AdministrarUsuariosFiltrosInt
       try {
          return persistenciaUsuariosFiltros.consultarUsuariosFiltros(getEm(), secUsuarioEstructura);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -83,7 +83,7 @@ public class AdministrarUsuariosFiltros implements AdministrarUsuariosFiltrosInt
             persistenciaUsuariosFiltros.crear(getEm(), listCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarUsuariosFiltros implements AdministrarUsuariosFiltrosInt
             persistenciaUsuariosFiltros.editar(getEm(), listModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarUsuariosFiltros implements AdministrarUsuariosFiltrosInt
             persistenciaUsuariosFiltros.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -126,7 +126,7 @@ public class AdministrarUsuariosFiltros implements AdministrarUsuariosFiltrosInt
       try {
          return persistenciaUsuariosFiltros.contarUsuariosFiltros(getEm(), secUsuarioEstructura);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class AdministrarUsuariosFiltros implements AdministrarUsuariosFiltrosInt
       try {
          persistenciaUsuariosFiltros.crearFiltroUsuario(getEm(), secuenciaUsuarioVista);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

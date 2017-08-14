@@ -105,7 +105,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          persistenciaSoausentismos.borrar(getEm(), ausentismos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -114,7 +114,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          persistenciaSoausentismos.crear(getEm(), ausentismos);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -181,7 +181,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
             persistenciaSoausentismos.editar(getEm(), listaAusentismosModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -203,7 +203,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
          log.warn("Administrar.AdministrarSoausentismos.lovEmpleados()");
          return persistenciaEmpleados.empleadosAusentismos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -212,7 +212,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -221,7 +221,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -230,7 +230,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaCausasAusentismos.buscarCausasAusentismos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -239,7 +239,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaSoaccdicentes.accidentesEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -248,7 +248,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -257,7 +257,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaDiagnosticos.buscarDiagnosticos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -266,7 +266,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaIBCS.buscarIbcsPorEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -275,7 +275,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaEnfermedades.buscarEnfermedades(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -284,7 +284,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaEP.buscarEPPorEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -294,7 +294,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaSoausentismos.prorrogaMostrar(getEm(), secuenciaProrroga);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -304,7 +304,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaRelacionesIncapacidades.relaciones(getEm(), secuenciaAusentismo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -314,7 +314,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaSoausentismos.prorrogas(getEm(), secEmpleado, secuenciaCausa, secuenciaAusentismo);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

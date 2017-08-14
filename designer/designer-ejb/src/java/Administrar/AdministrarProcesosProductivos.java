@@ -86,7 +86,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
             persistenciaProcesosProductivos.editar(getEm(), listaProcesosProductivos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
             persistenciaProcesosProductivos.borrar(getEm(), listaProcesosProductivos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
             persistenciaProcesosProductivos.crear(getEm(), listaProcesosProductivos.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.consultarProcesosProductivos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaCentrosCostos.buscarCentrosCostos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -134,7 +134,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.contarCargosProcesoProductivo(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -143,7 +143,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.contarTarifasProductosProcesoProductivo(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -152,7 +152,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.contarUnidadesProducidasProcesoProductivo(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

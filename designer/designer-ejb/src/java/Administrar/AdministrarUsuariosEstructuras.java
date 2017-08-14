@@ -79,7 +79,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          return persistenciaUsuariosEstructuras.consultarUsuariosEstructuras(getEm(), secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -91,7 +91,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
             persistenciaUsuariosEstructuras.crear(getEm(), listCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
             persistenciaUsuariosEstructuras.editar(getEm(), listModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -113,7 +113,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
             persistenciaUsuariosEstructuras.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -122,7 +122,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          return persistenciaUsuarios.buscarUsuarios(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -132,7 +132,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          return persistenciaEstructuras.buscarEstructuras(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -142,7 +142,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          return persistenciaEmpresas.consultarEmpresas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -152,7 +152,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          return persistenciaUsuariosVistas.buscarUsuariosVistas(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -164,7 +164,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
             persistenciaUsuariosVistas.crear(getEm(), listCrear.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -175,7 +175,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
             persistenciaUsuariosVistas.editar(getEm(), listModificar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -186,7 +186,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
             persistenciaUsuariosVistas.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -195,7 +195,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          return persistenciaUsuariosEstructuras.contarUsuariosEstructuras(getEm(), secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -205,7 +205,7 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
       try {
          persistenciaUsuariosEstructuras.crearVistaUsuarioEstructura(getEm(), secUsuarioEstructura, secUsuario);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 

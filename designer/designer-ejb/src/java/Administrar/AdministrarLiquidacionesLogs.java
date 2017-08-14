@@ -82,7 +82,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
             persistenciaLiquidacionesLogs.editar(getEm(), listaLiquidacionesLogs.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -92,7 +92,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
             persistenciaLiquidacionesLogs.borrar(getEm(), listaLiquidacionesLogs.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
             persistenciaLiquidacionesLogs.crear(getEm(), listaLiquidacionesLogs.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -110,7 +110,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(getEm(), secOperando);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(getEm(), secProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -147,7 +147,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaEmpleados.consultarEmpleadosLiquidacionesLog(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -157,7 +157,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaOperandos.buscarOperandos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -167,7 +167,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaProcesos.lovProcesos(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -177,7 +177,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.getTotalRegistrosLiquidacionesLogsPorEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -187,7 +187,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorOperando(getEm(), secOperando);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -197,7 +197,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
       try {
          return persistenciaLiquidacionesLogs.getTotalRegistrosBuscarLiquidacionesLogsPorProceso(getEm(), secProceso);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

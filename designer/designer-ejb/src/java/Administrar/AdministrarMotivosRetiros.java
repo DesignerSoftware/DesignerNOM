@@ -71,7 +71,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
             persistenciaMotivosRetiros.editar(getEm(), listaMotivosRetiros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
             persistenciaMotivosRetiros.borrar(getEm(), listaMotivosRetiros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
             persistenciaMotivosRetiros.crear(getEm(), listaMotivosRetiros.get(i));
          }
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
       try {
          return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
       try {
          return persistenciaMotivosRetiros.consultarMotivoRetiro(getEm(), secMotivosRetiros);
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
