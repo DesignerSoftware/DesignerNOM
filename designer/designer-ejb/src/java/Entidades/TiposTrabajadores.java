@@ -23,7 +23,7 @@ public class TiposTrabajadores implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CODIGO")
-    private short codigo;
+    private Short codigo;
     @Size(max = 1)
     @Column(name = "MODALIDAD")
     private String modalidad;
@@ -106,11 +106,11 @@ public class TiposTrabajadores implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public short getCodigo() {
+    public Short getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(short codigo) {
+    public void setCodigo(Short codigo) {
         this.codigo = codigo;
     }
 

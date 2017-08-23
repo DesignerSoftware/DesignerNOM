@@ -128,7 +128,6 @@ public class ControlCerrarLiquidacion implements Serializable {
          administrarCerrarLiquidacion.obtenerConexion(ses.getId());
          listaParametros = null;
          getListaParametros();
-         contarRegistros();
       } catch (Exception e) {
          log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
          log.error("Causa: " + e.getCause());

@@ -281,9 +281,7 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void limpiarListasValor() {
-      lovForma = null;
       lovIBCS = null;
-      lovPorcentaje = null;
       lovAccidentes = null;
       lovCausasAusentismos = null;
       lovClasesAusentismos = null;

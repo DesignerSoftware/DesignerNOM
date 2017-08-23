@@ -736,7 +736,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
          }
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } else {
-         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -899,7 +899,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             cualCelda = -1;
          }
       } else {
-         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
 
    }
@@ -1389,7 +1389,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
          exporter.export(context, tabla, "DIAGNOSTICOSCATEGORIAS", false, false, "UTF-8", null, null);
          context.responseComplete();
       } else {
-         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -1448,22 +1448,22 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
    public void mostrarDialogoInsertarCapitulo() {
       RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDiagnosticoCapitulos");
-      RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoRegistroDiagnosticoCapitulos').show()");
+      RequestContext.getCurrentInstance().execute("PF('nuevoRegistroDiagnosticoCapitulos').show()");
    }
 
    public void mostrarDialogoInsertarCategoria() {
       RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDiagnosticoCategoria");
-      RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoRegistroDiagnosticoCategoria').show()");
+      RequestContext.getCurrentInstance().execute("PF('nuevoRegistroDiagnosticoCategoria').show()");
    }
 
    public void mostrarDialogoInsertarSeccion() {
       RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroDiagnosticoSeccion");
-      RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoRegistroDiagnosticoSeccion').show()");
+      RequestContext.getCurrentInstance().execute("PF('nuevoRegistroDiagnosticoSeccion').show()");
    }
 
    public void mostrarDialogoElegirTabla() {
       RequestContext.getCurrentInstance().update("formularioDialogos:seleccionarTablaNewReg");
-      RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarTablaNewReg').show()");
+      RequestContext.getCurrentInstance().execute("PF('seleccionarTablaNewReg').show()");
    }
 
    //////////////SETS Y GETS//////////////////////////////

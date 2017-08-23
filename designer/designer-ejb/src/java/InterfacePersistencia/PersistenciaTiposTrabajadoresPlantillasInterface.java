@@ -32,5 +32,7 @@ public interface PersistenciaTiposTrabajadoresPlantillasInterface {
     public List<PlantillasValidaNL> consultarPlanillaNL(EntityManager em, BigInteger secTipoT);
 
     public List<TiposTrabajadores> consultarTiposTrabajadores(EntityManager em);
+    
+    public boolean consultarRegistrosSecundarios(EntityManager em, BigInteger secuencia);
 
 }

@@ -12,6 +12,7 @@ import Entidades.PlantillasValidaTC;
 import Entidades.PlantillasValidaTS;
 import Entidades.TiposTrabajadores;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresPlantillasInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -26,7 +27,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTiposTrabajadoresPlantillasInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaTiposTrabajadoresPlantillas.class);
+    private static Logger log = Logger.getLogger(PersistenciaTiposTrabajadoresPlantillas.class);
 
     @Override
     public List<PlantillasValidaTC> consultarPlanillaTC(EntityManager em, BigInteger secTipoT) {
@@ -114,6 +115,34 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
         } catch (Exception e) {
             log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarTiposTrabajadores() : " + e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public boolean consultarRegistrosSecundarios(EntityManager em, BigInteger secuencia) {
+        try {
+            em.clear();
+            String sql = "SELECT count(*) FROM TIPOSTRABAJADORES TI WHERE SECUENCIA = ?  AND (EXISTS\n"
+                    + "(SELECT 'X' FROM PLANTILLASVALIDATC WHERE TIPOTRABAJADOR = TI.SECUENCIA)\n"
+                    + "OR EXISTS\n"
+                    + "(SELECT 'X' FROM PLANTILLASVALIDATS WHERE TIPOTRABAJADOR = TI.SECUENCIA)\n"
+                    + "OR EXISTS\n"
+                    + "(SELECT 'X' FROM PLANTILLASVALIDARL WHERE TIPOTRABAJADOR = TI.SECUENCIA)\n"
+                    + "OR EXISTS\n"
+                    + "(SELECT 'X' FROM PLANTILLASVALIDANL WHERE TIPOTRABAJADOR = TI.SECUENCIA)\n"
+                    + "OR EXISTS\n"
+                    + "(SELECT 'X' FROM PLANTILLASVALIDALL WHERE TIPOTRABAJADOR = TI.SECUENCIA))";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+            BigDecimal r = (BigDecimal) query.getSingleResult();
+            if (r.intValue() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            log.error("PersistenciaTiposTrabajadoresPlantillas.consultarRegistrosSecundarios()" + e.getMessage());
+            return false;
         }
     }
 

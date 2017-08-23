@@ -109,8 +109,9 @@ public class AdministrarBarra implements AdministrarBarraInterface {
    @Override
    public Integer contarEmpleadosParaLiquidar() {
       try {
-         EntityManager em = emf.createEntityManager();
-         Integer i = persistenciaParametrosEstados.empleadosParaLiquidar(em, consultarUsuarioBD());
+//         EntityManager em = emf.createEntityManager();
+         String user = consultarUsuarioBD();
+         Integer i = persistenciaParametrosEstados.empleadosParaLiquidar(getEm(), user);
          em.close();
          return i;
       } catch (Exception e) {
@@ -122,7 +123,8 @@ public class AdministrarBarra implements AdministrarBarraInterface {
    @Override
    public Integer contarEmpleadosLiquidados() {
       try {
-         return persistenciaParametrosEstados.empleadosLiquidados(getEm(), consultarUsuarioBD());
+         String user = consultarUsuarioBD();
+         return persistenciaParametrosEstados.empleadosLiquidados(getEm(), user);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
@@ -171,7 +173,8 @@ public class AdministrarBarra implements AdministrarBarraInterface {
    @Override
    public ParametrosEstructuras consultarParametrosLiquidacion() {
       try {
-         return persistenciaParametrosEstructuras.buscarParametro(getEm(), consultarUsuarioBD());
+         String user = consultarUsuarioBD();
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), user);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

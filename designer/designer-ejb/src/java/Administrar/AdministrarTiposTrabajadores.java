@@ -14,6 +14,7 @@ import InterfacePersistencia.PersistenciaVigenciasDiasTTInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

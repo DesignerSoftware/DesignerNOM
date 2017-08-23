@@ -38,7 +38,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -57,7 +56,7 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlTTPlantilla implements Serializable {
 
-   private static Logger log = Logger.getLogger(ControlTTPlantilla.class);
+    private static Logger log = Logger.getLogger(ControlTTPlantilla.class);
 
     @EJB
     AdministrarRastrosInterface administrarRastros;
@@ -151,11 +150,11 @@ public class ControlTTPlantilla implements Serializable {
     //LOV NORMA LABORAL
     private List<NormasLaborales> lovNormasLaborales;
     private List<NormasLaborales> lovNormasLaboralesFiltrar;
-    private List<NormasLaborales> normaLaboralSeleccionada;
+    private NormasLaborales normaLaboralSeleccionada;
     // LOV CONTRATOS
     private List<Contratos> lovContratos;
     private List<Contratos> lovContratosFiltrar;
-    private List<Contratos> contratoSeleccionado;
+    private Contratos contratoSeleccionado;
     //Columnas 
     private Column codigo, tipotrabajador, tipocontrato, tiposueldo, reformalaboral, normalaboral, contrato;
     //Otros
@@ -172,40 +171,46 @@ public class ControlTTPlantilla implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private String altoTabla, altoTablaTC, altoTablaTS, altoTablaRL, altoTablaLL, altoTablaNL;
     private String infoRegistroTT, infoRegistroTC, infoRegistroTS, infoRegistroRL, infoRegistroLL, infoRegistroNL;
+    private String infoRegistroLovTC, infoRegistroLovTS, infoRegistroLovRL, infoRegistroLovLL, infoRegistroLovNL;
     private String mensajeValidacion;
+    private String nombreArchivo, tablaImprimir;
 
     public ControlTTPlantilla() {
-        nuevoTT = new TiposTrabajadores();
         editarTT = new TiposTrabajadores();
         duplicarTT = new TiposTrabajadores();
         listaTTBorrar = new ArrayList<TiposTrabajadores>();
         listaTTCrear = new ArrayList<TiposTrabajadores>();
         listaTTModificar = new ArrayList<TiposTrabajadores>();
         nuevaPlantillaTC = new PlantillasValidaTC();
+        nuevaPlantillaTC.setTipocontrato(new TiposContratos());
         duplicarPlantillaTC = new PlantillasValidaTC();
         editarPlantillaTC = new PlantillasValidaTC();
         listaTCCrear = new ArrayList<PlantillasValidaTC>();
         listaTCBorrar = new ArrayList<PlantillasValidaTC>();
         listaTCModificar = new ArrayList<PlantillasValidaTC>();
         nuevaPlantillaTS = new PlantillasValidaTS();
+        nuevaPlantillaTS.setTiposueldo(new TiposSueldos());
         duplicarPlantillaTS = new PlantillasValidaTS();
         editarPlantillaTS = new PlantillasValidaTS();
         listaTSCrear = new ArrayList<PlantillasValidaTS>();
         listaTSBorrar = new ArrayList<PlantillasValidaTS>();
         listaTSModificar = new ArrayList<PlantillasValidaTS>();
         nuevaPlantillaRL = new PlantillasValidaRL();
+        nuevaPlantillaRL.setReformalaboral(new ReformasLaborales());
         duplicarPlantillaRL = new PlantillasValidaRL();
         editarPlantillaRL = new PlantillasValidaRL();
         listaRLCrear = new ArrayList<PlantillasValidaRL>();
         listaRLBorrar = new ArrayList<PlantillasValidaRL>();
         listaRLModificar = new ArrayList<PlantillasValidaRL>();
         nuevaPlantillaLL = new PlantillasValidaLL();
+        nuevaPlantillaLL.setContrato(new Contratos());
         duplicarPlantillaLL = new PlantillasValidaLL();
         editarPlantillaLL = new PlantillasValidaLL();
         listaLLCrear = new ArrayList<PlantillasValidaLL>();
         listaLLBorrar = new ArrayList<PlantillasValidaLL>();
         listaLLModificar = new ArrayList<PlantillasValidaLL>();
         nuevaPlantillaNL = new PlantillasValidaNL();
+        nuevaPlantillaNL.setNormalaboral(new NormasLaborales());
         duplicarPlantillaNL = new PlantillasValidaNL();
         editarPlantillaNL = new PlantillasValidaNL();
         listaNLCrear = new ArrayList<PlantillasValidaNL>();
@@ -223,12 +228,12 @@ public class ControlTTPlantilla implements Serializable {
         cualCeldaRL = -1;
         cualCeldaNL = -1;
         aceptar = true;
-        altoTabla = "120";
-        altoTablaTC = "120";
-        altoTablaTS = "120";
-        altoTablaRL = "120";
-        altoTablaLL = "120";
-        altoTablaNL = "120";
+        altoTabla = "60";
+        altoTablaTC = "60";
+        altoTablaTS = "60";
+        altoTablaRL = "60";
+        altoTablaLL = "60";
+        altoTablaNL = "60";
         k = 0;
         tipoLista = 0;
         guardado = true;
@@ -236,6 +241,9 @@ public class ControlTTPlantilla implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
         cualTabla = -1;
         mensajeValidacion = "";
+        nombreArchivo = "";
+        tablaImprimir = "";
+        nuevoTT = new TiposTrabajadores();
     }
 
     public void limpiarListasValor() {
@@ -246,14 +254,8 @@ public class ControlTTPlantilla implements Serializable {
         lovTipoSueldo = null;
     }
 
-    @PreDestroy
-   public void destruyendoce() {
-      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
-   }
-   
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -265,6 +267,7 @@ public class ControlTTPlantilla implements Serializable {
             administrarTiposContratos.obtenerConexion(ses.getId());
             administrarTiposSueldos.obtenerConexion(ses.getId());
             administrarTiposTrabajadores.obtenerConexion(ses.getId());
+
         } catch (Exception e) {
             log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
             log.error("Causa: " + e.getCause());
@@ -273,16 +276,21 @@ public class ControlTTPlantilla implements Serializable {
 
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
-        //inicializarCosas(); Inicializar cosas de ser necesario
+        listaTT = null;
+        getListaTT();
+        if (listaTT != null) {
+            if (!listaTT.isEmpty()) {
+                ttSeleccionado = listaTT.get(0);
+            }
+        }
+        cargarDatos();
     }
 
     public void recibirParametros(Map<String, Object> map) {
         mapParametros = map;
         paginaAnterior = (String) mapParametros.get("paginaAnterior");
-        //inicializarCosas(); Inicializar cosas de ser necesario
     }
 
-    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
@@ -400,6 +408,17 @@ public class ControlTTPlantilla implements Serializable {
             ttSeleccionado.getNombre();
         }
         cargarDatos();
+        contarRegistrosTS();
+        contarRegistrosTC();
+        contarRegistrosLL();
+        contarRegistrosRL();
+        contarRegistrosNL();
+        RequestContext.getCurrentInstance().update("form:datosTT");
+        RequestContext.getCurrentInstance().update("form:datosTC");
+        RequestContext.getCurrentInstance().update("form:datosTS");
+        RequestContext.getCurrentInstance().update("form:datosRL");
+        RequestContext.getCurrentInstance().update("form:datosLL");
+        RequestContext.getCurrentInstance().update("form:datosNL");
     }
 
     public void cambiarIndiceTC(PlantillasValidaTC plantillatc, int celda) {
@@ -468,7 +487,20 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public void cargarDatos() {
-
+        if (ttSeleccionado != null) {
+            listaTC = null;
+            listaTS = null;
+            listaRL = null;
+            listaLL = null;
+            listaNL = null;
+            listaTS = administrarTTPlantillas.listaPlantillaTS(ttSeleccionado.getSecuencia());
+            listaRL = administrarTTPlantillas.listaPlantillaRL(ttSeleccionado.getSecuencia());
+            listaLL = administrarTTPlantillas.listaPlantillaLL(ttSeleccionado.getSecuencia());
+            listaNL = administrarTTPlantillas.listaPlantillaNL(ttSeleccionado.getSecuencia());
+            listaTC = administrarTTPlantillas.listaPlantillaTC(ttSeleccionado.getSecuencia());
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
     }
 
     public void guardarSalir() {
@@ -597,12 +629,7 @@ public class ControlTTPlantilla implements Serializable {
             }
             listaTT = null;
             getListaTT();
-            listaTC = null;
-            listaTS = null;
-            listaRL = null;
-            listaLL = null;
-            listaNL = null;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            cargarDatos();
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -613,14 +640,14 @@ public class ControlTTPlantilla implements Serializable {
             contarRegistrosTC();
             contarRegistrosTS();
             contarRegistrosTT();
-            guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTT");
             RequestContext.getCurrentInstance().update("form:datosTC");
             RequestContext.getCurrentInstance().update("form:datosTS");
             RequestContext.getCurrentInstance().update("form:datosRL");
             RequestContext.getCurrentInstance().update("form:datosLL");
             RequestContext.getCurrentInstance().update("form:datosNL");
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             deshabilitarBotonLov();
         } catch (Exception e) {
             log.warn("Error guardarCambios : " + e.toString());
@@ -662,12 +689,12 @@ public class ControlTTPlantilla implements Serializable {
             listaRLFiltrar = null;
             listaNLFiltrar = null;
             tipoLista = 0;
-            altoTabla = "120";
-            altoTablaLL = "120";
-            altoTablaNL = "120";
-            altoTablaRL = "120";
-            altoTablaTC = "120";
-            altoTablaTS = "120";
+            altoTabla = "60";
+            altoTablaLL = "60";
+            altoTablaNL = "60";
+            altoTablaRL = "60";
+            altoTablaTC = "60";
+            altoTablaTS = "60";
         }
 
         listaLLBorrar.clear();
@@ -738,12 +765,12 @@ public class ControlTTPlantilla implements Serializable {
             listaRLFiltrar = null;
             listaNLFiltrar = null;
             tipoLista = 0;
-            altoTabla = "120";
-            altoTablaLL = "120";
-            altoTablaNL = "120";
-            altoTablaRL = "120";
-            altoTablaTC = "120";
-            altoTablaTS = "120";
+            altoTabla = "60";
+            altoTablaLL = "60";
+            altoTablaNL = "60";
+            altoTablaRL = "60";
+            altoTablaTC = "60";
+            altoTablaTS = "60";
         }
         listaLLBorrar.clear();
         listaLLCrear.clear();
@@ -765,6 +792,17 @@ public class ControlTTPlantilla implements Serializable {
         listaTTModificar.clear();
         k = 0;
         listaTT = null;
+        listaTC = null;
+        listaTS = null;
+        listaRL = null;
+        listaNL = null;
+        listaLL = null;
+        ttSeleccionado = null;
+        plantillaLLSeleccionada = null;
+        plantillaRLSeleccionada = null;
+        plantillaNLSeleccionada = null;
+        plantillaTCSeleccionada = null;
+        plantillaTSSeleccionada = null;
         guardado = true;
         navegar("atras");
     }
@@ -805,15 +843,15 @@ public class ControlTTPlantilla implements Serializable {
         } else if (cualTabla == 5) {
             editarPlantillaNL = plantillaNLSeleccionada;
             if (cualCeldaNL == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarContrato");
-                RequestContext.getCurrentInstance().execute("PF('editarContrato').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNormaLaboral");
+                RequestContext.getCurrentInstance().execute("PF('editarNormaLaboral').show()");
                 cualCeldaNL = -1;
             }
         } else if (cualTabla == 6) {
             editarPlantillaLL = plantillaLLSeleccionada;
             if (cualCeldaLL == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarNormaLaboral");
-                RequestContext.getCurrentInstance().execute("PF('editarNormaLaboral').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarContrato");
+                RequestContext.getCurrentInstance().execute("PF('editarContrato').show()");
                 cualCeldaLL = -1;
             }
         } else {
@@ -824,9 +862,9 @@ public class ControlTTPlantilla implements Serializable {
     public void agregarNuevoTT() {
         RequestContext context = RequestContext.getCurrentInstance();
         int cont = 0;
-        Short cod = new Short("0");
-        Short n = new Short("null");
-        if ((nuevoTT.getCodigo() != cod) && (nuevoTT.getNombre() != null) && (nuevoTT.getCodigo() != n)) {
+        Short cod = 0;
+        Short n = null;
+        if ((nuevoTT.getCodigo() != 0) && (nuevoTT.getNombre() != null) && (nuevoTT.getCodigo() != n)) {
 
             for (int j = 0; j < listaTT.size(); j++) {
                 if (nuevoTT.getCodigo() == listaTT.get(j).getCodigo()) {
@@ -838,7 +876,7 @@ public class ControlTTPlantilla implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
             } else {
                 if (bandera == 1) {
-                    altoTabla = "120";
+                    altoTabla = "60";
                     codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:codigo");
                     codigo.setFilterStyle("display: none; visibility: hidden;");
                     tipotrabajador = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:tipotrabajador");
@@ -867,252 +905,280 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public void agregarNuevaTC() {
-        int contador = 0;
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        mensajeValidacion = " ";
+        if (ttSeleccionado != null) {
+            int contador = 0;
+            int duplicados = 0;
+            RequestContext context = RequestContext.getCurrentInstance();
+            mensajeValidacion = " ";
 
-        if (nuevaPlantillaTC.getTipotrabajador() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        for (int i = 0; i < listaTC.size(); i++) {
-            if (listaTC.get(i).getTipocontrato() == nuevaPlantillaTC.getTipocontrato()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoContrato");
-                RequestContext.getCurrentInstance().execute("PF('existeTipoContrato').show()");
-                duplicados++;
+            if (nuevaPlantillaTC.getTipocontrato().getNombre().equals(null) || nuevaPlantillaTC.getTipotrabajador().getNombre().equals("")) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+                contador++;
             }
-        }
 
-        if (contador != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
-        }
+            for (int i = 0; i < listaTC.size(); i++) {
+                if (listaTC.get(i).getTipocontrato() == nuevaPlantillaTC.getTipocontrato()) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoContrato");
+                    RequestContext.getCurrentInstance().execute("PF('existeTipoContrato').show()");
+                    duplicados++;
+                }
+            }
 
-        if (contador == 0 && duplicados == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                tipocontrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTC:tipocontrato");
-                tipocontrato.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listaTCFiltrar = null;
-                tipoLista = 0;
-                altoTablaTC = "120";
+            if (contador != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
+            }
+
+            if (contador == 0 && duplicados == 0) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    tipocontrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTC:tipocontrato");
+                    tipocontrato.setFilterStyle("display: none; visibility: hidden;");
+                    bandera = 0;
+                    listaTCFiltrar = null;
+                    tipoLista = 0;
+                    altoTablaTC = "60";
+                    RequestContext.getCurrentInstance().update("form:datosTC");
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevaPlantillaTC.setSecuencia(l);
+                nuevaPlantillaTC.setTipotrabajador(ttSeleccionado);
+                listaTCCrear.add(nuevaPlantillaTC);
+                listaTC.add(nuevaPlantillaTC);
+                contarRegistrosTC();
+                plantillaTCSeleccionada = nuevaPlantillaTC;
                 RequestContext.getCurrentInstance().update("form:datosTC");
+                guardado = false;
+                nuevaPlantillaTC = new PlantillasValidaTC();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaTC').hide()");
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevaPlantillaTC.setSecuencia(l);
-            nuevaPlantillaTC.setTipotrabajador(ttSeleccionado);
-            listaTCCrear.add(nuevaPlantillaTC);
-            listaTC.add(nuevaPlantillaTC);
-            contarRegistrosTC();
-            plantillaTCSeleccionada = nuevaPlantillaTC;
-            RequestContext.getCurrentInstance().update("form:datosTC");
-            guardado = false;
-            nuevaPlantillaTC = new PlantillasValidaTC();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaTC').hide()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccioneTT').show()");
         }
     }
 
     public void agregarNuevaTS() {
-        int contador = 0;
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        mensajeValidacion = " ";
+        if (ttSeleccionado != null) {
+            int contador = 0;
+            int duplicados = 0;
+            RequestContext context = RequestContext.getCurrentInstance();
+            mensajeValidacion = " ";
 
-        if (nuevaPlantillaTS.getTipotrabajador() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        for (int i = 0; i < listaTS.size(); i++) {
-            if (listaTS.get(i).getTiposueldo() == nuevaPlantillaTS.getTiposueldo()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoSueldo");
-                RequestContext.getCurrentInstance().execute("PF('existeTipoSueldo').show()");
-                duplicados++;
+            if (nuevaPlantillaTS.getTiposueldo().getDescripcion() == null || nuevaPlantillaTS.getTiposueldo().getDescripcion().equals("")) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+                contador++;
             }
-        }
 
-        if (contador != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
-        }
+            for (int i = 0; i < listaTS.size(); i++) {
+                if (listaTS.get(i).getTiposueldo() == nuevaPlantillaTS.getTiposueldo()) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoSueldo");
+                    RequestContext.getCurrentInstance().execute("PF('existeTipoSueldo').show()");
+                    duplicados++;
+                }
+            }
 
-        if (contador == 0 && duplicados == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                tiposueldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTS:tiposueldo");
-                tiposueldo.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listaTSFiltrar = null;
-                tipoLista = 0;
-                altoTablaTS = "120";
+            if (contador != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
+            }
+
+            if (contador == 0 && duplicados == 0) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    tiposueldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTS:tiposueldo");
+                    tiposueldo.setFilterStyle("display: none; visibility: hidden;");
+                    bandera = 0;
+                    listaTSFiltrar = null;
+                    tipoLista = 0;
+                    altoTablaTS = "60";
+                    RequestContext.getCurrentInstance().update("form:datosTS");
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevaPlantillaTS.setSecuencia(l);
+                nuevaPlantillaTS.setTipotrabajador(ttSeleccionado);
+                listaTSCrear.add(nuevaPlantillaTS);
+                listaTS.add(nuevaPlantillaTS);
+                contarRegistrosTS();
+                plantillaTSSeleccionada = nuevaPlantillaTS;
                 RequestContext.getCurrentInstance().update("form:datosTS");
+                guardado = false;
+                nuevaPlantillaTS = new PlantillasValidaTS();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaTS').hide()");
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevaPlantillaTS.setSecuencia(l);
-            nuevaPlantillaTS.setTipotrabajador(ttSeleccionado);
-            listaTSCrear.add(nuevaPlantillaTS);
-            listaTS.add(nuevaPlantillaTS);
-            contarRegistrosTS();
-            plantillaTSSeleccionada = nuevaPlantillaTS;
-            RequestContext.getCurrentInstance().update("form:datosTS");
-            guardado = false;
-            nuevaPlantillaTS = new PlantillasValidaTS();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaTS').hide()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccioneTT').show()");
         }
     }
 
     public void agregarNuevaRL() {
-        int contador = 0;
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        mensajeValidacion = " ";
+        if (ttSeleccionado != null) {
 
-        if (nuevaPlantillaRL.getTipotrabajador() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        for (int i = 0; i < listaRL.size(); i++) {
-            if (listaRL.get(i).getReformalaboral() == nuevaPlantillaRL.getReformalaboral()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeReforma");
-                RequestContext.getCurrentInstance().execute("PF('existeReforma').show()");
-                duplicados++;
+            int contador = 0;
+            int duplicados = 0;
+            RequestContext context = RequestContext.getCurrentInstance();
+            mensajeValidacion = " ";
+
+            if (nuevaPlantillaRL.getReformalaboral().getNombre() == null || nuevaPlantillaRL.getReformalaboral().getNombre().equals("")) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+                contador++;
             }
-        }
 
-        if (contador != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
-        }
+            for (int i = 0; i < listaRL.size(); i++) {
+                if (listaRL.get(i).getReformalaboral() == nuevaPlantillaRL.getReformalaboral()) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeReforma");
+                    RequestContext.getCurrentInstance().execute("PF('existeReforma').show()");
+                    duplicados++;
+                }
+            }
 
-        if (contador == 0 && duplicados == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                reformalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRL:reformalaboral");
-                reformalaboral.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listaRLFiltrar = null;
-                tipoLista = 0;
-                altoTablaRL = "120";
+            if (contador != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
+            }
+
+            if (contador == 0 && duplicados == 0) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    reformalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRL:reformalaboral");
+                    reformalaboral.setFilterStyle("display: none; visibility: hidden;");
+                    bandera = 0;
+                    listaRLFiltrar = null;
+                    tipoLista = 0;
+                    altoTablaRL = "60";
+                    RequestContext.getCurrentInstance().update("form:datosRL");
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevaPlantillaRL.setSecuencia(l);
+                nuevaPlantillaRL.setTipotrabajador(ttSeleccionado);
+                listaRLCrear.add(nuevaPlantillaRL);
+                listaRL.add(nuevaPlantillaRL);
+                contarRegistrosRL();
+                plantillaRLSeleccionada = nuevaPlantillaRL;
                 RequestContext.getCurrentInstance().update("form:datosRL");
+                guardado = false;
+                nuevaPlantillaRL = new PlantillasValidaRL();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaRL').hide()");
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevaPlantillaRL.setSecuencia(l);
-            nuevaPlantillaRL.setTipotrabajador(ttSeleccionado);
-            listaRLCrear.add(nuevaPlantillaRL);
-            listaRL.add(nuevaPlantillaRL);
-            contarRegistrosRL();
-            plantillaRLSeleccionada = nuevaPlantillaRL;
-            RequestContext.getCurrentInstance().update("form:datosRL");
-            guardado = false;
-            nuevaPlantillaRL = new PlantillasValidaRL();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaRL').hide()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccioneTT').show()");
         }
     }
 
     public void agregarNuevaLL() {
-        int contador = 0;
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        mensajeValidacion = " ";
+        if (ttSeleccionado != null) {
 
-        if (nuevaPlantillaLL.getTipotrabajador() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        for (int i = 0; i < listaLL.size(); i++) {
-            if (listaLL.get(i).getContrato() == nuevaPlantillaLL.getContrato()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeContrato");
-                RequestContext.getCurrentInstance().execute("PF('existeContrato').show()");
-                duplicados++;
+            int contador = 0;
+            int duplicados = 0;
+            RequestContext context = RequestContext.getCurrentInstance();
+            mensajeValidacion = " ";
+
+            if (nuevaPlantillaLL.getContrato().getDescripcion() == null || nuevaPlantillaLL.getContrato().getDescripcion().equals("")) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+                contador++;
             }
-        }
 
-        if (contador != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
-        }
+            for (int i = 0; i < listaLL.size(); i++) {
+                if (listaLL.get(i).getContrato() == nuevaPlantillaLL.getContrato()) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeContrato");
+                    RequestContext.getCurrentInstance().execute("PF('existeContrato').show()");
+                    duplicados++;
+                }
+            }
 
-        if (contador == 0 && duplicados == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                contrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLL:contrato");
-                contrato.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listaLLFiltrar = null;
-                tipoLista = 0;
-                altoTablaLL = "120";
+            if (contador != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
+            }
+
+            if (contador == 0 && duplicados == 0) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    contrato = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosLL:contrato");
+                    contrato.setFilterStyle("display: none; visibility: hidden;");
+                    bandera = 0;
+                    listaLLFiltrar = null;
+                    tipoLista = 0;
+                    altoTablaLL = "60";
+                    RequestContext.getCurrentInstance().update("form:datosLL");
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevaPlantillaLL.setSecuencia(l);
+                nuevaPlantillaLL.setTipotrabajador(ttSeleccionado);
+                listaLLCrear.add(nuevaPlantillaLL);
+                listaLL.add(nuevaPlantillaLL);
+                contarRegistrosLL();
+                plantillaLLSeleccionada = nuevaPlantillaLL;
                 RequestContext.getCurrentInstance().update("form:datosLL");
+                guardado = false;
+                nuevaPlantillaLL = new PlantillasValidaLL();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaLL').hide()");
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevaPlantillaLL.setSecuencia(l);
-            nuevaPlantillaLL.setTipotrabajador(ttSeleccionado);
-            listaLLCrear.add(nuevaPlantillaLL);
-            listaLL.add(nuevaPlantillaLL);
-            contarRegistrosLL();
-            plantillaLLSeleccionada = nuevaPlantillaLL;
-            RequestContext.getCurrentInstance().update("form:datosLL");
-            guardado = false;
-            nuevaPlantillaLL = new PlantillasValidaLL();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaLL').hide()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccioneTT').show()");
         }
     }
 
     public void agregarNuevaNL() {
-        int contador = 0;
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        mensajeValidacion = " ";
+        if (ttSeleccionado != null) {
 
-        if (nuevaPlantillaNL.getTipotrabajador() == null) {
-            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-            contador++;
-        }
-        for (int i = 0; i < listaNL.size(); i++) {
-            if (listaNL.get(i).getNormalaboral() == nuevaPlantillaNL.getNormalaboral()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeNorma");
-                RequestContext.getCurrentInstance().execute("PF('existeNorma').show()");
-                duplicados++;
+            int contador = 0;
+            int duplicados = 0;
+            RequestContext context = RequestContext.getCurrentInstance();
+            mensajeValidacion = " ";
+
+            if (nuevaPlantillaNL.getNormalaboral().getNombre() == null || nuevaPlantillaNL.getNormalaboral().getNombre().equals("")) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+                contador++;
             }
-        }
 
-        if (contador != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
-        }
+            for (int i = 0; i < listaNL.size(); i++) {
+                if (listaNL.get(i).getNormalaboral() == nuevaPlantillaNL.getNormalaboral()) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeNorma");
+                    RequestContext.getCurrentInstance().execute("PF('existeNorma').show()");
+                    duplicados++;
+                }
+            }
 
-        if (contador == 0 && duplicados == 0) {
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                normalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNL:normalaboral");
-                normalaboral.setFilterStyle("display: none; visibility: hidden;");
-                bandera = 0;
-                listaNLFiltrar = null;
-                tipoLista = 0;
-                altoTablaNL = "120";
+            if (contador != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoRegistro");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoRegistro').show()");
+            }
+
+            if (contador == 0 && duplicados == 0) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    normalaboral = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosNL:normalaboral");
+                    normalaboral.setFilterStyle("display: none; visibility: hidden;");
+                    bandera = 0;
+                    listaNLFiltrar = null;
+                    tipoLista = 0;
+                    altoTablaNL = "60";
+                    RequestContext.getCurrentInstance().update("form:datosNL");
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevaPlantillaNL.setSecuencia(l);
+                nuevaPlantillaNL.setTipotrabajador(ttSeleccionado);
+                listaNLCrear.add(nuevaPlantillaNL);
+                listaNL.add(nuevaPlantillaNL);
+                contarRegistrosNL();
+                plantillaNLSeleccionada = nuevaPlantillaNL;
                 RequestContext.getCurrentInstance().update("form:datosNL");
+                guardado = false;
+                nuevaPlantillaNL = new PlantillasValidaNL();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaNL').hide()");
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevaPlantillaNL.setSecuencia(l);
-            nuevaPlantillaNL.setTipotrabajador(ttSeleccionado);
-            listaNLCrear.add(nuevaPlantillaNL);
-            listaNL.add(nuevaPlantillaNL);
-            contarRegistrosNL();
-            plantillaNLSeleccionada = nuevaPlantillaNL;
-            RequestContext.getCurrentInstance().update("form:datosNL");
-            guardado = false;
-            nuevaPlantillaNL = new PlantillasValidaNL();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaNL').hide()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccioneTT').show()");
         }
     }
 
@@ -1122,6 +1188,7 @@ public class ControlTTPlantilla implements Serializable {
 
     public void limpiarNuevaTC() {
         nuevaPlantillaTC = new PlantillasValidaTC();
+        nuevaPlantillaTC.setTipocontrato(new TiposContratos());
     }
 
     public void limpiarNuevaTS() {
@@ -1164,6 +1231,22 @@ public class ControlTTPlantilla implements Serializable {
         duplicarPlantillaNL = new PlantillasValidaNL();
     }
 
+    public void seleccionarDuplicar() {
+        if (cualTabla == 1) {
+            duplicandoTT();
+        } else if (cualTabla == 2) {
+            duplicandoTC();
+        } else if (cualTabla == 3) {
+            duplicandoTS();
+        } else if (cualTabla == 4) {
+            duplicandoRL();
+        } else if (cualTabla == 5) {
+            duplicandoNL();
+        } else if (cualTabla == 6) {
+            duplicandoLL();
+        }
+    }
+
     public void duplicandoTT() {
         if (ttSeleccionado != null) {
             duplicarTT = new TiposTrabajadores();
@@ -1185,12 +1268,9 @@ public class ControlTTPlantilla implements Serializable {
         int contador = 0;
         for (int i = 0; i < listaTT.size(); i++) {
             if (duplicarTT.getCodigo() == listaTT.get(i).getCodigo()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeTT");
-                RequestContext.getCurrentInstance().execute("PF('existeTT').show()");
                 contador++;
             }
         }
-
         if (contador == 0) {
             listaTT.add(duplicarTT);
             listaTTCrear.add(duplicarTT);
@@ -1212,9 +1292,13 @@ public class ControlTTPlantilla implements Serializable {
                 tipoLista = 0;
             }
             duplicarTT = new TiposTrabajadores();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTT");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTT').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeTT");
+            RequestContext.getCurrentInstance().execute("PF('existeTT').show()");
+
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTT");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTT').hide()");
     }
 
     public void duplicandoTC() {
@@ -1226,10 +1310,10 @@ public class ControlTTPlantilla implements Serializable {
             duplicarPlantillaTC.setSecuencia(l);
             duplicarPlantillaTC.setTipotrabajador(plantillaTCSeleccionada.getTipotrabajador());
             duplicarPlantillaTC.setTipocontrato(plantillaTCSeleccionada.getTipocontrato());
-            altoTablaTC = "120";
+            altoTablaTC = "60";
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTC");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTC').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaTC').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -1241,8 +1325,6 @@ public class ControlTTPlantilla implements Serializable {
 
         for (int i = 0; i < listaTC.size(); i++) {
             if (duplicarPlantillaTC.getTipocontrato().getSecuencia() == listaTC.get(i).getTipocontrato().getSecuencia()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoContrato");
-                RequestContext.getCurrentInstance().execute("PF('existeTipoContrato').show()");
                 contador++;
             }
         }
@@ -1265,9 +1347,12 @@ public class ControlTTPlantilla implements Serializable {
                 tipoLista = 0;
             }
             duplicarPlantillaTC = new PlantillasValidaTC();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroPlantillaTC");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaTC').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoContrato");
+            RequestContext.getCurrentInstance().execute("PF('existeTipoContrato').show()");
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTC");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTC').hide()");
     }
 
     public void duplicandoTS() {
@@ -1279,10 +1364,10 @@ public class ControlTTPlantilla implements Serializable {
             duplicarPlantillaTS.setSecuencia(l);
             duplicarPlantillaTS.setTipotrabajador(plantillaTSSeleccionada.getTipotrabajador());
             duplicarPlantillaTS.setTiposueldo(plantillaTSSeleccionada.getTiposueldo());
-            altoTablaTS = "120";
+            altoTablaTS = "60";
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTS");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTS').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaTS').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -1293,8 +1378,6 @@ public class ControlTTPlantilla implements Serializable {
 
         for (int i = 0; i < listaTS.size(); i++) {
             if (duplicarPlantillaTS.getTiposueldo().getSecuencia() == listaTS.get(i).getTiposueldo().getSecuencia()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoSueldo");
-                RequestContext.getCurrentInstance().execute("PF('existeTipoSueldo').show()");
                 contador++;
             }
         }
@@ -1317,9 +1400,12 @@ public class ControlTTPlantilla implements Serializable {
                 tipoLista = 0;
             }
             duplicarPlantillaTS = new PlantillasValidaTS();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroPlantillaTS");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaTS').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoSueldo");
+            RequestContext.getCurrentInstance().execute("PF('existeTipoSueldo').show()");
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTS");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTS').hide()");
     }
 
     public void duplicandoRL() {
@@ -1331,10 +1417,10 @@ public class ControlTTPlantilla implements Serializable {
             duplicarPlantillaRL.setSecuencia(l);
             duplicarPlantillaRL.setTipotrabajador(plantillaRLSeleccionada.getTipotrabajador());
             duplicarPlantillaRL.setReformalaboral(plantillaRLSeleccionada.getReformalaboral());
-            altoTablaRL = "120";
+            altoTablaRL = "60";
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRL");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroRL').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaRL').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -1345,8 +1431,6 @@ public class ControlTTPlantilla implements Serializable {
 
         for (int i = 0; i < listaRL.size(); i++) {
             if (duplicarPlantillaRL.getReformalaboral().getSecuencia() == listaRL.get(i).getReformalaboral().getSecuencia()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeReformaLaboral");
-                RequestContext.getCurrentInstance().execute("PF('existeReformaLaboral').show()");
                 contador++;
             }
         }
@@ -1369,9 +1453,12 @@ public class ControlTTPlantilla implements Serializable {
                 tipoLista = 0;
             }
             duplicarPlantillaRL = new PlantillasValidaRL();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroPlantillaRL");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaRL').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeReformaLaboral");
+            RequestContext.getCurrentInstance().execute("PF('existeReformaLaboral').show()");
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroRL");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroRL').hide()");
     }
 
     public void duplicandoLL() {
@@ -1383,10 +1470,10 @@ public class ControlTTPlantilla implements Serializable {
             duplicarPlantillaLL.setSecuencia(l);
             duplicarPlantillaLL.setTipotrabajador(plantillaLLSeleccionada.getTipotrabajador());
             duplicarPlantillaLL.setContrato(plantillaLLSeleccionada.getContrato());
-            altoTablaLL = "120";
+            altoTablaLL = "60";
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarLL");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroLL').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaLL').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -1397,8 +1484,6 @@ public class ControlTTPlantilla implements Serializable {
 
         for (int i = 0; i < listaLL.size(); i++) {
             if (duplicarPlantillaLL.getContrato().getSecuencia() == listaLL.get(i).getContrato().getSecuencia()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeContrato");
-                RequestContext.getCurrentInstance().execute("PF('existeContrato').show()");
                 contador++;
             }
         }
@@ -1421,9 +1506,12 @@ public class ControlTTPlantilla implements Serializable {
                 tipoLista = 0;
             }
             duplicarPlantillaLL = new PlantillasValidaLL();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroPlantillaLL");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaLL').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeContrato");
+            RequestContext.getCurrentInstance().execute("PF('existeContrato').show()");
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroLL");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroLL').hide()");
     }
 
     public void duplicandoNL() {
@@ -1435,10 +1523,10 @@ public class ControlTTPlantilla implements Serializable {
             duplicarPlantillaNL.setSecuencia(l);
             duplicarPlantillaNL.setTipotrabajador(plantillaNLSeleccionada.getTipotrabajador());
             duplicarPlantillaNL.setNormalaboral(plantillaNLSeleccionada.getNormalaboral());
-            altoTablaNL = "120";
+            altoTablaNL = "60";
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNL");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroNL').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaNL').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -1449,8 +1537,6 @@ public class ControlTTPlantilla implements Serializable {
 
         for (int i = 0; i < listaNL.size(); i++) {
             if (duplicarPlantillaNL.getNormalaboral().getSecuencia() == listaNL.get(i).getNormalaboral().getSecuencia()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeNormaLaboral");
-                RequestContext.getCurrentInstance().execute("PF('existeNormaLaboral').show()");
                 contador++;
             }
         }
@@ -1473,9 +1559,12 @@ public class ControlTTPlantilla implements Serializable {
                 tipoLista = 0;
             }
             duplicarPlantillaNL = new PlantillasValidaNL();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroPlantillaLL");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPlantillaLL').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:existeNormaLaboral");
+            RequestContext.getCurrentInstance().execute("PF('existeNormaLaboral').show()");
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroLL");
-        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroLL').hide()");
     }
 
     public void activarCtrlF11() {
@@ -1502,12 +1591,12 @@ public class ControlTTPlantilla implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosLL");
             RequestContext.getCurrentInstance().update("form:datosNL");
             bandera = 1;
-            altoTabla = "100";
-            altoTablaLL = "100";
-            altoTablaNL = "100";
-            altoTablaRL = "100";
-            altoTablaTC = "100";
-            altoTablaTS = "100";
+            altoTabla = "40";
+            altoTablaLL = "40";
+            altoTablaNL = "40";
+            altoTablaRL = "40";
+            altoTablaTC = "40";
+            altoTablaTS = "40";
         } else if (bandera == 1) {
             log.info("Desactivar");
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTT:codigo");
@@ -1530,6 +1619,12 @@ public class ControlTTPlantilla implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosRL");
             RequestContext.getCurrentInstance().update("form:datosLL");
             RequestContext.getCurrentInstance().update("form:datosNL");
+            RequestContext.getCurrentInstance().execute("PF('datosTT').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('datosTS').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('datosTC').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('datosRL').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('datosLL').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('datosNL').clearFilters()");
             bandera = 0;
             listaLLFiltrar = null;
             listaTTFiltrar = null;
@@ -1538,12 +1633,12 @@ public class ControlTTPlantilla implements Serializable {
             listaRLFiltrar = null;
             listaNLFiltrar = null;
             tipoLista = 0;
-            altoTabla = "120";
-            altoTablaLL = "120";
-            altoTablaNL = "120";
-            altoTablaRL = "120";
-            altoTablaTC = "120";
-            altoTablaTS = "120";
+            altoTabla = "60";
+            altoTablaLL = "60";
+            altoTablaNL = "60";
+            altoTablaRL = "60";
+            altoTablaTC = "60";
+            altoTablaTS = "60";
             tipoLista = 0;
         }
     }
@@ -1682,7 +1777,11 @@ public class ControlTTPlantilla implements Serializable {
 
     public void seleccionarBorrar() {
         if (cualTabla == 1) {
-            borrarTT();
+            if (administrarTTPlantillas.ConsultarRegistrosSecundarios(ttSeleccionado.getSecuencia())) {
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+            } else {
+                borrarTT();
+            }
         } else if (cualTabla == 2) {
             borrarTC();
         } else if (cualTabla == 3) {
@@ -1740,73 +1839,272 @@ public class ControlTTPlantilla implements Serializable {
         contarRegistrosNL();
     }
 
-//    public void elegirExportar(){
-//       if (cualTabla == 1) {
-//          dg();
-//        } else if (cualTabla == 2) {
-//            borrdgdgarTC();
-//        } else if (cualTabla == 3) {
-//            borradgdgrTS();
-//        } else if (cualTabla == 4) {
-//            borradgdgrRL();
-//        } else if (cualTabla == 5) {
-//            borrardgdNL();
-//        } else if (cualTabla == 6) {
-//            borrarLdgdggL();
-//        } else {
-//            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-//        }  
-//    }
-    
+    public void elegirExportarPDF() throws IOException {
+        if (cualTabla == 1) {
+            exportPDFTT();
+        } else if (cualTabla == 2) {
+            exportPDFTC();
+        } else if (cualTabla == 3) {
+            exportPDFTS();
+        } else if (cualTabla == 4) {
+            exportPDFRL();
+        } else if (cualTabla == 5) {
+            exportPDFLL();
+        } else if (cualTabla == 6) {
+            exportPDFNL();
+        }
+    }
 
-        public void exportPDF() throws IOException {
-          DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCursosExportar");
-          FacesContext context = FacesContext.getCurrentInstance();
-          Exporter exporter = new ExportarPDF();
-          exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
-          context.responseComplete();
-       }
-    
-       public void exportXLS() throws IOException {
-          DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCursosExportar");
-          FacesContext context = FacesContext.getCurrentInstance();
-          Exporter exporter = new ExportarXLS();
-          exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
-          context.responseComplete();
-       }
-        
+    public void elegirExportarXLS() throws IOException {
+        if (cualTabla == 1) {
+            exportXLSTT();
+        } else if (cualTabla == 2) {
+            exportXLSTC();
+        } else if (cualTabla == 3) {
+            exportXLSTS();
+        } else if (cualTabla == 4) {
+            exportXLSRL();
+        } else if (cualTabla == 5) {
+            exportXLSLL();
+        } else if (cualTabla == 6) {
+            exportXLSNL();
+        }
+    }
 
-    /*
-     public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      log.info("lol");
-      if (ttSeleccionado != null) {
-         log.info("lol 2");
-         int resultado = administrarRastros.obtenerTabla(ttSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-         log.info("resultado: " + resultado);
-         if (resultado == 1) {
-            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-         } else if (resultado == 2) {
-            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-         } else if (resultado == 3) {
-            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-         } else if (resultado == 4) {
-            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-         } else if (resultado == 5) {
-            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-         }
-      } else if (administrarRastros.verificarHistoricosTabla("TIPOSCURSOS")) { // igual acá
-         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-      }
-   }
-    
-    
-    
+    public void elegirExportarXML() {
+        if (cualTabla == 1) {
+            tablaImprimir = ":formExportar:datosTTExportar";
+            nombreArchivo = "TIPOTRABAJADOR";
+            limpiarNuevaTT();
+        } else if (cualTabla == 2) {
+            tablaImprimir = ":formExportar:datosTCExportar";
+            nombreArchivo = "TIPOCONTRATO";
+            limpiarNuevaTC();
+        } else if (cualTabla == 3) {
+            tablaImprimir = ":formExportar:datosTSExportar";
+            nombreArchivo = "TIPOSUELDO";
+            limpiarNuevaTS();
+        } else if (cualTabla == 4) {
+            tablaImprimir = ":formExportar:datosRLExportar";
+            nombreArchivo = "REFORMALABORAL";
+            limpiarNuevaRL();
+        } else if (cualTabla == 5) {
+            tablaImprimir = ":formExportar:datosNLExportar";
+            nombreArchivo = "NORMALABORAL";
+            limpiarNuevaNL();
+        } else if (cualTabla == 6) {
+            tablaImprimir = ":formExportar:datosLLExportar";
+            nombreArchivo = "CONTRATO";
+            limpiarNuevaLL();
+        }
+    }
 
-    
-     */
+    public void exportPDFTT() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTTExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "TIPOTRABAJADOR", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportPDFTC() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTCExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "TIPOCONTRATO", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportPDFTS() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTSExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "TIPOSUELDO", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportPDFRL() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosRLExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "RELABORAL", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportPDFLL() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosLLExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "LEGISLABORAL", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportPDFNL() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosNLExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDF();
+        exporter.export(context, tabla, "NORMALABORAL", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLSTT() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTTExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "TIPOTRABAJADOR", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLSTC() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTCExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "TIPOCONTRATO", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLSTS() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTSExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "TIPOSUELDO", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLSRL() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosRLExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "RELABORAL", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLSLL() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosLLExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "LEGISLABORAL", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void exportXLSNL() throws IOException {
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosNLExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tabla, "NORMALABORAL", false, false, "UTF-8", null, null);
+        context.responseComplete();
+    }
+
+    public void verificarRastro() {
+        if (cualTabla == 1) {
+            if (ttSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(ttSeleccionado.getSecuencia(), "TIPOTRABAJADOR"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBTT').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroTT').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("TIPOTRABAJADOR")) { // igual acá
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoTT').show()");
+            }
+        } else if (cualTabla == 2) {
+            if (ttSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(plantillaTCSeleccionada.getSecuencia(), "TIPOCONTRATO"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBTC').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroTC').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                }
+
+            } else if (administrarRastros.verificarHistoricosTabla("TIPOCONTRATO")) { // igual acá
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoTC').show()");
+            }
+        } else if (cualTabla == 3) {
+            if (ttSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(plantillaTSSeleccionada.getSecuencia(), "TIPOSUELDO"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBTS').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroTS').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("TIPOSUELDO")) { // igual acá
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoTS').show()");
+            }
+        } else if (cualTabla == 4) {
+            if (ttSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(plantillaRLSeleccionada.getSecuencia(), "RELACIONLABORAL"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBRL').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroRL').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("RELACIONLABORAL")) { // igual acá
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoRL').show()");
+            }
+        } else if (cualTabla == 5) {
+            if (ttSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(plantillaLLSeleccionada.getSecuencia(), "NORMALABORAL"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNL').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroNL').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("NORMALABORAL")) { // igual acá
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNL').show()");
+            }
+        } else if (cualTabla == 6) {
+            if (ttSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(plantillaNLSeleccionada.getSecuencia(), "LEGISLACIONLABORAL"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBLL').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroLL').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("LEGISLACIONLABORAL")) { // igual acá
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoLL').show()");
+            }
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+        }
+    }
+
     public void contarRegistrosTT() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTT");
     }
@@ -1831,8 +2129,347 @@ public class ControlTTPlantilla implements Serializable {
         RequestContext.getCurrentInstance().update("form:infoRegistroNL");
     }
 
+    public void contarRegistrosLovTC() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovTC");
+    }
+
+    public void contarRegistrosLovTS() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovTS");
+    }
+
+    public void contarRegistrosLovRL() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovRL");
+    }
+
+    public void contarRegistrosLovLL() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovLL");
+    }
+
+    public void contarRegistrosLovNL() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovNL");
+    }
+
+    public void activarAceptar() {
+        aceptar = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void revisarDialogoGuardar() {
+
+        if (!listaLLBorrar.isEmpty() || !listaLLCrear.isEmpty() || !listaLLModificar.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        } else if (!listaNLBorrar.isEmpty() || !listaNLCrear.isEmpty() || !listaNLModificar.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        } else if (!listaRLBorrar.isEmpty() || !listaRLCrear.isEmpty() || !listaRLModificar.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        } else if (!listaTCBorrar.isEmpty() || !listaTCCrear.isEmpty() || !listaTCModificar.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        } else if (!listaTSBorrar.isEmpty() || !listaTSCrear.isEmpty() || !listaTSModificar.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        } else if (!listaTTBorrar.isEmpty() || !listaTTCrear.isEmpty() || !listaTTModificar.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+        }
+    }
+
+    public void mostrarDialogoInsertar(int dialogo) {
+        if (dialogo == 1) {
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTT').show()");
+        } else if (dialogo == 2) {
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaTC').show()");
+        } else if (dialogo == 3) {
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaTS').show()");
+        } else if (dialogo == 4) {
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaRL').show()");
+        } else if (dialogo == 5) {
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaNL').show()");
+        } else if (dialogo == 6) {
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPlantillaLL').show()");
+        }
+    }
+
+    public void mostrarDialogoElegirTabla() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:seleccionarTablaNewReg");
+        RequestContext.getCurrentInstance().execute("PF('seleccionarTablaNewReg').show()");
+    }
+
+    public void asignarIndex(int tipoact, int dlg) {
+        tipoActualizacion = tipoact;
+        if (dlg == 1) {
+            lovTipoContrato = null;
+            getLovTipoContrato();
+            RequestContext.getCurrentInstance().update("formularioDialogos:TCDialogo");
+            RequestContext.getCurrentInstance().execute("PF('TCDialogo').show()");
+        } else if (dlg == 2) {
+            lovTipoSueldo = null;
+            getLovTipoSueldo();
+            RequestContext.getCurrentInstance().update("formularioDialogos:TSDialogo");
+            RequestContext.getCurrentInstance().execute("PF('TSDialogo').show()");
+        } else if (dlg == 3) {
+            lovReformaLaboral = null;
+            getLovReformaLaboral();
+            RequestContext.getCurrentInstance().update("formularioDialogos:RLDialogo");
+            RequestContext.getCurrentInstance().execute("PF('RLDialogo').show()");
+        } else if (dlg == 4) {
+            lovNormasLaborales = null;
+            getLovNormasLaborales();
+            RequestContext.getCurrentInstance().update("formularioDialogos:NLDialogo");
+            RequestContext.getCurrentInstance().execute("PF('NLDialogo').show()");
+        } else if (dlg == 5) {
+            lovContratos = null;
+            getLovContratos();
+            RequestContext.getCurrentInstance().update("formularioDialogos:ContratoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ContratoDialogo').show()");
+
+        }
+    }
+
+    public void actualizarTipoContrato() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            plantillaTCSeleccionada.setTipocontrato(tipoContratoSeleccionado);
+            if (!listaTCCrear.contains(plantillaTCSeleccionada)) {
+                if (listaTCModificar.isEmpty()) {
+                    listaTCModificar.add(plantillaTCSeleccionada);
+                } else if (!listaTCModificar.contains(plantillaTCSeleccionada)) {
+                    listaTCModificar.add(plantillaTCSeleccionada);
+                }
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            deshabilitarBotonLov();
+            RequestContext.getCurrentInstance().update("form:datosTC");
+        } else if (tipoActualizacion == 1) {
+            nuevaPlantillaTC.setTipocontrato(tipoContratoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTC");
+        } else if (tipoActualizacion == 2) {
+            duplicarPlantillaTC.setTipocontrato(tipoContratoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTC");
+        }
+        lovTipoContratoFiltrar = null;
+        tipoContratoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:TCDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTC");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTC");
+        context.reset("formularioDialogos:lovTC:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTC').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TCDialogo').hide()");
+    }
+
+    public void cancelarCambioTipoContrato() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        lovTipoContratoFiltrar = null;
+        tipoContratoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:TCDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTC");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTC");
+        context.reset("formularioDialogos:lovTC:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTC').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TCDialogo').hide()");
+    }
+
+    public void actualizarTipoSueldo() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            plantillaTSSeleccionada.setTiposueldo(tipoSueldoSeleccionado);
+            if (!listaTSCrear.contains(plantillaTSSeleccionada)) {
+                if (listaTSModificar.isEmpty()) {
+                    listaTSModificar.add(plantillaTSSeleccionada);
+                } else if (!listaTSModificar.contains(plantillaTSSeleccionada)) {
+                    listaTSModificar.add(plantillaTSSeleccionada);
+                }
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            deshabilitarBotonLov();
+            RequestContext.getCurrentInstance().update("form:datosTS");
+        } else if (tipoActualizacion == 1) {
+            nuevaPlantillaTS.setTiposueldo(tipoSueldoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTS");
+        } else if (tipoActualizacion == 2) {
+            duplicarPlantillaTS.setTiposueldo(tipoSueldoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTS");
+        }
+        lovTipoSueldoFiltrar = null;
+        tipoSueldoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:TSDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTS");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTS");
+        context.reset("formularioDialogos:lovTS:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTS').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TSDialogo').hide()");
+    }
+
+    public void cancelarCambioTipoSueldo() {
+        lovTipoSueldoFiltrar = null;
+        tipoSueldoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:TSDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTS");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTS");
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovTS:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTS').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TSDialogo').hide()");
+    }
+
+    public void actualizarReformaLaboral() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            plantillaRLSeleccionada.setReformalaboral(reformaLaboralSeleccionado);
+            if (!listaRLCrear.contains(plantillaRLSeleccionada)) {
+                if (listaRLModificar.isEmpty()) {
+                    listaRLModificar.add(plantillaRLSeleccionada);
+                } else if (!listaRLModificar.contains(plantillaRLSeleccionada)) {
+                    listaRLModificar.add(plantillaRLSeleccionada);
+                }
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            deshabilitarBotonLov();
+            RequestContext.getCurrentInstance().update("form:datosRL");
+        } else if (tipoActualizacion == 1) {
+            nuevaPlantillaRL.setReformalaboral(reformaLaboralSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaRL");
+        } else if (tipoActualizacion == 2) {
+            duplicarPlantillaRL.setReformalaboral(reformaLaboralSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRL");
+        }
+        lovReformaLaboralFiltrar = null;
+        reformaLaboralSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:RLDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovRL");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarRL");
+        context.reset("formularioDialogos:lovRL:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovRL').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('RLDialogo').hide()");
+    }
+
+    public void cancelarCambioReformaLaboral() {
+        lovReformaLaboralFiltrar = null;
+        reformaLaboralSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:RLDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovRL");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarRL");
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovRL:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovRL').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('RLDialogo').hide()");
+    }
+
+    public void actualizarContrato() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            plantillaLLSeleccionada.setContrato(contratoSeleccionado);
+            if (!listaLLCrear.contains(plantillaLLSeleccionada)) {
+                if (listaLLModificar.isEmpty()) {
+                    listaLLModificar.add(plantillaLLSeleccionada);
+                } else if (!listaLLModificar.contains(plantillaLLSeleccionada)) {
+                    listaLLModificar.add(plantillaLLSeleccionada);
+                }
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            deshabilitarBotonLov();
+            RequestContext.getCurrentInstance().update("form:datosLL");
+        } else if (tipoActualizacion == 1) {
+            nuevaPlantillaLL.setContrato(contratoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaLL");
+        } else if (tipoActualizacion == 2) {
+            duplicarPlantillaLL.setContrato(contratoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarLL");
+        }
+        lovContratosFiltrar = null;
+        contratoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:ContratoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovLL");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarLL");
+        context.reset("formularioDialogos:lovLL:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovLL').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ContratoDialogo').hide()");
+    }
+
+    public void cancelarCambioContrato() {
+        lovContratosFiltrar = null;
+        contratoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:ContratoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovLL");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarLL");
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovLL:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovLL').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ContratoDialogo').hide()");
+    }
+
+    public void actualizarNormaLaboral() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            plantillaNLSeleccionada.setNormalaboral(normaLaboralSeleccionada);
+            if (!listaNLCrear.contains(plantillaNLSeleccionada)) {
+                if (listaNLModificar.isEmpty()) {
+                    listaNLModificar.add(plantillaNLSeleccionada);
+                } else if (!listaNLModificar.contains(plantillaNLSeleccionada)) {
+                    listaNLModificar.add(plantillaNLSeleccionada);
+                }
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            deshabilitarBotonLov();
+            RequestContext.getCurrentInstance().update("form:datosNL");
+        } else if (tipoActualizacion == 1) {
+            nuevaPlantillaNL.setNormalaboral(normaLaboralSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNL");
+        } else if (tipoActualizacion == 2) {
+            duplicarPlantillaNL.setNormalaboral(normaLaboralSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNL");
+        }
+        lovNormasLaboralesFiltrar = null;
+        normaLaboralSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:NLDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovNL");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarNL");
+        context.reset("formularioDialogos:lovNL:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovNL').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('NLDialogo').hide()");
+    }
+
+    public void cancelarCambioNormaLaboral() {
+        lovNormasLaboralesFiltrar = null;
+        normaLaboralSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:NLDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovNL");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarNL");
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovNL:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovNL').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('NLDialogo').hide()");
+    }
+
     //////////////////GETS Y SETS///////////////
     public List<TiposTrabajadores> getListaTT() {
+        if (listaTT == null) {
+            listaTT = administrarTTPlantillas.listaTT();
+        }
         return listaTT;
     }
 
@@ -2121,6 +2758,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public List<TiposContratos> getLovTipoContrato() {
+        if (lovTipoContrato == null) {
+            lovTipoContrato = administrarTiposContratos.listaTiposContratos();
+        }
         return lovTipoContrato;
     }
 
@@ -2145,6 +2785,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public List<TiposSueldos> getLovTipoSueldo() {
+        if (lovTipoSueldo == null) {
+            lovTipoSueldo = administrarTiposSueldos.listaTiposSueldos();
+        }
         return lovTipoSueldo;
     }
 
@@ -2169,6 +2812,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public List<ReformasLaborales> getLovReformaLaboral() {
+        if (lovReformaLaboral == null) {
+            lovReformaLaboral = administrarReformaLaboral.listaReformasLaborales();
+        }
         return lovReformaLaboral;
     }
 
@@ -2193,6 +2839,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public List<NormasLaborales> getLovNormasLaborales() {
+        if (lovNormasLaborales == null) {
+            lovNormasLaborales = administrarNormaLaboral.consultarNormasLaborales();
+        }
         return lovNormasLaborales;
     }
 
@@ -2208,15 +2857,10 @@ public class ControlTTPlantilla implements Serializable {
         this.lovNormasLaboralesFiltrar = lovNormasLaboralesFiltrar;
     }
 
-    public List<NormasLaborales> getNormaLaboralSeleccionada() {
-        return normaLaboralSeleccionada;
-    }
-
-    public void setNormaLaboralSeleccionada(List<NormasLaborales> normaLaboralSeleccionada) {
-        this.normaLaboralSeleccionada = normaLaboralSeleccionada;
-    }
-
     public List<Contratos> getLovContratos() {
+        if (lovContratos == null) {
+            lovContratos = administrarContratos.consultarContratos();
+        }
         return lovContratos;
     }
 
@@ -2232,11 +2876,19 @@ public class ControlTTPlantilla implements Serializable {
         this.lovContratosFiltrar = lovContratosFiltrar;
     }
 
-    public List<Contratos> getContratoSeleccionado() {
+    public NormasLaborales getNormaLaboralSeleccionada() {
+        return normaLaboralSeleccionada;
+    }
+
+    public void setNormaLaboralSeleccionada(NormasLaborales normaLaboralSeleccionada) {
+        this.normaLaboralSeleccionada = normaLaboralSeleccionada;
+    }
+
+    public Contratos getContratoSeleccionado() {
         return contratoSeleccionado;
     }
 
-    public void setContratoSeleccionado(List<Contratos> contratoSeleccionado) {
+    public void setContratoSeleccionado(Contratos contratoSeleccionado) {
         this.contratoSeleccionado = contratoSeleccionado;
     }
 
@@ -2321,6 +2973,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public String getInfoRegistroTT() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTT");
+        infoRegistroTT = String.valueOf(tabla.getRowCount());
         return infoRegistroTT;
     }
 
@@ -2329,6 +2984,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public String getInfoRegistroTC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTC");
+        infoRegistroTC = String.valueOf(tabla.getRowCount());
         return infoRegistroTC;
     }
 
@@ -2337,6 +2995,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public String getInfoRegistroTS() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTS");
+        infoRegistroTS = String.valueOf(tabla.getRowCount());
         return infoRegistroTS;
     }
 
@@ -2345,6 +3006,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public String getInfoRegistroRL() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosRL");
+        infoRegistroRL = String.valueOf(tabla.getRowCount());
         return infoRegistroRL;
     }
 
@@ -2353,6 +3017,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public String getInfoRegistroLL() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosLL");
+        infoRegistroLL = String.valueOf(tabla.getRowCount());
         return infoRegistroLL;
     }
 
@@ -2361,6 +3028,9 @@ public class ControlTTPlantilla implements Serializable {
     }
 
     public String getInfoRegistroNL() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosNL");
+        infoRegistroNL = String.valueOf(tabla.getRowCount());
         return infoRegistroNL;
     }
 
@@ -2375,4 +3045,76 @@ public class ControlTTPlantilla implements Serializable {
     public void setMensajeValidacion(String mensajeValidacion) {
         this.mensajeValidacion = mensajeValidacion;
     }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public String getTablaImprimir() {
+        return tablaImprimir;
+    }
+
+    public void setTablaImprimir(String tablaImprimir) {
+        this.tablaImprimir = tablaImprimir;
+    }
+
+    public String getInfoRegistroLovTC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTC");
+        infoRegistroLovTC = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovTC;
+    }
+
+    public void setInfoRegistroLovTC(String infoRegistroLovTC) {
+        this.infoRegistroLovTC = infoRegistroLovTC;
+    }
+
+    public String getInfoRegistroLovTS() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTS");
+        infoRegistroLovTS = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovTS;
+    }
+
+    public void setInfoRegistroLovTS(String infoRegistroLovTS) {
+        this.infoRegistroLovTS = infoRegistroLovTS;
+    }
+
+    public String getInfoRegistroLovRL() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovRL");
+        infoRegistroLovRL = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovRL;
+    }
+
+    public void setInfoRegistroLovRL(String infoRegistroLovRL) {
+        this.infoRegistroLovRL = infoRegistroLovRL;
+    }
+
+    public String getInfoRegistroLovLL() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovLL");
+        infoRegistroLovLL = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovLL;
+    }
+
+    public void setInfoRegistroLovLL(String infoRegistroLovLL) {
+        this.infoRegistroLovLL = infoRegistroLovLL;
+    }
+
+    public String getInfoRegistroLovNL() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovNL");
+        infoRegistroLovNL = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovNL;
+    }
+
+    public void setInfoRegistroLovNL(String infoRegistroLovNL) {
+        this.infoRegistroLovNL = infoRegistroLovNL;
+    }
+
 }

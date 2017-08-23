@@ -34,7 +34,6 @@ import org.apache.log4j.Logger;
  * @author user
  */
 @Stateful
-@LocalBean
 public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposTrabajadoresPlantillasInterface {
 
    private static Logger log = Logger.getLogger(AdministrarTiposTrabajadoresPlantillas.class);
@@ -304,4 +303,9 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
          return null;
       }
    }
+
+    @Override
+    public boolean ConsultarRegistrosSecundarios(BigInteger secuencia) {
+       return persistenciaTTPlantillas.consultarRegistrosSecundarios(getEm(), secuencia);
+    }
 }

@@ -128,7 +128,8 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
    @Override
    public Integer contarEmpleadosParaLiquidar() {
       try {
-         return persistenciaParametrosEstados.empleadosParaLiquidar(getEm(), consultarAliasUsuarioBD());
+          String user = consultarAliasUsuarioBD();
+         return persistenciaParametrosEstados.empleadosParaLiquidar(getEm(), user);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
@@ -158,7 +159,8 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
    @Override
    public ParametrosEstructuras consultarParametrosLiquidacion() {
       try {
-         return persistenciaParametrosEstructuras.buscarParametro(getEm(), consultarAliasUsuarioBD());
+          String user = consultarAliasUsuarioBD();
+         return persistenciaParametrosEstructuras.buscarParametro(getEm(), user);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

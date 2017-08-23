@@ -1,0 +1,995 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Tipo Trabajador Plantilla" styleClass="panelTotal">
+                        <f:loadBundle basename="Recursos.ttplantilla" var="msg"/>
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png) ; border: none;" actionListener="#{controlTTPlantilla.guardarCambios()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) ; border: none;" actionListener="#{controlTTPlantilla.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) ; border: none;" disabled="#{controlTTPlantilla.activarLOV}"  process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) ; border: none;" actionListener="#{controlTTPlantilla.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) ; border: none;" actionListener="#{controlTTPlantilla.elegirExportarXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) ; border: none;" actionListener="#{controlTTPlantilla.elegirExportarXML()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlTTPlantilla.tablaImprimir}" fileName="#{controlTTPlantilla.nombreArchivo}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) ; border: none;" actionListener="#{controlTTPlantilla.elegirExportarPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) ; border: none;" actionListener="#{controlTTPlantilla.mostrarDialogoElegirTabla()}"   process="@this"/> 
+                                <!--update=":formularioDialogos:nuevaTipoempresa"-->
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) ; border: none;"  actionListener="#{controlTTPlantilla.seleccionarBorrar()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) ; border: none;" actionListener="#{controlTTPlantilla.seleccionarDuplicar()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) ; border: none;" actionListener="#{controlTTPlantilla.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlTTPlantilla.cancelarModificacion()}"
+                                                 oncomplete="window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px;"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlTTPlantilla.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; top: 70px; left: 10px; height: 120px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Tipo Trabajador</strong></legend>
+                            <p:dataTable id="datosTT" widgetVar="datosTT" var="tt" rowKey="#{tt.secuencia}"  rowIndexVar="indice" style="width: 810px; border: none; "                           
+                                         value="#{controlTTPlantilla.listaTT}" scrollable="true" scrollHeight="#{controlTTPlantilla.altoTabla}" scrollRows="40"
+                                         scrollWidth="830"  filteredValue="#{controlTTPlantilla.listaTTFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlTTPlantilla.ttSeleccionado}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosTT()}"/>
+
+                                <p:column headerText="Código" sortBy="#{tt.codigo}" filterBy="#{tt.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{tt.codigo}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{tt.codigo}"  id="editarCodigoCategoria" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceTT(tt, 0)}" process="@this"
+                                                        onstart="PF('datosTT').unselectAllRows();PF('datosTT').selectRow(#{indice});PF('datosTS').unselectAllRows();PF('datosRL').unselectAllRows();
+                                                        PF('datosTC').unselectAllRows();PF('datosNL').unselectAllRows();PF('datosLL').unselectAllRows();"/> 
+                                                <p:ajax event="change" listener="#{controlTTPlantilla.modificarTTPLantilla(tt)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                                <p:column headerText="Tipo Trabajador" sortBy="#{tt.nombre}" filterBy="#{tt.nombre}" filterMatchMode="contains" id="tipotrabajador" width="160" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{tt.nombre}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{tt.nombre}" id="editarDescripcionCategoria" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceTT(tt, 1)}"
+                                                        onstart="PF('datosTT').unselectAllRows();PF('datosTT').selectRow(#{indice});PF('datosTS').unselectAllRows();PF('datosRL').unselectAllRows();
+                                                        PF('datosTC').unselectAllRows();PF('datosNL').unselectAllRows();PF('datosLL').unselectAllRows();" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlTTPlantilla.modificarTTPLantilla(tt)}" update="tipotrabajador"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroTT" value="#{msg['infoRegistros']} #{controlTTPlantilla.infoRegistroTT}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                        </fieldset>
+
+
+                        <fieldset style="position: absolute; top: 210px; left: 10px; height: 120px; width: 265px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Plantilla Valida TC</strong></legend>
+                            <p:dataTable id="datosTC" widgetVar="datosTC" var="tc" rowKey="#{tc.secuencia}"  rowIndexVar="indiceTC" style="width: 260px; border: none; "                           
+                                         value="#{controlTTPlantilla.listaTC}" scrollable="true" scrollHeight="#{controlTTPlantilla.altoTabla}" scrollRows="40"
+                                         scrollWidth="260"  filteredValue="#{controlTTPlantilla.listaTCFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlTTPlantilla.plantillaTCSeleccionada}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosTC()}"/>
+
+                                <p:column headerText="Tipo Contrato" sortBy="#{tc.tipocontrato.nombre}" filterBy="#{tc.tipocontrato.nombre}" filterMatchMode="contains" id="tipocontrato" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{tc.tipocontrato.nombre}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{tc.tipocontrato.nombre}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceTC(tc, 0)}" process="@this"
+                                                        onstart="PF('datosTC').unselectAllRows();PF('datosTC').selectRow(#{indiceTC});PF('datosTS').unselectAllRows();PF('datosRL').unselectAllRows();
+                                                        PF('datosLL').unselectAllRows();PF('datosNL').unselectAllRows();"/> 
+                                                <p:ajax event="change" listener="#{controlTTPlantilla.modificarPLantillaTC(tc)}"  update="tipocontrato"/>
+                                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(0, 1)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroTC" value="#{msg['infoRegistros']} #{controlTTPlantilla.infoRegistroTC}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 210px; left: 310px; height: 120px; width: 210px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Plantilla Valida TS</strong></legend>
+                            <p:dataTable id="datosTS" widgetVar="datosTS" var="ts" rowKey="#{ts.secuencia}"  rowIndexVar="indiceTS" style="width: 200px; border: none; "                           
+                                         value="#{controlTTPlantilla.listaTS}" scrollable="true" scrollHeight="#{controlTTPlantilla.altoTabla}" scrollRows="40"
+                                         scrollWidth="200"  filteredValue="#{controlTTPlantilla.listaTSFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlTTPlantilla.plantillaTSSeleccionada}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosTS()}"/>
+
+                                <p:column headerText="Tipo Sueldo" sortBy="#{ts.tiposueldo.descripcion}" filterBy="#{ts.tiposueldo.descripcion}" filterMatchMode="contains" id="tiposueldo" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{ts.tiposueldo.descripcion}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{ts.tiposueldo.descripcion}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceTS(ts, 0)}" process="@this"
+                                                        onstart="PF('datosTS').unselectAllRows();PF('datosTS').selectRow(#{indiceTS});PF('datosTC').unselectAllRows();PF('datosRL').unselectAllRows();
+                                                        PF('datosLL').unselectAllRows();PF('datosNL').unselectAllRows();"/> 
+                                                <p:ajax event="change" listener="#{controlTTPlantilla.modificarPLantillaTS(ts)}"  update="tiposueldo"/>
+                                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(0, 2)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroTS" value="#{msg['infoRegistros']} #{controlTTPlantilla.infoRegistroTS}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 210px; left: 555px; height: 120px; width: 285px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Plantilla Valida RL</strong></legend>
+                            <p:dataTable id="datosRL" widgetVar="datosRL" var="rl" rowKey="#{rl.secuencia}"  rowIndexVar="indiceRL" style="width: 280px; border: none; "                           
+                                         value="#{controlTTPlantilla.listaRL}" scrollable="true" scrollHeight="#{controlTTPlantilla.altoTabla}" scrollRows="40"
+                                         scrollWidth="280"  filteredValue="#{controlTTPlantilla.listaRLFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlTTPlantilla.plantillaRLSeleccionada}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosRL()}"/>
+
+                                <p:column headerText="Reforma Laboral" sortBy="#{rl.reformalaboral.nombre}" filterBy="#{rl.reformalaboral.nombre}" filterMatchMode="contains" id="reformalaboral" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{rl.reformalaboral.nombre}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{rl.reformalaboral.nombre}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceRL(rl, 0)}" process="@this"
+                                                        onstart="PF('datosRL').unselectAllRows();PF('datosRL').selectRow(#{indiceRL});PF('datosTS').unselectAllRows();PF('datosTC').unselectAllRows();
+                                                        PF('datosLL').unselectAllRows();PF('datosNL').unselectAllRows();"/> 
+                                                <p:ajax event="change" listener="#{controlTTPlantilla.modificarPLantillaRL(rl)}"  update="reformalaboral"/>
+                                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(0, 3)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroRL" value="#{msg['infoRegistros']} #{controlTTPlantilla.infoRegistroRL}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 350px; left: 10px; height: 120px; width: 370px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Plantilla Valida NL</strong></legend>
+                            <p:dataTable id="datosNL" widgetVar="datosNL" var="nl" rowKey="#{nl.secuencia}"  rowIndexVar="indiceNL" style="width: 370px; border: none; "                           
+                                         value="#{controlTTPlantilla.listaNL}" scrollable="true" scrollHeight="#{controlTTPlantilla.altoTabla}" scrollRows="40"
+                                         scrollWidth="370"  filteredValue="#{controlTTPlantilla.listaNLFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlTTPlantilla.plantillaNLSeleccionada}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosNL()}"/>
+
+                                <p:column headerText="Norma Laboral" sortBy="#{nl.normalaboral.nombre}" filterBy="#{nl.tipotrabajador.nombre}" filterMatchMode="contains" id="normalaboral" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{nl.normalaboral.nombre}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{nl.normalaboral.nombre}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceNL(nl, 0)}" process="@this"
+                                                        onstart="PF('datosNL').unselectAllRows();PF('datosNL').selectRow(#{indiceNL});PF('datosTS').unselectAllRows();PF('datosRL').unselectAllRows();
+                                                        PF('datosLL').unselectAllRows();PF('datosTC').unselectAllRows();"/> 
+                                                <p:ajax event="change" listener="#{controlTTPlantilla.modificarPLantillaNL(nl)}"  update="normalaboral"/>
+                                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(0, 4)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroNL" value="#{msg['infoRegistros']} #{controlTTPlantilla.infoRegistroNL}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; top: 350px; left: 410px; height: 120px; width: 430px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 13px; color: blue;"><strong>Plantilla Valida LL</strong></legend>
+                            <p:dataTable id="datosLL" widgetVar="datosLL" var="ll" rowKey="#{ll.secuencia}"  rowIndexVar="indiceLL" style="width: 430px; border: none; "                           
+                                         value="#{controlTTPlantilla.listaLL}" scrollable="true" scrollHeight="#{controlTTPlantilla.altoTabla}" scrollRows="40"
+                                         scrollWidth="430"  filteredValue="#{controlTTPlantilla.listaLLFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"   selection="#{controlTTPlantilla.plantillaLLSeleccionada}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosLL()}"/>
+
+                                <p:column headerText="Legislación Laboral" sortBy="#{ll.contrato.descripcion}" filterBy="#{ll.contrato.descripcion}" filterMatchMode="contains" id="contrato" width="30" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{ll.contrato.descripcion}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{ll.contrato.descripcion}" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlTTPlantilla.cambiarIndiceLL(ll, 0)}" process="@this"
+                                                        onstart="PF('datosLL').unselectAllRows();PF('datosLL').selectRow(#{indiceLL});PF('datosTS').unselectAllRows();PF('datosRL').unselectAllRows();
+                                                        PF('datosTC').unselectAllRows();PF('datosNL').unselectAllRows(); "/> 
+                                                <p:ajax event="change" listener="#{controlTTPlantilla.modificarPLantillaLL(ll)}"  update="contrato"/>
+                                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(0, 5)}"  process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroLL" value="#{msg['infoRegistros']} #{controlTTPlantilla.infoRegistroLL}" style="position: absolute; left: 10px; top: 110px; font-weight: bold;"/>
+                        </fieldset>
+
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlTTPlantilla.revisarDialogoGuardar()}" disabled="#{controlTTPlantilla.isGuardado()}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTTPlantilla.salir()}" />
+
+
+                    </p:panel>    
+                </h:form> 
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="NuevoRegistroTT" header="Nuevo Registro" widgetVar="NuevoRegistroTT" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Tipo Trabajador" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaTT" style="border: none;">
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevoTT.codigo}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 85px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevoTT.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaTT()}" update="nuevaTT" process="@this"/>
+                            <p:commandButton id="agregarC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.agregarNuevoTT()}"   />
+                            <p:commandButton id="cancelarC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaTT()}" update="nuevaTT" onclick="PF('NuevoRegistroTT').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroTT" header="Duplicar Registro" widgetVar="duplicarRegistroTT" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Tipo Trabajador" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarTT" style="border: none;">
+                            <strong><h:outputText value="*Código" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarTT.codigo}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="*Descripción" style="position: absolute; top: 85px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarTT.nombre}"
+                                         style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+
+                            <p:commandButton id="limpiarD" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarTT()}" update="duplicarTT" process="@this"/>
+                            <p:commandButton id="agregarD" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.confirmarDuplicarTT()}"   />
+                            <p:commandButton id="cancelarD" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarTT()}" update="duplicarTT" onclick="PF('duplicarRegistroTT').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroPlantillaTC" header="Nuevo Registro" widgetVar="nuevoRegistroPlantillaTC" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Tipo Contrato" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaTC" style="border: none;">
+                            <strong><h:outputText value="*Tipo Contrato" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevaPlantillaTC.tipocontrato.nombre}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(1,1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(1,1)}"/>   
+
+
+                            <p:commandButton id="limpiarTCP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaTC()}" update="nuevaTC" process="@this"/>
+                            <p:commandButton id="agregarTCP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.agregarNuevaTC()}"   />
+                            <p:commandButton id="cancelarTCP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaTC()}" update="nuevaTC" onclick="PF('nuevoRegistroPlantillaTC').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroPlantillaTC" header="Duplicar Registro" widgetVar="duplicarRegistroPlantillaTC" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Tipo Contrato" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarTC" style="border: none;">
+                            <strong><h:outputText value="*Tipo Contrato" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarPlantillaTC.tipocontrato.nombre}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(2,1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(2,1)}"/>   
+
+
+                            <p:commandButton id="limpiarDTCP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarTC()}" update="duplicarTC" process="@this"/>
+                            <p:commandButton id="agregarDTCP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.confirmarDuplicarTC()}"   />
+                            <p:commandButton id="cancelarDTCP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarTC()}" update="duplicarTC" onclick="PF('duplicarRegistroPlantillaTC').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroPlantillaTS" header="Nuevo Registro" widgetVar="nuevoRegistroPlantillaTS" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Tipo Sueldo" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaTS" style="border: none;">
+                            <strong><h:outputText value="*Tipo Sueldo" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevaPlantillaTS.tiposueldo.descripcion}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(1,2)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(1,2)}"/>   
+
+
+                            <p:commandButton id="limpiarTSP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaTS()}" update="nuevaTS" process="@this"/>
+                            <p:commandButton id="agregarTSP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.agregarNuevaTS()}"   />
+                            <p:commandButton id="cancelarTSP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaTS()}" update="nuevaTS" onclick="PF('nuevoRegistroPlantillaTS').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroPlantillaTS" header="Duplicar Registro" widgetVar="duplicarRegistroPlantillaTS" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Tipo Sueldo" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarTS" style="border: none;">
+                            <strong><h:outputText value="*Tipo Sueldo" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarPlantillaTS.tiposueldo.descripcion}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(2,2)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(2,2)}"/>   
+
+
+                            <p:commandButton id="limpiarDTSP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarTS()}" update="duplicarTS" process="@this"/>
+                            <p:commandButton id="agregarDTSP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.confirmarDuplicarTS()}"   />
+                            <p:commandButton id="cancelarDTSP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarTS()}" update="duplicarTS" onclick="PF('duplicarRegistroPlantillaTS').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <p:dialog id="nuevoRegistroPlantillaRL" header="Nuevo Registro" widgetVar="nuevoRegistroPlantillaRL" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Reforma Laboral" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaRL" style="border: none;">
+                            <strong><h:outputText value="*Reforma Laboral" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevaPlantillaRL.reformalaboral.nombre}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(1,3)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(1,3)}"/>   
+
+
+                            <p:commandButton id="limpiarRLP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaRL()}" update="nuevaRL" process="@this"/>
+                            <p:commandButton id="agregarRLP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.agregarNuevaRL()}"   />
+                            <p:commandButton id="cancelarRLP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaRL()}" update="nuevaRL" onclick="PF('nuevoRegistroPlantillaRL').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroPlantillaRL" header="Duplicar Registro" widgetVar="duplicarRegistroPlantillaRL" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Reforma Laboral" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarRL" style="border: none;">
+                            <strong><h:outputText value="*Reforma Laboral" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarPlantillaRL.reformalaboral.nombre}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(2,3)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(2,3)}"/>   
+
+
+                            <p:commandButton id="limpiarDRLP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarRL()}" update="duplicarRL" process="@this"/>
+                            <p:commandButton id="agregarDRLP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.confirmarDuplicarRL()}"   />
+                            <p:commandButton id="cancelarDRLP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarRL()}" update="duplicarRL" onclick="PF('duplicarRegistroPlantillaRL').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroPlantillaLL" header="Nuevo Registro" widgetVar="nuevoRegistroPlantillaLL" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Contrato" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaLL" style="border: none;">
+                            <strong><h:outputText value="*Contrato" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevaPlantillaLL.contrato.descripcion}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(1,5)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(1,5)}"/>   
+
+
+                            <p:commandButton id="limpiarLLP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaLL()}" update="nuevaLL" process="@this"/>
+                            <p:commandButton id="agregarLLP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.agregarNuevaLL()}"   />
+                            <p:commandButton id="cancelarLLP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaLL()}" update="nuevaLL" onclick="PF('nuevoRegistroPlantillaLL').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroPlantillaLL" header="Duplicar Registro" widgetVar="duplicarRegistroPlantillaLL" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nuevo Contrato" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarLL" style="border: none;">
+                            <strong><h:outputText value="*Contrato" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarPlantillaLL.contrato.descripcion}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(2,5)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(2,5)}"/>   
+
+
+                            <p:commandButton id="limpiarDLLP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarLL()}" update="duplicarLL" process="@this"/>
+                            <p:commandButton id="agregarDLLP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.confirmarDuplicarLL()}"   />
+                            <p:commandButton id="cancelarDLLP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarLL()}" update="duplicarLL" onclick="PF('duplicarRegistroPlantillaLL').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroPlantillaNL" header="Nuevo Registro" widgetVar="nuevoRegistroPlantillaNL" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Norma Laboral" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaNL" style="border: none;">
+                            <strong><h:outputText value="*Norma Laboral" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.nuevaPlantillaNL.normalaboral.nombre}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(1,4)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(1,4)}"/>   
+
+
+                            <p:commandButton id="limpiarNLP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaNL()}" update="nuevaNL" process="@this"/>
+                            <p:commandButton id="agregarNLP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.agregarNuevaNL()}"   />
+                            <p:commandButton id="cancelarNLP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarNuevaNL()}" update="nuevaNL" onclick="PF('nuevoRegistroPlantillaNL').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroPlantillaNL" header="Duplicar Registro" widgetVar="duplicarRegistroPlantillaNL" closable="false" resizable="false"  draggable="true" modal="true" height="180" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="Ingresar nueva Norma Laboral" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicarNL" style="border: none;">
+                            <strong><h:outputText value="*Norma Laboral" style="position: absolute; top: 55px; left: 50px;"/></strong>
+                            <p:inputText autocomplete="off" value="#{controlTTPlantilla.duplicarPlantillaNL.normalaboral.nombre}" 
+                                         style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlTTPlantilla.asignarIndex(2,4)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 350px; top: 50px;"  class="cssBotonLovDialogos"  value="" process="@this" actionListener="#{controlTTPlantilla.asignarIndex(2,4)}"/>   
+
+
+                            <p:commandButton id="limpiarDNLP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarNL()}" update="duplicarNL" process="@this"/>
+                            <p:commandButton id="agregarDNLP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 125px;"  process="@this" actionListener="#{controlTTPlantilla.confirmarDuplicarNL()}"   />
+                            <p:commandButton id="cancelarDNLP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 125px;" actionListener="#{controlTTPlantilla.limpiarDuplicarNL()}" update="duplicarNL" onclick="PF('duplicarRegistroPlantillaNL').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <p:dialog header="Tipos Contratos" widgetVar="TCDialogo" id="TCDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" height="315">
+                        <p:dataTable id="lovTC" widgetVar="lovTC" var="tipoCon" value="#{controlTTPlantilla.lovTipoContrato}" rowKey="#{tipoCon.secuencia}"
+                                     selection="#{controlTTPlantilla.tipoContratoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="340" scrollHeight="170"
+                                     filteredValue="#{controlTTPlantilla.lovTipoContratoFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosLovTC()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTTPlantilla.activarAceptar()}" update=":formularioDialogos:aceptarTC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTTPlantilla.actualizarTipoContrato()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Tipo Contrato"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTC').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{tipoCon.codigo}" sortBy="#{tipoCon.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Código"/>
+                                </f:facet>
+                                <h:outputText  value="#{tipoCon.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{tipoCon.nombre}" sortBy="#{tipoCon.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{tipoCon.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroLovTC" value="#{msg['infoRegistro']} #{controlTTPlantilla.infoRegistroLovTC}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTTPlantilla.aceptar}"
+                                             actionListener="#{controlTTPlantilla.actualizarTipoContrato()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="cancelarTC" class="cssAtrasLOV" value="#{msg['atras']}"
+                                             actionListener="#{controlTTPlantilla.cancelarCambioTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+                            </p:commandButton>
+                        </div>
+                    </p:dialog> 
+
+                    <p:dialog header="Tipos Sueldos" widgetVar="TSDialogo" id="TSDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" height="315">
+                        <p:dataTable id="lovTS" widgetVar="lovTS" var="tipoSuel" value="#{controlTTPlantilla.lovTipoSueldo}" rowKey="#{tipoSuel.secuencia}"
+                                     selection="#{controlTTPlantilla.tipoSueldoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="340" scrollHeight="170"
+                                     filteredValue="#{controlTTPlantilla.lovTipoSueldoFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosLovTS()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTTPlantilla.activarAceptar()}" update=":formularioDialogos:aceptarTS"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTTPlantilla.actualizarTipoSueldo()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Tipo Sueldo"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTS').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{tipoSuel.codigo}" sortBy="#{tipoSuel.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Código"/>
+                                </f:facet>
+                                <h:outputText  value="#{tipoSuel.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{tipoSuel.descripcion}}" sortBy="#{tipoSuel.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{tipoSuel.descripcion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroLovTS" value="#{msg['infoRegistro']} #{controlTTPlantilla.infoRegistroLovTS}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTTPlantilla.aceptar}"
+                                             actionListener="#{controlTTPlantilla.actualizarTipoSueldo()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="cancelarTS" class="cssAtrasLOV" value="#{msg['atras']}"
+                                             actionListener="#{controlTTPlantilla.cancelarCambioTipoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+                            </p:commandButton>
+                        </div>
+                    </p:dialog> 
+
+
+                    <p:dialog header="Reformas Laborales" widgetVar="RLDialogo" id="RLDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" height="315">
+                        <p:dataTable id="lovRL" widgetVar="lovRL" var="reforma" value="#{controlTTPlantilla.lovReformaLaboral}" rowKey="#{reforma.secuencia}"
+                                     selection="#{controlTTPlantilla.reformaLaboralSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="340" scrollHeight="170"
+                                     filteredValue="#{controlTTPlantilla.lovReformaLaboralFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosLovRL()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTTPlantilla.activarAceptar()}" update=":formularioDialogos:aceptarRL"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTTPlantilla.actualizarReformaLaboral()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Reforma Laboral"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovRL').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{reforma.codigo}" sortBy="#{reforma.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Código"/>
+                                </f:facet>
+                                <h:outputText  value="#{reforma.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{reforma.nombre}" sortBy="#{reforma.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{reforma.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroLovRL" value="#{msg['infoRegistro']} #{controlTTPlantilla.infoRegistroLovRL}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarRL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTTPlantilla.aceptar}"
+                                             actionListener="#{controlTTPlantilla.actualizarReformaLaboral()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="cancelarRL" class="cssAtrasLOV" value="#{msg['atras']}"
+                                             actionListener="#{controlTTPlantilla.cancelarCambioReformaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+                            </p:commandButton>
+                        </div>
+                    </p:dialog> 
+
+                    <p:dialog header="Contratos" widgetVar="ContratoDialogo" id="ContratoDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" height="315">
+                        <p:dataTable id="lovLL" widgetVar="lovLL" var="contrato" value="#{controlTTPlantilla.lovContratos}" rowKey="#{contrato.secuencia}"
+                                     selection="#{controlTTPlantilla.contratoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="340" scrollHeight="170"
+                                     filteredValue="#{controlTTPlantilla.lovContratosFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosLovLL()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTTPlantilla.activarAceptar()}" update=":formularioDialogos:aceptarLL"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTTPlantilla.actualizarContrato()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Contrato"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovLL').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{contrato.codigo}" sortBy="#{contrato.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Código"/>
+                                </f:facet>
+                                <h:outputText  value="#{contrato.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{contrato.descripcion}" sortBy="#{contrato.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{contrato.descripcion}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroLovLL" value="#{msg['infoRegistro']} #{controlTTPlantilla.infoRegistroLovLL}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarLL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTTPlantilla.aceptar}"
+                                             actionListener="#{controlTTPlantilla.actualizarContrato()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="cancelarLL" class="cssAtrasLOV" value="#{msg['atras']}"
+                                             actionListener="#{controlTTPlantilla.cancelarCambioContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+                            </p:commandButton>
+                        </div>
+                    </p:dialog> 
+
+                    <p:dialog header="Normas Laborales" widgetVar="NLDialogo" id="NLDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="360" modal="true" height="315">
+                        <p:dataTable id="lovNL" widgetVar="lovNL" var="reforma" value="#{controlTTPlantilla.lovNormasLaborales}" rowKey="#{reforma.secuencia}"
+                                     selection="#{controlTTPlantilla.normaLaboralSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="340" scrollHeight="170"
+                                     filteredValue="#{controlTTPlantilla.lovNormasLaboralesFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+
+                            <p:ajax event="filter" listener="#{controlTTPlantilla.contarRegistrosLovNL()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlTTPlantilla.activarAceptar()}" update=":formularioDialogos:aceptarNL"/>
+                            <p:ajax event="rowDblselect" listener="#{controlTTPlantilla.actualizarNormaLaboral()}" process="@this"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Norma Laboral"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovNL').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{reforma.codigo}" sortBy="#{reforma.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Código"/>
+                                </f:facet>
+                                <h:outputText  value="#{reforma.codigo}"/>
+                            </p:column>
+                            <p:column filterBy="#{reforma.nombre}" sortBy="#{reforma.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{reforma.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroLovNL" value="#{msg['infoRegistro']} #{controlTTPlantilla.infoRegistroLovNL}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarNL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTTPlantilla.aceptar}"
+                                             actionListener="#{controlTTPlantilla.actualizarNormaLaboral()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="cancelarNL" class="cssAtrasLOV" value="#{msg['atras']}"
+                                             actionListener="#{controlTTPlantilla.cancelarCambioNormaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w">
+                            </p:commandButton>
+                        </div>
+                    </p:dialog> 
+
+                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="260" width="360"  closable="false">  
+                        <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Tipo Trabajador" style="position: absolute; left: 90px; top: 55px; font-weight: bold; width: 180px; text-align: center;" process="@this"  actionListener="#{controlTTPlantilla.mostrarDialogoInsertar(1)}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Tipo Contrato" style="position: absolute; left: 90px; top: 85px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlTTPlantilla.mostrarDialogoInsertar(2)}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Tipo Sueldo" style="position: absolute; left: 90px; top: 115px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlTTPlantilla.mostrarDialogoInsertar(3)}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Reforma Laboral" style="position: absolute; left: 90px; top: 145px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlTTPlantilla.mostrarDialogoInsertar(4)}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Norma Laboral" style="position: absolute; left: 90px; top: 175px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlTTPlantilla.mostrarDialogoInsertar(5)}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="Contrato" style="position: absolute; left: 90px; top: 205px; font-weight: bold; width: 180px; text-align: center;" process="@this" actionListener="#{controlTTPlantilla.mostrarDialogoInsertar(6)}" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                        <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 235px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTTPlantilla.guardarSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTTPlantilla.cancelarSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeTT" header="#{msg['error']}" widgetVar="existeTT"  resizable="false" draggable="true" modal="true" height="90" width="295"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Existe un Tipo Trabajador con la configuración ingresada" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existeTT').hide();" style="position: absolute; top: 70px; left: 180px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeTipoContrato" header="#{msg['error']}" widgetVar="existeTipoContrato"  resizable="false" draggable="true" modal="true" height="90" width="295"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El Tipo Contrato ingreado ya existe." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existeTipoContrato').hide();" style="position: absolute; top: 70px; left: 180px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeTipoSueldo" header="#{msg['error']}" widgetVar="existeTipoSueldo"  resizable="false" draggable="true" modal="true" height="90" width="295"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El Tipo Sueldo ingreado ya existe." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existeTipoSueldo').hide();" style="position: absolute; top: 70px; left: 180px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeReformaLaboral" header="#{msg['error']}" widgetVar="existeReformaLaboral"  resizable="false" draggable="true" modal="true" height="90" width="295"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La reforma ingresada ya existe." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existeReformaLaboral').hide();" style="position: absolute; top: 70px; left: 180px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeContrato" header="#{msg['error']}" widgetVar="existeContrato"  resizable="false" draggable="true" modal="true" height="90" width="295"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El Contrato ingreado ya existe." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existeContrato').hide();" style="position: absolute; top: 70px; left: 180px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="existeNormaLaboral" header="#{msg['error']}" widgetVar="existeNormaLaboral"  resizable="false" draggable="true" modal="true" height="90" width="295"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La Norma Laboral ingreada ya existe." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('existeNormaLaboral').hide();" style="position: absolute; top: 70px; left: 180px;" process="@this"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastroTT" header="#{msg['informacion']}" widgetVar="confirmarRastroTT"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroTT']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroTT').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.ttSeleccionado.getSecuencia(), 'tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroTT').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistoricoTT" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoTT"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistoricoTT']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoTT').hide();" actionListener="#{controlRastro.historicosTabla('tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoTT').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBTT" header="#{msg['error']}" widgetVar="errorObjetosDBTT"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDBTT']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroTS" header="#{msg['informacion']}" widgetVar="confirmarRastroTS"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroTS']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroTS').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.ttSeleccionado.getSecuencia(), 'tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroTS').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistoricoTS" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoTS"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistoricoTS']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoTS').hide();" actionListener="#{controlRastro.historicosTabla('tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoTS').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBTS" header="#{msg['error']}" widgetVar="errorObjetosDBTS"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDBTS']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastroTC" header="#{msg['informacion']}" widgetVar="confirmarRastroTC"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroTC']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroTC').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.ttSeleccionado.getSecuencia(), 'tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroTC').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistoricoTC" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoTC"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistoricoTC']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoTC').hide();" actionListener="#{controlRastro.historicosTabla('tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoTC').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBTC" header="#{msg['error']}" widgetVar="errorObjetosDBTC"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDBTC']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroRL" header="#{msg['informacion']}" widgetVar="confirmarRastroRL"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroRL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroRL').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.ttSeleccionado.getSecuencia(), 'tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroRL').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistoricoRL" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoRL"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistoricoRL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoRL').hide();" actionListener="#{controlRastro.historicosTabla('tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoRL').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBRL" header="#{msg['error']}" widgetVar="errorObjetosDBRL"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDBRL']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroLL" header="#{msg['informacion']}" widgetVar="confirmarRastroLL"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroLL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroLL').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.ttSeleccionado.getSecuencia(), 'tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroLL').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistoricoLL" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoLL"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistoricoLL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoLL').hide();" actionListener="#{controlRastro.historicosTabla('tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoLL').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBLL" header="#{msg['error']}" widgetVar="errorObjetosDBLL"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDBLL']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroNL" header="#{msg['informacion']}" widgetVar="confirmarRastroNL"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroNL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroNL').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.ttSeleccionado.getSecuencia(), 'tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroNL').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistoricoNL" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoNL"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['confirmarRastroHistoricoNL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoNL').hide();" actionListener="#{controlRastro.historicosTabla('tipotrabajadorplantilla', 'tipotrabajadorplantilla')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoNL').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDBNL" header="#{msg['error']}" widgetVar="errorObjetosDBNL"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorObjetosDBNL']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="validacionNuevoRegistro" header="#{msg['atencion']}" widgetVar="validacionNuevoRegistro" resizable="false" draggable="true" modal="true" height="110" width="470"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                        <h:outputText value="#{controlTTPlantilla.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 350px;"/>
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevoRegistro').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTTPlantilla.diagnosticoCategoriaSeleccionado.getSecuencia(), 'DiagnosticoCategorias', 'diagnosticocategoria')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="#{msg['seleccionarRegistro']}." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccioneTT" header="#{msg['error']}" widgetVar="seleccioneTT"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Debe Seleccionar un tipo trabajador" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+
+                    <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar" resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="No se puede borrar el tipo trabajador porque existen registros secundarios" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCodigo" header="Código" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarTT.codigo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarTipoTrabajador" header="Tipo Trabajador" widgetVar="editarTipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarTT.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarTipoContrato" header="Tipo Contrato" widgetVar="editarTipoContrato" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarPlantillaTC.tipocontrato.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarTipoSueldo" header="Tipo Sueldo" widgetVar="editarTipoSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarPlantillaTS.tiposueldo.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarReformaLaboral" header="Reforma Laboral" widgetVar="editarReformaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarPlantillaRL.reformalaboral.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarContrato" header="Contrato" widgetVar="editarContrato" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarPlantillaLL.contrato.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editarNormaLaboral" header="Norma Laboral" widgetVar="editarNormaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTTPlantilla.editarPlantillaNL.normalaboral.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosTTExportar" var="exptt" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTTPlantilla.listaTT}" widgetVar="datosTTExportar"> 
+                        <p:column headerText="Codigo">                                  
+                            <f:facet name="header"><h:outputText value="Codigo"/> </f:facet> 
+                            <h:outputText value="#{exptt.codigo}"/>
+                        </p:column> 
+
+                        <p:column headerText="Tipo Trabajador">                                  
+                            <f:facet name="header"><h:outputText value="Tipo_Trabajador"/> </f:facet> 
+                            <h:outputText value="#{exptt.nombre}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dataTable id="datosTCExportar" var="exptc" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTTPlantilla.listaTC}" widgetVar="datosTCExportar"> 
+                        <p:column headerText="Tipo Contrato">                                  
+                            <f:facet name="header"><h:outputText value="Tipo_Contrato"/> </f:facet> 
+                            <h:outputText value="#{exptc.tipocontrato.nombre}"/>
+                        </p:column> 
+                    </p:dataTable>
+                    <p:dataTable id="datosTSExportar" var="expts" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTTPlantilla.listaTS}" widgetVar="datosTSExportar"> 
+                        <p:column headerText="Tipo Sueldo">                                  
+                            <f:facet name="header"><h:outputText value="Tipo_Sueldo"/> </f:facet> 
+                            <h:outputText value="#{expts.tiposueldo.descripcion}"/>
+                        </p:column> 
+                    </p:dataTable>
+                    <p:dataTable id="datosRLExportar" var="exprl" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTTPlantilla.listaRL}" widgetVar="datosRLExportar"> 
+                        <p:column headerText="Reforma Laboral">                                  
+                            <f:facet name="header"><h:outputText value="Reforma_Laboral"/> </f:facet> 
+                            <h:outputText value="#{exprl.reformalaboral.nombre}"/>
+                        </p:column> 
+                    </p:dataTable>
+                    <p:dataTable id="datosNLExportar" var="expnl" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTTPlantilla.listaNL}" widgetVar="datosNLExportar"> 
+                        <p:column headerText="Norma Laboral">                                  
+                            <f:facet name="header"><h:outputText value="Norma_Laboral"/> </f:facet> 
+                            <h:outputText value="#{expnl.normalaboral.nombre}"/>
+                        </p:column> 
+                    </p:dataTable>
+                    <p:dataTable id="datosLLExportar" var="expll" style="visibility: hidden; display: none;"                           
+                                 value="#{controlTTPlantilla.listaLL}" widgetVar="datosLLExportar"> 
+                        <p:column headerText="Contrato">                                  
+                            <f:facet name="header"><h:outputText value="Contrato"/> </f:facet> 
+                            <h:outputText value="#{expll.usuario.alias}"/>
+                        </p:column> 
+                    </p:dataTable>
+
+                </h:form> 
+            </ui:define>      
+        </ui:composition>
+    </h:body>
+</html>
+

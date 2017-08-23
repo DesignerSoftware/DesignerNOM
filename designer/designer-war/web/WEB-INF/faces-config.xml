@@ -8149,5 +8149,39 @@
       </navigation-case>
    </navigation-rule>
    
+    <navigation-rule>
+      <from-view-id>/nominaf.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuarioproceso</from-outcome>
+         <to-view-id>/usuarioproceso.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/usuarioproceso.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/tipotrabajadorplantilla.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipotrabajador</from-outcome>
+         <to-view-id>/tipotrabajador.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/tipotrabajador.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipotrabajadorplantilla</from-outcome>
+         <to-view-id>/tipotrabajadorplantilla.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
 </faces-config>
 

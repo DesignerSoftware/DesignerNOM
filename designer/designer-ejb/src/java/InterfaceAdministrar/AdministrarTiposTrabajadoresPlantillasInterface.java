@@ -69,5 +69,7 @@ public interface AdministrarTiposTrabajadoresPlantillasInterface {
     public List<PlantillasValidaLL> listaPlantillaLL(BigInteger secTT);
 
     public List<PlantillasValidaNL> listaPlantillaNL(BigInteger secTT);
+    
+    public boolean ConsultarRegistrosSecundarios(BigInteger secuencia);
 
 }

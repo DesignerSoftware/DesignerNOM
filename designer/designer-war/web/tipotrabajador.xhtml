@@ -602,8 +602,8 @@
                      <p:tooltip for="BtnClonar" value="#{msg['clonar']}"/>
                   </fieldset>
 
-                  <p:commandButton style="position: relative; left: 0px; top: 442px;" class="cssBoton" 
-                                   icon="ui-icon-extlink" value="#{msg['plantillaC']}" id="TTPlantilla" process="@this"/>
+                  <p:commandButton style="position: relative; left: 0px; top: 442px;" class="cssBoton"  icon="ui-icon-extlink" value="#{msg['plantillaC']}" id="TTPlantilla" process="@this"
+                                   action="#{controlListaNavegacion.guardarNavegacion('tipotrabajador', 'tipotrabajadorplantilla')}" actionListener="#{controlTTPlantilla.recibirPaginaEntrante('tipotrabajador')}" />
                   <p:tooltip for="TTPlantilla" value="#{msg['plantilla']}"/>
 
                   <p:commandButton class="cssBotonAceptar"  value="" id="ACEPTAR" process="@this" onclick="PF('confirmarGuardar').show();" disabled="#{controlTiposTrabajadores.guardado}"/>
@@ -1077,7 +1077,7 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevo']}" resizable="false" draggable="true" modal="true" height="130" width="380px;">
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevo']}" resizable="false" draggable="true" modal="true" height="130" width="380">
                   <h:outputText value="#{msg['seleccionarTabla']}" style="position: absolute; left: 10px; top: 20px; color: blue; font-weight: bold; width: 360px; text-align: center;"/>
                   <p:commandButton value="#{msg['titulo']}" style="position: absolute; left: 70px; top: 50px; width: 240px; height: 28px;" 
                                    oncomplete="PF('NuevoRegistroTT').show()" update=":formularioDialogos:nuevoTT" onclick="PF('verificarNuevoRegistro').hide();" process="@this"/>
