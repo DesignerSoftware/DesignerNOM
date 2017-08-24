@@ -171,9 +171,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
         log.warn("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
         try {
             em.clear();
-            String consulta = "SELECT cc.* \n"
-                    + "FROM ConfiguracionCorreos cc \n"
-                    + "WHERE cc.empresa = " + secEmpresa + " ";
+            String consulta = "SELECT cc.* FROM ConfiguracionCorreos cc WHERE cc.empresa = " + secEmpresa + " ";
             Query query = em.createNativeQuery(consulta, ConfiguracionCorreo.class);
             ConfiguracionCorreo remitente = (ConfiguracionCorreo) query.getSingleResult();
             log.warn("CorreoCod: " + remitente);
