@@ -108,7 +108,7 @@ public class ControlNovedadesVacaciones implements Serializable {
     private BigInteger diasAplazadosTotal;
     private final String cero;
     //ALTO SCROLL TABLA
-    private String altoTablaEmp, altoTablaRegEmp;// altoTablaEmp, altoTablaRegEmp;
+    private String altoTablaEmp, altoTablaRegEmp,altoTablaAux;// altoTablaEmp, altoTablaRegEmp;
     // activar mostrar todos:
     private boolean activarMTodos, activarLOV;
     // fecha contratacion empleado
@@ -147,6 +147,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = BigInteger.ZERO;
         altoTablaEmp = "110";
+        altoTablaAux = "100";
+        altoTablaRegEmp = "6";
         paginaAnterior = "nominaf";
         activarMTodos = true;
         novedadSeleccionada = null;
@@ -460,6 +462,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             altoTablaEmp = "92";
+            altoTablaAux = "80";
+            altoTablaRegEmp = "5";
             nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
             nEFechaInicialDisfrute.setFilterStyle("width: 85% !important");
             nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
@@ -493,6 +497,8 @@ public class ControlNovedadesVacaciones implements Serializable {
     public void cargarTablaDefault() {
         FacesContext c = FacesContext.getCurrentInstance();
         altoTablaEmp = "110";
+        altoTablaAux = "100";
+        altoTablaRegEmp = "6";
         nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
         nEFechaInicialDisfrute.setFilterStyle("display: none; visibility: hidden;");
         nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
@@ -794,6 +800,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = BigInteger.ZERO;
         altoTablaEmp = "110";
+        altoTablaAux = "100";
+        altoTablaRegEmp = "6";
         listaNovedadesBorrar.clear();
         listaNovedadesCrear.clear();
         listaNovedadesModificar.clear();
@@ -823,6 +831,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = BigInteger.ZERO;
         altoTablaEmp = "110";
+        altoTablaAux = "100";
+        altoTablaRegEmp = "6";
         listaNovedadesBorrar.clear();
         listaNovedadesCrear.clear();
         listaNovedadesModificar.clear();
@@ -1420,11 +1430,6 @@ public class ControlNovedadesVacaciones implements Serializable {
     }
 
     public String getAltoTablaRegEmp() {
-        if (altoTablaEmp.equals("92")) {
-            altoTablaRegEmp = "5";
-        } else {
-            altoTablaRegEmp = "6";
-        }
         return altoTablaRegEmp;
     }
 
@@ -1540,6 +1545,14 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void setActivarLOV(boolean activarLOV) {
         this.activarLOV = activarLOV;
+    }
+
+    public String getAltoTablaAux() {
+        return altoTablaAux;
+    }
+
+    public void setAltoTablaAux(String altoTablaAux) {
+        this.altoTablaAux = altoTablaAux;
     }
 
 }

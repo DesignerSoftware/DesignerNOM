@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -92,7 +93,7 @@ public class Inforeportes implements Serializable {
     @Column(name = "ENVIOMASIVO")
     private String enviomasivo;
     @Column(name = "CONTADOR")
-    private BigInteger contador;
+    private BigDecimal contador;
     @Size(max = 1000)
     @Column(name = "PARAMETROS")
     private String parametros;
@@ -368,11 +369,11 @@ public class Inforeportes implements Serializable {
         this.enviomasivo = enviomasivo;
     }
 
-    public BigInteger getContador() {
+    public BigDecimal getContador() {
         return contador;
     }
 
-    public void setContador(BigInteger contador) {
+    public void setContador(BigDecimal contador) {
         this.contador = contador;
     }
 

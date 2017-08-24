@@ -109,4 +109,7 @@ public interface PersistenciaInforeportesInterface {
     public List<Inforeportes> buscarInforeportesUsuarioCapacitacion(EntityManager em);
 
     public List<Inforeportes> buscarInforeportesUsuarioEvaluacionCompetencias(EntityManager em);
+    
+     public List<Inforeportes> buscarInforeportesAdminReportes(EntityManager em);
+    
 }

@@ -98,8 +98,8 @@
                                   rowKey="#{empleados.secuencia}" style=" border: 1px; text-align: left; width: 560px;"                           
                                   scrollable="true" scrollWidth="580" filteredValue="#{controlNovedadesVacaciones.filtradosListaEmpleadosNovedad}" 
                                   emptyMessage="No se encontraron resultados para la búsqueda" selection="#{controlNovedadesVacaciones.empleadoSeleccionado}"
-                                  editable="true" editMode="cell" selectionMode="single" 
-                                  rows="6" paginator="true" 
+                                  scrollHeight="#{controlNovedadesVacaciones.altoTablaAux}"
+                                  editable="true" editMode="cell" selectionMode="single"  rows="#{controlNovedadesVacaciones.altoTablaRegEmp}" paginator="true"  widgetVar="datosEmpleados"
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                   currentPageReportTemplate="{totalPages}">
 

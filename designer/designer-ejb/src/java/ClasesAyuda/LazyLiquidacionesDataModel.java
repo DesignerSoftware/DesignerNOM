@@ -84,9 +84,9 @@ public class LazyLiquidacionesDataModel extends LazyDataModel<LiquidacionesLogs>
             }
 
             //ordenamiento
-//            if (sortField != null) {
-//                Collections.sort(data, new LazySorterUIR(sortField, sortOrder));
-//            }
+            if (sortField != null) {
+                Collections.sort(data, new LazySorterLiqLogs(sortField, sortOrder));
+            }
             //conteo de registros
             int dataSize = data.size();
             this.setRowCount(dataSize);

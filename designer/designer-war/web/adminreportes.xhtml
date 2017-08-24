@@ -64,13 +64,11 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlAdminreportes.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAdminreportes.salir()}" action="nominaf" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAdminreportes.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup> 
                         </p:toolbar>
-                        <p:commandButton style="width: 200px; height: 25px; position: absolute; left: 15px; top: 470px;" id="btnBuscarEmpleados" actionListener="#{controlAdminreportes.asignarIndex(-1, 0, 0)}" value="Buscar Reporte" process="@this"/>
-                        <p:commandButton style="width: 200px; height: 25px; position: absolute; left: 220px; top: 470px;" id="btnMostrarTodos" actionListener="#{controlAdminreportes.mostrarTodos()}" value="Mostrar Todos"  process="@this"/>
-                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 385px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['reportes']}</strong></legend>
 
                             <p:dataTable id="datosInforeportes" widgetVar="datosInforeportes" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"                         
@@ -81,7 +79,7 @@
 
                                 <p:ajax event="filter" listener="#{controlAdminreportes.eventoFiltrar()}"/>
 
-                                <p:column headerText="#{msg['codigo']}" width="32" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="inforeportesCodigos" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="inforeportesCodigos" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.codigo}">
@@ -101,7 +99,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['reporte']}" width="210" sortBy="#{info.nombre}" filterBy="#{info.nombre}"  filterMatchMode="contains" id="inforeportesNombres" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['reporte']}" width="270" sortBy="#{info.nombre}" filterBy="#{info.nombre}"  filterMatchMode="contains" id="inforeportesNombres" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.nombre}"  style="text-transform: uppercase;">
@@ -121,7 +119,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['contador']}" width="40" sortBy="#{info.contador}" filterBy="#{info.contador}"  filterMatchMode="contains" id="inforeportesContadores" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['contador']}" width="80" sortBy="#{info.contador}" filterBy="#{info.contador}"  filterMatchMode="contains" id="inforeportesContadores" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.contador}"  style="text-transform: uppercase;">
@@ -141,7 +139,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['nombrereporte']}" width="145" sortBy="#{info.nombrereporte}" filterBy="#{info.nombrereporte}"  filterMatchMode="contains" id="inforeportesNombresReportes" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['nombrereporte']}" width="170" sortBy="#{info.nombrereporte}" filterBy="#{info.nombrereporte}"  filterMatchMode="contains" id="inforeportesNombresReportes" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.nombrereporte}"  style="text-transform: uppercase;">
@@ -161,7 +159,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['tipo']}" sortBy="#{info.estadoTipo}" filterBy="#{info.estadoTipo}" filterMatchMode="contains" id="inforeportesTipos" width="40" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="#{msg['tipo']}" sortBy="#{info.estadoTipo}" filterBy="#{info.estadoTipo}" filterMatchMode="contains" id="inforeportesTipos" width="50" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="OutTipo" value="#{info.estadoTipo}" style="text-transform: uppercase; height: 12px"/></f:facet>  
                                         <f:facet name="input">
@@ -184,7 +182,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['modulo']}" width="50" sortBy="#{info.modulo.nombre}" filterBy="#{info.modulo.nombre}" filterMatchMode="contains" id="inforeportesModulos" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="#{msg['modulo']}" width="80" sortBy="#{info.modulo.nombre}" filterBy="#{info.modulo.nombre}" filterMatchMode="contains" id="inforeportesModulos" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.modulo.nombre}"/></f:facet>  
                                         <f:facet name="input">
@@ -198,11 +196,11 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="left: -45px; width: 170px; margin: -14px; height: 26px; border: none; color: blue;" id="fooDepartamentos" value=""/>
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoFechaDesde}" filterBy="#{info.estadoFechaDesde}" filterMatchMode="contains" id="inforeportesFechaDesde" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoFechaDesde}" filterBy="#{info.estadoFechaDesde}" filterMatchMode="contains" id="inforeportesFechaDesde" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerFechaDesde" value="..."/>
                                         <p:tooltip  for="headerFechaDesde" value="#{msg['fechadesde']}"/>
@@ -214,7 +212,7 @@
 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoFechaHasta}" filterBy="#{info.estadoFechaHasta}" filterMatchMode="contains" id="inforeportesFechaHasta" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoFechaHasta}" filterBy="#{info.estadoFechaHasta}" filterMatchMode="contains" id="inforeportesFechaHasta" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerFechaHasta" value="..."/>
                                         <p:tooltip  for="headerFechaHasta" value="#{msg['fechahasta']}"/>
@@ -226,7 +224,7 @@
 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoEmpleadoDesde}" filterBy="#{info.estadoEmpleadoDesde}" filterMatchMode="contains" id="inforeportesEmpleadoDesde" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoEmpleadoDesde}" filterBy="#{info.estadoEmpleadoDesde}" filterMatchMode="contains" id="inforeportesEmpleadoDesde" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerEmpleadoDesde" value="..."/>
                                         <p:tooltip  for="headerEmpleadoDesde" value="#{msg['empleadodesde']}"/>
@@ -238,7 +236,7 @@
 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoEmpleadoHasta}" filterBy="#{info.estadoEmpleadoHasta}" filterMatchMode="contains" id="inforeportesEmpleadoHasta" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoEmpleadoHasta}" filterBy="#{info.estadoEmpleadoHasta}" filterMatchMode="contains" id="inforeportesEmpleadoHasta" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerEmpleadoHasta" value="..."/>
                                         <p:tooltip  for="headerEmpleadoHasta" value="#{msg['empleadohasta']}"/>
@@ -249,7 +247,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoLocalizacion}" filterBy="#{info.estadoLocalizacion}" filterMatchMode="contains" id="inforeportesLocalizacion" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoLocalizacion}" filterBy="#{info.estadoLocalizacion}" filterMatchMode="contains" id="inforeportesLocalizacion" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerLocalizacion" value="..."/>
                                         <p:tooltip  for="headerLocalizacion" value="#{msg['localizacion']}"/>
@@ -260,7 +258,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoEstado}" filterBy="#{info.estadoEstado}" filterMatchMode="contains" id="inforeportesEstado" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoEstado}" filterBy="#{info.estadoEstado}" filterMatchMode="contains" id="inforeportesEstado" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerEstado" value="..."/>
                                         <p:tooltip  for="headerEstado" value="#{msg['estado']}"/>
@@ -271,7 +269,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoGrupo}" filterBy="#{info.estadoGrupo}" filterMatchMode="contains" id="inforeportesGrupo" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoGrupo}" filterBy="#{info.estadoGrupo}" filterMatchMode="contains" id="inforeportesGrupo" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerGrupo" value="..."/>
                                         <p:tooltip  for="headerGrupo" value="#{msg['grupo']}"/>
@@ -282,7 +280,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoTercero}" filterBy="#{info.estadoTercero}" filterMatchMode="contains" id="inforeportesTercero" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoTercero}" filterBy="#{info.estadoTercero}" filterMatchMode="contains" id="inforeportesTercero" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerTercero" value="..."/>
                                         <p:tooltip  for="headerTercero" value="#{msg['tercero']}"/>
@@ -293,7 +291,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoTrabajador}" filterBy="#{info.estadoTrabajador}" filterMatchMode="contains" id="inforeportesTrabajador" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoTrabajador}" filterBy="#{info.estadoTrabajador}" filterMatchMode="contains" id="inforeportesTrabajador" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerTrabajador" value="..."/>
                                         <p:tooltip  for="headerTrabajador" value="#{msg['trabajador']}"/>
@@ -304,7 +302,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoTipoTrabajador}" filterBy="#{info.estadoTipoTrabajador}" filterMatchMode="contains" id="inforeportesTipoTrabajador" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoTipoTrabajador}" filterBy="#{info.estadoTipoTrabajador}" filterMatchMode="contains" id="inforeportesTipoTrabajador" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerTipoTrabajador" value="..."/>
                                         <p:tooltip  for="headerTipoTrabajador" value="#{msg['tipotrabajador']}"/>
@@ -315,7 +313,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoSolicitud}" filterBy="#{info.estadoSolicitud}" filterMatchMode="contains" id="inforeportesSolicitud" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoSolicitud}" filterBy="#{info.estadoSolicitud}" filterMatchMode="contains" id="inforeportesSolicitud" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerSolicitud" value="..."/>
                                         <p:tooltip  for="headerSolicitud" value="#{msg['solicitud']}"/>
@@ -326,7 +324,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoCiudad}" filterBy="#{info.estadoCiudad}" filterMatchMode="contains" id="inforeportesCiudad" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoCiudad}" filterBy="#{info.estadoCiudad}" filterMatchMode="contains" id="inforeportesCiudad" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerCiudad" value="..."/>
                                         <p:tooltip  for="headerCiudad" value="#{msg['ciudad']}"/>
@@ -337,7 +335,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoTipoTelefono}" filterBy="#{info.estadoTipoTelefono}" filterMatchMode="contains" id="inforeportesTipoTelefono" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoTipoTelefono}" filterBy="#{info.estadoTipoTelefono}" filterMatchMode="contains" id="inforeportesTipoTelefono" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerTipoTelefono" value="..."/>
                                         <p:tooltip  for="headerTipoTelefono" value="#{msg['tipotelefono']}"/>
@@ -348,7 +346,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoEstadoCivil}" filterBy="#{info.estadoEstadoCivil}" filterMatchMode="contains" id="inforeportesEstadoCivil" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoEstadoCivil}" filterBy="#{info.estadoEstadoCivil}" filterMatchMode="contains" id="inforeportesEstadoCivil" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerEstadoCivil" value="..."/>
                                         <p:tooltip  for="headerEstadoCivil" value="#{msg['estadocivil']}"/>
@@ -359,7 +357,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoDeporte}" filterBy="#{info.estadoDeporte}" filterMatchMode="contains" id="inforeportesDeporte" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoDeporte}" filterBy="#{info.estadoDeporte}" filterMatchMode="contains" id="inforeportesDeporte" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerDeporte" value="..."/>
                                         <p:tooltip  for="headerDeporte" value="#{msg['deporte']}"/>
@@ -370,7 +368,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoIdioma}" filterBy="#{info.estadoIdioma}" filterMatchMode="contains" id="inforeportesIdioma" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoIdioma}" filterBy="#{info.estadoIdioma}" filterMatchMode="contains" id="inforeportesIdioma" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerIdioma" value="..."/>
                                         <p:tooltip  for="headerIdioma" value="#{msg['idioma']}"/>
@@ -381,7 +379,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoAficion}" filterBy="#{info.estadoAficion}" filterMatchMode="contains" id="inforeportesAficion" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoAficion}" filterBy="#{info.estadoAficion}" filterMatchMode="contains" id="inforeportesAficion" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerAficion" value="..."/>
                                         <p:tooltip  for="headerAficion" value="#{msg['aficion']}"/>
@@ -392,7 +390,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoJefeDivision}" filterBy="#{info.estadoJefeDivision}" filterMatchMode="contains" id="inforeportesJefeDivision" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoJefeDivision}" filterBy="#{info.estadoJefeDivision}" filterMatchMode="contains" id="inforeportesJefeDivision" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerJefeDivision" value="..."/>
                                         <p:tooltip  for="headerJefeDivision" value="#{msg['jefedivision']}"/>
@@ -403,7 +401,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoRodamiento}" filterBy="#{info.estadoRodamiento}" filterMatchMode="contains" id="inforeportesRodamiento" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoRodamiento}" filterBy="#{info.estadoRodamiento}" filterMatchMode="contains" id="inforeportesRodamiento" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerRodamiento" value="..."/>
                                         <p:tooltip  for="headerRodamiento" value="#{msg['rodamiento']}"/>
@@ -414,7 +412,7 @@
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
-                                <p:column headerText="..." style="width:12px;" sortBy="#{info.estadoEnvioMasivo}" filterBy="#{info.estadoEnvioMasivo}" filterMatchMode="contains" id="inforeportesEnvioMasivo" filterStyle="display: none; visibility: hidden;">                                  
+                                <p:column headerText="..." style="width:20px;" sortBy="#{info.estadoEnvioMasivo}" filterBy="#{info.estadoEnvioMasivo}" filterMatchMode="contains" id="inforeportesEnvioMasivo" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerEnvioMasivo" value="..."/>
                                         <p:tooltip  for="headerEnvioMasivo" value="#{msg['enviomasivo']}"/>
@@ -427,13 +425,12 @@
 
 
                             </p:dataTable>
+                        <h:outputText id="informacionRegistro" value="Registros: #{controlAdminreportes.infoRegistro}" style="position: relative; left: 5px; top: 0px; font-weight: bold;"/>
+                        <p:commandButton style="position: relative; left: 585px; top: 8px;" class="cssBotonBuscar" id="btnBuscarEmpleados" actionListener="#{controlAdminreportes.asignarIndex(-1, 0, 0)}"  value="" process="@this"/>
+                        <p:commandButton style="position: relative; left: 585px; top: 8px;" class="cssBotonMostrarTodos" id="btnMostrarTodos" actionListener="#{controlAdminreportes.mostrarTodos()}"  value=""  process="@this"/>
                         </fieldset>
-
-
-                        <h:outputText id="informacionRegistro" value="#{controlAdminreportes.infoRegistro}" style="position: absolute; left: 15px; top: 450px; font-weight: bold;"/>
-
-                        <p:commandButton style="position: absolute; left: 688px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlAdminreportes.guardado}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosInforeportes" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 780px; top: 470px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlAdminreportes.salir()}" action="nominaf" process="@this"/>
+                        <p:commandButton class="cssBotonAceptar" icon="" id="ACEPTAR" disabled="#{controlAdminreportes.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosInforeportes" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" icon="" id="ATRAS" value="" actionListener="#{controlAdminreportes.salir()}"  process="@this"/>
 
                     </p:panel>
 

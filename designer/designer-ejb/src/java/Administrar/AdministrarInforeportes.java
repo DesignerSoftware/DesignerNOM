@@ -197,4 +197,14 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
       }
    }
 
+    @Override
+    public List<Inforeportes> listaInfoReportes() {
+       return persistenciaInforeportes.buscarInforeportesAdminReportes(getEm());
+    }
+
+    @Override
+    public List<Modulos> listaModulos() {
+        return persistenciaModulos.listaModulos(getEm());
+    }
+
 }

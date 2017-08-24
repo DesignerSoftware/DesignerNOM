@@ -72,7 +72,7 @@ public class AdministrarPermisosObjetosJsf implements AdministrarPermisosObjetos
 
    private String consultarPerfilUsuario() {
       try {
-         Perfiles perfil = persistenciaPerfiles.consultarPerfilPorUsuario(em);
+         Perfiles perfil = persistenciaPerfiles.consultarPerfilPorUsuario(getEm());
          return perfil.getDescripcion();
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);

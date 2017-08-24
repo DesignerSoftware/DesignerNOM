@@ -111,9 +111,9 @@ public class LazyEmplAcumuladosDataModel extends LazyDataModel<VWAcumulados> {
                 }
             }
             //ordenamiento
-//            if (sortField != null) {
-//                Collections.sort(data, new LazySorterUIR(sortField, sortOrder));
-//            }
+            if (sortField != null) {
+                Collections.sort(data, new LazySorterEmplAcumulados(sortField, sortOrder));
+            }
             //conteo de registros
             int dataSize = data.size();
             this.setRowCount(dataSize);

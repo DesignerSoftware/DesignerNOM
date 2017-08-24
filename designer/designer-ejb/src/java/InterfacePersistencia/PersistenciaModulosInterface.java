@@ -44,5 +44,7 @@ public interface PersistenciaModulosInterface {
     public List<Modulos> buscarModulos(EntityManager em);
     
     public Modulos buscarModulosPorSecuencia(EntityManager em, BigInteger secModulo);
+    
+    public List<Modulos> listaModulos(EntityManager em);
 
 }

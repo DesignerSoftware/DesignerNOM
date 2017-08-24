@@ -154,7 +154,9 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""/>
+                                        <p:commandButton action="#{controlListaNavegacion.guardarNavegacion('usuarioinforeporte', 'adminreportes')}" style="width: 150px" value=""
+                                                         actionListener="#{controlAdminreportes.recibirPaginaEntrante('usuarioinforeporte')}" 
+                                                         onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -169,7 +171,9 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""/>
+                                        <p:commandButton action="#{controlListaNavegacion.guardarNavegacion('usuarioinforeporte', 'adminreportes')}" style="width: 650px" value=""
+                                                         actionListener="#{controlAdminreportes.recibirPaginaEntrante('usuarioinforeporte')}" 
+                                                         onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}"/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Módulo" sortBy="#{info2.inforeporte.modulo.nombre}" filterBy="#{info2.inforeporte.modulo.nombre}" filterMatchMode="contains" id="modulo" width="80" filterStyle="display: none; visibility: hidden;">                                  
@@ -183,7 +187,8 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""/>
+                                        <p:commandButton action="#{controlListaNavegacion.guardarNavegacion('usuarioinforeporte', 'adminreportes')}" actionListener="#{controlAdminreportes.recibirPaginaEntrante('usuarioinforeporte')}" 
+                                                         onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}" value="" style="width: 150px"/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="Tipo" sortBy="#{info2.inforeporte.tipo}"  filterBy="#{info2.inforeporte.tipo}" filterMatchMode="contains" id="tipo" width="60" filterStyle="display: none; visibility: hidden;">                                  
@@ -197,7 +202,9 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""/>
+                                        <p:commandButton action="#{controlListaNavegacion.guardarNavegacion('usuarioinforeporte', 'adminreportes')}" style="width: 150px" value=""
+                                                         actionListener="#{controlAdminreportes.recibirPaginaEntrante('usuarioinforeporte')}" 
+                                                         onstart="#{controlUsuariosInfoReportes.limpiarListasValor()}"/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -213,12 +220,12 @@
 
                 <h:form id="formularioDialogos">
 
-                     <p:dialog id="validacionNuevoUsuarioIR" header="#{msg['atencion']}" widgetVar="validacionNuevoUsuarioIR"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionNuevoUsuarioIR" header="#{msg['atencion']}" widgetVar="validacionNuevoUsuarioIR"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:outputText value="#{controlUsuariosInfoReportes.mensajeValidacion}" style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoUsuarioIR').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="nuevoRegistroUsuarioIR" header="Nuevo Registro" widgetVar="nuevoRegistroUsuarioIR" closable="false" resizable="false"  draggable="true" modal="true" height="250" width="380" style=" padding: 0px">  
                         <center><strong><h:outputText value="Ingresar nuevo Usuario Inforeporte" style="font-size: 14px; color: blue; position: relative; left: 10px; top: 5px;"/></strong></center> 
                         <p:panel id="nuevoUsuarioIR" style="border: none;">                           
@@ -453,15 +460,15 @@
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                     </p:dialog>
-                    
-                     <p:dialog id="existeUsuarioIR" header="#{msg['error']}" widgetVar="existeUsuarioIR"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+
+                    <p:dialog id="existeUsuarioIR" header="#{msg['error']}" widgetVar="existeUsuarioIR"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:outputText value="El usuario seleccionado ya tiene un registro relacionado con ese reporte." style="position: absolute; left:90px; top: 10px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeUsuarioIR').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this"/>
                     </p:dialog>
 
                 </h:form>
-                
+
                 <h:form id="formExportar">
                     <p:dataTable id="datosUsuariosIRExportar" var="exp" style="visibility: hidden; display: none;"                           
                                  value="#{controlUsuariosInfoReportes.listaUsuariosIR}" widgetVar="datosUsuariosIRExportar"> 
@@ -501,9 +508,9 @@
                         </p:column>
 
                     </p:dataTable>
-                    
+
                 </h:form>
-                
+
             </ui:define>     
         </ui:composition>
     </h:body>

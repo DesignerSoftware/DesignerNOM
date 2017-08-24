@@ -35,5 +35,9 @@ public interface AdministrarInforeportesInterface {
     public void modificarInforeporte(List<Inforeportes> listaInforeportesModificar);
 
     public Modulos buscarModuloPorSecuencia(BigInteger secModulo);
+    
+    public List<Inforeportes> listaInfoReportes();
+    
+    public List<Modulos> listaModulos();
 
     }

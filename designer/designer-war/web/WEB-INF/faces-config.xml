@@ -8183,5 +8183,22 @@
       </navigation-case>
    </navigation-rule>
    
+   <navigation-rule>
+      <from-view-id>/adminreportes.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuarioinforeporte</from-outcome>
+         <to-view-id>/usuarioinforeporte.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/usuarioinforeporte.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>adminreportes</from-outcome>
+         <to-view-id>/adminreportes.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
 </faces-config>
 

@@ -186,6 +186,9 @@ public class VWAcumulados implements Serializable {
     }
 
     public CortesProcesos getCorteProceso() {
+        if (corteProceso == null) {
+            corteProceso = new CortesProcesos();
+        }
         return corteProceso;
     }
 
@@ -338,6 +341,9 @@ public class VWAcumulados implements Serializable {
     }
 
     public String getNit_nombre() {
+        if (nit_nombre == null) {
+            nit_nombre = "";
+        }
         return nit_nombre;
     }
 
@@ -370,6 +376,9 @@ public class VWAcumulados implements Serializable {
     }
 
     public String getObservacionesMovedad() {
+        if (observacionesMovedad == null) {
+            observacionesMovedad = "";
+        }
         return observacionesMovedad;
     }
 

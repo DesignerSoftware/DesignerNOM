@@ -218,4 +218,17 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
         }
     }
 
+    @Override
+    public List<Inforeportes> buscarInforeportesAdminReportes(EntityManager em) {
+       try {
+            em.clear();
+            Query query = em.createNativeQuery("SELECT * FROM INFOREPORTES ORDER BY CODIGO,MODULO",Inforeportes.class);
+            List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
+            return inforeportes;
+        } catch (Exception e) {
+            log.error("Error PersistenciaInforeportes buscarInforeportesAdminReportes : " + e.toString());
+            return null;
+        }
+    }
+
 }

@@ -64,6 +64,9 @@ public class CortesProcesos implements Serializable {
     }
 
     public Procesos getProceso() {
+        if (proceso == null) {
+            proceso = new Procesos();
+        }
         return proceso;
     }
 

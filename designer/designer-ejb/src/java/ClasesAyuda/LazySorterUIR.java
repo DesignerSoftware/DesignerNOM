@@ -28,27 +28,17 @@ public class LazySorterUIR implements Comparator<UsuariosInforeportes> {
     @Override
     public int compare(UsuariosInforeportes o1, UsuariosInforeportes o2) {
         try {
-//            Object value1 = UsuariosInforeportes.class.getField(sortField).get(o1);
-//            Object value2 = UsuariosInforeportes.class.getField(sortField).get(o2);
-//            int value = ((Comparable)value1).compareTo(value2);
-//            return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
-
-//      Field f = UsuariosInforeportes.class.getDeclaredField(this.sortField);  
-//      f.setAccessible(true);  
-//      Object value1 = f.get(o1);  
-//      Object value2 = f.get(o2);  
-//  
-//      int cmp = ((Comparable)value1).compareTo(value2);  
-//        
-//      return SortOrder.ASCENDING.equals(sortOrder) ? cmp : -1 * cmp;  
             int value = 0;
-            Field[] campos = UsuariosInforeportes.class.getFields();
-            for (Field campo : campos) {
-                System.out.println("campo: " + campo.toString());
+            if (sortField.equals("inforeporte.codigo")) {
+                value = o1.getInforeporte().getCodigo().compareTo(o2.getInforeporte().getCodigo());
+            } else if (sortField.equals("inforeporte.nombre")) {
+                value = o1.getInforeporte().getNombre().compareTo(o2.getInforeporte().getNombre());
+            } else if (sortField.equals("inforeporte.modulo.nombre")) {
+                value = o1.getInforeporte().getModulo().getNombre().compareTo(o2.getInforeporte().getModulo().getNombre());
+            } else if (sortField.equals("inforeporte.tipo")) {
+                value = o1.getInforeporte().getTipo().compareTo(o2.getInforeporte().getTipo());
             }
-            value = o1.getSecuencia().compareTo(o2.getSecuencia());
-            System.out.println("value : " + value);
-            return value;
+            return SortOrder.ASCENDING.equals(sortOrder) ? value : -1 * value;
 
         } catch (Exception e) {
             System.out.println("error en compare : " + e.getMessage());
