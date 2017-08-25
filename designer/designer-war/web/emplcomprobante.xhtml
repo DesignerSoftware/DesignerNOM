@@ -100,7 +100,7 @@
                                       style="background-size: 100% 100%; position: relative; background-image: url(Imagenes/Iconos/salir.png);  top: 5px; width: 50px; height: 50px; background-repeat: no-repeat; border: none;"/>
                      <p:tooltip for="btnComprobante" value="#{msg['eliminarComprobante']}"/>
                      <h:outputText value="#{msg['boton']}" style="font-size: 11px; font-weight: bold; width: 160px; text-align: justify; position: absolute; left: 60px; margin-top: 4px;"/>
-                     <p:inputText autocomplete="off" value="#{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true"/>
+                     <p:inputText autocomplete="off" value="#{controlEmplComprobantes.empleado.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true"/>
                   </fieldset>
 
                   <fieldset style="position: absolute; left: 253px; top: 70px; width: 280px; height: 119px; border-radius: 10px; padding-top: 0px;">
@@ -1187,7 +1187,7 @@
 
                <p:dialog id="confirmarReversar3" header="#{msg['informacion']}" widgetVar="confirmarReversar3" resizable="false" draggable="true" modal="true" height="125" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['confirmarReversar3']} #{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: absolute; left: 70px; top: 10px; width: 260px; font-weight: bold; text-align: left;"/>
+                  <h:outputText value="#{msg['confirmarReversar3']} #{controlEmplComprobantes.empleado.nombreCompleto}" style="position: absolute; left: 70px; top: 10px; width: 260px; font-weight: bold; text-align: left;"/>
                   <h:outputText value="Proceso: #{controlEmplComprobantes.cortesProcesosSeleccionado.proceso.descripcion}" style="position: absolute; left: 70px; top: 45px; width: 260px; font-weight: bold; text-align: left;"/>
                   <h:outputText value="#{controlEmplComprobantes.cortesProcesosSeleccionado.corte}" style="position: absolute; left: 70px; top: 70px; width: 250px; font-weight: bold; text-align: left;">
                      <f:convertDateTime pattern="dd/MM/yyyy"/>

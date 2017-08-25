@@ -34,7 +34,7 @@ public interface AdministrarNovedadesEmbargosInterface {
 
     public List<Empleados> listaEmpleados();
 
-    public List<Empleados> lovEmpleados();
+//    public List<Empleados> lovEmpleados();
 
     public List<TiposEmbargos> lovTiposEmbargos();
 

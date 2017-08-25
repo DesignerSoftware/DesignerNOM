@@ -161,7 +161,7 @@ public class AdministrarNReporteEvalCompetencia implements AdministrarNReporteEv
    @Override
    public List<Empleados> listEmpleados() {
       try {
-         listEmpleados = persistenciaEmpleado.buscarEmpleados(getEm());
+         listEmpleados = persistenciaEmpleado.buscarEmpleadosActivos(getEm());
          log.warn(this.getClass().getName() + ".listEmpleados() fin.");
          return listEmpleados;
       } catch (Exception e) {

@@ -37,6 +37,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import Entidades.FormulasConceptos;
 import InterfaceAdministrar.AdministrarFormulaConceptoInterface;
 import java.util.Map;
@@ -172,7 +173,12 @@ public class ControlCambiosMasivos {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlCambiosMasivos() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       listaParametros = null;
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;
@@ -299,7 +305,7 @@ public class ControlCambiosMasivos {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -1353,15 +1359,12 @@ public class ControlCambiosMasivos {
    }
 
    public Formulas verificarFormulaConcepto(BigInteger secCon) {
-      List<FormulasConceptos> formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
+      FormulasConceptos formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
       BigInteger autoFormula;
       cargarLOVsNovedad();
       if (formulasConceptoSel != null) {
-         if (!formulasConceptoSel.isEmpty()) {
-            autoFormula = formulasConceptoSel.get(0).getFormula();
-         } else {
-            autoFormula = new BigInteger("4621544");
-         }
+//         if (!formulasConceptoSel.isEmpty()) {
+         autoFormula = formulasConceptoSel.getFormula();
       } else {
          autoFormula = new BigInteger("4621544");
       }
@@ -1380,7 +1383,7 @@ public class ControlCambiosMasivos {
          if (!lovEmpleados.isEmpty()) {
             if (empleadoSeleccionado != null) {
                parametroCambioMasivoActual.setTrans_SecEmplJefe(empleadoSeleccionado.getSecuencia());
-               parametroCambioMasivoActual.setTrans_nombreJefe(empleadoSeleccionado.getPersona().getNombreCompleto());
+               parametroCambioMasivoActual.setTrans_nombreJefe(empleadoSeleccionado.getNombreCompleto());
                if (guardado) {
                   guardado = false;
                   RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1426,20 +1429,20 @@ public class ControlCambiosMasivos {
             int hayUno = 0;
             int indexObj = 0;
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(t)) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(t)) {
                   hayUno++;
                   indexObj = i;
                }
             }
             if (hayUno == 1) {
                parametroCambioMasivoActual.setTrans_SecEmplJefe(lovEmpleados.get(indexObj).getSecuencia());
-               parametroCambioMasivoActual.setTrans_nombreJefe(lovEmpleados.get(indexObj).getPersona().getNombreCompleto());
+               parametroCambioMasivoActual.setTrans_nombreJefe(lovEmpleados.get(indexObj).getNombreCompleto());
                modificarParametros();
             } else {
                hayUno = 0;
                for (int i = 0; i < lovEmpleados.size(); i++) {
                   if (lovEmpleados.get(i).getSecuencia().equals(parametroCambioMasivoActual.getTrans_nombreJefe())) {
-                     parametroCambioMasivoActual.setTrans_nombreJefe(lovEmpleados.get(i).getPersona().getNombreCompleto());
+                     parametroCambioMasivoActual.setTrans_nombreJefe(lovEmpleados.get(i).getNombreCompleto());
                      hayUno++;
                   }
                }
@@ -2624,7 +2627,14 @@ public class ControlCambiosMasivos {
          lovConceptos = administrarCambiosMasivos.consultarLovConceptos();
       }
       if (lovFormulas.isEmpty()) {
-         lovFormulas = administrarCambiosMasivos.consultarLovFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarCambiosMasivos.consultarLovFormulas();
+            if (lovFormulas != null) {
+               listasRecurrentes.setLovFormulas(lovFormulas);
+            }
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
       if (lovTerceros.isEmpty()) {
          lovTerceros = administrarCambiosMasivos.consultarLovTerceros();

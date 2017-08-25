@@ -8,6 +8,7 @@ package Administrar;
 import Entidades.VigenciasEstadosCiviles;
 import Entidades.EstadosCiviles;
 import Entidades.Empleados;
+import Entidades.Personas;
 import InterfaceAdministrar.AdministrarVigenciasEstadosCivilesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaEstadosCivilesInterface;
@@ -135,6 +136,16 @@ public class AdministrarVigenciasEstadosCiviles implements AdministrarVigenciasE
       try {
          return persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
       } catch (Exception e) {
+         return null;
+      }
+   }
+
+   @Override
+   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaEmpleado.buscarPersonaPorEmpleado(em, secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + " ERROR en obtenerPersonaPorEmpleado() : " + e.getMessage());
          return null;
       }
    }

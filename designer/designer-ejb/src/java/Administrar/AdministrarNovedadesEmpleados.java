@@ -122,7 +122,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
                p = new PruebaEmpleados();
                p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
                p.setId(listaEmpleados.get(i).getSecuencia());
-               p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
+               p.setNombre(listaEmpleados.get(i).getNombreCompleto());
 //                p.setTipo(tipo);
                p.setValor(null);
                listaEmpleadosNovedad.add(p);

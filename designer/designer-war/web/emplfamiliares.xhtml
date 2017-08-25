@@ -632,9 +632,9 @@
                      <p:watermark for="nuevoSexo" value="Sexo"/>
 
                      <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px"/> </strong>
-                     <p:inputText autocomplete="off" onclick="select();" value="#{controlFamiliares.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
+                     <p:inputText autocomplete="off" onclick="select();" value="#{controlFamiliares.nuevaPersona.nombreTipoDocumento}" id="tipoDocumentoModPersonal"
                                    style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
-                      <!--<p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPODOCUMENTO', controlFamiliares.nuevaPersona.tipodocumento.nombrelargo, 1)}"/>-->
+                      <!--<p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPODOCUMENTO', controlFamiliares.nuevaPersona.nombreTipoDocumento, 1)}"/>-->
                         <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 3, 1)}" process="@this"/>
                           <!--<p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPODOCUMENTO')}"/>-->
                         <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 170px; left: 380px; z-index: 5;"
@@ -649,9 +649,9 @@
                      </p:inputText>
 
                      <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
+                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.nombreCiudadDocumento}" id="ciudadDocumentoModPersonal"
                                    style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
-<!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDAD', controlFamiliares.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
+<!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDAD', controlFamiliares.nuevaPersona.nombreCiudadDocumento, 1)}"/>
                           <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDAD')}"/>-->
                         <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 4, 1)}" process="@this"/>
                         <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 230px; left: 380px; z-index: 5;"
@@ -667,9 +667,9 @@
                      </div>
 
                      <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
+                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlFamiliares.nuevaPersona.nombreCiudadNacimiento}" id="ciudadNacimientoModPersonal"
                                    style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
-<!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDADNACIMIENTO', controlFamiliares.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
+<!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDADNACIMIENTO', controlFamiliares.nuevaPersona.nombreCiudadDocumento, 1)}"/>
                           <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDADNACIMIENTO')}"/>-->
                         <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 5, 1)}" process="@this"/>
                         <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 290px; left: 380px; z-index: 5;"

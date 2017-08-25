@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -109,7 +110,12 @@ public class ControlFormulasAseguradas implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlFormulasAseguradas() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       lovFormulasAseguradas = null;
       listFormulasAseguradas = null;
       crearFormulasAseguradas = new ArrayList<FormulasAseguradas>();
@@ -189,7 +195,7 @@ public class ControlFormulasAseguradas implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -605,7 +611,6 @@ public class ControlFormulasAseguradas implements Serializable {
             }
             if (coincidencias == 1) {
                formulaAseguradaSeleccionada.setFormula(lovFormulas.get(indiceUnicoElemento));
-               lovFormulas.clear();
                lovFormulas = null;
             } else {
                permitirIndex = false;
@@ -1524,7 +1529,12 @@ public class ControlFormulasAseguradas implements Serializable {
 
    public List<Formulas> getLovFormulas() {
       if (lovFormulas == null) {
-         lovFormulas = administrarFormulasAseguradas.consultarLOVFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarFormulasAseguradas.consultarLOVFormulas();
+            if(lovFormulas != null){listasRecurrentes.setLovFormulas(lovFormulas);}
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
       return lovFormulas;
    }

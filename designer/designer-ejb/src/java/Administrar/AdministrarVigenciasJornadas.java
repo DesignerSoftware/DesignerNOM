@@ -5,7 +5,6 @@ import Entidades.JornadasLaborales;
 import Entidades.TiposDescansos;
 import Entidades.VigenciasCompensaciones;
 import Entidades.VigenciasJornadas;
-import static Entidades.four.VigenciasCargos_.empleado;
 import InterfaceAdministrar.AdministrarVigenciasJornadasInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaJornadasLaboralesInterface;

@@ -2,20 +2,17 @@ package Entidades;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-//import >java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-//import javax.validation.constraints.Size;
 
 /**
  *
  * @author Administrator
  */
 @Entity
-public class FormulasConceptosAux implements Serializable{
-   
+@Cacheable(false)
+public class FormulasConceptosAux implements Serializable {
+
    private static final long serialVersionUID = 1L;
    @Id
    @Basic(optional = false)
@@ -44,7 +41,7 @@ public class FormulasConceptosAux implements Serializable{
 
    public FormulasConceptosAux() {
    }
-   
+
    public FormulasConceptosAux(BigInteger secuencia, long nitEmpresa, String nombreEmpresa, String nombreFormula, String nombreConcepto, BigInteger codigoConcepto) {
       this.secuencia = secuencia;
       this.nitEmpresa = nitEmpresa;

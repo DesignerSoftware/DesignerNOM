@@ -101,9 +101,9 @@
                            <legend style="font-size: 12px; color: blue;"><strong>#{msg['modPersonal']}</strong></legend>
 
                            <h:outputText  value="*#{msg['empresa']}:" style="position: absolute; top: 25px; left: 15px; font-weight: bold;"/>
-                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.empresa.nombre}" id="empresaModPersonal"
+                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.nombreEmpresa}" id="empresaModPersonal"
                                         style="position: absolute; top: 20px; left: 125px; width: 130px; text-transform: uppercase;">
-                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(0,'EMPRESA', controlPersonaIndividual.nuevoEmpleado.empresa.nombre)}" process="@this" update="@this"/>
+                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(0,'EMPRESA', controlPersonaIndividual.nuevoEmpleado.nombreEmpresa)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(0)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal(0)}" process="@this"/>
                               <p:commandButton value="" id="btnempresaModPersonal" widgetVar="btnempresaModPersonal" class="cssBotonLovDialogos"
@@ -1094,11 +1094,11 @@
                               <h:outputText value="#{msg['buscarEJCD']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoJefeCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important">
+                           <p:column filterBy="#{jefeCD.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['empleado']}"/>
                               </f:facet>
-                              <h:outputText  value="#{jefeCD.persona.nombreCompleto}"/>
+                              <h:outputText  value="#{jefeCD.nombreCompleto}"/>
                            </p:column>
                         </p:dataTable>
 
@@ -2093,7 +2093,7 @@
                <!-- EDITAR CELDA INFORMACION PERSONAL -->
 
                <p:dialog id="editarEmpresaInformacionPersonal" header="#{msg['editarEmpresaInformacionPersonal']}" widgetVar="editarEmpresaInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
-                  <p:inputTextarea value="#{controlPersonaIndividual.nuevoEmpleado.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlPersonaIndividual.nuevoEmpleado.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarPrimerApellidoInformacionPersonal" header="#{msg['editarPrimerApellidoInformacionPersonal']}" widgetVar="editarPrimerApellidoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
@@ -2109,7 +2109,7 @@
                </p:dialog>
 
                <p:dialog id="editarTipoDocumentoInformacionPersonal" header="#{msg['editarTipoDocumentoInformacionPersonal']}" widgetVar="editarTipoDocumentoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
-                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaPersona.tipodocumento.nombrelargo}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaPersona.nombreTipoDocumento}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarNumeroDocumentoInformacionPersonal" header="#{msg['editarNumeroDocumentoInformacionPersonal']}" widgetVar="editarNumeroDocumentoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
@@ -2117,7 +2117,7 @@
                </p:dialog>
 
                <p:dialog id="editarCiudadDocumentoInformacionPersonal" header="#{msg['editarCiudadDocumentoInformacionPersonal']}" widgetVar="editarCiudadDocumentoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
-                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaPersona.ciudaddocumento.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaPersona.nombreCiudadDocumento}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarFechaNacimientoInformacionPersonal" header="#{msg['editarFechaNacimientoInformacionPersonal']}" widgetVar="editarFechaNacimientoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
@@ -2127,7 +2127,7 @@
                </p:dialog>
 
                <p:dialog id="editarCiudadNacimientoInformacionPersonal" header="#{msg['editarCiudadNacimientoInformacionPersonal']}" widgetVar="editarCiudadNacimientoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
-                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaPersona.ciudadnacimiento.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaPersona.nombreCiudadNacimiento}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarFechaIngresoInformacionPersonal" header="#{msg['editarFechaIngresoInformacionPersonal']}" widgetVar="editarFechaIngresoInformacionPersonal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
@@ -2169,7 +2169,7 @@
                </p:dialog>
 
                <p:dialog id="editarEmpleadoJefeCargoDesempeñado" header="#{msg['editarEmpleadoJefeCargoDesempenado']}" widgetVar="editarEmpleadoJefeCargoDesempeñado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
-                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaVigenciaCargo.empleadojefe.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlPersonaIndividual.nuevaVigenciaCargo.empleadojefe.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- CENTRO COSTO -->

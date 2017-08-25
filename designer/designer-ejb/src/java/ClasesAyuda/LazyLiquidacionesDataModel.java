@@ -60,7 +60,7 @@ public class LazyLiquidacionesDataModel extends LazyDataModel<LiquidacionesLogs>
                                 match = true;
                             } else if (valorFiltro != null && uir.getFechahasta().toString().contains(valorFiltro.toString())) {
                                 match = true;
-                            } else if (valorFiltro != null && uir.getEmpleado().getPersona().getNombreCompleto().contains(valorFiltro.toString())) {
+                            } else if (valorFiltro != null && uir.getEmpleado().getNombreCompleto().contains(valorFiltro.toString())) {
                                 match = true;
                             } else if (valorFiltro != null && uir.getOperando().getNombre().contains(valorFiltro.toString())) {
                                 match = true;

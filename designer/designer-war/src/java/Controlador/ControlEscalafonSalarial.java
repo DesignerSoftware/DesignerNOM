@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -110,8 +111,12 @@ public class ControlEscalafonSalarial implements Serializable {
    private boolean disabledNuevoGrupoSalarial;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlEscalafonSalarial() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       disabledNuevoGrupoSalarial = true;
       cambiosPagina = true;
       altoTablaEscalafon = "170";
@@ -207,7 +212,7 @@ public class ControlEscalafonSalarial implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -1886,7 +1891,16 @@ public class ControlEscalafonSalarial implements Serializable {
    }
 
    public List<TiposTrabajadores> getLovTiposTrabajadores() {
-      lovTiposTrabajadores = administrarEscalafonesSalariales.lovTiposTrabajadores();
+      if (lovTiposTrabajadores == null) {
+         if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
+            lovTiposTrabajadores = administrarEscalafonesSalariales.lovTiposTrabajadores();
+            if (lovTiposTrabajadores != null) {
+               listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+            }
+         } else {
+            lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
+         }
+      }
       return lovTiposTrabajadores;
    }
 

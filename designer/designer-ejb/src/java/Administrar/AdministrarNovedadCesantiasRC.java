@@ -73,7 +73,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
    @Override
    public List<Empleados> empleadosCesantias() {
       try {
-         return persistenciaEmpleados.empleadosCesantias(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

@@ -23,7 +23,7 @@
                                 <h:outputText value="#{msg['codigo']}" style="color: #14388B;  font-weight: bold; position: absolute; top: 20px; left: 9px"/>
                                 <p:inputText autocomplete="off" value="#{controlNovedadEmbargo.empleadoActual.codigoempleado}"  readonly="true" style="position: absolute; top: 35px; width: 70px; left: 9px"/>
                                 <h:outputText value="#{msg['nombre']}" style="color: #14388B;  font-weight: bold; position: absolute; left: 122px; top: 20px"/>
-                                <p:inputText autocomplete="off" value="#{controlNovedadEmbargo.empleadoActual.persona.nombreCompleto}" readonly="true" style="position: absolute; top: 35px; left: 122px; width: 500px"/>
+                                <p:inputText autocomplete="off" value="#{controlNovedadEmbargo.empleadoActual.nombreCompleto}" readonly="true" style="position: absolute; top: 35px; left: 122px; width: 500px"/>
 
                                 <p:commandButton style="position: absolute; left: 643px; top: 24px;  width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.png); background-size: 100% 100%; background-repeat: no-repeat; "  value="" actionListener="#{controlNovedadEmbargo.anteriorEmpleado()}" process="@this"/>
                                 <p:commandButton style="position: absolute; left: 643px; top: 45px;  width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; " value=""  actionListener="#{controlNovedadEmbargo.siguienteEmpleado()}" process="@this"/>
@@ -1408,8 +1408,8 @@
                                 <h:outputText value="#{empleado.codigoempleado}"/>  
                             </p:column>  
 
-                            <p:column headerText="#{msg['nombreB']}" filterBy="#{empleado.persona.nombreCompleto}" filterMatchMode="contains">  
-                                <h:outputText value="#{empleado.persona.nombreCompleto}"/>  
+                            <p:column headerText="#{msg['nombreB']}" filterBy="#{empleado.nombreCompleto}" filterMatchMode="contains">  
+                                <h:outputText value="#{empleado.nombreCompleto}"/>  
                             </p:column>  
                         </p:dataTable>
                         <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: absolute; top: 305px; left: 450px;" value="#{msg['aceptar']}" disabled="#{controlNovedadEmbargo.aceptar}" actionListener="#{controlNovedadEmbargo.seleccionarEmpleado()}" process="@this"/>

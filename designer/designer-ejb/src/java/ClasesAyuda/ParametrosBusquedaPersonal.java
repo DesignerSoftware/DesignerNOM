@@ -7,6 +7,7 @@ import java.util.Date;
 public class ParametrosBusquedaPersonal {
 
    private Empleados empleado;
+   private Personas persona;
    private EstadosCiviles estadoCivil;
    private IdiomasPersonas idiomaPersona;
    private VigenciasIndicadores vigenciaIndicador;
@@ -46,7 +47,6 @@ public class ParametrosBusquedaPersonal {
 
    public ParametrosBusquedaPersonal() {
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       estadoCivil = new EstadosCiviles();
       idiomaPersona = new IdiomasPersonas();
       vigenciaIndicador = new VigenciasIndicadores();
@@ -332,4 +332,13 @@ public class ParametrosBusquedaPersonal {
    public void setLecturaHasta(BigInteger lecturaHasta) {
       this.lecturaHasta = lecturaHasta;
    }
+
+   public Personas getPersona() {
+      return persona;
+   }
+
+   public void setPersona(Personas persona) {
+      this.persona = persona;
+   }
+   
 }

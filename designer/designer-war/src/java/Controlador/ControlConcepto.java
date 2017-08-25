@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -111,8 +112,12 @@ public class ControlConcepto implements Serializable {
    //recordar seleccion
    private boolean unaVez;
 //   private List<String> listaNavegacion;
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlConcepto() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       conceptoSeleccionado = null;
       activoDetalle = true;
 //      altoTablaReg = "205";
@@ -1182,6 +1187,7 @@ public class ControlConcepto implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
+            listasRecurrentes.getLovConceptos().clear();
          }
       } catch (Exception e) {
          log.warn("Error guardarCambios : " + e.toString());

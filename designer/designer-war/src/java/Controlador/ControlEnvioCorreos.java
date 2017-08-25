@@ -240,7 +240,7 @@ public class ControlEnvioCorreos implements Serializable {
                             paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
                             paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
                             pathReporteGenerado = generaReporte(paramEmpl);
-                            if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getPersona().getEmail(), asunto,
+                            if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getEmailPersona(), asunto,
                                     "Mensaje enviado automáticamente, por favor no responda a este correo.",
                                     pathReporteGenerado, msjResul)) {
                                 mensaje = mensaje + " " + msjResul[0];
@@ -264,8 +264,8 @@ public class ControlEnvioCorreos implements Serializable {
                             l = BigInteger.valueOf(k);
                             registrofallocorreo.setSecuencia(l);
                             registrofallocorreo.setCodigoEmpleado(listCorreoCodigos.get(i));
-                            registrofallocorreo.setNombreEmpleado(listCorreoCodigos.get(i).getPersona().getNombreCompleto());
-                            registrofallocorreo.setCorreo(listCorreoCodigos.get(i).getPersona().getEmail());
+                     registrofallocorreo.setNombreEmpleado(listCorreoCodigos.get(i).getNombreCompleto());
+                     registrofallocorreo.setCorreo(listCorreoCodigos.get(i).getEmailPersona());
                             registrofallocorreo.setCorreoorigen(remitente);
                             registrofallocorreo.setEstado("NO ENVIADO");
                             registrofallocorreo.setReporte(reporteActual);
@@ -397,7 +397,7 @@ public class ControlEnvioCorreos implements Serializable {
 //        parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
 //        parametroModificacion = parametroDeReporte;
 //        cambiosReporte = false;
-        setEmail(empleadoSeleccionado.getPersona().getEmail());
+      setEmail(empleadoSeleccionado.getEmailPersona());
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovCorreoEmpleado:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCorreoEmpleado').clearFilters()");

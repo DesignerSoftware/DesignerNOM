@@ -158,7 +158,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
       try {
          return persistenciaEmpleado.buscarEmpleado(getEm(), secuenciaP);
       } catch (Exception e) {
-         log.warn("Error empleadoActual Admi : " + e.toString());
+         log.warn(this.getClass().getSimpleName() + "Error empleadoActual() : " + e.toString());
          return null;
       }
    }

@@ -246,11 +246,11 @@
                                 <h:outputText value="#{empleadoDesde.codigoempleado}"/>
                             </p:column>
 
-                            <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                            <p:column filterBy="#{empleadoDesde.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadoDesde.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleadoDesde.nombreCompleto}"/>
                             </p:column>
 
                         </p:dataTable>
@@ -285,11 +285,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleadoHasta.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                            <p:column filterBy="#{empleadoHasta.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="Empleado"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadoHasta.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleadoHasta.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">
@@ -632,11 +632,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{jefe.secuencia}"/>
                             </p:column>
-                            <p:column filterBy="#{jefe.persona.nombreCompleto}" filterMatchMode="contains">
+                            <p:column filterBy="#{jefe.nombreCompleto}" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center;" value="#{msg['jefeJ']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{jefe.persona.nombreCompleto}"/>
+                                <h:outputText  value="#{jefe.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -743,10 +743,10 @@
 
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['jefedivisionrh']}:" style="top: 35px; position: relative;"/>
-                                        <p:inputText autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.nombregerente.persona.nombreCompleto}" id="jefeDivisionParametro" 
+                                        <p:inputText autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.nombregerente.nombreCompleto}" id="jefeDivisionParametro" 
                                                      style="position: absolute; top: 110px; left: 127px; height: 10px; width: 250px;" onclick="select();" class="cssParametrosReportes">
                                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(6)}" process="@this"/> 
-                                            <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('JEFEDIV', controlNReportePersonal.parametroDeReporte.nombregerente.persona.nombreCompleto)}" update="jefeDivisionParametro" process="@this"/>
+                                            <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('JEFEDIV', controlNReportePersonal.parametroDeReporte.nombregerente.nombreCompleto)}" update="jefeDivisionParametro" process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.dialogosParametros(6)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                         </p:inputText>
                                     </div>
@@ -950,7 +950,7 @@
                     </p:dialog>
 
                     <p:dialog id="jefeDivision" header="#{msg['jefeDivision']}" widgetVar="jefeDivision" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlNReportePersonal.parametroDeReporte.nombregerente.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlNReportePersonal.parametroDeReporte.nombregerente.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="estadoCivil" header="#{msg['estadoCivil']}" widgetVar="estadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  

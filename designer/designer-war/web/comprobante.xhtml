@@ -95,9 +95,9 @@
                            <h:outputText value="#{msg['codigo']}" style="color: #14388B; font-weight: bold; position: relative; top: -11px; left: 0px; display: inline-block"/>
                            <h:outputText value="#{msg['nombrecompleto']}" style="color: #14388B; font-weight: bold; position: relative; left: 35px; top: -11px; display: inline-block"/>
                            <h:outputText value="#{msg['correo']}" style="color: #14388B; font-weight: bold; position: relative; left: 290px; top: -11px; display: inline-block"/>
-                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.codigoempleado}" readonly="true" style="position: relative; top: -9px; height: 12px; width: 70px; left: -10px; display: block;"/>
-                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.persona.nombreCompleto}" readonly="true" style="position: relative; top: -31px; height: 12px; left: 75px; width: 350px; display: inline-block;"/>
-                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.empleado.persona.email}" readonly="true" style="position: relative; top: -31px; height: 12px; left: 80px; width: 240px; display: inline-block;"/>
+                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.codigoEmpleado}" readonly="true" style="position: relative; top: -9px; height: 12px; width: 70px; left: -10px; display: block;"/>
+                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.nombreCompleto}" readonly="true" style="position: relative; top: -31px; height: 12px; left: 75px; width: 350px; display: inline-block;"/>
+                           <p:inputText autocomplete="off" value="#{controlComprobantes.parametroActual.emailPersona}" readonly="true" style="position: relative; top: -31px; height: 12px; left: 80px; width: 240px; display: inline-block;"/>
                         </div>
 
                         <div>
@@ -205,7 +205,7 @@
                            </p:column>
 
                            <p:column id="pagoSNE" sortBy="#{solucionNodoEmpleado.pago}" width="90" filterBy="#{solucionNodoEmpleado.pago}"
-                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
+                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                    
                               <f:facet name="header">
                                  <h:outputText id="tpagoSNE" value="#{msg['pago']}"/>
                                  <p:tooltip for="tpagoSNE" value="#{msg['pagocomp']}"/>
@@ -228,7 +228,7 @@
                            </p:column>
 
                            <p:column id="descuentoSNE" sortBy="#{solucionNodoEmpleado.descuento}" width="90" filterBy="#{solucionNodoEmpleado.descuento}"
-                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas"> 
                               <f:facet name="header">
                                  <h:outputText id="tdescuentoSNE" value="#{msg['descuento']}"/>
                                  <p:tooltip for="tdescuentoSNE" value="#{msg['desccomp']}"/>
@@ -532,7 +532,7 @@
                            </p:column>
 
                            <p:column id="pasivoSNER" sortBy="#{solucionNodoEmpleador.pasivo}" width="90" filterBy="#{solucionNodoEmpleador.pasivo}"
-                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                    
+                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                    
                               <f:facet name="header">
                                  <h:outputText id="tpasivoSNER" value="#{msg['pasivo']}"/>
                                  <p:tooltip for="tpasivoSNER" value="#{msg['pasivocom']}"/>
@@ -553,7 +553,7 @@
                            </p:column>
 
                            <p:column id="gastoSNER" sortBy="#{solucionNodoEmpleador.gasto}" width="90" filterBy="#{solucionNodoEmpleador.gasto}"
-                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                     filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas"> 
                               <f:facet name="header">
                                  <h:outputText id="tgastoSNER" value="#{msg['gasto']}"/>
                                  <p:tooltip for="tgastoSNER" value="#{msg['gastocomp']}"/>
@@ -787,7 +787,7 @@
                   <p:dataTable  id="lovEmpleados" var="parametro" value="#{controlComprobantes.lovParametros}"
                                 scrollable="true" scrollHeight="225" scrollWidth="716" widgetVar="lovEmpleados" liveScroll="true" scrollRows="20" 
                                 filteredValue="#{controlComprobantes.filtradoListaParametrosLOV}" emptyMessage="#{msg['lovvacio']}" 
-                                rowKey="#{parametro.empleado.secuencia}" selection="#{controlComprobantes.parametroSeleccionado}" selectionMode="single">
+                                rowKey="#{parametro.empleado}" selection="#{controlComprobantes.parametroSeleccionado}" selectionMode="single">
 
                      <p:ajax event="rowSelect" listener="#{controlComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                      <p:ajax event="rowDblselect" listener="#{controlComprobantes.seleccionarEmpleado()}" process="@this"/>
@@ -799,20 +799,20 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresar']}"/>
                      </f:facet>
 
-                     <p:column headerText="#{msg['codigoE']}" filterBy="#{parametro.empleado.codigoempleado}" sortBy="#{parametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 85% !important">  
-                        <h:outputText value="#{parametro.empleado.codigoempleado}"/>  
+                     <p:column headerText="#{msg['codigoE']}" filterBy="#{parametro.codigoEmpleado}" sortBy="#{parametro.codigoEmpleado}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                        <h:outputText value="#{parametro.codigoEmpleado}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['pa']}" filterBy="#{parametro.empleado.persona.primerapellido}" sortBy="#{parametro.empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
-                        <h:outputText value="#{parametro.empleado.persona.primerapellido}"/>  
+                     <p:column headerText="#{msg['pa']}" filterBy="#{parametro.primerApellidoPersona}" sortBy="#{parametro.primerApellidoPersona}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                        <h:outputText value="#{parametro.primerApellidoPersona}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['sa']}" filterBy="#{parametro.empleado.persona.segundoapellido}" sortBy="#{parametro.empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
-                        <h:outputText value="#{parametro.empleado.persona.segundoapellido}"/>  
+                     <p:column headerText="#{msg['sa']}" filterBy="#{parametro.segundoApellidoPersona}" sortBy="#{parametro.segundoApellidoPersona}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                        <h:outputText value="#{parametro.segundoApellidoPersona}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" width="160" filterBy="#{parametro.empleado.persona.nombre}" sortBy="#{parametro.empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">  
-                        <h:outputText value="#{parametro.empleado.persona.nombre}"/>  
+                     <p:column headerText="#{msg['nombre']}" width="160" filterBy="#{parametro.nombrePersona}" sortBy="#{parametro.nombrePersona}" filterMatchMode="contains" filterStyle="width: 85% !important">  
+                        <h:outputText value="#{parametro.nombrePersona}"/>  
                      </p:column> 
                   </p:dataTable> 
 

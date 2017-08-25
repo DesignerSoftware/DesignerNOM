@@ -2,6 +2,7 @@ package Persistencia;
 
 import Entidades.ConfiguracionCorreo;
 import Entidades.Empleados;
+import Entidades.EmpleadosAux;
 import Entidades.Inforeportes;
 import Entidades.EnvioCorreos;
 import Entidades.EnvioCorreosAux;
@@ -62,7 +63,11 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             }
             return listaEnvios;
         } catch (Exception e) {
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
+         } else {
             log.error("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
+         }
             return null;
         }
     }

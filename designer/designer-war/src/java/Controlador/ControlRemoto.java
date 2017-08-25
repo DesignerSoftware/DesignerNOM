@@ -142,7 +142,7 @@ public class ControlRemoto implements Serializable {
    private List<VWActualesTiposTrabajadores> listaBusquedaAvanzada;
    private List<ObjetosJsf> ListObjetosJSF;
    private List<String> listObjetosSinEmpleados;
-   private ControlListaNavegacion controlListaNavegacion;
+   private static ControlListaNavegacion controlListaNavegacion;
    private String nombrepantalla, mensajeinterface;
 
    public ControlRemoto() {
@@ -262,8 +262,8 @@ public class ControlRemoto implements Serializable {
    public void valorInputText() throws ParseException {
       if (vwActualesTiposTrabajadoresPosicion != null) {
          if (vwActualesTiposTrabajadoresPosicion.getEmpleado() != null) {
-            secuencia = vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia();
-            identificacion = vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getNumerodocumento();
+            secuencia = vwActualesTiposTrabajadoresPosicion.getEmpleado();
+            identificacion = vwActualesTiposTrabajadoresPosicion.getNumeroDocumentoEmpleado();
             try {
                vwActualesCargos = administrarCarpetaPersonal.consultarActualCargoEmpleado(secuencia);
                Date actualFechaHasta = administrarCarpetaPersonal.consultarActualesFechas();
@@ -354,7 +354,7 @@ public class ControlRemoto implements Serializable {
                actualMVR = null;
             }
             try {
-               actualIBC = administrarCarpetaPersonal.actualIBC(secuencia, vwActualesTiposTrabajadoresPosicion.getEmpleado().getEmpresa().getRetencionysegsocxpersona());
+               actualIBC = administrarCarpetaPersonal.actualIBC(secuencia, vwActualesTiposTrabajadoresPosicion.getRetencionysegsocxpersonaEmpresa());
             } catch (Exception e) {
                actualIBC = null;
             }
@@ -392,7 +392,7 @@ public class ControlRemoto implements Serializable {
                }
                for (VWActualesTiposTrabajadores recBAvanzada : listaBusquedaAvanzada) {
                   for (VwTiposEmpleados recBRapida : lovBusquedaRapida) {
-                     if (recBAvanzada.getEmpleado().getCodigoempleado().toBigInteger().equals(recBRapida.getCodigoEmpleado())) {
+                     if (recBAvanzada.getCodigoEmpleado().equals(recBRapida.getCodigoEmpleado())) {
                         lovBuscarEmplTipo.add(recBRapida);
                      }
                   }
@@ -677,7 +677,7 @@ public class ControlRemoto implements Serializable {
 
    public void paso4() {
       try {
-         boolean b = administrarCarpetaPersonal.borrarEmpleadoActivo(vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia(), vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getSecuencia());
+         boolean b = administrarCarpetaPersonal.borrarEmpleadoActivo(vwActualesTiposTrabajadoresPosicion.getEmpleado(), vwActualesTiposTrabajadoresPosicion.getPersona());
          if (b) {
             RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
             RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso4').show()");
@@ -1999,8 +1999,17 @@ public class ControlRemoto implements Serializable {
       if (!nombrepantalla.equalsIgnoreCase(" ")) {
          FacesContext fc = FacesContext.getCurrentInstance();
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, nombrepantalla.toLowerCase());
-         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+//         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
          controlListaNavegacion.guardarNavegacion("nominaf", nombrepantalla.toLowerCase());
+      }
+   }
+
+   public Empleados empleadoVWATT() {
+      if (vwActualesTiposTrabajadoresPosicion != null) {
+         return administrarCarpetaPersonal.consultarEmpleado(vwActualesTiposTrabajadoresPosicion.getEmpleado());
+      } else {
+         log.error("ControlRemoto.empleadoVWATT() vwActualesTiposTrabajadoresPosicion = null");
+         return null;
       }
    }
 

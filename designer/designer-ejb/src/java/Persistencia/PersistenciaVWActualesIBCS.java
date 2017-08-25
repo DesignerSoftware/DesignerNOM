@@ -13,18 +13,22 @@ public class PersistenciaVWActualesIBCS implements PersistenciaVWActualesIBCSInt
 
    private static Logger log = Logger.getLogger(PersistenciaVWActualesIBCS.class);
 
-    @Override
-    public VWActualesIBCS buscarIbcEmpleado(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT vw FROM VWActualesIBCS vw WHERE vw.empleado.secuencia = :secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            VWActualesIBCS actualIbc = (VWActualesIBCS) query.getSingleResult();
-            return actualIbc;
-        } catch (Exception e) {
+   @Override
+   public VWActualesIBCS buscarIbcEmpleado(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT vw FROM VWActualesIBCS vw WHERE vw.empleado.secuencia = :secuencia");
+         query.setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         VWActualesIBCS actualIbc = (VWActualesIBCS) query.getSingleResult();
+         return actualIbc;
+      } catch (Exception e) {
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
+         } else {
             log.error("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
-            return null;
-        }
-    }
+         }
+         return null;
+      }
+   }
 }

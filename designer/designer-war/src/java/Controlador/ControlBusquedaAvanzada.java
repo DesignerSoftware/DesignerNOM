@@ -15,7 +15,6 @@ import Entidades.Conceptos;
 import Entidades.Contratos;
 import Entidades.Cursos;
 import Entidades.Empleados;
-import Entidades.Empresas;
 import Entidades.EstadosAfiliaciones;
 import Entidades.EstadosCiviles;
 import Entidades.Estructuras;
@@ -58,7 +57,6 @@ import Entidades.TercerosSucursales;
 import Entidades.TiposContratos;
 import Entidades.TiposCotizantes;
 import Entidades.TiposDescansos;
-import Entidades.TiposDocumentos;
 import Entidades.TiposEducaciones;
 import Entidades.TiposEntidades;
 import Entidades.TiposIndicadores;
@@ -98,6 +96,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -336,6 +335,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    private String infoRegistro;
    private boolean aceptar;
    private String anchoTablaResultados;
+   private ListasRecurrentes listasRecurrentes;
    private String txt_vcargo_cargo, txt_vcargo_empleadoJefe_Per, txt_vcargo_estructura, txt_vcargo_estructura_CC, txt_vcargo_motivoCam, txt_vcargo_papel,
            txt_vlocalizacion_locali, txt_vlocalizacion_motivo, txt_vlocalizacion_proyecto, txt_vsueldo_motivo, txt_vsueldo_tipoS,
            txt_vtipoContrato_ciudad, txt_vtipoContrato_motivo, txt_vtipoContrato_tipoCont, txt_vtipoTrab_tipoTrab,
@@ -346,6 +346,9 @@ public class ControlBusquedaAvanzada implements Serializable {
            txtP_experLab_SectorEco, txtP_experLab_motivo, txtP_vproyecto_proyect, txtP_vproyecto_rol, txtP_cargoPostul, txt_motivoRet;
 
    public ControlBusquedaAvanzada() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       //Inicializar objeto de negocio
       columnasEsSeleccionadas = new ArrayList<ColumnasEscenarios>();
       parametros = new ParametrosBusquedaAvanzada();
@@ -354,7 +357,6 @@ public class ControlBusquedaAvanzada implements Serializable {
       parametros.getParametrosBusquedaNomina().setVigenciaCargo(new VigenciasCargos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(new Cargos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(new Empleados());
-      parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().setPersona(new Personas());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(new Estructuras());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().setCentrocosto(new CentrosCostos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(new MotivosCambiosCargos());
@@ -412,11 +414,7 @@ public class ControlBusquedaAvanzada implements Serializable {
 
       parametros.setParametrosBusquedaPersonal(new ParametrosBusquedaPersonal());
       parametros.getParametrosBusquedaPersonal().setEmpleado(new Empleados());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().setEmpresa(new Empresas());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().setPersona(new Personas());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(new Ciudades());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(new Ciudades());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setTipodocumento(new TiposDocumentos());
+      parametros.getParametrosBusquedaPersonal().setPersona(new Personas());
 
       parametros.getParametrosBusquedaPersonal().setEstadoCivil(new EstadosCiviles());
       parametros.getParametrosBusquedaPersonal().setIdiomaPersona(new IdiomasPersonas());
@@ -527,7 +525,6 @@ public class ControlBusquedaAvanzada implements Serializable {
       parametros.getParametrosBusquedaNomina().setVigenciaCargo(new VigenciasCargos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(new Cargos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(new Empleados());
-      parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().setPersona(new Personas());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(new Estructuras());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().setCentrocosto(new CentrosCostos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(new MotivosCambiosCargos());
@@ -592,11 +589,7 @@ public class ControlBusquedaAvanzada implements Serializable {
 
       parametros.setParametrosBusquedaPersonal(new ParametrosBusquedaPersonal());
       parametros.getParametrosBusquedaPersonal().setEmpleado(new Empleados());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().setEmpresa(new Empresas());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().setPersona(new Personas());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(new Ciudades());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(new Ciudades());
-      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setTipodocumento(new TiposDocumentos());
+      parametros.getParametrosBusquedaPersonal().setPersona(new Personas());
 
       parametros.getParametrosBusquedaPersonal().setEstadoCivil(new EstadosCiviles());
       parametros.getParametrosBusquedaPersonal().setIdiomaPersona(new IdiomasPersonas());
@@ -798,7 +791,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -893,14 +886,14 @@ public class ControlBusquedaAvanzada implements Serializable {
             txt_vcargo_empleadoJefe_Per = "";
          } else if (lovJefe != null) {
             for (int i = 0; i < lovJefe.size(); i++) {
-               if (lovJefe.get(i).getPersona().getNombreCompleto().startsWith(valor.toUpperCase())) {
+               if (lovJefe.get(i).getNombreCompleto().startsWith(valor.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(lovJefe.get(indiceUnicoElemento));
-               txt_vcargo_empleadoJefe_Per = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getPersona().getNombreCompleto();
+               txt_vcargo_empleadoJefe_Per = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getNombreCompleto();
             } else {
                txt_vcargo_empleadoJefe_Per = "";
                RequestContext.getCurrentInstance().update("formularioDialogos:JefeDialogo");
@@ -1457,11 +1450,10 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CIUDADNACIMIENDO")) {
-         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(new Ciudades());
+//         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadNacimiento(new Ciudades());
          if (lovCiudades == null) {
             requerirLOV("CIUDAD");
          }
-
          if (valor.equals("") || valor.isEmpty()) {
             txtP_empleado_per_ciudadNac = "";
          } else if (lovCiudades != null) {
@@ -1472,8 +1464,9 @@ public class ControlBusquedaAvanzada implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
-               txtP_empleado_per_ciudadNac = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getNombre();
+               parametros.getParametrosBusquedaPersonal().getPersona().setCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               parametros.getParametrosBusquedaPersonal().getPersona().setNombreCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getNombre());
+               txtP_empleado_per_ciudadNac = parametros.getParametrosBusquedaPersonal().getPersona().getNombreCiudadNacimiento();
             } else {
                txtP_empleado_per_ciudadNac = "";
                RequestContext.getCurrentInstance().update("formularioDialogos:CiudadNacimientoDatosPersonalesDialogo");
@@ -1483,7 +1476,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CIUDADDOCUMENTO")) {
-         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(new Ciudades());
+//         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadDocumento(new Ciudades());
          if (lovCiudades == null) {
             requerirLOV("CIUDAD");
          }
@@ -1498,8 +1491,9 @@ public class ControlBusquedaAvanzada implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
-               txtP_empleado_per_ciudadDoc = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getNombre();
+               parametros.getParametrosBusquedaPersonal().getPersona().setCiudadDocumento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               parametros.getParametrosBusquedaPersonal().getPersona().setNombreCiudadDocumento(lovCiudades.get(indiceUnicoElemento).getNombre());
+               txtP_empleado_per_ciudadDoc = parametros.getParametrosBusquedaPersonal().getPersona().getNombreCiudadDocumento();
             } else {
                txtP_empleado_per_ciudadDoc = "";
                RequestContext.getCurrentInstance().update("formularioDialogos:CiudadDocumentoDatosPersonalesDialogo");
@@ -1903,7 +1897,14 @@ public class ControlBusquedaAvanzada implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMFC");
             }
          } else if (tipoLov.equals("TIPOTRABAJADOR") && lovTiposTrabajadores == null) {
-            lovTiposTrabajadores = administrarBusquedaAvanzada.lovTiposTrabajadores();
+            if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
+               lovTiposTrabajadores = administrarBusquedaAvanzada.lovTiposTrabajadores();
+               if (lovTiposTrabajadores != null) {
+                  listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+               }
+            } else {
+               lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
+            }
             if (lovTiposTrabajadores != null) {
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTTTT");
             }
@@ -2065,7 +2066,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          filtroLovEstructuras = null;
       } else if (tipoLov.equals("JEFE")) {
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(jefeSeleccionado);
-         txt_vcargo_empleadoJefe_Per = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getPersona().getNombreCompleto();
+         txt_vcargo_empleadoJefe_Per = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getNombreCompleto();
          jefeSeleccionado = null;
          filtroLovJefe = null;
       } else if (tipoLov.equals("MOTIVOCARGO")) {
@@ -2289,13 +2290,15 @@ public class ControlBusquedaAvanzada implements Serializable {
       //
       aceptar = true;
       if (tipoLov.equals("CIUDADNACIMIENTO")) {
-         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(ciudadSeleccionado);
-         txtP_empleado_per_ciudadNac = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getNombre();
+         parametros.getParametrosBusquedaPersonal().getPersona().setCiudadNacimiento(ciudadSeleccionado.getSecuencia());
+         parametros.getParametrosBusquedaPersonal().getPersona().setNombreCiudadNacimiento(ciudadSeleccionado.getNombre());
+         txtP_empleado_per_ciudadNac = parametros.getParametrosBusquedaPersonal().getPersona().getNombreCiudadNacimiento();
          ciudadSeleccionado = null;
          filtroLovCiudades = null;
       } else if (tipoLov.equals("CIUDADDOCUMENTO")) {
-         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(ciudadSeleccionado);
-         txtP_empleado_per_ciudadDoc = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getNombre();
+         parametros.getParametrosBusquedaPersonal().getPersona().setCiudadDocumento(ciudadSeleccionado.getSecuencia());
+         parametros.getParametrosBusquedaPersonal().getPersona().setNombreCiudadDocumento(ciudadSeleccionado.getNombre());
+         txtP_empleado_per_ciudadDoc = parametros.getParametrosBusquedaPersonal().getPersona().getNombreCiudadDocumento();
          ciudadSeleccionado = null;
          filtroLovCiudades = null;
       } else if (tipoLov.equals("ESTADOCIVIL")) {
@@ -2365,7 +2368,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          filtroLovCargos = null;
       } else if (tipoLov.equals("COLUMNASBUSQUEDA")) {
          filtradoColumnasEscenarios = null;
-         if (!columnasEsSeleccionadas2.equals(null)) {
+         if (columnasEsSeleccionadas2 != null) {
             if (!columnasEsSeleccionadas2.isEmpty()) {
                for (ColumnasEscenarios columna : columnasEsSeleccionadas2) {
                   if (!columnasEsSeleccionadas.contains(columna)) {
@@ -3545,21 +3548,21 @@ public class ControlBusquedaAvanzada implements Serializable {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
 
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getNumerodocumento() != null) {
-            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "NUMERODOCUMENTO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getNumerodocumento().toString());
+         if (this.parametros.getParametrosBusquedaPersonal().getPersona().getNumerodocumento() != null) {
+            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "NUMERODOCUMENTO", this.parametros.getParametrosBusquedaPersonal().getPersona().getNumerodocumento().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getSecuencia() != null) {
-            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "CIUDADDOCUMENTO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getSecuencia().toString());
+         if (this.parametros.getParametrosBusquedaPersonal().getPersona().getCiudadDocumento() != null) {
+            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "CIUDADDOCUMENTO", this.parametros.getParametrosBusquedaPersonal().getPersona().getCiudadDocumento().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getSexo() != null && !this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getSexo().isEmpty()) {
-            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "SEXO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getSexo().toString());
+         if (this.parametros.getParametrosBusquedaPersonal().getPersona().getSexo() != null && !this.parametros.getParametrosBusquedaPersonal().getPersona().getSexo().isEmpty()) {
+            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "SEXO", this.parametros.getParametrosBusquedaPersonal().getPersona().getSexo());
             listaParametrosQueryModulos.add(parametro);
-            log.info("sexo : " + this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getSexo());
+            log.info("sexo : " + this.parametros.getParametrosBusquedaPersonal().getPersona().getSexo());
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getSecuencia() != null) {
-            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "CIUDADNACIMIENTO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getSecuencia().toString());
+         if (this.parametros.getParametrosBusquedaPersonal().getPersona().getCiudadNacimiento() != null) {
+            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "CIUDADNACIMIENTO", this.parametros.getParametrosBusquedaPersonal().getPersona().getCiudadNacimiento().toString());
             listaParametrosQueryModulos.add(parametro);
          }
          if (this.parametros.getParametrosBusquedaPersonal().getFechaInicialDatosPersonales() != null) {
@@ -3579,12 +3582,12 @@ public class ControlBusquedaAvanzada implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesFactorRH");
       if (t.getActiveIndex() == 1) {
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh() != null && !this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh().isEmpty()) {
-            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FACTORRH", "FACTORRH", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh().toString());
+         if (this.parametros.getParametrosBusquedaPersonal().getPersona().getFactorrh() != null && !this.parametros.getParametrosBusquedaPersonal().getPersona().getFactorrh().isEmpty()) {
+            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FACTORRH", "FACTORRH", this.parametros.getParametrosBusquedaPersonal().getPersona().getFactorrh().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getGruposanguineo() != null && !this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getGruposanguineo().isEmpty()) {
-            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FACTORRH", "GRUPOSANGUINEO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getGruposanguineo().toString());
+         if (this.parametros.getParametrosBusquedaPersonal().getPersona().getGruposanguineo() != null && !this.parametros.getParametrosBusquedaPersonal().getPersona().getGruposanguineo().isEmpty()) {
+            ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FACTORRH", "GRUPOSANGUINEO", this.parametros.getParametrosBusquedaPersonal().getPersona().getGruposanguineo().toString());
             listaParametrosQueryModulos.add(parametro);
          }
       }
@@ -4109,7 +4112,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             List<Empleados> listaEmpleados = administrarBusquedaAvanzada.consultarEmpleadosXCodigo(listaCodigosEmpleado);
             for (int i = 0; i < listEmpleadosParametros.size(); i++) {
                for (int j = 0; j < listaEmpleados.size(); j++) {
-                  if (listEmpleadosParametros.get(i).getEmpleado().getSecuencia().equals(listaEmpleados.get(j).getSecuencia())) {
+                  if (listEmpleadosParametros.get(i).getEmpleado().equals(listaEmpleados.get(j).getSecuencia())) {
                      listaEmpleados.remove(listaEmpleados.get(j));
                      break;
                   }
@@ -4136,7 +4139,11 @@ public class ControlBusquedaAvanzada implements Serializable {
             Parametros parametro = new Parametros();
             parametro.setSecuencia(l);
             parametro.setParametroestructura(parametroLiquidacion);
-            parametro.setEmpleado(listaEmpleados.get(i));
+            parametro.setEmpleado(listaEmpleados.get(i).getSecuencia());
+            parametro.setNombrePersona(listaEmpleados.get(i).getNombrePersona());
+            parametro.setPrimerApellidoPersona(listaEmpleados.get(i).getPrimerApellidoPersona());
+            parametro.setSegundoApellidoPersona(listaEmpleados.get(i).getSegundoApellidoPersona());
+            parametro.setPersona(listaEmpleados.get(i).getPersona());
             listaCrearParametros.add(parametro);
          }
       } catch (Exception e) {

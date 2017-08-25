@@ -91,7 +91,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 175px; width: 584px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 185px; width: 584px; border-radius: 10px; text-align: left;">
                      <legend style="color: #14388B;"><strong>Empleados</strong></legend>
 
                      <p:dataTable id="datosEmpleados" var="empleados" value="#{controlNovedadesVacaciones.listaEmpleadosNovedad}"
@@ -105,9 +105,9 @@
 
                         <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.cambiarEmpleado()}"/>
 
-                        <p:column headerText="Nombre" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" 
+                        <p:column headerText="Nombre" sortBy="#{empleados.nombreCompleto}" filterBy="#{empleados.nombreCompleto}" 
                                   filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" width="420">                                  
-                           <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                           <h:outputText value="#{empleados.nombreCompleto}"/>
                         </p:column>
 
                         <p:column style="text-align: center;" headerText="Fecha Ingreso" sortBy="#{empleados.fechacreacion}" filterBy="#{empleados.fechacreacion}" 
@@ -400,11 +400,11 @@
                         <h:outputText value="#{emp.codigoempleado}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                     <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                         <f:facet name="header">
                            <h:outputText value="Nombre"/>
                         </f:facet>
-                        <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                        <h:outputText value="#{emp.nombreCompleto}"/>  
                      </p:column>
 
                      <p:column style="text-align: center;" width="90" sortBy="#{emp.fechacreacion}" filterBy="#{emp.fechacreacion}" filterMatchMode="contains" filterStyle="width: 80% !important"> 

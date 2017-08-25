@@ -522,10 +522,6 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
    @Override
    public void modificarPersona(Personas personas) {
       try {
-         if (personas.getCiudaddocumento() == null) {
-            personas.setCiudaddocumento(new Ciudades());
-            personas.getCiudaddocumento().setDepartamento(new Departamentos());
-         }
          persistenciaPersonas.editar(getEm(), personas);
       } catch (Exception e) {
          log.warn("Error modificando. AdministrarEmpleadoIndividual.modificarPersona : " + e.getMessage());
@@ -559,10 +555,10 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
          String rutaFoto;
          general = persistenciaGenerales.obtenerRutas(getEm());
          if (general != null) {
-            if (empleado.getPersona().getPathfoto() == null || empleado.getPersona().getPathfoto().equalsIgnoreCase("N")) {
+            if (empleado.getPathfotoPersona() == null || empleado.getPathfotoPersona().equalsIgnoreCase("N")) {
                rutaFoto = general.getPathfoto() + "sinFoto.jpg";
             } else {
-               rutaFoto = general.getPathfoto() + empleado.getPersona().getNumerodocumento() + ".jpg";
+               rutaFoto = general.getPathfoto() + empleado.getNumeroDocumentoPersona() + ".jpg";
             }
             return rutaFoto;
          } else {
@@ -585,9 +581,9 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
    }
 
    @Override
-   public Personas obtenerPersonaPorEmpleado(BigInteger secPersona) {
+   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
       try {
-         return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
+         return persistenciaPersonas.buscarPersonaPorEmpleado(em, secEmpleado);
       } catch (Exception e) {
          log.warn("error en obtenerPersonaPorEmpleado : " + e.getMessage());
          return null;

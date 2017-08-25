@@ -152,7 +152,7 @@ public class SolucionesNodos implements Serializable {
       this.fechadesde = fechadesde;
       this.fechahasta = fechahasta;
    }
-   
+
    public SolucionesNodos clonarObjeto() {
       SolucionesNodos clon = new SolucionesNodos();
       clon.setSecuencia(secuencia);
@@ -652,5 +652,16 @@ public class SolucionesNodos implements Serializable {
    @Override
    public String toString() {
       return "Entidades.SolucionesNodos[ secuencia=" + secuencia + " ]";
+   }
+
+   public void llenarTransients(SolucionesNodosAux solucionNodoAux) {
+      this.setCodigoconcepto(solucionNodoAux.getCodigoconcepto());
+      this.setNombreconcepto(solucionNodoAux.getNombreconcepto());
+      this.setNombretercero(solucionNodoAux.getNombretercero());
+      this.setCodigocuentad(solucionNodoAux.getCodigocuentad());
+      this.setCodigocuentac(solucionNodoAux.getCodigocuentac());
+      this.setNombreempleado(solucionNodoAux.getNombreempleado());
+      this.setNombrecentrocostod(solucionNodoAux.getNombrecentrocostod());
+      this.setNombrecentrocostoc(solucionNodoAux.getNombrecentrocostoc());
    }
 }

@@ -185,8 +185,12 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
    public List<Empleados> listEmpleados() {
       log.warn(this.getClass().getName() + ".listEmpleados()");
       try {
-         listEmpleados = persistenciaEmpleado.buscarEmpleados(getEm());
-         log.warn(this.getClass().getName() + ".listEmpleados() fin.");
+         listEmpleados = persistenciaEmpleado.buscarEmpleadosActivos(getEm());
+         if (listEmpleados != null) {
+            log.warn("listEmpleados.size(): " + listEmpleados.size());
+         } else {
+            log.warn(this.getClass().getName() + ".listEmpleados() fin.");
+         }
          return listEmpleados;
       } catch (Exception e) {
          log.warn(this.getClass().getName() + " error " + e.toString());

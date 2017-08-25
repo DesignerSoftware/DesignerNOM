@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -151,10 +152,15 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    /**
     * Constructo del Controlador
     */
    public ControlVigenciaTipoTrabajador() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
 //        lovPensionados = new ArrayList<Pensionados>();
       lovPensionados = null;
       pensionadoSeleccionado = new Pensionados();
@@ -162,7 +168,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionVigencia = new Pensionados();
       pensionVigencia.setClase(new ClasesPensiones());
       pensionVigencia.setCausabiente(new Empleados());
-      pensionVigencia.getCausabiente().setPersona(new Personas());
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());
       //
@@ -256,7 +261,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -472,9 +477,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          }
          if (coincidencias == 1) {
             vigenciaTTSeleccionada.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
-
-            lovTiposTrabajadores.clear();
-            getLovTiposTrabajadores();
+//            lovTiposTrabajadores.clear();
+//            getLovTiposTrabajadores();
          } else {
             permitirIndex = false;
             contarRegistros();
@@ -540,8 +544,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                duplicarVTT.setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoTrabajador");
             }
-            lovTiposTrabajadores.clear();
-            getLovTiposTrabajadores();
+//            lovTiposTrabajadores.clear();
+//            getLovTiposTrabajadores();
          } else {
             RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
@@ -652,7 +656,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia = new Pensionados();
          pensionVigencia.setClase(new ClasesPensiones());
          pensionVigencia.setCausabiente(new Empleados());
-         pensionVigencia.getCausabiente().setPersona(new Personas());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
          FacesContext c = FacesContext.getCurrentInstance();
@@ -1562,7 +1565,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia = new Pensionados();
          pensionVigencia.setClase(new ClasesPensiones());
          pensionVigencia.setCausabiente(new Empleados());
-         pensionVigencia.getCausabiente().setPersona(new Personas());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
          pensionVigencia.setSecuencia(l);
@@ -1725,7 +1727,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia = new Pensionados();
          pensionVigencia.setClase(new ClasesPensiones());
          pensionVigencia.setCausabiente(new Empleados());
-         pensionVigencia.getCausabiente().setPersona(new Personas());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
          banderaLimpiarPension = false;
@@ -1763,7 +1764,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionVigencia = new Pensionados();
       pensionVigencia.setClase(new ClasesPensiones());
       pensionVigencia.setCausabiente(new Empleados());
-      pensionVigencia.getCausabiente().setPersona(new Personas());
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());
       FacesContext c = FacesContext.getCurrentInstance();
@@ -2070,7 +2070,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionCopia = pensionVigencia;
       pensionVigencia = new Pensionados();
       pensionVigencia.setCausabiente(new Empleados());
-      pensionVigencia.getCausabiente().setPersona(new Personas());
       pensionVigencia.setClase(new ClasesPensiones());
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());
@@ -2359,7 +2358,14 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
    public List<TiposTrabajadores> getLovTiposTrabajadores() {
       if (lovTiposTrabajadores == null) {
-         lovTiposTrabajadores = administrarVigenciasTiposTrabajadores.tiposTrabajadores();
+         if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
+            lovTiposTrabajadores = administrarVigenciasTiposTrabajadores.tiposTrabajadores();
+            if (lovTiposTrabajadores != null) {
+               listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+            }
+         } else {
+            lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
+         }
       }
       return lovTiposTrabajadores;
    }

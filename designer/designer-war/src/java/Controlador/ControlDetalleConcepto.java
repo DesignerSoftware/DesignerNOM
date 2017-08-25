@@ -30,6 +30,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -243,8 +244,12 @@ public class ControlDetalleConcepto implements Serializable {
    public boolean activarLOV;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlDetalleConcepto() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       log.info("ControlDetalleConcepto() : 1");
       altoTablaVigenciaCuenta = "105";
       altoTablaVigenciaGrupoC = "120";
@@ -281,6 +286,8 @@ public class ControlDetalleConcepto implements Serializable {
       lovFormulas = null;
       lovFormulasConceptos = null;
       lovProcesos = null;
+      lovGruposConceptos = null;
+      lovTiposTrabajadores = null;
 
       tipoCentroCostoSeleccionadoLOV = null;
       tipoTrabajadorSeleccionadoLOV = null;
@@ -559,7 +566,6 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void modificarVigenciaCuenta() {
-      RequestContext context = RequestContext.getCurrentInstance();
       boolean retorno = validarNuevosDatosVigenciaCuenta(0);
       if (retorno == true) {
          if (!listVigenciasCuentasCrear.contains(vigenciaCuentaSeleccionada)) {
@@ -592,12 +598,11 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void modificarVigenciaCuenta(VigenciasCuentas cuenta, String columnCambio, String valor) {
-      cargarLOVs();
+      cargarLOVsVCuentas();
       int coincidencias = 0;
       tipoActualizacion = 0;
       int indiceUnicoElemento = 0;
       vigenciaCuentaSeleccionada = cuenta;
-      RequestContext context = RequestContext.getCurrentInstance();
 
       if (columnCambio.equalsIgnoreCase("TIPOCC")) {
          vigenciaCuentaSeleccionada.getTipocc().setNombre(auxVC_TipoCC);
@@ -794,7 +799,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void modificarVigenciaGrupoConcepto(VigenciasGruposConceptos grupoC, String columnCambio, String valor) {
-      cargarLOVs();
+      cargarLOVsVGrupoConcepto();
       RequestContext context = RequestContext.getCurrentInstance();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
@@ -856,7 +861,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////VigenciaConceptoTT////////////////
    public void modificarVigenciaConceptoTT() {
-      cargarLOVs();
+      cargarLOVsVConceptosTT();
       boolean retorno = validarNuevosDatosVigenciaConceptoTT(0);
       if (retorno == true) {
          if (!listVigenciasConceptosTTCrear.contains(vigenciaConceptoTTSeleccionada)) {
@@ -882,7 +887,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////VigenciaConceptoTT////////////////
    public void modificarVigenciaConceptoTT(VigenciasConceptosTT conceptoTT, String columnCambio, String valor) {
-      cargarLOVs();
+      cargarLOVsVConceptosTT();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       vigenciaConceptoTTSeleccionada = conceptoTT;
@@ -925,7 +930,6 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////VigenciaConceptoTC////////////////
    public void modificarVigenciaConceptoTC() {
-      RequestContext context = RequestContext.getCurrentInstance();
       boolean retorno = validarNuevosDatosVigenciaConceptoTC(0);
       if (retorno == true) {
          if (!listVigenciasConceptosTCCrear.contains(vigenciaConceptoTCSeleccionada)) {
@@ -950,8 +954,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////VigenciaConceptoTC////////////////
    public void modificarVigenciaConceptoTC(VigenciasConceptosTC conceptoTC, String columnCambio, String valor) {
-      cargarLOVs();
-      RequestContext context = RequestContext.getCurrentInstance();
+      cargarLOVsVConceptosTC();
       boolean retorno = validarNuevosDatosVigenciaConceptoTC(0);
       if (retorno == true) {
          int coincidencias = 0;
@@ -1001,7 +1004,6 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////VigenciaConceptoRL////////////////
    public void modificarVigenciaConceptoRL() {
-      RequestContext context = RequestContext.getCurrentInstance();
       boolean retorno = validarNuevosDatosVigenciaConceptoRL(0);
       if (retorno == true) {
          if (!listVigenciasConceptosRLCrear.contains(vigenciaConceptoRLSeleccionada)) {
@@ -1026,8 +1028,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////VigenciaConceptoRL////////////////
    public void modificarVigenciaConceptoRL(VigenciasConceptosRL conceptoRL, String columnCambio, String valor) {
-      cargarLOVs();
-      RequestContext context = RequestContext.getCurrentInstance();
+      cargarLOVsVConceptosRL();
       boolean retorno = validarNuevosDatosVigenciaConceptoRL(0);
       if (retorno == true) {
          int coincidencias = 0;
@@ -1105,8 +1106,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    //////////////FormulasConceptos////////////////
    public void modificarFormulasConceptos(FormulasConceptos formulaC, String columnCambio, String valor) {
-      cargarLOVs();
-      RequestContext context = RequestContext.getCurrentInstance();
+      cargarLOVsFormulasConceptos();
       boolean retorno = validarNuevosDatosFormulasConceptos(0);
       if (retorno == true) {
          int coincidencias = 0;
@@ -1445,7 +1445,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void autocompletarNuevoyDuplicadoVigenciaCuenta(String campo, String valor, int tipoNuevo) {
       tipoActualizacion = tipoNuevo;
-      cargarLOVs();
+      cargarLOVsVCuentas();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (campo.equalsIgnoreCase("TIPOCC")) {
@@ -1713,10 +1713,9 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void autocompletarNuevoyDuplicadoVigenciaGrupoConcepto(String campo, String valor, int tipoNuevo) {
-      cargarLOVs();
+      cargarLOVsVGrupoConcepto();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (campo.equalsIgnoreCase("CODIGO")) {
          if (tipoNuevo == 1) {
             nuevaVigenciaGrupoConcepto.getGrupoconcepto().setStrCodigo(auxVGC_Codigo);
@@ -1791,7 +1790,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void autocompletarNuevoyDuplicadoVigenciaConceptoTT(String campo, String valor, int tipoNuevo) {
-      cargarLOVs();
+      cargarLOVsVConceptosTT();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (campo.equalsIgnoreCase("TRABAJADOR")) {
@@ -1829,10 +1828,9 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void autocompletarNuevoyDuplicadoVigenciaConceptoTC(String campo, String valor, int tipoNuevo) {
-      cargarLOVs();
+      cargarLOVsVConceptosTC();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (campo.equalsIgnoreCase("CONTRATO")) {
          if (tipoNuevo == 1) {
             nuevaVigenciaConceptoTC.getTipocontrato().setNombre(auxVCTC_Descripcion);
@@ -1868,10 +1866,9 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void autocompletarNuevoyDuplicadoVigenciaConceptoRL(String campo, String valor, int tipoNuevo) {
-      cargarLOVs();
+      cargarLOVsVConceptosRL();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (campo.equalsIgnoreCase("REFORMA")) {
          if (tipoNuevo == 1) {
             nuevaVigenciaConceptoRL.getTiposalario().setNombre(auxVCRL_Descripcion);
@@ -1907,10 +1904,9 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void autocompletarNuevoyDuplicadoFormulasConceptos(String campo, String valor, int tipoNuevo) {
-      cargarLOVs();
+      cargarLOVsFormulasConceptos();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (campo.equalsIgnoreCase("FORMULA")) {
          if (tipoNuevo == 1) {
             nuevaFormulasConceptos.setNombreFormula(auxFC_Descripcion);
@@ -2780,9 +2776,8 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void listaValoresBoton() {
-      cargarLOVs();
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaCuentaSeleccionada != null) {
+         cargarLOVsVCuentas();
          if (cualCeldaVigenciaCuenta == 2) {
             contarRegistrosLovTipoContrato();
             RequestContext.getCurrentInstance().update("form:TipoCCDialogo");
@@ -2833,6 +2828,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (vigenciaGrupoCoSeleccionada != null) {
+         cargarLOVsVGrupoConcepto();
          if (cualCeldaVigenciaGrupoConcepto == 2) {
             contarRegistrosLovGrupoConcepto();
             RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo");
@@ -2847,6 +2843,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (vigenciaConceptoTTSeleccionada != null) {
+         cargarLOVsVConceptosTT();
          if (cualCeldaVigenciaConceptoTT == 2) {
             contarRegistrosLovTipoTrabajador();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
@@ -2855,6 +2852,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (vigenciaConceptoTCSeleccionada != null) {
+         cargarLOVsVConceptosTC();
          if (cualCeldaVigenciaConceptoTC == 2) {
             contarRegistrosLovTipoContrato();
             RequestContext.getCurrentInstance().update("form:TipoContratosDialogo");
@@ -2863,6 +2861,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (vigenciaConceptoRLSeleccionada != null) {
+         cargarLOVsVConceptosRL();
          if (cualCeldaVigenciaConceptoRL == 2) {
             contarRegistrosLovReformaLaboral();
             RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo");
@@ -2871,6 +2870,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (vigFormulaConceptoSeleccionada != null) {
+         cargarLOVsFormulasConceptos();
          if (cualCeldaFormulasConceptos == 2) {
             contarRegistrosLovFormula();
             RequestContext.getCurrentInstance().update("form:FormulasDialogo");
@@ -2888,9 +2888,8 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void asignarIndex(int campo, int tipoAct, int tabla) {
       tipoActualizacion = tipoAct;
-      cargarLOVs();
       if (tabla == 0) {
-
+         cargarLOVsVCuentas();
          if (campo == 0) {
             contarRegistrosLovTipoContrato();
             RequestContext.getCurrentInstance().update("form:TipoCCDialogo");
@@ -2928,6 +2927,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 1) {
+         cargarLOVsVGrupoConcepto();
          if (campo == 0) {
             contarRegistrosLovGrupoConcepto();
             RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo");
@@ -2939,6 +2939,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 2) {
+         cargarLOVsVConceptosTT();
          if (campo == 0) {
             contarRegistrosLovTipoTrabajador();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
@@ -2946,6 +2947,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 3) {
+         cargarLOVsVConceptosTC();
          if (campo == 0) {
             contarRegistrosLovTipoContrato();
             RequestContext.getCurrentInstance().update("form:TipoContratosDialogo");
@@ -2953,6 +2955,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 4) {
+         cargarLOVsVConceptosRL();
          if (campo == 0) {
             contarRegistrosLovReformaLaboral();
             RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo");
@@ -2960,6 +2963,7 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 5) {
+         cargarLOVsFormulasConceptos();
          formulaSeleccionada = true;
          RequestContext.getCurrentInstance().update("form:detalleFormula");
          if (campo == 0) {
@@ -3148,7 +3152,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVC");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaCuenta");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaCuenta').show()");
-
+      asignarIndex(0, 1, 0);
    }
 
    public void validarIngresoNuevaVigenciaGrupoConcepto() {
@@ -4550,14 +4554,37 @@ public class ControlDetalleConcepto implements Serializable {
       }
       tipoCentroCostoSeleccionadoLOV = null;
       aceptar = true;
-      tipoActualizacion = -1;
-
+//      tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:TipoCCDialogo");
       RequestContext.getCurrentInstance().update("form:lovTiposCC");
       RequestContext.getCurrentInstance().update("form:aceptarTCC");
       context.reset("form:lovTiposCC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTiposCC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').hide()");
+   }
+
+   public void siguienteListaIngreso() {
+      if (tipoActualizacion == 1) {
+         if (nuevaVigenciaCuenta.getCuentad().getCodigo() == null) {
+            asignarIndex(1, 1, 0);
+         } else if (nuevaVigenciaCuenta.getConsolidadord().getNombre() == null) {
+            asignarIndex(3, 1, 0);
+         } else if (nuevaVigenciaCuenta.getCuentac().getCodigo() == null) {
+            asignarIndex(4, 1, 0);
+         } else if (nuevaVigenciaCuenta.getConsolidadorc().getNombre() == null) {
+            asignarIndex(6, 1, 0);
+         }
+      } else if (tipoActualizacion == 2) {
+         if (nuevaVigenciaCuenta.getCuentad().getCodigo() == null) {
+            asignarIndex(1, 2, 0);
+         } else if (nuevaVigenciaCuenta.getConsolidadord().getNombre() == null) {
+            asignarIndex(3, 2, 0);
+         } else if (nuevaVigenciaCuenta.getCuentac().getCodigo() == null) {
+            asignarIndex(4, 2, 0);
+         } else if (nuevaVigenciaCuenta.getConsolidadorc().getNombre() == null) {
+            asignarIndex(6, 2, 0);
+         }
+      }
    }
 
    public void cancelarCambioTipoCentroCosto() {
@@ -5809,57 +5836,124 @@ public class ControlDetalleConcepto implements Serializable {
       }
    }
 
-   public void cargarLOVs() {
-      ////////////Listas Valores VigenciasCuentas/////////////
+   ////////////Listas Valores VigenciasCuentas/////////////
+   public void cargarLOVsVCuentas() {
       log.info("Entro en cargarLOVs()");
       if (lovTiposCentrosCostos == null) {
          lovTiposCentrosCostos = administrarDetalleConcepto.consultarLOVTiposCentrosCostos();
          log.info("cargo lovTiposCentrosCostos");
       }
       if (lovCuentas == null) {
-         lovCuentas = administrarDetalleConcepto.consultarLOVCuentas();
+         if (listasRecurrentes.getLovCuentas().isEmpty()) {
+            lovCuentas = administrarDetalleConcepto.consultarLOVCuentas();
+            if (lovCuentas != null) {
+               listasRecurrentes.setLovCuentas(lovCuentas);
+            }
+         } else {
+            lovCuentas = new ArrayList<Cuentas>(listasRecurrentes.getLovCuentas());
+         }
          log.info("cargo lovCuentas");
       }
       if (lovCentrosCostos == null) {
-         lovCentrosCostos = administrarDetalleConcepto.consultarLOVCentrosCostos();
+         if (listasRecurrentes.getLovCentrosCostos().isEmpty()) {
+            lovCentrosCostos = administrarDetalleConcepto.consultarLOVCentrosCostos();
+            if (lovCentrosCostos != null) {
+               listasRecurrentes.setLovCentrosCostos(lovCentrosCostos);
+            }
+         } else {
+            lovCentrosCostos = new ArrayList<CentrosCostos>(listasRecurrentes.getLovCentrosCostos());
+         }
          log.info("cargo lovCentrosCostos");
       }
       if (lovProcesos == null) {
-         lovProcesos = administrarDetalleConcepto.consultarLOVProcesos();
+         if (listasRecurrentes.getLovProcesos().isEmpty()) {
+            lovProcesos = administrarDetalleConcepto.consultarLOVProcesos();
+            if (lovProcesos != null) {
+               listasRecurrentes.setLovProcesos(lovProcesos);
+            }
+         } else {
+            lovProcesos = new ArrayList<Procesos>(listasRecurrentes.getLovProcesos());
+         }
          log.info("cargo lovProcesos");
       }
-      /////////////Lista Valores VigenciaGrupoConcepto///////////////////////
+   }
+
+   /////////////Lista Valores VigenciaGrupoConcepto///////////////////////
+   public void cargarLOVsVGrupoConcepto() {
       if (lovGruposConceptos == null) {
-         lovGruposConceptos = administrarDetalleConcepto.consultarLOVGruposConceptos();
+         if (listasRecurrentes.getLovGruposConceptos().isEmpty()) {
+            lovGruposConceptos = administrarDetalleConcepto.consultarLOVGruposConceptos();
+            if (lovGruposConceptos != null) {
+               listasRecurrentes.setLovGruposConceptos(lovGruposConceptos);
+            }
+         } else {
+            lovGruposConceptos = new ArrayList<GruposConceptos>(listasRecurrentes.getLovGruposConceptos());
+         }
          log.info("cargo lovGruposConceptos");
       }
-      /////////////Lista Valores VigenciasConceptosTT///////////////////////
+   }
+
+   /////////////Lista Valores VigenciasConceptosTT///////////////////////
+   public void cargarLOVsVConceptosTT() {
       if (lovTiposTrabajadores == null) {
-         lovTiposTrabajadores = administrarDetalleConcepto.consultarLOVTiposTrabajadores();
+         if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
+            lovTiposTrabajadores = administrarDetalleConcepto.consultarLOVTiposTrabajadores();
+            if (lovTiposTrabajadores != null) {
+               listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+            }
+         } else {
+            lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
+         }
          log.info("cargo lovTiposTrabajadores");
       }
+   }
+
+   public void cargarLOVsVConceptosTC() {
       /////////////Lista Valores VigenciasConceptosTC///////////////////////
       if (lovTiposContratos == null) {
          lovTiposContratos = administrarDetalleConcepto.consultarLOVTiposContratos();
          log.info("cargo lovTiposContratos");
       }
-      /////////////Lista Valores VigenciasConceptosRL///////////////////////
+   }
+
+   /////////////Lista Valores VigenciasConceptosRL///////////////////////
+   public void cargarLOVsVConceptosRL() {
       if (lovReformasLaborales == null) {
          lovReformasLaborales = administrarDetalleConcepto.consultarLOVReformasLaborales();
          log.info("cargo lovReformasLaborales");
       }
-      /////////////Lista Valores FormulasConceptos///////////////////////
+   }
+
+   /////////////Lista Valores FormulasConceptos///////////////////////
+   public void cargarLOVsFormulasConceptos() {
       if (lovFormulas == null) {
-         lovFormulas = administrarDetalleConcepto.consultarLOVFormulas();
-         log.info("cargo lovFormulas");
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarDetalleConcepto.consultarLOVFormulas();
+            if (lovFormulas != null) {
+               listasRecurrentes.setLovFormulas(lovFormulas);
+            }
+            log.warn("SE AGREGA A listasRecurrentes lovFormulas");
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+            log.warn("SE CONSULTA DE listasRecurrentes lovFormulas");
+         }
       }
       if (lovFormulasConceptos == null) {
-         lovFormulasConceptos = administrarDetalleConcepto.consultarLOVFormulasConceptos();
+         if (listasRecurrentes.getLovFormulasConceptos().isEmpty()) {
+            lovFormulasConceptos = administrarDetalleConcepto.consultarLOVFormulasConceptos();
+            if (lovFormulasConceptos != null) {
+               listasRecurrentes.setLovFormulasConceptos(lovFormulasConceptos);
+            }
+            log.warn("SE AGREGA A listasRecurrentes lovFormulasConceptos");
+         } else {
+            lovFormulasConceptos = new ArrayList<FormulasConceptos>(listasRecurrentes.getLovFormulasConceptos());
+            log.warn("SE CONSULTA DE listasRecurrentes lovFormulasConceptos");
+         }
          log.info("cargo lovFormulasConceptos");
       }
    }
 
-   //Conteo de registros: 
+//Conteo de registros: 
    public void contarRegistrosCuentas() {
       RequestContext.getCurrentInstance().update("form:infoRegistroCuenta");
    }

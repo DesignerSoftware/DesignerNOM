@@ -107,22 +107,22 @@ public class AdministrarNovedadesEmbargos implements AdministrarNovedadesEmbargo
    @Override
    public List<Empleados> listaEmpleados() {
       try {
-         return persistenciaEmpleados.empleadosNovedadEmbargo(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }
 
-   @Override
-   public List<Empleados> lovEmpleados() {
-      try {
-         return persistenciaEmpleados.empleadosNovedadEmbargo(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
-         return null;
-      }
-   }
+//   @Override
+//   public List<Empleados> lovEmpleados() {
+//      try {
+//         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
+//      } catch (Exception e) {
+//         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+//         return null;
+//      }
+//   }
 
    public List<TiposEmbargos> lovTiposEmbargos() {
       try {

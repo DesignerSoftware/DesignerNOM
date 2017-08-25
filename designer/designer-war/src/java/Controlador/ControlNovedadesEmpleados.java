@@ -31,6 +31,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -147,7 +148,12 @@ public class ControlNovedadesEmpleados implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlNovedadesEmpleados() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       actualNovedadTabla = new Novedades();
       activoBtnAcumulado = true;
       permitirIndex = true;
@@ -240,7 +246,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -554,7 +560,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             nuevaNovedad.setTerminal(localMachine.getHostName());
             nuevaNovedad.setUsuarioreporta(usuarioBD);
             nuevaNovedad.setEmpleado(emp); //Envia empleado
-            log.info("Empleado enviado: " + emp.getPersona().getNombreCompleto());
+            log.info("Empleado enviado: " + emp.getNombreCompleto());
             listaNovedadesCrear.add(nuevaNovedad);
             listaNovedades.add(nuevaNovedad);
             contarRegistros();
@@ -1103,7 +1109,6 @@ public class ControlNovedadesEmpleados implements Serializable {
    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valor, int tipoNuevo) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
          cargarLOVFormulas();
          if (tipoNuevo == 1) {
@@ -1382,20 +1387,16 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public Formulas verificarFormulaConcepto(BigInteger secCon) {
-      List<FormulasConceptos> formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
+      FormulasConceptos formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
       Formulas formulaR = new Formulas();
       BigInteger autoFormula;
       cargarLOVFormulas();
       if (formulasConceptoSel != null) {
-         if (!formulasConceptoSel.isEmpty()) {
-            autoFormula = formulasConceptoSel.get(0).getFormula();
-         } else {
-            autoFormula = new BigInteger("4621544");
-         }
+//         if (!formulasConceptoSel.isEmpty()) {
+         autoFormula = formulasConceptoSel.getFormula();
       } else {
          autoFormula = new BigInteger("4621544");
       }
-
       for (int i = 0; i < lovFormulas.size(); i++) {
          if (autoFormula.equals(lovFormulas.get(i).getSecuencia())) {
             formulaR = lovFormulas.get(i);
@@ -1783,7 +1784,14 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public void cargarLOVFormulas() {
       if (lovFormulas == null || lovFormulas.isEmpty()) {
-         lovFormulas = administrarNovedadesEmpleados.lovFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarNovedadesEmpleados.lovFormulas();
+            if (lovFormulas != null) {
+               listasRecurrentes.setLovFormulas(lovFormulas);
+            }
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
    }
 

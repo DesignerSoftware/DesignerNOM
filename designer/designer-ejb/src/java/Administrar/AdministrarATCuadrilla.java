@@ -205,7 +205,7 @@ public class AdministrarATCuadrilla implements AdministrarATCuadrillaInterface {
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(getEm());
+         List<Empleados> lista = persistenciaEmpleados.buscarEmpleadosActivos(getEm());
          return lista;
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());

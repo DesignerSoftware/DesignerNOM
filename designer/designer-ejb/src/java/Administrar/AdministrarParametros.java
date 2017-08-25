@@ -225,7 +225,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    @Override
    public List<Empleados> empleadosLov() {
       try {
-         return persistenciaEmpleado.lovEmpleadosParametros(getEm());
+         return persistenciaEmpleado.buscarEmpleadosActivosPensionados(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

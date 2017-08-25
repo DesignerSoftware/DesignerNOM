@@ -110,13 +110,15 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
     public BigInteger obtenerSecuenciaHistoriaFormula(EntityManager em, BigInteger secFormula, String fecha) {
         try {
             em.clear();
+            log.warn("secFormula: " + secFormula);
+            log.warn("fecha: " + fecha);
             String sqlQuery = "SELECT hf.secuencia\n"
-                    + "FROM historiasformulas hf\n"
-                    + "WHERE hf.formula = ?\n"
-                    + "AND hf.fechainicial = (select max(hfi.fechainicial)\n"
-                    + "                    from historiasformulas hfi\n"
-                    + "                    where hfi.formula=hf.formula\n"
-                    + "                    and hfi.fechainicial <= to_date( ?, 'dd/mm/yyyy'))";
+                    + " FROM historiasformulas hf\n"
+                    + " WHERE hf.formula = ?\n"
+                    + " AND hf.fechainicial = (select max(hfi.fechainicial)\n"
+                    + " from historiasformulas hfi\n"
+                    + " where hfi.formula=hf.formula\n"
+                    + " and hfi.fechainicial <= to_date( ?, 'dd/mm/yyyy'))";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secFormula);
             query.setParameter(2, fecha);

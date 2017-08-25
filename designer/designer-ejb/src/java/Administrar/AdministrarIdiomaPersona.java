@@ -7,11 +7,13 @@ package Administrar;
 import Entidades.Empleados;
 import Entidades.Idiomas;
 import Entidades.IdiomasPersonas;
+import Entidades.Personas;
 import InterfaceAdministrar.AdministrarIdiomaPersonaInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaIdiomasInterface;
 import InterfacePersistencia.PersistenciaIdiomasPersonasInterface;
+import InterfacePersistencia.PersistenciaPersonasInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -134,6 +136,16 @@ public class AdministrarIdiomaPersona implements AdministrarIdiomaPersonaInterfa
          return persistenciaEmpleado.buscarEmpleado(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error empleadoActual Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaEmpleado.buscarPersonaPorEmpleado(em, secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + " ERROR en obtenerPersonaPorEmpleado() : " + e.getMessage());
          return null;
       }
    }

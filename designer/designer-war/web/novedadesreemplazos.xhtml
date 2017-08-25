@@ -103,8 +103,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['nombre']}" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" filterMatchMode="contains" id="nREmpleadosNombres" width="80%" filterStyle="display: none; visibility: hidden;">                                  
-                                    <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                                <p:column headerText="#{msg['nombre']}" sortBy="#{empleados.nombreCompleto}" filterBy="#{empleados.nombreCompleto}" filterMatchMode="contains" id="nREmpleadosNombres" width="80%" filterStyle="display: none; visibility: hidden;">                                  
+                                    <h:outputText value="#{empleados.nombreCompleto}"/>
                                     <f:facet name="footer">
                                         <h:outputText value=" "/>
                                     </f:facet>
@@ -126,11 +126,11 @@
 
                                 <p:ajax event="filter" listener="#{controlNovedadesReemplazos.eventoFiltrar()}"/>
 
-                                <p:column headerText="#{msg['nombreempleado']}" sortBy="#{encargaturas.reemplazado.persona.nombreCompleto}" filterBy="#{encargaturas.reemplazado.persona.nombreCompleto}" filterMatchMode="contains"  width="200" id="nREmpleadoReemplazado" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['nombreempleado']}" sortBy="#{encargaturas.reemplazado.nombreCompleto}" filterBy="#{encargaturas.reemplazado.nombreCompleto}" filterMatchMode="contains"  width="200" id="nREmpleadoReemplazado" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{encargaturas.reemplazado.persona.nombreCompleto}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{encargaturas.reemplazado.nombreCompleto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{encargaturas.reemplazado.persona.nombreCompleto}" id="editarNombreReemplazado" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                            <p:inputText autocomplete="off" value="#{encargaturas.reemplazado.nombreCompleto}" id="editarNombreReemplazado" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 0)}" process="@this"
                                                         onstart="PF('datosEncargaturasEmpleado').unselectAllRows();PF('datosEncargaturasEmpleado').selectRow(#{indice});"/>
@@ -346,7 +346,7 @@
                     <!-- DIALOGOS EDITAR -->
 
                     <p:dialog id="editarReemplazados" header="#{msg['editarReemplazados']}" widgetVar="editarReemplazados" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlNovedadesReemplazos.editarEncargaturas.reemplazado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlNovedadesReemplazos.editarEncargaturas.reemplazado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTiposReemplazos" header="#{msg['editarTiposReemplazos']}" widgetVar="editarTiposReemplazos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -445,11 +445,11 @@
                                 <h:outputText value="#{empleado.codigoempleado}"/>  
                             </p:column>
                             
-                            <p:column sortBy="#{empleado.persona.nombreCompleto}" filterStyle="width: 80% !important" filterBy="#{empleado.persona.nombreCompleto}"  filterMatchMode="contains"> 
+                            <p:column sortBy="#{empleado.nombreCompleto}" filterStyle="width: 80% !important" filterBy="#{empleado.nombreCompleto}"  filterMatchMode="contains"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEF']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleado.persona.nombreCompleto}"/>  
+                                <h:outputText value="#{empleado.nombreCompleto}"/>  
                             </p:column>
                         </p:dataTable>
 
@@ -483,11 +483,11 @@
                                 <h:outputText value="#{bempleado.codigoempleado}"/>  
                             </p:column>
                             
-                            <p:column sortBy="#{bempleado.persona.nombreCompleto}" filterBy="#{bempleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <p:column sortBy="#{bempleado.nombreCompleto}" filterBy="#{bempleado.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEF']}"/>
                                 </f:facet>
-                                <h:outputText value="#{bempleado.persona.nombreCompleto}"/>  
+                                <h:outputText value="#{bempleado.nombreCompleto}"/>  
                             </p:column>
                         </p:dataTable>
 
@@ -609,7 +609,7 @@
                         <p:panel id="nuevaEncargatura" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empleadoreemplazadoN']}" style=" position: absolute; top: 85px;"/></strong>
-                            <p:inputText autocomplete="off" id="nuevoReemplazado" value="#{controlNovedadesReemplazos.nuevaEncargatura.reemplazado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="nuevoReemplazado" value="#{controlNovedadesReemplazos.nuevaEncargatura.reemplazado.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 1)}" process="@this" 
                                         onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             </p:inputText>
@@ -681,7 +681,7 @@
                         <p:panel id="duplicarEncargatura" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empleadoreemplazadoN']}" style=" position: absolute; top: 85px;"/></strong>
-                            <p:inputText autocomplete="off" id="duplicarReemplazado" value="#{controlNovedadesReemplazos.duplicarEncargatura.reemplazado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
+                            <p:inputText autocomplete="off" id="duplicarReemplazado" value="#{controlNovedadesReemplazos.duplicarEncargatura.reemplazado.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 2)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             </p:inputText>
 
@@ -786,7 +786,7 @@
 
                         <p:column headerText="#{msg['empleadoreemplazadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['empleadoreemplazadoX']}"/> </f:facet> 
-                            <h:outputText value="#{encargaturas.reemplazado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{encargaturas.reemplazado.nombreCompleto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['tiporeemplazoXX']}">                                  

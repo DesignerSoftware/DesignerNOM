@@ -18,32 +18,30 @@ import javax.persistence.EntityManager;
  */
 public interface AdministrarFormulaConceptoInterface {
 
-    /**
-     * Método encargado de obtener el Entity Manager el cual tiene asociado la
-     * sesion del usuario que utiliza el aplicativo.
-     *
-     * @param idSesion Identificador se la sesion.
-     */
-    public void obtenerConexion(String idSesion);
+   /**
+    * Método encargado de obtener el Entity Manager el cual tiene asociado la
+    * sesion del usuario que utiliza el aplicativo.
+    *
+    * @param idSesion Identificador se la sesion.
+    */
+   public void obtenerConexion(String idSesion);
 
-    public List<FormulasConceptos> formulasConceptosParaFormula(BigInteger secuencia);
+   public List<FormulasConceptos> formulasConceptosParaFormula(BigInteger secuencia);
 
-    public void crearFormulasConceptos(List<FormulasConceptos> lista);
+   public void crearFormulasConceptos(List<FormulasConceptos> lista);
 
-    public void editarFormulasConceptos(List<FormulasConceptos> lista);
+   public void editarFormulasConceptos(List<FormulasConceptos> lista);
 
-    public void borrarFormulasConceptos(List<FormulasConceptos> lista);
+   public void borrarFormulasConceptos(List<FormulasConceptos> lista);
 
-    public List<FormulasConceptos> listFormulasConceptos();
+   public List<FormulasConceptos> listFormulasConceptos();
 
-    public List<Conceptos> listConceptos();
+   public List<Conceptos> listConceptos();
 
-    public Formulas formulaActual(BigInteger secuencia);
-    
-    public List<Entidades.FormulasConceptos> cargarFormulasConcepto(BigInteger secConcepto);
-    
-    //public boolean verificarExistenciaConceptoFormulasConcepto(EntityManager em,BigInteger secConcepto);
-    
-    //public boolean cargarFormulasConcepto(EntityManager em, BigInteger secuencia, BigInteger secFormula);
-  
+   public Formulas formulaActual(BigInteger secuencia);
+
+   public FormulasConceptos cargarFormulasConcepto(BigInteger secConcepto);
+
+   //public boolean verificarExistenciaConceptoFormulasConcepto(EntityManager em,BigInteger secConcepto);
+   //public boolean cargarFormulasConcepto(EntityManager em, BigInteger secuencia, BigInteger secFormula);
 }

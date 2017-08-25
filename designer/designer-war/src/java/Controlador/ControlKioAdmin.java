@@ -105,7 +105,7 @@ public class ControlKioAdmin implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -228,11 +228,10 @@ public class ControlKioAdmin implements Serializable {
       if (cualCelda == 0) {
          empleadoCKSeleccionado.getCodigoempleado();
       } else if (cualCelda == 1) {
-         empleadoCKSeleccionado.getPersona().getNombreCompleto();
+         empleadoCKSeleccionado.getNombreCompleto();
       } else if (cualCelda == 2) {
-         empleadoCKSeleccionado.getEmpresa().getNombre();
+         empleadoCKSeleccionado.getNombreEmpresa();
       }
-
       ckSeleccionada = administrarkioadmin.listCK(empleadoCKSeleccionado.getSecuencia());
       RequestContext.getCurrentInstance().update("form:activo");
       RequestContext.getCurrentInstance().update("form:pregunta1");

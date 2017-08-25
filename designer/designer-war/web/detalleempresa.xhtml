@@ -946,17 +946,17 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGerente').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{gerente.persona.numerodocumento}" sortBy="#{gerente.persona.numerodocumento}" filterMatchMode="contains" width="90" filterStyle="width: 75% !important;">
+                        <p:column filterBy="#{gerente.numeroDocumento}" sortBy="#{gerente.numeroDocumento}" filterMatchMode="contains" width="90" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['numerodocumento']}"/>
                            </f:facet>
-                           <h:outputText value="#{gerente.persona.numerodocumento}"/>
+                           <h:outputText value="#{gerente.numeroDocumento}"/>
                         </p:column>
-                        <p:column filterBy="#{gerente.persona.nombreCompleto}" sortBy="#{gerente.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <p:column filterBy="#{gerente.nombreCompleto}" sortBy="#{gerente.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreEmpl']}"/>
                            </f:facet>
-                           <h:outputText value="#{gerente.persona.nombreCompleto}"/>
+                           <h:outputText value="#{gerente.nombreCompleto}"/>
                         </p:column>
                      </p:dataTable>
 
@@ -1051,17 +1051,17 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSubGerente').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{subGerente.persona.numerodocumento}" sortBy="#{subGerente.persona.numerodocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                        <p:column filterBy="#{subGerente.numeroDocumento}" sortBy="#{subGerente.numeroDocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['numerodocumento']}"/>
                            </f:facet>
-                           <h:outputText value="#{subGerente.persona.numerodocumento}"/>
+                           <h:outputText value="#{subGerente.numeroDocumento}"/>
                         </p:column>
-                        <p:column filterBy="#{subGerente.persona.nombreCompleto}" sortBy="#{subGerente.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <p:column filterBy="#{subGerente.nombreCompleto}" sortBy="#{subGerente.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreEmpl']}"/>
                            </f:facet>
-                           <h:outputText value="#{subGerente.persona.nombreCompleto}"/>
+                           <h:outputText value="#{subGerente.nombreCompleto}"/>
                         </p:column>
                      </p:dataTable>
 
@@ -1086,17 +1086,17 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovRepresentante').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{representante.persona.numerodocumento}" sortBy="#{representante.persona.numerodocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                        <p:column filterBy="#{representante.numeroDocumento}" sortBy="#{representante.numeroDocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['numerodocumento']}"/>
                            </f:facet>
-                           <h:outputText value="#{representante.persona.numerodocumento}"/>
+                           <h:outputText value="#{representante.numeroDocumento}"/>
                         </p:column>
-                        <p:column filterBy="#{representante.persona.nombreCompleto}" sortBy="#{representante.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <p:column filterBy="#{representante.nombreCompleto}" sortBy="#{representante.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreEmpl']}"/>
                            </f:facet>
-                           <h:outputText value="#{representante.persona.nombreCompleto}"/>
+                           <h:outputText value="#{representante.nombreCompleto}"/>
                         </p:column>
                      </p:dataTable>
 
@@ -1705,7 +1705,7 @@
                            <p:inputText autocomplete="off" id="duplicarSubGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_subgerente}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase;" onclick="select();">
                               <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,6,2)}"/>
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'SUBGERENTE')}"/>
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto,2)}" process="@this" update="duplicarSubGerenteDetalle"/>
+                              <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.nombreCompleto,2)}" process="@this" update="duplicarSubGerenteDetalle"/>
                            </p:inputText>
                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 190px;" id="btnDuplicarSubGerente" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,6,2)}" update="duplicarSubGerenteDetalle"/>   
                            <p:watermark for="duplicarSubGerenteDetalle" value="#{msg['subGerente']}"/>
@@ -1714,7 +1714,7 @@
                            <p:inputText autocomplete="off" id="duplicarRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombre_representantecir}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase;" onclick="select();">
                               <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,7,2)}"/>
                               <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'REPRESENTANTE')}"/>
-                              <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto,2)}" process="@this" update="duplicarRepresentanteDetalle"/>
+                              <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.nombreCompleto,2)}" process="@this" update="duplicarRepresentanteDetalle"/>
                            </p:inputText>
                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 365px; top: 220px;" id="btnDuplicarRepresentante" icon="ui-icon-search" process="@this"  actionListener="#{controlDetalleEmpresa.asignarIndex(info,7,2)}" update="duplicarRepresentanteDetalle"/>   
                            <p:watermark for="duplicarRepresentanteDetalle" value="#{msg['representante']}"/>

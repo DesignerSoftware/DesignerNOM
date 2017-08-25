@@ -77,7 +77,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleadosInterface.buscarEmpleados(getEm());
+         return persistenciaEmpleadosInterface.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;

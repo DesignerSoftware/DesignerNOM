@@ -157,7 +157,7 @@ public class ControlDetalleEmpresa implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -457,13 +457,13 @@ public class ControlDetalleEmpresa implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_gerentegeneral(gerente);
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+               detalleSeleccionado.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                detalleSeleccionado.setRef_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
@@ -482,13 +482,13 @@ public class ControlDetalleEmpresa implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_representantecir(representante);
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+               detalleSeleccionado.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                detalleSeleccionado.setRef_representantecir(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
@@ -532,13 +532,13 @@ public class ControlDetalleEmpresa implements Serializable {
          if (!valorConfirmar.isEmpty()) {
             detalleSeleccionado.setNombre_subgerente(subGerente);
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+               detalleSeleccionado.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                detalleSeleccionado.setRef_subgerente(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
@@ -719,19 +719,19 @@ public class ControlDetalleEmpresa implements Serializable {
                duplicarDetalleEmpresa.setNombre_gerentegeneral(gerente);
             }
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  nuevaDetalleEmpresa.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                   nuevaDetalleEmpresa.setRef_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
                } else if (tipoNuevo == 2) {
                   duplicarDetalleEmpresa.setRef_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
-                  duplicarDetalleEmpresa.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  duplicarDetalleEmpresa.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
                }
             } else {
@@ -762,18 +762,18 @@ public class ControlDetalleEmpresa implements Serializable {
                duplicarDetalleEmpresa.setNombre_subgerente(subGerente);
             }
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  nuevaDetalleEmpresa.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                   nuevaDetalleEmpresa.setRef_subgerente(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
                } else if (tipoNuevo == 2) {
-                  duplicarDetalleEmpresa.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  duplicarDetalleEmpresa.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                   duplicarDetalleEmpresa.setRef_subgerente(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
                }
@@ -805,18 +805,18 @@ public class ControlDetalleEmpresa implements Serializable {
                duplicarDetalleEmpresa.setNombre_representantecir(representante);
             }
             for (int i = 0; i < lovEmpleados.size(); i++) {
-               if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+               if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
                   coincidencias++;
                }
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  nuevaDetalleEmpresa.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                   nuevaDetalleEmpresa.setRef_representantecir(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
                } else {
-                  duplicarDetalleEmpresa.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  duplicarDetalleEmpresa.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getNombreCompleto());
                   duplicarDetalleEmpresa.setRef_representantecir(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
                }
@@ -1872,7 +1872,7 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarGerente() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setNombre_gerentegeneral(empleadoSeleccionado.getPersona().getNombreCompleto());
+         detalleSeleccionado.setNombre_gerentegeneral(empleadoSeleccionado.getNombreCompleto());
          detalleSeleccionado.setRef_gerentegeneral(empleadoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
@@ -1888,11 +1888,11 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setNombre_gerentegeneral(empleadoSeleccionado.getPersona().getNombreCompleto());
+         nuevaDetalleEmpresa.setNombre_gerentegeneral(empleadoSeleccionado.getNombreCompleto());
          nuevaDetalleEmpresa.setRef_gerentegeneral(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setNombre_gerentegeneral(empleadoSeleccionado.getPersona().getNombreCompleto());
+         duplicarDetalleEmpresa.setNombre_gerentegeneral(empleadoSeleccionado.getNombreCompleto());
          duplicarDetalleEmpresa.setRef_gerentegeneral(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
       }
@@ -1925,7 +1925,7 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarSubGerente() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setNombre_subgerente(empleadoSeleccionado.getPersona().getNombreCompleto());
+         detalleSeleccionado.setNombre_subgerente(empleadoSeleccionado.getNombreCompleto());
          detalleSeleccionado.setRef_subgerente(empleadoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
@@ -1941,11 +1941,11 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setNombre_subgerente(empleadoSeleccionado.getPersona().getNombreCompleto());
+         nuevaDetalleEmpresa.setNombre_subgerente(empleadoSeleccionado.getNombreCompleto());
          nuevaDetalleEmpresa.setRef_subgerente(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setNombre_subgerente(empleadoSeleccionado.getPersona().getNombreCompleto());
+         duplicarDetalleEmpresa.setNombre_subgerente(empleadoSeleccionado.getNombreCompleto());
          duplicarDetalleEmpresa.setRef_subgerente(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
       }
@@ -1978,7 +1978,7 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarRepresentante() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setNombre_representantecir(empleadoSeleccionado.getPersona().getNombreCompleto());
+         detalleSeleccionado.setNombre_representantecir(empleadoSeleccionado.getNombreCompleto());
          detalleSeleccionado.setRef_representantecir(empleadoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
@@ -1994,11 +1994,11 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setNombre_representantecir(empleadoSeleccionado.getPersona().getNombreCompleto());
+         nuevaDetalleEmpresa.setNombre_representantecir(empleadoSeleccionado.getNombreCompleto());
          nuevaDetalleEmpresa.setRef_representantecir(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setNombre_representantecir(empleadoSeleccionado.getPersona().getNombreCompleto());
+         duplicarDetalleEmpresa.setNombre_representantecir(empleadoSeleccionado.getNombreCompleto());
          duplicarDetalleEmpresa.setRef_representantecir(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
       }

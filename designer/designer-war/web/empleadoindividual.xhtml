@@ -96,7 +96,7 @@
                                       actionListener="#{controlVigenciasTallas.recibirEmpleado(controlEmpleadoIndividual.empleado,'vigenciatalla')}" 
                                       style="position: relative; left: -107px; top: 20px; height: 23px; width: 115px; font-size: 12px;"/>
                      <p:commandButton id="bntAntContratos" value="#{msg['anteriorescontratos']}" onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','anteriorescontratos')}"
-                                      actionListener="#{controlAnterioresContratos.recibirPersona('empleadoindividual', controlEmpleadoIndividual.empleado.persona)}"
+                                      actionListener="#{controlAnterioresContratos.recibirPersona('empleadoindividual', controlEmpleadoIndividual.persona)}"
                                       style="position: relative; left: -223px; top: 45px; height: 23px; width: 115px;"/>
                      <p:tooltip for="bntAntContratos" value="#{msg['anteriorescontratostp']}"/>
                   </div>
@@ -127,12 +127,12 @@
                         <p:watermark for="primerNombre" value="#{msg['primernombrewm']}"/>
                         <h:outputText value="#{msg['identificacion']}" 
                                       style="position: absolute; left: 10px; top: 53px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                        <p:inputText autocomplete="off" id="tipo" value="#{controlEmpleadoIndividual.persona.tipodocumento.nombrecorto}" 
+                        <p:inputText autocomplete="off" id="tipo" value="#{controlEmpleadoIndividual.persona.nombreTipoDocumento}" 
                                      style="position: absolute; left: 150px; top: 48px; width: 38px; text-transform: uppercase; height: 12px;" 
                                      onclick="select();" maxlength="3">
                            <p:ajax event="dblclick" onstart="PF('TiposDocumentosDialogo').show()"/>
                            <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('TIPODOCUMENTO')}"/>-->
-                           <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('TIPODOCUMENTO', controlEmpleadoIndividual.persona.tipodocumento.nombrecorto)}"/>
+                           <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('TIPODOCUMENTO', controlEmpleadoIndividual.persona.nombreTipoDocumento)}"/>
                         </p:inputText>
                         <p:watermark for="tipo" value="#{msg['tipowm']}"/> 
                         <h:outputText id="txtDigito" value="#{msg['digitoverif']}" 
@@ -170,12 +170,12 @@
                         <br/>
                         <h:outputText value="#{msg['ciudadnacimiento']}" 
                                       style="position: absolute; left: 10px; top: 149px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                        <p:inputText autocomplete="off" id="lugarNacimiento" value="#{controlEmpleadoIndividual.persona.ciudadnacimiento.nombre}" 
+                        <p:inputText autocomplete="off" id="lugarNacimiento" value="#{controlEmpleadoIndividual.persona.nombreCiudadNacimiento}" 
                                      style="position: absolute; left: 150px; top: 144px; width: 120px; text-transform: uppercase; height: 12px;" 
                                      onclick="select();">
                            <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(1)}"/>
                            <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADNACIMIENTO')}"/>-->
-                           <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudadnacimiento.nombre)}"/>
+                           <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.nombreCiudadNacimiento)}"/>
                         </p:inputText>
                         <p:watermark for="lugarNacimiento" value="#{msg['lugarnacimientowm']}"/>
 
@@ -414,23 +414,23 @@
                   <fieldset id="panelInferior" style="position: absolute; top: 270px; width: 832px; height: 200px; left: 10px; border-radius: 10px;">
                      <fieldset style="position: absolute; left: -2px; top: 2px; width: 197px; height: 205px; border-radius: 7px; padding: 0px; border: none;">
                          <!-- <legend style="font-weight: bold; color: blue;">#{msg['ubicacion']}</legend> -->
-                        <p:commandButton id="btnTelefono" value="" onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}" process="@this"
+                        <p:commandButton id="btnTelefono" value="" onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona,'empleadoindividual')}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/telefono.png); background-size: 100% 100%; background-repeat: no-repeat; width: 40px; height: 40px; position: absolute; border:none;"/>
                         <h:commandLink value="#{msg['telefonos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;"
-                                       onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}"/>
+                                       onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pertelefono')}" actionListener="#{controlPerTelefonos.recibirEmpleado(controlEmpleadoIndividual.empleado.persona,'empleadoindividual')}"/>
                         <p:inputText autocomplete="off" id="telefonos" value="#{controlEmpleadoIndividual.telefonoP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
                         <p:commandButton id="btnDireccion" value="" style="background-image: url(Imagenes/Iconos/direccion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none;" 
-                                         onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}" process="@this"/>
+                                         onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona,'empleadoindividual')}" process="@this"/>
                         <h:commandLink value="#{msg['direcciones']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B; "
-                                       onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia,'empleadoindividual')}"/>
+                                       onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perdireccion')}" actionListener="#{controlPerDirecciones.recibirEmpleado(controlEmpleadoIndividual.empleado.persona,'empleadoindividual')}"/>
                         <p:inputText autocomplete="off" id="direcciones" value="#{controlEmpleadoIndividual.direccionP}" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
                         <p:commandButton id="btnEstadoCivil" value="" style="background-image: url(Imagenes/Iconos/estadocivil.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;"
-                                         actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona.secuencia)}"
+                                         actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona)}"
                                          onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perestadocivil')}" process="@this"/>
                         <h:commandLink value="#{msg['estadocivil']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B;"
-                                       actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona.secuencia)}"
+                                       actionListener="#{controlVigenciasEstadosCiviles.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,controlEmpleadoIndividual.empleado.persona)}"
                                        onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','perestadocivil')}"/>
                         <p:inputText autocomplete="off" id="estadoCivil" value="#{controlEmpleadoIndividual.estadoCivilP}" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
@@ -511,9 +511,9 @@
                         <p:inputText autocomplete="off" id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;" 
-                                         process="@this"  onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplfamiliares')}"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                                         process="@this"  onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplfamiliares')}"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona)}"/>
                         <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;"
-                                       onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplfamiliares')}"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                                       onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','emplfamiliares')}"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona)}"/>
                         <p:inputText autocomplete="off" id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                      </fieldset>
@@ -547,8 +547,8 @@
                         <p:inputText autocomplete="off" id="demandas" value="#{controlEmpleadoIndividual.demandasP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                         <p:commandButton id="btnVisitasDomiciliarias" value="" style="background-image: url(Imagenes/Iconos/visitadomiciliaria.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;"
-                                         onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pervigenciadomiciliaria')}" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia)}"  process="@this"/>
-                        <h:commandLink value="#{msg['visitasdomiciliarias']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;" onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pervigenciadomiciliaria')}" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                                         onstart="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pervigenciadomiciliaria')}" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona)}"  process="@this"/>
+                        <h:commandLink value="#{msg['visitasdomiciliarias']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;" onclick="#{controlEmpleadoIndividual.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empleadoindividual','pervigenciadomiciliaria')}" actionListener="#{controlPerVigenciaDomiciliaria.recibirEmpleado(controlEmpleadoIndividual.empleado.persona)}"/>
                         <p:inputText autocomplete="off" id="visitasDomiciliarias" value="#{controlEmpleadoIndividual.visitasDomiciliariasP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
 
                      </fieldset>
@@ -849,14 +849,14 @@
                   <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
                   <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEmpleadoIndividual.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this"/>-->
                </p:dialog>
-               
-                <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/descargar.png" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
-                        <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
-                        <p:commandButton value="Descargar" icon="ui-icon-arrowreturnthick-1-s" actionListener="#{controlEmpleadoIndividual.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
-                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
-                    </p:dialog> 
-               
+
+               <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/descargar.png" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"/>
+                  <h:outputText value="Reporte Generado con éxito" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify"/>
+                  <p:commandButton value="Descargar" icon="ui-icon-arrowreturnthick-1-s" actionListener="#{controlEmpleadoIndividual.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this"/>
+               </p:dialog> 
+
             </h:form>
 
             <h:form id="formExportar">
@@ -870,7 +870,7 @@
 
                   <p:column headerText="#{msg['tipodocumentoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['tipodocumentoX']}"/></f:facet> 
-                     <h:outputText value="#{infoExp.persona.tipodocumento.nombrecorto}"/>
+                     <h:outputText value="#{infoExp.persona.nombreTipoDocumento}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['numerodocumentoXX']}">      
@@ -887,7 +887,7 @@
 
                   <p:column headerText="#{msg['ciudadexpedicionXX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['ciudadexpedicionX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.ciudaddocumento.nombre}"/>
+                     <h:outputText value="#{infoExp.persona.ciudadDocumento}"/>
                   </p:column>  
 
                   <p:column>                                                              
@@ -909,7 +909,7 @@
 
                   <p:column headerText="#{msg['ciudadnacimientoXX']}">                                                                                              
                      <f:facet name="header"><h:outputText value="#{msg['ciudadnacimientoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.persona.ciudadnacimiento.nombre}"/>
+                     <h:outputText value="#{infoExp.persona.ciudadNacimiento}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['gruposXX']}">                                                                                              

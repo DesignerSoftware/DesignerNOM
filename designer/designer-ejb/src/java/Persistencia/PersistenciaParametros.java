@@ -5,11 +5,13 @@ package Persistencia;
 
 import Entidades.CambiosMasivos;
 import Entidades.Parametros;
+import Entidades.ParametrosAux;
 import Entidades.ParametrosCambiosMasivos;
 import Entidades.ParametrosCambiosMasivosAux;
 import InterfacePersistencia.PersistenciaParametrosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -70,13 +72,63 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
    public List<Parametros> parametrosComprobantes(EntityManager em, String usuarioBD) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT p FROM Parametros p WHERE EXISTS (SELECT pi FROM ParametrosInstancias pi, UsuariosInstancias ui WHERE pi.instancia.secuencia = ui.instancia.secuencia AND ui.usuario.alias = :usuarioBD AND pi.parametro.secuencia = p.secuencia) ORDER BY p.empleado.codigoempleado");
-         query.setParameter("usuarioBD", usuarioBD);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+//         Query query = em.createQuery("SELECT p FROM Parametros p WHERE EXISTS "
+//                 + " (SELECT pi FROM ParametrosInstancias pi, UsuariosInstancias ui "
+//                 + " WHERE pi.instancia.secuencia = ui.instancia.secuencia AND ui.usuario.alias = :usuarioBD "
+//                 + " AND pi.parametro.secuencia = p.secuencia)");
+         Query query = em.createNativeQuery("SELECT p.* FROM Parametros p WHERE EXISTS\n"
+                 + " (SELECT 1 FROM ParametrosInstancias pi, UsuariosInstancias ui, USUARIOS U\n"
+                 + " WHERE pi.instancia = ui.instancia AND u.alias = '" + usuarioBD + "' AND ui.usuario = U.SECUENCIA\n"
+                 + " AND pi.parametro = p.secuencia)", Parametros.class);
+//         query.setParameter("usuarioBD", usuarioBD);
+//         query.setParameter(1, usuarioBD);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<Parametros> listaParametros = query.getResultList();
-         return listaParametros;
+         List<Parametros> listaParametros2 = new ArrayList<Parametros>();
+         if (listaParametros != null) {
+            if (!listaParametros.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT P.SECUENCIA, E.CODIGOEMPLEADO, E.PERSONA, PE.NOMBRE NOMBREPERSONA,\n"
+                       + " PE.PRIMERAPELLIDO, PE.SEGUNDOAPELLIDO, PE.EMAIL\n"
+                       + " FROM Parametros p, USUARIOS U, EMPLEADOS E, PERSONAS PE WHERE\n"
+                       + " E.PERSONA = PE.SECUENCIA AND P.EMPLEADO = E.SECUENCIA\n"
+                       + " AND P.USUARIO = U.SECUENCIA AND EXISTS\n"
+                       + " (SELECT 1 FROM ParametrosInstancias pi, UsuariosInstancias ui, USUARIOS U\n"
+                       + " WHERE pi.instancia = ui.instancia AND pi.parametro = p.secuencia\n"
+                       + " AND UI.USUARIO = U.SECUENCIA AND U.alias = '" + usuarioBD + "')", ParametrosAux.class);
+               query.setParameter(1, usuarioBD);
+               List<ParametrosAux> listaParametrosAux = query2.getResultList();
+               log.warn(this.getClass().getSimpleName() + ".parametrosComprobantes() Ya consulo Transients");
+               if (listaParametrosAux != null) {
+                  if (!listaParametrosAux.isEmpty()) {
+                     log.warn(this.getClass().getSimpleName() + ".parametrosComprobantes() listaParametrosAux.size(): " + listaParametrosAux.size());
+                     for (ParametrosAux recAux : listaParametrosAux) {
+                        for (Parametros recParametro : listaParametros) {
+                           if (recAux.getSecuencia().equals(recParametro.getSecuencia())) {
+                              recParametro.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+               Parametros auxParam;
+               while (listaParametros.size() > 0) {
+                  auxParam = listaParametros.get(0);
+                  if (listaParametros.size() > 1) {
+                     for (int i = 1; i < listaParametros.size(); i++) {
+                        if (auxParam.getCodigoEmpleado().compareTo(listaParametros.get(i).getCodigoEmpleado()) == 1) {
+                           auxParam = listaParametros.get(i);
+                        }
+                     }
+                  }
+                  listaParametros2.add(auxParam);
+                  listaParametros.remove(auxParam);
+               }
+            }
+         }
+         return listaParametros2;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaParametros.parametrosComprobantes" + e.getMessage());
+         log.error("PersistenciaParametros.parametrosComprobantes ERROR: " + e.getMessage());
          return null;
       }
    }
@@ -86,11 +138,37 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       try {
          log.warn("Persistencia.PersistenciaParametros.empleadosParametros() usuarioBD: " + usuarioBD + ", em: " + em);
          em.clear();
-         Query query = em.createQuery("SELECT p FROM Parametros p WHERE p.empleado IS NOT NULL AND p.usuario.alias = :usuarioBD", Parametros.class);
+         Query query = em.createQuery("SELECT p FROM Parametros p WHERE p.empleado IS NOT NULL AND p.usuario.alias = :usuarioBD", Parametros.class
+         );
          query.setParameter("usuarioBD", usuarioBD);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          log.warn("query: " + query);
          List<Parametros> listaParametros = query.getResultList();
+         if (listaParametros != null) {
+            if (!listaParametros.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT P.SECUENCIA, E.CODIGOEMPLEADO, E.PERSONA, PE.NOMBRE NOMBREPERSONA, PE.PRIMERAPELLIDO, PE.SEGUNDOAPELLIDO, PE.EMAIL\n"
+                       + " FROM Parametros p, USUARIOS U, EMPLEADOS E, PERSONAS PE\n"
+                       + " WHERE E.PERSONA = PE.SECUENCIA AND P.EMPLEADO = E.SECUENCIA\n"
+                       + " AND P.USUARIO = U.SECUENCIA AND p.empleado IS NOT NULL AND U.alias = ?", ParametrosAux.class
+               );
+               query2.setParameter(1, usuarioBD);
+               List<ParametrosAux> listaParametrosAux = query2.getResultList();
+               log.warn(this.getClass().getSimpleName() + ".empleadosParametros() Ya consulo Transients");
+               if (listaParametrosAux != null) {
+                  if (!listaParametrosAux.isEmpty()) {
+                     log.warn(this.getClass().getSimpleName() + ".empleadosParametros() listaParametrosAux.size(): " + listaParametrosAux.size());
+                     for (ParametrosAux recAux : listaParametrosAux) {
+                        for (Parametros recParametro : listaParametros) {
+                           if (recAux.getSecuencia().equals(recParametro.getSecuencia())) {
+                              recParametro.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaParametros;
       } catch (Exception e) {
          log.error("Exepcion en PersistenciaParametros.empleadosParametros" + e.getMessage());
@@ -168,6 +246,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
    @Override
    public CambiosMasivos buscarCambioMasivoSecuencia(EntityManager em, BigInteger secuencia) {
       em.clear();
+
       try {
          return em.find(CambiosMasivos.class, secuencia);
       } catch (Exception e) {
@@ -226,7 +305,8 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                  + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO) \n"
                  + "ORDER BY ULTIMAMODIFICACION DESC";
          log.warn("q : " + q);
-         Query query = em.createNativeQuery(q, CambiosMasivos.class);
+         Query query = em.createNativeQuery(q, CambiosMasivos.class
+         );
          List<CambiosMasivos> lista = query.getResultList();
          if (lista != null) {
             if (!lista.isEmpty()) {
@@ -271,7 +351,8 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       em.clear();
       try {
          String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + user + "' AND ROWNUM < 2";
-         Query query = em.createNativeQuery(q, ParametrosCambiosMasivos.class);
+         Query query = em.createNativeQuery(q, ParametrosCambiosMasivos.class
+         );
          log.warn("q : " + q);
          ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
          if (parametro != null) {
@@ -334,7 +415,8 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                           + "(SELECT EXT.NOMBRE FROM ESTRUCTURAS EXT WHERE SECUENCIA = " + parametro.getLocaliEstructura() + ") LOCALIESTRUCTURA \n"
                           + "FROM PARAMETROSCAMBIOSMASIVOS PM \n"
                           + "WHERE PM.USUARIOBD = user";
-                  Query query2 = em.createNativeQuery(q2, ParametrosCambiosMasivosAux.class);
+                  Query query2 = em.createNativeQuery(q2, ParametrosCambiosMasivosAux.class
+                  );
                   ParametrosCambiosMasivosAux objAux = (ParametrosCambiosMasivosAux) query2.getSingleResult();
                   if (objAux != null) {
                      if (objAux.getSecuencia() != null) {
@@ -443,4 +525,5 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          return false;
       }
    }
+
 }

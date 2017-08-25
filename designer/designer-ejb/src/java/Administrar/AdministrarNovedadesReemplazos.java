@@ -106,7 +106,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleados.buscarEmpleados(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
@@ -212,7 +212,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
    @Override
    public List<Empleados> buscarEmpleados() {
       try {
-         return persistenciaEmpleados.buscarEmpleados(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

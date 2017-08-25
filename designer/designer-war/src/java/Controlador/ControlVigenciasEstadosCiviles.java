@@ -120,7 +120,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -760,8 +760,11 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       a = null;
       int fechas = 0;
       mensajeValidacion = " ";
-      nuevoVigenciaEstadoCivil.setPersona(empleadoSeleccionado.getPersona());
-      RequestContext context = RequestContext.getCurrentInstance();
+      try {
+         nuevoVigenciaEstadoCivil.setPersona(administrarVigenciaEstadosCiviles.obtenerPersonaPorEmpleado(empleadoSeleccionado.getSecuencia()));
+      } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR: " + e);
+      }
       if (nuevoVigenciaEstadoCivil.getFechavigencia() == null || nuevoVigenciaEstadoCivil.getFechavigencia().equals("")) {
          mensajeValidacion = "Campo Fecha vacío \n";
       } else {
@@ -904,7 +907,11 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
       }
       if (duplicarVigenciaEstadoCivil.getPersona().getSecuencia() == null) {
-         duplicarVigenciaEstadoCivil.setPersona(empleadoSeleccionado.getPersona());
+         try {
+            duplicarVigenciaEstadoCivil.setPersona(administrarVigenciaEstadosCiviles.obtenerPersonaPorEmpleado(empleadoSeleccionado.getSecuencia()));
+         } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR: " + e);
+         }
       }
       if (contador == 2) {
          k++;

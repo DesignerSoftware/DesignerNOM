@@ -166,7 +166,7 @@ public class AdministrarATAprobacionHE implements AdministrarATAprobacionHEInter
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         List<Empleados> lista = persistenciaEmpleado.consultarEmpleadosParaAprobarHorasExtras(getEm());
+         List<Empleados> lista = persistenciaEmpleado.buscarEmpleadosActivosPensionados(getEm());
          return lista;
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());

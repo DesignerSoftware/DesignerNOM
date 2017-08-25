@@ -100,20 +100,24 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
       try {
          em.clear();
          String sql = "SELECT substr(B.DESCRIPCION,1,30)\n"
-                 + "   FROM DEMANDAS A, MOTIVOSDEMANDAS B\n"
-                 + "   WHERE A.EMPLEADO = (select secuencia from empleados where persona=?)\n"
-                 + "   AND A.MOTIVO = B.SECUENCIA\n"
-                 + "   AND A.SECUENCIA = (SELECT MAX(SECUENCIA) FROM DEMANDAS V WHERE V.EMPLEADO = A.EMPLEADO) AND ROWNUM = 1";
+                 + " FROM DEMANDAS A, MOTIVOSDEMANDAS B\n"
+                 + " WHERE A.EMPLEADO = (select secuencia from empleados where persona=?)\n"
+                 + " AND A.MOTIVO = B.SECUENCIA\n"
+                 + " AND A.SECUENCIA = (SELECT MAX(SECUENCIA) FROM DEMANDAS V WHERE V.EMPLEADO = A.EMPLEADO) AND ROWNUM = 1";
          Query queryFinal = em.createNativeQuery(sql);
          queryFinal.setParameter(1, secuenciaEmpl);
          demanda = (String) queryFinal.getSingleResult();
-         if(demanda == null){
-          return demanda;
+         if (demanda == null) {
+            return demanda;
          }
       } catch (Exception e) {
-          log.error("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
-         demanda = "";
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
+         } else {
+            log.error("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
+         }
       }
-      return demanda;
+      return "";
    }
+
 }

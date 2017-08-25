@@ -115,7 +115,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
    @Override
    public List<Empleados> buscarEmpleados() {
       try {
-         return persistenciaEmpleados.empleadosDefinitiva(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivosPensionados(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
@@ -124,7 +124,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
 
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleados.empleadosDefinitiva(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivosPensionados(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

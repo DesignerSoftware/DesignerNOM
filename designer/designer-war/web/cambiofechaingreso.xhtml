@@ -72,7 +72,7 @@
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
                      <h:outputText value="Empleado: " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
-                     <h:outputText id="nombreEmpleado" value="#{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" 
+                     <h:outputText id="nombreEmpleado" value="#{controlCambioFechaIngreso.empleado.nombreCompleto}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                      <h:outputText value="Codigo: " style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
@@ -124,7 +124,7 @@
 
                <p:dialog id="paso1" header="#{msg['atencion']}" widgetVar="paso1"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
-                  <h:outputText value="En este momento va a cambiar la fecha de ingreso del empleado: #{controlCambioFechaIngreso.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <h:outputText value="En este momento va a cambiar la fecha de ingreso del empleado: #{controlCambioFechaIngreso.empleado.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlCambioFechaIngreso.dialogoPaso2()}" onclick="PF('paso1').hide(), PF('paso2').show();" style="position: absolute; top: 50px; left: 210px;" process="@this"/>
                   <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('paso1').hide()" style="position: absolute; top: 50px; left: 300px;" process="@this"/>
                </p:dialog>

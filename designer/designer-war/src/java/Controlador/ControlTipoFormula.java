@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -96,7 +97,12 @@ public class ControlTipoFormula implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
    public String infoRegistro, infoRegistroLovFormula;
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlTipoFormula() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       cambiosPagina = true;
       nuevoTipoFormula = new TiposFormulas();
       nuevoTipoFormula.setFechainicial(new Date(20, 0, 1));
@@ -123,7 +129,7 @@ public class ControlTipoFormula implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -860,7 +866,12 @@ public class ControlTipoFormula implements Serializable {
 
    public List<Formulas> getLovFormulas() {
       if (lovFormulas == null) {
-         lovFormulas = administrarTiposFormulas.lovFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarTiposFormulas.lovFormulas();
+            if(lovFormulas != null){listasRecurrentes.setLovFormulas(lovFormulas);}
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
       return lovFormulas;
    }

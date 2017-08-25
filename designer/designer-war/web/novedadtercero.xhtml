@@ -163,12 +163,12 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['nombreempleadoNOV']}" sortBy="#{novedades.empleado.persona.nombreCompleto}" filterBy="#{novedades.empleado.persona.nombreCompleto}" 
+                        <p:column headerText="#{msg['nombreempleadoNOV']}" sortBy="#{novedades.empleado.nombreCompleto}" filterBy="#{novedades.empleado.nombreCompleto}" 
                                   filterMatchMode="contains" id="nTEmpleadoNombre" filterStyle="display: none; visibility: hidden;">                                  
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{novedades.empleado.persona.nombreCompleto}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{novedades.empleado.nombreCompleto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{novedades.empleado.persona.nombreCompleto}" id="editarnombreEmpleado" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{novedades.empleado.nombreCompleto}" id="editarnombreEmpleado" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 0, 0)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 1)}" process="@this"/>
                                  </p:inputText>
@@ -497,11 +497,11 @@
                         <h:outputText value="#{emp.codigoempleado}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" width="150" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" width="150" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreE']}"/>
                         </f:facet>
-                        <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                        <h:outputText value="#{emp.nombreCompleto}"/>  
                      </p:column>
 
                   </p:dataTable>
@@ -671,7 +671,7 @@
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 80px;" id="btnDuplicarEmpleadoCodigo" actionListener="#{controlNovedadesTerceros.asignarIndex( 0, 2)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarEmpleadoNombre" value="#{controlNovedadesTerceros.duplicarNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();" readonly="true">
+                     <p:inputText autocomplete="off" id="duplicarEmpleadoNombre" value="#{controlNovedadesTerceros.duplicarNovedad.empleado.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();" readonly="true">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -775,7 +775,7 @@
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 80px;" id="btnNuevoEmpleado" actionListener="#{controlNovedadesTerceros.asignarIndex( 0, 1)}" value="" process="@this"/>
 
                      <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoEmpleadoNombre" value="#{controlNovedadesTerceros.nuevaNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();" readonly="true">
+                     <p:inputText autocomplete="off" id="nuevoEmpleadoNombre" value="#{controlNovedadesTerceros.nuevaNovedad.empleado.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase;" onclick="select();" readonly="true">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -896,7 +896,7 @@
                </p:dialog>
 
                <p:dialog id="editarEmpleadosNombres" header="#{msg['editarEmpleadosNombres']}" widgetVar="editarEmpleadosNombres" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarConceptosCodigos" header="#{msg['editarConceptosCodigos']}" widgetVar="editarConceptosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -1024,7 +1024,7 @@
 
                   <p:column headerText="#{msg['nombreempleadoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['nombreempleadoX']}"/> </f:facet> 
-                     <h:outputText value="#{novedades.empleado.persona.nombreCompleto}"/>
+                     <h:outputText value="#{novedades.empleado.nombreCompleto}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['codigoX']}">                                  

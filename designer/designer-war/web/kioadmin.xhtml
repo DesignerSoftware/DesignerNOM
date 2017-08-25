@@ -119,17 +119,17 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Nombre Empleado" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" filterMatchMode="contains"  
+                                <p:column headerText="Nombre Empleado" sortBy="#{info.nombreCompleto}" filterBy="#{info.nombreEmpresa}" filterMatchMode="contains"  
                                           id="nombreempleado" filterStyle="display: none; visibility: hidden;" width="270">  
                                     <p:cellEditor>
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.persona.nombreCompleto}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
+                                            <p:inputText autocomplete="off" value="#{info.nombreCompleto}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                                 <p:ajax event="select" listener="#{controlKioAdmin.cambiarIndice(info,1)}" process="@this"
                                                         onstart="PF('datosKioAdmin').unselectAllRows();PF('datosKioAdmin').selectRow(#{indice});"/> 
                                             </p:inputText> 
                                         </f:facet>
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.persona.nombreCompleto}"/>
+                                            <h:outputText value="#{info.nombreCompleto}"/>
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -137,17 +137,17 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Empresa" sortBy="#{info.empresa.nombre}" filterBy="#{info.empresa.nombre}"
+                                <p:column headerText="Empresa" sortBy="#{info.nombreEmpresa}" filterBy="#{info.nombreEmpresa}"
                                           filterMatchMode="contains" id="empresa" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{info.empresa.nombre}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
+                                            <p:inputText autocomplete="off" value="#{info.nombreEmpresa}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                                 <p:ajax event="select" listener="#{controlKioAdmin.cambiarIndice(info,2)}" process="@this"
                                                         onstart="PF('datosKioAdmin').unselectAllRows();PF('datosKioAdmin').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>
                                         <f:facet name="output">
-                                            <h:outputText value="#{info.empresa.nombre}"/>
+                                            <h:outputText value="#{info.nombreEmpresa}"/>
                                         </f:facet>
                                     </p:cellEditor>
 
@@ -343,11 +343,11 @@
                                 <h:outputText value="#{emp.codigoempleado}"/>  
                             </p:column>
 
-                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
+                            <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                                <h:outputText value="#{emp.nombreCompleto}"/>  
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV"> 
@@ -369,11 +369,11 @@
                     </p:dialog>
 
                     <p:dialog id="editarNombreEmpleado" header="Nombre Empleado" widgetVar="editarNombreEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>                        
+                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.nombreCompleto}" style="overflow: auto;" readonly="true"/>                        
                     </p:dialog>
 
                     <p:dialog id="editarNombreEmpresa" header="Empresa" widgetVar="editarNombreEmpresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlKioAdmin.editarEmpleadoCK.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     <!--             
                     

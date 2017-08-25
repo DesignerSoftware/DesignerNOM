@@ -161,7 +161,7 @@ public class ControlIdiomaPersona implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -410,20 +410,22 @@ public class ControlIdiomaPersona implements Serializable {
             filtrarListIdiomasPersonas = null;
             tipoLista = 0;
          }
-
          boolean continuar = validarIdioma();
          if (continuar) {
             k++;
             l = BigInteger.valueOf(k);
             nuevaIdiomaPersona.setSecuencia(l);
-            nuevaIdiomaPersona.setPersona(empleadoActual.getPersona());
+            try {
+               nuevaIdiomaPersona.setPersona(administrarIdiomaPersona.obtenerPersonaPorEmpleado(empleadoActual.getSecuencia()));
+            } catch (Exception e) {
+               log.error(this.getClass().getSimpleName() + ".agregarNuevaIdiomaPersona() Error : " + e);
+            }
             listIdiomaPersonaCrear.add(nuevaIdiomaPersona);
             if (listIdiomasPersonas == null) {
                listIdiomasPersonas = new ArrayList<IdiomasPersonas>();
             }
             listIdiomasPersonas.add(nuevaIdiomaPersona);
             idiomaTablaSeleccionado = nuevaIdiomaPersona;
-            RequestContext context = RequestContext.getCurrentInstance();
             getListIdiomasPersonas();
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
@@ -504,7 +506,11 @@ public class ControlIdiomaPersona implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             duplicarIdiomaPersona.setSecuencia(l);
-            duplicarIdiomaPersona.setPersona(empleadoActual.getPersona());
+            try {
+               duplicarIdiomaPersona.setPersona(administrarIdiomaPersona.obtenerPersonaPorEmpleado(empleadoActual.getSecuencia()));
+            } catch (Exception e) {
+               log.error(this.getClass().getSimpleName() + ".agregarNuevaIdiomaPersona() Error : " + e);
+            }
             listIdiomasPersonas.add(duplicarIdiomaPersona);
             listIdiomaPersonaCrear.add(duplicarIdiomaPersona);
             if (listIdiomasPersonas == null) {
@@ -829,7 +835,7 @@ public class ControlIdiomaPersona implements Serializable {
       try {
          if (listIdiomasPersonas == null) {
             if (empleadoActual.getSecuencia() != null) {
-               listIdiomasPersonas = administrarIdiomaPersona.listIdiomasPersonas(empleadoActual.getPersona().getSecuencia());
+               listIdiomasPersonas = administrarIdiomaPersona.listIdiomasPersonas(empleadoActual.getPersona());
             }
          }
          return listIdiomasPersonas;

@@ -99,7 +99,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
    public List<HvEntrevistas> buscarHvEntrevistasPorEmpleado(EntityManager em, BigInteger secEmpleado) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT he FROM HVHojasDeVida hv , HvEntrevistas he , Empleados e WHERE hv.secuencia = he.hojadevida.secuencia AND e.persona.secuencia= hv.persona.secuencia AND e.secuencia = :secuenciaEmpl ORDER BY he.fecha ");
+         Query query = em.createQuery("SELECT he FROM HVHojasDeVida hv , HvEntrevistas he , Empleados e WHERE hv.secuencia = he.hojadevida.secuencia AND e.persona = hv.persona.secuencia AND e.secuencia = :secuenciaEmpl ORDER BY he.fecha ");
          query.setParameter("secuenciaEmpl", secEmpleado);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<HvEntrevistas> listHvEntrevistas = query.getResultList();
@@ -159,7 +159,11 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          query.setParameter(1, secuenciaHV);
          entrevista = (String) query.getSingleResult();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
+         } else {
+            log.error("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
+         }
          entrevista = "";
       }
       return entrevista;

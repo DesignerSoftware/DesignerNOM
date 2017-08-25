@@ -47,12 +47,12 @@
 
                                 </p:column>  
 
-                                <p:column headerText="Nombre Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}" filterMatchMode="contains"  id="nombreEmpleado" width="200" filterStyle="display: none; visibility: hidden;">      
+                                <p:column headerText="Nombre Empleado" sortBy="#{info.empleado.nombreCompleto}" filterBy="#{info.empleado.nombreCompleto}" filterMatchMode="contains"  id="nombreEmpleado" width="200" filterStyle="display: none; visibility: hidden;">      
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.empleado.persona.nombreCompleto}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.empleado.nombreCompleto}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" id="editarNombreCentroCoso" value="#{info.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 99%;height: 12px; text-transform: uppercase;">
-                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.empleado.persona.nombreCompleto)}" update="@this"/>
+                                            <p:inputText autocomplete="off" id="editarNombreCentroCoso" value="#{info.empleado.nombreCompleto}" style=" border-radius: 0px; width: 99%;height: 12px; text-transform: uppercase;">
+                                                <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.empleado.nombreCompleto)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 1)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -354,7 +354,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarNombreEmpleadoD" header="Nombre Empleado" widgetVar="editarNombreEmpleadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaDesdeD" header="Fecha Desde" widgetVar="editarFechaDesdeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px; padding: 0px">  
@@ -408,7 +408,7 @@
                     <!-- LOV EMPRESAS -->
                     <p:dialog header="Empleados" widgetVar="EmpleadosDialogo" draggable="true" resizable="false" closable="false" id="EmpleadosDialogo"  
                               showEffect="fade" hideEffect="fade" width="370" modal="true" style="">
-                        <p:dataTable id="lovEmpleados" style="width: 330px;" var="empresa" value="#{controlProyecciones.listaEmpleados}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpleados" style="width: 330px;" var="empresa" value="#{controlProyecciones.listaEmpleados}" rowKey="#{empleado.secuencia}"
                                      selection="#{controlProyecciones.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleados" scrollable="true" scrollWidth="350" scrollHeight="250"
                                      filteredValue="#{controlProyecciones.filtradoListaEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlProyecciones.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
@@ -417,17 +417,17 @@
                                 <h:outputText value="Buscar Empleados :"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:100px; position: relative; left: 10px;"/>  
                             </f:facet>
-                            <p:column filterBy="#{empresa.persona.numerodocumento}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                            <p:column filterBy="#{empleado.numeroDocumento}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
                                     <h:outputText value="Num Documento"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.persona.numerodocumento}"/>
+                                <h:outputText  value="#{empleado.numeroDocumento}"/>
                             </p:column>
-                            <p:column filterBy="#{empresa.persona.nombreCompleto}" filterMatchMode="contains">
+                            <p:column filterBy="#{empleado.nombreCompleto}" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText  value="#{empresa.persona.nombreCompleto}"/>
+                                <h:outputText  value="#{empleado.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
                         <h:outputText id="infoRegistroEmpleados" value="#{controlProyecciones.infoRegistroEmpleados}" style="position: absolute; left: 5px; top: 350px; font-weight: bold;"/>
@@ -454,7 +454,7 @@
                         <!--1-->
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Empelado"/></f:facet>
-                            <h:outputText value="#{info.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{info.empleado.nombreCompleto}"/>
                         </p:column>
                         <!--2-->
                         <p:column>  

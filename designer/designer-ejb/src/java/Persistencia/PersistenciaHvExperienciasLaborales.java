@@ -138,11 +138,15 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, secuenciaHv);
          experiencia = (String) query.getSingleResult();
-         if(experiencia == null){
-         experiencia = "";
+         if (experiencia == null) {
+            experiencia = "";
          }
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
+         } else {
+            log.error("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
+         }
          experiencia = "";
       }
       return experiencia;

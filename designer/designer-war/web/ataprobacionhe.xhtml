@@ -218,9 +218,9 @@
                                     <p:ajax event="filter" update=":form:tablaInferiorDerecha, :form:tablaInferiorIzquierda"/> -->
 
 
-                                    <p:column headerText="#{msg['numDocumento']}" style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCab.empleado.persona.strNumeroDocumento}" 
+                                    <p:column headerText="#{msg['numDocumento']}" style="height: 16px;" sortBy="#{infoCab.empleado.strNumeroDocumento}" filterBy="#{infoCab.empleado.strNumeroDocumento}" 
                                               filterMatchMode="contains" id="cabeceraNumDocumento" width="80" filterStyle="display: none; visibility: hidden;"/>
-                                    <p:column headerText="#{msg['nombreEmpleado']}" style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
+                                    <p:column headerText="#{msg['nombreEmpleado']}" style="height: 16px;" sortBy="#{infoCab.empleado.nombreCompleto}" filterBy="#{infoCab.empleado.nombreCompleto}" 
                                               filterMatchMode="contains" id="cabeceraNombreEmpleado" width="30" filterStyle="display: none; visibility: hidden;"/>
                                     <p:column headerText="#{msg['horas']}" style="height: 16px;" sortBy="#{infoCab.horas}" filterBy="#{infoCab.horas}" 
                                               filterMatchMode="contains" id="cabeceraHoras" width="20" filterStyle="display: none; visibility: hidden;"/>
@@ -250,24 +250,24 @@
                                              rows="#{controlATAprobacionHE.rowsCabecera}"
                                  >
 
-                                    <p:column  style="height: 16px;" sortBy="#{infoCab.empleado.persona.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.persona.strNumeroDocumento}" 
+                                    <p:column  style="height: 16px;" sortBy="#{infoCab.empleado.strNumeroDocumento}" filterBy="#{infoCabempleado.empleado.strNumeroDocumento}" 
                                                 filterMatchMode="contains" id="cabeceraNumDocumento" width="91" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.strNumeroDocumento}"/></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.strNumeroDocumento}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText autocomplete="off"  value="#{infoCab.empleado.persona.strNumeroDocumento}" readonly="true" id="editarNumDocumentoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.empleado.strNumeroDocumento}" readonly="true" id="editarNumDocumentoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '2'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
                                         </p:cellEditor>
                                     </p:column>  
 
-                                    <p:column style="height: 16px;" sortBy="#{infoCab.empleado.persona.nombreCompleto}" filterBy="#{infoCab.empleado.persona.nombreCompleto}" 
+                                    <p:column style="height: 16px;" sortBy="#{infoCab.empleado.nombreCompleto}" filterBy="#{infoCab.empleado.nombreCompleto}" 
                                                filterMatchMode="contains" id="cabeceraNombreEmpleado" width="29" filterStyle="display: none; visibility: hidden;">                                  
                                         <p:cellEditor>  
-                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.persona.nombreCompleto}"/></f:facet>  
+                                            <f:facet name="output"><h:outputText value="#{infoCab.empleado.nombreCompleto}"/></f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText autocomplete="off"  value="#{infoCab.empleado.persona.nombreCompleto}" readonly="true" id="editarNombreEmpleadoCabecera" style="border-radius: 0px; width: 98.5%;"
+                                                <p:inputText autocomplete="off"  value="#{infoCab.empleado.nombreCompleto}" readonly="true" id="editarNombreEmpleadoCabecera" style="border-radius: 0px; width: 98.5%;"
                                                              onselect="posicionCabecera([{name: 'n', value: '3'}, {name: 't', value: '#{indiceCab}'}]);"
                                                              /> 
                                             </f:facet>  
@@ -615,11 +615,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleados.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleados.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                            <p:column filterBy="#{empleados.nombreCompleto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEmpleado']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleados.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -643,11 +643,11 @@
                     </p:dialog>
 
                     <p:dialog id="editarCabeceraNumDocumento" header="#{msg['editarCabeceraNumDocumento']}" widgetVar="editarCabeceraNumDocumento" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.empleado.persona.strNumeroDocumento}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.empleado.strNumeroDocumento}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEmplNombre" header="#{msg['editarEmplNombre']}" widgetVar="editarEmplNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATAprobacionHE.editarCabecera.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCabeceraHoras" header="#{msg['editarCabeceraHoras']}" widgetVar="editarCabeceraHoras" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -733,12 +733,12 @@
 
                         <p:column headerText="#{msg['numeroDocumentoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['numeroDocumentoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.empleado.persona.strNumeroDocumento}"/>
+                            <h:outputText value="#{infoExp_C.empleado.strNumeroDocumento}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp_C.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{infoExp_C.empleado.nombreCompleto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['horasX']}">                                  

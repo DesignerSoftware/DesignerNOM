@@ -35,13 +35,13 @@ public interface AdministrarNReportesSeguridadInterface {
 
     public List<Empresas> listEmpresas();
 
-    public List<GruposConceptos> listGrupos();
+//    public List<GruposConceptos> listGrupos();
 
     public void modificarParametrosReportes(ParametrosReportes parametroInforme);
 
     public List<Terceros> listTerceros();
 
-    public List<TiposTrabajadores> listTiposTrabajadores();
+//    public List<TiposTrabajadores> listTiposTrabajadores();
 
     public List<Estructuras> listEstructuras();
 

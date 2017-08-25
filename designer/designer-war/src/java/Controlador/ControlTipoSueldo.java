@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -126,7 +127,12 @@ public class ControlTipoSueldo implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlTipoSueldo() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       activoFormulaConcepto = true;
       activoGrupoDistribucion = true;
       activoTipoEntidad = true;
@@ -531,7 +537,6 @@ public class ControlTipoSueldo implements Serializable {
       tsFormulaTablaSeleccionado = tsformulac;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
          tsFormulaTablaSeleccionado.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
          for (int i = 0; i < lovFormulas.size(); i++) {
@@ -695,7 +700,6 @@ public class ControlTipoSueldo implements Serializable {
       teFormulaTablaSeleccionado = teformcon;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("FORMULATE")) {
          teFormulaTablaSeleccionado.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
          for (int i = 0; i < lovFormulas.size(); i++) {
@@ -3099,7 +3103,12 @@ public class ControlTipoSueldo implements Serializable {
 
    public List<Formulas> getLovFormulas() {
       if (lovFormulas == null) {
-         lovFormulas = administrarTipoSueldo.lovFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarTipoSueldo.lovFormulas();
+            if(lovFormulas != null){listasRecurrentes.setLovFormulas(lovFormulas);}
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
       return lovFormulas;
    }

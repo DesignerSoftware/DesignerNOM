@@ -373,7 +373,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
          paraNuevaNovedad++;
          nuevaNovedad.setSecuencia(BigInteger.valueOf(paraNuevaNovedad));
          nuevaNovedad.setEmpleado(empleadoSeleccionado); //Envia empleado
-         log.info("Empleado enviado: " + empleadoSeleccionado.getPersona().getNombreCompleto());
+         log.info("Empleado enviado: " + empleadoSeleccionado.getNombreCompleto());
          //-------Datos Ingresados    
          log.info("empleado : " + empleadoSeleccionado);
          log.info("fecha cesantias" + nuevaNovedad.getFechacortecesantia());

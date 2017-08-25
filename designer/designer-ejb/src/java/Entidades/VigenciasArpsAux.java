@@ -8,6 +8,7 @@ package Entidades;
 import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import javax.validation.constraints.NotNull;
  * @author user
  */
 @Entity
+@Cacheable(false)
 public class VigenciasArpsAux implements Serializable {
 
    private static final long serialVersionUID = 1L;

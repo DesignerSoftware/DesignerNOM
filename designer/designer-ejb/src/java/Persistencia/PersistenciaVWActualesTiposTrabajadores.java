@@ -5,6 +5,7 @@ package Persistencia;
 
 import Entidades.Empleados;
 import Entidades.VWActualesTiposTrabajadores;
+import Entidades.VWActualesTiposTrabajadoresAux;
 import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import java.math.BigInteger;
 import java.util.Date;
@@ -36,11 +37,29 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
    public VWActualesTiposTrabajadores buscarTipoTrabajador(EntityManager em, BigInteger secuencia) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.empleado.secuencia = :empleado");
+         Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.empleado = :empleado");
          query.setParameter("empleado", secuencia);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = (VWActualesTiposTrabajadores) query.getSingleResult();
-         return vwActualesTiposTrabajadores;
+         VWActualesTiposTrabajadores vwActualTT = (VWActualesTiposTrabajadores) query.getSingleResult();
+         if (vwActualTT != null) {
+            if (vwActualTT.getSecuencia() != null) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT v.SECUENCIA, RETENCIONYSEGSOCXPERSONA, p.NUMERODOCUMENTO, e.CODIGOEMPLEADO,"
+                       + " p.secuencia PERSONA, p.nombre NOMBREPERSONA, p.PRIMERAPELLIDO, p.SEGUNDOAPELLIDO\n"
+                       + " FROM VWActualesTiposTrabajadores v, empleados e, personas p, empresas em\n"
+                       + " WHERE e.persona = p.secuencia and em.secuencia = e.empresa and e.secuencia = v.empleado and v.secuencia = " + vwActualTT.getSecuencia(), VWActualesTiposTrabajadoresAux.class);
+               VWActualesTiposTrabajadoresAux vwActualTTAux = (VWActualesTiposTrabajadoresAux) query2.getSingleResult();
+               log.warn(this.getClass().getSimpleName() + ".buscarTipoTrabajador() vwActualTTAux: " + vwActualTTAux);
+               if (vwActualTTAux != null) {
+                  if (vwActualTTAux.getSecuencia() != null) {
+                     if (vwActualTTAux.getSecuencia().equals(vwActualTT.getSecuencia())) {
+                        vwActualTT.llenarTransients(vwActualTTAux);
+                     }
+                  }
+               }
+            }
+         }
+         return vwActualTT;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador()" + e.getMessage());
          return null;
@@ -51,11 +70,29 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
    public VWActualesTiposTrabajadores buscarTipoTrabajadorCodigoEmpl(EntityManager em, BigInteger codigo) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.empleado.codigoempleado = :empleado");
+         Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.codigoEmpleado = :empleado");
          query.setParameter("empleado", codigo);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = (VWActualesTiposTrabajadores) query.getSingleResult();
-         return vwActualesTiposTrabajadores;
+         VWActualesTiposTrabajadores vwActualTT = (VWActualesTiposTrabajadores) query.getSingleResult();
+         if (vwActualTT != null) {
+            if (vwActualTT.getSecuencia() != null) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT v.SECUENCIA, RETENCIONYSEGSOCXPERSONA, p.NUMERODOCUMENTO, e.CODIGOEMPLEADO,"
+                       + " p.secuencia PERSONA, p.nombre NOMBREPERSONA, p.PRIMERAPELLIDO, p.SEGUNDOAPELLIDO\n"
+                       + " FROM VWActualesTiposTrabajadores v, empleados e, personas p, empresas em\n"
+                       + " WHERE e.persona = p.secuencia and em.secuencia = e.empresa and e.secuencia = v.empleado and v.secuencia = " + vwActualTT.getSecuencia(), VWActualesTiposTrabajadoresAux.class);
+               VWActualesTiposTrabajadoresAux vwActualTTAux = (VWActualesTiposTrabajadoresAux) query2.getSingleResult();
+               log.warn(this.getClass().getSimpleName() + ".buscarTipoTrabajadorCodigoEmpl() vwActualTTAux: " + vwActualTTAux);
+               if (vwActualTTAux != null) {
+                  if (vwActualTTAux.getSecuencia() != null) {
+                     if (vwActualTTAux.getSecuencia().equals(vwActualTT.getSecuencia())) {
+                        vwActualTT.llenarTransients(vwActualTTAux);
+                     }
+                  }
+               }
+            }
+         }
+         return vwActualTT;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl() ERROR : " + e);
          return null;
@@ -67,18 +104,40 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
       try {
          em.clear();
          if (!p_tipo.isEmpty()) {
-            List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadoresLista = (List<VWActualesTiposTrabajadores>) em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador")
+            List<VWActualesTiposTrabajadores> vwAtualesTT = (List<VWActualesTiposTrabajadores>) em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador")
                     .setParameter("tipotrabajador", p_tipo)
                     .getResultList();
-            return vwActualesTiposTrabajadoresLista;
+            if (vwAtualesTT != null) {
+               if (!vwAtualesTT.isEmpty()) {
+                  em.clear();
+                  Query query2 = em.createNativeQuery("SELECT v.SECUENCIA, RETENCIONYSEGSOCXPERSONA, p.NUMERODOCUMENTO, e.CODIGOEMPLEADO, p.secuencia PERSONA, p.nombre NOMBREPERSONA, p.PRIMERAPELLIDO, p.SEGUNDOAPELLIDO\n"
+                          + " FROM VWActualesTiposTrabajadores v, empleados e, personas p, empresas em, VWActualesTiposTrabajadores vwatt, TIPOSTRABAJADORES TT\n"
+                          + " WHERE TT.SECUENCIA = vwatt.TIPOTRABAJADOR AND vwatt.EMPLEADO = E.SECUENCIA AND e.persona = p.secuencia\n"
+                          + " and em.secuencia = e.empresa and e.secuencia = v.empleado AND TT.TIPO = '" + p_tipo + "'", VWActualesTiposTrabajadoresAux.class);
+                  List<VWActualesTiposTrabajadoresAux> listaActualesTTAux = query2.getResultList();
+                  log.warn(this.getClass().getSimpleName() + ".FiltrarTipoTrabajador() Ya consulo Transients");
+                  if (listaActualesTTAux != null) {
+                     if (!listaActualesTTAux.isEmpty()) {
+                        log.warn(this.getClass().getSimpleName() + ".FiltrarTipoTrabajador() listaActualesTTAux.size(): " + listaActualesTTAux.size());
+                        for (VWActualesTiposTrabajadoresAux recAux : listaActualesTTAux) {
+                           for (VWActualesTiposTrabajadores recActualTT : vwAtualesTT) {
+                              if (recAux.getSecuencia().equals(recActualTT.getSecuencia())) {
+                                 recActualTT.llenarTransients(recAux);
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+            return vwAtualesTT;
          } else {
             log.warn("Error en PersistenciaVWActualesTiposTrabajadores.FiltrarTipoTrabajador. No recibió el parametro");
-            List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadores = null;
-            return vwActualesTiposTrabajadores;
+            return null;
          }
       } catch (Exception e) {
-         List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadores = null;
-         return vwActualesTiposTrabajadores;
+         log.error("PersistenciaVWActualesTiposTrabajadores.FiltrarTipoTrabajador() ERROR : " + e);
+         return null;
       }
    }
 
@@ -88,12 +147,30 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          em.clear();
          if (!p_tipo.isEmpty()) {
             Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt, Empleados e"
-                    + " WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador AND vwatt.empleado.secuencia = e.secuencia");
+                    + " WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador AND vwatt.empleado = e.secuencia");
             query.setParameter("tipotrabajador", p_tipo);
             query.setFirstResult(posicion);
             query.setMaxResults(1);
-            VWActualesTiposTrabajadores vwActualesTiposTrabajadores = (VWActualesTiposTrabajadores) query.getSingleResult();
-            return vwActualesTiposTrabajadores;
+            VWActualesTiposTrabajadores vwActualTT = (VWActualesTiposTrabajadores) query.getSingleResult();
+            if (vwActualTT != null) {
+               if (vwActualTT.getSecuencia() != null) {
+                  em.clear();
+                  Query query2 = em.createNativeQuery("SELECT v.SECUENCIA, RETENCIONYSEGSOCXPERSONA, p.NUMERODOCUMENTO, e.CODIGOEMPLEADO,"
+                          + " p.secuencia PERSONA, p.nombre NOMBREPERSONA, p.PRIMERAPELLIDO, p.SEGUNDOAPELLIDO\n"
+                          + " FROM VWActualesTiposTrabajadores v, empleados e, personas p, empresas em\n"
+                          + " WHERE e.persona = p.secuencia and em.secuencia = e.empresa and e.secuencia = v.empleado and v.secuencia = " + vwActualTT.getSecuencia(), VWActualesTiposTrabajadoresAux.class);
+                  VWActualesTiposTrabajadoresAux vwActualTTAux = (VWActualesTiposTrabajadoresAux) query2.getSingleResult();
+                  log.warn(this.getClass().getSimpleName() + ".filtrarTipoTrabajadorPosicion() vwActualTTAux: " + vwActualTTAux);
+                  if (vwActualTTAux != null) {
+                     if (vwActualTTAux.getSecuencia() != null) {
+                        if (vwActualTTAux.getSecuencia().equals(vwActualTT.getSecuencia())) {
+                           vwActualTT.llenarTransients(vwActualTTAux);
+                        }
+                     }
+                  }
+               }
+            }
+            return vwActualTT;
          } else {
             log.warn("Error en PersistenciaVWActualesTiposTrabajadores.filtrarTipoTrabajadorPosicion. " + "No recibió el parametro");
             return null;
@@ -109,7 +186,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          em.clear();
          if (!p_tipo.isEmpty()) {
             Query query = em.createQuery("SELECT COUNT(vwatt) FROM VWActualesTiposTrabajadores vwatt, Empleados e"
-                    + " WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador AND vwatt.empleado.secuencia = e.secuencia");
+                    + " WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador AND vwatt.empleado = e.secuencia");
             query.setParameter("tipotrabajador", p_tipo);
             Long totalRegistros = (Long) query.getSingleResult();
             log.warn("Valor total Registros: " + totalRegistros);
@@ -130,9 +207,31 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
    public List<VWActualesTiposTrabajadores> busquedaRapidaTrabajadores(EntityManager em) {
       try {
          em.clear();
-         List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadoresLista = (List<VWActualesTiposTrabajadores>) em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt")
-                 .getResultList();
-         return vwActualesTiposTrabajadoresLista;
+         List<VWActualesTiposTrabajadores> vwAtualesTT = (List<VWActualesTiposTrabajadores>) em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt").getResultList();
+         if (vwAtualesTT != null) {
+            if (!vwAtualesTT.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT v.SECUENCIA, RETENCIONYSEGSOCXPERSONA, p.NUMERODOCUMENTO, e.CODIGOEMPLEADO,"
+                       + " p.secuencia PERSONA, p.nombre NOMBREPERSONA, p.PRIMERAPELLIDO, p.SEGUNDOAPELLIDO\n"
+                       + " FROM VWActualesTiposTrabajadores v, empleados e, personas p, empresas em\n"
+                       + " WHERE e.persona = p.secuencia and em.secuencia = e.empresa and e.secuencia = v.empleado", VWActualesTiposTrabajadoresAux.class);
+               List<VWActualesTiposTrabajadoresAux> listaActualesTTAux = query2.getResultList();
+               log.warn(this.getClass().getSimpleName() + ".busquedaRapidaTrabajadores() Ya consulo Transients");
+               if (listaActualesTTAux != null) {
+                  if (!listaActualesTTAux.isEmpty()) {
+                     log.warn(this.getClass().getSimpleName() + ".busquedaRapidaTrabajadores() listaActualesTTAux.size(): " + listaActualesTTAux.size());
+                     for (VWActualesTiposTrabajadoresAux recAux : listaActualesTTAux) {
+                        for (VWActualesTiposTrabajadores recActualTT : vwAtualesTT) {
+                           if (recAux.getSecuencia().equals(recActualTT.getSecuencia())) {
+                              recActualTT.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+         return vwAtualesTT;
       } catch (Exception e) {
          log.error("PersistenciaVWActualesTiposTrabajadores.busquedaRapidaTrabajadores() ERROR: " + e);
          List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadores = null;
@@ -195,9 +294,31 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          em.clear();
          Query query = em.createQuery("SELECT vw FROM VWActualesTiposTrabajadores vw where vw.tipoTrabajador.tipo IN ('ACTIVO','PENSIONADO','RETIRADO')");
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         List<VWActualesTiposTrabajadores> tipoEmpleado = query.getResultList();
-         log.warn("Tiene: " + tipoEmpleado.size() + " registros");
-         return tipoEmpleado;
+         List<VWActualesTiposTrabajadores> vwAtualesTT = query.getResultList();
+         if (vwAtualesTT != null) {
+            if (!vwAtualesTT.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT v.SECUENCIA, RETENCIONYSEGSOCXPERSONA, p.NUMERODOCUMENTO, e.CODIGOEMPLEADO, p.secuencia PERSONA, p.nombre NOMBREPERSONA, p.PRIMERAPELLIDO, p.SEGUNDOAPELLIDO\n"
+                       + " FROM VWActualesTiposTrabajadores v, empleados e, personas p, empresas em, VWActualesTiposTrabajadores vwatt, TIPOSTRABAJADORES TT\n"
+                       + " WHERE TT.SECUENCIA = vwatt.TIPOTRABAJADOR AND vwatt.EMPLEADO = E.SECUENCIA AND e.persona = p.secuencia\n"
+                       + " and em.secuencia = e.empresa and e.secuencia = v.empleado AND TT.tipo IN ('ACTIVO','PENSIONADO','RETIRADO')", VWActualesTiposTrabajadoresAux.class);
+               List<VWActualesTiposTrabajadoresAux> listaActualesTTAux = query2.getResultList();
+               log.warn(this.getClass().getSimpleName() + ".tipoTrabajadorEmpleado() Ya consulo Transients");
+               if (listaActualesTTAux != null) {
+                  if (!listaActualesTTAux.isEmpty()) {
+                     log.warn(this.getClass().getSimpleName() + ".tipoTrabajadorEmpleado() listaActualesTTAux.size(): " + listaActualesTTAux.size());
+                     for (VWActualesTiposTrabajadoresAux recAux : listaActualesTTAux) {
+                        for (VWActualesTiposTrabajadores recActualTT : vwAtualesTT) {
+                           if (recAux.getSecuencia().equals(recActualTT.getSecuencia())) {
+                              recActualTT.llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+         return vwAtualesTT;
       } catch (Exception e) {
          log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado" + e);
          return null;

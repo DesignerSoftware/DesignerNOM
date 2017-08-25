@@ -122,7 +122,7 @@ public class ControlComprobantes implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -258,15 +258,20 @@ public class ControlComprobantes implements Serializable {
       getListaSolucionesNodosEmpleado();
       getListaSolucionesNodosEmpleador();
       RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:panelInf");
-      RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
-      RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
-      RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
-      RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
-      RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+      context.update("form:panelInf");
+      context.update("form:datosSolucionesNodosEmpleado");
+      context.update("form:datosSolucionesNodosEmpleador");
+      context.update("formularioDialogos:buscarEmpleadoDialogo");
+      context.update("formularioDialogos:lovEmpleados");
+      context.update("formularioDialogos:aceptarP");
       context.reset("formularioDialogos:lovEmpleados:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovEmpleados').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('buscarEmpleadoDialogo').hide()");
+      context.execute("PF('lovEmpleados').clearFilters()");
+      context.execute("PF('buscarEmpleadoDialogo').hide()");
+      context.update("form:pagocomprobante");
+      context.update("form:descuentocomprobante");
+      context.update("form:netocomprobante");
+      context.update("form:pasivocomprobantes");
+      context.update("form:gastocomprobantes");
       contarRegistrosComprobanteEmpleado();
       contarRegistrosComprobanteEmpleador();
    }
@@ -875,22 +880,22 @@ public class ControlComprobantes implements Serializable {
    public List<SolucionesNodos> getListaSolucionesNodosEmpleado() {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleado.isEmpty()) {
-            listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(parametroActual.getEmpleado().getSecuencia());
+            listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(parametroActual.getEmpleado());
             log.info("ControlComprobantes.getListaSolucionesNodosEmpleado() Consulto");
             if (listaSolucionesNodosEmpleado != null) {
-               subtotalPago = new BigDecimal(0);
-               subtotalDescuento = new BigDecimal(0);
-               for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleado) {
-                  if (recSolNodo.getTipo().equals("PAGO")) {
-                     subtotalPago = subtotalPago.add(recSolNodo.getValor());
-                  } else {
-                     subtotalDescuento = subtotalDescuento.add(recSolNodo.getValor());
-                  }
-               }
-               neto = subtotalPago.subtract(subtotalDescuento);
-               pago = nf.format(subtotalPago);
-               descuento = nf.format(subtotalDescuento);
-               netoTotal = nf.format(neto);
+//               subtotalPago = new BigDecimal(0);
+//               subtotalDescuento = new BigDecimal(0);
+//               for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleado) {
+//                  if (recSolNodo.getTipo().equals("PAGO")) {
+//                     subtotalPago = subtotalPago.add(recSolNodo.getValor());
+//                  } else {
+//                     subtotalDescuento = subtotalDescuento.add(recSolNodo.getValor());
+//                  }
+//               }
+//               neto = subtotalPago.subtract(subtotalDescuento);
+//               pago = nf.format(subtotalPago);
+//               descuento = nf.format(subtotalDescuento);
+//               netoTotal = nf.format(neto);
             } else {
                listaSolucionesNodosEmpleado = new ArrayList<SolucionesNodos>();
             }
@@ -914,21 +919,21 @@ public class ControlComprobantes implements Serializable {
    public List<SolucionesNodos> getListaSolucionesNodosEmpleador() {
       if (parametroActual != null) {
          if (listaSolucionesNodosEmpleador.isEmpty()) {
-            if (parametroActual.getEmpleado().getSecuencia() != null) {
-               listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(parametroActual.getEmpleado().getSecuencia());
+            if (parametroActual.getEmpleado() != null) {
+               listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(parametroActual.getEmpleado());
                log.info("ControlComprobantes.getListaSolucionesNodosEmpleador() Consulto");
                if (listaSolucionesNodosEmpleador != null) {
-                  subtotalPasivo = new BigDecimal(0);
-                  subtotalGasto = new BigDecimal(0);
-                  for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleador) {
-                     if (recSolNodo.getTipo().equals("PASIVO")) {
-                        subtotalPasivo = subtotalPasivo.add(recSolNodo.getValor());
-                     } else if (recSolNodo.getTipo().equals("GASTO")) {
-                        subtotalGasto = subtotalGasto.add(recSolNodo.getValor());
-                     }
-                  }
-                  pasivo = nf.format(subtotalPasivo);
-                  gasto = nf.format(subtotalGasto);
+//                  subtotalPasivo = new BigDecimal(0);
+//                  subtotalGasto = new BigDecimal(0);
+//                  for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleador) {
+//                     if (recSolNodo.getTipo().equals("PASIVO")) {
+//                        subtotalPasivo = subtotalPasivo.add(recSolNodo.getValor());
+//                     } else if (recSolNodo.getTipo().equals("GASTO")) {
+//                        subtotalGasto = subtotalGasto.add(recSolNodo.getValor());
+//                     }
+//                  }
+//                  pasivo = nf.format(subtotalPasivo);
+//                  gasto = nf.format(subtotalGasto);
                } else {
                   listaSolucionesNodosEmpleador = new ArrayList<SolucionesNodos>();
                }
@@ -951,6 +956,25 @@ public class ControlComprobantes implements Serializable {
    }
 
    public String getPago() {
+      if (listaSolucionesNodosEmpleado != null) {
+         subtotalPago = new BigDecimal(0);
+         subtotalDescuento = new BigDecimal(0);
+         for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleado) {
+            if (recSolNodo.getTipo().equals("PAGO")) {
+               subtotalPago = subtotalPago.add(recSolNodo.getValor());
+            } else {
+               subtotalDescuento = subtotalDescuento.add(recSolNodo.getValor());
+            }
+         }
+         neto = subtotalPago.subtract(subtotalDescuento);
+         pago = nf.format(subtotalPago);
+         descuento = nf.format(subtotalDescuento);
+         netoTotal = nf.format(neto);
+      } else {
+         pago = "0";
+         descuento = "0";
+         netoTotal = "0";
+      }
       return pago;
    }
 
@@ -983,6 +1007,22 @@ public class ControlComprobantes implements Serializable {
    }
 
    public String getPasivo() {
+      if (listaSolucionesNodosEmpleador != null) {
+         subtotalPasivo = new BigDecimal(0);
+         subtotalGasto = new BigDecimal(0);
+         for (SolucionesNodos recSolNodo : listaSolucionesNodosEmpleador) {
+            if (recSolNodo.getTipo().equals("PASIVO")) {
+               subtotalPasivo = subtotalPasivo.add(recSolNodo.getValor());
+            } else if (recSolNodo.getTipo().equals("GASTO")) {
+               subtotalGasto = subtotalGasto.add(recSolNodo.getValor());
+            }
+         }
+         pasivo = nf.format(subtotalPasivo);
+         gasto = nf.format(subtotalGasto);
+      } else {
+         pasivo = "0";
+         gasto = "0";
+      }
       return pasivo;
    }
 

@@ -231,7 +231,11 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          }
          return retorno;
       } catch (Exception e) {
-         log.error("Error consultarPrimeraEmpresa PersistenciaEmpresas : " + e.toString());
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Error consultarPrimeraEmpresa PersistenciaEmpresas : " + e.toString());
+         } else {
+            log.error("Error consultarPrimeraEmpresa PersistenciaEmpresas : " + e.toString());
+         }
          return null;
       }
    }
@@ -244,7 +248,11 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          Empresas empresa = (Empresas) query.getSingleResult();
          return empresa;
       } catch (Exception e) {
-         log.error("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas : " + e.toString());
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas : " + e.toString());
+         } else {
+            log.error("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas : " + e.toString());
+         }
          return null;
       }
    }

@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -121,8 +122,12 @@ public class ControlBetaCentrosCostos implements Serializable {
 
    private String paginaAnterior;
    private Map<String, Object> mapParametros;
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlBetaCentrosCostos() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       permitirIndex = true;
       lovEmpresas = null;
       empresaSeleccionada = null;
@@ -161,7 +166,7 @@ public class ControlBetaCentrosCostos implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -1324,6 +1329,7 @@ public class ControlBetaCentrosCostos implements Serializable {
       RequestContext.getCurrentInstance().update("form:growl");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       banderaModificacionEmpresa = 0;
+      listasRecurrentes.getLovCentrosCostos().clear();
    }
 
    public void cancelarCambios() {

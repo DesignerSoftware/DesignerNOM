@@ -128,7 +128,7 @@ public class ControlVigenciaAficion implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -648,7 +648,11 @@ public class ControlVigenciaAficion implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevaVigenciaAficion.setSecuencia(l);
-            nuevaVigenciaAficion.setPersona(empleado.getPersona());
+            try {
+               nuevaVigenciaAficion.setPersona(administrarVigenciaAficion.obtenerPersonaPorEmpleado(empleado.getSecuencia()));
+            } catch (Exception e) {
+               log.error(this.getClass().getSimpleName() + ".agregarNuevaVigenciaAficion() ERROR: " + e);
+            }
             listVigenciaAficionCrear.add(nuevaVigenciaAficion);
             listVigenciasAficiones.add(nuevaVigenciaAficion);
             vigenciaTablaSeleccionada = nuevaVigenciaAficion;
@@ -727,7 +731,11 @@ public class ControlVigenciaAficion implements Serializable {
    public void confirmarDuplicar() {
       if (duplicarVigenciaAficion.getFechainicial() != null && duplicarVigenciaAficion.getAficion() != null) {
          if (validarFechasRegistro(2) == true) {
-            duplicarVigenciaAficion.setPersona(empleado.getPersona());
+            try {
+               duplicarVigenciaAficion.setPersona(administrarVigenciaAficion.obtenerPersonaPorEmpleado(empleado.getSecuencia()));
+            } catch (Exception e) {
+               log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR: " + e);
+            }
             if (listVigenciasAficiones == null) {
                listVigenciasAficiones = new ArrayList<VigenciasAficiones>();
             }
@@ -1094,8 +1102,8 @@ public class ControlVigenciaAficion implements Serializable {
    public List<VigenciasAficiones> getListVigenciasAficiones() {
       try {
          if (listVigenciasAficiones == null) {
-            if (empleado.getPersona().getSecuencia() != null) {
-               listVigenciasAficiones = administrarVigenciaAficion.listVigenciasAficionesPersona(empleado.getPersona().getSecuencia());
+            if (empleado.getPersona() != null) {
+               listVigenciasAficiones = administrarVigenciaAficion.listVigenciasAficionesPersona(empleado.getPersona());
             }
          }
          return listVigenciasAficiones;

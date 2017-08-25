@@ -54,7 +54,7 @@ public class prueba extends HttpServlet {
          out.println("</html>");
          VigenciasCargos vigenciaCargo = administrarVigenciasCargos.consultarPorSecuencia(BigInteger.valueOf(11275114));
          log.info("VigenciaCargo - Empleado: " + vigenciaCargo.getEmpleado().getSecuencia() + " - "
-                 + vigenciaCargo.getEmpleado().getPersona().getNombre() + " " + vigenciaCargo.getEmpleado().getPersona().getPrimerapellido());
+                 + vigenciaCargo.getEmpleado().getPersona() + " " + vigenciaCargo.getEmpleado().getPrimerApellidoPersona());
          log.info("VigenciaCargo - Cargo: " + vigenciaCargo.getCargo().getNombre());
       } finally {
          out.close();

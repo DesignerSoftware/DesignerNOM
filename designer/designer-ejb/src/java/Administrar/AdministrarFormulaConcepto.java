@@ -138,14 +138,14 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    }
 
    @Override
-   public List<FormulasConceptos> cargarFormulasConcepto(BigInteger secConcepto) {
+   public FormulasConceptos cargarFormulasConcepto(BigInteger secConcepto) {
       try {
          List<FormulasConceptos> lista = persistenciaFormulasConceptos.formulasConceptosXSecConcepto(getEm(), secConcepto);
          if (lista.isEmpty() || lista == null) {
             log.warn("Error cargarFormulasConcepto: formulasConcepto trae lista vacia o nula Admi");
             return null;
          } else {
-            return lista;
+            return lista.get(0);
          }
       } catch (Exception e) {
          log.warn("Error cargarFormulasConcepto Admi : " + e.toString());

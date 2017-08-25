@@ -868,6 +868,27 @@ public class ControlVigenciasCargos implements Serializable {
       RequestContext.getCurrentInstance().update("form:listaValores");
    }
 
+   public void modificarVCCRiesgo(VigenciasCargos vigenciaC, String cr) {
+      vigenciaSeleccionada = vigenciaC;
+      if (cr == null) {
+         vigenciaSeleccionada.setClaseRiesgo(null);
+      } else if (cr.equals("") || cr.equals(" ") || cr.isEmpty()) {
+         vigenciaSeleccionada.setClaseRiesgo(null);
+      }
+      if (!listVCCrear.contains(vigenciaSeleccionada)) {
+         if (listVCModificar.isEmpty()) {
+            listVCModificar.add(vigenciaSeleccionada);
+         } else if (!listVCModificar.contains(vigenciaSeleccionada)) {
+            listVCModificar.add(vigenciaSeleccionada);
+         }
+      }
+      if (guardado == true) {
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      }
+      RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
+   }
+
    public void modificarVC(VigenciasCargos vigenciaC) {
       vigenciaSeleccionada = vigenciaC;
       if (!listVCCrear.contains(vigenciaSeleccionada)) {
@@ -1014,9 +1035,9 @@ public class ControlVigenciasCargos implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("EMPLEADOJ")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaVigencia.getEmpleadojefe().getPersona().setNombreCompleto(nombreCompleto);
+               nuevaVigencia.getEmpleadojefe().setNombreCompleto(nombreCompleto);
             } else if (tipoNuevo == 2) {
-               duplicarVC.getEmpleadojefe().getPersona().setNombreCompleto(nombreCompleto);
+               duplicarVC.getEmpleadojefe().setNombreCompleto(nombreCompleto);
             }
             for (int i = 0; i < lovActualesTiposTrabajadores.size(); i++) {
                if (lovActualesTiposTrabajadores.get(indiceUnicoElemento).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {

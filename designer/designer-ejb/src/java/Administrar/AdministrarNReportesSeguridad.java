@@ -140,16 +140,16 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
       }
    }
 
-   @Override
-   public List<GruposConceptos> listGrupos() {
-      try {
-         listGruposConceptos = persistenciaGruposConceptos.buscarGruposConceptos(getEm());
-         return listGruposConceptos;
-      } catch (Exception e) {
-         log.warn("Error listGruposConcetos : " + e.toString());
-         return null;
-      }
-   }
+//   @Override
+//   public List<GruposConceptos> listGrupos() {
+//      try {
+//         listGruposConceptos = persistenciaGruposConceptos.buscarGruposConceptos(getEm());
+//         return listGruposConceptos;
+//      } catch (Exception e) {
+//         log.warn("Error listGruposConcetos : " + e.toString());
+//         return null;
+//      }
+//   }
 
    @Override
    public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
@@ -170,12 +170,12 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
          return null;
       }
    }
-
-   @Override
-   public List<TiposTrabajadores> listTiposTrabajadores() {
-      listTiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
-      return listTiposTrabajadores;
-   }
+//
+//   @Override
+//   public List<TiposTrabajadores> listTiposTrabajadores() {
+//      listTiposTrabajadores = persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
+//      return listTiposTrabajadores;
+//   }
 
    @Override
    public List<Estructuras> listEstructuras() {
@@ -213,7 +213,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
    @Override
    public List<Empleados> listEmpleados() {
       try {
-         listEmpleados = persistenciaEmpleado.buscarEmpleados(getEm());
+         listEmpleados = persistenciaEmpleado.buscarEmpleadosActivos(getEm());
          return listEmpleados;
       } catch (Exception e) {
          log.warn(this.getClass().getName() + " error " + e.toString());

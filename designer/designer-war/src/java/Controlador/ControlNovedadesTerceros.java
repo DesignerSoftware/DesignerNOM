@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -127,7 +128,12 @@ public class ControlNovedadesTerceros implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlNovedadesTerceros() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       permitirIndex = true;
       listaNovedades = null;
       lovEmpleados = null;
@@ -217,7 +223,7 @@ public class ControlNovedadesTerceros implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -904,7 +910,7 @@ public class ControlNovedadesTerceros implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('fechas').show()");
          pasa2++;
       }
-      if (duplicarNovedad.getEmpleado().getPersona().getNombreCompleto().equals(" ")) {
+      if (duplicarNovedad.getEmpleado().getNombreCompleto().equals(" ")) {
          log.info("Entro a Empleado");
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
          pasa++;
@@ -1416,16 +1422,13 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public Formulas verificarFormulaConcepto(BigInteger secCon) {
       cargarLovFormulas();
-      List<FormulasConceptos> formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
+      FormulasConceptos formulasConceptoSel = administrarFormulaConcepto.cargarFormulasConcepto(secCon);
       Formulas formulaR = new Formulas();
       BigInteger autoFormula;
 
       if (formulasConceptoSel != null) {
-         if (!formulasConceptoSel.isEmpty()) {
-            autoFormula = formulasConceptoSel.get(0).getFormula();
-         } else {
-            autoFormula = new BigInteger("4621544");
-         }
+//         if (!formulasConceptoSel.isEmpty()) {
+         autoFormula = formulasConceptoSel.getFormula();
       } else {
          autoFormula = new BigInteger("4621544");
       }
@@ -1774,13 +1777,17 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void todasNovedades() {
       listaNovedades.clear();
-      listaNovedades = administrarNovedadesTerceros.todasNovedadesTercero(terceroSeleccionado.getSecuencia());
-      todas = true;
-      actuales = false;
-      RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
-      RequestContext.getCurrentInstance().update("form:TODAS");
-      RequestContext.getCurrentInstance().update("form:ACTUALES");
-      contarRegistrosNove();
+      if (terceroSeleccionado != null) {
+         listaNovedades = administrarNovedadesTerceros.todasNovedadesTercero(terceroSeleccionado.getSecuencia());
+         todas = true;
+         actuales = false;
+         RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
+         RequestContext.getCurrentInstance().update("form:TODAS");
+         RequestContext.getCurrentInstance().update("form:ACTUALES");
+         contarRegistrosNove();
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
    }
 
    public void actualesNovedades() {
@@ -1830,7 +1837,14 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void cargarLovFormulas() {
       if (lovFormulas == null) {
-         lovFormulas = administrarNovedadesTerceros.lovFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarNovedadesTerceros.lovFormulas();
+            if (lovFormulas != null) {
+               listasRecurrentes.setLovFormulas(lovFormulas);
+            }
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
    }
 

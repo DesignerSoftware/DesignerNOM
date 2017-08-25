@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-//import org.primefaces.context.RequestContext;
 
 @Stateless
 public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {

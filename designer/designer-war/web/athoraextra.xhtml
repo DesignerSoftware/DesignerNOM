@@ -102,12 +102,12 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{info.nombreCompleto}" filterBy="#{info.nombreCompleto}" filterMatchMode="contains" 
                                            width="250" id="empleadoNombre"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.persona.nombreCompleto}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.nombreCompleto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off"  onclick="select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
+                                            <p:inputText autocomplete="off"  onclick="select();" value="#{info.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%; text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
                                                  <p:ajax event="select" onstart="PF('datosEmpleado').unselectAllRows();PF('datosEmpleado').selectRow(#{indice});"/>
@@ -662,11 +662,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleados.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleados.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                            <p:column filterBy="#{empleados.nombreCompleto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEmpleado']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleados.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -838,7 +838,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarEmpleadoNombre" header="#{msg['editarEmpleadoNombre']}" widgetVar="editarEmpleadoNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea  value="#{controlATHoraExtra.empleadoActual.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATHoraExtra.empleadoActual.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
                     
@@ -921,7 +921,7 @@
 
                         <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExpE.persona.nombreCompleto}"/>
+                            <h:outputText value="#{infoExpE.nombreCompleto}"/>
                         </p:column>  
 
                     </p:dataTable>

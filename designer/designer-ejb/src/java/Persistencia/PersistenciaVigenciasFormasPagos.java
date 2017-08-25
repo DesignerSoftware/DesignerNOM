@@ -124,7 +124,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
     public BigDecimal buscarPeriodicidadPorEmpl(EntityManager em, BigInteger secEmpleado) {
         try {
             em.clear();
-            String sql = "SELECT FORMAPAGO FROM VIGENCIASFORMASPAGOS WHERE EMPLEADO = e.getMessage() ";
+            String sql = "SELECT FORMAPAGO FROM VIGENCIASFORMASPAGOS WHERE EMPLEADO = " + secEmpleado;
             Query query = em.createNativeQuery(sql);
             query.setParameter("1", secEmpleado);
             BigDecimal periodicidad = (BigDecimal) query.getSingleResult();

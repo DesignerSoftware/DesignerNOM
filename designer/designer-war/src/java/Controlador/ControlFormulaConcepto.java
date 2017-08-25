@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -91,8 +92,12 @@ public class ControlFormulaConcepto implements Serializable {
    //
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlFormulaConcepto() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       altoTabla = "300";
       formulaActual = new Formulas();
       listFormulasConceptos = null;
@@ -689,6 +694,7 @@ public class ControlFormulaConcepto implements Serializable {
             k = 0;
             cambiosFormulasConceptos = false;
             guardado = true;
+            listasRecurrentes.getLovFormulasConceptos().clear();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } catch (Exception e) {
             log.warn("Error guardarCambiosFormula  : " + e.toString());
@@ -1467,7 +1473,14 @@ public class ControlFormulaConcepto implements Serializable {
    public List<FormulasConceptos> getLovFormulasConceptosOrden() {
       if (lovFormulasConceptosOrden == null) {
          log.info("a consultar listFormulasConceptos");
-         lovFormulasConceptosOrden = administrarFormulaConcepto.listFormulasConceptos();
+         if (listasRecurrentes.getLovFormulasConceptos().isEmpty()) {
+            lovFormulasConceptosOrden = administrarFormulaConcepto.listFormulasConceptos();
+            if (lovFormulasConceptosOrden != null) {
+               listasRecurrentes.setLovFormulasConceptos(lovFormulasConceptosOrden);
+            }
+         } else {
+            lovFormulasConceptosOrden = new ArrayList<FormulasConceptos>(listasRecurrentes.getLovFormulasConceptos());
+         }
          log.info("Ya consulto listFormulasConceptos");
       }
       return lovFormulasConceptosOrden;

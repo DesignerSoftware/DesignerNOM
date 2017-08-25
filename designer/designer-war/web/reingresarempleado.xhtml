@@ -86,9 +86,9 @@
                         <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.codigoempleado)}" update=":form:nombreEmpleado, :form:nombreEmpleadoC"/>
                         <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                      </p:inputText>
-                     <p:inputText autocomplete="off" id="nombreEmpleado" widgetVar="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}"
+                     <p:inputText autocomplete="off" id="nombreEmpleado" widgetVar="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.nombreCompleto}"
                                   style="display: inline-block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 200px;" onclick="select();">
-                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}" update=":form:nombreEmpleado, :form:nombreEmpleadoC"/>
+                        <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.nombreCompleto)}" update=":form:nombreEmpleado, :form:nombreEmpleadoC"/>
                         <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                         <p:commandButton class="cssBotonLovDialogos" style="position: absolute; top: 72px; right: 244px;" value="" actionListener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                      </p:inputText>
@@ -176,11 +176,11 @@
                         <h:outputText value="#{emp.codigoempleado}"/>  
                      </p:column>  
 
-                     <p:column filterBy="#{emp.persona.nombreCompleto}" sortBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <p:column filterBy="#{emp.nombreCompleto}" sortBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreEM']}"/>
                         </f:facet>
-                        <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                        <h:outputText value="#{emp.nombreCompleto}"/>  
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV">

@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -105,7 +106,12 @@ public class ControlDetalleLegislacion implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlDetalleLegislacion() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       lovFormulasContratos = null;
       fechaParametro = new Date(1, 1, 0);
       formulaContratoActual = new Formulascontratos();
@@ -202,7 +208,7 @@ public class ControlDetalleLegislacion implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -2163,7 +2169,14 @@ public class ControlDetalleLegislacion implements Serializable {
 
    public List<Formulas> getLovFormulas() {
       if (lovFormulas == null) {
-         lovFormulas = administrarDetalleLegislacion.consultarLOVFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarDetalleLegislacion.consultarLOVFormulas();
+            if (lovFormulas != null) {
+               listasRecurrentes.setLovFormulas(lovFormulas);
+            }
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
       return lovFormulas;
    }

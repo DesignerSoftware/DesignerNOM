@@ -118,9 +118,9 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="Nombre" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" 
+                        <p:column headerText="Nombre" sortBy="#{empleados.nombreCompleto}" filterBy="#{empleados.nombreCompleto}" 
                                   filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;">                                  
-                           <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                           <h:outputText value="#{empleados.nombreCompleto}"/>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -438,11 +438,11 @@
                         <h:outputText value="#{emp.codigoempleado}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
+                     <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
                         <f:facet name="header">
                            <h:outputText value="Nombre"/>
                         </f:facet>
-                        <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                        <h:outputText value="#{emp.nombreCompleto}"/>  
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV"> 

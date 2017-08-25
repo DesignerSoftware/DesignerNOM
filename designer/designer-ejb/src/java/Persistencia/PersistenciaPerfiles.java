@@ -55,7 +55,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          Perfiles perfil = (Perfiles) query.getSingleResult();
          return perfil;
       } catch (Exception e) {
-         log.error("Error en PersistenciaPerfiles : " + e.getMessage());
+         log.error("Error en PersistenciaPerfiles : " + e);
          return null;
       }
    }

@@ -285,10 +285,10 @@
                                 <p:column id="empleado" headerText="Empleado"  style="text-align: center;" sortBy="#{detalles.empleado}" 
                                           filterBy="#{detalles.empleado}" filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
-                                        <f:facet name="output"> <h:outputText value="#{detalles.empleado.persona.nombreCompleto}"/> </f:facet>   
+                                        <f:facet name="output"> <h:outputText value="#{detalles.empleado.nombreCompleto}"/> </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off" value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;">  
-                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiDetalles(detalles, 'EMPLEADO', detalles.empleado.persona.nombreCompleto)}"/>
+                                                <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiDetalles(detalles, 'EMPLEADO', detalles.empleado.nombreCompleto)}"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 0)}"/>
                                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 0,0)}"/>
 
@@ -698,11 +698,11 @@
                         <p:panel id="nuevoOdiDetalle" style="border: none;">
 
                             <strong><h:outputText value="Empleado" style="position: absolute; top: 80px; left: 50px;"/></strong>
-                            <p:inputText autocomplete="off" id="nuevoEmpleado" value="#{controlOdiCabecera.nuevaOdiDetalles.empleado.persona.nombreCompleto}"
+                            <p:inputText autocomplete="off" id="nuevoEmpleado" value="#{controlOdiCabecera.nuevaOdiDetalles.empleado.nombreCompleto}"
                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 1, 1)}"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'EMPLEADO')}"/>
-                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('EMPLEADO', controlOdiCabecera.nuevaOdiDetalles.empleado.persona.nombreCompleto, 1)}"/>
+                                <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('EMPLEADO', controlOdiCabecera.nuevaOdiDetalles.empleado.nombreCompleto, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 351px; top: 75px;" 
                                              id="btnNuevoEmpleado" value="" process="@this" actionListener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 1, 1)}"/>   
@@ -897,11 +897,11 @@
                             </f:facet>
 
 
-                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important"> 
+                            <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                                <h:outputText value="#{emp.nombreCompleto}"/>  
                             </p:column>
 
 
@@ -945,7 +945,7 @@
                     
                     
                       <p:dialog id="editarEmpleado" header="Empresa" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                          <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                       <p:dialog id="editarNumDetalle" header="Empresa" widgetVar="editarNumDetalle" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                           <p:inputTextarea value="#{controlOdiCabecera.editarOdiDetalles.numerodetalle}" style="overflow: auto;" readonly="true"/>
@@ -1037,7 +1037,7 @@
 
                         <p:column headerText="Empleado">                                  
                             <f:facet name="header"><h:outputText value="Empleado"/> </f:facet> 
-                            <h:outputText value="#{infoDetalles.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{infoDetalles.empleado.nombreCompleto}"/>
                         </p:column>  
                         <p:column headerText="Número de Detalle">                                  
                             <f:facet name="header"><h:outputText value="Num_Detalle"/> </f:facet> 

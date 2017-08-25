@@ -144,7 +144,7 @@ public class ControlDetallesVacaciones implements Serializable {
       empleado = empl;
       fechaContratacionE = administrarNovedadesVacaciones.obtenerFechaContratacionEmpleado(empleado.getSecuencia());
       if (empleado != null) {
-         nombreEmpl = empleado.getPersona().getNombreCompleto();
+         nombreEmpl = empleado.getNombreCompleto();
          codEmpl = empleado.getCodigoempleadoSTR();
       }
       listaNovedadesSistema = null;

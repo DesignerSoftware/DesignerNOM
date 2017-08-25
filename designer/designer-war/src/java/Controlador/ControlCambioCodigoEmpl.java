@@ -67,7 +67,6 @@ public class ControlCambioCodigoEmpl implements Serializable {
       lovEmpleados = null;
       lovEmpresas = null;
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       empresa = new Empresas();
       aceptar = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -83,7 +82,7 @@ public class ControlCambioCodigoEmpl implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -132,7 +131,6 @@ public class ControlCambioCodigoEmpl implements Serializable {
 
    public void cancelarModificaciones() {
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       empresa = new Empresas();
       codEmplNuevo = null;
       RequestContext.getCurrentInstance().update("form:codEmpleadoActual");
@@ -142,9 +140,7 @@ public class ControlCambioCodigoEmpl implements Serializable {
 
    public void salir() {
       limpiarListasValor();
-      RequestContext context = RequestContext.getCurrentInstance();
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       empresa = new Empresas();
       codEmplNuevo = null;
       RequestContext.getCurrentInstance().update("form:codEmpleadoActual");
@@ -261,7 +257,7 @@ public class ControlCambioCodigoEmpl implements Serializable {
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("EMPLEADO")) {
          for (int i = 0; i < lovEmpleados.size(); i++) {
-            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())
+            if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())
                     || lovEmpleados.get(i).getCodigoempleado().toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;

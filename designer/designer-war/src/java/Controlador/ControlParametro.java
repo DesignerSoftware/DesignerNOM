@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -85,8 +85,12 @@ public class ControlParametro implements Serializable {
    private String infoRegistro;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlParametro() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       aceptar = true;
       guardado = true;
       cambiosEmpleadosParametros = false;
@@ -118,7 +122,7 @@ public class ControlParametro implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -378,9 +382,9 @@ public class ControlParametro implements Serializable {
 
                log.info("seleccionEmpleado.getSecuencia() : " + empleadosSeleccionados.get(j).getSecuencia());
                for (int i = 0; i < listEmpleadosParametros.size(); i++) {
-                  if (listEmpleadosParametros.get(i).getEmpleado().getSecuencia().equals(empleadosSeleccionados.get(j).getSecuencia())) {
-                     log.info("empleadosParametros.get(i).getEmpleado().getSecuencia() : " + listEmpleadosParametros.get(i).getEmpleado().getSecuencia());
-                     log.info("empleadosParametros.get(i) Empleado() : " + listEmpleadosParametros.get(i).getEmpleado().getPersona().getNombreCompleto());
+                  if (listEmpleadosParametros.get(i).getEmpleado().equals(empleadosSeleccionados.get(j).getSecuencia())) {
+                     log.info("empleadosParametros.get(i).getEmpleado().getSecuencia() : " + listEmpleadosParametros.get(i).getEmpleado());
+                     log.info("empleadosParametros.get(i) Empleado() : " + listEmpleadosParametros.get(i).getEmpleado());
                      empleadosSeleccionados.remove(empleadosSeleccionados.get(j));
                      control++;
                      break;
@@ -436,12 +440,12 @@ public class ControlParametro implements Serializable {
          for (int i = 0; i < listaBorrarParametros.size(); i++) {
             for (int j = 0; j < empleadosSeleccionados.size(); j++) {
                if (listaBorrarParametros.get(i).getEmpleado().equals(empleadosSeleccionados.get(j))) {
-                  Parametros parametro = listaBorrarParametros.get(i);
-                  listEmpleadosParametros.add(parametro);
-                  listaBorrarParametros.remove(parametro);
-                  empleadosSeleccionados.remove(parametro.getEmpleado());
+//                  Parametros parametro = listaBorrarParametros.get(i);
+                  listEmpleadosParametros.add(listaBorrarParametros.get(i));
+                  listaBorrarParametros.remove(listaBorrarParametros.get(i));
+                  empleadosSeleccionados.remove(empleadosSeleccionados.get(j));
                   if (tipoLista == 1) {
-                     filtradoEmpleadosParametros.add(parametro);
+                     filtradoEmpleadosParametros.add(listaBorrarParametros.get(i));
                   }
                }
             }
@@ -454,7 +458,11 @@ public class ControlParametro implements Serializable {
             Parametros parametro = new Parametros();
             parametro.setSecuencia(l);
             parametro.setParametroestructura(parametroLiquidacion);
-            parametro.setEmpleado(empleadosSeleccionados.get(i));
+            parametro.setEmpleado(empleadosSeleccionados.get(i).getSecuencia());
+            parametro.setNombrePersona(empleadosSeleccionados.get(i).getNombrePersona());
+            parametro.setPrimerApellidoPersona(empleadosSeleccionados.get(i).getPrimerApellidoPersona());
+            parametro.setSegundoApellidoPersona(empleadosSeleccionados.get(i).getSegundoApellidoPersona());
+            parametro.setPersona(empleadosSeleccionados.get(i).getPersona());
             listaCrearParametros.add(parametro);
             listEmpleadosParametros.add(parametro);
 
@@ -1167,6 +1175,7 @@ public class ControlParametro implements Serializable {
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
          lovEmpleados = administrarParametros.empleadosLov();
+         log.debug("lovEmpleados: " + lovEmpleados);
       }
       contarRegistrosLovEmpl();
       RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");
@@ -1182,7 +1191,14 @@ public class ControlParametro implements Serializable {
 
    public void cargarLovTiposTrabajadores() {
       if (lovTiposTrabajadores == null) {
-         lovTiposTrabajadores = administrarParametros.lovTiposTrabajadores();
+         if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
+            lovTiposTrabajadores = administrarParametros.lovTiposTrabajadores();
+            if (lovTiposTrabajadores != null) {
+               listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+            }
+         } else {
+            lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
+         }
       }
    }
 

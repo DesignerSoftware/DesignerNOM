@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -1250,12 +1251,12 @@
 
                                     <h:outputText value="#{msg['numeroDocumento']}" style="position: absolute; left: 300px; top: 10px; color: #14388B; font-weight: bold;"/>
                                     <p:inputText autocomplete="off" id="parametroNDocDatosPersonales" maxlength="15" onclick="select();" style="position: absolute; left: 440px; top: 5px; width: 140px; height: 13px;"
-                                                 value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.numerodocumento}">
+                                                 value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.numeroDocumentoPersona}">
                                        <p:ajax event="change" process="@this" update="@this"/>
                                     </p:inputText>
 
                                     <h:outputText value="#{msg['sexo']}" style="position: absolute; left: 300px; top: 45px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroSexoDatosPersonales" style="position: absolute; left: 440px; top: 40px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.sexo}">
+                                    <p:selectOneMenu id="parametroSexoDatosPersonales" style="position: absolute; left: 440px; top: 40px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.persona.sexo}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="#{msg['masculino']}" itemValue="M"/>
                                        <f:selectItem itemLabel="#{msg['femenino']}" itemValue="F"/>
@@ -1301,7 +1302,7 @@
                               <p:tab id="tabDatosFactorRH" title="#{msg['tabDatosFactorRH']}">
                                  <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                     <h:outputText value="#{msg['grupoSanguineo']}" style="position: absolute; left: 15px; top: 5px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroGrupoSanguineoFactorRH" style="position: absolute; left: 140px; top: 0px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.gruposanguineo}">
+                                    <p:selectOneMenu id="parametroGrupoSanguineoFactorRH" style="position: absolute; left: 140px; top: 0px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.persona.gruposanguineo}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="A" itemValue="A"/>
                                        <f:selectItem itemLabel="AB" itemValue="AB"/>
@@ -1311,7 +1312,7 @@
                                     </p:selectOneMenu>
 
                                     <h:outputText value="#{msg['factorRH']}" style="position: absolute; left: 15px; top: 35px; color: #14388B; font-weight: bold;"/>
-                                    <p:selectOneMenu id="parametroFactorRHFactorRH" style="position: absolute; left: 140px; top: 30px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.factorrh}">
+                                    <p:selectOneMenu id="parametroFactorRHFactorRH" style="position: absolute; left: 140px; top: 30px; width: 110px;" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.persona.factorrh}">
                                        <f:selectItem itemLabel="" itemValue=""/>
                                        <f:selectItem itemLabel="+" itemValue="+"/>
                                        <f:selectItem itemLabel="-" itemValue="-"/>
@@ -2042,11 +2043,11 @@
                         <h:outputText value="#{msg['buscarJC']}"/>
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovJefe').filter();" class="cssFiltroLOV"/>
                      </f:facet>
-                     <p:column filterStyle="width: 80% !important" filterBy="#{jefe.persona.nombreCompleto}" filterMatchMode="contains">
+                     <p:column filterStyle="width: 80% !important" filterBy="#{jefe.nombreCompleto}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['empleadoJefe']}"/>
                         </f:facet>
-                        <h:outputText value="#{jefe.persona.nombreCompleto}"/>
+                        <h:outputText value="#{jefe.nombreCompleto}"/>
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV">
@@ -3456,7 +3457,8 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCCP']}"/>  
-                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovColumnasBusqueda').filter();" class="cssFiltroLOV"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovColumnasBusqueda').filter();" class="cssFiltroLOV"/> 
+                        <h:outputText id="informacionSeleccion" value="#{msg['seleccionMultiple']}" style="position: relative; top: 0px; display: block; color: white; font-weight: normal; margin-top: 5px;"/>
                      </f:facet>
 
                      <p:column filterStyle="width: 80% !important" filterBy="#{columnaBusqueda.descripcion}" sortBy="#{columnaBusqueda.descripcion}" filterMatchMode="contains">

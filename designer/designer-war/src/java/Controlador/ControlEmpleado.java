@@ -164,7 +164,7 @@ public class ControlEmpleado implements Serializable {
       if (cualCelda == 0) {
          empleadoSeleccionado.getCodigoempleado();
       } else if (cualCelda == 1) {
-         empleadoSeleccionado.getPersona().getNombreCompleto();
+         empleadoSeleccionado.getNombreCompleto();
       } else if (cualCelda == 2) {
          empleadoSeleccionado.getCodigoalternativodeudor();
       } else if (cualCelda == 3) {

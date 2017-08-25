@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -124,8 +125,12 @@ public class ControlGrupoConcepto implements Serializable {
    private String paginaAnterior;
    private Map<String, Object> mapParametros;
    private boolean activarLov;
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlGrupoConcepto() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       permitirIndex = true;
       cualTabla = 0;
       bandera = 0;
@@ -608,6 +613,7 @@ public class ControlGrupoConcepto implements Serializable {
       permitirIndex = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       cambiosPagina = true;
+      listasRecurrentes.getLovGruposConceptos().clear();
       deshabilitarBotonLov();
    }
 
@@ -981,13 +987,13 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void mostrarTodos() {
-      if (!listaGruposConceptos.isEmpty()) {
-         listaGruposConceptos.clear();
+      if (listasRecurrentes.getLovGruposConceptos().isEmpty()) {
          listaGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
-         grupoConceptoSeleccionado = listaGruposConceptos.get(0);
+         if (listaGruposConceptos != null) {
+            listasRecurrentes.setLovGruposConceptos(listaGruposConceptos);
+         }
       } else {
-         listaGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
-         grupoConceptoSeleccionado = listaGruposConceptos.get(0);
+         listaGruposConceptos = new ArrayList<GruposConceptos>(listasRecurrentes.getLovGruposConceptos());
       }
       if (!listaGruposConceptos.isEmpty()) {
          grupoConceptoSeleccionado = listaGruposConceptos.get(0);
@@ -1541,7 +1547,14 @@ public class ControlGrupoConcepto implements Serializable {
    //Getter & Setter
    public List<GruposConceptos> getListaGruposConceptos() {
       if (listaGruposConceptos == null) {
-         listaGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
+         if (listasRecurrentes.getLovGruposConceptos().isEmpty()) {
+            listaGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
+            if (listaGruposConceptos != null) {
+               listasRecurrentes.setLovGruposConceptos(listaGruposConceptos);
+            }
+         } else {
+            listaGruposConceptos = new ArrayList<GruposConceptos>(listasRecurrentes.getLovGruposConceptos());
+         }
       }
       return listaGruposConceptos;
    }
@@ -1711,7 +1724,14 @@ public class ControlGrupoConcepto implements Serializable {
 
    public List<GruposConceptos> getLovGruposConceptos() {
       if (lovGruposConceptos == null) {
-         lovGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
+         if (listasRecurrentes.getLovGruposConceptos().isEmpty()) {
+            lovGruposConceptos = administrarGruposConceptos.buscarGruposConceptos();
+            if (lovGruposConceptos != null) {
+               listasRecurrentes.setLovGruposConceptos(lovGruposConceptos);
+            }
+         } else {
+            lovGruposConceptos = new ArrayList<GruposConceptos>(listasRecurrentes.getLovGruposConceptos());
+         }
       }
       return lovGruposConceptos;
    }

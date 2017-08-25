@@ -170,7 +170,7 @@ public class AdministrarVigenciasCargosBusquedaAvanzada implements AdministrarVi
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleado.buscarEmpleados(getEm());
+         return persistenciaEmpleado.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;

@@ -726,7 +726,7 @@ public class CargarAusentismosArchivoPlano implements Serializable {
                VWActualesReformasLaborales vwActualReformaLaboral = administrarCargueArchivos.consultarActualReformaLaboralEmpleado(empleado.getSecuencia());
                VWActualesTiposContratos vwActualTiposContratos = administrarCargueArchivos.consultarActualTipoContratoEmpleado(empleado.getSecuencia());
 
-               Conceptos concepto = administrarCargueArchivos.verificarConceptoEmpresa(listTempNovedades.get(i).getConcepto(), empleado.getEmpresa().getSecuencia());
+               Conceptos concepto = administrarCargueArchivos.verificarConceptoEmpresa(listTempNovedades.get(i).getConcepto(), empleado.getEmpresa());
                //Conceptos concepto = administrarCargueArchivos.verificarConceptoEmpresa(listTempNovedades.get(i).getConcepto(), empleado.getEmpresa());
                if (concepto != null) {
                   if (concepto.getActivo().equalsIgnoreCase("S")) {
@@ -804,7 +804,7 @@ public class CargarAusentismosArchivoPlano implements Serializable {
                            erroresN.add("El concepto pertenece al grupo 1, por lo tanto es necesario un tercero.");
                         }
                         if (listTempNovedades.get(i).getTercero() != null) {
-                           validacion = administrarCargueArchivos.verificarTerceroEmpresa(listTempNovedades.get(i).getTercero(), empleado.getEmpresa().getSecuencia());
+                           validacion = administrarCargueArchivos.verificarTerceroEmpresa(listTempNovedades.get(i).getTercero(), empleado.getEmpresa());
                            //validacion = administrarCargueArchivos.verificarTerceroEmpresa(listTempNovedades.get(i).getTercero(), empleado.getEmpresa());
                            if (validacion == false) {
                               errores++;

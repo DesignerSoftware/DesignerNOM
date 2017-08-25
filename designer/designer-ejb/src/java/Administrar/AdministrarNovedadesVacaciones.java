@@ -73,7 +73,7 @@ public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacac
    @Override
    public List<Empleados> empleadosVacaciones() {
       try {
-         return persistenciaEmpleados.empleadosVacaciones(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

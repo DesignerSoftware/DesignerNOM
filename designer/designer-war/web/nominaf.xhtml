@@ -71,9 +71,9 @@
                               <p:outputLabel id="cod" value="#{msg['codigo']}"  style="position: relative; left: 2px; top: 4px; width: 63px; height: 20px; color: #14388B; font-weight: bold;"/>
                               <p:outputLabel id="pa" value="#{msg['primerapellido']}" style="position: relative; left:49px; top: 4px; color: #14388B; font-weight: bold;"/>
                               <br/>
-                              <p:inputText  autocomplete="off" id="codigo" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.codigoempleado}"
+                              <p:inputText  autocomplete="off" id="codigo" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresPosicion.codigoEmpleado}"
                                             style="position: relative; top: 10px; width: 79px; height: 20px; border-width: 1px;" onclick="select();"/>
-                              <p:inputText  autocomplete="off" id="primerapellido" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.persona.nombreCompleto}"
+                              <p:inputText  autocomplete="off" id="primerapellido" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresPosicion.nombreCompleto}"
                                             style="position: relative; top: 10px; width: 310px; height: 20px; border-width: 1px;" onclick="select();"/>
                               <!-- Panel Derecho - Superior -->
                               <h:outputText id="informaciontt" value="#{controlRemoto.informacionTiposTrabajadores}" style="position: absolute; left: 432px; top: 7px; color: #14388B; font-weight: bold;"/>
@@ -100,10 +100,10 @@
                                                disabled="#{controlRemoto.consultarPermisosPorId('busquedarapida')}"/>
                               <p:tooltip  for="busquedarapida" value="#{msg['br']}"/>
 
-                              <!--                                        <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/lupa.png); width: 30px; height: 30px; left: 72px; top: 60px; z-index: 1;" 
+                              <!--<p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/lupa.png); width: 30px; height: 30px; left: 72px; top: 60px; z-index: 1;" 
                                                                                        id="listavalores" value="" process="@this" actionListener="#/{controlRemoto.requerirBuscarEmpleadoTipo()}"
                                                                                        disabled="#/{controlRemoto.consultarPermisosPorId('listavalores')}"/>
-                                                                      <p:tooltip  for="listavalores" value="#/{msg['lista']}"/>-->
+                                                                      <p:tooltip for="listavalores" value="#/{msg['lista']}"/>-->
 
                               <p:commandButton class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/excel.png); width: 30px; height: 30px; left: 102px; top: 60px; z-index: 1;" 
                                                id="exportarxls" value="" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false">
@@ -139,7 +139,7 @@
 
                               <!-- Boton Hoja de Vida -->
                               <p:commandButton id="hojadevida" class="cssBotonConImagen" value="" style="background-image: url(Imagenes/Iconos/informacionPersonal.png); left: 575px; top: 2px; width: 60px; height: 60px;" 
-                                               actionListener="#{controlEmpleadoIndividual.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}" 
+                                               actionListener="#{controlEmpleadoIndividual.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'empleadoindividual')}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('hojadevida')}"/>
                               <p:tooltip for="hojadevida">#{msg['vaom']}<br/>#{msg['dpe']}</p:tooltip>
@@ -151,81 +151,81 @@
 
                               <p:commandLink id="txtcargodesempenhado" class="cssComandsLinksNominaf" style="left: 50px; top: 5px;" value="#{msg['cargodesempenado']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciascargos')}" accesskey="c"
-                                             actionListener="#{controlVigenciasCargos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlVigenciasCargos.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtcargodesempenhado')}"/>
                               <p:commandLink id="txtfechacontratacion" class="cssComandsLinksNominaf" style="left: 50px; top: 50px;" value="#{msg['fechacontratacion']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciatipocontrato')}" accesskey="t"
-                                             actionListener="#{controlVigenciasTiposContratos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlVigenciasTiposContratos.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtfechacontratacion')}"/>
                               <p:commandLink id="txtnormalaboral" class="cssComandsLinksNominaf" style="left: 50px; top: 95px;" value="#{msg['normalaboral']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigencianormalaboral')}" accesskey="l"
-                                             actionListener="#{controlBetaEmplVigenciaNormaLaboral.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlBetaEmplVigenciaNormaLaboral.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtnormalaboral')}"/>
                               <p:commandLink id="txtafiliaciones" class="cssComandsLinksNominaf" style="left: 50px; top: 140px;" value="#{msg['afiliaciones']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciaafiliacion3')}"
-                                             actionListener="#{controlEmplVigenciaAfiliacion3.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlEmplVigenciaAfiliacion3.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtafiliaciones')}"/>
                               <p:commandLink id="txtibc" class="cssComandsLinksNominaf" style="left: 50px; top: 185px;" value="#{msg['ibc']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplibc')}"
-                                             actionListener="#{controlEmplIbcs.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlEmplIbcs.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtibc')}"/>
                               <p:commandLink id="txttipoviajero" class="cssComandsLinksNominaf" style="left: 50px; top: 230px;" value="#{msg['tipoviajero']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplviajero')}"
-                                             actionListener="#{controlVigenciasViajeros.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlVigenciasViajeros.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txttipoviajero')}"/>
                               <p:commandLink id="txtcentrodecosto" class="cssComandsLinksNominaf" style="left: 325px; top: 5px;" value="#{msg['centrodecosto']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigencialocalizacion')}"
-                                             actionListener="#{controlVigenciaLocalizacion.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlVigenciaLocalizacion.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtcentrodecosto')}"/>
                               <p:commandLink id="txttipotrabajador" class="cssComandsLinksNominaf" style="left: 325px; top: 50px;" value="#{msg['tipotrabajador']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciatipotrabajador')}"
-                                             actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado, 'nominaf')}"
+                                             actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.empleadoVWATT(), 'nominaf')}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txttipotrabajador')}"/>
                               <p:commandLink id="txtlegislacionlaboral" class="cssComandsLinksNominaf" style="left: 325px; top: 95px;" value="#{msg['legislacionlaboral']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'empllegislacionlaboral')}"
-                                             actionListener="#{controlVigenciasContratos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
+                                             actionListener="#{controlVigenciasContratos.recibirEmpleado(controlRemoto.empleadoVWATT())}" 
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtlegislacionlaboral')}"/>
                               <p:commandLink id="txtjornada" class="cssComandsLinksNominaf" style="left: 325px; top: 140px;" value="#{msg['jornada']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciajornada')}"
-                                             actionListener="#{controlVigenciaJornada.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlVigenciaJornada.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtjornada')}"/>
                               <p:commandLink id="txtmenorvalorretencion" class="cssComandsLinksNominaf" style="left: 325px; top: 185px;" value="#{msg['menorvalorretencion']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplmvrs')}"
-                                             actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}" 
+                                             actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtmenorvalorretencion')}"/>
                               <p:commandLink id="txtvacaciones" class="cssComandsLinksNominaf" style="left: 325px; top: 230px;" value="#{msg['vacaciones']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvacapendiente')}"
-                                             actionListener="#{controlEmplVacaPendiente.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlEmplVacaPendiente.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtvacaciones')}"/>
                               <p:commandLink id="txtsueldo" class="cssComandsLinksNominaf" style="left: 595px; top: 5px;" value="#{msg['sueldo']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciasueldo')}"
-                                             actionListener="#{controlVigenciaSueldo.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlVigenciaSueldo.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtsueldo')}"/>
                               <p:commandLink id="txttiposalario" class="cssComandsLinksNominaf" style="left: 595px; top: 50px;" value="#{msg['tiposalario']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciareformalaboral')}"
-                                             actionListener="#{controlVigenciasReformasLaborales.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlVigenciasReformasLaborales.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txttiposalario')}"/>
                               <p:commandLink id="txtubicaciongeografica" class="cssComandsLinksNominaf" style="left: 595px; top: 95px;" value="#{msg['ubicaciongeografica']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplubicaciongeografica')}"
-                                             actionListener="#{controlVigenciasUbicaciones.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlVigenciasUbicaciones.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtubicaciongeografica')}"/>
                               <p:commandLink id="txtformadepago" class="cssComandsLinksNominaf" style="left: 595px; top: 140px;" value="#{msg['formadepago']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciaformapago')}"
-                                             actionListener="#{controlVigenciasFormasPagos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia) }"
+                                             actionListener="#{controlVigenciasFormasPagos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado) }"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtformadepago')}"/>
                               <p:commandLink id="txtset" class="cssComandsLinksNominaf" style="left: 595px; top: 185px;" value="#{msg['set']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplsets')}"
-                                             actionListener="#{controlSets.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                             actionListener="#{controlSets.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtset')}"/>
                               <p:commandLink id="txtcomprobantesdepago" class="cssComandsLinksNominaf" style="left: 595px; top: 230px;" value="#{msg['comprobantesdepago']}"
                                              action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplcomprobante')}"
-                                             actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                             actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                              disabled="#{controlRemoto.consultarPermisosPorId('txtcomprobantesdepago')}"/>
 
                               <!-- Botones Panel Central -->
                               <p:commandButton id="cargodesempenhado" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/cargoDesempenado.png); top: 5px; left: 5px;"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciascargos')}" 
-                                               actionListener="#{controlVigenciasCargos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                               actionListener="#{controlVigenciasCargos.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('cargodesempenhado')}"/>
                               <p:tooltip for="cargodesempenhado">
                                  #{msg['cargosdesempenados1']}<br/>#{msg['cargosdesempenados2']}
@@ -233,7 +233,7 @@
 
                               <p:commandButton id="fechacontratacion" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/fechaContratacion.png); top: 50px; left: 5px;"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciatipocontrato')}"
-                                               actionListener="#{controlVigenciasTiposContratos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                               actionListener="#{controlVigenciasTiposContratos.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('fechacontratacion')}"/>
                               <p:tooltip for="fechacontratacion">
                                  #{msg['FechaContratacion1']}<br/>#{msg['FechaContratacion2']}
@@ -241,7 +241,7 @@
 
                               <p:commandButton id="normalaboral" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/normaLaboral.png); top: 95px; left: 5px;"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigencianormalaboral')}"
-                                               actionListener="#{controlBetaEmplVigenciaNormaLaboral.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               actionListener="#{controlBetaEmplVigenciaNormaLaboral.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('normalaboral')}"/>
                               <p:tooltip for="normalaboral">
                                  #{msg['NormaLaboral1']}<br/>#{msg['NormaLaboral2']}
@@ -249,104 +249,104 @@
 
                               <p:commandButton id="afiliaciones" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/afiliaciones.png); top: 140px; left: 5px;"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciaafiliacion3')}"
-                                               actionListener="#{controlEmplVigenciaAfiliacion3.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               actionListener="#{controlEmplVigenciaAfiliacion3.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('afiliaciones')}"/>
                               <p:tooltip for="afiliaciones">
                                  #{msg['Afiliaciones1']}<br/>#{msg['Afiliaciones2']}
                               </p:tooltip>
 
                               <p:commandButton id="ibc" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/IBC.png); top: 185px; left: 5px;"
-                                               actionListener="#{controlEmplIbcs.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               actionListener="#{controlEmplIbcs.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplibc')}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('ibc')}"/>
                               <p:tooltip for="ibc" value="#{msg['IBC']}"/>
 
                               <p:commandButton id="tipoviajero" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/tipoViajero.png); top: 230px; left: 5px;"
-                                               actionListener="#{controlVigenciasViajeros.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               actionListener="#{controlVigenciasViajeros.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplviajero')}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('tipoviajero')}"/>
                               <p:tooltip for="tipoviajero"/>
 
                               <p:commandButton id="centrodecosto" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/centroCosto.png); top: 5px; left: 280px;"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigencialocalizacion')}"
-                                               actionListener="#{controlVigenciaLocalizacion.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
+                                               actionListener="#{controlVigenciaLocalizacion.recibirEmpleado(controlRemoto.empleadoVWATT())}" 
                                                disabled="#{controlRemoto.consultarPermisosPorId('centrodecosto')}"/>
                               <p:tooltip for="centrodecosto">
                                  #{msg['CentroDeCosto1']}<br/>#{msg['CentroDeCosto2']}
                               </p:tooltip>
 
                               <p:commandButton id="tipotrabajador" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/tipoTrabajador.png); top: 50px; left: 280px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciatipotrabajador')}" actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado, 'nominaf')}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciatipotrabajador')}" actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.empleadoVWATT(), 'nominaf')}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('tipotrabajador')}"/>
                               <p:tooltip for="tipotrabajador">
                                  #{msg['TipoTrabajador1']}<br/>#{msg['TipoTrabajador2']}
                               </p:tooltip>
 
                               <p:commandButton id="legislacionlaboral" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/legislacionLaboral.png); top: 95px; left: 280px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'empllegislacionlaboral')}" actionListener="#{controlVigenciasContratos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'empllegislacionlaboral')}" actionListener="#{controlVigenciasContratos.recibirEmpleado(controlRemoto.empleadoVWATT())}" 
                                                disabled="#{controlRemoto.consultarPermisosPorId('legislacionlaboral')}"/>
                               <p:tooltip for="legislacionlaboral">
                                  #{msg['LegislacionLaboral1']}<br/>#{msg['LegislacionLaboral2']}
                               </p:tooltip>
 
                               <p:commandButton id="jornada" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/jornada.png); top: 140px; left: 280px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciajornada')}" actionListener="#{controlVigenciaJornada.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciajornada')}" actionListener="#{controlVigenciaJornada.recibirEmpleado(controlRemoto.empleadoVWATT())}" 
                                                disabled="#{controlRemoto.consultarPermisosPorId('jornada')}"/>
                               <p:tooltip for="jornada">
                                  #{msg['Jornada1']}<br/>#{msg['Jornada2']}
                               </p:tooltip>
 
                               <p:commandButton id="menorvalorretencio" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/valorRetencion.png); top: 185px; left: 280px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplmvrs')}" actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplmvrs')}" actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('menorvalorretencio')}"/>
                               <p:tooltip for="menorvalorretencio">
                                  #{msg['MenorValorRetencio1']}<br/>#{msg['MenorValorRetencio2']}
                               </p:tooltip>
 
                               <p:commandButton id="vacaciones" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/vacaciones.png); top: 230px; left: 280px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvacapendiente')}" actionListener="#{controlEmplVacaPendiente.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvacapendiente')}" actionListener="#{controlEmplVacaPendiente.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('vacaciones')}"/>
                               <p:tooltip for="vacaciones">
                                  #{msg['Vacaciones1']}<br/>#{msg['Vacaciones2']}
                               </p:tooltip>
 
                               <p:commandButton id="sueldo" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/sueldo.png); top: 5px; left: 550px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciasueldo')}" actionListener="#{controlVigenciaSueldo.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciasueldo')}" actionListener="#{controlVigenciaSueldo.recibirEmpleado(controlRemoto.empleadoVWATT())}" 
                                                disabled="#{controlRemoto.consultarPermisosPorId('sueldo')}"/>
                               <p:tooltip for="sueldo">
                                  #{msg['Sueldo1']}<br/>#{msg['Sueldo2']}
                               </p:tooltip>
 
                               <p:commandButton id="tiposalario" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/tipoSalario.png); top: 50px; left: 550px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciareformalaboral')}" actionListener="#{controlVigenciasReformasLaborales.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}" 
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciareformalaboral')}" actionListener="#{controlVigenciasReformasLaborales.recibirEmpleado(controlRemoto.empleadoVWATT())}" 
                                                disabled="#{controlRemoto.consultarPermisosPorId('tiposalario')}"/>
                               <p:tooltip for="tiposalario">
                                  #{msg['TipoSalario1']}<br/> #{msg['TipoSalario2']}
                               </p:tooltip>
 
                               <p:commandButton id="ubicacion" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/ubicacionGeografica.png); top: 95px; left: 550px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplubicaciongeografica')}" actionListener="#{controlVigenciasUbicaciones.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplubicaciongeografica')}" actionListener="#{controlVigenciasUbicaciones.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('ubicacion')}"/>
                               <p:tooltip for="ubicacion">
                                  #{msg['Ubicacion1']}<br/> #{msg['Ubicacion2']}
                               </p:tooltip>
 
                               <p:commandButton id="formadepago" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/formaPago.png); top: 140px; left: 550px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciaformapago')}" actionListener="#{controlVigenciasFormasPagos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigenciaformapago')}" actionListener="#{controlVigenciasFormasPagos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('formadepago')}"/>
                               <p:tooltip for="formadepago">
                                  #{msg['FormaDePago1']}<br/> #{msg['FormaDePago2']}
                               </p:tooltip>
 
                               <p:commandButton id="set" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/set.png); top: 185px; left: 550px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplsets')}" actionListener="#{controlSets.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplsets')}" actionListener="#{controlSets.recibirEmpleado(controlRemoto.empleadoVWATT())}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('set')}"/>
                               <p:tooltip for="set">
                                  #{msg['SET1']}<br/>#{msg['SET2']}
                               </p:tooltip>
 
                               <p:commandButton id="comprobantes" value="" class="cssBotonesNominafVigencias" style="background-image: url(Imagenes/Iconos/comprobantePago.png); top: 230px; left: 550px;"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplcomprobante')}" actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplcomprobante')}" actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('comprobantes')}"/>
                               <p:tooltip for="comprobantes">
                                  #{msg['Comprobantes1']}<br/>#{msg['Comprobantes2']}
@@ -419,13 +419,13 @@
                            <fieldset style="border-radius: 5px; position: relative; left: 0px; width: 808px;">
                               <p:commandButton id="acumuladosnomina" value=""  class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/acumulados.png);"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplacumulados')}" 
-                                               actionListener="#{controlEmplAcumulados.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               actionListener="#{controlEmplAcumulados.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('acumuladosnomina')}"/> <!-- disabled="#{controlRemoto.acumulado}" -->
                               <p:tooltip  for="acumuladosnomina">#{msg['AcumuladosNomina1']}<br/>#{msg['AcumuladosNomina2']}</p:tooltip>
 
                               <p:commandButton id="novedadesempleado" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/novedadEmpleado.png);"
                                                action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplnovedad')}" 
-                                               actionListener="#{controlEmplNovedad.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                                               actionListener="#{controlEmplNovedad.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"
                                                disabled="#{controlRemoto.consultarPermisosPorId('novedadesempleado')}"/> <!-- disabled="#{controlRemoto.novedad}" -->
                               <p:tooltip   for="novedadesempleado">#{msg['NovedadesEmpleado1']}<br/>#{msg['NovedadesEmpleado2']}</p:tooltip>
                               <p:spacer styleClass="separador"/> 
@@ -665,12 +665,12 @@
                                             action="#{controlRemoto.validarIntercon()}"  style="position: absolute; top: 60px; left: 285px;" process="@this" icon="ui-icon-check"/>
                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
-                         
-                         <p:dialog id="confirmarProcesoInterfaceTesoreria" widgetVar="confirmarProcesoInterfaceTesoreria" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420"  closable="false">  
+
+                        <p:dialog id="confirmarProcesoInterfaceTesoreria" widgetVar="confirmarProcesoInterfaceTesoreria" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420"  closable="false">  
                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"/>
                            <h:outputText value="#{msg['confirmarProcesoInterfaceTesoreria']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight: bold;"/>
                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarProcesoInterfaceTesoreria').hide();" 
-                                             action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'reportesbancos')}" actionListener="#{controlReportesBancos.iniciarPagina}"
+                                            action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'reportesbancos')}" actionListener="#{controlReportesBancos.iniciarPagina}"
                                             style="position: absolute; top: 70px; left: 285px;" process="@this" icon="ui-icon-check"/>
                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarProcesoInterfaceTesoreria').hide();" style="position: absolute; top: 70px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </p:dialog>
@@ -1089,7 +1089,7 @@
 
                <p:dialog id="activoeliminarpaso3" widgetVar="activoeliminarpaso3" header="#{msg['titulopaso3']}" resizable="false" draggable="true" modal="true" height="95" width="360" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                  <h:outputText value="#{msg['paso3']}  #{controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 210px;"/>
+                  <h:outputText value="#{msg['paso3']}  #{controlRemoto.vwActualesTiposTrabajadoresPosicion.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 210px;"/>
                   <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.paso4()}" onclick="PF('activoEliminarPaso3').hide();"
                                    icon="ui-icon-check" style="position: absolute; top: 60px; left: 125px;"/>
                   <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso3').hide();"

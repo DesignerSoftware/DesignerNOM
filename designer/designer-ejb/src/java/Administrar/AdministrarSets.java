@@ -1,6 +1,7 @@
 package Administrar;
 
 import Entidades.Empleados;
+import Entidades.Personas;
 import Entidades.Sets;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfaceAdministrar.AdministrarSetsInterface;
@@ -106,6 +107,16 @@ public class AdministrarSets implements AdministrarSetsInterface {
       try {
          return persistenciaEmpleados.buscarEmpleadoSecuencia(getEm(), secuencia);
       } catch (Exception e) {
+         return null;
+      }
+   }
+
+   @Override
+   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaEmpleados.buscarPersonaPorEmpleado(em, secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + " ERROR en obtenerPersonaPorEmpleado() : " + e.getMessage());
          return null;
       }
    }

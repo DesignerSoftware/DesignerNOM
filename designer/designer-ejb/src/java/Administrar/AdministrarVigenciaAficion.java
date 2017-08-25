@@ -6,6 +6,7 @@ package Administrar;
 
 import Entidades.Aficiones;
 import Entidades.Empleados;
+import Entidades.Personas;
 import Entidades.VigenciasAficiones;
 import InterfaceAdministrar.AdministrarVigenciaAficionInterface;
 import InterfacePersistencia.PersistenciaAficionesInterface;
@@ -137,6 +138,16 @@ public class AdministrarVigenciaAficion implements AdministrarVigenciaAficionInt
          return persistenciaEmpleado.buscarEmpleado(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error empleadoActual Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
+      try {
+         return persistenciaEmpleado.buscarPersonaPorEmpleado(em, secEmpleado);
+      } catch (Exception e) {
+         log.warn(this.getClass().getSimpleName() + " ERROR en obtenerPersonaPorEmpleado() : " + e.getMessage());
          return null;
       }
    }

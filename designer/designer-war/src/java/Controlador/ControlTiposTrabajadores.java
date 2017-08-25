@@ -7,7 +7,6 @@ package Controlador;
 import Entidades.TiposCotizantes;
 import Entidades.TiposTrabajadores;
 import Entidades.VigenciasDiasTT;
-import Entidades.VigenciasTiposTrabajadores;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarRastrosInterface;
@@ -21,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -119,11 +119,15 @@ public class ControlTiposTrabajadores implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
    private String altoTablaReg;
+   private ListasRecurrentes listasRecurrentes;
 
    /**
     * Creates a new instance of ControlTiposTrabajadores
     */
    public ControlTiposTrabajadores() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       //Lista Tipos Trabajadores
       listaTiposTrabajadores = null;
       tipoTrabajadorSeleccionado = null;
@@ -189,7 +193,7 @@ public class ControlTiposTrabajadores implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -1182,8 +1186,13 @@ public class ControlTiposTrabajadores implements Serializable {
             for (int i = 0; i < listaTiposTrabajadores.size(); i++) {
                lovTiposTrabajadores.add(listaTiposTrabajadores.get(i));
             }
-         } else {
+         } else if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
             lovTiposTrabajadores = administrarTiposTrabajadores.buscarTiposTrabajadoresTT();
+            if (lovTiposTrabajadores != null) {
+               listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+            }
+         } else {
+            lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
          }
       }
    }
@@ -1337,14 +1346,18 @@ public class ControlTiposTrabajadores implements Serializable {
    }
 
    public void mostrarTodos() {
-      RequestContext context = RequestContext.getCurrentInstance();
       listaTiposTrabajadores.clear();
       if (lovTiposTrabajadores != null) {
          for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
             listaTiposTrabajadores.add(lovTiposTrabajadores.get(i));
          }
-      } else {
+      } else if (listasRecurrentes.getLovTiposTrabajadores().isEmpty()) {
          listaTiposTrabajadores = administrarTiposTrabajadores.buscarTiposTrabajadoresTT();
+         if (lovTiposTrabajadores != null) {
+            listasRecurrentes.setLovTiposTrabajadores(lovTiposTrabajadores);
+         }
+      } else {
+         lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(listasRecurrentes.getLovTiposTrabajadores());
       }
       tipoTrabajadorSeleccionado = null;
       listaVigenciasDiasTT = null;
@@ -1419,6 +1432,7 @@ public class ControlTiposTrabajadores implements Serializable {
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
+         listasRecurrentes.getLovTiposTrabajadores().clear();
          intNuevaSec = 0;
       }
    }

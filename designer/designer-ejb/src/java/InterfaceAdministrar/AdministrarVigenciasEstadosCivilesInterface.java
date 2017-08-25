@@ -7,6 +7,7 @@ package InterfaceAdministrar;
 
 import Entidades.Empleados;
 import Entidades.EstadosCiviles;
+import Entidades.Personas;
 import Entidades.VigenciasEstadosCiviles;
 import java.math.BigInteger;
 import java.util.List;
@@ -19,22 +20,27 @@ import javax.ejb.Local;
 @Local
 public interface AdministrarVigenciasEstadosCivilesInterface {
 
-    /**
-     * Método encargado de obtener el Entity Manager el cual tiene
-     * asociado la sesion del usuario que utiliza el aplicativo.
-     * @param idSesion Identificador se la sesion.
-     */
-    public void obtenerConexion(String idSesion);
-    
-    public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado(BigInteger secEmpleado);
-public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado();
-    public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+   /**
+    * Método encargado de obtener el Entity Manager el cual tiene asociado la
+    * sesion del usuario que utiliza el aplicativo.
+    *
+    * @param idSesion Identificador se la sesion.
+    */
+   public void obtenerConexion(String idSesion);
 
-    public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+   public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado(BigInteger secEmpleado);
 
-    public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+   public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorEmpleado();
 
-    public Empleados consultarEmpleado(BigInteger secuencia);
+   public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
 
-    public List<EstadosCiviles> lovEstadosCiviles();
+   public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+
+   public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+
+   public Empleados consultarEmpleado(BigInteger secuencia);
+
+   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado);
+
+   public List<EstadosCiviles> lovEstadosCiviles();
 }

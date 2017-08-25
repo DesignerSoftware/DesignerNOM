@@ -289,7 +289,7 @@ public class AdministrarInterfaseContableDynamicsMT implements AdministrarInterf
    @Override
    public List<Empleados> buscarEmpleadosEmpresa() {
       try {
-         List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(getEm());
+         List<Empleados> lista = persistenciaEmpleados.buscarEmpleadosActivos(getEm());
          return lista;
       } catch (Exception e) {
          log.warn("Error buscarEmpleadosEmpresa Admi : " + e.toString());

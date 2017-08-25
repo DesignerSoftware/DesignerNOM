@@ -155,7 +155,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -1119,7 +1119,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
    }
 
    public List<GruposInfAdicionales> getLovGruposInfAdicional() {
-      if (lovGruposInfAdicional.equals(null)) {
+      if (lovGruposInfAdicional == null) {
          lovGruposInfAdicional = administrarEmplInformacionAdicional.listGruposInfAdicionales();
       }
       return lovGruposInfAdicional;

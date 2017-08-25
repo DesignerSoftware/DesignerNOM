@@ -21,7 +21,7 @@
                      <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
-                                         actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"/>
+                                         actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
@@ -92,7 +92,7 @@
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
-                     <h:outputText id="nombreEmpleadot" value="#{controlEmplMvr.empleado.persona.nombreCompleto}" 
+                     <h:outputText id="nombreEmpleadot" value="#{controlEmplMvr.empleado.nombreCompleto}" 
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                      <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
@@ -614,9 +614,12 @@
                      <p:watermark for="nuevaValorAMVRS" value="#{msg['valor']}"/>   
 
 
-                     <p:commandButton id="limpiarNM" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" process="@this" icon="ui-icon-trash"/>
-                     <p:commandButton id="agregarNM" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 255px;"  process="@this" actionListener="#{controlEmplMvr.agregarNuevaMvr()}"  icon="ui-icon-circle-check"/>
-                     <p:commandButton id="cancelarNM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 255px;" actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" onclick="PF('NuevoRegistroMVRS').hide();"  process="@this" icon="ui-icon-circle-close"/>
+                     <p:commandButton id="limpiarNM" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 255px;"
+                                      actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" process="@this" icon="ui-icon-trash"/>
+                     <p:commandButton id="agregarNM" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 255px;"
+                                      process="@this" actionListener="#{controlEmplMvr.agregarNuevaMvr()}"  icon="ui-icon-circle-check"/>
+                     <p:commandButton id="cancelarNM" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 255px;"
+                                      actionListener="#{controlEmplMvr.limpiarNuevaMvr()}" update="nuevaMVRS" onclick="PF('NuevoRegistroMVRS').hide();" process="@this" icon="ui-icon-circle-close"/>
                   </p:panel>
                </p:dialog>
 

@@ -119,12 +119,12 @@ public class AdministrarArchivoPlanoCentroCosto implements AdministrarArchivoPla
    @Override
    public List<NombresEmpleadosAux> consultarNombresEmpleados() {
       try {
-         List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(getEm());
+         List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleadosActivos(getEm());
          List<NombresEmpleadosAux> listaNombres = new ArrayList<NombresEmpleadosAux>();
          if (listaEmpleados != null) {
             if (!listaEmpleados.isEmpty()) {
                for (Empleados recEmp : listaEmpleados) {
-                  listaNombres.add(new NombresEmpleadosAux(recEmp.getCodigoempleado().toBigInteger(), recEmp.getPersona().getNombreCompleto()));
+                  listaNombres.add(new NombresEmpleadosAux(recEmp.getCodigoempleado().toBigInteger(), recEmp.getNombreCompleto()));
                }
             }
          }

@@ -211,7 +211,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
    @Override
    public List<Empleados> listEmpleados() {
       try {
-         return persistenciaEmpleado.buscarEmpleados(getEm());
+         return persistenciaEmpleado.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.warn("Error listEmpleados Administrar : " + e.toString());
          return null;

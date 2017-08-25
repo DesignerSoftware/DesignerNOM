@@ -228,8 +228,8 @@
                                  </f:facet>  
                                  <f:facet name="input">
                                     <p:inputText autocomplete="off" value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
-                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'HASTA'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});">
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'HASTA'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});">
                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </p:inputText>
                                  </f:facet>
@@ -239,16 +239,16 @@
                               </f:facet>
                            </p:column>
 
-                           <p:column headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" filterBy="#{empleadoParametro.empleado.codigoempleado}" 
+                           <p:column headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.codigoEmpleado}" filterBy="#{empleadoParametro.codigoEmpleado}" 
                                      filterMatchMode="contains" id="Codigo" width="80" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                                  
                               <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
                               <p:cellEditor>  
-                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/></f:facet>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.codigoEmpleado}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
-                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
-                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"/> 
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.codigoEmpleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
+                                                 style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"/> 
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -256,15 +256,15 @@
                               </f:facet>
                            </p:column>  
 
-                           <p:column headerText="#{msg['primerapellido']}" sortBy="#{empleadoParametro.empleado.persona.primerapellido}" filterBy="#{empleadoParametro.empleado.persona.primerapellido}" filterMatchMode="contains" id="pApellido" width="100" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:column headerText="#{msg['primerapellido']}" sortBy="#{empleadoParametro.primerApellidoPersona}" filterBy="#{empleadoParametro.primerApellidoPersona}" filterMatchMode="contains" id="pApellido" width="100" filterStyle="display: none; visibility: hidden;">                                  
                               <f:facet name="header"><h:outputText value="#{msg['primerapellido']}"/> </f:facet> 
                               <p:cellEditor>  
-                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.primerapellido}"/></f:facet>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.primerApellidoPersona}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
-                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'PAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
-                                                  style =" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.primerApellidoPersona}" readonly="true"
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'PAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                 style =" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -272,15 +272,15 @@
                               </f:facet>
                            </p:column>  
 
-                           <p:column headerText="#{msg['segundoapellido']}" sortBy="#{empleadoParametro.empleado.persona.segundoapellido}" filterBy="#{empleadoParametro.empleado.persona.segundoapellido}" filterMatchMode="contains" id="sApellido" width="100" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:column headerText="#{msg['segundoapellido']}" sortBy="#{empleadoParametro.segundoApellidoPersona}" filterBy="#{empleadoParametro.segundoApellidoPersona}" filterMatchMode="contains" id="sApellido" width="100" filterStyle="display: none; visibility: hidden;">                                  
                               <f:facet name="header"><h:outputText value="#{msg['segundoapellido']}"/> </f:facet> 
                               <p:cellEditor>  
-                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.segundoapellido}"/></f:facet>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.segundoApellidoPersona}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
-                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'SAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
-                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.segundoApellidoPersona}" readonly="true" 
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'SAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                 style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -288,15 +288,15 @@
                               </f:facet>
                            </p:column>  
 
-                           <p:column headerText="#{msg['nombre']}" sortBy="#{empleadoParametro.empleado.persona.nombre}" filterBy="#{empleadoParametro.empleado.persona.nombre}" filterMatchMode="contains" id="nombre" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:column headerText="#{msg['nombre']}" sortBy="#{empleadoParametro.nombrePersona}" filterBy="#{empleadoParametro.nombrePersona}" filterMatchMode="contains" id="nombre" filterStyle="display: none; visibility: hidden;">                                  
                               <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
                               <p:cellEditor>  
-                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.nombre}"/></f:facet>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.nombrePersona}"/></f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText autocomplete="off" value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
-                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'NOMBRE'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
-                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.nombrePersona}" readonly="true" 
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'NOMBRE'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                 style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -311,9 +311,9 @@
                                  <f:facet name="output"><h:outputText value="#{empleadoParametro.estadoParametro}"/></f:facet>  
                                  <f:facet name="input">
                                     <p:inputText autocomplete="off" value="#{empleadoParametro.estadoParametro}" readonly="true"  
-                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'ESTADO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
-                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'ESTADO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                 style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                                  </f:facet>
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -466,7 +466,7 @@
                </p:dialog>
 
                <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleadosEM']}" widgetVar="buscarEmpleadoDialogo" resizable="false" draggable="true" 
-                         modal="true" width="695" closable="false">  
+                         modal="true" width="695" closable="false" onShow="PF('lovEmpleados').clearFilters()">  
 
                   <p:dataTable id="lovEmpleados" var="empleado" value="#{controlParametro.lovEmpleados}"
                                scrollable="true" scrollHeight="225" scrollWidth="670" widgetVar="lovEmpleados"
@@ -481,23 +481,23 @@
                         <h:outputText value="#{msg['buscarEM']}"/>
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
                         <h:outputText id="informacionSeleccion" value="#{msg['seleccionMultiple']}" style="position: relative; top: 0px; display: block; color: white; font-weight: normal; margin-top: 5px;"/>
-                        <p:watermark for="globalFilter" value="#{msg['ingresarvalorabuscar']}"/>
+                        <!--<p:watermark for="globalFilter" value="#/{msg['ingresarvalorabuscar']}"/>-->
                      </f:facet>
 
                      <p:column headerText="#{msg['codigo']}" width="90" filterBy="#{empleado.codigoempleado}" sortBy="#{empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                         <h:outputText value="#{empleado.codigoempleado}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoEM']}" filterBy="#{empleado.persona.primerapellido}" sortBy="#{empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 80% !important">  
-                        <h:outputText value="#{empleado.persona.primerapellido}"/>  
+                     <p:column headerText="#{msg['primerapellidoEM']}" filterBy="#{empleado.primerApellidoPersona}" sortBy="#{empleado.primerApellidoPersona}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                        <h:outputText value="#{empleado.primerApellidoPersona}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoEM']}" filterBy="#{empleado.persona.segundoapellido}" sortBy="#{empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 80% !important">  
-                        <h:outputText value="#{empleado.persona.segundoapellido}"/>  
+                     <p:column headerText="#{msg['segundoapellidoEM']}" filterBy="#{empleado.segundoApellidoPersona}" sortBy="#{empleado.segundoApellidoPersona}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                        <h:outputText value="#{empleado.segundoApellidoPersona}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombreEM']}" width="200" filterBy="#{empleado.persona.nombre}" sortBy="#{empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
-                        <h:outputText value="#{empleado.persona.nombre}"/>  
+                     <p:column headerText="#{msg['nombreEM']}" width="200" filterBy="#{empleado.nombrePersona}" sortBy="#{empleado.nombrePersona}" filterMatchMode="contains" filterStyle="width: 80% !important">  
+                        <h:outputText value="#{empleado.nombrePersona}"/>  
                      </p:column> 
                   </p:dataTable> 
 
@@ -562,19 +562,19 @@
                </p:dialog>
 
                <p:dialog id="editarCodigo" header="#{msg['editarCodigo']}" widgetVar="editarCodigo" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.codigoempleado}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.codigoEmpleado}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarPApellido" header="#{msg['editarPApellido']}" widgetVar="editarPApellido" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.primerapellido}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.primerApellidoPersona}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarSApellido" header="#{msg['editarSApellido']}" widgetVar="editarSApellido" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.segundoapellido}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.segundoApellidoPersona}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarNombre" header="#{msg['editarNombre']}" widgetVar="editarNombre" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.nombrePersona}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarEstado" header="#{msg['editarEstado']}" widgetVar="editarEstado" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -714,26 +714,26 @@
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet> 
-                     <h:outputText value="#{infoExp.empleado.codigoempleado}"/>
+                     <h:outputText value="#{infoExp.codigoEmpleado}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['primerapellidoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['primerapellidoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.empleado.persona.primerapellido}"/>
+                     <h:outputText value="#{infoExp.primerApellidoPersona}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['segundoapellidoXX']}">                                                              
                      <f:facet name="header"> 
                         <h:outputText value="#{msg['segundoapellidoX']}"/>
                      </f:facet>
-                     <h:outputText value="#{infoExp.empleado.persona.segundoapellido}"/>
+                     <h:outputText value="#{infoExp.segundoApellidoPersona}"/>
                   </p:column>  
 
                   <p:column>                                                              
                      <f:facet name="header"> 
                         <h:outputText value="#{msg['nombreX']}"/>
                      </f:facet>
-                     <h:outputText value="#{infoExp.empleado.persona.nombre}"/>
+                     <h:outputText value="#{infoExp.nombrePersona}"/>
                   </p:column>  
 
                   <p:column>                                                                                              

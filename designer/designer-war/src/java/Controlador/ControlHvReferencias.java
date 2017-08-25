@@ -469,10 +469,10 @@ public class ControlHvReferencias implements Serializable {
          contador++;
       }
 
-      log.info("secuencia persona" + empleado.getPersona().getSecuencia());
-      listHVHojasDeVida = administrarHvReferencias.consultarHvHojasDeVida(empleado.getPersona().getSecuencia());
+      log.info("secuencia persona" + empleado.getPersona());
+      listHVHojasDeVida = administrarHvReferencias.consultarHvHojasDeVida(empleado.getPersona());
       if (listHVHojasDeVida == null) {
-         log.error("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona().getSecuencia());
+         log.error("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona());
       } else {
          hvHojasDeVida = listHVHojasDeVida.get(0);
          nuevoHvReferencia.setHojadevida(hvHojasDeVida);
@@ -693,7 +693,7 @@ public class ControlHvReferencias implements Serializable {
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<HvReferencias> getListHvReferencias() {
       if (listHvReferencias == null) {
-         listHvReferencias = administrarHvReferencias.consultarHvReferenciasPersonalesPorPersona(empleado.getPersona().getSecuencia());
+         listHvReferencias = administrarHvReferencias.consultarHvReferenciasPersonalesPorPersona(empleado.getPersona());
       }
       return listHvReferencias;
    }

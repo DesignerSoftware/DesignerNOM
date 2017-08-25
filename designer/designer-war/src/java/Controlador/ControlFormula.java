@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.LinkedHashMap;
@@ -90,7 +91,12 @@ public class ControlFormula implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlFormula() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       llamadoPrevioPagina = 1;
       activoBuscarTodos = false;
       activoDetalleFormula = true;
@@ -128,7 +134,7 @@ public class ControlFormula implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -486,7 +492,6 @@ public class ControlFormula implements Serializable {
       unaVez = true;
 //      regSolucion = -1;
       nombreLargoMientras = "0";
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (guardado == false) {
             if (!listaFormulasBorrar.isEmpty()) {
@@ -542,6 +547,8 @@ public class ControlFormula implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
+            listasRecurrentes.getLovFormulas().clear();
+            log.info(this.getClass().getSimpleName() + "Clear() lovFormulas en listasRecurrentes");
          }
       } catch (Exception e) {
          log.warn("Error guardarCambios : " + e.toString());

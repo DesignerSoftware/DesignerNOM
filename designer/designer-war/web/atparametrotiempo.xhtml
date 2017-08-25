@@ -319,11 +319,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleados.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleados.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                            <p:column filterBy="#{empleados.nombreCompleto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEmpleado']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleados.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 

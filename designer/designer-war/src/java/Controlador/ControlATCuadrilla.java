@@ -162,7 +162,6 @@ public class ControlATCuadrilla implements Serializable {
       nuevaTurnoRotativo = new Turnosrotativos();
       nuevaDetalle = new DetallesTurnosRotativos();
       nuevaDetalle.setEmpleado(new Empleados());
-      nuevaDetalle.getEmpleado().setPersona(new Personas());
 
       altoTablaCuadrilla = "70";
       altoTablaTurno = "80";
@@ -227,7 +226,7 @@ public class ControlATCuadrilla implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -383,11 +382,11 @@ public class ControlATCuadrilla implements Serializable {
          if (tipoListaDetalle == 0) {
             listaDetallesTurnosRotativos.get(indice).setOrden(auxDetalleOrden);
             listaDetallesTurnosRotativos.get(indice).getEmpleado().setCodigoempleado(auxDetalleCodigo);
-            listaDetallesTurnosRotativos.get(indice).getEmpleado().getPersona().setNombreCompleto(auxDetalleEmpleado);
+            listaDetallesTurnosRotativos.get(indice).getEmpleado().setNombreCompleto(auxDetalleEmpleado);
          } else {
             filtrarListaDetallesTurnosRotativos.get(indice).setOrden(auxDetalleOrden);
             filtrarListaDetallesTurnosRotativos.get(indice).getEmpleado().setCodigoempleado(auxDetalleCodigo);
-            filtrarListaDetallesTurnosRotativos.get(indice).getEmpleado().getPersona().setNombreCompleto(auxDetalleEmpleado);
+            filtrarListaDetallesTurnosRotativos.get(indice).getEmpleado().setNombreCompleto(auxDetalleEmpleado);
          }
          RequestContext.getCurrentInstance().execute("PF('errorNullDetalle').show()");
       }
@@ -428,12 +427,12 @@ public class ControlATCuadrilla implements Serializable {
       }
       if (confirmarCambio.equalsIgnoreCase("NOMBRE")) {
          if (tipoListaDetalle == 0) {
-            listaDetallesTurnosRotativos.get(indice).getEmpleado().getPersona().setNombreCompleto(auxDetalleEmpleado);
+            listaDetallesTurnosRotativos.get(indice).getEmpleado().setNombreCompleto(auxDetalleEmpleado);
          } else {
-            filtrarListaDetallesTurnosRotativos.get(indice).getEmpleado().getPersona().setNombreCompleto(auxDetalleEmpleado);
+            filtrarListaDetallesTurnosRotativos.get(indice).getEmpleado().setNombreCompleto(auxDetalleEmpleado);
          }
          for (int i = 0; i < lovEmpleados.size(); i++) {
-            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+            if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -724,12 +723,12 @@ public class ControlATCuadrilla implements Serializable {
          if (tipoListaDetalle == 0) {
             auxDetalleOrden = listaDetallesTurnosRotativos.get(indexDetalle).getOrden();
             auxDetalleCodigo = listaDetallesTurnosRotativos.get(indexDetalle).getEmpleado().getCodigoempleado();
-            auxDetalleEmpleado = listaDetallesTurnosRotativos.get(indexDetalle).getEmpleado().getPersona().getNombreCompleto();
+            auxDetalleEmpleado = listaDetallesTurnosRotativos.get(indexDetalle).getEmpleado().getNombreCompleto();
             secRegistro = listaDetallesTurnosRotativos.get(indexDetalle).getSecuencia();
          } else {
             auxDetalleOrden = filtrarListaDetallesTurnosRotativos.get(indexDetalle).getOrden();
             auxDetalleCodigo = filtrarListaDetallesTurnosRotativos.get(indexDetalle).getEmpleado().getCodigoempleado();
-            auxDetalleEmpleado = filtrarListaDetallesTurnosRotativos.get(indexDetalle).getEmpleado().getPersona().getNombreCompleto();
+            auxDetalleEmpleado = filtrarListaDetallesTurnosRotativos.get(indexDetalle).getEmpleado().getNombreCompleto();
             secRegistro = filtrarListaDetallesTurnosRotativos.get(indexDetalle).getSecuencia();
          }
       }
@@ -1162,9 +1161,9 @@ public class ControlATCuadrilla implements Serializable {
          if (aux.getEmpleado().getCodigoempleado() == null) {
             retorno = false;
          }
-         if (aux.getEmpleado().getPersona().getNombreCompleto() == null) {
+         if (aux.getEmpleado().getNombreCompleto() == null) {
             retorno = false;
-         } else if (aux.getEmpleado().getPersona().getNombreCompleto().isEmpty()) {
+         } else if (aux.getEmpleado().getNombreCompleto().isEmpty()) {
             retorno = false;
          }
       }
@@ -1373,8 +1372,6 @@ public class ControlATCuadrilla implements Serializable {
          log.info("listaDetallesTurnosRotativos : " + listaDetallesTurnosRotativos.size());
          nuevaDetalle = new DetallesTurnosRotativos();
          nuevaDetalle.setEmpleado(new Empleados());
-         nuevaDetalle.getEmpleado().setPersona(new Personas());
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosDetalle");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDetalle').hide()");
          if (guardado == true) {
@@ -1394,7 +1391,6 @@ public class ControlATCuadrilla implements Serializable {
    public void limpiarNuevaDetalle() {
       nuevaDetalle = new DetallesTurnosRotativos();
       nuevaDetalle.setEmpleado(new Empleados());
-      nuevaDetalle.getEmpleado().setPersona(new Personas());
       indexDetalle = -1;
       secRegistro = null;
    }
@@ -1627,7 +1623,6 @@ public class ControlATCuadrilla implements Serializable {
          cambiosDetalle = true;
          duplicarDetalle = new DetallesTurnosRotativos();
          duplicarDetalle.setEmpleado(new Empleados());
-         duplicarDetalle.getEmpleado().setPersona(new Personas());
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorNullDetalle').show()");
@@ -1638,7 +1633,6 @@ public class ControlATCuadrilla implements Serializable {
    public void limpiarDuplicarDetalle() {
       duplicarDetalle = new DetallesTurnosRotativos();
       duplicarDetalle.setEmpleado(new Empleados());
-      duplicarDetalle.getEmpleado().setPersona(new Personas());
    }
 
    public void valoresBackupAutocompletarDetalle(int tipoNuevo, String Campo) {
@@ -1651,9 +1645,9 @@ public class ControlATCuadrilla implements Serializable {
       }
       if (Campo.equals("NOMBRE")) {
          if (tipoNuevo == 1) {
-            auxDetalleEmpleado = nuevaDetalle.getEmpleado().getPersona().getNombreCompleto();
+            auxDetalleEmpleado = nuevaDetalle.getEmpleado().getNombreCompleto();
          } else if (tipoNuevo == 2) {
-            auxDetalleEmpleado = duplicarDetalle.getEmpleado().getPersona().getNombreCompleto();
+            auxDetalleEmpleado = duplicarDetalle.getEmpleado().getNombreCompleto();
          }
       }
    }
@@ -1661,7 +1655,6 @@ public class ControlATCuadrilla implements Serializable {
    public void autocompletarNuevoyDuplicadoDetalle(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CODIGO")) {
          if (tipoNuevo == 1) {
             nuevaDetalle.getEmpleado().setCodigoempleado(auxDetalleCodigo);
@@ -1701,12 +1694,12 @@ public class ControlATCuadrilla implements Serializable {
       }
       if (confirmarCambio.equalsIgnoreCase("NOMBRE")) {
          if (tipoNuevo == 1) {
-            nuevaDetalle.getEmpleado().getPersona().setNombreCompleto(auxDetalleEmpleado);
+            nuevaDetalle.getEmpleado().setNombreCompleto(auxDetalleEmpleado);
          } else if (tipoNuevo == 2) {
-            duplicarDetalle.getEmpleado().getPersona().setNombreCompleto(auxDetalleEmpleado);
+            duplicarDetalle.getEmpleado().setNombreCompleto(auxDetalleEmpleado);
          }
          for (int i = 0; i < lovEmpleados.size(); i++) {
-            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
+            if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }

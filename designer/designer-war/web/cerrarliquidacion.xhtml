@@ -116,26 +116,26 @@
 
                            <p:ajax event="filter" listener="#{controlCerrarLiquidacion.eventoFiltrar()}"/>
 
-                           <p:column id="codigoEmpleado" headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" width="80" filterBy="#{empleadoParametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                           <p:column id="codigoEmpleado" headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.codigoEmpleado}" width="80" filterBy="#{empleadoParametro.codigoEmpleado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                               <p:cellEditor>  
                                  <f:facet name="output">
-                                    <h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/>
+                                    <h:outputText value="#{empleadoParametro.codigoEmpleado}"/>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText autocomplete="off"  value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase;" readonly="true">
+                                    <p:inputText autocomplete="off"  value="#{empleadoParametro.codigoEmpleado}" style="width: 99%; text-transform: uppercase;" readonly="true">
                                        <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});"/>
                                     </p:inputText>
                                  </f:facet>
                               </p:cellEditor>
                            </p:column>
 
-                           <p:column id="nombreEmpleado" headerText="#{msg['nombreempleado']}" sortBy="#{empleadoParametro.empleado.persona.nombreCompleto}"  filterBy="#{empleadoParametro.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                           <p:column id="nombreEmpleado" headerText="#{msg['nombreempleado']}" sortBy="#{empleadoParametro.nombreCompleto}"  filterBy="#{empleadoParametro.nombreCompleto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
                               <p:cellEditor>  
                                  <f:facet name="output">
-                                    <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
+                                    <h:outputText value="#{empleadoParametro.nombreCompleto}"/>
                                  </f:facet>  
                                  <f:facet name="input">
-                                    <p:inputText autocomplete="off"  value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase;" readonly="true">
+                                    <p:inputText autocomplete="off"  value="#{empleadoParametro.nombreCompleto}" style="width: 99%; text-transform: uppercase;" readonly="true">
                                        <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});"/>
                                     </p:inputText>
                                  </f:facet>
@@ -210,12 +210,12 @@
 
                   <p:column headerText="#{msg['codigoX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
-                     <h:outputText value="#{infoExp.empleado.codigoempleado}"/>
+                     <h:outputText value="#{infoExp.codigoEmpleado}"/>
                   </p:column>  
 
                   <p:column headerText="#{msg['nombreEmpleadoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.empleado.persona.nombreCompleto}"/>
+                     <h:outputText value="#{infoExp.nombreCompleto}"/>
                   </p:column>
                </p:dataTable>
             </h:form>

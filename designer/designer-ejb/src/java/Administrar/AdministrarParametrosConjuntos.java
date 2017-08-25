@@ -109,6 +109,7 @@ public class AdministrarParametrosConjuntos implements AdministrarParametrosConj
          if (pc == null) {
             pc = new ParametrosConjuntos();
             pc.setSecuencia(BigDecimal.ONE);
+            pc.setConjunto(45);
             pc.setUsuarioBD(persistenciaActualUsuario.actualAliasBD(getEm()));
          }
          return pc;

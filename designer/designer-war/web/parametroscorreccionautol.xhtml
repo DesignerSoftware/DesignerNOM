@@ -265,17 +265,17 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column id="aporteNombreEmpleado" sortBy="#{infoAE.empleado.persona.nombreCompleto}"  width="110" filterBy="#{infoAE.empleado.persona.nombreCompleto}" 
+                        <p:column id="aporteNombreEmpleado" sortBy="#{infoAE.empleado.nombreCompleto}"  width="110" filterBy="#{infoAE.empleado.nombreCompleto}" 
                                    filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"> 
                               <h:outputText id="nomempl" value="#{msg['nombreEmpleado']}"/> 
                               <p:tooltip  for="nomempl" value="Nombre del Empleado"/>
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{infoAE.empleado.persona.nombreCompleto}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{infoAE.empleado.nombreCompleto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off"  value="#{infoAE.empleado.persona.nombreCompleto}" id="editarNombreEmpleadoAporte" style="width : 48px; border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
-                                    <p:ajax event="change" listener="#{controlParametrosCorreccionAutoL.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}" update="@this"/>
+                                 <p:inputText autocomplete="off"  value="#{infoAE.empleado.nombreCompleto}" id="editarNombreEmpleadoAporte" style="width : 48px; border-radius: 0px; width: 98.5%; text-transform: uppercase;"> 
+                                    <p:ajax event="change" listener="#{controlParametrosCorreccionAutoL.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.nombreCompleto)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlParametrosCorreccionAutoL.cambiarIndiceAporteEntidad(infoAE, 2)}"/>
                                     <p:ajax event="dblclick" listener="#{controlParametrosCorreccionAutoL.asignarIndexAporte(infoAE, 0, 1)}"/>
                                  </p:inputText>
@@ -1382,11 +1382,11 @@
                         <h:outputText  value="#{empleado.codigoempleado}"/>
                      </p:column>
 
-                     <p:column filterBy="#{empleado.persona.nombreCompleto}"  filterStyle="width: 85% !important" filterMatchMode="contains">
+                     <p:column filterBy="#{empleado.nombreCompleto}"  filterStyle="width: 85% !important" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                         </f:facet>
-                        <h:outputText  value="#{empleado.persona.nombreCompleto}"/>
+                        <h:outputText  value="#{empleado.nombreCompleto}"/>
                      </p:column>
                   </p:dataTable>
 
@@ -1470,11 +1470,11 @@
                         </f:facet>
                         <h:outputText  value="#{buscarA.mes}"/>
                      </p:column>
-                     <p:column filterBy="#{buscarA.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important">
+                     <p:column filterBy="#{buscarA.empleado.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['empleado']}"/>
                         </f:facet>
-                        <h:outputText  value="#{buscarA.empleado.persona.nombreCompleto}"/>
+                        <h:outputText  value="#{buscarA.empleado.nombreCompleto}"/>
                      </p:column>
 
                   </p:dataTable>
@@ -1793,9 +1793,9 @@
                      </p:inputText>
 
                      <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 85px; left: 40px"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoNomEmpl" value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.empleado.persona.nombreCompleto}" 
+                     <p:inputText autocomplete="off" id="nuevoNomEmpl" value="#{controlParametrosCorreccionAutoL.nuevoAporteEntidad.empleado.nombreCompleto}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="change" listener="#{controlParametrosCorreccionAutoL.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
+                        <p:ajax event="change" listener="#{controlParametrosCorreccionAutoL.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.nombreCompleto)}"/>
                         <p:ajax event="dblclick" listener="#{controlParametrosCorreccionAutoL.asignarIndexAporte(infoAE, 1, 1)}"/>
                         <p:ajax event="click" listener="#{controlParametrosCorreccionAutoL.valoresBackupAutocompletar(1, 'EMPLEADO')}"/>
                      </p:inputText>
@@ -2126,7 +2126,7 @@
                      </p:inputText>
 
                      <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 85px; left: 40px"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarNomEmpl" value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.empleado.persona.nombreCompleto}" 
+                     <p:inputText autocomplete="off" id="duplicarNomEmpl" value="#{controlParametrosCorreccionAutoL.duplicarAporteEntidad.empleado.nombreCompleto}" 
                                    style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;" onclick="select();">
                      </p:inputText>
 
@@ -2479,7 +2479,7 @@
                </p:dialog>
 
                <p:dialog id="editarNombreEmplD" header="#{msg['editarNombreEmplD']}" widgetVar="editarNombreEmplD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -2763,7 +2763,7 @@
 
                   <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/></f:facet> 
-                     <h:outputText value="#{info2Exp.empleado.persona.nombreCompleto}"/>
+                     <h:outputText value="#{info2Exp.empleado.nombreCompleto}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['tipoPXX']}">                                  

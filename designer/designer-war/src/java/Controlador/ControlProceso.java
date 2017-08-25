@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -136,7 +137,12 @@ public class ControlProceso implements Serializable {
    private int tablaActiva;
    String errorClonado;
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlProceso() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       //clonado
       procesoNuevoClonado = new Procesos();
       procesoBaseClonado = new Procesos();
@@ -228,7 +234,7 @@ public class ControlProceso implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -265,25 +271,15 @@ public class ControlProceso implements Serializable {
 
       } else {
          limpiarListasValor();
-         */
-String pagActual = "proceso";
-         
-         
-         
+       */
+      String pagActual = "proceso";
 
-
-         
-         
-         
-         
-         
-         
-         if (pag.equals("atras")) {
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
 //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParaEnviar.put("paginaAnterior", pagActual);
@@ -697,6 +693,7 @@ String pagActual = "proceso";
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          cambiosPagina = true;
+         listasRecurrentes.getLovProcesos().clear();
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       } catch (Exception e) {
          log.warn("Error guardarCambiosProceso : " + e.toString());
@@ -2456,7 +2453,12 @@ String pagActual = "proceso";
 
    public List<Formulas> getLovFormulas() {
       if (lovFormulas == null) {
-         lovFormulas = administrarProcesos.lovFormulas();
+         if (listasRecurrentes.getLovFormulas().isEmpty()) {
+            lovFormulas = administrarProcesos.lovFormulas();
+            if(lovFormulas != null){listasRecurrentes.setLovFormulas(lovFormulas);}
+         } else {
+            lovFormulas = new ArrayList<Formulas>(listasRecurrentes.getLovFormulas());
+         }
       }
       return lovFormulas;
    }

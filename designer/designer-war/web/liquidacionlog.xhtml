@@ -128,10 +128,10 @@
                                     </h:outputText>
                                 </p:column>
 
-                                <p:column headerText="Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}"
+                                <p:column headerText="Empleado" sortBy="#{info.empleado.nombreCompleto}" filterBy="#{info.empleado.nombreCompleto}"
                                           filterMatchMode="contains" id="empleado"
                                           filterStyle="display: none; visibility: hidden;">                                  
-                                    <h:outputText style="text-transform: uppercase;" value="#{info.empleado.persona.nombreCompleto}"/>
+                                    <h:outputText style="text-transform: uppercase;" value="#{info.empleado.nombreCompleto}"/>
                                 </p:column>
 
                                 <p:column headerText="Operando" sortBy="#{info.operando.nombre}" filterBy="#{info.operando.nombre}" filterMatchMode="contains"
@@ -194,18 +194,18 @@
                                     <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
                                 </f:facet>
 
-                                <p:column filterBy="#{empleado.persona.numerodocumento}" sortBy="#{empleado.persona.numerodocumento}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
+                                <p:column filterBy="#{empleado.numeroDocumentoPersona}" sortBy="#{empleado.numeroDocumentoPersona}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important;">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center;" value="Documento"/>
                                     </f:facet>
-                                    <h:outputText  value="#{empleado.persona.numerodocumento}"/>
+                                    <h:outputText  value="#{empleado.numeroDocumentoPersona}"/>
                                 </p:column>
 
-                                <p:column filterBy="#{empleado.persona.nombreCompleto}" sortBy="#{empleado.persona.nombreCompleto}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                                <p:column filterBy="#{empleado.nombreCompleto}" sortBy="#{empleado.nombreCompleto}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                     <f:facet name="header">
                                         <h:outputText value="Nombre Compleato"/>
                                     </f:facet>
-                                    <h:outputText value="#{empleado.persona.nombreCompleto}"/>
+                                    <h:outputText value="#{empleado.nombreCompleto}"/>
                                 </p:column>
                             </p:dataTable>
                             <div class="cssBotonesLOV">
@@ -408,7 +408,7 @@
                         </p:column>  
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Empleado"/></f:facet> 
-                            <h:outputText value="#{info2.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{info2.empleado.nombreCompleto}"/>
                         </p:column>  
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="Operando"/></f:facet> 

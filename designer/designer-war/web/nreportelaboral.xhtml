@@ -388,11 +388,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleadoDesde.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" filterStyle="width: 80% !important" filterMatchMode="contains">
+                            <p:column filterBy="#{empleadoDesde.nombreCompleto}" filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadoDesde.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleadoDesde.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">
@@ -422,11 +422,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleadoHasta.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}"  filterStyle="width: 80% !important" filterMatchMode="contains">
+                            <p:column filterBy="#{empleadoHasta.nombreCompleto}"  filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="Empleado"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadoHasta.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleadoHasta.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 

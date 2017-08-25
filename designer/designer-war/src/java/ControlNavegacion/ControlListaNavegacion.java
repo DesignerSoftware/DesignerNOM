@@ -17,21 +17,23 @@ import org.apache.log4j.Logger;
  *
  * @author user
  */
-//@Named(value = "controlListaNavegacion")
-//@Dependent
 @ManagedBean
 @SessionScoped
 public class ControlListaNavegacion implements Serializable {
 
    private static Logger log = Logger.getLogger(ControlListaNavegacion.class);
 
-   private List<String> listaPaginasAnteriores = new ArrayList<String>();
+   private List<String> listaPaginasAnteriores;
    private String paginaActual = "1";
+
+   // Listas Recurrentes
+   private static ListasRecurrentes listasRecurrentes = new ListasRecurrentes();
 
    /**
     * Creates a new instance of ControlListaNavegacion
     */
    public ControlListaNavegacion() {
+      this.listaPaginasAnteriores = new ArrayList<String>();
       listaPaginasAnteriores.add("iniciored");
    }
 
@@ -92,6 +94,10 @@ public class ControlListaNavegacion implements Serializable {
 
    public void setListaPaginasAnteriores(List<String> listaPaginasAnteriores) {
       this.listaPaginasAnteriores = listaPaginasAnteriores;
+   }
+
+   public static ListasRecurrentes getListasRecurrentes() {
+      return listasRecurrentes;
    }
 
 }

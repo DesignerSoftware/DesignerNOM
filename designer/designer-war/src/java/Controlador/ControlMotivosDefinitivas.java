@@ -320,7 +320,7 @@ public class ControlMotivosDefinitivas implements Serializable {
             log.error("ENTRE A MODIFICAR MOTIVOSDEFINITIVAS, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 if (!crearMotivosDefinitivas.contains(listMotivosDefinitivas.get(indice))) {
-                    if (listMotivosDefinitivas.get(indice).getCodigo() == a || listMotivosDefinitivas.get(indice).getCodigo().equals(null)) {
+                    if (listMotivosDefinitivas.get(indice).getCodigo() == a || listMotivosDefinitivas.get(indice).getCodigo() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
                     } else {

@@ -122,4 +122,21 @@
          <property name="eclipselink.canonicalmodel.subpackage" value="eight"/>
       </properties>
    </persistence-unit>
+   <persistence-unit name="BIOMEDICAL2" transaction-type="RESOURCE_LOCAL">
+      <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+      <exclude-unlisted-classes>false</exclude-unlisted-classes>
+      <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
+      <validation-mode>NONE</validation-mode>
+      <properties>
+         <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+         <property name="javax.persistence.jdbc.user" value="BIOMEDICAL2"/>
+         <property name="javax.persistence.jdbc.password" value="BIOMEDICAL2"/>
+         <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@nominasaas2:1521:SOPORTE"/>
+         <property name="eclipselink.target-database" value="Oracle"/>
+         <property name="eclipselink.ddl-generation" value="none" />
+         <property name="eclipselink.cache.shared.default" value="false"/>
+         <property name="eclipselink.cache.type.default" value="NONE"/>
+         <property name="eclipselink.canonicalmodel.subpackage" value="nine"/>
+      </properties>
+   </persistence-unit>
 </persistence>

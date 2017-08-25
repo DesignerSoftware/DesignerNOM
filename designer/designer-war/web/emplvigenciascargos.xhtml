@@ -101,7 +101,7 @@
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
-                     <h:outputText id="nombreEmpleado" value="#{controlVigenciasCargos.empleado.persona.nombreCompleto}"
+                     <h:outputText id="nombreEmpleado" value="#{controlVigenciasCargos.empleado.nombreCompleto}"
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                      <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
@@ -233,11 +233,11 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="Nombre_Jefe" sortBy="#{info.nombreEmplJefe}" filterBy="#{info.empleadojefe.persona.nombreCompleto}"
+                        <p:column headerText="Nombre_Jefe" sortBy="#{info.nombreEmplJefe}" filterBy="#{info.empleadojefe.nombreCompleto}"
                                   filterMatchMode="contains" id="vcNombreJefe" width="180" filterStyle="display: none; visibility: hidden;">                                                              
                            <f:facet name="header"><h:outputText value="#{msg['nombrejefe']}"/></f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.nombreEmplJefe}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.nombreEmplJefe}"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{info.nombreEmplJefe}" id="editNombreJefe" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info)}"/>
@@ -274,9 +274,8 @@
                            <p:cellEditor>  
                               <f:facet name="output"> <h:outputText value="#{info.descClase}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.descClase}" id="editClaseRiesgo"
-                                              style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;">
-                                    <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info)}"/>
+                                 <p:inputText autocomplete="off" value="#{info.descClase}" id="editClaseRiesgo" style="width: 98% !important;">
+                                    <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVCCRiesgo(info, info.descClase)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 6)}"
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 3,0)}"/>
@@ -475,7 +474,7 @@
                         <h:outputText value="#{msg['centrocostoD']}"/>  
                         <h:outputText value="#{controlVigenciasCargos.vigenciaSeleccionada.estructura.centrocosto.codigo}-#{controlVigenciasCargos.vigenciaSeleccionada.estructura.centrocosto.nombre}" style="font-weight: bold"/> 
                         <h:outputText value="#{msg['nombrejefeD']}"/>  
-                        <h:outputText value="#{controlVigenciasCargos.vigenciaSeleccionada.empleadojefe.persona.nombre}" style="font-weight: bold"/> 
+                        <h:outputText value="#{controlVigenciasCargos.vigenciaSeleccionada.empleadojefe.nombreCompleto}" style="font-weight: bold"/> 
                      </h:panelGrid>  
                   </p:dialog>
 

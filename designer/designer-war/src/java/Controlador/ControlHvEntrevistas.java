@@ -470,7 +470,7 @@ public class ControlHvEntrevistas implements Serializable {
          contador++;
       }
 
-      listHVHojasDeVida = administrarHvEntrevistas.buscarHVHojasDeVida(empleadoSeleccionado.getPersona().getSecuencia());
+      listHVHojasDeVida = administrarHvEntrevistas.buscarHVHojasDeVida(empleadoSeleccionado.getPersona());
       hvHojasDeVida = listHVHojasDeVida.get(0);
       nuevoHvEntrevista.setHojadevida(hvHojasDeVida);
 

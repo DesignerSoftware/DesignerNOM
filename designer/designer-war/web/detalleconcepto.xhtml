@@ -100,8 +100,8 @@
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <p:commandButton value="" id="btnDeteleConcepto" style="position: absolute; top: 3px; left: 5px; background-image: url(Imagenes/Iconos/deleteConcepto.png);
-                                      background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 24px; height: 24px;" 
-                                      actionListener="#{controlDetalleCuenta.validarEliminacionConcepto()}"/>
+                                      background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 24px; height: 24px;"/>
+                     <!--actionListener="#/{controlDetalleCuenta.validarEliminacionConcepto()}"/>-->
                      <h:outputText value="#{msg['concepto']}" style="position: absolute; left: 35px; top: 6px;color: #14388B; font-weight: bold;"/>
                      <h:outputText id="nombreConcepto" value="#{controlDetalleConcepto.comportamientoConcepto}"
                                    style="font-weight: bold; color: #BF1A1A; position: absolute; left: 110px; top: 6px;"/>
@@ -729,8 +729,8 @@
                                  <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{infoFC.nombreFormula}" style="text-transform: uppercase;"/></f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText autocomplete="off" value="#{infoFC.nombreFormula}"  id="editarNombreFC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC, 2)}"
+                                       <p:inputText autocomplete="off" value="#{infoFC.nombreFormula}" id="editarNombreFC" widgetVar="editarNombreFC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC, 2)}"
                                                   onstart="PF('datosFormulaConcepto').unselectAllRows();PF('datosFormulaConcepto').selectRow(#{indiceFC});"/>
                                           <p:ajax event="change" update="editarNombreFC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarFormulasConceptos(infoFC,'FORMULA',infoFC.nombreFormula)}"/>
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows();"
@@ -864,9 +864,11 @@
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center;"/>
                </p:dialog>
 
-               <p:dialog id="alertaTCC" header="#{msg['atencion']}" widgetVar="alertaTCC"  resizable="false" draggable="true" modal="true" height="70" width="320" closable="true">  
+               <p:dialog id="alertaTCC" header="#{msg['atencion']}" widgetVar="alertaTCC"  resizable="false" draggable="true" modal="true" height="90" width="400" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{controlDetalleConcepto.mensajeError}" style="position: absolute; left: 70px; top: 10px; width: 220px; font-weight: bold;text-align: center;"/>
+                  <h:outputText value="#{controlDetalleConcepto.mensajeError}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight: bold;text-align: center;"/>
+                  <p:commandButton value="#{msg['continuar']}" style="position: absolute; top: 70px; right: 18px;" onclick="PF('alertaTCC').hide()"
+                                   actionListener="#{controlDetalleConcepto.siguienteListaIngreso()}" icon="ui-icon-check"/>
                </p:dialog>
 
                <p:dialog id="errorTCC" header="#{msg['error']}" widgetVar="errorTCC"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

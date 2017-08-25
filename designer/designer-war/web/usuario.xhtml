@@ -74,7 +74,7 @@
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 390px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 13px; color: blue;"><strong>#{msg['usuarios']}</strong></legend>
 
-                     <p:dataTable id="datosUsuarios" var="usuario" rowKey="#{usuario.secuencia}" rowIndexVar="indice"   value="#{controlUsuarios.listaUsuarios}" scrollable="true"
+                     <p:dataTable id="datosUsuarios" var="usuario" rowKey="#{usuario.secuencia}" rowIndexVar="indice" value="#{controlUsuarios.listaUsuarios}" scrollable="true"
                                   filteredValue="#{controlUsuarios.filtrarUsuarios}" scrollHeight="#{controlUsuarios.altoTabla}" scrollWidth="830"
                                   style="border: 1px; width: 810px;" liveScroll="true" scrollRows="80" emptyMessage="#{msg['vacio']}" widgetVar="datosUsuarios"
                                   editable="true" editMode="cell" selection="#{controlUsuarios.usuariosSeleccionado}" selectionMode="single">
@@ -556,7 +556,7 @@
                      <p:watermark for="nuevoSexo" value="Sexo"/>
 
                      <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px"/> </strong>
-                     <p:inputText autocomplete="off" onclick="select();" value="#{controlUsuarios.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
+                     <p:inputText autocomplete="off" onclick="select();" value="#{controlUsuarios.nuevaPersona.nombreTipoDocumento}" id="tipoDocumentoModPersonal"
                                   style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(familiar, 3, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -572,7 +572,7 @@
                      </p:inputText>
 
                      <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
+                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.nombreCiudadDocumento}" id="ciudadDocumentoModPersonal"
                                   style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(familiar, 4, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -589,7 +589,7 @@
                      </div>
 
                      <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
+                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlUsuarios.nuevaPersona.nombreCiudadNacimiento}" id="ciudadNacimientoModPersonal"
                                   style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndex(familiar, 5, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>

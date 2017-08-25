@@ -133,7 +133,7 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
    @Override
    public List<Empleados> listEmpleados() {
       try {
-         listEmpleados = persistenciaEmpleado.buscarEmpleados(getEm());
+         listEmpleados = persistenciaEmpleado.buscarEmpleadosActivos(getEm());
          return listEmpleados;
       } catch (Exception e) {
          log.warn("Error listEmpleados : " + e.toString());

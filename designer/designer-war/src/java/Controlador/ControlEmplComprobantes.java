@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -157,8 +158,12 @@ public class ControlEmplComprobantes implements Serializable {
 
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlEmplComprobantes() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       permitirIndex = true;
       lovProcesos = new ArrayList<Procesos>();
       lovTerceros = new ArrayList<Terceros>();
@@ -272,7 +277,7 @@ public class ControlEmplComprobantes implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -2697,7 +2702,14 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public List<Procesos> getLovProcesos() {
-      lovProcesos = administrarComprobantes.consultarLOVProcesos();
+      if (listasRecurrentes.getLovProcesos().isEmpty()) {
+         lovProcesos = administrarComprobantes.consultarLOVProcesos();
+         if (lovProcesos != null) {
+            listasRecurrentes.setLovProcesos(lovProcesos);
+         }
+      } else {
+         lovProcesos = new ArrayList<Procesos>(listasRecurrentes.getLovProcesos());
+      }
       return lovProcesos;
    }
 
@@ -2748,8 +2760,8 @@ public class ControlEmplComprobantes implements Serializable {
    public List<Terceros> getLovTerceros() {
       if (empleado != null) {
          if (empleado.getEmpresa() != null && lovTerceros.isEmpty()) {
-            if (empleado.getEmpresa().getSecuencia() != null) {
-               lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa().getSecuencia());
+            if (empleado.getEmpresa() != null) {
+               lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa());
             }
          }
       }
@@ -2850,7 +2862,16 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public List<Cuentas> getLovCuentas() {
-      lovCuentas = administrarComprobantes.lovCuentas();
+      if (lovCuentas == null) {
+         if (listasRecurrentes.getLovCuentas().isEmpty()) {
+            lovCuentas = administrarComprobantes.lovCuentas();
+            if (lovCuentas != null) {
+               listasRecurrentes.setLovCuentas(lovCuentas);
+            }
+         } else {
+            lovCuentas = new ArrayList<Cuentas>(listasRecurrentes.getLovCuentas());
+         }
+      }
       return lovCuentas;
    }
 

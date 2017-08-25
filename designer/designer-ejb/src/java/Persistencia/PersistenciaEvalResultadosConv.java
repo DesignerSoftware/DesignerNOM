@@ -133,9 +133,12 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
          }
          return pruebas;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada() " + e);
-         pruebas = "";
-         return pruebas;
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada() " + e);
+         } else {
+            log.error("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada() " + e);
+         }
+         return "";
       }
    }
 }

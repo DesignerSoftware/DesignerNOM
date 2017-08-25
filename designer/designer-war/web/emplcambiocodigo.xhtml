@@ -88,7 +88,7 @@
                             <p:inputText autocomplete="off" id="codEmpleadoActual" value="#{controlCambioCodigoEmpl.empleado.codigoempleado}"
                                          style="display: block; margin: auto; left: 0px; margin-top: 3px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCambioCodigoEmpl.asignarIndex(0)}"/>
-                                <p:ajax event="change" listener="#{controlCambioCodigoEmpl.autocompletar('EMPLEADO', controlCambioCodigoEmpl.empleado.persona.nombreCompleto)}"/>
+                                <p:ajax event="change" listener="#{controlCambioCodigoEmpl.autocompletar('EMPLEADO', controlCambioCodigoEmpl.empleado.nombreCompleto)}"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 495px; top: 130px;"  class="cssBotonLovDialogos"  value="" 
                                              process="@this" actionListener="#{controlCambioCodigoEmpl.asignarIndex(0)}"/>   
@@ -132,11 +132,11 @@
                                 <h:outputText value="#{emp.codigoempleado}"/>  
                             </p:column>  
 
-                            <p:column filterBy="#{emp.persona.nombreCompleto}" sortBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                            <p:column filterBy="#{emp.nombreCompleto}" sortBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
                                 </f:facet>
-                                <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                                <h:outputText value="#{emp.nombreCompleto}"/>  
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">

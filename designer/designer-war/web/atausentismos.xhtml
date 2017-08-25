@@ -114,8 +114,8 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['nombre']}" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" filterMatchMode="contains" id="AEmpleadosNombre"  filterStyle="display: none; visibility: hidden;">                                  
-                           <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                        <p:column headerText="#{msg['nombre']}" sortBy="#{empleados.nombreCompleto}" filterBy="#{empleados.nombreCompleto}" filterMatchMode="contains" id="AEmpleadosNombre"  filterStyle="display: none; visibility: hidden;">                                  
+                           <h:outputText value="#{empleados.nombreCompleto}"/>
                            <f:facet name="footer">
                               <h:outputText value =" "/>
                            </f:facet>
@@ -870,11 +870,11 @@
                         <h:outputText value="#{emp.codigoempleado}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterStyle="width: 80% !important;" width="80" filterMatchMode="contains"> 
+                     <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterStyle="width: 80% !important;" width="80" filterMatchMode="contains"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombre']}"/>
                         </f:facet>
-                        <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                        <h:outputText value="#{emp.nombreCompleto}"/>  
                      </p:column>
 
                   </p:dataTable>

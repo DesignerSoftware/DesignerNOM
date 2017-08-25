@@ -12,10 +12,10 @@
          <ui:define name="body">     
             <script type="text/javascript">
                $(window).load(function () {
-                  foco('form:guardarRapido');
+               foco('form:guardarRapido');
                });
                function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
+               document.getElementById(idElemento).focus();
                }
                ;
             </script>
@@ -103,7 +103,7 @@
                            <p:ajax event="change"  listener="#{controlPerVigenciaDomiciliaria.modificarPersona(controlPerVigenciaDomiciliaria.persona)}" process="@this" update="@this"/>
                         </p:inputText>   
                         <h:outputText value="Ciudad Documento" style="position: absolute; top: 60px; left: 550px;"/>
-                        <p:inputText value="#{controlPerVigenciaDomiciliaria.persona.ciudaddocumento.nombre}" style="width: 200px; position: absolute; top: 80px; left: 550px;" id="editarCiudadDoc">
+                        <p:inputText value="#{controlPerVigenciaDomiciliaria.persona.nombreCiudadDocumento}" style="width: 200px; position: absolute; top: 80px; left: 550px;" id="editarCiudadDoc">
                            <p:ajax event="change"  listener="#{controlPerVigenciaDomiciliaria.modificarPersona(controlPerVigenciaDomiciliaria.persona)}" process="@this" update="@this"/>
                         </p:inputText>   
                         <h:outputText value="Cargo Postulado" style="position: absolute; top: 110px"/>
@@ -164,21 +164,21 @@
                                  <f:facet name="input">
                                     <p:selectOneMenu id="editarUbicacionPrincipal" value="#{direccion.estadoTipoPpal}" style="width: 100%; height: 20px"
                                                      onblur="PF('datosDireccionesPersona').unselectAllRows(); PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      "
                                                      onfocus="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      ">  
                                        <f:selectItem itemLabel="Calle" itemValue="CALLE"/>  
                                        <f:selectItem itemLabel="Carrera" itemValue="CARRERA"/>  
@@ -228,21 +228,21 @@
                                  <f:facet name="input">
                                     <p:selectOneMenu id="editarUbicacionSecundaria" value="#{direccion.estadoTipoSecundario}" style="width: 100%; height: 20px"
                                                      onblur="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();"
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();"
                                                      onfocus="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      ">  
                                        <f:selectItem itemLabel="Calle" itemValue="CALLE"/>  
                                        <f:selectItem itemLabel="Carrera" itemValue="CARRERA"/>  
@@ -333,21 +333,21 @@
                                  <f:facet name="input">
                                     <p:selectOneMenu id="editarTipoVivienda" value="#{direccion.estadoTipoVivienda}" style="width: 100%; height: 20px"
                                                      onblur="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();"
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();"
                                                      onfocus="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      ">  
                                        <f:selectItem itemLabel="Casa" itemValue="CASA"/>  
                                        <f:selectItem itemLabel="Apartamento" itemValue="APARTAMENTO"/> 
@@ -370,21 +370,21 @@
                                  <f:facet name="input">
                                     <p:selectOneMenu id="editarHipoteca" value="#{direccion.estadoHipoteca}" style="width: 100%; height: 20px"
                                                      onblur="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();"
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();"
                                                      onfocus="PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosDireccionesPersona').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosAntecedentes').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      ">  
                                        <f:selectItem itemLabel="Si" itemValue="SI"/>  
                                        <f:selectItem itemLabel="No" itemValue="NO"/>  
@@ -656,22 +656,22 @@
                                  <f:facet name="input">
                                     <p:selectOneMenu id="editarAntecedente" value="#{antecedente.antecedenteDescripcion}" style="width:182px"
                                                      onblur="PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosAntecedentes').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosAntecedentes').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosDireccionesPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      "
                                                      onfocus="PF('datosAntecedentes').unselectAllRows();
-                                                           PF('datosAntecedentes').selectRow(#{indice});
-                                                           PF('datosTelefonosPersona').unselectAllRows();
-                                                           PF('datosDireccionesPersona').unselectAllRows();
-                                                           PF('datosEstadoCivil').unselectAllRows();
-                                                           PF('datosFamiliares').unselectAllRows();
-                                                           PF('datosVigenciasFormalesPersona').unselectAllRows();
-                                                           PF('datosExperiencia').unselectAllRows();
+                                                        PF('datosAntecedentes').selectRow(#{indice});
+                                                        PF('datosTelefonosPersona').unselectAllRows();
+                                                        PF('datosDireccionesPersona').unselectAllRows();
+                                                        PF('datosEstadoCivil').unselectAllRows();
+                                                        PF('datosFamiliares').unselectAllRows();
+                                                        PF('datosVigenciasFormalesPersona').unselectAllRows();
+                                                        PF('datosExperiencia').unselectAllRows();
                                                      ">
                                        <f:selectItems value="#{controlPerVigenciaDomiciliaria.lovAntecedentesDescripcion}"/>
                                        <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceAntecedentes(antecedente, 3)}" process="@this"/>
@@ -2791,16 +2791,16 @@
 
                      <strong><h:outputText value="#{msg['fechaIngresoN']}" style="position: absolute; top: 105px; left: 50px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicioEP" value="#{controlPerVigenciaDomiciliaria.duplicarhvexp.fechadesde}"
-                                  style="position: absolute;  top: 100px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                  navigator="true" showButtonPanel="true" locale="es">
+                                 style="position: absolute;  top: 100px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                                 navigator="true" showButtonPanel="true" locale="es">
                         <p:ajax event="dateSelect" update="duplicarFechaInicioEP"/>
                         <p:ajax event="change" update="duplicarFechaInicioEP"/>
                      </p:calendar>
 
                      <strong><h:outputText value="#{msg['fechaRetiroN']}" style="position: absolute; top: 135px; left: 50px;"/></strong>
                      <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalEP" value="#{controlPerVigenciaDomiciliaria.duplicarhvexp.fechahasta}" 
-                                  style="position: absolute;  top: 130px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                  navigator="true" showButtonPanel="true" locale="es">
+                                 style="position: absolute;  top: 130px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                                 navigator="true" showButtonPanel="true" locale="es">
                         <p:ajax event="dateSelect" update="duplicarFechaFinalEP"/>
                         <p:ajax event="change" update="duplicarFechaFinalEP"/>
                      </p:calendar>
@@ -3101,7 +3101,7 @@
                   <p:panel id="nuevoPersonaFamiliar" style="border: none;">
                      <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoNombre" value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.personafamiliar.nombreCompleto}"
-                                   style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 50px;">
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndex(familiar,1,1)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
@@ -3110,14 +3110,14 @@
 
                      <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaOcupacion" value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.ocupacion}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 80px;">
                         <p:ajax event="change" update="nuevaOcupacion"/>
                      </p:inputText>
                      <p:watermark for="nuevaOcupacion" value="#{msg['ocupacion']}"/>
 
                      <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoTipoFamiliar" value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.tipofamiliar.tipo}"
-                                   style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 110px;">
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndex(familiar,2,1)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                         <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'TIPOFAMILIAR')}"/>
@@ -3145,7 +3145,7 @@
 
                      <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoVlrupc" value="#{controlPerVigenciaDomiciliaria.nuevoFamiliar.valorupcadicional}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 260px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 260px;">
                         <p:keyFilter for="nuevoVlrupc" mask="num"/>
                         <p:ajax event="change" update="nuevoVlrupc"/>
                      </p:inputText>
@@ -3163,7 +3163,7 @@
                   <p:panel id="duplicarPersonaFamiliar" style="border: none;">
                      <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarNombre" value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.personafamiliar.nombreCompleto}"
-                                   style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 50px;">
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndex(familiar,1,2)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                      </p:inputText>
@@ -3172,14 +3172,14 @@
 
                      <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarOcupacion" value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.ocupacion}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 80px;">
                         <p:ajax event="change" update="duplicarOcupacion"/>
                      </p:inputText>
                      <p:watermark for="duplicarOcupacion" value="#{msg['ocupacion']}"/>
 
                      <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarTipoFamiliar" value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.tipofamiliar.tipo}"
-                                   style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 110px;">
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndex(familiar,2,2)}"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                         <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'TIPOFAMILIAR')}"/>
@@ -3207,7 +3207,7 @@
 
                      <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicarVlrupc" value="#{controlPerVigenciaDomiciliaria.duplicarFamiliar.valorupcadicional}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 260px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 260px;">
                         <p:keyFilter for="duplicarVlrupc" mask="num"/>
                         <p:ajax event="change" update="duplicarVlrupc"/>
                      </p:inputText>
@@ -3224,21 +3224,21 @@
                   <p:panel id="nuevoFamiliarP" style="border: none;">
                      <strong><h:outputText value="* #{msg['papellido']}" style="position: absolute; top: 55px; left: 38px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoApellido" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.primerapellido}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 50px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 50px;">
                         <p:ajax event="change" update="nuevoApellido"/>
                      </p:inputText>
                      <p:watermark for="nuevoApellido" value="#{msg['papellido']}"/>
 
                      <strong><h:outputText value="#{msg['sapellido']}" style="position: absolute; top: 85px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoSegundoApellido" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.segundoapellido}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 80px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 80px;">
                         <p:ajax event="change" update="nuevoSegundoApellido"/>
                      </p:inputText>
                      <p:watermark for="nuevoSegundoApellido" value="#{msg['sapellido']}"/>
 
                      <strong><h:outputText value="* #{msg['pnombre']}" style="position: absolute; top: 115px; left: 38px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoNombreD" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.nombre}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 110px;">
                         <p:ajax event="change" update="nuevoNombreD"/>
                      </p:inputText>
                      <p:watermark for="nuevoNombreD" value="#{msg['pnombre']}"/>
@@ -3253,9 +3253,9 @@
                      <p:watermark for="nuevoSexo" value="Sexo"/>
 
                      <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px"/> </strong>
-                     <p:inputText autocomplete="off" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
-                                   style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
-                      <!--<p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoFamiliares('TIPODOCUMENTO', controlPerVigenciaDomiciliaria.nuevaPersona.tipodocumento.nombrelargo, 1)}"/>-->
+                     <p:inputText autocomplete="off" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.nombreTipoDocumento}" id="tipoDocumentoModPersonal"
+                                  style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
+                     <!--<p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoFamiliares('TIPODOCUMENTO', controlPerVigenciaDomiciliaria.nuevaPersona.nombreTipoDocumento, 1)}"/>-->
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexFamiliares(familiar, 3, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                            <!--<p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'TIPODOCUMENTO')}"/>-->
@@ -3265,16 +3265,16 @@
 
                      <h:outputText  value="* #{msg['numdoc']}:" style="position: absolute; top: 205px; left: 38px; font-weight: bold;"/>
                      <p:inputText autocomplete="off" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
-                                   style="position: absolute; top: 200px; left: 220px; width: 150px; text-transform: uppercase;">
+                                  style="position: absolute; top: 200px; left: 220px; width: 150px; text-transform: uppercase;">
                         <p:ajax event="change" update="numeroDocumentoModPersonal" process="@this"/>
                         <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
                      </p:inputText>
 
                      <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
-                                   style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
-<!--                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoFamiliares('CIUDAD', controlPerVigenciaDomiciliaria.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
-                          <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'CIUDAD')}"/>-->
+                     <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.nombreCiudadDocumento}" id="ciudadDocumentoModPersonal"
+                                  style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
+<!--                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoFamiliares('CIUDAD', controlPerVigenciaDomiciliaria.nuevaPersona.nombreCiudadDocumento, 1)}"/>
+                         <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'CIUDAD')}"/>-->
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexFamiliares(familiar, 4, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                         <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 230px; left: 380px; z-index: 5;"
@@ -3290,10 +3290,10 @@
                      </div>
 
                      <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
-                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
-                                   style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
-<!--                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoFamiliares('CIUDADNACIMIENTO', controlPerVigenciaDomiciliaria.nuevaPersona.ciudaddocumento.nombre, 1)}"/>
-                          <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'CIUDADNACIMIENTO')}"/>-->
+                     <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.nombreCiudadNacimiento}" id="ciudadNacimientoModPersonal"
+                                  style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
+<!--                               <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.autocompletarNuevoyDuplicadoFamiliares('CIUDADNACIMIENTO', controlPerVigenciaDomiciliaria.nuevaPersona.nombreCiudadDocumento, 1)}"/>
+                         <p:ajax event="click" listener="#{controlPerVigenciaDomiciliaria.valoresBackupAutocompletarFamiliares(1, 'CIUDADNACIMIENTO')}"/>-->
                         <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexFamiliares(familiar, 5, 1)}" process="@this"
                                 onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                         <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 290px; left: 380px; z-index: 5;"
@@ -3329,7 +3329,7 @@
 
                      <strong><h:outputText value="#{msg['obs']}" style="position: absolute; top: 415px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaObs" value="#{controlPerVigenciaDomiciliaria.nuevaPersona.observacion}" 
-                                   style="width: 122px; position: absolute; left: 220px; top: 410px;">
+                                  style="width: 122px; position: absolute; left: 220px; top: 410px;">
                         <p:ajax event="change" update="nuevaObs"/>
                      </p:inputText>
                      <p:watermark for="nuevaObs" value="#{msg['obs']}"/>

@@ -6,6 +6,7 @@ package Persistencia;
 import Entidades.Ciudades;
 import InterfacePersistencia.PersistenciaCiudadesInterface;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -90,10 +91,13 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          Query query = em.createQuery("SELECT c FROM Ciudades c ORDER BY c.nombre");
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          List<Ciudades> ciudades = query.getResultList();
+         if (ciudades == null) {
+            ciudades = new ArrayList<Ciudades>();
+         }
          return ciudades;
       } catch (Exception e) {
          log.error("Persistencia.PersistenciaCiudades.consultarCiudades() e: " + e);
-         return null;
+         return new ArrayList<Ciudades>();
       }
    }
 
@@ -111,9 +115,9 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
       }
    }
 
-    @Override
-    public List<Ciudades> consultarCiudadesPorDepto(EntityManager em, BigInteger secDepto) {
-          try {
+   @Override
+   public List<Ciudades> consultarCiudadesPorDepto(EntityManager em, BigInteger secDepto) {
+      try {
          em.clear();
          String sql = "SELECT * FROM CIUDADES WHERE DEPARTAMENTO = ? ORDER BY NOMBRE";
          Query query = em.createNativeQuery(sql, Ciudades.class);
@@ -121,9 +125,9 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          List<Ciudades> ciudades = query.getResultList();
          return ciudades;
       } catch (Exception e) {
-              log.error("Persistencia.PersistenciaCiudades.consultarCiudadesPorDepto()" + e.getMessage());
+         log.error("Persistencia.PersistenciaCiudades.consultarCiudadesPorDepto()" + e.getMessage());
          return null;
       }
-    }
+   }
 
 }

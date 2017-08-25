@@ -133,7 +133,8 @@ public class ControlEmpleadoIndividual implements Serializable {
    private String cabezeraDialogoCiudad;
    private int dialogo;
    //AUTOCOMPLETAR
-   private String tipoDocumento, ciudad, ciudaddocumento, cargoPostulado;
+   private String tipoDocumentoBack, ciudad, ciudaddocumentoBack, cargoPostulado;
+   private BigInteger tipoDocumentoBackSec, ciudadSec, ciudaddocumentoBackSec;
    //EXPORTAR DATOS 
    private List<EmpleadoIndividualExportar> empleadoIndividualExportar;
    //RASTRO
@@ -260,7 +261,6 @@ public class ControlEmpleadoIndividual implements Serializable {
       try {
          secuencia = sec;
          empleado = null;
-//        persona = administrarEmpleadoIndividual.encontrarPersona(sec);
          persona = administrarEmpleadoIndividual.obtenerPersonaPorEmpleado(sec);
          getEmpleado();
          datosEmpleado();
@@ -343,7 +343,8 @@ public class ControlEmpleadoIndividual implements Serializable {
    //METODOS LOVS
    public void seleccionarTipoDocumento() {
       if (seleccionLovTipoDocumento != null && persona != null) {
-         persona.setTipodocumento(seleccionLovTipoDocumento);
+         persona.setTipoDocumento(seleccionLovTipoDocumento.getSecuencia());
+         persona.setNombreTipoDocumento(seleccionLovTipoDocumento.getNombrelargo());
          seleccionLovTipoDocumento = null;
          filtradoLovTiposDocumentos = null;
          aceptar = true;
@@ -393,7 +394,8 @@ public class ControlEmpleadoIndividual implements Serializable {
       if (seleccionLovCiudad != null && persona != null) {
          RequestContext context = RequestContext.getCurrentInstance();
          if (modificacionCiudad == 1) {
-            persona.setCiudadnacimiento(seleccionLovCiudad);
+            persona.setCiudadNacimiento(seleccionLovCiudad.getSecuencia());
+            persona.setNombreCiudadNacimiento(seleccionLovCiudad.getNombre());
             RequestContext.getCurrentInstance().update("form:lugarNacimiento");
          }
          if (!modificacionPersona) {
@@ -435,11 +437,12 @@ public class ControlEmpleadoIndividual implements Serializable {
 
    public void seleccionarCiudadDocumento() {
       if (persona != null) {
-         if (persona.getCiudaddocumento() != null && seleccionLovCiudadDocumento != null) {
+         if (persona.getCiudadDocumento() != null && seleccionLovCiudadDocumento != null) {
 //                log.info("entra al if 2");
             RequestContext context = RequestContext.getCurrentInstance();
             if (modificacionCiudad == 0) {
-               persona.setCiudaddocumento(seleccionLovCiudadDocumento);
+               persona.setCiudadDocumento(seleccionLovCiudadDocumento.getSecuencia());
+               persona.setNombreCiudadDocumento(seleccionLovCiudadDocumento.getNombre());
 //                    log.info("nueva ciudad : " + seleccionLovCiudadDocumento);
 //                    log.info("nueva ciudad : " + persona.getCiudaddocumento());
                RequestContext.getCurrentInstance().update("form:lugarExpedicion");
@@ -464,7 +467,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          } else {
 //                log.info("entra al else");
 //                log.info("ciudadnacimiento" + persona.getCiudadnacimiento().getNombre());
-            persona.setCiudaddocumento(persona.getCiudadnacimiento());
+            persona.setCiudadDocumento(persona.getCiudadNacimiento());
 //                log.info("ciudadnacimiento" + persona.getCiudaddocumento().getNombre());
          }
       }
@@ -521,17 +524,20 @@ public class ControlEmpleadoIndividual implements Serializable {
    //AUTOCOMPLETAR
    public void valoresBackupAutocompletar(String Campo) {
       if (Campo.equals("TIPODOCUMENTO")) {
-         tipoDocumento = persona.getTipodocumento().getNombrecorto();
+         tipoDocumentoBack = persona.getNombreTipoDocumento();
+         tipoDocumentoBackSec = persona.getTipoDocumento();
          dialogo = 0;
          nombreTabla = "PERSONAS";
       } else if (Campo.equals("CIUDADDOCUMENTO")) {
          modificacionCiudad = 0;
-         ciudaddocumento = persona.getCiudaddocumento().getNombre();
+         ciudaddocumentoBack = persona.getNombreCiudadDocumento();
+         ciudaddocumentoBackSec = persona.getCiudadDocumento();
          dialogo = 1;
          nombreTabla = "PERSONAS";
       } else if (Campo.equals("CIUDADNACIMIENTO")) {
          modificacionCiudad = 1;
-         ciudad = persona.getCiudadnacimiento().getNombre();
+         ciudad = persona.getNombreCiudadNacimiento();
+         ciudadSec = persona.getCiudadNacimiento();
          dialogo = 1;
          nombreTabla = "PERSONAS";
       } else if (Campo.equals("CARGOPOSTULADO")) {
@@ -544,9 +550,9 @@ public class ControlEmpleadoIndividual implements Serializable {
    public void autocompletar(String confirmarCambio, String valorConfirmar) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("TIPODOCUMENTO")) {
-         persona.getTipodocumento().setNombrecorto(tipoDocumento);
+         persona.setTipoDocumento(tipoDocumentoBackSec);
+         persona.setNombreTipoDocumento(tipoDocumentoBack);
          for (int i = 0; i < lovTiposDocumentos.size(); i++) {
             if (lovTiposDocumentos.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -554,7 +560,8 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            persona.setTipodocumento(lovTiposDocumentos.get(indiceUnicoElemento));
+            persona.setTipoDocumento(lovTiposDocumentos.get(indiceUnicoElemento).getSecuencia());
+            persona.setNombreTipoDocumento(lovTiposDocumentos.get(indiceUnicoElemento).getNombrelargo());
             RequestContext.getCurrentInstance().update("form:tipo");
             lovTiposDocumentos = null;
             getLovTiposDocumentos();
@@ -572,9 +579,11 @@ public class ControlEmpleadoIndividual implements Serializable {
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
          if (modificacionCiudad == 0) {
-            persona.getCiudaddocumento().setNombre(ciudaddocumento);
+            persona.setCiudadDocumento(ciudaddocumentoBackSec);
+            persona.setNombreCiudadDocumento(ciudaddocumentoBack);
          } else if (modificacionCiudad == 1) {
-            persona.getCiudadnacimiento().setNombre(ciudad);
+            persona.setCiudadNacimiento(ciudadSec);
+            persona.setNombreCiudadNacimiento(ciudad);
          }
          for (int i = 0; i < lovCiudades.size(); i++) {
             if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -584,7 +593,8 @@ public class ControlEmpleadoIndividual implements Serializable {
          }
          if (coincidencias == 1) {
             if (modificacionCiudad == 1) {
-               persona.setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
+               persona.setCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               persona.setNombreCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("form:lugarNacimiento");
             }
             lovCiudades = null;
@@ -608,7 +618,7 @@ public class ControlEmpleadoIndividual implements Serializable {
       } /*
         else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
             if (modificacionCiudad == 0) {
-                persona.getCiudaddocumento().setNombre(ciudaddocumento);
+                persona.getCiudaddocumento().setNombre(ciudaddocumentoBack);
             }
             for (int i = 0; i < lovCiudadesDocumento.size(); i++) {
                 if (lovCiudadesDocumento.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -618,7 +628,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
             if (coincidencias == 1) {
                 if (modificacionCiudad == 0) {
-                    persona.setCiudaddocumento(lovCiudadesDocumento.get(indiceUnicoElemento));
+                    persona.setCiudadDocumento(lovCiudadesDocumento.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("form:lugarExpedicion");
                 }
                 lovCiudadesDocumento = null;
@@ -1091,7 +1101,7 @@ public class ControlEmpleadoIndividual implements Serializable {
       if (empleado == null) {
          empleado = administrarEmpleadoIndividual.buscarEmpleado(secuencia);
          if (empleado != null) {
-            persona = empleado.getPersona();
+            persona = administrarEmpleadoIndividual.encontrarPersona(empleado.getPersona());
          }
       }
       return empleado;
@@ -1367,7 +1377,7 @@ public class ControlEmpleadoIndividual implements Serializable {
    }
 
    public List<EmpleadoIndividualExportar> getEmpleadoIndividualExportar() {
-      if (!empleadoIndividualExportar.equals(null)) {
+      if (empleadoIndividualExportar != null) {
          if (!empleadoIndividualExportar.isEmpty()) {
             empleadoIndividualExportar.clear();
          }
@@ -1526,15 +1536,15 @@ public class ControlEmpleadoIndividual implements Serializable {
       this.ciudad = ciudad;
    }
 
-   public String getCiudaddocumento() {
-//        if(ciudaddocumento == null){
-//            ciudaddocumento = persona.getCiudadnacimiento().getNombre();
+   public String getCiudaddocumentoBack() {
+//        if(ciudaddocumentoBack == null){
+//            ciudaddocumentoBack = persona.getCiudadnacimiento().getNombre();
 //        }
-      return ciudaddocumento;
+      return ciudaddocumentoBack;
    }
 
-   public void setCiudaddocumento(String ciudaddocumento) {
-      this.ciudaddocumento = ciudaddocumento;
+   public void setCiudadDocumento(String ciudaddocumento) {
+      this.ciudaddocumentoBack = ciudaddocumento;
    }
 
    public boolean isParaRecargar() {

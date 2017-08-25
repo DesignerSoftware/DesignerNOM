@@ -177,14 +177,14 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoG.empleado.persona.nombreCompleto}" filterBy="#{infoG.empleado.persona.nombreCompleto}" filterMatchMode="contains"
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoG.empleado.nombreCompleto}" filterBy="#{infoG.empleado.nombreCompleto}" filterMatchMode="contains"
                                           id="genEmpleado" width="150" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoG.empleado.persona.nombreCompleto}"/>
+                                            <h:outputText value="#{infoG.empleado.nombreCompleto}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" id="generadoEmpleado" readonly="true" value="#{infoG.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText autocomplete="off" id="generadoEmpleado" readonly="true" value="#{infoG.empleado.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionGenerado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -310,14 +310,14 @@
 
                                 <p:ajax event="filter" listener="#{controlInterfaseContableDynamicsCPS.eventoFiltrar()}"/>
 
-                                <p:column headerText="#{msg['empleado']}" sortBy="#{infoI.empleado.persona.nombreCompleto}" filterBy="#{infoI.empleado.persona.nombreCompleto}"   width="133"
+                                <p:column headerText="#{msg['empleado']}" sortBy="#{infoI.empleado.nombreCompleto}" filterBy="#{infoI.empleado.nombreCompleto}"   width="133"
                                           id="interEmpleado"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoI.empleado.persona.nombreCompleto}"/>
+                                            <h:outputText value="#{infoI.empleado.nombreCompleto}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconEmpleado" readonly="true" value="#{infoI.empleado.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -810,11 +810,11 @@
                                     </f:facet>
                                     <h:outputText  value="#{empleadoD.codigoempleado}"/>
                                 </p:column>
-                                <p:column filterBy="#{empleadoD.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                                <p:column filterBy="#{empleadoD.nombreCompleto}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombreEmpleado']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{empleadoD.persona.nombreCompleto}"/>
+                                    <h:outputText value="#{empleadoD.nombreCompleto}"/>
                                 </p:column>
                             </p:dataTable>
 
@@ -846,11 +846,11 @@
                                     </f:facet>
                                     <h:outputText  value="#{empleadoH.codigoempleado}"/>
                                 </p:column>
-                                <p:column filterBy="#{empleadoH.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                                <p:column filterBy="#{empleadoH.nombreCompleto}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombreEmpleado']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{empleadoH.persona.nombreCompleto}"/>
+                                    <h:outputText value="#{empleadoH.nombreCompleto}"/>
                                 </p:column>
                             </p:dataTable>
 
@@ -986,7 +986,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlInterfaseContableDynamicsCPS.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableDynamicsCPS.editarGenerado.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -1013,7 +1013,7 @@
 
                     <!-- -->
                     <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlInterfaseContableDynamicsCPS.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableDynamicsCPS.editarIntercon.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -1142,7 +1142,7 @@
 
                         <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXG.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{infoEXG.empleado.nombreCompleto}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['cuentaCXX']}">                                  
@@ -1179,7 +1179,7 @@
 
                         <p:column headerText="#{msg['empleadoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['empleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXI.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{infoEXI.empleado.nombreCompleto}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['terceroX']}">                                  

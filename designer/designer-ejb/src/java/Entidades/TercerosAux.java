@@ -7,6 +7,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Id;
  * @author user
  */
 @Entity
+@Cacheable(false)
 public class TercerosAux implements Serializable {
 
     private static final long serialVersionUID = 1L;

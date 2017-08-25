@@ -3,6 +3,7 @@
  */
 package Persistencia;
 
+import Entidades.EmpleadosAux;
 import Entidades.Novedades;
 import InterfacePersistencia.PersistenciaNovedadesInterface;
 import java.math.BigInteger;
@@ -202,6 +203,32 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          Query query = em.createNativeQuery(sqlQuery, Novedades.class);
          query.setParameter(1, secuenciaConcepto);
          listaNovedades = query.getResultList();
+         if (listaNovedades != null) {
+            if (!listaNovedades.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT E.SECUENCIA, P.PATHFOTO, P.NOMBRE NOMBREPERSONA, P.PRIMERAPELLIDO, P.SEGUNDOAPELLIDO,\n"
+                       + " P.EMAIL, P.NUMERODOCUMENTO, EM.NOMBRE NOMBREEMPRESA, EM.RETENCIONYSEGSOCXPERSONA RETENCIONYSEGSOCXPERSONA\n"
+                       + " FROM EMPLEADOS E, EMPRESAS EM, PERSONAS P, novedades N\n"
+                       + " WHERE E.PERSONA = P.SECUENCIA AND E.EMPRESA = EM.SECUENCIA AND E.secuencia = n.empleado\n"
+                       + " and N.concepto = " + secuenciaConcepto + " and tipo in ('FIJA','PAGO POR FUERA','OCASIONAL' ) and\n"
+                       + " ((FECHAFINAL IS NULL AND NVL(SALDO,99999)>0) OR (SALDO>0 and fechainicial>=(SELECT FECHADESDECAUSADO FROM VWACTUALESFECHAS))\n"
+                       + " OR FECHAFINAL>(SELECT FECHADESDECAUSADO FROM VWACTUALESFECHAS))", EmpleadosAux.class);
+               List<EmpleadosAux> listaEmpleadosAux = query2.getResultList();
+               log.warn("PersistenciaNovedades.novedadesConcepto() Ya consulo Transients");
+               if (listaEmpleadosAux != null) {
+                  if (!listaEmpleadosAux.isEmpty()) {
+                     log.warn("PersistenciaNovedades.novedadesConcepto() listaEmpleadosAux.size(): " + listaEmpleadosAux.size());
+                     for (EmpleadosAux recAux : listaEmpleadosAux) {
+                        for (Novedades recNovedadEmp : listaNovedades) {
+                           if (recAux.getSecuencia().equals(recNovedadEmp.getEmpleado().getSecuencia())) {
+                              recNovedadEmp.getEmpleado().llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaNovedades;
       } catch (Exception e) {
          log.error("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
@@ -221,6 +248,36 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          Query query = em.createNativeQuery(sqlQuery, Novedades.class);
          query.setParameter(1, secuenciaTercero);
          listaNovedades = query.getResultList();
+         if (listaNovedades != null) {
+            if (!listaNovedades.isEmpty()) {
+               em.clear();
+               Query query2 = em.createNativeQuery("SELECT E.SECUENCIA, P.PATHFOTO, P.NOMBRE NOMBREPERSONA, P.PRIMERAPELLIDO, P.SEGUNDOAPELLIDO,\n"
+                       + " P.EMAIL, P.NUMERODOCUMENTO, EM.NOMBRE NOMBREEMPRESA, EM.RETENCIONYSEGSOCXPERSONA RETENCIONYSEGSOCXPERSONA\n"
+                       + " FROM EMPLEADOS E, EMPRESAS EM, PERSONAS P, novedades N\n"
+                       + " where N.tercero = " + secuenciaTercero + " and tipo in ('FIJA','PAGO POR FUERA','OCASIONAL' )\n"
+                       + " AND E.PERSONA = P.SECUENCIA AND E.EMPRESA = EM.SECUENCIA AND E.secuencia = n.empleado\n"
+                       + " AND EXISTS (SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA=N.EMPLEADO)\n"
+                       + " and exists (select 'x' from empresas empr, conceptos conc\n"
+                       + " where empr.secuencia=conc.empresa\n"
+                       + " and conc.secuencia=n.concepto) AND ((FECHAFINAL IS NULL AND NVL(SALDO,99999)>0)\n"
+                       + " OR (SALDO>0 and fechainicial>=(SELECT FECHADESDECAUSADO FROM VWACTUALESFECHAS))\n"
+                       + " OR FECHAFINAL>(SELECT FECHADESDECAUSADO FROM VWACTUALESFECHAS))", EmpleadosAux.class);
+               List<EmpleadosAux> listaEmpleadosAux = query2.getResultList();
+               log.warn("PersistenciaNovedades.novedadesTercero() Ya consulo Transients");
+               if (listaEmpleadosAux != null) {
+                  if (!listaEmpleadosAux.isEmpty()) {
+                     log.warn("PersistenciaNovedades.novedadesTercero() listaEmpleadosAux.size(): " + listaEmpleadosAux.size());
+                     for (EmpleadosAux recAux : listaEmpleadosAux) {
+                        for (Novedades recNovedadEmp : listaNovedades) {
+                           if (recAux.getSecuencia().equals(recNovedadEmp.getEmpleado().getSecuencia())) {
+                              recNovedadEmp.getEmpleado().llenarTransients(recAux);
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
          return listaNovedades;
       } catch (Exception e) {
          log.error("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());

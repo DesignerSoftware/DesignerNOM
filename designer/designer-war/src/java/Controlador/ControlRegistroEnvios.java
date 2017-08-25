@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
@@ -123,8 +124,14 @@ public class ControlRegistroEnvios implements Serializable {
 
     }
 
+    @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+   
     @PostConstruct
     public void inicializarAdministrador() {
+      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -503,7 +510,7 @@ public class ControlRegistroEnvios implements Serializable {
                             paramEmpl.put("empleadoDesde", listReenvioCorreos.get(i).getCodigoEmpleado().getCodigoempleado());
                             paramEmpl.put("empleadoHasta", listReenvioCorreos.get(i).getCodigoEmpleado().getCodigoempleado());
                             pathReporteGenerado = generaReporte(paramEmpl);
-                            if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getPersona().getEmail(), asunto,
+                            if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getEmailPersona(), asunto,
                                     "Mensaje enviado automáticamente, por favor no responda a este correo.",
                                     pathReporteGenerado, msjResul)) {
                                 mensaje = mensaje + " " + msjResul[0];
@@ -812,7 +819,7 @@ public class ControlRegistroEnvios implements Serializable {
         log.info("Controlador.ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
         if (secEmpresa == null) {
             try {
-                secEmpresa = empleado.getEmpresa().getSecuencia();
+                secEmpresa = empleado.getEmpresa();
             } catch (NullPointerException npe) {
                 try {
                     secEmpresa = administrarEnvioCorreos.empresaAsociada();

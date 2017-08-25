@@ -115,9 +115,9 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['nombre']}" sortBy="#{empleado.persona.nombreCompleto}" filterBy="#{empleado.persona.nombreCompleto}" 
+                        <p:column headerText="#{msg['nombre']}" sortBy="#{empleado.nombreCompleto}" filterBy="#{empleado.nombreCompleto}" 
                                   filterMatchMode="contains" id="nDEmpleadosNombres" filterStyle="display: none; visibility: hidden;">                                  
-                           <h:outputText value="#{empleado.persona.nombreCompleto}"/>
+                           <h:outputText value="#{empleado.nombreCompleto}"/>
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
@@ -539,11 +539,11 @@
                         <h:outputText value="#{emp.codigoempleado}"/>  
                      </p:column>
 
-                     <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                     <p:column sortBy="#{emp.nombreCompleto}" filterBy="#{emp.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreE']}"/>
                         </f:facet>
-                        <h:outputText value="#{emp.persona.nombreCompleto}"/>  
+                        <h:outputText value="#{emp.nombreCompleto}"/>  
                      </p:column>
                   </p:dataTable>
 

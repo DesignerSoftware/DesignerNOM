@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -103,8 +104,12 @@ public class ControlCuenta implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
    private boolean activarLov;
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlCuenta() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       empresaSeleccionada = new Empresas();
       activoDetalle = true;
       altoTabla = "265";
@@ -493,6 +498,7 @@ public class ControlCuenta implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
+            listasRecurrentes.getLovCuentas().clear();
          }
       } catch (Exception e) {
          log.warn("Error guardarCambiosCuenta Controlador : " + e.toString());

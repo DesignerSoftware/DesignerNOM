@@ -138,16 +138,16 @@
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Empleado" sortBy="#{info.empleado.persona.nombreCompleto}" filterBy="#{info.empleado.persona.nombreCompleto}"
+                        <p:column headerText="Empleado" sortBy="#{info.empleado.nombreCompleto}" filterBy="#{info.empleado.nombreCompleto}"
                                   filterMatchMode="contains" id="empleado" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.empleado.persona.nombreCompleto}"/></f:facet>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.empleado.nombreCompleto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.empleado.persona.nombreCompleto}" maxlength="50"
+                                 <p:inputText autocomplete="off" value="#{info.empleado.nombreCompleto}" maxlength="50"
                                               id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(info, 2)}" process="@this"
                                             onstart="PF('datosErroresLiquidacion').unselectAllRows();PF('datosErroresLiquidacion').selectRow(#{indice});"/>
-                                    <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.empleado.persona.nombreCompleto)}" update="@this"/>-->
+                                    <!--<p:ajax event="change" listener="#/{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.empleado.nombreCompleto)}" update="@this"/>-->
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor> 
@@ -343,7 +343,7 @@
                </p:dialog>
 
                <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarTipoCentroCosto" header="Tipo Centro Costo" widgetVar="editarTipoCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -397,7 +397,7 @@
 
                   <p:column>                                  
                      <f:facet name="header"><h:outputText value="Empleado"/></f:facet> 
-                     <h:outputText value="#{info2.empleado.persona.nombreCompleto}"/>
+                     <h:outputText value="#{info2.empleado.nombreCompleto}"/>
                   </p:column>  
 
                   <p:column>                                  

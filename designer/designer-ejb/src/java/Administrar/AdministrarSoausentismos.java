@@ -201,7 +201,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
    public List<Empleados> lovEmpleados() {
       try {
          log.warn("Administrar.AdministrarSoausentismos.lovEmpleados()");
-         return persistenciaEmpleados.empleadosAusentismos(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;

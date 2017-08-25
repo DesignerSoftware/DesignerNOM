@@ -104,7 +104,7 @@ public interface AdministrarEmpleadoIndividualInterface {
 
     public Personas encontrarPersona(BigInteger secPersona);
 
-    public Personas obtenerPersonaPorEmpleado(BigInteger secPersona);
+    public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado);
 
     public String consultarPrimerTelefonoPersona(BigInteger secPersona);
 

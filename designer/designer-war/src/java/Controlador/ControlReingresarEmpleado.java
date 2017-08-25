@@ -67,7 +67,6 @@ public class ControlReingresarEmpleado implements Serializable {
       lovEmpleados = null;
       lovEstructuras = null;
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       formato = new SimpleDateFormat("dd/MM/yyyy");
       estructura = new Estructuras();
       aceptar = true;
@@ -83,7 +82,7 @@ public class ControlReingresarEmpleado implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -132,7 +131,6 @@ public class ControlReingresarEmpleado implements Serializable {
 
    public void cancelarModificaciones() {
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       estructura = new Estructuras();
       fechaReingreso = null;
       fechaFinContrato = null;
@@ -146,7 +144,6 @@ public class ControlReingresarEmpleado implements Serializable {
    public void salir() {
       limpiarListasValor();
       empleado = new Empleados();
-      empleado.setPersona(new Personas());
       estructura = new Estructuras();
       fechaReingreso = null;
       fechaFinContrato = null;
@@ -162,7 +159,7 @@ public class ControlReingresarEmpleado implements Serializable {
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("EMPLEADO")) {
          for (int i = 0; i < lovEmpleados.size(); i++) {
-            if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())
+            if (lovEmpleados.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())
                     || lovEmpleados.get(i).getCodigoempleado().toString().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
@@ -265,8 +262,8 @@ public class ControlReingresarEmpleado implements Serializable {
       int pasa = 0;
       nombre = new String();
       mensajeValidacion = new String();
-      log.info("ControlReingresarEmpleado.reingresarEmpleado() nombre: " + empleado.getPersona().getNombre() + ", documento: " + empleado.getPersona().getNumerodocumento());
-      if (empleado.getPersona().getNumerodocumento() == null) {
+      log.info("ControlReingresarEmpleado.reingresarEmpleado() nombre: " + empleado.getNombrePersona() + ", documento: " + empleado.getNumeroDocumentoPersona());
+      if (empleado.getNumeroDocumentoPersona() == null) {
          mensajeValidacion = mensajeValidacion + " * Empleado\n";
          pasa++;
       }
@@ -288,7 +285,7 @@ public class ControlReingresarEmpleado implements Serializable {
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
             RequestContext.getCurrentInstance().execute("PF('paso1').show()");
-            nombre = empleado.getPersona().getNombreCompleto();
+            nombre = empleado.getNombreCompleto();
          }
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionReingreso");
@@ -303,7 +300,6 @@ public class ControlReingresarEmpleado implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('exito').show()");
          log.info("ControlReingresarEmpleado.reingresoEmpleado() 1");
          empleado = new Empleados();
-         empleado.setPersona(new Personas());
          log.info("ControlReingresarEmpleado.reingresoEmpleado() 2");
          estructura = new Estructuras();
          fechaReingreso = null;

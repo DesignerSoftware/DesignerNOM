@@ -116,11 +116,11 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['nomempl']}" sortBy="#{info.persona.nombreCompleto}" filterBy="#{info.persona.nombreCompleto}" width="300"
+                        <p:column headerText="#{msg['nomempl']}" sortBy="#{info.nombreCompleto}" filterBy="#{info.nombreCompleto}" width="300"
                                   filterMatchMode="contains"  id="nombreEmpl" filterStyle="display: none; visibility: hidden;">  
                            <p:cellEditor>  
                               <f:facet name="output">
-                                 <h:outputText value="#{info.persona.nombreCompleto}"/>
+                                 <h:outputText value="#{info.nombreCompleto}"/>
                               </f:facet>  
                               <f:facet name="input">
                                  <h:inputText readonly="true" onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">
@@ -223,11 +223,11 @@
                         <h:outputText  value="#{empl.codigoempleado}"/>
                      </p:column>
 
-                     <p:column filterBy="#{empl.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width:80%">
+                     <p:column filterBy="#{empl.nombreCompleto}" filterMatchMode="contains" filterStyle="width:80%">
                         <f:facet name="header">
                            <h:outputText style="text-align: center;" value="#{msg['nomempl']}"/>
                         </f:facet>
-                        <h:outputText  value="#{empl.persona.nombreCompleto}"/>
+                        <h:outputText  value="#{empl.nombreCompleto}"/>
                      </p:column>
                   </p:dataTable>
 
@@ -306,7 +306,7 @@
                </p:dialog>
 
                <p:dialog id="editarNombreE" header="#{msg['editarNombreE']}" widgetVar="editarNombreE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                  <p:inputTextarea value="#{controlEmpleado.editarEmpleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                  <p:inputTextarea value="#{controlEmpleado.editarEmpleado.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarCodDeudorE" header="#{msg['editarCodDeudorE']}" widgetVar="editarCodDeudorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -335,7 +335,7 @@
 
                   <p:column headerText="#{msg['nomemplIXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['nomemplIXX']}"/> </f:facet> 
-                     <h:outputText value="#{infoExp.persona.nombreCompleto}"/>
+                     <h:outputText value="#{infoExp.nombreCompleto}"/>
                   </p:column>
 
                   <p:column headerText="#{msg['coddeudorXX']}">                                  

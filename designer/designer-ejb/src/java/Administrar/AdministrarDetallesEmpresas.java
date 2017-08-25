@@ -235,7 +235,7 @@ public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasI
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleados.buscarEmpleados(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;

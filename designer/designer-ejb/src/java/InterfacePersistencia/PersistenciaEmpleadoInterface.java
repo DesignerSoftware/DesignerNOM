@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import Entidades.NovedadesSistema;
+import Entidades.Personas;
 import java.math.BigDecimal;
 
 public interface PersistenciaEmpleadoInterface {
@@ -52,13 +53,16 @@ public interface PersistenciaEmpleadoInterface {
     */
    public Empleados buscarEmpleado(EntityManager em, BigInteger secuencia);
 
+   public Personas buscarPersonaPorEmpleado(EntityManager em, BigInteger secEmpleado);
+
    /**
     * Método encargado de buscar todos los Empleados existentes en la base de
     * datos.
     *
     * @return Retorna una lista de Contratos.
     */
-   public List<Empleados> buscarEmpleados(EntityManager em);
+
+   public List<Empleados> buscarEmpleadosActivos(EntityManager em);
 
    /**
     * Método encargado de buscar el Empleado con la secuencia dada por
@@ -119,7 +123,7 @@ public interface PersistenciaEmpleadoInterface {
     * @param codigoEmpleado
     * @return
     */
-   public Empleados buscarEmpleadoTipo(EntityManager em, BigInteger codigoEmpleado);
+//   public Empleados buscarEmpleadoTipo(EntityManager em, BigInteger codigoEmpleado);
 
    /**
     * Método encargado de buscar los empleado que sean 'ACTIVOS','RETIRADOS' O
@@ -148,7 +152,7 @@ public interface PersistenciaEmpleadoInterface {
     *
     * @return
     */
-   public List<Empleados> empleadosVacaciones(EntityManager em);
+//   public List<Empleados> empleadosVacaciones(EntityManager em);
 
    /**
     * Método encargado de buscar los empleados en estado 'ACTIVO' y 'PENSIONADO'
@@ -156,9 +160,9 @@ public interface PersistenciaEmpleadoInterface {
     *
     * @return
     */
-   public List<Empleados> lovEmpleadosParametros(EntityManager em);
+   public List<Empleados> buscarEmpleadosActivosPensionados(EntityManager em);
 
-   public List<Empleados> empleadosAuxilios(EntityManager em);
+//   public List<Empleados> empleadosAuxilios(EntityManager em);
 
    /**
     * Método encargado de buscar los empleado que sean 'ACTIVOS' y que se
@@ -166,13 +170,13 @@ public interface PersistenciaEmpleadoInterface {
     *
     * @return Retorna una lista de empleados.
     */
-   public List<Empleados> empleadosNovedadEmbargo(EntityManager em);
+//   public List<Empleados> empleadosNovedadEmbargo(EntityManager em);
 
    public List<Empleados> buscarEmpleadosBusquedaAvanzada(EntityManager em, String queryBusquedaAvanzada);
 
    public List<BigInteger> buscarEmpleadosBusquedaAvanzadaCodigo(EntityManager em, String queryBusquedaAvanzada);
 
-   public Empleados buscarEmpleadoPorCodigoyEmpresa(EntityManager em, BigDecimal codigo, BigInteger empresa);
+//   public Empleados buscarEmpleadoPorCodigoyEmpresa(EntityManager em, BigDecimal codigo, BigInteger empresa);
 
    public Empleados obtenerUltimoEmpleadoAlmacenado(EntityManager em, BigInteger secuenciaEmpresa, BigDecimal codigoEmpleado);
 
@@ -198,19 +202,19 @@ public interface PersistenciaEmpleadoInterface {
 
    public List<Empleados> buscarEmpleadosATHoraExtra(EntityManager em);
 
-   public List<Empleados> consultarEmpleadosParaAprobarHorasExtras(EntityManager em);
+//   public List<Empleados> consultarEmpleadosParaAprobarHorasExtras(EntityManager em);
 
-   public List<Empleados> empleadosCesantias(EntityManager em);
+//   public List<Empleados> empleadosCesantias(EntityManager em);
 
    public List<Empleados> consultarCesantiasnoLiquidadas(EntityManager em);
 
    public List<NovedadesSistema> novedadescesantiasnoliquidadas(EntityManager em, BigInteger secuenciaEmpleado);
 
-   public List<Empleados> empleadosAusentismos(EntityManager em);
+//   public List<Empleados> empleadosAusentismos(EntityManager em);
 
-   public List<Empleados> empleadosDefinitiva(EntityManager em);
+//   public List<Empleados> empleadosDefinitiva(EntityManager em);
 
    public List<Empleados> empleadosReemplazosHV(EntityManager em, BigInteger secuenciaEmpleado);
 
-    public void cambiarCodEmpleado(EntityManager em,BigDecimal codactual,BigDecimal codnuevo);
+   public void cambiarCodEmpleado(EntityManager em, BigDecimal codactual, BigDecimal codnuevo);
 }

@@ -124,9 +124,6 @@ public class ControlFamiliares implements Serializable {
 //        empleado = new Empleados();
       personas = new Personas();
       nuevaPersona = new Personas();
-      nuevaPersona.setTipodocumento(new TiposDocumentos());
-      nuevaPersona.setCiudaddocumento(new Ciudades());
-      nuevaPersona.setCiudadnacimiento(new Ciudades());
       lovCiudades = null;
       lovPersonas = null;
       lovTiposFamiliares = null;
@@ -185,7 +182,7 @@ public class ControlFamiliares implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -347,11 +344,11 @@ public class ControlFamiliares implements Serializable {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("TIPO")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());
-         }
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());
+//         }
          for (int i = 0; i < lovTiposFamiliares.size(); i++) {
             if (lovTiposFamiliares.get(i).getTipo().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -379,11 +376,11 @@ public class ControlFamiliares implements Serializable {
             }
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getPersonafamiliar().getCiudaddocumento().setNombre(nuevoFamiliar.getPersonafamiliar().getCiudaddocumento().getNombre());
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getPersonafamiliar().getCiudaddocumento().setNombre(duplicarFamiliares.getPersonafamiliar().getCiudaddocumento().getNombre());
-         }
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getPersonafamiliar().getCiudadDocumento().setNombre(nuevoFamiliar.getPersonafamiliar().getCiudadDocumento().getNombre());
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getPersonafamiliar().getCiudadDocumento().setNombre(duplicarFamiliares.getPersonafamiliar().getCiudadDocumento().getNombre());
+//         }
          for (int i = 0; i < lovCiudades.size(); i++) {
             if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -392,10 +389,12 @@ public class ControlFamiliares implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFamiliar.getPersonafamiliar().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
+               nuevoFamiliar.getPersonafamiliar().setCiudadDocumento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               nuevoFamiliar.getPersonafamiliar().setNombreCiudadDocumento(lovCiudades.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadDocumento");
             } else if (tipoNuevo == 2) {
-               duplicarFamiliares.getPersonafamiliar().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
+               duplicarFamiliares.getPersonafamiliar().setCiudadDocumento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               duplicarFamiliares.getPersonafamiliar().setNombreCiudadDocumento(lovCiudades.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadDocumento");
             }
             lovCiudades.clear();
@@ -412,11 +411,11 @@ public class ControlFamiliares implements Serializable {
          }
 
       } else if (confirmarCambio.equalsIgnoreCase("CIUDADNACIMIENTO")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getPersonafamiliar().getCiudadnacimiento().setNombre(nuevoFamiliar.getPersonafamiliar().getCiudadnacimiento().getNombre());
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getPersonafamiliar().getCiudadnacimiento().setNombre(duplicarFamiliares.getPersonafamiliar().getCiudadnacimiento().getNombre());
-         }
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getPersonafamiliar().getCiudadNacimiento().setNombre(nuevoFamiliar.getPersonafamiliar().getCiudadNacimiento().getNombre());
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getPersonafamiliar().getCiudadNacimiento().setNombre(duplicarFamiliares.getPersonafamiliar().getCiudadNacimiento().getNombre());
+//         }
          for (int i = 0; i < lovCiudades.size(); i++) {
             if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -425,10 +424,12 @@ public class ControlFamiliares implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFamiliar.getPersonafamiliar().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
+               nuevoFamiliar.getPersonafamiliar().setCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               nuevoFamiliar.getPersonafamiliar().setNombreCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadNacimiento");
             } else if (tipoNuevo == 2) {
-               duplicarFamiliares.getPersonafamiliar().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
+               duplicarFamiliares.getPersonafamiliar().setCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+               duplicarFamiliares.getPersonafamiliar().setNombreCiudadNacimiento(lovCiudades.get(indiceUnicoElemento).getNombre());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadNacimiento");
             }
             lovCiudades.clear();
@@ -444,11 +445,11 @@ public class ControlFamiliares implements Serializable {
             }
          }
       } else if (confirmarCambio.equalsIgnoreCase("TIPODOCUMENTO")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getPersonafamiliar().getTipodocumento().setNombrelargo(nuevoFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo());
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getPersonafamiliar().getTipodocumento().setNombrelargo(nuevoFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo());
-         }
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getPersonafamiliar().getTipoDocumento().setNombrelargo(nuevoFamiliar.getPersonafamiliar().getTipoDocumento().getNombrelargo());
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getPersonafamiliar().getTipoDocumento().setNombrelargo(nuevoFamiliar.getPersonafamiliar().getTipoDocumento().getNombrelargo());
+//         }
          for (int i = 0; i < lovTiposDocumentos.size(); i++) {
             if (lovTiposDocumentos.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -457,10 +458,12 @@ public class ControlFamiliares implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevoFamiliar.getPersonafamiliar().setTipodocumento(lovTiposDocumentos.get(indiceUnicoElemento));
+               nuevoFamiliar.getPersonafamiliar().setTipoDocumento(lovTiposDocumentos.get(indiceUnicoElemento).getSecuencia());
+               nuevoFamiliar.getPersonafamiliar().setNombreTipoDocumento(lovTiposDocumentos.get(indiceUnicoElemento).getNombrelargo());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDocumento");
             } else if (tipoNuevo == 2) {
-               duplicarFamiliares.getPersonafamiliar().setTipodocumento(lovTiposDocumentos.get(indiceUnicoElemento));
+               duplicarFamiliares.getPersonafamiliar().setTipoDocumento(lovTiposDocumentos.get(indiceUnicoElemento).getSecuencia());
+               duplicarFamiliares.getPersonafamiliar().setNombreTipoDocumento(lovTiposDocumentos.get(indiceUnicoElemento).getNombrelargo());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDocumento");
             }
             lovTiposDocumentos.clear();
@@ -1006,7 +1009,8 @@ public class ControlFamiliares implements Serializable {
    public void actualizarCiudad() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 1) {
-         nuevaPersona.setCiudaddocumento(ciudadSeleccionada);
+         nuevaPersona.setCiudadDocumento(ciudadSeleccionada.getSecuencia());
+         nuevaPersona.setNombreCiudadDocumento(ciudadSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoModPersonal");
       }
       filtrarLovCiudades = null;
@@ -1043,7 +1047,7 @@ public class ControlFamiliares implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 //        if (tipoActualizacion == 0) {
 //            if (tipoLista == 0) {
-//                familiarSeleccionado.getPersonafamiliar().setCiudadnacimiento(ciudadSeleccionada);
+//                familiarSeleccionado.getPersonafamiliar().setCiudadNacimiento(ciudadSeleccionada);
 //                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
 //                    if (listaFamiliaresEditar.isEmpty()) {
 //                        listaFamiliaresEditar.add(familiarSeleccionado);
@@ -1052,7 +1056,7 @@ public class ControlFamiliares implements Serializable {
 //                    }
 //                }
 //            } else {
-//                familiarSeleccionado.getPersonafamiliar().setCiudadnacimiento(ciudadSeleccionada);
+//                familiarSeleccionado.getPersonafamiliar().setCiudadNacimiento(ciudadSeleccionada);
 //                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
 //                    if (listaFamiliaresEditar.isEmpty()) {
 //                        listaFamiliaresEditar.add(familiarSeleccionado);
@@ -1070,7 +1074,8 @@ public class ControlFamiliares implements Serializable {
 //            RequestContext.getCurrentInstance().update("form:datosFamiliares");
 //        } 
       if (tipoActualizacion == 1) {
-         nuevaPersona.setCiudadnacimiento(ciudadSeleccionada);
+         nuevaPersona.setCiudadNacimiento(ciudadSeleccionada.getSecuencia());
+         nuevaPersona.setNombreCiudadNacimiento(ciudadSeleccionada.getNombre());
          RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoModPersonal");
       }
 
@@ -1175,7 +1180,8 @@ public class ControlFamiliares implements Serializable {
    public void actualizarTipoDocumento() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 1) {
-         nuevaPersona.setTipodocumento(tipoDocumentoSeleccionado);
+         nuevaPersona.setTipoDocumento(tipoDocumentoSeleccionado.getSecuencia());
+         nuevaPersona.setNombreTipoDocumento(tipoDocumentoSeleccionado.getNombrelargo());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
       }
       filtrarLovTiposDocumentos = null;
@@ -1222,31 +1228,31 @@ public class ControlFamiliares implements Serializable {
    }
 
    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-      if (Campo.equals("TIPODOCUMENTO")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo();
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getPersonafamiliar().getTipodocumento().getNombrelargo();
-         }
-      } else if (Campo.equals("CIUDAD")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getPersonafamiliar().getCiudaddocumento().getNombre();
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getPersonafamiliar().getCiudaddocumento().getNombre();
-         }
-      } else if (Campo.equals("CIUDADNACIMIENTO")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getPersonafamiliar().getCiudadnacimiento().getNombre();
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getPersonafamiliar().getCiudadnacimiento().getNombre();
-         }
-      } else if (Campo.equals("TIPOFAMILIAR")) {
-         if (tipoNuevo == 1) {
-            nuevoFamiliar.getTipofamiliar().getTipo();
-         } else if (tipoNuevo == 2) {
-            duplicarFamiliares.getTipofamiliar().getTipo();
-         }
-      }
+//      if (Campo.equals("TIPODOCUMENTO")) {
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getPersonafamiliar().getTipoDocumento().getNombrelargo();
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getPersonafamiliar().getTipoDocumento().getNombrelargo();
+//         }
+//      } else if (Campo.equals("CIUDAD")) {
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getPersonafamiliar().getCiudadDocumento().getNombre();
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getPersonafamiliar().getCiudadDocumento().getNombre();
+//         }
+//      } else if (Campo.equals("CIUDADNACIMIENTO")) {
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getPersonafamiliar().getCiudadNacimiento().getNombre();
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getPersonafamiliar().getCiudadNacimiento().getNombre();
+//         }
+//      } else if (Campo.equals("TIPOFAMILIAR")) {
+//         if (tipoNuevo == 1) {
+//            nuevoFamiliar.getTipofamiliar().getTipo();
+//         } else if (tipoNuevo == 2) {
+//            duplicarFamiliares.getTipofamiliar().getTipo();
+//         }
+//      }
    }
 
    public void activarAceptar() {
@@ -1366,9 +1372,6 @@ public class ControlFamiliares implements Serializable {
 
    public void limpiarPersona() {
       nuevaPersona = new Personas();
-      nuevaPersona.setTipodocumento(new TiposDocumentos());
-      nuevaPersona.setCiudaddocumento(new Ciudades());
-      nuevaPersona.setCiudadnacimiento(new Ciudades());
    }
 
    public void activarDatos() {

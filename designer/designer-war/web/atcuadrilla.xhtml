@@ -339,13 +339,13 @@
                                 </p:column>
 
 
-                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoDTR.empleado.persona.nombreCompleto}" filterBy="#{infoDTR.empleado.persona.nombreCompleto}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{infoDTR.empleado.nombreCompleto}" filterBy="#{infoDTR.empleado.nombreCompleto}" filterMatchMode="contains" 
                                            width="250" id="detalleEmpleado"  filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoDTR.empleado.persona.nombreCompleto}" style="text-transform: uppercase;"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoDTR.empleado.nombreCompleto}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off"  value="#{infoDTR.empleado.persona.nombreCompleto}" id="editarEmpleadoDetalle" style=" border-radius: 0px; width: 99%; text-transform: uppercase;"> 
-                                                <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR, 'NOMBRE', infoDTR.empleado.persona.nombreCompleto)}" process="@this" update="@this"/>
+                                            <p:inputText autocomplete="off"  value="#{infoDTR.empleado.nombreCompleto}" id="editarEmpleadoDetalle" style=" border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR, 'NOMBRE', infoDTR.empleado.nombreCompleto)}" process="@this" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR, 0)}"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 2)}" 
                                                         onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceDTR});"/>
@@ -561,11 +561,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleados.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleados.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                            <p:column filterBy="#{empleados.nombreCompleto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEmpleado']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleados.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleados.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -596,11 +596,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{empleadosCuadrillas.codigoempleado}"/>
                             </p:column>
-                            <p:column filterBy="#{empleadosCuadrillas.persona.nombreCompleto}" width="200"  filterMatchMode="contains">
+                            <p:column filterBy="#{empleadosCuadrillas.nombreCompleto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEmpleado']}"/>
                                 </f:facet>
-                                <h:outputText value="#{empleadosCuadrillas.persona.nombreCompleto}"/>
+                                <h:outputText value="#{empleadosCuadrillas.nombreCompleto}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -868,10 +868,10 @@
                             <p:watermark for="nuevaCodigoDetalle" value="#{msg['codigoEmpleado']}"/>
 
                             <strong><h:outputText value="#{msg['nombreEmpleadoN']}" style=" position: absolute; top: 135px; left: 50px;"/></strong>
-                            <p:inputText autocomplete="off"  id="nuevaEmpleadoDetalle"  value="#{controlATCuadrilla.nuevaDetalle.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="nuevaEmpleadoDetalle"  value="#{controlATCuadrilla.nuevaDetalle.empleado.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR,1)}"/>
                                 <p:ajax event="click" listener="#{controlATCuadrilla.valoresBackupAutocompletarDetalle(1, 'NOMBRE')}"/>
-                                <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('NOMBRE', controlATCuadrilla.nuevaDetalle.empleado.persona.nombreCompleto, 1)}"/>
+                                <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('NOMBRE', controlATCuadrilla.nuevaDetalle.empleado.nombreCompleto, 1)}"/>
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 130px;" id="btnNuevoEmplNombre" icon="ui-icon-search" process="@this"  actionListener="#{controlATCuadrilla.asignarIndex(indiceDTR,1)}"/>   
                             <p:watermark for="nuevaEmpleadoDetalle" value="#{msg['nombreEmpleado']}"/>
@@ -904,10 +904,10 @@
                             <p:watermark for="duplicarCodigoDetalle" value="#{msg['codigoEmpleado']}"/>
 
                             <strong><h:outputText value="#{msg['nombreEmpleadoN']}" style=" position: absolute; top: 135px; left: 50px;"/></strong>
-                            <p:inputText autocomplete="off"  id="duplicarEmpleadoDetalle"  value="#{controlATCuadrilla.duplicarDetalle.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
+                            <p:inputText autocomplete="off"  id="duplicarEmpleadoDetalle"  value="#{controlATCuadrilla.duplicarDetalle.empleado.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase;">
                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR,2)}"/>
                                 <p:ajax event="click" listener="#{controlATCuadrilla.valoresBackupAutocompletarDetalle(2, 'NOMBRE')}"/>
-                                <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('NOMBRE', controlATCuadrilla.duplicarDetalle.empleado.persona.nombreCompleto, 2)}"/>
+                                <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('NOMBRE', controlATCuadrilla.duplicarDetalle.empleado.nombreCompleto, 2)}"/>
                             </p:inputText>
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 130px;" id="btnDuplicarEmplNombre" icon="ui-icon-search" process="@this"  actionListener="#{controlATCuadrilla.asignarIndex(indiceDTR,2)}"/>   
                             <p:watermark for="duplicarEmpleadoDetalle" value="#{msg['nombreEmpleado']}"/>
@@ -979,7 +979,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarDetalleEmpleado" header="#{msg['editarDetalleEmpleado']}" widgetVar="editarDetalleEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea  value="#{controlATCuadrilla.editarDetalle.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarDetalle.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 
@@ -1079,7 +1079,7 @@
 
                         <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExpD.empleado.persona.nombreCompleto}"/>
+                            <h:outputText value="#{infoExpD.empleado.nombreCompleto}"/>
                         </p:column>  
 
                     </p:dataTable>

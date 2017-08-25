@@ -6,11 +6,13 @@
 package Entidades;
 
 import java.math.BigInteger;
+import javax.persistence.Cacheable;
 
 /**
  *
  * @author user
  */
+@Cacheable(false)
 public class NombresEmpleadosAux {
 
    private BigInteger codigoEmpleado;

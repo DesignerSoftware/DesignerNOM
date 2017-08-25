@@ -121,7 +121,7 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public void limpiarListasValor() {
-        lovCiudades = null;
+        lovCiudades = new ArrayList<Ciudades>();
         lovTiposTelefonos = null;
     }
 

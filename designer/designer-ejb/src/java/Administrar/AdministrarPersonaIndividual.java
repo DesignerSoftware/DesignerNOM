@@ -528,7 +528,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleado.buscarEmpleados(getEm());
+         return persistenciaEmpleado.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;
@@ -618,7 +618,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
 
    public Empleados buscarEmpleadoPorCodigoyEmpresa(BigDecimal codigo, BigInteger empresa) {
       try {
-         return persistenciaEmpleado.buscarEmpleadoPorCodigoyEmpresa(getEm(), codigo, empresa);
+         return persistenciaEmpleado.buscarEmpleadoCodigo_Empresa(getEm(), codigo.toBigInteger(), empresa);
       } catch (Exception e) {
          log.warn("Error buscarEmpleadoPorCodigoyEmpresa Admi : " + e.toString());
          return null;

@@ -97,10 +97,10 @@
 
                         <!--<p:ajax event="filter" listener="#/{controlParametro.eventoFiltrar()}"/>-->
 
-                        <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" filterBy="#{empleadoParametro.empleado.codigoempleado}" 
+                        <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{empleadoParametro.codigoEmpleado}" filterBy="#{empleadoParametro.codigoEmpleado}" 
                                   filterMatchMode="contains" id="Codigo" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
-                           <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
+                           <h:outputText value="#{empleadoParametro.nombreCompleto}"/>
                         </p:column>
 
                      </p:dataTable>
@@ -1219,11 +1219,11 @@
                         </f:facet>
                         <h:outputText value="#{empleado.codigoempleado}"/>
                      </p:column>
-                     <p:column filterBy="#{empleado.persona.nombreCompleto}" sortBy="#{empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <p:column filterBy="#{empleado.nombreCompleto}" sortBy="#{empleado.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombre']}"/>
                         </f:facet>
-                        <h:outputText value="#{empleado.persona.nombreCompleto}"/>
+                        <h:outputText value="#{empleado.nombreCompleto}"/>
                      </p:column>
                   </p:dataTable>
                   <div class="cssBotonesLOV">

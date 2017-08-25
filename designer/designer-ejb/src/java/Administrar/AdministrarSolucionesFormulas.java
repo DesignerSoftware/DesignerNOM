@@ -102,7 +102,7 @@ public class AdministrarSolucionesFormulas implements AdministrarSolucionesFormu
    @Override
    public Empleados empleadoActual(BigInteger codEmpleado) {
       try {
-         return persistenciaEmpleado.buscarEmpleadoTipo(getEm(), codEmpleado);
+         return persistenciaEmpleado.buscarEmpleadoCodigo(getEm(), codEmpleado);
       } catch (Exception e) {
          log.warn("Error empleadoActual Admi : " + e.toString());
          return null;

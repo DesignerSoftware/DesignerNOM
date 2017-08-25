@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -87,7 +86,7 @@ public class ControlSolucionFormula implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -145,7 +144,7 @@ public class ControlSolucionFormula implements Serializable {
       empleado = administrarSolucionesFormulas.empleadoActual(codEmpleado);
       listaSolucionesFormulas = administrarSolucionesFormulas.listaSolucionesFormulaParaEmpleadoYNovedad(empleado.getSecuencia(), secNovedad);
       novedad = administrarSolucionesFormulas.novedadActual(secNovedad);
-      informacionEmpleadoNovedad = empleado.getPersona().getNombreCompleto().toUpperCase() + " NOVEDAD POR VALOR DE : $ " + novedad.getValortotal().toString();
+      informacionEmpleadoNovedad = empleado.getNombreCompleto().toUpperCase() + " NOVEDAD POR VALOR DE : $ " + novedad.getValortotal().toString();
    }
 
    public void posicionTabla() {

@@ -92,10 +92,15 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
 
    @Override
    public List<Formulas> buscarFormulas(EntityManager em) {
-      em.clear();
-      javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-      cq.select(cq.from(Formulas.class));
-      return em.createQuery(cq).getResultList();
+      try {
+         em.clear();
+         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         cq.select(cq.from(Formulas.class));
+         return em.createQuery(cq).getResultList();
+      } catch (Exception e) {
+         log.error("PersistenciaFormulas.buscarFormulas() ERROR: " + e);
+         return null;
+      }
    }
 
    @Override

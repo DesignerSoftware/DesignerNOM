@@ -244,7 +244,7 @@
                     <p:dialog header="#{msg['gruposconceptosG']}" widgetVar="gruposDialogo" draggable="true" resizable="false" id="gruposDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="400" height="350" style="font-size: 12px">
 
-                        <p:dataTable  id="LOVGrupos" style="font-size: 11px; width: 350px;" var="g" value="#{controlOperandoGrupoConcepto.lovListaGruposConceptos}"
+                        <p:dataTable  id="LOVGrupos" style="font-size: 11px; width: 350px;" var="g" value="#{controlOperandoGrupoConcepto.lovGruposConceptos}"
                                       scrollable="true" scrollHeight="200" scrollWidth="367" widgetVar="LOVGrupos" 
                                       filteredValue="#{controlOperandoGrupoConcepto.lovfiltradoslistaGruposConceptos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{g.secuencia}" selection="#{controlOperandoGrupoConcepto.gruposSeleccionado}" selectionMode="single">

@@ -236,7 +236,7 @@ public class ControlEmplMvr implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -306,7 +306,6 @@ public class ControlEmplMvr implements Serializable {
       fechaParametro.setDate(1);
       boolean retorno = true;
       if (i == 0) {
-
          if (mvrSeleccionado.getFechafinal() != null) {
             if (mvrSeleccionado.getFechainicial().after(fechaParametro) && mvrSeleccionado.getFechainicial().before(mvrSeleccionado.getFechafinal())) {
                retorno = true;
@@ -394,7 +393,6 @@ public class ControlEmplMvr implements Serializable {
    public void modificarFechasMvrs(Mvrs mvrs, int c) {
       mvrSeleccionado = mvrs;
 
-      RequestContext context = RequestContext.getCurrentInstance();
       if (mvrSeleccionado.getFechainicial() != null) {
          boolean retorno = false;
          retorno = validarFechasRegistroMvrs(0);
@@ -980,7 +978,10 @@ public class ControlEmplMvr implements Serializable {
       if (nuevaMvrs.getFechainicial() != null && nuevaMvrs.getMotivo() != null) {
          int error = 0;
          for (int i = 0; i < listMvrsEmpleado.size(); i++) {
-            if (listMvrsEmpleado.get(i).getFechainicial().equals(nuevaMvrs.getFechainicial())) {
+            if (listMvrsEmpleado.get(i).getFechainicial().getMonth() == (nuevaMvrs.getFechainicial().getMonth())
+                    && listMvrsEmpleado.get(i).getFechainicial().getYear() == (nuevaMvrs.getFechainicial().getYear())
+                    && listMvrsEmpleado.get(i).getFechainicial().getDate() == (nuevaMvrs.getFechainicial().getDate())
+                    && listMvrsEmpleado.get(i).getMotivo().equals(nuevaMvrs.getMotivo())) {
                error++;
             }
          }
@@ -1010,15 +1011,12 @@ public class ControlEmplMvr implements Serializable {
                }
                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMVRS').hide()");
             } else {
-               RequestContext context = RequestContext.getCurrentInstance();
                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorFechasDuplicadas').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegNewMvr').show()");
       }
    }
@@ -1138,7 +1136,10 @@ public class ControlEmplMvr implements Serializable {
       if (duplicarMvrs.getFechainicial() != null && duplicarMvrs.getMotivo() != null) {
          int error = 0;
          for (int i = 0; i < listMvrsEmpleado.size(); i++) {
-            if (listMvrsEmpleado.get(i).getFechainicial().equals(duplicarMvrs.getFechainicial())) {
+            if (listMvrsEmpleado.get(i).getFechainicial().getMonth() == (duplicarMvrs.getFechainicial().getMonth())
+                    && listMvrsEmpleado.get(i).getFechainicial().getYear() == (duplicarMvrs.getFechainicial().getYear())
+                    && listMvrsEmpleado.get(i).getFechainicial().getDate() == (duplicarMvrs.getFechainicial().getDate())
+                    && listMvrsEmpleado.get(i).getMotivo().equals(duplicarMvrs.getMotivo())) {
                error++;
             }
          }
