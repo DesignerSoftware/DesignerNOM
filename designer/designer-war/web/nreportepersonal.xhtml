@@ -129,7 +129,8 @@
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
                                     </f:facet>
                                     <p:commandButton id="EdGenerarR" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/generarReporte.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " value=" " 
-                                                     actionListener="#{controlNReportePersonal.generarReporte(info)}" onstart="PF('generandoReporte').show()">                
+                                                     actionListener="#{controlNReportePersonal.generarReporte(info)}" 
+                                                     onclick="PF('reportesPersonal').unselectAllRows(); PF('reportesPersonal').selectRow(#{indice});PF('generandoReporte').show()">                
                                     </p:commandButton>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -703,7 +704,8 @@
                                         <div style="display: block; border-color: black">
                                             <h:outputText value="#{msg['hasta']}:" style="top: 9px; position: relative; left: 20px;"/>
                                             <p:inputText id="empleadoHastaParametro" autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.codigoempleadohasta}" 
-                                                         style="position: absolute; left: 85px; width: 100px; top: 9px;" onclick="select();" class="cssParametrosReportes">
+                                                         style="position: absolute; left: 85px; width: 100px; top: 9px;" onclick="select();" class="cssParametrosReportes"
+                                                         maxlength="30">
                                                 <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(9)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlNReportePersonal.modificarParametroEmpleadoHasta(controlNReportePersonal.parametroDeReporte.codigoempleadohasta)}"  
                                                         update="empleadoHastaParametro" process="@this"/>

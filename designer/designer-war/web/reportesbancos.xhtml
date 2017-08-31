@@ -85,7 +85,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 224px; width: 835px; height: 250px; border-radius: 10px;">
                             <legend style="color: blue;text-align:left;"><strong>#{msg['reportes']}</strong></legend>
 
-                            <p:dataTable id="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 812px;"                           
+                            <p:dataTable id="reportesBancos" widgetVar="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 812px;"                           
                                          value="#{controlReportesBancos.listaIR}" scrollable="true" scrollHeight="#{controlReportesBancos.altoTabla}" scrollWidth="830"
                                          filteredValue="#{controlReportesBancos.filtrarListInforeportesUsuario}"  selectionMode="single" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlReportesBancos.inforreporteSeleccionado}"> 
@@ -108,7 +108,7 @@
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
                                     </f:facet>
                                     <p:commandButton id="GENERARREPORTE" value="#{msg['generar']}" process="@this" actionListener="#{controlReportesBancos.generarReporte(info)}" style="width: 150px"
-                                                     onclick="PF('generandoReporte').show()" />
+                                                      onclick="PF('reportesBancos').unselectAllRows(); PF('reportesBancos').selectRow(#{indice});PF('generandoReporte').show()" />
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
@@ -194,7 +194,7 @@
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['hasta']}:" style="top: 17px; position: relative; left: 0px;"/>
                                         <p:inputText id="empleadoHastaParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.codigoempleadohasta}" 
-                                                     style="position: absolute; top: 15px; left: 115px; height: 15px; width: 125px; height: 10px;" onclick="select();">
+                                                     style="position: absolute; top: 15px; left: 115px; height: 15px; width: 125px; height: 10px;" onclick="select();" maxlength="30">
                                             <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(6)}" process="@this"/> 
                                             <!--<p:ajax event="change" listener="#/{controlReportesBancos.autocompletarGeneral('DESDE', controlReportesBancos.parametroDeInforme.codigoempleadodesde)}"--> 
                                             <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroEmpleadoHasta(controlReportesBancos.parametroDeReporte.codigoempleadohasta)}"  

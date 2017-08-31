@@ -105,34 +105,35 @@
                                     <h:outputText value="#{info.nombre}"/>
                                 </p:column>
 
-                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="60" style="padding: 0px;" sortBy="#{info.estadoTipo}" filterBy="#{info.estadoTipo}" footerText="" filterMatchMode="in" filterStyle="display: none; visibility: hidden;"> 
+                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="66" style="padding: 0px;" sortBy="#{info.estadoTipo}" filterBy="#{info.estadoTipo}" footerText="" filterMatchMode="in" filterStyle="display: none; visibility: hidden;"> 
                                     <f:facet name="filter">
                                         <p:selectCheckboxMenu label="#{msg['tipo']}" id="tipo" rendered="false" onchange="PF('reportesSeguridad').filter()">
-                                           <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
-                                                <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>  
-                                                <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
-                                                <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>  
-                                                <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
-                                                <f:selectItem itemLabel="#{msg['plano']}" itemValue="PLANO"/>
+                                            <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
+                                            <f:selectItem itemLabel="#{msg['html']}" itemValue="HTML"/>  
+                                            <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
+                                            <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>  
+                                            <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
+                                            <f:selectItem itemLabel="#{msg['plano']}" itemValue="PLANO"/>
                                         </p:selectCheckboxMenu>
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.estadoTipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{info.estadoTipo}"  style="width: 98%; font-weight: bold;"
+                                            <p:selectOneMenu value="#{info.estadoTipo}" style="width: 42px; font-weight: bold;"
                                                              onblur="PF('reportesSeguridad').unselectAllRows(); PF('reportesSeguridad').selectRow(#{indice});"
-                                                             onfocus="PF('reportesSeguridad').unselectAllRows(); PF('reportesSeguridad').selectRow(#{indice});" >  
+                                                             onfocus="PF('reportesSeguridad').unselectAllRows(); PF('reportesSeguridad').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
-                                                <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>  
+                                                <f:selectItem itemLabel="#{msg['html']}" itemValue="HTML"/>  
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
                                                 <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX"/>  
                                                 <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV"/>
                                                 <f:selectItem itemLabel="#{msg['plano']}" itemValue="PLANO"/>
-                                                <p:ajax listener="#{controlNReportesSeguridad.modificacionTipoReporte(info)}" update=":form:reportesSeguridad" event="change"/>
+                                                <p:ajax event="change" listener="#{controlNReportesSeguridad.modificacionTipoReporte(info, info.estadoTipo)}"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
+
 
                                 <p:column id="columnaGenerarR" width="19" style="padding-left: 5px;padding: 0px; text-align: center;">                                                              
                                     <f:facet name="header">
@@ -140,7 +141,7 @@
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
                                     </f:facet>
                                     <p:commandButton id="EdGenerarR" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/generarReporte.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " value=" " 
-                                                     actionListener="#{controlNReportesSeguridad.generarReporte(info)}" onstart="PF('generandoReporte').show()">                
+                                                     actionListener="#{controlNReportesSeguridad.generarReporte(info)}" onclick="PF('reportesSeguridad').unselectAllRows(); PF('reportesSeguridad').selectRow(#{indice});PF('generandoReporte').show()">                
                                     </p:commandButton>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -217,9 +218,9 @@
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['hasta']}:" style="top: 27px; position: relative; left: 20px;"/>
                                             <p:inputText autocomplete="off" id="empleadoHastaParametro" value="#{controlNReportesSeguridad.parametroDeReporte.codigoempleadohasta}" 
-                                                         style="position: absolute; left: 85px; width: 100px; top: 24px;" onclick="select();">
+                                                         style="position: absolute; left: 85px; width: 100px; top: 24px;" onclick="select();" maxlength="30">
                                                 <p:ajax event="click" listener="#{controlNReportesSeguridad.posicionCelda(4)}" process="@this"/> 
-                                                <p:ajax listener="#{controlNReportesSeguridad.autocompletarGeneral('HASTA',controlNReportesSeguridad.parametroDeReporte.codigoempleadohasta)}"
+                                                <p:ajax listener="#{controlNReportesSeguridad.modificarParametroEmpleadoDesde(controlNReportesSeguridad.modificarParametroEmpleadoHasta(controlNReportesSeguridad.parametroDeReporte.codigoempleadohasta))}"
                                                         event="change" update="empleadoHastaParametro"/>
                                                 <p:ajax event="dblclick" listener="#{controlNReportesSeguridad.dialogosParametros(4)}" process="@this"/>
                                             </p:inputText>

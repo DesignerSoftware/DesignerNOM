@@ -125,8 +125,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.estadoTipo}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:selectOneMenu value="#{info.estadoTipo}" style="width: 42px; font-weight: bold;"
-                                                             onblur="PF('reportesPersonal').unselectAllRows(); PF('reportesContabilidad').selectRow(#{indice});"
-                                                             onfocus="PF('reportesPersonal').unselectAllRows(); PF('reportesContabilidad').selectRow(#{indice});">  
+                                                             onblur="PF('reportesContabilidad').unselectAllRows(); PF('reportesContabilidad').selectRow(#{indice});"
+                                                             onfocus="PF('reportesContabilidad').unselectAllRows(); PF('reportesContabilidad').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF"/>  
                                                 <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML"/>  
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS"/>  
@@ -145,7 +145,7 @@
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
                                     </f:facet>
                                     <p:commandButton id="EdGenerarR" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/generarReporte.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " value=" " 
-                                                     actionListener="#{controlNReporteContabilidad.generarReporte(info)}" onstart="PF('generandoReporte').show()">                
+                                                     actionListener="#{controlNReporteContabilidad.generarReporte(info)}" onclick="PF('reportesContabilidad').unselectAllRows(); PF('reportesContabilidad').selectRow(#{indice});PF('generandoReporte').show()">
                                     </p:commandButton>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -234,9 +234,9 @@
                             <div style="display: block;">
                                 <h:outputText value="#{msg['empleadohasta']}:" style="top: -5px; position: relative; left: 165px"/>
                                 <p:inputText id="empleadoHastaParametroL" autocomplete="off" value="#{controlNReporteContabilidad.parametroDeReporte.codigoempleadohasta}" 
-                                             style="position: absolute; top: 35px; left: 165px; height: 11px; width: 90px;" onclick="select();">
+                                             style="position: absolute; top: 35px; left: 165px; height: 11px; width: 90px;" onclick="select();" maxlength="30">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(4)}" process="@this"/> 
-                                    <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroEmpleadoDesde(controlNReporteContabilidad.modificarParametroEmpleadoHasta(controlNReporteContabilidad.parametroDeReporte.codigoempleadodesde))}"  
+                                    <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroEmpleadoHasta(controlNReporteContabilidad.modificarParametroEmpleadoHasta(controlNReporteContabilidad.parametroDeReporte.codigoempleadodesde))}"  
                                             update="empleadoHastaParametroL" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 </p:inputText>
