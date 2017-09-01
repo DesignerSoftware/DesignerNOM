@@ -81,7 +81,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
 
    @Override
    public List<Contratos> buscarContratos(EntityManager em) {
-      log.error("Entro en buscarContratos(), em = " + em);
+      log.warn("Entro en buscarContratos(), em = " + em);
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {

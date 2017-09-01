@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -37,14 +38,17 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
    PersistenciaEmpleadoInterface persistenciaEmpleados;
 
    private EntityManagerFactory emf;
-   private EntityManager em;
+   private EntityManager em; private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.em != null) {
+         if (this.emf != null) { if (this.em != null) {
             if (this.em.isOpen()) {
                this.em.close();
             }
+         }
+         } else {
+            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
          this.em = emf.createEntityManager();
       } catch (Exception e) {
@@ -54,7 +58,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
    }
 
    @Override
-   public void obtenerConexion(String idSesion) {
+   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {

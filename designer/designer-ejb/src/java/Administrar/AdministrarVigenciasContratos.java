@@ -51,14 +51,19 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
 //   List<TiposContratos> tiposContratos;
     private EntityManagerFactory emf;
     private EntityManager em;
+   private String idSesionBck;
 
     private EntityManager getEm() {
         try {
+         if (this.emf != null) {
             if (this.em != null) {
                 if (this.em.isOpen()) {
                     this.em.close();
                 }
             }
+         } else {
+            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
+         }
             this.em = emf.createEntityManager();
         } catch (Exception e) {
             log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
@@ -68,6 +73,7 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
 
     @Override
     public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
         try {
             emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
         } catch (Exception e) {
@@ -88,14 +94,16 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
     @Override
     public void modificarVC(List<VigenciasContratos> listVCModificadas) {
         try {
-            for (int i = 0; i < listVCModificadas.size(); i++) {
-                if (listVCModificadas.get(i).getTipocontrato() != null) {
-                    if (listVCModificadas.get(i).getTipocontrato().getSecuencia() == null) {
-                        listVCModificadas.get(i).setTipocontrato(null);
+         if (listVCModificadas != null) {
+            for (VigenciasContratos recVTC : listVCModificadas) {
+               if (recVTC.getTipocontrato() != null) {
+                  if (recVTC.getTipocontrato().getSecuencia() == null) {
+                     recVTC.setTipocontrato(null);
                     }
+                  persistenciaVigenciasContratos.editar(getEm(), recVTC);
                 }
-                persistenciaVigenciasContratos.editar(getEm(), listVCModificadas.get(i));
             }
+         }
         } catch (Exception e) {
             log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
         }

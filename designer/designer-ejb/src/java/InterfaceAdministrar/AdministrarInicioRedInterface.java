@@ -8,6 +8,7 @@ import Entidades.Conexiones;
 //import Entidades.Empleados;
 import Entidades.Recordatorios;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -17,7 +18,7 @@ public interface AdministrarInicioRedInterface {
 
    public boolean conexionInicial(String baseDatos);
 
-   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña, String usapool);
+   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña, String usapool, String idSesion);
 
    public boolean validarUsuario(String usuario, String usapool);
 

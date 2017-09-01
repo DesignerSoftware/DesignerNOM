@@ -66,13 +66,18 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    private EntityManagerFactory emf;
    private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
+         } else {
+            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
          this.em = emf.createEntityManager();
       } catch (Exception e) {
@@ -139,6 +144,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
 
    @Override
    public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       log.warn("Administrar.AdministrarCambiosMasivos.obtenerConexion()");
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);

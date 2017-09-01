@@ -79,7 +79,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
    }
 
    @Override
-   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña, String usapool) {
+   public boolean conexionUsuario(String baseDatos, String usuario, String contraseña, String usapool, String idSesion) {
       try {
          log.warn("AdministrarInicioRed.conexionUsuario() usuario: " + usuario + ", usapool: " + usapool);
          if (usapool.equals("S")) {
@@ -92,6 +92,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
          log.warn("AdministrarInicioRed.conexionUsuario() Cerrano la conexion Inicial...");
          sessionEMF.getEmf().close();
          boolean resultado = sessionEMF.crearFactoryUsuario(usuario, contraseña, baseDatos);
+         administrarSessiones.guardarDatosConexion(baseDatos, usuario, contraseña, idSesion);
          return resultado;
       } catch (Exception e) {
          log.fatal("Error creando EMF AdministrarLogin.conexionUsuario: " + e);

@@ -537,8 +537,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
                   }
                   listaEmpleados2.add(auxEmple);
                   listaEmpleados.remove(auxEmple);
-                  log.warn("buscarEmpleadosActivosPensionados(): " + listaEmpleados2);
-                  log.warn("buscarEmpleadosActivosPensionados(): " + listaEmpleados);
                }
             }
          }

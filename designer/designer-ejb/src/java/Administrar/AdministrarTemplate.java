@@ -73,15 +73,18 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
    PersistenciaParametrosAnualesInterface persistenciaParametrosAnuales;
 
    private EntityManagerFactory emf;
-   private EntityManager em;
+   private EntityManager em; private String idSesionBck;
    private Generales general;
 
    private EntityManager getEm() {
       try {
-         if (this.em != null) {
+         if (this.emf != null) { if (this.em != null) {
             if (this.em.isOpen()) {
                this.em.close();
             }
+         }
+         } else {
+            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
          this.em = emf.createEntityManager();
       } catch (Exception e) {

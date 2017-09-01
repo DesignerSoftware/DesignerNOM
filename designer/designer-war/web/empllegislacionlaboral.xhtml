@@ -145,7 +145,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.contrato.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.contrato.descripcion}" maxlength="50" id="editarContrato" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.contrato.descripcion}" maxlength="50" id="editarContrato"> 
                                     <p:ajax event="change" listener="#{controlVigenciasContratos.modificarVC(info, 'LEGISLACIONLABORAL', info.contrato.descripcion)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasContratos.cambiarIndice(info, 2)}" 
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
@@ -166,7 +166,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipocontrato.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{info.tipocontrato.nombre}" id="editarTipoContrato" style=" border-radius: 0px; width: 96%; text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText autocomplete="off" value="#{info.tipocontrato.nombre}" id="editarTipoContrato"> 
                                     <p:ajax event="change" listener="#{controlVigenciasContratos.modificarVC(info, 'TIPOCONTRATO', info.tipocontrato.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasContratos.cambiarIndice(info, 3)}"
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
@@ -183,7 +183,7 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>  
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasContratos.infoRegistro}" style="position: relative; left: 15px; top: 1px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasContratos.infoRegistro}"/>
 
                   </fieldset>
 

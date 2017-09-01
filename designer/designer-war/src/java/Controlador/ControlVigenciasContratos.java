@@ -1203,14 +1203,13 @@ public class ControlVigenciasContratos implements Serializable {
     * @return listVC Lista Vigencias Contratos
     */
    public List<VigenciasContratos> getVigenciasContratos() {
-
       try {
          if (vigenciasContratos == null) {
             vigenciasContratos = administrarVigenciasContratos.VigenciasContratosEmpleado(empleado.getSecuencia());
-            if(vigenciasContratos != null){
-               for(VigenciasContratos vc:vigenciasContratos) {
-                   if(vc.getTipocontrato() == null){
-                       vc.setTipocontrato(new TiposContratos());
+            if (vigenciasContratos != null) {
+               for (VigenciasContratos recVTC : vigenciasContratos) {
+                  if (recVTC.getTipocontrato() == null) {
+                     recVTC.setTipocontrato(new TiposContratos());
                    }
                }
             }

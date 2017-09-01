@@ -12,217 +12,238 @@ import javax.validation.constraints.NotNull;
  *
  * @author user
  */
-
 @Entity
 @Table(name = "VIGENCIASCUENTAS")
 public class VigenciasCuentas implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SECUENCIA")
-    private BigInteger secuencia;
-    @NotNull
-    @Column(name = "FECHAFINAL")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinal;
-    @NotNull
-    @Column(name = "FECHAINICIAL")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicial;
-    @NotNull
-    @JoinColumn(name = "TIPOCC", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = true)
-    private TiposCentrosCostos tipocc;
-    @NotNull
-    @JoinColumn(name = "CUENTAD", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = true)
-    private Cuentas cuentad;
-    @NotNull
-    @JoinColumn(name = "CUENTAC", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Cuentas cuentac;
-    @NotNull
-    @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = true)
-    private Conceptos concepto;
-    @NotNull
-    @JoinColumn(name = "CONSOLIDADORD", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = true)
-    private CentrosCostos consolidadord;
-    @NotNull
-    @JoinColumn(name = "CONSOLIDADORC", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = true)
-    private CentrosCostos consolidadorc;
-    
-    @Transient
-    private String strFechaInicial;
-    @Transient
-    private String strFechaFinal;
-    @Column(name = "PROCESO")
-    private BigInteger proceso;
-    @Transient
-    private String nombreProceso;
+   private static final long serialVersionUID = 1L;
+   @Id
+   @Basic(optional = false)
+   @NotNull
+   @Column(name = "SECUENCIA")
+   private BigInteger secuencia;
+   @NotNull
+   @Column(name = "FECHAFINAL")
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date fechafinal;
+   @NotNull
+   @Column(name = "FECHAINICIAL")
+   @Temporal(TemporalType.TIMESTAMP)
+   private Date fechainicial;
+   @NotNull
+   @JoinColumn(name = "TIPOCC", referencedColumnName = "SECUENCIA")
+   @ManyToOne(optional = true)
+   private TiposCentrosCostos tipocc;
+   @NotNull
+   @JoinColumn(name = "CUENTAD", referencedColumnName = "SECUENCIA")
+   @ManyToOne(optional = true)
+   private Cuentas cuentad;
+   @NotNull
+   @JoinColumn(name = "CUENTAC", referencedColumnName = "SECUENCIA")
+   @ManyToOne(optional = false)
+   private Cuentas cuentac;
+   @NotNull
+   @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
+   @ManyToOne(optional = true)
+   private Conceptos concepto;
+   @NotNull
+   @JoinColumn(name = "CONSOLIDADORD", referencedColumnName = "SECUENCIA")
+   @ManyToOne(optional = true)
+   private CentrosCostos consolidadord;
+   @NotNull
+   @JoinColumn(name = "CONSOLIDADORC", referencedColumnName = "SECUENCIA")
+   @ManyToOne(optional = true)
+   private CentrosCostos consolidadorc;
+   @Column(name = "PROCESO")
+   private BigInteger proceso;
 
-    public VigenciasCuentas() {
-    }
+   @Transient
+   private String strFechaInicial;
+   @Transient
+   private String strFechaFinal;
+   @Transient
+   private String nombreProceso;
+   @Transient
+   private boolean acrear;
 
-    public VigenciasCuentas(BigInteger secuencia) {
-        this.secuencia = secuencia;
-    }
+   public VigenciasCuentas() {
+   }
 
-    public VigenciasCuentas(BigInteger secuencia, Date fechafinal, Date fechainicial) {
-        this.secuencia = secuencia;
-        this.fechafinal = fechafinal;
-        this.fechainicial = fechainicial;
-    }
+   public VigenciasCuentas(BigInteger secuencia, Conceptos concepto) {
+      this.concepto = concepto;
+      this.secuencia = secuencia;
+      clear();
+   }
 
-    public BigInteger getSecuencia() {
-        return secuencia;
-    }
+//   public VigenciasCuentas(BigInteger secuencia, Date fechafinal, Date fechainicial) {
+//      this.secuencia = secuencia;
+//      this.fechafinal = fechafinal;
+//      this.fechainicial = fechainicial;
+//   }
+   public BigInteger getSecuencia() {
+      return secuencia;
+   }
 
-    public void setSecuencia(BigInteger secuencia) {
-        this.secuencia = secuencia;
-    }
+   public void setSecuencia(BigInteger secuencia) {
+      this.secuencia = secuencia;
+   }
 
-    public Date getFechafinal() {
-        return fechafinal;
-    }
+   public Date getFechafinal() {
+      return fechafinal;
+   }
 
-    public void setFechafinal(Date fechafinal) {
-        this.fechafinal = fechafinal;
-    }
+   public void setFechafinal(Date fechafinal) {
+      this.fechafinal = fechafinal;
+   }
 
-    public Date getFechainicial() {
-        return fechainicial;
-    }
+   public Date getFechainicial() {
+      return fechainicial;
+   }
 
-    public void setFechainicial(Date fechainicial) {
-        this.fechainicial = fechainicial;
-    }
+   public void setFechainicial(Date fechainicial) {
+      this.fechainicial = fechainicial;
+   }
 
-    public TiposCentrosCostos getTipocc() {
-        return tipocc;
-    }
+   public TiposCentrosCostos getTipocc() {
+      return tipocc;
+   }
 
-    public void setTipocc(TiposCentrosCostos tipocc) {
-        this.tipocc = tipocc;
-    }
+   public void setTipocc(TiposCentrosCostos tipocc) {
+      this.tipocc = tipocc;
+   }
 
-    public Cuentas getCuentad() {
-        return cuentad;
-    }
+   public Cuentas getCuentad() {
+      return cuentad;
+   }
 
-    public void setCuentad(Cuentas cuentad) {
-        this.cuentad = cuentad;
-    }
+   public void setCuentad(Cuentas cuentad) {
+      this.cuentad = cuentad;
+   }
 
-    public Cuentas getCuentac() {
-        return cuentac;
-    }
+   public Cuentas getCuentac() {
+      return cuentac;
+   }
 
-    public void setCuentac(Cuentas cuentac) {
-        this.cuentac = cuentac;
-    }
+   public void setCuentac(Cuentas cuentac) {
+      this.cuentac = cuentac;
+   }
 
-    public Conceptos getConcepto() {
-        return concepto;
-    }
+   public Conceptos getConcepto() {
+      return concepto;
+   }
 
-    public void setConcepto(Conceptos concepto) {
-        this.concepto = concepto;
-    }
+   public void setConcepto(Conceptos concepto) {
+      this.concepto = concepto;
+   }
 
-    public CentrosCostos getConsolidadord() {
-        return consolidadord;
-    }
+   public CentrosCostos getConsolidadord() {
+      return consolidadord;
+   }
 
-    public void setConsolidadord(CentrosCostos consolidadord) {
-        this.consolidadord = consolidadord;
-    }
+   public void setConsolidadord(CentrosCostos consolidadord) {
+      this.consolidadord = consolidadord;
+   }
 
-    public CentrosCostos getConsolidadorc() {
-        return consolidadorc;
-    }
+   public CentrosCostos getConsolidadorc() {
+      return consolidadorc;
+   }
 
-    public void setConsolidadorc(CentrosCostos consolidadorc) {
-        this.consolidadorc = consolidadorc;
-    }
+   public void setConsolidadorc(CentrosCostos consolidadorc) {
+      this.consolidadorc = consolidadorc;
+   }
 
-    public String getStrFechaInicial() {
-        if (fechainicial != null) {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            strFechaInicial = formatoFecha.format(fechainicial);
-        } else {
-            strFechaInicial = "";
-        }
-        return strFechaInicial;
-    }
+   public String getStrFechaInicial() {
+      if (fechainicial != null) {
+         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+         strFechaInicial = formatoFecha.format(fechainicial);
+      } else {
+         strFechaInicial = "";
+      }
+      return strFechaInicial;
+   }
 
-    public void setStrFechaInicial(String strFechaInicial) throws ParseException {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        fechainicial = formatoFecha.parse(strFechaInicial);
-        this.strFechaInicial = strFechaInicial;
-    }
+   public void setStrFechaInicial(String strFechaInicial) throws ParseException {
+      SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+      fechainicial = formatoFecha.parse(strFechaInicial);
+      this.strFechaInicial = strFechaInicial;
+   }
 
-    public String getStrFechaFinal() {
-        if (fechafinal != null) {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            strFechaFinal = formatoFecha.format(fechafinal);
-        } else {
-            strFechaFinal = "";
-        }
-        return strFechaFinal;
-    }
+   public String getStrFechaFinal() {
+      if (fechafinal != null) {
+         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+         strFechaFinal = formatoFecha.format(fechafinal);
+      } else {
+         strFechaFinal = "";
+      }
+      return strFechaFinal;
+   }
 
-    public void setStrFechaFinal(String strFechaFinal) throws ParseException {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        fechafinal = formatoFecha.parse(strFechaFinal);
-        this.strFechaFinal = strFechaFinal;
-    }
+   public void setStrFechaFinal(String strFechaFinal) throws ParseException {
+      SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+      fechafinal = formatoFecha.parse(strFechaFinal);
+      this.strFechaFinal = strFechaFinal;
+   }
 
-    public BigInteger getProceso() {
-        return proceso;
-    }
+   public BigInteger getProceso() {
+      return proceso;
+   }
 
-    public void setProceso(BigInteger proceso) {
-        this.proceso = proceso;
-    }
+   public void setProceso(BigInteger proceso) {
+      this.proceso = proceso;
+   }
 
-    public String getNombreProceso() {
-        return nombreProceso;
-    }
+   public String getNombreProceso() {
+      return nombreProceso;
+   }
 
-    public void setNombreProceso(String nombreProceso) {
-        this.nombreProceso = nombreProceso;
-    }
-    
-    
+   public void setNombreProceso(String nombreProceso) {
+      this.nombreProceso = nombreProceso;
+   }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (secuencia != null ? secuencia.hashCode() : 0);
-        return hash;
-    }
+   public boolean getAcrear() {
+      return acrear;
+   }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof VigenciasCuentas)) {
-            return false;
-        }
-        VigenciasCuentas other = (VigenciasCuentas) object;
-        if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
-            return false;
-        }
-        return true;
-    }
+   public void setAcrear(boolean acrear) {
+      this.acrear = acrear;
+   }
 
-    @Override
-    public String toString() {
-        return "Entidades.VigenciasCuentas[ secuencia=" + secuencia + " ]";
-    }
+   public void clear() {
+      this.fechainicial = new Date(100, 0, 1);
+      this.fechafinal = new Date(9999 - 1900, 11, 31);
+      this.consolidadorc = new CentrosCostos();
+      this.consolidadord = new CentrosCostos();
+      this.cuentac = new Cuentas();
+      this.cuentad = new Cuentas();
+      this.tipocc = new TiposCentrosCostos();
+      this.proceso = null;
+      this.nombreProceso = "";
+      this.acrear = false;
+   }
+
+   @Override
+   public int hashCode() {
+      int hash = 0;
+      hash += (secuencia != null ? secuencia.hashCode() : 0);
+      return hash;
+   }
+
+   @Override
+   public boolean equals(Object object) {
+      // TODO: Warning - this method won't work in the case the id fields are not set
+      if (!(object instanceof VigenciasCuentas)) {
+         return false;
+      }
+      VigenciasCuentas other = (VigenciasCuentas) object;
+      if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public String toString() {
+      return "Entidades.VigenciasCuentas[ secuencia=" + secuencia + " ]";
+   }
 
 }

@@ -18,8 +18,8 @@ import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
@@ -28,8 +28,8 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-@ManagedBean
 @SessionScoped
+@Named(value = "controlConcepto")
 public class ControlConcepto implements Serializable {
 
    private static Logger log = Logger.getLogger(ControlConcepto.class);
@@ -79,7 +79,7 @@ public class ControlConcepto implements Serializable {
    private List<Conceptos> listaConceptosEmpresaModificar;
    private boolean guardado;
    //crear VC
-   public Conceptos nuevoConcepto;
+   private Conceptos nuevoConcepto;
    private List<Conceptos> listaConceptosEmpresaCrear;
    private BigInteger nuevoConceptoSecuencia;
    private int paraNuevoConcepto;

@@ -153,7 +153,7 @@ public class ControlInicioRed implements Serializable {
                   // La base de datos fue verificada // Da RollEntrada -> compruba el usuario
                   if (administrarInicioRed.validarUsuario(usuario, cadena.getUsapool())) {
                      // El usuario fue verificado // Consulta perfil del usuario -> crea la conexion con el usuario y password
-                     if (administrarInicioRed.conexionUsuario(baseDatos, usuario, contraseña, cadena.getUsapool())) {
+                     if (administrarInicioRed.conexionUsuario(baseDatos, usuario, contraseña, cadena.getUsapool(), ses.getId())) {
                         // La contraseña fue validada // Valida la conexion -> setea el roll -> crea el SessionEntityManager -> lo agraga a AdministrarSesiones
                         if (administrarInicioRed.validarConexionUsuario(ses.getId())) {
                            // La sesión fue otorgada

@@ -44,7 +44,7 @@
                                          style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" actionListener="#{controlDetalleConcepto.activarCtrlF11()}" process="@this" oncomplete="PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
+                        <p:commandButton id="filtrar" value="" actionListener="#{controlDetalleConcepto.activarCtrlF11()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/embudo.png);"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
@@ -776,7 +776,7 @@
                      </p:scrollPanel>  
                   </fieldset>
 
-                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlDetalleConcepto.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciaCuenta"/>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlDetalleConcepto.guardado}" onclick="PF('confirmarGuardar').show();"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlDetalleConcepto.salir()}"/>
                </p:panel>
 
@@ -930,10 +930,10 @@
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleConcepto.activarCtrlF11()}"/>
 
-               <p:dialog header="#{msg['tiposcentroscostosTCC']}" widgetVar="TipoCCDialogo" draggable="true" resizable="false" closable="false" id="TipoCCDialogo"  
+               <p:dialog header="#{msg['tiposcentroscostosTCC']}" widgetVar="TipoCCDialogo" draggable="true" resizable="false" closable="false" id="TipoCCDialogo"
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
 
-                  <p:dataTable id="lovTiposCC" var="tiposCC" scrollWidth="416" value="#{controlDetalleConcepto.lovTiposCentrosCostos}" rowKey="#{tiposCC.secuencia}"
+                  <p:dataTable id="lovTiposCC" var="tiposCC" scrollWidth="405" value="#{controlDetalleConcepto.lovTiposCentrosCostos}" rowKey="#{tiposCC.secuencia}"
                                selection="#{controlDetalleConcepto.tipoCentroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovTiposCC" scrollable="true" scrollHeight="210"
                                filteredValue="#{controlDetalleConcepto.filtrarListTiposCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -971,7 +971,7 @@
                <p:dialog id="DebitoDialogo" widgetVar="DebitoDialogo" header="#{msg['cuentasdebitoCD']}" draggable="true" resizable="false" closable="false"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovDebito" var="debito" value="#{controlDetalleConcepto.lovCuentas}" rowKey="#{debito.secuencia}"
-                               selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovDebito" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovDebito" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCuentaDebito()}"/>
@@ -1009,7 +1009,7 @@
                <p:dialog id="CuentasDialogo" widgetVar="CuentasDialogo" header="#{msg['cuentas']}" draggable="true" resizable="false" closable="false"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovCuentas" var="cuenta" value="#{controlDetalleConcepto.lovCuentas2505}" rowKey="#{cuenta.secuencia}"
-                               selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCuentas" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCuentas" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCuentas()}"/>
@@ -1047,7 +1047,7 @@
                <p:dialog header="#{msg['cuentascreditoCC']}" widgetVar="CreditoDialogo" draggable="true" resizable="false" closable="false" 
                          id="CreditoDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovCredito" var="credito" value="#{controlDetalleConcepto.lovCuentas}" rowKey="#{credito.secuencia}"
-                               selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCredito" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCredito" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCuentaCredito()}"/>
@@ -1085,7 +1085,7 @@
                <p:dialog header="#{msg['centrocostoconsolidadorCCC']}" widgetVar="CentroCostoDDialogo" draggable="true" resizable="false" closable="false" 
                          id="CentroCostoDDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovCentroCostoD" var="centroD" value="#{controlDetalleConcepto.lovCentrosCostos}" rowKey="#{centroD.secuencia}"
-                               selection="#{controlDetalleConcepto.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoD" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoD" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCentroCostoDebito()}"/>
@@ -1124,7 +1124,7 @@
                <p:dialog header="#{msg['centrocostoconsolidadorCCC']}" widgetVar="CentroCostoCDialogo" draggable="true" resizable="false" closable="false" 
                          id="CentroCostoCDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovCentroCostoC" var="centroC" value="#{controlDetalleConcepto.lovCentrosCostos}" rowKey="#{centroC.secuencia}"
-                               selection="#{controlDetalleConcepto.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoC" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoC" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCentroCostoCredito()}"/>
@@ -1162,7 +1162,7 @@
                <p:dialog header="#{msg['proceso']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" 
                          id="ProcesosDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovProceso" widgetVar="lovProceso" var="proceso" value="#{controlDetalleConcepto.lovProcesos}" rowKey="#{proceso.secuencia}"
-                               selection="#{controlDetalleConcepto.procesoSeleccionadoLOV}" selectionMode="single" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.procesoSeleccionadoLOV}" selectionMode="single" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarlovProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovProcesos()}"/>
@@ -1200,7 +1200,7 @@
                <p:dialog header="#{msg['gruposconceptosGC']}" widgetVar="GruposConceptosDialogo" draggable="true" resizable="false" closable="false" 
                          id="GruposConceptosDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovGrupoConcepto" var="grupoC" value="#{controlDetalleConcepto.lovGruposConceptos}" rowKey="#{grupoC.secuencia}"
-                               selection="#{controlDetalleConcepto.grupoConceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovGrupoConcepto" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.grupoConceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovGrupoConcepto" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListGruposConceptos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovGrupoConcepto()}"/>
@@ -1239,7 +1239,7 @@
                <p:dialog header="#{msg['tipostrabajadoresTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovTipoTrabajador" var="tiposTra" value="#{controlDetalleConcepto.lovTiposTrabajadores}" rowKey="#{tiposTra.secuencia}"
-                               selection="#{controlDetalleConcepto.tipoTrabajadorSeleccionadoLOV}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.tipoTrabajadorSeleccionadoLOV}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoTrabajador()}"/>
@@ -1276,7 +1276,7 @@
                <p:dialog header="#{msg['tiposcontratosTC']}" widgetVar="TipoContratosDialogo" draggable="true" resizable="false" closable="false" id="TipoContratosDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovTipoContrato" var="tiposCon" value="#{controlDetalleConcepto.lovTiposContratos}" rowKey="#{tiposCon.secuencia}"
-                               selection="#{controlDetalleConcepto.tipoContratoSeleccionadoLOV}" selectionMode="single" widgetVar="lovTipoContrato" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.tipoContratoSeleccionadoLOV}" selectionMode="single" widgetVar="lovTipoContrato" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListTiposContratos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoContrato()}"/>
@@ -1316,7 +1316,7 @@
                <p:dialog header="#{msg['reformaslaboralesRL']}" widgetVar="ReformaLaboralDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovReformaLaboral" var="reformaL" value="#{controlDetalleConcepto.lovReformasLaborales}" rowKey="#{reformaL.secuencia}"
-                               selection="#{controlDetalleConcepto.reformaLaboralSeleccionadoLOV}" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.reformaLaboralSeleccionadoLOV}" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovReformaLaboral()}"/>
@@ -1355,7 +1355,7 @@
                <p:dialog header="#{msg['formulasF']}" widgetVar="FormulasDialogo" draggable="true" resizable="false" closable="false" id="FormulasDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
                   <p:dataTable id="lovFormula" var="formula" value="#{controlDetalleConcepto.lovFormulas}" rowKey="#{formula.secuencia}"
-                               selection="#{controlDetalleConcepto.formulaSeleccionadoLOV}" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="210" scrollWidth="416"
+                               selection="#{controlDetalleConcepto.formulaSeleccionadoLOV}" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListFormulas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovFormula()}"/>
@@ -1394,7 +1394,7 @@
                <p:dialog header="#{msg['ordendeliquidacionOL']}" widgetVar="FormulaConceptoDialogo" draggable="true" resizable="false" closable="false" id="FormulaConceptoDialogo"  
                          showEffect="fade" hideEffect="fade" width="435" modal="true">
                   <p:dataTable id="lovFormulaC" var="formulaC" value="#{controlDetalleConcepto.lovFormulasConceptos}" rowKey="#{formulaC.secuencia}"
-                               selection="#{controlDetalleConcepto.formulaConceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovFormulaC" scrollable="true" scrollHeight="210" scrollWidth="420"
+                               selection="#{controlDetalleConcepto.formulaConceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovFormulaC" scrollable="true" scrollHeight="210" scrollWidth="410"
                                filteredValue="#{controlDetalleConcepto.filtrarListFormulasConceptos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovFormCon()}"/>
@@ -1443,231 +1443,336 @@
                   <h:outputText value="#{msg['operacionProcesoLovs']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
+               <style>
+                  .datosNuevaVigCuenta .ui-datatable-scrollable-footer  {
+                     display: none !important;
+                  }
+               </style>               
+
                <p:dialog id="NuevoRegistroVigenciaCuenta" header="#{msg['NuevoRegistroVigenciaCuenta']}" widgetVar="NuevoRegistroVigenciaCuenta" closable="false" resizable="false"
-                         draggable="true" modal="true" height="400" width="410">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="nuevaVC" style="border: none;">
-                     <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;"/></strong>
+                         draggable="true" modal="true" height="340" width="790">
+                  <center><strong><h:outputText value="#{msg['ingresarnuevocuentas']}" style="color: blue; position: relative; top: 10px; font-weight: bold;"/></strong></center>
+                  <h:outputText value="#{msg['ingresarnuevocuentas2']}" style="position: relative; top: 30px; font-weight: bold;"/>
+                  <p:scrollPanel id="nuevaVC" widgetVar="nuevaVC" style="height: 210px; width: 760px; margin-top: 40px; border: none;">
 
-                     <div id="posicionFechaIniVCNuevoReg" style="position: absolute; top: 55px; left: 220px">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechainicial}">
-                           <p:ajax event="dateSelect" update="nuevaDateFechaInicialVC"/>
-                           <p:ajax event="change" update="nuevaDateFechaInicialVC"/>
-                        </p:calendar>
-                     </div>
+                     <p:dataTable id="datosNuevaVigCuenta" widgetVar="datosNuevaVigCuenta" var="infoCrear" rowKey="#{infoCrear.secuencia}" rowIndexVar="indexcrear"
+                                  value="#{controlDetalleConcepto.listVigCParaCrear}" scrollable="true" scrollWidth="1400" style="position: relative;"
+                                  editable="true" editMode="cell" liveScroll="true" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  scrollRows="10" selection="#{controlDetalleConcepto.vigCuentaCrearSeleccionada}" class="datosNuevaVigCuenta">
 
-                     <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechafinal}">
-                           <p:ajax event="dateSelect" update="nuevaDateFechaFinalVC"/>
-                           <p:ajax event="change" update="nuevaDateFechaFinalVC"/>
-                        </p:calendar>
-                     </div>
+                        <!--<p:ajax event="filter" listener="#/{controlDetalleConcepto.eventoFiltrarCuenta()}"/>
+                            <p:ajax event="rowSelect" onstart="PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"/>-->
 
-                     <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaTipoCCVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'TIPOCC',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('TIPOCC', controlDetalleConcepto.nuevaVigenciaCuenta.tipocc.nombre, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 115px;" 
-                                      id="btnNuevoTipoCCVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(0,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaTipoCCVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaTipoCCVC" value="#{msg['tipoccWM']}"/>-->
+                        <p:column width="16">
+                           <f:facet name="header">
+                              <h:outputText id="c" value="C"/>
+                              <p:tooltip for="c" value="¿Crear?"/>
+                           </f:facet>
+                           <p:selectBooleanCheckbox value="#{infoCrear.acrear}"
+                                                    onfocus="PF('datosNuevaVigCuenta').unselectAllRows(); PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                                    onblur="PF('datosNuevaVigCuenta').unselectAllRows(); PF('datosNuevaVigCuenta').selectRow(#{indexcrear});">
+                              <p:ajax listener="#{controlDetalleConcepto.modificarACrear(infoCrear, infoCrear.acrear)}" process="@this"/>  
+                           </p:selectBooleanCheckbox>
+                        </p:column>
 
-                     <strong><h:outputText value="*#{msg['cuentadebitoN']}" style="position: absolute; top: 150px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaDebitoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CODDEBITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODDEBITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.codigo, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 145px;"
-                                      id="btnNuevoDebitoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(1,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaDebitoVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaDebitoVC" value="#{msg['cuentadebitoWM']}"/>-->
+                        <p:column headerText="#{msg['fechainicial']}" sortBy="#{infoCrear.strFechaInicial}" filterBy="#{infoCrear.strFechaInicial}"
+                                  filterMatchMode="contains" width="68" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoCrear.fechainicial}" style="text-transform: uppercase;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{infoCrear.fechainicial}" id="nuevaDateFechaInicialVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"/>
+                                    <p:ajax event="change" update="@this"/>
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <strong><h:outputText value="*#{msg['descripciondebitoN']}" style="position: absolute; top: 180px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaDesDebitoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'DESDEBITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESDEBITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.descripcion, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 175px;" 
-                                      id="btnNuevoDesDebitoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(2,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaDesDebitoVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaDesDebitoVC" value="#{msg['descripciondebitoWM']}"/>-->
+                        <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoCrear.strFechaFinal}" filterBy="#{infoCrear.strFechaFinal}"
+                                  filterMatchMode="contains" width="68" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoCrear.fechafinal}" style="text-transform: uppercase;">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{infoCrear.fechafinal}" id="nuevaDateFechaFinalVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"/>
+                                    <p:ajax event="change" update="@this"/>
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                 </p:calendar>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <strong><h:outputText value="*#{msg['ccconsolidadorN']}" style="position: absolute; top: 210px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaConsoliDebVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CONSOLIDADORDEBITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORDEBITO', controlDetalleConcepto.nuevaVigenciaCuenta.consolidadord.nombre, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 205px;"
-                                      id="btnNuevoConsoDebVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(3,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaConsoliDebVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>-->
-                     <p:tooltip for="nuevaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
+                        <p:column headerText="#{msg['tipocc']}" sortBy="#{infoCrear.tipocc.nombre}" filterBy="#{infoCrear.tipocc.nombre}"
+                                  filterMatchMode="contains" width="110" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.tipocc.nombre}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.tipocc.nombre}" id="nuevaTipoCCVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'TIPOCC', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'TIPOCC',infoCrear.tipocc.nombre, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CODCREDITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODCREDITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.codigo, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 235px;" 
-                                      id="btnNuevoCreditoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(4,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaCreditoVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaCreditoVC" value="#{msg['cuentacreditoWM']}"/>-->
+                        <p:column style="text-align: center;" headerText="#{msg['debito']}" sortBy="#{infoCrear.cuentad.codigo}"
+                                  filterBy="#{infoCrear.cuentad.codigo}" filterMatchMode="contains" 
+                                  width="70" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.cuentad.codigo}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.cuentad.codigo}" id="nuevaDebitoVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'CODDEBITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODDEBITO',infoCrear.cuentad.codigo, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <strong><h:outputText value="#{msg['descripcioncreditoN']}" style="position: absolute; top: 270px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaDesCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'DESCREDITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESCREDITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.descripcion, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 265px;" 
-                                      id="btnNuevoDesCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(5,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaDesCreditoVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaDesCreditoVC" value="#{msg['descripcioncreditoWM']}"/>-->
+                        <p:column headerText="#{msg['descripcion']} D" sortBy="#{infoCrear.cuentad.descripcion}"
+                                  filterBy="#{infoCrear.cuentad.descripcion}" filterMatchMode="contains" width="110" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.cuentad.descripcion}" style="text-transform: uppercase;"/></f:facet>
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.cuentad.descripcion}" id="nuevaDesDebitoVC">
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'DESDEBITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESDEBITO',infoCrear.cuentad.descripcion, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <strong><h:outputText value="*#{msg['ccconsolidadorcuentacreditoN']}" style="position: absolute; top: 300px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevaConsoliCreVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CONSOLIDADORCREDITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORCREDITO', controlDetalleConcepto.nuevaVigenciaCuenta.consolidadorc.nombre, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 295px;" 
-                                      id="btnNuevoConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaConsoliCreVC" process="@this"/>   
-                     <!--<p:watermark for="nuevaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>-->
-                     <p:tooltip for="nuevaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                        <p:column sortBy="#{infoCrear.consolidadord.nombre}" filterBy="#{infoCrear.consolidadord.nombre}" filterMatchMode="contains"
+                                  width="110" filterStyle="display: none; visibility: hidden">                                  
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['ccconsolidador']}" id="head2"/>
+                              <p:tooltip for="head2" value="#{msg['ccconsolidadorWM']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.consolidadord.nombre}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.consolidadord.nombre}" id="nuevaConsoliDebVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORDEBITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORDEBITO',infoCrear.consolidadord.nombre, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="nuevoProceso" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,1,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'PROCESO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso, 1)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 325px;" 
-                                      id="btnNuevoProceso" value="" actionListener="#{controlDetalleConcepto.asignarIndex(9,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaConsoliCreVC" process="@this"/>   
-                     <!--<p:watermark for="nuevoProceso" value="#{msg['proceso']}"/>-->
+                        <p:column style="text-align: center;" headerText="#{msg['credito']}" sortBy="#{infoCrear.cuentac.codigo}"
+                                  filterBy="#{infoCrear.cuentac.codigo}" filterMatchMode="contains" 
+                                  width="70" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.cuentac.codigo}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.cuentac.codigo}" id="nuevaCreditoVC">
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'CODCREDITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CODCREDITO',infoCrear.cuentac.codigo, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-                     <p:commandButton icon="ui-icon-trash" id="limpiarNVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 375px;"
-                                      actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" update="nuevaVC" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarNVC" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 375px;"
-                                      actionListener="#{controlDetalleConcepto.agregarNuevoVigenciaCuenta()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 375px;"
-                                      actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" 
-                                      process="@this" update="nuevaVC" onclick="PF('NuevoRegistroVigenciaCuenta').hide();"/>
-                  </p:panel>
+                        <p:column headerText="#{msg['descripcion']} C" sortBy="#{infoCrear.cuentac.descripcion}" filterBy="#{infoCrear.cuentac.descripcion}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden" width="110">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.cuentac.descripcion}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.cuentac.descripcion}" id="nuevaDesCreditoVC">
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'DESCREDITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'DESCREDITO',infoCrear.cuentac.descripcion, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column sortBy="#{infoCrear.consolidadorc.nombre}" filterBy="#{infoCrear.consolidadorc.nombre}"
+                                  filterMatchMode="contains" width="110" filterStyle="display: none; visibility: hidden">                                  
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['ccconsolidador']}" id="head3"/>
+                              <p:tooltip for="head3" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.consolidadorc.nombre}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.consolidadorc.nombre}" id="nuevaConsoliCreVC"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'CONSOLIDADORCREDITO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'CONSOLIDADORCREDITO',infoCrear.consolidadorc.nombre, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="#{msg['proceso']}" sortBy="#{infoCrear.nombreProceso}" filterBy="#{infoCrear.nombreProceso}" filterMatchMode="contains" 
+                                  width="100" filterStyle="display: none; visibility: hidden">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{infoCrear.nombreProceso}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{infoCrear.nombreProceso}" id="nuevoProceso"> 
+                                    <p:ajax event="select" onstart="PF('datosNuevaVigCuenta').unselectAllRows();PF('datosNuevaVigCuenta').selectRow(#{indexcrear});"
+                                            listener="#{controlDetalleConcepto.valoresBackupAutocompletarVCuenta(infoCrear, 'PROCESO', 1)}"/>
+                                    <p:ajax event="change" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()"
+                                            listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta(infoCrear,'PROCESO',infoCrear.nombreProceso, 1)}"/>
+                                    <p:ajax event="dblclick" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,1,0)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
+                     </p:dataTable>
+                     <!--<h:outputText value="#/{msg['infoRegistro']} #/{controlDetalleConcepto.infoRegistroCuenta}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>-->
+                  </p:scrollPanel>
+
+                  <p:commandButton icon="ui-icon-trash" id="limpiarNVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; margin-top: 20px;"
+                                   actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" update="nuevaVC" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-check" id="agregarNVC" value="#{msg['agregar']}" style="position: absolute; right: 120px; margin-top: 20px;"
+                                   actionListener="#{controlDetalleConcepto.agregarNuevoVigenciaCuenta()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-circle-close" id="cancelarNVC" value="#{msg['cancelar']}" style="position: absolute; right: 20px; margin-top: 20px;"
+                                   actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" 
+                                   process="@this" update="nuevaVC" onclick="PF('NuevoRegistroVigenciaCuenta').hide();"/>
                </p:dialog>
 
-
-               <p:dialog id="DuplicarRegistroVigenciaCuenta" header="#{msg['DuplicarRegistroVigenciaCuenta']}" widgetVar="DuplicarRegistroVigenciaCuenta" closable="false" resizable="false" draggable="true" modal="true" height="400" width="410" style="padding: 0px">  
-                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
-                  <p:panel id="duplicarVC" style="border: none;">
-
-                     <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;"/></strong>
-                     <div id="posicionFechaIniVCDuplicarReg" style="position: absolute; top: 55px; left: 220px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechainicial}">
-                           <p:ajax event="dateSelect" update="duplicarDateFechaInicialVC"/>
-                           <p:ajax event="change" update="duplicarDateFechaInicialVC"/>
-                        </p:calendar>
-                     </div>
-
-                     <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
-                     <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px;">
-                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechafinal}">
-                           <p:ajax event="dateSelect" update="duplicarDateFechaFinalVC"/>
-                           <p:ajax event="change" update="duplicarDateFechaFinalVC"/>
-                        </p:calendar>
-                     </div>
-
-                     <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarTipoCCVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'TIPOCC',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('TIPOCC', controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 115px;" 
-                                      id="btnDuplicarTipoCCVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(0,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicarTipoCCVC" process="@this"/>   
-                     <!--<p:watermark for="duplicarTipoCCVC" value="#{msg['tipoccWM']}"/>-->
-
-                     <strong><h:outputText value="*#{msg['cuentadebitoN']}" style="position: absolute; top: 150px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicarDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODDEBITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 145px;" 
-                                      id="btnDuplicarDebitoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(1,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicarDebitoVC" process="@this"/>   
-                     <!--<p:watermark for="duplicarDebitoVC" value="#{msg['cuentadebitoWM']}"/>-->
-
-                     <strong><h:outputText value="*#{msg['descripciondebitoN']}" style="position: absolute; top: 180px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicaDesDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESDEBITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 175px;" 
-                                      id="btnDuplicaDesDebitoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(2,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaDesDebitoVC" process="@this"/>   
-                     <!--<p:watermark for="duplicaDesDebitoVC" value="#{msg['descripciondebitoWM']}"/>-->
-
-                     <strong><h:outputText value="*#{msg['ccconsolidadorN']}" style="position: absolute; top: 210px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicaConsoliDebVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONSOLIDADORDEBITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 205px;" 
-                                      id="btnDuplicaConsoDebVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(3,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliDebVC" process="@this"/>   
-                     <!--<p:watermark for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>-->
-                     <p:tooltip for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
-
-                     <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicaCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODCREDITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 235px;" 
-                                      id="btnDuplicaCreditoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(4,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaCreditoVC" process="@this"/>   
-                     <!--<p:watermark for="duplicaCreditoVC" value="#{msg['cuentacreditoWM']}"/>-->
-
-                     <strong><h:outputText value="*#{msg['descripcioncreditoN']}" style="position: absolute; top: 270px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicaDesCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESCREDITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 265px;" 
-                                      id="btnDuplicaDesDCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(5,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaDesCreditoVC" process="@this"/>   
-                     <!--<p:watermark for="duplicaDesCreditoVC" value="#{msg['descripcioncreditoWM']}"/>-->
-
-                     <strong><h:outputText value="*#{msg['ccconsolidadorcuentacreditoN']}" style="position: absolute; top: 300px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicaConsoliCreVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONSOLIDADORCREDITO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 295px;" 
-                                      id="btnDuplicaConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliCreVC" process="@this"/>   
-                     <!--<p:watermark for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>-->
-                     <p:tooltip for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
-
-                     <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;"/></strong>
-                     <p:inputText autocomplete="off" id="duplicadoProceso" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="select();">
-                        <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,2,0)}"/>
-                        <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'PROCESO',0)}"/>
-                        <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso, 2)}"/>
-                     </p:inputText>
-                     <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 325px;" 
-                                      id="btnDuplicaProceso" value="" actionListener="#{controlDetalleConcepto.asignarIndex(9,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliCreVC" process="@this"/>   
-                     <!--<p:watermark for="duplicadoProceso" value="#{msg['proceso']}"/>-->
-
-                     <p:commandButton icon="ui-icon-trash" id="limpiarDVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 375px;" 
-                                      actionListener="#{controlDetalleConcepto.limpiarDuplicarVigenciaCuenta()}" update="duplicarVC" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarDVC" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 375px;"
-                                      actionListener="#{controlDetalleConcepto.confirmarDuplicarVigenciaCuenta()}" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 375px;"
-                                      actionListener="#{controlDetalleConcepto.limpiarDuplicarVigenciaCuenta()}" 
-                                      update="duplicarVC" onclick="PF('DuplicarRegistroVigenciaCuenta').hide();" process="@this"/>
-                  </p:panel>
-               </p:dialog>
+               <!--
+                              <p:dialog id="DuplicarRegistroVigenciaCuenta" header="#{msg['DuplicarRegistroVigenciaCuenta']}" widgetVar="DuplicarRegistroVigenciaCuenta" closable="false" resizable="false" draggable="true" modal="true" height="400" width="410" style="padding: 0px">  
+                                 <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 
+                                 <p:panel id="duplicarVC" style="border: none;">
+               
+                                    <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;"/></strong>
+                                    <div id="posicionFechaIniVCDuplicarReg" style="position: absolute; top: 55px; left: 220px;">
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicialVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechainicial}">
+                                          <p:ajax event="dateSelect" update="duplicarDateFechaInicialVC"/>
+                                          <p:ajax event="change" update="duplicarDateFechaInicialVC"/>
+                                       </p:calendar>
+                                    </div>
+               
+                                    <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 95px; left: 50px;"/></strong>
+                                    <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px;">
+                                       <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinalVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.fechafinal}">
+                                          <p:ajax event="dateSelect" update="duplicarDateFechaFinalVC"/>
+                                          <p:ajax event="change" update="duplicarDateFechaFinalVC"/>
+                                       </p:calendar>
+                                    </div>
+               
+                                    <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicarTipoCCVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'TIPOCC',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('TIPOCC', controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 115px;" 
+                                                     id="btnDuplicarTipoCCVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(0,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicarTipoCCVC" process="@this"/>   
+                                    <p:watermark for="duplicarTipoCCVC" value="#{msg['tipoccWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['cuentadebitoN']}" style="position: absolute; top: 150px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicarDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODDEBITO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 145px;" 
+                                                     id="btnDuplicarDebitoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(1,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicarDebitoVC" process="@this"/>   
+                                    <p:watermark for="duplicarDebitoVC" value="#{msg['cuentadebitoWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['descripciondebitoN']}" style="position: absolute; top: 180px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicaDesDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESDEBITO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 175px;" 
+                                                     id="btnDuplicaDesDebitoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(2,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaDesDebitoVC" process="@this"/>   
+                                    <p:watermark for="duplicaDesDebitoVC" value="#{msg['descripciondebitoWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['ccconsolidadorN']}" style="position: absolute; top: 210px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicaConsoliDebVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONSOLIDADORDEBITO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 205px;" 
+                                                     id="btnDuplicaConsoDebVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(3,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliDebVC" process="@this"/>   
+                                    <p:watermark for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
+                                    <p:tooltip for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicaCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODCREDITO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 235px;" 
+                                                     id="btnDuplicaCreditoVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(4,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaCreditoVC" process="@this"/>   
+                                    <p:watermark for="duplicaCreditoVC" value="#{msg['cuentacreditoWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['descripcioncreditoN']}" style="position: absolute; top: 270px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicaDesCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESCREDITO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 265px;" 
+                                                     id="btnDuplicaDesDCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(5,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaDesCreditoVC" process="@this"/>   
+                                    <p:watermark for="duplicaDesCreditoVC" value="#{msg['descripcioncreditoWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['ccconsolidadorcuentacreditoN']}" style="position: absolute; top: 300px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicaConsoliCreVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONSOLIDADORCREDITO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 295px;" 
+                                                     id="btnDuplicaConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliCreVC" process="@this"/>   
+                                    <p:watermark for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                                    <p:tooltip for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+               
+                                    <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;"/></strong>
+                                    <p:inputText autocomplete="off" id="duplicadoProceso" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="select();">
+                                       <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,2,0)}"/>
+                                       <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'PROCESO',0)}"/>
+                                       <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso, 2)}"/>
+                                    </p:inputText>
+                                    <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 325px;" 
+                                                     id="btnDuplicaProceso" value="" actionListener="#{controlDetalleConcepto.asignarIndex(9,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliCreVC" process="@this"/>   
+                                    <p:watermark for="duplicadoProceso" value="#{msg['proceso']}"/>
+               
+                                    <p:commandButton icon="ui-icon-trash" id="limpiarDVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 375px;" 
+                                                     actionListener="#{controlDetalleConcepto.limpiarDuplicarVigenciaCuenta()}" update="duplicarVC" process="@this"/>
+                                    <p:commandButton icon="ui-icon-circle-check" id="agregarDVC" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 375px;"
+                                                     actionListener="#{controlDetalleConcepto.confirmarDuplicarVigenciaCuenta()}" process="@this"/>
+                                    <p:commandButton icon="ui-icon-circle-close" id="cancelarDVC" value="#{msg['cancelar']}" style="position: absolute; left: 288px; top: 375px;"
+                                                     actionListener="#{controlDetalleConcepto.limpiarDuplicarVigenciaCuenta()}" 
+                                                     update="duplicarVC" onclick="PF('DuplicarRegistroVigenciaCuenta').hide();" process="@this"/>
+                                 </p:panel>
+                              </p:dialog>-->
 
                <p:dialog id="NuevoRegistroGrupoConcepto" header="#{msg['NuevoRegistroGrupoConcepto']}" widgetVar="NuevoRegistroGrupoConcepto" closable="false" resizable="false" draggable="true" modal="true" height="230" width="410" style="padding: 0px;">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;"/></strong></center> 

@@ -19,95 +19,95 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
 
    private static Logger log = Logger.getLogger(PersistenciaVigenciasContratos.class);
 
-    @Override
-    public boolean crear(EntityManager em, VigenciasContratos vigenciasContratos) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(vigenciasContratos);
-            tx.commit();
-            return true;
-        } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasContratos.crear() " + e.getMessage());
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            return false;
-        }
-    }
+   @Override
+   public boolean crear(EntityManager em, VigenciasContratos vigenciasContratos) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.persist(vigenciasContratos);
+         tx.commit();
+         return true;
+      } catch (Exception e) {
+         log.error("Persistencia.PersistenciaVigenciasContratos.crear() " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         return false;
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em, VigenciasContratos vigenciasContratos) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(vigenciasContratos);
-            tx.commit();
-        } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasContratos.editar()" + e.getMessage());
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void editar(EntityManager em, VigenciasContratos vigenciasContratos) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(vigenciasContratos);
+         tx.commit();
+      } catch (Exception e) {
+         log.error("Persistencia.PersistenciaVigenciasContratos.editar()" + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, VigenciasContratos vigenciasContratos) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(vigenciasContratos));
-            tx.commit();
-        } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasContratos.borrar()" + e.getMessage());
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void borrar(EntityManager em, VigenciasContratos vigenciasContratos) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(vigenciasContratos));
+         tx.commit();
+      } catch (Exception e) {
+         log.error("Persistencia.PersistenciaVigenciasContratos.borrar()" + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public List<VigenciasContratos> buscarVigenciasContratos(EntityManager em) {
-        try {
-            em.clear();
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(VigenciasContratos.class));
-            return em.createQuery(cq).getResultList();
-        } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciasContratos()" + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public List<VigenciasContratos> buscarVigenciasContratos(EntityManager em) {
+      try {
+         em.clear();
+         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         cq.select(cq.from(VigenciasContratos.class));
+         return em.createQuery(cq).getResultList();
+      } catch (Exception e) {
+         log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciasContratos()" + e.getMessage());
+         return null;
+      }
+   }
 
-    @Override
-    public List<VigenciasContratos> buscarVigenciaContratoEmpleado(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT vc FROM VigenciasContratos vc WHERE vc.empleado.secuencia = :secuenciaEmpl ORDER BY vc.fechainicial DESC");
-            query.setParameter("secuenciaEmpl", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<VigenciasContratos> vigenciasC = query.getResultList();
-            return vigenciasC;
-        } catch (Exception e) {
-            log.error("Error en Persistencia Vigencias Contratos " + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public List<VigenciasContratos> buscarVigenciaContratoEmpleado(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT vc FROM VigenciasContratos vc WHERE vc.empleado.secuencia = :secuenciaEmpl ORDER BY vc.fechainicial DESC", VigenciasContratos.class);
+         query.setParameter("secuenciaEmpl", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<VigenciasContratos> vigenciasC = query.getResultList();
+         return vigenciasC;
+      } catch (Exception e) {
+         log.error("Error en Persistencia Vigencias Contratos " + e.getMessage());
+         return null;
+      }
+   }
 
-    @Override
-    public VigenciasContratos buscarVigenciaContratoSecuencia(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT v FROM VigenciasContratos v WHERE v.secuencia = :secuencia").setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            VigenciasContratos vigenciaC = (VigenciasContratos) query.getSingleResult();
-            return vigenciaC;
-        } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciaContratoSecuencia()" + e.getMessage());
-            return null;
-        }
-    }
+   @Override
+   public VigenciasContratos buscarVigenciaContratoSecuencia(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT v FROM VigenciasContratos v WHERE v.secuencia = :secuencia").setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         VigenciasContratos vigenciaC = (VigenciasContratos) query.getSingleResult();
+         return vigenciaC;
+      } catch (Exception e) {
+         log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciaContratoSecuencia()" + e.getMessage());
+         return null;
+      }
+   }
 }

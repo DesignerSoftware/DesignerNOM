@@ -2,11 +2,13 @@ package Administrar;
 
 import ClasesAyuda.SessionEntityManager;
 import InterfaceAdministrar.AdministrarSesionesInterface;
+import Persistencia.SesionEntityManagerFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Singleton;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.apache.log4j.Logger;
 
@@ -21,6 +23,8 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
 
    private List<SessionEntityManager> sessionesActivas;
 
+   Map<String, String> datosConexiones = new HashMap<String, String>();
+
    public AdministrarSesiones() {
       try {
          sessionesActivas = new ArrayList<SessionEntityManager>();
@@ -34,7 +38,7 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
       try {
          log.warn("Se adiciono la sesion: " + session.getIdSession());
          log.warn("El entityManagerFactory recibido: " + session.getEmf().toString());
-         log.warn("El entityManager recibido: " + session.getEm().toString());
+//         log.warn("El entityManager recibido: " + session.getEm().toString());
          sessionesActivas.add(session);
       } catch (Exception e) {
          log.fatal("Administrar.adicionarSesion() ERROR: " + e);
@@ -46,7 +50,7 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
       try {
          if (!sessionesActivas.isEmpty()) {
             for (int i = 0; i < sessionesActivas.size(); i++) {
-               log.warn("Id Sesion: " + sessionesActivas.get(i).getIdSession() + " - Entity Manager " + sessionesActivas.get(i).getEm().toString());
+               log.warn("Id Sesion: " + sessionesActivas.get(i).getIdSession() + " - Entity Manager Factory" + sessionesActivas.get(i).getEmf().toString());
             }
             log.warn("TOTAL SESIONES: " + sessionesActivas.size());
          }
@@ -56,13 +60,23 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
    }
 
    @Override
-   public EntityManager obtenerConexionSesion(String idSesion) {
+   public EntityManagerFactory obtenerConexionSesionEMF(String idSesion) {
       try {
          if (!sessionesActivas.isEmpty()) {
             for (SessionEntityManager sem : sessionesActivas) {
                if (sem.getIdSession().equals(idSesion)) {
-                  log.warn(this.getClass().getName() + ".obtenerConexionSesion() Encontró la sesión: " + idSesion);
-                  return sem.getEm();
+                  log.warn("AdministrarSesiones.obtenerConexionSesion() Encontró la sesión: " + idSesion);
+                  if (sem.getEmf() == null || !sem.getEmf().isOpen()) {
+                     sem = null;
+                     SesionEntityManagerFactory semf = new SesionEntityManagerFactory();
+                     log.fatal("XX -- RECONECTANDO CON LA UNIDAD DE PERSISTENCIA -- XX");
+                     if (semf.crearFactoryUsuario(datosConexiones.get("U_" + idSesion), datosConexiones.get("C_" + idSesion), datosConexiones.get("B_" + idSesion))) {
+                        sessionesActivas.remove(sem);
+                        sessionesActivas.add(new SessionEntityManager(idSesion, semf.getEmf()));
+                        return semf.getEmf();
+                     }
+                  }
+                  return sem.getEmf();
                }
             }
          }
@@ -73,18 +87,18 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
    }
 
    @Override
-   public EntityManagerFactory obtenerConexionSesionEMF(String idSesion) {
+   public SessionEntityManager obtenerSesionEMF(String idSesion) {
       try {
          if (!sessionesActivas.isEmpty()) {
             for (SessionEntityManager sem : sessionesActivas) {
                if (sem.getIdSession().equals(idSesion)) {
-                  log.warn(this.getClass().getName() + ".obtenerConexionSesion() Encontró la sesión: " + idSesion);
-                  return sem.getEmf();
+                  log.warn("AdministrarSesiones.obtenerSesionEMF() Encontró la sesión: " + idSesion);
+                  return sem;
                }
             }
          }
       } catch (Exception e) {
-         log.fatal("Administrar.obtenerConexionSesion() ERROR: " + e);
+         log.fatal("Administrar.obtenerSesionEMF() ERROR: " + e);
       }
       return null;
    }
@@ -100,11 +114,27 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
                }
             }
          } else {
-            log.fatal("No se encontraron sesiones activas.");
+            log.fatal("AdministrarSesiones.borrarSesion() No se encontraron sesiones activas.");
          }
       } catch (Exception e) {
          log.fatal("Administrar.borrarSesion() ERROR: " + e);
       }
    }
 
+   @Override
+   public void guardarDatosConexion(String baseDatos, String usuario, String contrasena, String idSesion) {
+      try {
+         datosConexiones.put("U_" + idSesion, usuario);
+         datosConexiones.put("B_" + idSesion, baseDatos);
+         datosConexiones.put("C_" + idSesion, contrasena);
+         log.warn("AdministrarSesiones.guardarDatosConexion() usuario: " + usuario + ", baseDatos: " + baseDatos + " y contraseña: " + contrasena);
+      } catch (Exception e) {
+         log.fatal("Error AdministrarSesiones.guardarDatosConexion(): " + e);
+      }
+   }
+
+   @Override
+   public boolean reconectarUsuario(SessionEntityManager sem) {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   }
 }

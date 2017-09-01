@@ -27,7 +27,7 @@ public class ControlListaNavegacion implements Serializable {
    private String paginaActual = "1";
 
    // Listas Recurrentes
-   private static ListasRecurrentes listasRecurrentes = new ListasRecurrentes();
+   private ListasRecurrentes listasRecurrentes = new ListasRecurrentes();
 
    /**
     * Creates a new instance of ControlListaNavegacion
@@ -96,7 +96,7 @@ public class ControlListaNavegacion implements Serializable {
       this.listaPaginasAnteriores = listaPaginasAnteriores;
    }
 
-   public static ListasRecurrentes getListasRecurrentes() {
+   public ListasRecurrentes getListasRecurrentes() {
       return listasRecurrentes;
    }
 

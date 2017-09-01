@@ -100,7 +100,7 @@
                      <p:dataTable id="datosGruposConceptos" var="g" style="font-size: 11px; width: 810px;" value="#{controlGrupoConcepto.listaGruposConceptos}"
                                   rowKey="#{g.secuencia}" scrollable="true" rowIndexVar="indice" editable="true" editMode="cell" selectionMode="single"
                                   selection="#{controlGrupoConcepto.grupoConceptoSeleccionado}" scrollWidth="830"
-                                  scrollHeight="#{controlGrupoConcepto.tamano}" widgetVar="datosGruposConceptos"
+                                  scrollHeight="#{controlGrupoConcepto.tamano}" widgetVar="datosGruposConceptos" liveScroll="true" scrollRows="20"
                                   filteredValue="#{controlGrupoConcepto.filtradoListaGruposConceptos}" emptyMessage="#{msg['vacio']}">
 
                         <p:ajax event="filter" listener="#{controlGrupoConcepto.eventoFiltrar()}"/>
@@ -175,7 +175,7 @@
 
                      <p:dataTable id="datosVigenciasGruposConceptos" var="v" style="font-size: 11px; width: 810px;" value="#{controlGrupoConcepto.listaVigenciasGruposConceptos}"
                                   rowKey="#{v.secuencia}" scrollable="true" rowIndexVar="indiceD" widgetVar="datosVigenciasGruposConceptos"
-                                  editable="true" editMode="cell" scrollWidth="830" scrollHeight="#{controlGrupoConcepto.tamano}"
+                                  editable="true" editMode="cell" scrollWidth="830" scrollHeight="#{controlGrupoConcepto.tamano}" liveScroll="true" scrollRows="20"
                                   filteredValue="#{controlGrupoConcepto.filtradoListaVigenciasGruposConceptos}" emptyMessage="#{msg['vacio']}">
 
                         <p:ajax event="filter" listener="#{controlGrupoConcepto.eventoFiltrarD()}"/>

@@ -83,14 +83,17 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em;
+   private EntityManager em; private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.em != null) {
+         if (this.emf != null) { if (this.em != null) {
             if (this.em.isOpen()) {
                this.em.close();
             }
+         }
+         } else {
+            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
          this.em = emf.createEntityManager();
       } catch (Exception e) {
@@ -100,7 +103,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
    }
 
    @Override
-   public void obtenerConexion(String idSesion) {
+   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {

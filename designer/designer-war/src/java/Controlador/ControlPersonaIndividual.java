@@ -2177,6 +2177,15 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaContrato.setSecuencia(l);
                         nuevaVigenciaContrato.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaContrato.setFechainicial(fechaIngreso);
+                        if (nuevaVigenciaTipoContrato.getTipocontrato() != null) {
+                           if (nuevaVigenciaTipoContrato.getTipocontrato().getSecuencia() != null) {
+                              nuevaVigenciaContrato.setTipocontrato(nuevaVigenciaTipoContrato.getTipocontrato());
+                           } else {
+                              log.error("ControlPersonaIndividual.crearNuevoEmpleado() nuevaVigenciaTipoContrato.getTipocontrato().getSecuencia() == null");
+                           }
+                        } else {
+                           log.error("ControlPersonaIndividual.crearNuevoEmpleado() nuevaVigenciaTipoContrato.getTipocontrato() == null");
+                        }
                         if (!administrarPersonaIndividual.crearVigenciaContrato(nuevaVigenciaContrato)) {
                            error = error + "Vigencia Contrato, ";
                         }
