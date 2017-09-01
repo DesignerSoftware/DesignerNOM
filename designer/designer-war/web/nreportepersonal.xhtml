@@ -693,7 +693,6 @@
                                         <p:inputText id="empleadoDesdeParametro" autocomplete="off" value="#{controlNReportePersonal.parametroDeReporte.codigoempleadodesde}" 
                                                      style="position: absolute; width: 100px; left: 127px; top: 22px;" onclick="select();" class="cssParametrosReportes">
                                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(2)}" process="@this"/> 
-                                            <!--<p:ajax event="change" listener="# {controlNReportePersonal.autocompletarGeneral('DESDE',controlNReportePersonal.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametro" process="@this"/>-->
                                             <p:ajax event="change" listener="#{controlNReportePersonal.modificarParametroEmpleadoDesde(controlNReportePersonal.parametroDeReporte.codigoempleadodesde)}"  
                                                     update="empleadoDesdeParametro" process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.dialogosParametros(2)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>

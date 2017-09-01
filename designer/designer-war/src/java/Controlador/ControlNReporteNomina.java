@@ -1656,6 +1656,7 @@ public class ControlNReporteNomina implements Serializable {
    public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
       String h = "999999999999999999999999999999";
       BigDecimal b = new BigDecimal(h);
+       System.out.println("emplHasta: " + emplHasta);
       if (emplHasta.equals("") || emplHasta == null) {
          parametroDeReporte.setCodigoempleadodesde(b);
       }

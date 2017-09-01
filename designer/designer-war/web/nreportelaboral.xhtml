@@ -203,7 +203,8 @@
                                         <p:inputText id="empleadoDesdeParametroL" autocomplete="off" value="#{controlNReporteLaboral.parametroDeReporte.codigoempleadodesde}" 
                                                      style="position: absolute; width: 100px; left: 110px; top: 32px;" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(2)}" process="@this"/> 
-                                            <p:ajax event="change" listener="#{controlNReporteLaboral.autocompletarGeneral('DESDE',controlNReporteLaboral.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametroL"  process="@this"/>
+                                            <p:ajax event="change" listener="#{controlNReporteLaboral.modificarParametroEmpleadoDesde(controlNReporteLaboral.parametroDeReporte.codigoempleadodesde)}" 
+                                                    update="empleadoDesdeParametroL"  process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(2)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                         </p:inputText>
                                     </div>
@@ -213,7 +214,7 @@
                                             <p:inputText id="empleadoHastaParametroL" autocomplete="off" value="#{controlNReporteLaboral.parametroDeReporte.codigoempleadohasta}"
                                                          style="position: absolute; left: 45px; width: 100px; top: 19px;" onclick="select();" maxlength="30">
                                                 <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(4)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlNReporteLaboral.modificarParametroEmpleadoHasta(controlNReporteLaboral.parametroDeInforme.codigoempleadohasta)}"
+                                                <p:ajax event="change" listener="#{controlNReporteLaboral.modificarParametroEmpleadoHasta(controlNReporteLaboral.parametroDeReporte.codigoempleadohasta)}"
                                                         update="empleadoHastaParametroL" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(4)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                             </p:inputText>

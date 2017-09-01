@@ -819,8 +819,8 @@ exists or setup the property manually. For example like this:
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
     <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
         <copyfiles files="${file.reference.log4j-1.2.17.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.jasperreports-6.4.0.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jfreechart-1.0.17.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jasperreports-6.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-collections-3.2.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.ojdbc6.jar}" todir="${build.classes.dir}"/>
@@ -833,11 +833,12 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jcommon-1.0.16.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.eclipselink-2.6.4.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.primefaces-6.0.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.common-lang3.jar}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${file.reference.log4j-1.2.17.jar}" property="manifest.file.reference.log4j-1.2.17.jar"/>
-        <basename file="${file.reference.jasperreports-6.4.0.jar}" property="manifest.file.reference.jasperreports-6.4.0.jar"/>
         <basename file="${file.reference.jfreechart-1.0.17.jar}" property="manifest.file.reference.jfreechart-1.0.17.jar"/>
+        <basename file="${file.reference.jasperreports-6.1.1.jar}" property="manifest.file.reference.jasperreports-6.1.1.jar"/>
         <basename file="${file.reference.commons-collections-3.2.1.jar}" property="manifest.file.reference.commons-collections-3.2.1.jar"/>
         <basename file="${file.reference.commons-logging-1.1.3.jar}" property="manifest.file.reference.commons-logging-1.1.3.jar"/>
         <basename file="${file.reference.ojdbc6.jar}" property="manifest.file.reference.ojdbc6.jar"/>
@@ -850,11 +851,12 @@ exists or setup the property manually. For example like this:
         <basename file="${file.reference.jcommon-1.0.16.jar}" property="manifest.file.reference.jcommon-1.0.16.jar"/>
         <basename file="${file.reference.eclipselink-2.6.4.jar}" property="manifest.file.reference.eclipselink-2.6.4.jar"/>
         <basename file="${file.reference.primefaces-6.0.jar}" property="manifest.file.reference.primefaces-6.0.jar"/>
+        <basename file="${file.reference.common-lang3.jar}" property="manifest.file.reference.common-lang3.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 jar-9 jar-10 jar-11 jar-12 jar-13 jar-14 jar-15 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 jar-9 jar-10 jar-11 jar-12 jar-13 jar-14 jar-15 jar-16 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.file.reference.log4j-1.2.17.jar}"/>
-            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.jasperreports-6.4.0.jar}"/>
-            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.jfreechart-1.0.17.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.jfreechart-1.0.17.jar}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.jasperreports-6.1.1.jar}"/>
             <attribute name="jar-4-Extension-Name" value="${manifest.file.reference.commons-collections-3.2.1.jar}"/>
             <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.commons-logging-1.1.3.jar}"/>
             <attribute name="jar-6-Extension-Name" value="${manifest.file.reference.ojdbc6.jar}"/>
@@ -867,12 +869,13 @@ exists or setup the property manually. For example like this:
             <attribute name="jar-13-Extension-Name" value="${manifest.file.reference.jcommon-1.0.16.jar}"/>
             <attribute name="jar-14-Extension-Name" value="${manifest.file.reference.eclipselink-2.6.4.jar}"/>
             <attribute name="jar-15-Extension-Name" value="${manifest.file.reference.primefaces-6.0.jar}"/>
+            <attribute name="jar-16-Extension-Name" value="${manifest.file.reference.common-lang3.jar}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.log4j-1.2.17.jar}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jasperreports-6.4.0.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.jfreechart-1.0.17.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.jasperreports-6.1.1.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-collections-3.2.1.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-logging-1.1.3.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.ojdbc6.jar}" todir="${dist.ear.dir}/lib"/>
@@ -885,6 +888,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jcommon-1.0.16.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.eclipselink-2.6.4.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.primefaces-6.0.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.common-lang3.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">
