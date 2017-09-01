@@ -6,6 +6,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Cacheable(false)
-public class TercerosAux implements Serializable {
+public class AportesEntidadesAux implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -30,6 +31,10 @@ public class TercerosAux implements Serializable {
     private String nombretercero;
     @Column(name = "NITTERCERO")
     private Long nittercero;
+    @Column(name = "NOMBRECOMPLETO")
+    private String nombrecompleto;
+    @Column(name = "CODIGOEMPLEADO")
+    private BigDecimal codigoempleado;
 
     public BigInteger getSecuencia() {
         return secuencia;
@@ -55,6 +60,22 @@ public class TercerosAux implements Serializable {
         this.nombretercero = nombretercero;
     }
 
+    public String getNombrecompleto() {
+        return nombrecompleto;
+    }
+
+    public void setNombrecompleto(String nombrecompleto) {
+        this.nombrecompleto = nombrecompleto;
+    }
+
+    public BigDecimal getCodigoempleado() {
+        return codigoempleado;
+    }
+
+    public void setCodigoempleado(BigDecimal codigoempleado) {
+        this.codigoempleado = codigoempleado;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,10 +86,10 @@ public class TercerosAux implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TercerosAux)) {
+        if (!(object instanceof AportesEntidadesAux)) {
             return false;
         }
-        TercerosAux other = (TercerosAux) object;
+        AportesEntidadesAux other = (AportesEntidadesAux) object;
         if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
             return false;
         }

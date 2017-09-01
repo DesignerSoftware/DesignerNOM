@@ -88,11 +88,11 @@
                                 <h:outputText value="#{correoEmpl.nombreCompleto}"/>
                             </p:column>
 
-                            <p:column filterBy="#{correoEmpl.persona.email}" width="40%" filterMatchMode="contains" filterStyle="width: 80% !important">
+                            <p:column filterBy="#{correoEmpl.emailPersona}" width="40%" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center;" value="#{msg['email']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{correoEmpl.persona.email}"/>
+                                <h:outputText  value="#{correoEmpl.emailPersona}"/>
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">

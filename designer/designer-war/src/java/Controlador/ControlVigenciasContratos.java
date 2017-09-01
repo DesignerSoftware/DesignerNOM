@@ -1207,6 +1207,13 @@ public class ControlVigenciasContratos implements Serializable {
       try {
          if (vigenciasContratos == null) {
             vigenciasContratos = administrarVigenciasContratos.VigenciasContratosEmpleado(empleado.getSecuencia());
+            if(vigenciasContratos != null){
+               for(VigenciasContratos vc:vigenciasContratos) {
+                   if(vc.getTipocontrato() == null){
+                       vc.setTipocontrato(new TiposContratos());
+                   }
+               }
+            }
          }
          return vigenciasContratos;
       } catch (Exception e) {

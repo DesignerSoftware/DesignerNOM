@@ -265,15 +265,21 @@ public class AportesEntidades implements Serializable {
     @JoinColumn(name = "EMPRESA", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private Empresas empresa;
-    @JoinColumn(name = "EMPLEADO", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Empleados empleado;
+    @Column(name = "EMPLEADO")
+    private BigInteger empleado;
+//    @JoinColumn(name = "EMPLEADO", referencedColumnName = "SECUENCIA")
+//    @ManyToOne(optional = false)
+//    private Empleados empleado;
     @Transient
     private String nombretercero;
     @Transient
     private Long nittercero;
     @Transient
     private Terceros terceroRegistro;
+    @Transient
+    private String nombrecompleto;
+    @Transient
+    private BigDecimal codigoempleado;
     @Transient
     private String subtipocotizanteSTR;
     @Transient
@@ -1108,12 +1114,28 @@ public class AportesEntidades implements Serializable {
         this.empresa = empresa;
     }
 
-    public Empleados getEmpleado() {
+//    public Empleados getEmpleado() {
+//        return empleado;
+//    }
+//
+//    public void setEmpleado(Empleados empleado) {
+//        this.empleado = empleado;
+//    }
+
+    public BigInteger getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(Empleados empleado) {
+    public void setEmpleado(BigInteger empleado) {
         this.empleado = empleado;
+    }
+
+    public BigDecimal getCodigoempleado() {
+        return codigoempleado;
+    }
+
+    public void setCodigoempleado(BigDecimal codigoempleado) {
+        this.codigoempleado = codigoempleado;
     }
 
     public boolean isBing() {
@@ -1419,7 +1441,15 @@ public class AportesEntidades implements Serializable {
     public void setNittercero(Long nittercero) {
         this.nittercero = nittercero;
     }
-    
+
+    public String getNombrecompleto() {
+        return nombrecompleto;
+    }
+
+    public void setNombrecompleto(String nombrecompleto) {
+        this.nombrecompleto = nombrecompleto;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -1443,6 +1473,13 @@ public class AportesEntidades implements Serializable {
     @Override
     public String toString() {
         return "Entidades.AportesEntidades[ secuencia=" + secuencia + " ]";
+    }
+
+    public void llenarTransients(AportesEntidadesAux aporteAux) {
+        this.nittercero = aporteAux.getNittercero();
+        this.nombretercero = aporteAux.getNombretercero();
+        this.nombrecompleto = aporteAux.getNombrecompleto();
+        this.codigoempleado = aporteAux.getCodigoempleado();
     }
 
 }

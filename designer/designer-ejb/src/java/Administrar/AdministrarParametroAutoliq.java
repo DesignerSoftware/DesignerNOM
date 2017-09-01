@@ -167,12 +167,12 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
          for (int i = 0; i < listAE.size(); i++) {
 
             if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
-               log.warn("if 2 editarAportesEntidades");
                listAE.get(i).setTipoentidad(new TiposEntidades());
-            } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
-               log.warn("if 3 editarAportesEntidades");
-               listAE.get(i).setEmpleado(null);
-            }
+            } 
+//            else if (listAE.get(i).getEmpleado() == null) {
+//               log.warn("if 3 editarAportesEntidades");
+//               listAE.get(i).setEmpleado(null);
+//            }
             persistenciaAportesEntidades.editar(getEm(), listAE.get(i));
          }
       } catch (Exception e) {
@@ -187,9 +187,10 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
 
             if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
                listAE.get(i).setTipoentidad(null);
-            } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
-               listAE.get(i).setEmpleado(null);
             }
+//            else if (listAE.get(i).getEmpleado() == null) {
+//               listAE.get(i).setEmpleado(null);
+//            }
             persistenciaAportesEntidades.borrar(getEm(), listAE.get(i));
          }
       } catch (Exception e) {
@@ -204,20 +205,17 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             if (listaAE.get(i).getTipoentidad() != null) {
                if (listaAE.get(i).getTipoentidad().getSecuencia() == null) {
                   listaAE.get(i).setTipoentidad(new TiposEntidades());
-                  log.warn("if 2 crearAportesEntidades");
                }
             }
-
-            if (listaAE.get(i).getEmpleado() != null) {
-               if (listaAE.get(i).getEmpleado().getSecuencia() == null) {
-                  listaAE.get(i).setEmpleado(null);
-                  log.warn("if 3 crearAportesEntidades");
-               }
-            }
+//            if (listaAE.get(i).getEmpleado() != null) {
+//               if (listaAE.get(i).getEmpleado() == null) {
+//                  listaAE.get(i).setEmpleado(null);
+//                  log.warn("if 3 crearAportesEntidades");
+//               }
+//            }
 
             persistenciaAportesEntidades.crear(getEm(), listaAE.get(i));
          }
-         log.warn("sale del for crearAportesEntidades");
       } catch (Exception e) {
          log.warn("Error crearAportesEntidades Admi : " + e.toString());
       }

@@ -6,6 +6,7 @@
 package InterfaceAdministrar;
 
 import Entidades.AportesEntidadesXDia;
+import Entidades.Empleados;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -31,4 +32,6 @@ public interface AdministrarAportesEntidadesXDiaInterface {
     public void borrarAportesEntidadesXDia(List<AportesEntidadesXDia> listAE);
     
     public BigDecimal consultarTarifas(BigInteger secEmpresa, short mes, short ano, BigInteger secEmpleado, BigInteger secTipoEntidad);
+    
+     public Empleados buscarEmpleado(BigInteger secuenciaEmpleado);
 }

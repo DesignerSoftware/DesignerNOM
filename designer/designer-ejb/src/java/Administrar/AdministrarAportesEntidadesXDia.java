@@ -6,14 +6,15 @@
 package Administrar;
 
 import Entidades.AportesEntidadesXDia;
+import Entidades.Empleados;
 import InterfaceAdministrar.AdministrarAportesEntidadesXDiaInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaAportesEntidadesXDiaInterface;
+import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,7 +25,6 @@ import org.apache.log4j.Logger;
  * @author user
  */
 @Stateful
-@Local
 public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntidadesXDiaInterface {
 
    private static Logger log = Logger.getLogger(AdministrarAportesEntidadesXDia.class);
@@ -33,6 +33,8 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
    AdministrarSesionesInterface administrarSesiones;
    @EJB
    PersistenciaAportesEntidadesXDiaInterface persistenciaAportesEntidadesXDia;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
 
    private EntityManagerFactory emf;
    private EntityManager em;
@@ -122,5 +124,15 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
          return null;
       }
    }
+
+    @Override
+    public Empleados buscarEmpleado(BigInteger secuenciaEmpleado) {
+        try {
+         return persistenciaEmpleados.buscarEmpleado(getEm(), secuenciaEmpleado);
+      } catch (Exception e) {
+         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         return null;
+      }
+    }
 
 }

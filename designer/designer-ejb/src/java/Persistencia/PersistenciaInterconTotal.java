@@ -6,6 +6,7 @@
 package Persistencia;
 
 import ClasesAyuda.ExtraeCausaExcepcion;
+import Entidades.InterconAux;
 import Entidades.InterconTotal;
 import InterfacePersistencia.PersistenciaInterconTotalInterface;
 import excepciones.ExcepcionBD;
@@ -103,6 +104,31 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.setParameter(1, fechaInicial);
             query.setParameter(2, fechaFinal);
             List<InterconTotal> interconTotal = query.getResultList();
+            if (interconTotal != null) {
+                if (!interconTotal.isEmpty()) {
+                    em.clear();
+                    Query query2 = em.createNativeQuery(" select i.secuencia secuencia, pro.descripcion nombreproceso,per.primerapellido||' '||per.segundoapellido||' '||per.nombre nombreempleado from intercon_total i,empleados em,personas per,procesos pro where \n"
+                            + " i.proceso=pro.secuencia and em.persona=per.secuencia\n"
+                            + " and i.empleado=em.secuencia and fechacontabilizacion between ? and ? and FLAG = 'CONTABILIZADO' AND SALIDA <> 'NETO'\n"
+                            + " and exists (select 'x' from empleados e where e.secuencia=i.empleado) ", InterconAux.class);
+                    query2.setParameter(1, fechaInicial);
+                    query2.setParameter(2, fechaFinal);
+                    List<InterconAux> listaAux = query2.getResultList();
+                    log.warn("PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio() Ya consulo Transients");
+                    if (listaAux != null) {
+                        if (!listaAux.isEmpty()) {
+                            log.warn("PersistenciaInterconInfor.buscarInterconInforParametroContable() listaAux.size(): " + listaAux.size());
+                            for (InterconAux recAux : listaAux) {
+                                for (InterconTotal recAporte : interconTotal) {
+                                    if (recAux.getSecuencia().equals(recAporte.getSecuencia())) {
+                                        recAporte.llenarTransients(recAux);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             return interconTotal;
         } catch (Exception e) {
             log.error("Error PersistenciaInterconTotal.buscarInterconTotalParaParametroContable: " + e.toString());
@@ -111,7 +137,8 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public Date obtenerFechaContabilizacionMaxInterconTotal(EntityManager em) {
+    public Date obtenerFechaContabilizacionMaxInterconTotal(EntityManager em
+    ) {
         try {
             String sql = "select max(i.fechacontabilizacion) from intercon_total i "
                     + " where flag = 'ENVIADO' and exists (select 'x' from  empleados e\n"
@@ -126,7 +153,8 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public void actualizarFlagInterconTotal(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa) {
+    public void actualizarFlagInterconTotal(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa
+    ) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -151,7 +179,8 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public void actualizarFlagInterconTotalProcesoDeshacer(EntityManager em, Date fechaInicial, Date fechaFinal, BigInteger proceso) {
+    public void actualizarFlagInterconTotalProcesoDeshacer(EntityManager em, Date fechaInicial, Date fechaFinal, BigInteger proceso
+    ) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -175,7 +204,8 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public void eliminarInterconTotal(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso) {
+    public void eliminarInterconTotal(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso
+    ) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -202,7 +232,8 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public void ejecutarPKGUbicarnuevointercon_total(EntityManager em, BigInteger secuencia, Date fechaInicial, Date fechaFinal, BigInteger proceso) {
+    public void ejecutarPKGUbicarnuevointercon_total(EntityManager em, BigInteger secuencia, Date fechaInicial, Date fechaFinal, BigInteger proceso
+    ) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -224,7 +255,8 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public int contarProcesosContabilizadosInterconTotal(EntityManager em, Date fechaInicial, Date fechaFinal) {
+    public int contarProcesosContabilizadosInterconTotal(EntityManager em, Date fechaInicial, Date fechaFinal
+    ) {
         try {
             em.clear();
             String sql = "select COUNT(*) from intercon_total i where\n"

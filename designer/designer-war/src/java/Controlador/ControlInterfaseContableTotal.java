@@ -366,27 +366,8 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public void modificarFechasParametro(ParametrosContables parametroc, int c) {
         parametroContableActual = parametroc;
-//        if (parametroContableActual.getFechainicialcontabilizacion() != null && parametroContableActual.getFechafinalcontabilizacion() != null) {
-//        boolean validacion = validarFechaParametro(0);
-//        if (validacion == true) {
         cambiarIndiceParametro(parametroContableActual, c);
         modificarParametroContable();
-//        } else {
-//            parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
-//            parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("form:parametroFechaFinal");
-//            RequestContext.getCurrentInstance().update("form:parametroFechaInicial");
-//            RequestContext.getCurrentInstance().execute("PF('errorFechasParametro').show()");
-//        }
-//        } else {
-//            parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
-//            parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaFinal");
-//            RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaInicial");
-//            RequestContext.getCurrentInstance().execute("PF('errorFechasNull').show()");
-//        }
     }
 
     public boolean validarFechaParametro(int i) {

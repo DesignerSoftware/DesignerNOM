@@ -29,9 +29,10 @@ import javax.validation.constraints.Size;
  * @author user
  */
 @Entity
-@Table(name = "INTERCON_SAPBO")
+@Table(name = "INTERCON_INFOR")
 public class InterconInfor implements Serializable {
- private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -46,58 +47,73 @@ public class InterconInfor implements Serializable {
     @Column(name = "FECHAULTIMAMODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaultimamodificacion;
+    @JoinColumn(name = "EMPLEADO", referencedColumnName = "SECUENCIA")
+    @ManyToOne
+    private Empleados empleado;
+    @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
+    @ManyToOne
+    private Conceptos concepto;
+    @Column(name = "VALOR")
+    private BigDecimal valor;
     @Column(name = "FECHACONTABILIZACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechacontabilizacion;
+    @JoinColumn(name = "CONTABILIZACION", referencedColumnName = "SECUENCIA")
+    @ManyToOne
+    private Contabilizaciones contabilizacion;
     @Size(max = 50)
     @Column(name = "SALIDA")
     private String salida;
     @Size(max = 20)
     @Column(name = "NATURALEZA")
     private String naturaleza;
-    @Column(name = "VALORC")
-    private BigDecimal valorc;
-    @Column(name = "VALORD")
-    private BigDecimal valord;
     @Column(name = "EMPRESA_CODIGO")
     private Short empresaCodigo;
-    @Column(name = "CONSECUTIVO")
-    private BigInteger consecutivo;
-    @Column(name = "FECHAVENCIMIENTO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechavencimiento;
-    @Column(name = "LOTE")
-    private BigInteger lote;
-    @Size(max = 40)
-    @Column(name = "CODIGOCUENTACONTABLE")
-    private String codigocuentacontable;
-    @JoinColumn(name = "PROYECTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Proyectos proyecto;
-    @Column(name = "PROCESO")
-    private BigInteger proceso;
-    @JoinColumn(name = "EMPLEADO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Empleados empleado;
-    @JoinColumn(name = "CUENTA", referencedColumnName = "SECUENCIA")
-    @ManyToOne(optional = false)
-    private Cuentas cuenta;
-    @JoinColumn(name = "CONTABILIZACION", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Contabilizaciones contabilizacion;
-    @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
-    private Conceptos concepto;
     @JoinColumn(name = "CENTROCOSTO", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private CentrosCostos centrocosto;
+    @NotNull
+    @JoinColumn(name = "CUENTA", referencedColumnName = "SECUENCIA")
+    @ManyToOne(optional = false)
+    private Cuentas cuenta;
+    @Column(name = "PROCESO")
+    private BigInteger proceso;
+    @Column(name = "BASE")
+    private BigInteger base;
+    @Column(name = "CONSECUTIVO")
+    private BigInteger consecutivo;
+    @NotNull
+    @Size(max = 60)
+    @Column(name = "CODIGOCUENTACONTABLE")
+    private String codigocuentacontable;
+    @NotNull
+    @Column(name = "EQUIVALENCIA")
+    private String equivalencia;
+    @NotNull
+    @Column(name = "DESCRIPCIONCUENTACONTABLE")
+    private String descripcioncuentacontable;
+    @JoinColumn(name = "PROYECTO", referencedColumnName = "SECUENCIA")
+    @ManyToOne
+    private Proyectos proyecto;
     @Transient
     private Terceros terceroRegistro;
+    @Transient
+    private String nombreempleado;
+    @Transient
+    private String nombreproceso;
 
     public InterconInfor() {
     }
 
     public InterconInfor(BigInteger secuencia) {
+        this.secuencia = secuencia;
+    }
+
+    public BigInteger getSecuencia() {
+        return secuencia;
+    }
+
+    public void setSecuencia(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
@@ -107,14 +123,6 @@ public class InterconInfor implements Serializable {
 
     public void setCodigotercero(String codigotercero) {
         this.codigotercero = codigotercero;
-    }
-
-    public Terceros getTerceroRegistro() {
-        return terceroRegistro;
-    }
-
-    public void setTerceroRegistro(Terceros terceroRegistro) {
-        this.terceroRegistro = terceroRegistro;
     }
 
     public String getFlag() {
@@ -133,12 +141,44 @@ public class InterconInfor implements Serializable {
         this.fechaultimamodificacion = fechaultimamodificacion;
     }
 
+    public Empleados getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleados empleado) {
+        this.empleado = empleado;
+    }
+
+    public Conceptos getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(Conceptos concepto) {
+        this.concepto = concepto;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
     public Date getFechacontabilizacion() {
         return fechacontabilizacion;
     }
 
     public void setFechacontabilizacion(Date fechacontabilizacion) {
         this.fechacontabilizacion = fechacontabilizacion;
+    }
+
+    public Contabilizaciones getContabilizacion() {
+        return contabilizacion;
+    }
+
+    public void setContabilizacion(Contabilizaciones contabilizacion) {
+        this.contabilizacion = contabilizacion;
     }
 
     public String getSalida() {
@@ -157,116 +197,12 @@ public class InterconInfor implements Serializable {
         this.naturaleza = naturaleza;
     }
 
-    public BigDecimal getValorc() {
-        return valorc;
-    }
-
-    public void setValorc(BigDecimal valorc) {
-        this.valorc = valorc;
-    }
-
-    public BigDecimal getValord() {
-        return valord;
-    }
-
-    public void setValord(BigDecimal valord) {
-        this.valord = valord;
-    }
-
-    public BigInteger getSecuencia() {
-        return secuencia;
-    }
-
-    public void setSecuencia(BigInteger secuencia) {
-        this.secuencia = secuencia;
-    }
-
     public Short getEmpresaCodigo() {
         return empresaCodigo;
     }
 
     public void setEmpresaCodigo(Short empresaCodigo) {
         this.empresaCodigo = empresaCodigo;
-    }
-
-    public BigInteger getConsecutivo() {
-        return consecutivo;
-    }
-
-    public void setConsecutivo(BigInteger consecutivo) {
-        this.consecutivo = consecutivo;
-    }
-
-    public Date getFechavencimiento() {
-        return fechavencimiento;
-    }
-
-    public void setFechavencimiento(Date fechavencimiento) {
-        this.fechavencimiento = fechavencimiento;
-    }
-
-    public BigInteger getLote() {
-        return lote;
-    }
-
-    public void setLote(BigInteger lote) {
-        this.lote = lote;
-    }
-
-    public String getCodigocuentacontable() {
-        return codigocuentacontable;
-    }
-
-    public void setCodigocuentacontable(String codigocuentacontable) {
-        this.codigocuentacontable = codigocuentacontable;
-    }
-
-    public Proyectos getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyectos proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public BigInteger getProceso() {
-        return proceso;
-    }
-
-    public void setProceso(BigInteger proceso) {
-        this.proceso = proceso;
-    }
-
-    public Empleados getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleados empleado) {
-        this.empleado = empleado;
-    }
-
-    public Cuentas getCuenta() {
-        return cuenta;
-    }
-
-    public void setCuenta(Cuentas cuenta) {
-        this.cuenta = cuenta;
-    }
-
-    public Contabilizaciones getContabilizacion() {
-        return contabilizacion;
-    }
-
-    public void setContabilizacion(Contabilizaciones contabilizacion) {
-        this.contabilizacion = contabilizacion;
-    }
-
-    public Conceptos getConcepto() {
-        return concepto;
-    }
-
-    public void setConcepto(Conceptos concepto) {
-        this.concepto = concepto;
     }
 
     public CentrosCostos getCentrocosto() {
@@ -277,6 +213,94 @@ public class InterconInfor implements Serializable {
         this.centrocosto = centrocosto;
     }
 
+    public Cuentas getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuentas cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public BigInteger getProceso() {
+        return proceso;
+    }
+
+    public void setProceso(BigInteger proceso) {
+        this.proceso = proceso;
+    }
+
+    public BigInteger getBase() {
+        return base;
+    }
+
+    public void setBase(BigInteger base) {
+        this.base = base;
+    }
+
+    public BigInteger getConsecutivo() {
+        return consecutivo;
+    }
+
+    public void setConsecutivo(BigInteger consecutivo) {
+        this.consecutivo = consecutivo;
+    }
+
+    public String getCodigocuentacontable() {
+        return codigocuentacontable;
+    }
+
+    public void setCodigocuentacontable(String codigocuentacontable) {
+        this.codigocuentacontable = codigocuentacontable;
+    }
+
+    public String getEquivalencia() {
+        return equivalencia;
+    }
+
+    public void setEquivalencia(String equivalencia) {
+        this.equivalencia = equivalencia;
+    }
+
+    public String getDescripcioncuentacontable() {
+        return descripcioncuentacontable;
+    }
+
+    public void setDescripcioncuentacontable(String descripcioncuentacontable) {
+        this.descripcioncuentacontable = descripcioncuentacontable;
+    }
+
+    public Proyectos getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyectos proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public Terceros getTerceroRegistro() {
+        return terceroRegistro;
+    }
+
+    public void setTerceroRegistro(Terceros terceroRegistro) {
+        this.terceroRegistro = terceroRegistro;
+    }
+
+    public String getNombreempleado() {
+        return nombreempleado;
+    }
+
+    public void setNombreempleado(String nombreempleado) {
+        this.nombreempleado = nombreempleado;
+    }
+
+    public String getNombreproceso() {
+        return nombreproceso;
+    }
+
+    public void setNombreproceso(String nombreproceso) {
+        this.nombreproceso = nombreproceso;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -300,6 +324,11 @@ public class InterconInfor implements Serializable {
     @Override
     public String toString() {
         return "Entidades.InterconSapBO[ secuencia=" + secuencia + " ]";
+    }
+    
+    public void llenarTransients(InterconAux aporteAux) {
+        this.nombreproceso = aporteAux.getNombreproceso();
+        this.nombreempleado = aporteAux.getNombreempleado();
     }
 
 }

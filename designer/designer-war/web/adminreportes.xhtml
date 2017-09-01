@@ -26,7 +26,8 @@
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlAdminreportes.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlAdminreportes.listaValoresBoton()}" 
+                                                 disabled="#{controlAdminreportes.activarLov}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlAdminreportes.activarCtrlF11()}" process="@this"/>
@@ -64,18 +65,22 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlAdminreportes.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
+                                <p:separator style="position: relative; top: -9px;"/> 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAdminreportes.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup> 
                         </p:toolbar>
-                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 385px; width: 830px; border-radius: 10px; text-align: left;">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 380px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['reportes']}</strong></legend>
 
                             <p:dataTable id="datosInforeportes" widgetVar="datosInforeportes" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"                         
                                          value="#{controlAdminreportes.listaInforeportes}" scrollable="true" scrollWidth="830"  scrollHeight="#{controlAdminreportes.altoTabla}" 
                                          filteredValue="#{controlAdminreportes.filtradosListaInforeportes}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="12" 
-                                         selectionMode="single" selection="#{controlAdminreportes.inforeporteSeleccionado}">
+                                         editable="true" editMode="cell" rows="#{controlAdminreportes.altoTablaAux}"
+                                         selectionMode="single" selection="#{controlAdminreportes.inforeporteSeleccionado}"
+                                         paginator="true" 
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         currentPageReportTemplate="{totalPages}">
 
                                 <p:ajax event="filter" listener="#{controlAdminreportes.eventoFiltrar()}"/>
 
@@ -87,9 +92,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off"  value="#{info.codigo}" id="editarCodigosInforeportes" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(indice, 0)}"
+                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(info, 0)}"
                                                         onstart="PF('datosInforeportes').unselectAllRows();PF('datosInforeportes').selectRow(#{indice});"/>
-                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'C', info.codigo)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'C', info.codigo)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -107,9 +112,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off"  value="#{info.nombre}" id="editarNombres" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(indice, 1)}"
+                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(info, 1)}"
                                                         onstart="PF('datosInforeportes').unselectAllRows();PF('datosInforeportes').selectRow(#{indice});"/>
-                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.nombre)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.nombre)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -127,9 +132,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off"  value="#{info.contador}" id="editarContadores" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(indice, 2)}" 
+                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(info, 2)}" 
                                                         onstart="PF('datosInforeportes').unselectAllRows();PF('datosInforeportes').selectRow(#{indice});"/>
-                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.contador)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.contador)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -147,9 +152,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off"  value="#{info.nombrereporte}" id="editarNombresReportes" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(indice, 3)}" 
+                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(info, 3)}" 
                                                         onstart="PF('datosInforeportes').unselectAllRows();PF('datosInforeportes').selectRow(#{indice});"/>
-                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.nombrereporte)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.nombrereporte)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -172,7 +177,7 @@
                                                 <f:selectItem itemLabel="EXCEL" itemValue="EXCEL"/>  
                                                 <f:selectItem itemLabel="TXT" itemValue="TXT"/>    
                                                 <f:selectItem itemLabel="CSV" itemValue="CSV"/>
-                                                <p:ajax listener="#{controlAdminreportes.seleccionarTipo(info.estadoTipo, indice, celda)}" event="change" update="editarTipos"/>
+                                                <p:ajax listener="#{controlAdminreportes.seleccionarTipo(info.estadoTipo, info, celda)}" event="change" update="editarTipos"/>
                                             </p:selectOneMenu>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -187,10 +192,10 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.modulo.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off"  value="#{info.modulo.nombre}" id="editarModulos" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'MODULO', info.modulo.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(indice, 5)}"
+                                                <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'MODULO', info.modulo.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlAdminreportes.cambiarIndice(info, 5)}"
                                                         onstart="PF('datosInforeportes').unselectAllRows();PF('datosInforeportes').selectRow(#{indice});"/>
-                                                <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex(indice,1,0)}"/>
+                                                <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex(1,0)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -207,7 +212,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoFechaDesde}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoFechaDesde)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoFechaDesde)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
 
                                 </p:column>
@@ -219,7 +224,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoFechaHasta}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoFechaHasta)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoFechaHasta)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
 
                                 </p:column>
@@ -231,7 +236,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoEmpleadoDesde}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoEmpleadoDesde)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoEmpleadoDesde)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
 
                                 </p:column>
@@ -243,7 +248,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoEmpleadoHasta}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoEmpleadoHasta)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoEmpleadoHasta)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -254,7 +259,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoLocalizacion}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoLocalizacion)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoLocalizacion)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -265,7 +270,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoEstado}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoEstado)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoEstado)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -276,7 +281,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoGrupo}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoGrupo)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoGrupo)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -287,7 +292,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoTercero}" style="height :12px; position: relative; top: -3px">   
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoTercero)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoTercero)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -298,7 +303,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoTrabajador}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoTrabajador)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoTrabajador)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -309,7 +314,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoTipoTrabajador}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoTipoTrabajador)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoTipoTrabajador)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -320,7 +325,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoSolicitud}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoSolicitud)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoSolicitud)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -331,7 +336,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoCiudad}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoCiudad)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoCiudad)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -342,7 +347,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoTipoTelefono}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoTipoTelefono)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoTipoTelefono)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -353,7 +358,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoEstadoCivil}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoEstadoCivil)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoEstadoCivil)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -364,7 +369,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoDeporte}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoDeporte)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoDeporte)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -375,7 +380,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoIdioma}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoIdioma)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoIdioma)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -386,7 +391,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoAficion}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoAficion)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoAficion)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -397,7 +402,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoJefeDivision}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoJefeDivision)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoJefeDivision)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -408,7 +413,7 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoRodamiento}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoRodamiento)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoRodamiento)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
@@ -419,16 +424,18 @@
                                     </f:facet>  
 
                                     <p:selectBooleanCheckbox value="#{info.estadoEnvioMasivo}" style="height :12px; position: relative; top: -3px">  
-                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(indice, 'N', info.estadoEnvioMasivo)}" update="@this"/>  
+                                        <p:ajax event="change" listener="#{controlAdminreportes.modificarInforeportes(info, 'N', info.estadoEnvioMasivo)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column>
 
 
                             </p:dataTable>
-                        <h:outputText id="informacionRegistro" value="Registros: #{controlAdminreportes.infoRegistro}" style="position: relative; left: 5px; top: 0px; font-weight: bold;"/>
-                        <p:commandButton style="position: relative; left: 585px; top: 8px;" class="cssBotonBuscar" id="btnBuscarEmpleados" actionListener="#{controlAdminreportes.asignarIndex(-1, 0, 0)}"  value="" process="@this"/>
-                        <p:commandButton style="position: relative; left: 585px; top: 8px;" class="cssBotonMostrarTodos" id="btnMostrarTodos" actionListener="#{controlAdminreportes.mostrarTodos()}"  value=""  process="@this"/>
+                            <h:outputText id="informacionRegistro" value="Registros: #{controlAdminreportes.infoRegistro}" style="position: relative; left: 5px; top: 10px; font-weight: bold;"/>
                         </fieldset>
+                        <p:commandButton style="position: absolute; left: 680px; top: 440px;" class="cssBotonBuscar" id="btnBuscarReportes"   actionListener="#{controlAdminreportes.asignarIndex(0, 0)}" 
+                                         disabled="#{controlAdminreportes.activarBuscar}"  value="" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 770px; top: 440px;" class="cssBotonMostrarTodos" id="btnMostrarTodos"   actionListener="#{controlAdminreportes.mostrarTodos()}"
+                                         disabled="#{controlAdminreportes.activarMostrar}" value=""  process="@this"/>
                         <p:commandButton class="cssBotonAceptar" icon="" id="ACEPTAR" disabled="#{controlAdminreportes.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosInforeportes" process="@this"/>
                         <p:commandButton class="cssBotonCancelar" icon="" id="ATRAS" value="" actionListener="#{controlAdminreportes.salir()}"  process="@this"/>
 
@@ -441,43 +448,51 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAdminreportes.guardarCambiosInforeportes()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check"/>
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAdminreportes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close"/>
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAdminreportes.guardarCambiosInforeportes()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAdminreportes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 202px;" process="@this" icon="ui-icon-close"/>
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 268px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V INFOREPORTES-->
                     <p:dialog header="#{msg['reportesR']}"  widgetVar="inforeportesDialogo" draggable="true" resizable="false" closable="false" id="inforeportesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="380" height="350" modal="true">
-                        <p:dataTable id="LOVInforeportes" style=" width: 330px;" var="inforeportes" value="#{controlAdminreportes.lovlistaInforeportes}" rowKey="#{inforeportes.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="730" height="380" modal="true">
+                        <p:dataTable id="LOVInforeportes" style=" width: 700px;" var="inforeportes" value="#{controlAdminreportes.lovlistaInforeportes}" rowKey="#{inforeportes.secuencia}"
                                      selection="#{controlAdminreportes.inforeportesSeleccionado}" selectionMode="single" widgetVar="LOVInforeportes" 
-                                     scrollable="true" scrollHeight="200" scrollWidth="345"
+                                     scrollable="true" scrollHeight="250" scrollWidth="700"
                                      filteredValue="#{controlAdminreportes.filtrarlovInforeportes}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlAdminreportes.activarAceptar()}" update=":formularioDialogos:aceptarI"/>
                             <p:ajax event="rowDblselect" listener="#{controlAdminreportes.actualizarInforeportes()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlAdminreportes.contarRegistrosLovIR()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('LOVInforeportes').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                                <h:outputText value="#{msg['buscarR']}" />  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('LOVInforeportes').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
-                            <p:column filterBy="#{inforeportes.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
+                            <p:column filterBy="#{inforeportes.codigo}" width="50" filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoR']}"/>
                                 </f:facet>
                                 <h:outputText value="#{inforeportes.codigo}"/>
                             </p:column>
 
-                            <p:column filterBy="#{inforeportes.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{inforeportes.nombre}" filterMatchMode="contains" width="450" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['reporte']}"/>
                                 </f:facet>
                                 <h:outputText value="#{inforeportes.nombre}"/>
                             </p:column>
-                        </p:dataTable>
-                        <h:outputText id="infoRegistroInfoReporte" value="#{controlAdminreportes.infoRegistroInfoReporte}" style="position: relative; top: 15px; font-weight: bold;"/>
 
-                        <p:commandButton id="aceptarI" value="#{msg['aceptar']}"  disabled="#{controlAdminreportes.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 185px;" actionListener="#{controlAdminreportes.actualizarInforeportes()}"  process="@this"/>
-                        
-                        <p:commandButton id="atrasI" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 280px;" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlAdminreportes.cancelarCambioInforeportes()}" process="@this"/>
+                            <p:column filterBy="#{inforeportes.modulo.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="Módulo"/>
+                                </f:facet>
+                                <h:outputText value="#{inforeportes.modulo.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroInfoReporte" value="Registros: #{controlAdminreportes.infoRegistroInfoReporte}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarI" value="#{msg['aceptar']}"  disabled="#{controlAdminreportes.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlAdminreportes.actualizarInforeportes()}"  process="@this"/>
+                            <p:commandButton id="atrasI" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlAdminreportes.cancelarCambioInforeportes()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V MODULOS-->
@@ -489,11 +504,12 @@
                                      filteredValue="#{controlAdminreportes.filtrarLovModulos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlAdminreportes.activarAceptar()}" update=":formularioDialogos:aceptarM"/>
                             <p:ajax event="rowDblselect" listener="#{controlAdminreportes.actualizarModulos()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlAdminreportes.contarRegistrosModulos()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('LOVModulos').filter();" style="width:150px; position: relative; left: 30px;"/>  
+                                <h:outputText value="#{msg['buscarM']}" />  
+                                <p:inputText autocomplete="off"  id="globalFilter" onkeyup="PF('LOVModulos').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
-                            <p:column filterBy="#{modulo.nombre}" width="200"  filterMatchMode="contains">
+                            <p:column filterBy="#{modulo.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['moduloM']}"/>
                                 </f:facet>
@@ -501,37 +517,37 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroModulos" value="#{controlAdminreportes.infoRegistroModulo}" style="position: relative; top: 15px; font-weight: bold;"/>
-
-                        <p:commandButton id="aceptarM" value="#{msg['aceptar']}" disabled="#{controlAdminreportes.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 185px;" actionListener="#{controlAdminreportes.actualizarModulos()}"  process="@this"/>
-                        
-                        <p:commandButton id="atrasM" style="position: absolute; top: 305px; left: 280px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlAdminreportes.cancelarCambioModulos()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroModulos" value="Registros: #{controlAdminreportes.infoRegistroModulo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarM" value="#{msg['aceptar']}" disabled="#{controlAdminreportes.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlAdminreportes.actualizarModulos()}"  process="@this"/>
+                            <p:commandButton id="atrasM" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlAdminreportes.cancelarCambioModulos()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="repetido" header="#{msg['atencion']}" widgetVar="repetido"  resizable="false" draggable="true" modal="true" height="55" width="425" closable="true">  
+                    <p:dialog id="repetido" header="#{msg['atencion']}" widgetVar="repetido"  resizable="false" draggable="true" modal="true" height="75" width="425" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['repetido']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                    <p:dialog id="editarCodigos" header="Código" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarReportes" header="#{msg['editarReportes']}" widgetVar="editarReportes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                    <p:dialog id="editarReportes" header="Nombre" widgetVar="editarReportes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarContadores" header="#{msg['editarContadores']}" widgetVar="editarContadores" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                    <p:dialog id="editarContadores" header="Contador" widgetVar="editarContadores" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.contador}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombresReportes" header="#{msg['editarNombreReportes']}" widgetVar="editarNombresReportes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                    <p:dialog id="editarNombresReportes" header="Nombre Reporte" widgetVar="editarNombresReportes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.nombrereporte}" style="overflow: auto;" readonly="true"/>
                     </p:dialog> 
 
-                    <p:dialog id="editarModulos" header="#{msg['editarModulos']}" widgetVar="editarModulos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                    <p:dialog id="editarModulos" header="Módulo" widgetVar="editarModulos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.modulo.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
@@ -579,8 +595,9 @@
                             <p:inputText autocomplete="off"  id="nuevoModuloInforeporte" value="#{controlAdminreportes.nuevoInforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 260px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAdminreportes.valoresBackupAutocompletar(1, 'MODULO')}"/>
                                 <p:ajax event="change" listener="#{controlAdminreportes.autocompletarNuevoyDuplicado('MODULO', controlAdminreportes.nuevoInforeporte.modulo.nombre, 1)}"/>
-                                <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex(indice, 1, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex( 1, 1)}"/>
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 313px; top: 262px;" id="btnNuevoModuloInforeporte" actionListener="#{controlAdminreportes.asignarIndex( 1, 1)}" value=" " class="cssBotonLovDialogos" process="@this"/>
 
                             <strong><h:outputText value="#{msg['fechadesdeN']}" style=" position: absolute; top: 305px;"/></strong>
 
@@ -682,10 +699,9 @@
                             <p:selectBooleanCheckbox value="#{controlAdminreportes.nuevoInforeporte.estadoEnvioMasivo}" style="position: absolute; left: 770px; top:225px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:selectBooleanCheckbox>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 265px;" id="btnNuevoModuloInforeporte" actionListener="#{controlAdminreportes.asignarIndex(indice, 1, 1)}" icon="ui-icon-search" process="@this"/>
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="#{msg['limpiar']}" style=" position: absolute; left: 50px; top: 370px;" actionListener="#{controlAdminreportes.limpiarNuevoInforeporte()}" update="nuevoInforeporte" process="@this"/>
-                            <p:commandButton id="agregarNI" icon="ui-icon-circle-check" value="#{msg['agregar']}" style=" position: absolute; left: 610px; top: 370px;"  actionListener="#{controlAdminreportes.agregarNuevoInforeporte()}" process="@this"/>
+                            <p:commandButton id="agregarNI" icon="ui-icon-circle-check" value="#{msg['agregar']}" style=" position: absolute; left: 600px; top: 370px;"  actionListener="#{controlAdminreportes.agregarNuevoInforeporte()}" process="@this"/>
                             <p:commandButton id="cancelarNI" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 700px; top: 370px;" actionListener="#{controlAdminreportes.limpiarNuevoInforeporte()}" update="nuevoInforeporte" onclick="PF('NuevoInforeporte').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -735,8 +751,9 @@
                             <p:inputText autocomplete="off"  id="duplicarModuloInforeporte" value="#{controlAdminreportes.duplicarInforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 265px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAdminreportes.valoresBackupAutocompletar(2, 'MODULO')}"/>
                                 <p:ajax event="change" listener="#{controlAdminreportes.autocompletarNuevoyDuplicado('MODULO', controlAdminreportes.duplicarInforeporte.modulo.nombre, 2)}"/>
-                                <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex(indice, 1, 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex( 1, 2)}"/>
                             </p:inputText>
+                            <p:commandButton style=" position: absolute; left: 313px; top: 268px;" id="btnDuplicarModuloInforeporte" actionListener="#{controlAdminreportes.asignarIndex( 1, 2)}" value="" class="cssBotonLovDialogos" process="@this"/>
 
                             <strong><h:outputText value="#{msg['fechadesdeN']}" style=" position: absolute; top: 305px;"/></strong>
 
@@ -839,9 +856,8 @@
                                 <p:ajax event="change" update="@this"/>
                             </p:selectBooleanCheckbox>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 265px;" id="btnDuplicarModuloInforeporte" actionListener="#{controlAdminreportes.asignarIndex(indice, 1, 2)}" icon="ui-icon-search" process="@this"/>
                             <p:commandButton id="limpiarD" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 50px; top: 370px;" actionListener="#{controlAdminreportes.limpiarduplicarInforeportes()}" update="duplicarInforeporte" process="@this"/>
-                            <p:commandButton id="agregarDI" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 610px; top: 370px;"  actionListener="#{controlAdminreportes.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="agregarDI" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 600px; top: 370px;"  actionListener="#{controlAdminreportes.confirmarDuplicar()}" process="@this"/>
                             <p:commandButton id="cancelarDI" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 700px; top: 370px;" actionListener="#{controlAdminreportes.limpiarduplicarInforeportes()}" update="duplicarInforeporte" onclick="PF('DuplicarInforeporte').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -850,48 +866,50 @@
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlAdminreportes.activarCtrlF11()}" process="@this"/> 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAdminreportes.secRegistro, 'Inforeportes', 'inforeportes')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAdminreportes.secRegistro, 'Inforeportes', 'inforeportes')}"
+                                         icon="ui-icon-check" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Inforeportes', 'inforeportes')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Inforeportes', 'inforeportes')}" style="position: absolute; top: 60px; left: 175px;" 
+                                         action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAdminreportes.secRegistro, 'Inforeportes', 'inforeportes')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this"/>
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAdminreportes.secRegistro, 'Inforeportes', 'inforeportes')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this"/>
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                     </p:dialog>

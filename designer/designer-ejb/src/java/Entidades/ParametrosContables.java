@@ -25,7 +25,7 @@ public class ParametrosContables implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "EMPRESA_CODIGO")
-    private short empresaCodigo;
+    private Short empresaCodigo;
     @Column(name = "MONEDA_CODIGO")
     private Short monedaCodigo;
     @Column(name = "FECHAINICIALCONTABILIZACION")
@@ -95,7 +95,7 @@ public class ParametrosContables implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public ParametrosContables(BigInteger secuencia, short empresaCodigo, String archivo) {
+    public ParametrosContables(BigInteger secuencia, Short empresaCodigo, String archivo) {
         this.secuencia = secuencia;
         this.empresaCodigo = empresaCodigo;
         this.archivo = archivo;
@@ -109,11 +109,11 @@ public class ParametrosContables implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public short getEmpresaCodigo() {
+    public Short getEmpresaCodigo() {
         return empresaCodigo;
     }
 
-    public void setEmpresaCodigo(short empresaCodigo) {
+    public void setEmpresaCodigo(Short empresaCodigo) {
         this.empresaCodigo = empresaCodigo;
     }
 

@@ -334,7 +334,7 @@ public class ControlAportesEntidadesXDia implements Serializable {
       l = BigInteger.valueOf(k);
       nuevoAporte.setSecuencia(l);
       nuevoAporte.setEmpresa(aporteEntidad.getEmpresa());
-      nuevoAporte.setEmpleado(aporteEntidad.getEmpleado());
+      nuevoAporte.setEmpleado(administrarAportesEntidades.buscarEmpleado(aporteEntidad.getEmpleado()));
       if (aporteEntidad.getTipoentidad().getCodigo() == 1) {
          nuevoAporte.setTarifasalud(nuevoAporte.getTarifaaux());
          nuevoAporte.setAportesalud(nuevoAporte.getAporteaux());
@@ -781,11 +781,11 @@ public class ControlAportesEntidadesXDia implements Serializable {
    /////////////////GETS Y SETS ////////
    public List<AportesEntidadesXDia> getListAportesEntidades() {
       if (listAportesEntidades == null) {
-         listAportesEntidades = administrarAportesEntidades.consultarAportesEntidadesPorEmpleadoMesYAnio(aporteEntidad.getEmpleado().getSecuencia(), aporteEntidad.getMes(), aporteEntidad.getAno());
+         listAportesEntidades = administrarAportesEntidades.consultarAportesEntidadesPorEmpleadoMesYAnio(aporteEntidad.getEmpleado(), aporteEntidad.getMes(), aporteEntidad.getAno());
          if (listAportesEntidades != null) {
             if (!listAportesEntidades.isEmpty()) {
                for (int i = 0; i < listAportesEntidades.size(); i++) {
-                  aux = administrarAportesEntidades.consultarTarifas(aporteEntidad.getEmpresa().getSecuencia(), aporteEntidad.getMes(), aporteEntidad.getAno(), aporteEntidad.getEmpleado().getSecuencia(), aporteEntidad.getTipoentidad().getSecuencia());
+                  aux = administrarAportesEntidades.consultarTarifas(aporteEntidad.getEmpresa().getSecuencia(), aporteEntidad.getMes(), aporteEntidad.getAno(), aporteEntidad.getEmpleado(), aporteEntidad.getTipoentidad().getSecuencia());
                   if (aux.equals(BigDecimal.valueOf(1))) {
                      listAportesEntidades.get(i).setTarifaaux(listAportesEntidades.get(i).getTarifasalud());
                      listAportesEntidades.get(i).setAporteaux(listAportesEntidades.get(i).getAportesalud());

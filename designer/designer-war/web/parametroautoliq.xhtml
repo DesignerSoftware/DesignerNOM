@@ -218,7 +218,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column id="aporteCodigoEmpleado" sortBy="#{infoAE.empleado.codigoempleado}" width="40" filterBy="#{infoAEempleado.empleado.codigoempleado}" 
+                                <p:column id="aporteCodigoEmpleado" sortBy="#{infoAE.codigoempleado}" width="40" filterBy="#{infoAEempleado.empleado.codigoempleado}" 
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="hcodempl" value="#{msg['codEmpl']}"/>
@@ -226,10 +226,10 @@
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoAE.empleado.codigoempleado}"/>
+                                            <h:outputText value="#{infoAE.codigoempleado}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" value="#{infoAE.empleado.codigoempleado}" readonly="true" id="editarCodigoEmpleado"
+                                            <p:inputText autocomplete="off" value="#{infoAE.codigoempleado}" readonly="true" id="editarCodigoEmpleado"
                                                          onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this"/>
                                             </p:inputText>
@@ -278,17 +278,17 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column id="aporteNombreEmpleado" sortBy="#{infoAE.empleado.nombreCompleto}" width="110" filterBy="#{infoAE.empleado.nombreCompleto}" 
+                                <p:column id="aporteNombreEmpleado" sortBy="#{infoAE.nombrecompleto}" width="110" filterBy="#{infoAE.nombrecompleto}" 
                                           filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;">                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="nomempl" value="#{msg['nombreEmpleado']}"/> 
                                         <p:tooltip  for="nomempl" value="Nombre del Empleado"/>
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.empleado.nombreCompleto}"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoAE.nombrecompleto}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off"  value="#{infoAE.empleado.nombreCompleto}" id="editarNombreEmpleadoAporte" style="text-transform: uppercase;"> 
-                                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.nombreCompleto)}" update="@this"/>
+                                            <p:inputText autocomplete="off"  value="#{infoAE.nombrecompleto}" id="editarNombreEmpleadoAporte" style="text-transform: uppercase;"> 
+                                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.nombrecompleto)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 1)}"
                                                         onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
@@ -1986,7 +1986,7 @@
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
                             <p:inputText autocomplete="off" readonly="true"  id="nuevoNomEmpl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.nombreCompleto}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase;" onclick="select();">
-      <!--                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.nombreCompleto)}"/>
+      <!--                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.nombrecompleto)}"/>
                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"/>-->
                                <!--<p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPLEADO')}"/>-->
                             </p:inputText>
@@ -2358,7 +2358,7 @@
                             <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
                             <p:inputText autocomplete="off" id="duplicarCodempl" widgetVar="duplicarCodempl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.codigoempleado}"
                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;">
-                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.nombreCompleto)}"/>
+                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.nombrecompleto)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}"
                                         onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPLEADO')}"/>
@@ -2738,7 +2738,7 @@
                     <!-- -->
 
                     <p:dialog id="editarCodEmplD" header="#{msg['editarCodEmplD']}" widgetVar="editarCodEmplD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.empleado.codigoempleado}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.codigoempleado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarAnoAD" header="#{msg['editarAnoAD']}" widgetVar="editarAnoAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -2750,7 +2750,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarNombreEmplD" header="#{msg['editarNombreEmplD']}" widgetVar="editarNombreEmplD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.empleado.nombreCompleto}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlParametroAutoliq.editarAporteEntidad.nombrecompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -3008,7 +3008,7 @@
 
                         <p:column headerText="#{msg['codEmplXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['codEmplX']}"/> </f:facet> 
-                            <h:outputText value="#{info2Exp.empleado.codigoempleado}"/>
+                            <h:outputText value="#{info2Exp.codigoempleado}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['anoX']}">                                  
@@ -3026,7 +3026,7 @@
 
                         <p:column headerText="#{msg['nombreEmpleadoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['nombreEmpleadoX']}"/></f:facet> 
-                            <h:outputText value="#{info2Exp.empleado.nombreCompleto}"/>
+                            <h:outputText value="#{info2Exp.nombrecompleto}"/>
                         </p:column>
 
                         <p:column headerText="#{msg['nitTerceroXX']}">                                  

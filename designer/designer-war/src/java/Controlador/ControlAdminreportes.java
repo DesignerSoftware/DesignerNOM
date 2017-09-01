@@ -62,13 +62,10 @@ public class ControlAdminreportes implements Serializable {
     private int cualCelda, tipoLista;
     //OTROS
     private boolean aceptar;
-    private int index;
-    private int tipoActualizacion; //Activo/Desactivo Crtl + F11
+    private int tipoActualizacion;
     private int bandera;
-    private boolean permitirIndex;
     //RASTROS
-    private BigInteger secRegistro;
-    private boolean guardado, guardarOk;
+    private boolean guardado, guardarOk, activarLov, activarBuscar, activarMostrar;
     //Crear Novedades
     private List<Inforeportes> listaInforeportesCrear;
     public Inforeportes nuevoInforeporte;
@@ -88,35 +85,33 @@ public class ControlAdminreportes implements Serializable {
     //Columnas Tabla Ciudades
     private Column inforeportesCodigos, inforeportesNombres, inforeportesContadores, inforeportesNombresReportes, inforeportesTipos, inforeportesModulos;
     //ALTO SCROLL TABLA
-    private String altoTabla;
-    private boolean cambiosPagina;
-    private BigInteger codiguin;
+    private String altoTabla, altoTablaAux;
     private String infoRegistroModulo;
     private String infoRegistroInfoReporte;
     public String infoRegistro;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlAdminreportes() {
-        cambiosPagina = true;
         nuevoInforeporte = new Inforeportes();
         nuevoInforeporte.setModulo(new Modulos());
         lovModulos = null;
-        permitirIndex = true;
         listaInforeportes = null;
-        permitirIndex = true;
         aceptar = true;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
         guardado = true;
         tipoLista = 0;
         listaInforeportesBorrar = new ArrayList<Inforeportes>();
         listaInforeportesCrear = new ArrayList<Inforeportes>();
         listaInforeportesModificar = new ArrayList<Inforeportes>();
-        altoTabla = "305";
+        altoTabla = "275";
+        altoTablaAux = "11";
         duplicarInforeporte = new Inforeportes();
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarBuscar = false;
+        activarLov = true;
+        activarMostrar = true;
     }
-
-    private String paginaAnterior = "nominaf";
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
@@ -188,234 +183,43 @@ public class ControlAdminreportes implements Serializable {
     }
 
     //UBICACION CELDA
-    public void cambiarIndice(int indice, int celda) {
-        log.info("Cambiar Indice");
-        if (permitirIndex == true) {
-            index = indice;
-            cualCelda = celda;
-            log.info("tipoLista : " + tipoLista);
-            if (tipoLista == 0) {
-                codiguin = listaInforeportes.get(index).getCodigo();
-                secRegistro = listaInforeportes.get(index).getSecuencia();
-                if (cualCelda == 5) {
-                    Modulo = listaInforeportes.get(index).getModulo().getNombre();
-                }
-            } else {
-                log.info("Index = " + index);
-                codiguin = filtradosListaInforeportes.get(index).getCodigo();
-                secRegistro = filtradosListaInforeportes.get(index).getSecuencia();
-                if (cualCelda == 5) {
-                    Modulo = filtradosListaInforeportes.get(index).getModulo().getNombre();
-                }
-            }
+    public void cambiarIndice(Inforeportes ir, int celda) {
+        inforeporteSeleccionado = ir;
+        cualCelda = celda;
+        inforeporteSeleccionado.getSecuencia();
+        if (cualCelda == 0) {
+            inforeporteSeleccionado.getCodigo();
+            deshabilitarLov();
+        } else if (cualCelda == 1) {
+            deshabilitarLov();
+            inforeporteSeleccionado.getNombre();
+        } else if (cualCelda == 2) {
+            deshabilitarLov();
+            inforeporteSeleccionado.getContador();
+        } else if (cualCelda == 3) {
+            deshabilitarLov();
+            inforeporteSeleccionado.getNombrereporte();
+        } else if (cualCelda == 4) {
+            deshabilitarLov();
+            inforeporteSeleccionado.getTipo();
+        } else if (cualCelda == 5) {
+            activarLov();
+            inforeporteSeleccionado.getModulo().getNombre();
         }
     }
 
     //AUTOCOMPLETAR
-    public void modificarInforeportes(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        int pasa = 0;
-        int pasaf = 0;
+    public void modificarInforeportes(Inforeportes ir, String confirmarCambio, String valorConfirmar) {
+        inforeporteSeleccionado = ir;
 
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("C")) {
-            if (tipoLista == 0) {
-                if (!listaInforeportesCrear.contains(listaInforeportes.get(indice))) {
-                    for (int i = 0; i < listaInforeportes.size(); i++) {
-                        if (listaInforeportes.get(indice).getCodigo().compareTo(listaInforeportes.get(i).getCodigo()) == 0) {
-                            log.info("MODIFICACIONES El Codigo ya está ahora revisamos modulo en: " + i);
-                            if (listaInforeportes.get(indice).getModulo().getNombre().equals(listaInforeportes.get(i).getModulo().getNombre())) {
-                                log.info("MODIFICACIONES El codigo y el módulo ya existen en: " + i);
-                                pasa++;
-                                log.info("Codiguin: " + codiguin);
-
-                            }
-                        }
-                    }
-                    log.info("Pasa C: " + pasa);
-                    if (pasa == 1) {
-                        log.info("Entro");
-                        if (listaInforeportesModificar.isEmpty()) {
-                            listaInforeportesModificar.add(listaInforeportes.get(indice));
-                        } else if (!listaInforeportesModificar.contains(listaInforeportes.get(indice))) {
-                            listaInforeportesModificar.add(listaInforeportes.get(indice));
-                        }
-
-                        if (guardado == true) {
-                            guardado = false;
-                            cambiosPagina = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
-                    } else {
-                        listaInforeportes.get(indice).setCodigo(codiguin);
-                        RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-                        RequestContext.getCurrentInstance().execute("PF('repetido').show()");
-                    }
-
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(indice))) {
-                    for (int i = 0; i < filtradosListaInforeportes.size(); i++) {
-                        if (filtradosListaInforeportes.get(indice).getCodigo().equals(filtradosListaInforeportes.get(i).getCodigo())) {
-                            log.info("MODIFICACIONES El Codigo ya está ahora revisamos modulo en: " + i);
-                            if (filtradosListaInforeportes.get(indice).getModulo().getNombre().equals(filtradosListaInforeportes.get(i).getModulo().getNombre())) {
-                                log.info("MODIFICACIONES El codigo y el módulo ya existen en: " + i);
-                                pasaf++;
-                                log.info("Codiguin: " + codiguin);
-
-                            }
-                        }
-                    }
-                    log.info("Pasaf C: " + pasaf);
-                    if (pasaf == 1) {
-                        if (listaInforeportesCrear.isEmpty()) {
-                            listaInforeportesCrear.add(filtradosListaInforeportes.get(indice));
-                        } else if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(indice))) {
-                            listaInforeportesCrear.add(filtradosListaInforeportes.get(indice));
-                        }
-
-                        if (guardado == true) {
-                            guardado = false;
-                            cambiosPagina = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
-                    } else {
-                        filtradosListaInforeportes.get(indice).setCodigo(codiguin);
-                        RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-                        RequestContext.getCurrentInstance().execute("PF('repetido').show()");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
+        if (!listaInforeportesCrear.contains(inforeporteSeleccionado)) {
+            if (listaInforeportesModificar.isEmpty()) {
+                listaInforeportesModificar.add(inforeporteSeleccionado);
+            } else if (!listaInforeportesModificar.contains(inforeporteSeleccionado)) {
+                listaInforeportesModificar.add(inforeporteSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosInforeportes");
-        } else if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaInforeportesCrear.contains(listaInforeportes.get(indice))) {
-
-                    if (listaInforeportesModificar.isEmpty()) {
-                        listaInforeportesModificar.add(listaInforeportes.get(indice));
-                    } else if (!listaInforeportesModificar.contains(listaInforeportes.get(indice))) {
-                        listaInforeportesModificar.add(listaInforeportes.get(indice));
-                    }
-
-                    if (guardado == true) {
-                        guardado = false;
-                        cambiosPagina = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(indice))) {
-
-                    if (listaInforeportesCrear.isEmpty()) {
-                        listaInforeportesCrear.add(filtradosListaInforeportes.get(indice));
-                    } else if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(indice))) {
-                        listaInforeportesCrear.add(filtradosListaInforeportes.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        cambiosPagina = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
-                }
-                index = -1;
-                secRegistro = null;
-            }
-            RequestContext.getCurrentInstance().update("form:datosInforeportes");
-        } else if (confirmarCambio.equalsIgnoreCase("MODULO")) {
-            BigInteger secModulo = null;
-            log.info("La secuencia del modulo de la lista es : " + listaInforeportes.get(indice).getModulo().getSecuencia());
-            if (tipoLista == 0) {
-                secModulo = listaInforeportes.get(indice).getModulo().getSecuencia();
-                listaInforeportes.get(indice).getModulo().setNombre(Modulo);
-            } else {
-                secModulo = filtradosListaInforeportes.get(indice).getModulo().getSecuencia();
-                filtradosListaInforeportes.get(indice).getModulo().setNombre(Modulo);
-            }
-
-            for (int i = 0; i < lovModulos.size(); i++) {
-                if (lovModulos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listaInforeportes.get(indice).setModulo(lovModulos.get(indiceUnicoElemento));
-                } else {
-                    filtradosListaInforeportes.get(indice).setModulo(lovModulos.get(indiceUnicoElemento));
-                }
-                lovModulos.clear();
-                getLovModulos();
-                for (int i = 0; i < listaInforeportes.size(); i++) {
-                    if (listaInforeportes.get(indice).getCodigo().equals(listaInforeportes.get(i).getCodigo())) {
-                        if (listaInforeportes.get(indice).getModulo().getSecuencia().equals(listaInforeportes.get(i).getModulo().getSecuencia())) {
-                            pasa++;
-                        }
-                    }
-                }
-                if (pasa == 1) {
-                    cambiosPagina = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                } else {
-                    Modulos moduloAnterior = administrarInforeportes.buscarModuloPorSecuencia(secModulo);
-                    if (tipoLista == 0) {
-                        listaInforeportes.get(indice).setModulo(moduloAnterior);
-                    } else {
-                        filtradosListaInforeportes.get(indice).setModulo(moduloAnterior);
-                    }
-                    RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-                    RequestContext.getCurrentInstance().execute("PF('repetido').show()");
-                }
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
-                RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listaInforeportesCrear.contains(listaInforeportes.get(indice))) {
-                    if (listaInforeportesModificar.isEmpty()) {
-                        listaInforeportesModificar.add(listaInforeportes.get(indice));
-                    } else if (!listaInforeportesModificar.contains(listaInforeportes.get(indice))) {
-                        listaInforeportesModificar.add(listaInforeportes.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        cambiosPagina = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(indice))) {
-
-                    if (listaInforeportesModificar.isEmpty()) {
-                        listaInforeportesModificar.add(filtradosListaInforeportes.get(indice));
-                    } else if (!listaInforeportesModificar.contains(filtradosListaInforeportes.get(indice))) {
-                        listaInforeportesModificar.add(filtradosListaInforeportes.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        cambiosPagina = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosInforeportes");
     }
@@ -424,64 +228,49 @@ public class ControlAdminreportes implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        infoRegistro = "Cantidad de registros: " + filtradosListaInforeportes.size();
+        contarRegistros();
+
+    }
+
+    public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    public void seleccionarTipo(String estadoTipo, int indice, int celda) {
+    public void contarRegistrosLovIR() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInfoReporte");
+    }
+
+    public void contarRegistrosModulos() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroModulos");
+    }
+
+    public void seleccionarTipo(String estadoTipo, Inforeportes ir, int celda) {
+        inforeporteSeleccionado = ir;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        if (tipoLista == 0) {
-            if (estadoTipo.equals("PDF")) {
-                listaInforeportes.get(indice).setTipo("PDF");
-            } else if (estadoTipo.equals("XHTML")) {
-                listaInforeportes.get(indice).setTipo("HTML");
-            } else if (estadoTipo.equals("XLS")) {
-                listaInforeportes.get(indice).setTipo("XLS");
-            } else if (estadoTipo.equals("EXCEL")) {
-                listaInforeportes.get(indice).setTipo("XLSX");
-            } else if (estadoTipo.equals("TXT")) {
-                listaInforeportes.get(indice).setTipo("TXT");
-            } else if (estadoTipo.equals("CSV")) {
-                listaInforeportes.get(indice).setTipo("CSV");
-            }
+        if (estadoTipo.equals("PDF")) {
+            inforeporteSeleccionado.setTipo("PDF");
+        } else if (estadoTipo.equals("XHTML")) {
+            inforeporteSeleccionado.setTipo("HTML");
+        } else if (estadoTipo.equals("XLS")) {
+            inforeporteSeleccionado.setTipo("XLS");
+        } else if (estadoTipo.equals("EXCEL")) {
+            inforeporteSeleccionado.setTipo("XLSX");
+        } else if (estadoTipo.equals("TXT")) {
+            inforeporteSeleccionado.setTipo("TXT");
+        } else if (estadoTipo.equals("CSV")) {
+            inforeporteSeleccionado.setTipo("CSV");
+        }
 
-            if (!listaInforeportesCrear.contains(listaInforeportes.get(indice))) {
-                if (listaInforeportesModificar.isEmpty()) {
-                    listaInforeportesModificar.add(listaInforeportes.get(indice));
-                } else if (!listaInforeportesModificar.contains(listaInforeportes.get(indice))) {
-                    listaInforeportesModificar.add(listaInforeportes.get(indice));
-                }
-            }
-        } else {
-            if (estadoTipo.equals("PDF")) {
-                filtradosListaInforeportes.get(indice).setTipo("PDF");
-            } else if (estadoTipo.equals("XHTML")) {
-                filtradosListaInforeportes.get(indice).setTipo("HTML");
-            } else if (estadoTipo.equals("XLS")) {
-                filtradosListaInforeportes.get(indice).setTipo("XLS");
-            } else if (estadoTipo.equals("EXCEL")) {
-                filtradosListaInforeportes.get(indice).setTipo("XLSX");
-            } else if (estadoTipo.equals("TXT")) {
-                filtradosListaInforeportes.get(indice).setTipo("TXT");
-            } else if (estadoTipo.equals("CSV")) {
-                filtradosListaInforeportes.get(indice).setTipo("CSV");
-            }
-
-            if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(indice))) {
-                if (listaInforeportesModificar.isEmpty()) {
-                    listaInforeportesModificar.add(filtradosListaInforeportes.get(indice));
-                } else if (!listaInforeportesModificar.contains(filtradosListaInforeportes.get(indice))) {
-                    listaInforeportesModificar.add(filtradosListaInforeportes.get(indice));
-                }
+        if (!listaInforeportesCrear.contains(inforeporteSeleccionado)) {
+            if (listaInforeportesModificar.isEmpty()) {
+                listaInforeportesModificar.add(inforeporteSeleccionado);
+            } else if (!listaInforeportesModificar.contains(inforeporteSeleccionado)) {
+                listaInforeportesModificar.add(inforeporteSeleccionado);
             }
         }
-        if (guardado == true) {
-            guardado = false;
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosInforeportes");
     }
 
@@ -501,7 +290,7 @@ public class ControlAdminreportes implements Serializable {
                 nuevoInforeporte.setTipo("CSV");
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoInforeporte");
-        } else {
+        } else if (tipoNuevo == 2) {
             if (estadoTipo.equals("PDF")) {
                 duplicarInforeporte.setTipo("PDF");
             } else if (estadoTipo.equals("XHTML")) {
@@ -520,25 +309,19 @@ public class ControlAdminreportes implements Serializable {
 
     }
 
-    public void asignarIndex(Integer indice, int dlg, int LND) {
-        index = indice;
+    public void asignarIndex(int dlg, int LND) {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            log.info("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
+            lovlistaInforeportes = null;
+            getLovlistaInforeportes();
+            contarRegistrosLovIR();
             RequestContext.getCurrentInstance().update("formularioDialogos:inforeportesDialogo");
             RequestContext.getCurrentInstance().execute("PF('inforeportesDialogo').show()");
         } else if (dlg == 1) {
+            lovModulos = null;
+            getLovModulos();
+            contarRegistrosModulos();
             RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
             RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
         }
@@ -556,10 +339,13 @@ public class ControlAdminreportes implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosInforeportes");
         filtradosListaInforeportes = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+        activarBuscar = false;
+        activarMostrar = true;
+        RequestContext.getCurrentInstance().update("form:btnBuscarReportes");
+        RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
     }
 
     public void limpiarduplicarInforeportes() {
@@ -570,14 +356,11 @@ public class ControlAdminreportes implements Serializable {
     public void confirmarDuplicar() {
         int pasa = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        cambiosPagina = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         if (!duplicarInforeporte.getCodigo().equals(null) && duplicarInforeporte.getModulo().getNombre() != null) {
             for (int i = 0; i < listaInforeportes.size(); i++) {
                 if (duplicarInforeporte.getCodigo().equals(listaInforeportes.get(i).getCodigo())) {
-                    log.info("El Codigo ya está ahora revisamos modulo en: " + i);
                     if (duplicarInforeporte.getModulo().getNombre().equals(listaInforeportes.get(i).getModulo().getNombre())) {
-                        log.info("El codigo y el módulo ya existen en: " + i);
                         pasa++;
 
                     }
@@ -590,20 +373,13 @@ public class ControlAdminreportes implements Serializable {
             duplicarInforeporte.setSecuencia(l);
             listaInforeportes.add(duplicarInforeporte);
             listaInforeportesCrear.add(duplicarInforeporte);
-
-            index = -1;
-            if (guardado == true) {
-                guardado = false;
-                cambiosPagina = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            inforeporteSeleccionado = duplicarInforeporte;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
-                altoTabla = "305";
+                altoTabla = "275";
+                altoTablaAux = "11";
                 FacesContext c = FacesContext.getCurrentInstance();
-
-                log.info("Desactivar");
-                log.info("TipoLista= " + tipoLista);
                 inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
                 inforeportesCodigos.setFilterStyle("display: none; visibility: hidden;");
                 inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
@@ -623,13 +399,12 @@ public class ControlAdminreportes implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:datosInforeportes");
             duplicarInforeporte = new Inforeportes();
-            infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarInforeporte");
             RequestContext.getCurrentInstance().execute("PF('DuplicarInforeporte').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-            RequestContext.getCurrentInstance().execute("PF('repetido').show()");
+            RequestContext.getCurrentInstance().execute("PF('PF('repetido').show()");
         }
     }
 
@@ -640,60 +415,41 @@ public class ControlAdminreportes implements Serializable {
     public void actualizarInforeportes() {
         RequestContext context = RequestContext.getCurrentInstance();
         Inforeportes i = inforeportesSeleccionado;
-
         if (!listaInforeportes.isEmpty()) {
             listaInforeportes.clear();
             listaInforeportes.add(i);
-
         } else {
             listaInforeportes.add(i);
         }
-        cambiosPagina = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         context.reset("formularioDialogos:LOVInforeportes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVInforeportes').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('inforeportesDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVInforeportes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVInforeportes");
         RequestContext.getCurrentInstance().update("form:datosInforeportes");
         filtradosListaInforeportes = null;
-        inforeportesSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+        activarBuscar = true;
+        activarMostrar = false;
+        RequestContext.getCurrentInstance().update("form:btnBuscarReportes");
+        RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
     }
 
     public void actualizarModulos() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listaInforeportes.get(index).setModulo(moduloSeleccionado);
-                if (!listaInforeportesCrear.contains(listaInforeportes.get(index))) {
-                    if (listaInforeportesModificar.isEmpty()) {
-                        listaInforeportesModificar.add(listaInforeportes.get(index));
-                    } else if (!listaInforeportesModificar.contains(listaInforeportes.get(index))) {
-                        listaInforeportesModificar.add(listaInforeportes.get(index));
-                    }
-                }
-            } else {
-                filtradosListaInforeportes.get(index).setModulo(moduloSeleccionado);
-                if (!listaInforeportesCrear.contains(filtradosListaInforeportes.get(index))) {
-                    if (listaInforeportesModificar.isEmpty()) {
-                        listaInforeportesModificar.add(filtradosListaInforeportes.get(index));
-                    } else if (!listaInforeportesModificar.contains(filtradosListaInforeportes.get(index))) {
-                        listaInforeportesModificar.add(filtradosListaInforeportes.get(index));
-                    }
+            inforeporteSeleccionado.setModulo(moduloSeleccionado);
+            if (!listaInforeportesCrear.contains(inforeporteSeleccionado)) {
+                if (listaInforeportesModificar.isEmpty()) {
+                    listaInforeportesModificar.add(inforeporteSeleccionado);
+                } else if (!listaInforeportesModificar.contains(inforeporteSeleccionado)) {
+                    listaInforeportesModificar.add(inforeporteSeleccionado);
                 }
             }
-            if (guardado == true) {
-                guardado = false;
-                cambiosPagina = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            cambiosPagina = false;
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosInforeportes");
         } else if (tipoActualizacion == 1) {
             nuevoInforeporte.setModulo(moduloSeleccionado);
@@ -706,14 +462,16 @@ public class ControlAdminreportes implements Serializable {
         filtrarLovModulos = null;
         moduloSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVModulos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarM");
         context.reset("formularioDialogos:LOVModulos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVModulos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('modulosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVModulos");
+
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -767,9 +525,12 @@ public class ControlAdminreportes implements Serializable {
 
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        if (index >= 0) {
+        if (inforeporteSeleccionado != null) {
             if (cualCelda == 5) {
-                RequestContext.getCurrentInstance().update("form:modulosDialogo");
+                lovModulos = null;
+                getLovModulos();
+                contarRegistrosModulos();
+                RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -777,20 +538,18 @@ public class ControlAdminreportes implements Serializable {
     }
 
     public void activarCtrlF11() {
-        log.info("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "285";
-            log.info("Activar");
-            log.info("TipoLista= " + tipoLista);
+            altoTabla = "255";
+            altoTablaAux = "10";
             inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
             inforeportesCodigos.setFilterStyle("width: 85% !important;");
             inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
-            inforeportesNombres.setFilterStyle("");
+            inforeportesNombres.setFilterStyle("width: 85% !important;");
             inforeportesContadores = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesContadores");
             inforeportesContadores.setFilterStyle("width: 85% !important;");
             inforeportesNombresReportes = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombresReportes");
-            inforeportesNombresReportes.setFilterStyle("");
+            inforeportesNombresReportes.setFilterStyle("width: 85% !important;");
             inforeportesTipos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesTipos");
             inforeportesTipos.setFilterStyle("width: 85% !important;");
             inforeportesModulos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesModulos");
@@ -799,9 +558,8 @@ public class ControlAdminreportes implements Serializable {
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
-            altoTabla = "305";
-            log.info("Desactivar");
-            log.info("TipoLista= " + tipoLista);
+            altoTabla = "275";
+            altoTablaAux = "11";
             inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
             inforeportesCodigos.setFilterStyle("display: none; visibility: hidden;");
             inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
@@ -826,7 +584,8 @@ public class ControlAdminreportes implements Serializable {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
 
-            altoTabla = "305";
+            altoTabla = "275";
+            altoTablaAux ="11";
             inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
             inforeportesCodigos.setFilterStyle("display: none; visibility: hidden;");
             inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
@@ -848,22 +607,18 @@ public class ControlAdminreportes implements Serializable {
         listaInforeportesBorrar.clear();
         listaInforeportesCrear.clear();
         listaInforeportesModificar.clear();
-        index = -1;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
         k = 0;
         listaInforeportes = null;
         getListaInforeportes();
-        if (listaInforeportes != null && !listaInforeportes.isEmpty()) {
-            inforeporteSeleccionado = listaInforeportes.get(0);
-            infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
-        } else {
-            infoRegistro = "Cantidad de registros: 0";
-        }
+        contarRegistros();
         guardado = true;
-        permitirIndex = true;
-
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:PanelTotal");
+        RequestContext.getCurrentInstance().update("form:datosInforeportes");
+        activarBuscar = false;
+        activarMostrar = true;
+        RequestContext.getCurrentInstance().update("form:btnBuscarReportes");
+        RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
 
     }
 
@@ -871,11 +626,9 @@ public class ControlAdminreportes implements Serializable {
         filtrarlovInforeportes = null;
         inforeportesSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVInforeportes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVInforeportes').clearFilters()");
@@ -886,11 +639,9 @@ public class ControlAdminreportes implements Serializable {
         filtrarLovModulos = null;
         moduloSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVModulos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVModulos').clearFilters()");
@@ -899,13 +650,8 @@ public class ControlAdminreportes implements Serializable {
 
     //MOSTRAR DATOS CELDA
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarInforeportes = listaInforeportes.get(index);
-            }
-            if (tipoLista == 1) {
-                editarInforeportes = filtradosListaInforeportes.get(index);
-            }
+        if (inforeporteSeleccionado != null) {
+            editarInforeportes = inforeporteSeleccionado;
 
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
@@ -929,8 +675,6 @@ public class ControlAdminreportes implements Serializable {
                 cualCelda = -1;
             }
         }
-        index = -1;
-        secRegistro = null;
     }
 
     //EXPORTAR
@@ -940,8 +684,6 @@ public class ControlAdminreportes implements Serializable {
         Exporter exporter = new ExportarPDFTablasAnchas();
         exporter.export(context, tabla, "AdminreportesPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
@@ -950,17 +692,13 @@ public class ControlAdminreportes implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "AdminreportesXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
     //LIMPIAR NUEVO REGISTRO CIUDAD
 
     public void limpiarNuevoInforeporte() {
         nuevoInforeporte = new Inforeportes();
         nuevoInforeporte.setModulo(new Modulos());
-        nuevoInforeporte.getModulo().setNombre(" ");
-        index = -1;
-        secRegistro = null;
+        nuevoInforeporte.getModulo().setNombre("");
     }
 
     //CREAR NOVEDADES
@@ -972,9 +710,7 @@ public class ControlAdminreportes implements Serializable {
             if (!nuevoInforeporte.getCodigo().equals(null) && nuevoInforeporte.getModulo().getNombre() != null) {
                 for (int i = 0; i < listaInforeportes.size(); i++) {
                     if (nuevoInforeporte.getCodigo().equals(listaInforeportes.get(i).getCodigo())) {
-                        log.info("El Codigo ya está ahora revisamos modulo en: " + i);
                         if (nuevoInforeporte.getModulo().getNombre().equals(listaInforeportes.get(i).getModulo().getNombre())) {
-                            log.info("El codigo y el módulo ya existen en: " + i);
                             pasa++;
                         }
                     }
@@ -985,7 +721,7 @@ public class ControlAdminreportes implements Serializable {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
 
-                altoTabla = "305";
+                altoTabla = "275";
                 inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
                 inforeportesCodigos.setFilterStyle("display: none; visibility: hidden;");
                 inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
@@ -1004,7 +740,6 @@ public class ControlAdminreportes implements Serializable {
                 tipoLista = 0;
 
             }
-            //AGREGAR REGISTRO A LA LISTA NOVEDADES .
             k++;
             l = BigInteger.valueOf(k);
             nuevoInforeporte.setSecuencia(l);
@@ -1144,86 +879,55 @@ public class ControlAdminreportes implements Serializable {
                 nuevoInforeporte.setEnviomasivo("N");
             }
 
-            cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             listaInforeportesCrear.add(nuevoInforeporte);
             listaInforeportes.add(nuevoInforeporte);
-            infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            nuevoInforeporte = new Inforeportes();
+            inforeportesSeleccionado = nuevoInforeporte;
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosInforeportes");
-            if (guardado == true) {
-                guardado = false;
-                cambiosPagina = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().execute("PF('NuevoInforeporte').hide()");
-            index = -1;
-            secRegistro = null;
+            nuevoInforeporte = new Inforeportes();
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-            RequestContext.getCurrentInstance().update("repetido').show()");
+            RequestContext.getCurrentInstance().update("PF('repetido').show()");
         }
     }
 
     //BORRAR CIUDADES
     public void borrarInforeportes() {
 
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listaInforeportesModificar.isEmpty() && listaInforeportesModificar.contains(listaInforeportes.get(index))) {
-                    int modIndex = listaInforeportesModificar.indexOf(listaInforeportes.get(index));
-                    listaInforeportesModificar.remove(modIndex);
-                    listaInforeportesBorrar.add(listaInforeportes.get(index));
-                } else if (!listaInforeportesCrear.isEmpty() && listaInforeportesCrear.contains(listaInforeportes.get(index))) {
-                    int crearIndex = listaInforeportesCrear.indexOf(listaInforeportes.get(index));
-                    listaInforeportesCrear.remove(crearIndex);
-                } else {
-                    listaInforeportesBorrar.add(listaInforeportes.get(index));
-                }
-                listaInforeportes.remove(index);
-                infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
-
+        if (inforeporteSeleccionado != null) {
+            if (!listaInforeportesModificar.isEmpty() && listaInforeportesModificar.contains(inforeporteSeleccionado)) {
+                int modIndex = listaInforeportesModificar.indexOf(inforeporteSeleccionado);
+                listaInforeportesModificar.remove(modIndex);
+                listaInforeportesBorrar.add(inforeporteSeleccionado);
+            } else if (!listaInforeportesCrear.isEmpty() && listaInforeportesCrear.contains(inforeporteSeleccionado)) {
+                int crearIndex = listaInforeportesCrear.indexOf(inforeporteSeleccionado);
+                listaInforeportesCrear.remove(crearIndex);
+            } else {
+                listaInforeportesBorrar.add(inforeporteSeleccionado);
             }
+            listaInforeportes.remove(inforeporteSeleccionado);
 
             if (tipoLista == 1) {
-                if (!listaInforeportesModificar.isEmpty() && listaInforeportesModificar.contains(filtradosListaInforeportes.get(index))) {
-                    int modIndex = listaInforeportesModificar.indexOf(filtradosListaInforeportes.get(index));
-                    listaInforeportesModificar.remove(modIndex);
-                    listaInforeportesBorrar.add(filtradosListaInforeportes.get(index));
-                } else if (!listaInforeportesCrear.isEmpty() && listaInforeportesCrear.contains(filtradosListaInforeportes.get(index))) {
-                    int crearIndex = listaInforeportesCrear.indexOf(filtradosListaInforeportes.get(index));
-                    listaInforeportesCrear.remove(crearIndex);
-                } else {
-                    listaInforeportesBorrar.add(filtradosListaInforeportes.get(index));
-                }
-                int CIndex = listaInforeportes.indexOf(filtradosListaInforeportes.get(index));
-                listaInforeportes.remove(CIndex);
-                filtradosListaInforeportes.remove(index);
-                infoRegistro = "Cantidad de registros: " + filtradosListaInforeportes.size();
-
+                filtradosListaInforeportes.remove(inforeporteSeleccionado);
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosInforeportes");
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
 
-            index = -1;
-            secRegistro = null;
-
-            if (guardado == true) {
-                guardado = false;
-                cambiosPagina = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            inforeportesSeleccionado = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 
     //GUARDAR
     public void guardarCambiosInforeportes() {
         if (guardado == false) {
-            log.info("Realizando Operaciones Novedades");
-
             if (!listaInforeportesBorrar.isEmpty()) {
                 for (int i = 0; i < listaInforeportesBorrar.size(); i++) {
                     log.info("Borrando..." + listaInforeportesBorrar.size());
@@ -1415,128 +1119,96 @@ public class ControlAdminreportes implements Serializable {
                 infoRegistro = "Cantidad de registros: 0";
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            cambiosPagina = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosInforeportes");
             guardado = true;
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             //  k = 0;
         }
-        index = -1;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
     }
 
     //DUPLICAR CIUDAD
     public void duplicarI() {
-        if (index >= 0) {
+        if (inforeporteSeleccionado != null) {
             duplicarInforeporte = new Inforeportes();
-
-            if (tipoLista == 0) {
-                duplicarInforeporte.setCodigo(listaInforeportes.get(index).getCodigo());
-                duplicarInforeporte.setNombre(listaInforeportes.get(index).getNombre());
-                duplicarInforeporte.setContador(listaInforeportes.get(index).getContador());
-                duplicarInforeporte.setNombrereporte(listaInforeportes.get(index).getNombrereporte());
-                duplicarInforeporte.setTipo(listaInforeportes.get(index).getTipo());
-                duplicarInforeporte.setModulo(listaInforeportes.get(index).getModulo());
-                duplicarInforeporte.setFecdesde(listaInforeportes.get(index).getFecdesde());
-                duplicarInforeporte.setFechasta(listaInforeportes.get(index).getFechasta());
-                duplicarInforeporte.setEmdesde(listaInforeportes.get(index).getEmdesde());
-                duplicarInforeporte.setEmhasta(listaInforeportes.get(index).getEmhasta());
-                duplicarInforeporte.setLocalizacion(listaInforeportes.get(index).getLocalizacion());
-                duplicarInforeporte.setEstado(listaInforeportes.get(index).getEstado());
-                duplicarInforeporte.setGrupo(listaInforeportes.get(index).getGrupo());
-                duplicarInforeporte.setTercero(listaInforeportes.get(index).getTercero());
-                duplicarInforeporte.setTrabajador(listaInforeportes.get(index).getTrabajador());
-                duplicarInforeporte.setTipotrabajador(listaInforeportes.get(index).getTipotrabajador());
-                duplicarInforeporte.setSolicitud(listaInforeportes.get(index).getSolicitud());
-                duplicarInforeporte.setCiudad(listaInforeportes.get(index).getCiudad());
-                duplicarInforeporte.setTipotelefono(listaInforeportes.get(index).getTipotelefono());
-                duplicarInforeporte.setEstadocivil(listaInforeportes.get(index).getEstadocivil());
-                duplicarInforeporte.setDeporte(listaInforeportes.get(index).getDeporte());
-                duplicarInforeporte.setIdioma(listaInforeportes.get(index).getIdioma());
-                duplicarInforeporte.setAficion(listaInforeportes.get(index).getAficion());
-                duplicarInforeporte.setJefedivision(listaInforeportes.get(index).getJefedivision());
-                duplicarInforeporte.setRodamiento(listaInforeportes.get(index).getRodamiento());
-                duplicarInforeporte.setEnviomasivo(listaInforeportes.get(index).getEnviomasivo());
-
-            }
-            if (tipoLista == 1) {
-                duplicarInforeporte.setCodigo(filtradosListaInforeportes.get(index).getCodigo());
-                duplicarInforeporte.setNombre(filtradosListaInforeportes.get(index).getNombre());
-                duplicarInforeporte.setContador(filtradosListaInforeportes.get(index).getContador());
-                duplicarInforeporte.setNombrereporte(filtradosListaInforeportes.get(index).getNombrereporte());
-                duplicarInforeporte.setTipo(filtradosListaInforeportes.get(index).getTipo());
-                duplicarInforeporte.setModulo(filtradosListaInforeportes.get(index).getModulo());
-                duplicarInforeporte.setFecdesde(filtradosListaInforeportes.get(index).getFecdesde());
-                duplicarInforeporte.setFechasta(filtradosListaInforeportes.get(index).getFechasta());
-                duplicarInforeporte.setEmdesde(filtradosListaInforeportes.get(index).getEmdesde());
-                duplicarInforeporte.setEmhasta(filtradosListaInforeportes.get(index).getEmhasta());
-                duplicarInforeporte.setLocalizacion(filtradosListaInforeportes.get(index).getLocalizacion());
-                duplicarInforeporte.setEstado(filtradosListaInforeportes.get(index).getEstado());
-                duplicarInforeporte.setGrupo(filtradosListaInforeportes.get(index).getGrupo());
-                duplicarInforeporte.setTercero(filtradosListaInforeportes.get(index).getTercero());
-                duplicarInforeporte.setTrabajador(filtradosListaInforeportes.get(index).getTrabajador());
-                duplicarInforeporte.setTipotrabajador(filtradosListaInforeportes.get(index).getTipotrabajador());
-                duplicarInforeporte.setSolicitud(filtradosListaInforeportes.get(index).getSolicitud());
-                duplicarInforeporte.setCiudad(filtradosListaInforeportes.get(index).getCiudad());
-                duplicarInforeporte.setTipotelefono(filtradosListaInforeportes.get(index).getTipotelefono());
-                duplicarInforeporte.setEstadocivil(filtradosListaInforeportes.get(index).getEstadocivil());
-                duplicarInforeporte.setDeporte(filtradosListaInforeportes.get(index).getDeporte());
-                duplicarInforeporte.setIdioma(filtradosListaInforeportes.get(index).getIdioma());
-                duplicarInforeporte.setAficion(filtradosListaInforeportes.get(index).getAficion());
-                duplicarInforeporte.setJefedivision(filtradosListaInforeportes.get(index).getJefedivision());
-                duplicarInforeporte.setRodamiento(filtradosListaInforeportes.get(index).getRodamiento());
-                duplicarInforeporte.setEnviomasivo(filtradosListaInforeportes.get(index).getEnviomasivo());
-            }
+            duplicarInforeporte.setCodigo(inforeporteSeleccionado.getCodigo());
+            duplicarInforeporte.setNombre(inforeporteSeleccionado.getNombre());
+            duplicarInforeporte.setContador(inforeporteSeleccionado.getContador());
+            duplicarInforeporte.setNombrereporte(inforeporteSeleccionado.getNombrereporte());
+            duplicarInforeporte.setTipo(inforeporteSeleccionado.getTipo());
+            duplicarInforeporte.setModulo(inforeporteSeleccionado.getModulo());
+            duplicarInforeporte.setFecdesde(inforeporteSeleccionado.getFecdesde());
+            duplicarInforeporte.setFechasta(inforeporteSeleccionado.getFechasta());
+            duplicarInforeporte.setEmdesde(inforeporteSeleccionado.getEmdesde());
+            duplicarInforeporte.setEmhasta(inforeporteSeleccionado.getEmhasta());
+            duplicarInforeporte.setLocalizacion(inforeporteSeleccionado.getLocalizacion());
+            duplicarInforeporte.setEstado(inforeporteSeleccionado.getEstado());
+            duplicarInforeporte.setGrupo(inforeporteSeleccionado.getGrupo());
+            duplicarInforeporte.setTercero(inforeporteSeleccionado.getTercero());
+            duplicarInforeporte.setTrabajador(inforeporteSeleccionado.getTrabajador());
+            duplicarInforeporte.setTipotrabajador(inforeporteSeleccionado.getTipotrabajador());
+            duplicarInforeporte.setSolicitud(inforeporteSeleccionado.getSolicitud());
+            duplicarInforeporte.setCiudad(inforeporteSeleccionado.getCiudad());
+            duplicarInforeporte.setTipotelefono(inforeporteSeleccionado.getTipotelefono());
+            duplicarInforeporte.setEstadocivil(inforeporteSeleccionado.getEstadocivil());
+            duplicarInforeporte.setDeporte(inforeporteSeleccionado.getDeporte());
+            duplicarInforeporte.setIdioma(inforeporteSeleccionado.getIdioma());
+            duplicarInforeporte.setAficion(inforeporteSeleccionado.getAficion());
+            duplicarInforeporte.setJefedivision(inforeporteSeleccionado.getJefedivision());
+            duplicarInforeporte.setRodamiento(inforeporteSeleccionado.getRodamiento());
+            duplicarInforeporte.setEnviomasivo(inforeporteSeleccionado.getEnviomasivo());
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInforeporte");
             RequestContext.getCurrentInstance().execute("PF('DuplicarInforeporte').show()");
-            index = -1;
-            secRegistro = null;
         }
     }
 
     //RASTROS 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        log.info("lol");
-        if (!listaInforeportes.isEmpty()) {
-            if (secRegistro != null) {
-                log.info("lol 2");
-                int result = administrarRastros.obtenerTabla(secRegistro, "INFOREPORTES");
-                log.info("resultado: " + result);
-                if (result == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (result == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (result == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (result == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (result == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (inforeporteSeleccionado != null) {
+            log.info("lol 2");
+            int result = administrarRastros.obtenerTabla(inforeporteSeleccionado.getSecuencia(), "INFOREPORTES");
+            log.info("resultado: " + result);
+            if (result == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (result == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (result == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (result == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (result == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("INFOREPORTES")) {
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
+    }
+
+    public void activarLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void salir() {
         limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            altoTabla = "305";
+            altoTabla = "275";
+            altoTablaAux = "11";
             inforeportesCodigos = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesCodigos");
             inforeportesCodigos.setFilterStyle("display: none; visibility: hidden;");
             inforeportesNombres = (Column) c.getViewRoot().findComponent("form:datosInforeportes:inforeportesNombres");
@@ -1558,12 +1230,12 @@ public class ControlAdminreportes implements Serializable {
         listaInforeportesBorrar.clear();
         listaInforeportesCrear.clear();
         listaInforeportesModificar.clear();
-        index = -1;
-        secRegistro = null;
+        inforeportesSeleccionado = null;
         k = 0;
         listaInforeportes = null;
         guardado = true;
-        permitirIndex = true;
+        activarBuscar = false;
+        activarMostrar = true;
         navegar("atras");
     }
 
@@ -1588,7 +1260,9 @@ public class ControlAdminreportes implements Serializable {
     }
 
     public List<Inforeportes> getLovlistaInforeportes() {
-        lovlistaInforeportes = administrarInforeportes.inforeportes();
+        if (lovlistaInforeportes == null) {
+            lovlistaInforeportes = administrarInforeportes.inforeportes();
+        }
         return lovlistaInforeportes;
     }
 
@@ -1613,7 +1287,9 @@ public class ControlAdminreportes implements Serializable {
     }
 
     public List<Modulos> getLovModulos() {
-        lovModulos = administrarInforeportes.lovmodulos();
+        if (lovModulos == null) {
+            lovModulos = administrarInforeportes.lovmodulos();
+        }
         return lovModulos;
     }
 
@@ -1657,6 +1333,14 @@ public class ControlAdminreportes implements Serializable {
         this.altoTabla = altoTabla;
     }
 
+    public String getAltoTablaAux() {
+        return altoTablaAux;
+    }
+
+    public void setAltoTablaAux(String altoTablaAux) {
+        this.altoTablaAux = altoTablaAux;
+    }
+    
     public Inforeportes getNuevoInforeporte() {
         return nuevoInforeporte;
     }
@@ -1671,22 +1355,6 @@ public class ControlAdminreportes implements Serializable {
 
     public void setDuplicarInforeporte(Inforeportes duplicarInforeporte) {
         this.duplicarInforeporte = duplicarInforeporte;
-    }
-
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
-    public boolean isCambiosPagina() {
-        return cambiosPagina;
-    }
-
-    public void setCambiosPagina(boolean cambiosPagina) {
-        this.cambiosPagina = cambiosPagina;
     }
 
     public Inforeportes getInforeporteSeleccionado() {
@@ -1707,7 +1375,7 @@ public class ControlAdminreportes implements Serializable {
 
     public String getInfoRegistroModulo() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosInforeportes");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVModulos");
         infoRegistroModulo = String.valueOf(tabla.getRowCount());
         return infoRegistroModulo;
     }
@@ -1736,6 +1404,30 @@ public class ControlAdminreportes implements Serializable {
 
     public void setInfoRegistro(String infoRegistro) {
         this.infoRegistro = infoRegistro;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public boolean isActivarBuscar() {
+        return activarBuscar;
+    }
+
+    public void setActivarBuscar(boolean activarBuscar) {
+        this.activarBuscar = activarBuscar;
+    }
+
+    public boolean isActivarMostrar() {
+        return activarMostrar;
+    }
+
+    public void setActivarMostrar(boolean activarMostrar) {
+        this.activarMostrar = activarMostrar;
     }
 
 }

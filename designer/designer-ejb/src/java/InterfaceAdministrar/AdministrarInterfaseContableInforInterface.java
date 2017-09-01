@@ -13,6 +13,7 @@ import Entidades.ParametrosEstructuras;
 import Entidades.Procesos;
 import Entidades.SolucionesNodos;
 import Entidades.UsuariosInterfases;
+import excepciones.ExcepcionBD;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,10 @@ public interface AdministrarInterfaseContableInforInterface {
 
     public void crearParametroContable(ParametrosContables parametro);
 
+    public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar);
+
+    public void borrarRegistroIntercon(List<InterconInfor> listBorrar);
+
     public List<SolucionesNodos> obtenerSolucionesNodosParametroContable(Date fechaInicial, Date fechaFinal);
 
     public List<InterconInfor> obtenerInterconInforParametroContable(Date fechaInicial, Date fechaFinal);
@@ -49,49 +54,34 @@ public interface AdministrarInterfaseContableInforInterface {
 
     public ParametrosEstructuras parametrosLiquidacion();
 
-    public void actualizarFlagProcesoAnularInterfaseContableInfor(Date fechaIni, Date fechaFin);
+    public void actualizarFlagInterconInfor(Date fechaInicial, Date fechaFinal, Short empresa);
 
     public Date buscarFechaHastaVWActualesFechas();
 
     public Date buscarFechaDesdeVWActualesFechas();
 
-    public void ejeuctarPKGUbicarnuevointercon_Infor(BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso);
-
-    public void cambiarFlaginterconContableInfor(Date fechaIni, Date fechaFin, BigInteger proceso);
-
-    public void ejecutarDeleteInterconSAP(Date fechaIni, Date fechaFin, BigInteger proceso);
-
-    public void cerrarProcesoLiquidacion(Date fechaIni, Date fechaFin, BigInteger proceso);
-
-    public Integer obtenerContadorFlagGeneradoFechasSAP(Date fechaIni, Date fechaFin);
-
-    public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin);
-
-//    public List<VWMensajeSAPBOV8> obtenerErroresSAPBOV8();
-    public int contarProcesosContabilizadosInterconInfor(Date fechaInicial, Date fechaFinal);
-
-    public String obtenerPathServidorWeb();
-
-    public String obtenerPathProceso();
-
-    public String obtenerDescripcionProcesoArchivo(BigInteger proceso);
-
-    public void ejecutarPKGCrearArchivoPlano(Date fechaIni, Date fechaFin, BigInteger proceso, String descripcionProceso, String nombreArchivo);
-
-    public String obtenerEnvioInterfaseContabilidadEmpresa(short codigoEmpresa);
-
-    public UsuariosInterfases obtenerUsuarioInterfaseContabilizacion();
-
-    public void cerrarProcesoContabilizacion(Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
+    public void ejecutarPKGUbicarnuevointercon_Infor(BigInteger secuencia, Date fechaIni, Date fechaFin, BigInteger proceso);
 
     public void actualizarFlagInterconInforProcesoDeshacer(Date fechaInicial, Date fechaFinal, BigInteger proceso);
 
     public void eliminarInterconInfor(Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
 
-    public void actualizarFlagInterconInfor(Date fechaInicial, Date fechaFinal, Short empresa);
+    public int contarProcesosContabilizadosInterconInfor(Date fechaInicial, Date fechaFinal);
 
-    public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar);
+    public void cerrarProcesoContabilizacion(Date fechaIni, Date fechaFin, Short empresa, BigInteger proceso);
 
-    public void borrarRegistroIntercon(List<InterconInfor> listBorrar);
+    public Integer obtenerContadorFlagGeneradoFechasInfor(Date fechaIni, Date fechaFin);
+
+    public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin) throws ExcepcionBD;
+
+    public String obtenerDescripcionProcesoArchivo(BigInteger proceso);
+
+    public String obtenerPathServidorWeb();
+
+    public String obtenerPathProceso();
+
+    public String ejecutarPKGCrearArchivoPlano(Date fechaIni, Date fechaFin, BigInteger CodigoEmpresa, BigInteger proceso, String nombreArchivo);
+
+    public UsuariosInterfases obtenerUsuarioInterfaseContabilizacion();
 
 }

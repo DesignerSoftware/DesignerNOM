@@ -1,7 +1,9 @@
 package Persistencia;
 
 import Entidades.AportesEntidades;
-import Entidades.TercerosAux;
+import Entidades.AportesEntidadesAux;
+import Entidades.Empleados;
+import Entidades.EmpleadosAux;
 import InterfacePersistencia.PersistenciaAportesEntidadesInterface;
 import java.math.BigInteger;
 import java.sql.SQLException;
@@ -102,14 +104,27 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             List<AportesEntidades> aportesEntidades = query.getResultList();
             if (aportesEntidades != null) {
                 if (!aportesEntidades.isEmpty()) {
-                    for (int i = 0; i < aportesEntidades.size(); i++) {
-                        if (aportesEntidades.get(i).getTercero() != null) {
-                            em.clear();
-                            String sqlAux = "select t.secuencia SECUENCIA,t.nit NITTERCERO, t.nombre NOMBRETERCERO from TERCEROS t where t.secuencia = " + aportesEntidades.get(i).getTercero();
-                            Query query2 = em.createNativeQuery(sqlAux, TercerosAux.class);
-                            TercerosAux tAux = (TercerosAux) query2.getSingleResult();
-                            aportesEntidades.get(i).setNombretercero(tAux.getNombretercero());
-                            aportesEntidades.get(i).setNittercero(tAux.getNittercero());
+                    em.clear();
+                    Query query2 = em.createNativeQuery("SELECT P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '|| P.NOMBRE NOMBRECOMPLETO , E.CODIGOEMPLEADO, a.secuencia SECUENCIA,t.nit NITTERCERO, t.nombre NOMBRETERCERO \n"
+                            + " FROM AportesEntidades a ,TERCEROS t, Empleados e,Personas p where A.TERCERO=T.SECUENCIA(+) \n"
+                            + " and a.empleado=e.secuencia and p.secuencia=e.persona\n"
+                            + " AND a.empresa = ? AND a.ano = ? AND a.mes = ? \n"
+                            + " AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado)  ", AportesEntidadesAux.class);
+                    query2.setParameter(1, secEmpresa);
+                    query2.setParameter(2, ano);
+                    query2.setParameter(3, mes);
+                    List<AportesEntidadesAux> listaAportesAux = query2.getResultList();
+                    log.warn("PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio() Ya consulo Transients");
+                    if (listaAportesAux != null) {
+                        if (!listaAportesAux.isEmpty()) {
+                            log.warn("PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio() listaEmpleadosAux.size(): " + listaAportesAux.size());
+                            for (AportesEntidadesAux recAux : listaAportesAux) {
+                                for (AportesEntidades recAporte : aportesEntidades) {
+                                    if (recAux.getSecuencia().equals(recAporte.getSecuencia())) {
+                                        recAporte.llenarTransients(recAux);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -254,8 +269,8 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
                         if (listAportesEmpleado.get(i).getTercero() != null) {
                             em.clear();
                             String sqlAux = "select t.secuencia SECUENCIA,t.nit NITTERCERO, t.nombre NOMBRETERCERO from TERCEROS t where t.secuencia = " + listAportesEmpleado.get(i).getTercero();
-                            Query query2 = em.createNativeQuery(sqlAux, TercerosAux.class);
-                            TercerosAux tAux = (TercerosAux) query2.getSingleResult();
+                            Query query2 = em.createNativeQuery(sqlAux, AportesEntidadesAux.class);
+                            AportesEntidadesAux tAux = (AportesEntidadesAux) query2.getSingleResult();
                             listAportesEmpleado.get(i).setNombretercero(tAux.getNombretercero());
                             listAportesEmpleado.get(i).setNittercero(tAux.getNittercero());
                         }

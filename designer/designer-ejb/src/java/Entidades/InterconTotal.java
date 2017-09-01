@@ -67,6 +67,10 @@ public class InterconTotal implements Serializable {
     private CentrosCostos centrocosto;
     @Transient
     private Terceros terceroRegistro;
+    @Transient
+    private String nombreempleado;
+    @Transient
+    private String nombreproceso;
 
     public InterconTotal() {
     }
@@ -219,6 +223,22 @@ public class InterconTotal implements Serializable {
         this.centrocosto = centrocosto;
     }
 
+    public String getNombreempleado() {
+        return nombreempleado;
+    }
+
+    public void setNombreempleado(String nombreempleado) {
+        this.nombreempleado = nombreempleado;
+    }
+
+    public String getNombreproceso() {
+        return nombreproceso;
+    }
+
+    public void setNombreproceso(String nombreproceso) {
+        this.nombreproceso = nombreproceso;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -242,6 +262,11 @@ public class InterconTotal implements Serializable {
     @Override
     public String toString() {
         return "Entidades.InterconTotal[ secuencia=" + secuencia + " ]";
+    }
+
+    public void llenarTransients(InterconAux aporteAux) {
+        this.nombreproceso = aporteAux.getNombreproceso();
+        this.nombreempleado = aporteAux.getNombreempleado();
     }
 
 }

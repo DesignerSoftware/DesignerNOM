@@ -332,14 +332,14 @@
 
                                 <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarContabilizados()}"/>
 
-                                <p:column headerText="#{msg['empleado']}" sortBy="#{infoI.empleado.nombreCompleto}" filterBy="#{infoI.empleado.nombreCompleto}"   width="133"
+                                <p:column headerText="#{msg['empleado']}" sortBy="#{infoI.nombreempleado}" filterBy="#{infoI.nombreempleado}"   width="133"
                                           id="interEmpleado"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
-                                            <h:outputText value="#{infoI.empleado.nombreCompleto}"/>
+                                            <h:outputText value="#{infoI.nombreempleado}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText autocomplete="off" id="interconEmpleado" readonly="true" value="#{infoI.empleado.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText autocomplete="off" id="interconEmpleado" readonly="true" value="#{infoI.nombreempleado}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"> 
                                                 <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
@@ -850,7 +850,7 @@
 
                     <!-- -->
                     <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.empleado.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarIntercon.nombreempleado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
@@ -987,7 +987,7 @@
 
                         <p:column headerText="#{msg['empleadoX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['empleadoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoEXI.empleado.nombreCompleto}"/>
+                            <h:outputText value="#{infoEXI.nombreempleado}"/>
                         </p:column>  
 
                         <p:column headerText="#{msg['terceroX']}">                                  

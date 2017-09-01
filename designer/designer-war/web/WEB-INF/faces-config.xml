@@ -3689,7 +3689,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigenciasEvents</from-outcome>
+         <from-outcome>emplvigenciaevento</from-outcome>
          <to-view-id>/emplvigenciaevento.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3698,7 +3698,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciaevento.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplIndv</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3740,7 +3740,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>infoAdicional</from-outcome>
+         <from-outcome>emplinformacionadicional</from-outcome>
          <to-view-id>/emplinformacionadicional.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3758,7 +3758,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>infoDeportesPersona</from-outcome>
+         <from-outcome>vigenciasdeportes</from-outcome>
          <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -8196,6 +8196,23 @@
       <navigation-case>
          <from-outcome>adminreportes</from-outcome>
          <to-view-id>/adminreportes.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/nominaf.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>interfasecontableinfor</from-outcome>
+         <to-view-id>/interfasecontableinfor.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/interfasecontableinfor.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
