@@ -155,7 +155,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             if (tx.isActive()) {
                 tx.rollback();
             }
-            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException || e instanceof RuntimeException) {
                 return e.toString();
             } else {
                 return "ERROR_PERSISTENCIA";
@@ -188,7 +188,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             if (tx.isActive()) {
                 tx.rollback();
             }
-            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException) {
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException || e instanceof RuntimeException) {
                 return e.toString();
             } else {
                 return "ERROR_PERSISTENCIA";

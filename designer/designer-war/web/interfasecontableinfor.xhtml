@@ -457,26 +457,8 @@
                                     </f:facet>
                                 </p:column>
 
-<!--                                <p:column headerText="#{msg['proyecto']}" sortBy="#{infoI.proyecto.nombreproyecto}" filterBy="#{infoI.proyecto.nombreproyecto}" filterMatchMode="contains"  
-                                          id="interProyecto" width="133" filterStyle="display: none; visibility: hidden;">      
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoI.proyecto.nombreproyecto}"/>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText autocomplete="off" id="interconProyecto" readonly="true" value="#{infoI.proyecto.nombreproyecto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
-                                                         onselect="posicionIntercon([{name: 'n', value: '8'}, {name: 't', value: '#{indiceI}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
-                                            </p:inputText>   
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value=""/>
-                                    </f:facet>
-                                </p:column>-->
                             </p:dataTable> 
                             <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableInfor.infoRegistroContabilizados}" style="position: relative; left: 3px; top: -1px; font-weight: bold;"/>
-
 
 <!--                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 8px; left: 313px;"/></strong>
                             <p:inputText autocomplete="off" id="totalDInter" readonly="true" value="#{controlInterfaseContableInfor.totalDInter}" style="position: relative; top: 8px; left: 316px; width: 90px; height: 10px; text-align: left; border-color: transparent">
@@ -562,7 +544,7 @@
                                          background-size: 100% 100%; background-repeat: no-repeat; " id="PLANO" value="Generar Plano" 
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                          actionListener="#{controlInterfaseContableInfor.actionBtnGenerarPlano()}" process="@this" icon=""/>
-                        <p:commandButton style="position: relative; left: 5px; top: 465px;text-align: center; height: 18px; width: 140px;" id="CERRAR" value="Cerrar P.C." icon=""
+                        <p:commandButton style="position: relative;color: red; left: 5px; top: 465px;text-align: center; height: 18px; width: 140px;" id="CERRAR" value="Cerrar P.C." icon=""
                                          actionListener="#{controlInterfaseContableInfor.inicioCerrarPeriodoContable()}" process="@this"/>
                         <p:tooltip  for="CERRAR" value="#{msg['cerrarPeriodo']}"/>
                         <p:commandButton id="ACEPTAR" value="" class="cssBotonAceptar" onclick="PF('confirmarGuardar').show();"  process="@this" disabled="#{controlInterfaseContableInfor.guardado}"/>

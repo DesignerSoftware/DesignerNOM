@@ -162,8 +162,8 @@ public class ControlInterfaseContableTotal implements Serializable {
         activarDeshacer = true;
         msnFechasActualizar = "";
         tipoPlano = 1;
-        altoTablaGenerada = "65";
-        altoTablaIntercon = "65";
+        altoTablaGenerada = "80";
+        altoTablaIntercon = "95";
         tipoListaGenerada = 0;
         tipoListaIntercon = 0;
         banderaGenerado = 0;
@@ -683,7 +683,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().update("form:totalCInter");
             if (banderaGenerado == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                altoTablaGenerada = "65";
+                altoTablaGenerada = "80";
                 genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
                 genProceso.setFilterStyle("display: none; visibility: hidden;");
                 genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
@@ -705,7 +705,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             }
             if (banderaIntercon == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                altoTablaIntercon = "65";
+                altoTablaIntercon = "95";
                 interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
                 interEmpleado.setFilterStyle("display: none; visibility: hidden;");
                 interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
@@ -955,7 +955,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void cancelarModificaciones() {
         if (banderaGenerado == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            altoTablaGenerada = "65";
+            altoTablaGenerada = "80";
             genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
             genProceso.setFilterStyle("display: none; visibility: hidden;");
             genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
@@ -977,7 +977,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         if (banderaIntercon == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            altoTablaIntercon = "65";
+            altoTablaIntercon = "95";
             interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
             interEmpleado.setFilterStyle("display: none; visibility: hidden;");
             interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
@@ -1129,7 +1129,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         limpiarListasValor();
         if (banderaGenerado == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            altoTablaGenerada = "65";
+            altoTablaGenerada = "80";
             genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
             genProceso.setFilterStyle("display: none; visibility: hidden;");
             genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
@@ -1151,7 +1151,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         if (banderaIntercon == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            altoTablaIntercon = "65";
+            altoTablaIntercon = "95";
             interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
             interEmpleado.setFilterStyle("display: none; visibility: hidden;");
             interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
@@ -1443,7 +1443,7 @@ public class ControlInterfaseContableTotal implements Serializable {
                     RequestContext.getCurrentInstance().update("form:PLANO");
                     if (banderaGenerado == 1) {
                         FacesContext c = FacesContext.getCurrentInstance();
-                        altoTablaGenerada = "65";
+                        altoTablaGenerada = "80";
                         genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
                         genProceso.setFilterStyle("display: none; visibility: hidden;");
                         genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
@@ -1465,7 +1465,7 @@ public class ControlInterfaseContableTotal implements Serializable {
                     }
                     if (banderaIntercon == 1) {
                         FacesContext c = FacesContext.getCurrentInstance();
-                        altoTablaIntercon = "65";
+                        altoTablaIntercon = "95";
                         interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
                         interEmpleado.setFilterStyle("display: none; visibility: hidden;");
                         interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
@@ -1633,7 +1633,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (banderaGenerado == 0 && banderaIntercon == 0) {
-            altoTablaGenerada = "35";
+            altoTablaGenerada = "60";
             genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
             genProceso.setFilterStyle("width: 85% !important;");
             genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
@@ -1649,7 +1649,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
             genConcepto.setFilterStyle("width: 85% !important;");
 
-            altoTablaIntercon = "35";
+            altoTablaIntercon = "75";
             interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
             interEmpleado.setFilterStyle("width: 85% !important;");
             interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
@@ -1669,8 +1669,8 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosIntercon");
             RequestContext.getCurrentInstance().update("form:datosGenerados");
         } else if (banderaGenerado == 1 && banderaIntercon == 1) {
-            altoTablaGenerada = "65";
-            altoTablaIntercon = "65";
+            altoTablaGenerada = "80";
+            altoTablaIntercon = "95";
             genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
             genProceso.setFilterStyle("display: none; visibility: hidden;");
             genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
