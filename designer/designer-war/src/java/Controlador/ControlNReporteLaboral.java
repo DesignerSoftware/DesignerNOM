@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.LinkedHashMap;
@@ -128,8 +129,12 @@ public class ControlNReporteLaboral implements Serializable {
    private String userAgent;
    private boolean activarLov;
    private Map<BigInteger, Object> mapTipos = new LinkedHashMap<>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlNReporteLaboral() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       activoMostrarTodos = true;
       activoBuscarReporte = false;
       activarEnvio = true;
@@ -706,7 +711,16 @@ public class ControlNReporteLaboral implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNReporteLaboral.listEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarNReporteLaboral.listEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 

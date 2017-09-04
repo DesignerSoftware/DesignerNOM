@@ -100,7 +100,7 @@
 
                      <p:dataTable id="datosProceso" widgetVar="datosProceso" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="position: relative; border: 1px; text-align: left;width: 810px;"                           
                                   value="#{controlProceso.listaProcesos}" scrollable="true" scrollHeight="#{controlProceso.altoTablaProcesos}" scrollWidth="825"
-                                  filteredValue="#{controlProceso.filtrarListaProcesos}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  filteredValue="#{controlProceso.filtrarListaProcesos}" emptyMessage="#{msg['vacio']}" selectionMode="single" liveScroll="true" scrollRows="14"
                                   editable="true" editMode="cell" selection="#{controlProceso.procesoSeleccionado}">
 
                         <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(0)}"/>
@@ -287,7 +287,7 @@
 
                      <p:dataTable id="datosFormulaProceso" widgetVar="datosFormulaProceso" var="infoFP" rowKey="#{infoFP.secuencia}" rowIndexVar="indiceFP" style="width: 310px;"
                                   value="#{controlProceso.listaFormulasProcesos}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="310"
-                                  filteredValue="#{controlProceso.filtrarListaFormulasProcesos}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  filteredValue="#{controlProceso.filtrarListaFormulasProcesos}" emptyMessage="#{msg['vacio']}" selectionMode="single" liveScroll="true" scrollRows="14"
                                   editable="true" editMode="cell"  selection="#{controlProceso.formulaProcesoSeleccionada}">
 
                         <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(1)}"/>
@@ -335,7 +335,7 @@
 
                      <p:dataTable id="datosOperando" widgetVar="datosOperando" var="infoOL" rowKey="#{infoOL.secuencia}" rowIndexVar="indiceOL" style="width: 485px"
                                   value="#{controlProceso.listaOperandosLogs}" scrollable="true" scrollHeight="#{controlProceso.altoTablaForProYOperLogs}" scrollWidth="485"
-                                  filteredValue="#{controlProceso.filtrarListaOperandosLogs}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  filteredValue="#{controlProceso.filtrarListaOperandosLogs}" emptyMessage="#{msg['vacio']}" selectionMode="single" liveScroll="true" scrollRows="14"
                                   editable="true" editMode="cell"  selection="#{controlProceso.operandoLogSeleccionado}">
 
                         <p:ajax event="filter" listener="#{controlProceso.eventoFiltrar(2)}"/>

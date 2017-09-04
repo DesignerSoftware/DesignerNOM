@@ -1656,7 +1656,7 @@ public class ControlNReporteNomina implements Serializable {
    public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
       String h = "999999999999999999999999999999";
       BigDecimal b = new BigDecimal(h);
-       System.out.println("emplHasta: " + emplHasta);
+      System.out.println("emplHasta: " + emplHasta);
       if (emplHasta.equals("") || emplHasta == null) {
          parametroDeReporte.setCodigoempleadodesde(b);
       }
@@ -1945,7 +1945,16 @@ public class ControlNReporteNomina implements Serializable {
 
    public void cargarListaEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNReportesNomina.listEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarNReportesNomina.listEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 

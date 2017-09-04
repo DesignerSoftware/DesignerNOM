@@ -1857,7 +1857,16 @@ public class ControlBusquedaAvanzada implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroE");
             }
          } else if (tipoLov.equals("JEFE") && lovJefe == null) {
-            lovJefe = administrarBusquedaAvanzada.lovJefe();
+            if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+               lovJefe = administrarBusquedaAvanzada.lovJefe();
+               if (lovJefe != null) {
+                  log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovJefe);
+               }
+            } else {
+               lovJefe = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+            }
             if (lovJefe != null) {
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroJ");
             }

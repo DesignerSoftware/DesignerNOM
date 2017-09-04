@@ -1772,7 +1772,16 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public void cargarLOVConceptos() {
       if (lovConceptos == null || lovConceptos.isEmpty()) {
-         lovConceptos = administrarNovedadesEmpleados.lovConceptos();
+         if (listasRecurrentes.getLovConceptos().isEmpty()) {
+            lovConceptos = administrarNovedadesEmpleados.lovConceptos();
+            if (lovConceptos != null) {
+               listasRecurrentes.setLovConceptos(lovConceptos);
+               log.warn("GUARDANDO lovConceptos en Listas recurrentes");
+            }
+         } else {
+            lovConceptos = new ArrayList<Conceptos>(listasRecurrentes.getLovConceptos());
+            log.warn("CONSULTANDO lovConceptos de Listas recurrentes");
+         }
       }
    }
 

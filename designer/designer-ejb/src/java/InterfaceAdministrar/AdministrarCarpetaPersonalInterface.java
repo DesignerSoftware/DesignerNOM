@@ -49,7 +49,7 @@ public interface AdministrarCarpetaPersonalInterface {
     * @param fechaHasta Fechas hasta de VWActualesFechas.
     * @return Retorna un VWActualesCargos con la información requerida.
     */
-   public String consultarActualARP(BigInteger secEstructura, BigInteger secCargo, Date fechaHasta);
+   public String consultarActualARP(BigInteger secEmpleado);
 
    /**
     * Método encargado de recuperar el Tipo Contrato actual de un empleado

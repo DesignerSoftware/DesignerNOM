@@ -171,7 +171,7 @@ public class ControlFormulaProceso implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -555,9 +555,9 @@ public class ControlFormulaProceso implements Serializable {
       k = 0;
       listFormulasProcesos = null;
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       formulaActual = null;
       lovProcesos = null;
+      navegar("atras");
    }
 
    public void listaValoresBoton() {

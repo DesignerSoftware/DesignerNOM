@@ -37,7 +37,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
    @EJB
    PersistenciaParametrosTiemposInterface persistenciaParametrosTiempos;
    @EJB
-   PersistenciaEmpleadoInterface persistenciaEmpleadosInterface;
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
    @EJB
    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
    @EJB
@@ -80,7 +80,7 @@ public class AdministrarATParametroTiempo implements AdministrarATParametroTiemp
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         return persistenciaEmpleadosInterface.buscarEmpleadosActivos(getEm());
+         return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.warn("Error lovEmpleados Admi : " + e.toString());
          return null;

@@ -6483,7 +6483,16 @@ public class ControlPersonaIndividual implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarPersonaIndividual.lovEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarPersonaIndividual.lovEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 

@@ -1424,7 +1424,16 @@ public class ControlReportesBancos implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarReportesBancos.listEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarReportesBancos.listEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 

@@ -23,7 +23,9 @@ public interface PersistenciaVigenciasArpsInterface {
 
    public void editar(EntityManager em, VigenciasArps vigarp);
 
-   public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta);
+   public String actualARPVig(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta);
+
+   public String actualARP(EntityManager em, BigInteger secEmpleado);
 
    public int contarVigenciasARPsPorEstructuraYCargo(EntityManager em, BigInteger estructura, BigInteger cargo);
 

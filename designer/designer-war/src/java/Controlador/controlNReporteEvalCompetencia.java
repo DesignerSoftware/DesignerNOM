@@ -29,6 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -146,7 +147,12 @@ public class controlNReporteEvalCompetencia implements Serializable {
    private String paginaAnterior;
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public controlNReporteEvalCompetencia() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       log.info(this.getClass().getName() + ".Constructor()");
       activoMostrarTodos = true;
       activoBuscarReporte = false;
@@ -207,7 +213,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void iniciarAdministradores() {
       log.info(this.getClass().getName() + ".iniciarAdministradores()");
@@ -1517,7 +1523,16 @@ public class controlNReporteEvalCompetencia implements Serializable {
 
    public List<Empleados> getLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNReporteEvalCompetencia.listEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarNReporteEvalCompetencia.listEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
       return lovEmpleados;
    }

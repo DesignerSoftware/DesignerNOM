@@ -2624,7 +2624,18 @@ public class ControlCambiosMasivos {
          lovPeriodicidades = administrarCambiosMasivos.consultarLovPeriodicidades();
       }
       if (lovConceptos.isEmpty()) {
-         lovConceptos = administrarCambiosMasivos.consultarLovConceptos();
+         if (lovConceptos == null || lovConceptos.isEmpty()) {
+            if (listasRecurrentes.getLovConceptos().isEmpty()) {
+               lovConceptos = administrarCambiosMasivos.consultarLovConceptos();
+               if (lovConceptos != null) {
+                  listasRecurrentes.setLovConceptos(lovConceptos);
+                  log.warn("GUARDANDO lovConceptos en Listas recurrentes");
+               }
+            } else {
+               lovConceptos = new ArrayList<Conceptos>(listasRecurrentes.getLovConceptos());
+               log.warn("CONSULTANDO lovConceptos de Listas recurrentes");
+            }
+         }
       }
       if (lovFormulas.isEmpty()) {
          if (listasRecurrentes.getLovFormulas().isEmpty()) {
@@ -2683,7 +2694,16 @@ public class ControlCambiosMasivos {
 
    public void cargarLOVEmpleados() {
       if (lovEmpleados.isEmpty()) {
-         lovEmpleados = administrarCambiosMasivos.consultarLovEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarCambiosMasivos.consultarLovEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 

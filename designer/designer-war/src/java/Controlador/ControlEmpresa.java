@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -142,8 +143,12 @@ public class ControlEmpresa implements Serializable {
    private String paginaAnterior = "nominaf";
    private String errorClonado = "";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlEmpresa() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       activoBtnesAdd = true;
       activoCasillaClonado = true;
       paginaAnterior = "nominaf";
@@ -269,7 +274,7 @@ public class ControlEmpresa implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -553,8 +558,8 @@ public class ControlEmpresa implements Serializable {
             }
          } else {
             coincidencias = 1;
-            lovCentrosCostos.clear();
-            getLovCentrosCostos();
+//            lovCentrosCostos.clear();
+//            getLovCentrosCostos();
             empresaSeleccionada.setCentrocosto(new CentrosCostos());
          }
       }
@@ -606,8 +611,8 @@ public class ControlEmpresa implements Serializable {
          }
          if (coincidencias == 1) {
             vigenciaMBSeleccionada.setMoneda(lovMonedas.get(indiceUnicoElemento));
-            lovMonedas.clear();
-            getLovMonedas();
+//            lovMonedas.clear();
+//            getLovMonedas();
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -625,8 +630,8 @@ public class ControlEmpresa implements Serializable {
          }
          if (coincidencias == 1) {
             vigenciaMBSeleccionada.setMoneda(lovMonedas.get(indiceUnicoElemento));
-            lovMonedas.clear();
-            getLovMonedas();
+//            lovMonedas.clear();
+//            getLovMonedas();
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          } else {
@@ -1743,8 +1748,8 @@ public class ControlEmpresa implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaMonedaBaseCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaMonedaBaseMoneda");
             }
-            lovMonedas.clear();
-            getLovMonedas();
+//            lovMonedas.clear();
+//            getLovMonedas();
          } else {
             RequestContext.getCurrentInstance().update("form:MonedaDialogo");
             RequestContext.getCurrentInstance().execute("PF('MonedaDialogo').show()");
@@ -1780,8 +1785,8 @@ public class ControlEmpresa implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaMonedaBaseCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaMonedaBaseMoneda");
             }
-            lovMonedas.clear();
-            getLovMonedas();
+//            lovMonedas.clear();
+//            getLovMonedas();
          } else {
             RequestContext.getCurrentInstance().update("form:MonedaDialogo");
             RequestContext.getCurrentInstance().execute("PF('MonedaDialogo').show()");
@@ -1821,8 +1826,8 @@ public class ControlEmpresa implements Serializable {
                   duplicarEmpresa.setCentrocosto(lovCentrosCostos.get(indiceUnicoElemento));
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresaCentroCosto");
                }
-               lovCentrosCostos.clear();
-               getLovCentrosCostos();
+//               lovCentrosCostos.clear();
+//               getLovCentrosCostos();
             } else {
                RequestContext.getCurrentInstance().update("form:CentroCostoDialogo");
                RequestContext.getCurrentInstance().execute("PF('CentroCostoDialogo').show()");
@@ -1834,8 +1839,8 @@ public class ControlEmpresa implements Serializable {
                }
             }
          } else {
-            lovCentrosCostos.clear();
-            getLovCentrosCostos();
+//            lovCentrosCostos.clear();
+//            getLovCentrosCostos();
             if (tipoNuevo == 1) {
                nuevoEmpresa.setCentrocosto(new CentrosCostos());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoEmpresaCentroCosto");
@@ -2706,7 +2711,14 @@ public class ControlEmpresa implements Serializable {
 
    public List<CentrosCostos> getLovCentrosCostos() {
       if (lovCentrosCostos == null) {
-         lovCentrosCostos = administrarEmpresa.lovCentrosCostos();
+         if (listasRecurrentes.getLovCentrosCostos().isEmpty()) {
+            lovCentrosCostos = administrarEmpresa.lovCentrosCostos();
+            if (lovCentrosCostos != null) {
+               listasRecurrentes.setLovCentrosCostos(lovCentrosCostos);
+            }
+         } else {
+            lovCentrosCostos = new ArrayList<CentrosCostos>(listasRecurrentes.getLovCentrosCostos());
+         }
       }
       return lovCentrosCostos;
    }

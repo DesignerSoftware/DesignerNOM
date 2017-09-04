@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import InterfaceAdministrar.AdministrarEmplVigenciasFormasPagosInterface;
 import java.util.Map;
 import java.util.LinkedHashMap;
@@ -119,8 +120,13 @@ public class ControlNovedadesVacaciones implements Serializable {
    private Date fechaUltimoCorte;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlNovedadesVacaciones() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
+
       cero = "0";
       listaEmpleadosNovedad = null;
       listaNovedadesBorrar = new ArrayList<NovedadesSistema>();
@@ -1223,7 +1229,16 @@ public class ControlNovedadesVacaciones implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNovedadesVacaciones.empleadosVacaciones();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarNovedadesVacaciones.empleadosVacaciones();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 
@@ -1236,7 +1251,16 @@ public class ControlNovedadesVacaciones implements Serializable {
 //GETTER & SETTER
    public List<Empleados> getListaEmpleadosNovedad() {
       if (listaEmpleadosNovedad == null) {
-         listaEmpleadosNovedad = administrarNovedadesVacaciones.empleadosVacaciones();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            listaEmpleadosNovedad = administrarNovedadesVacaciones.empleadosVacaciones();
+            if (listaEmpleadosNovedad != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(listaEmpleadosNovedad);
+            }
+         } else {
+            listaEmpleadosNovedad = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
       return listaEmpleadosNovedad;
    }

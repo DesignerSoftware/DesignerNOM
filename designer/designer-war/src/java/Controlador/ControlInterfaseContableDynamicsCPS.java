@@ -28,6 +28,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -130,8 +131,12 @@ public class ControlInterfaseContableDynamicsCPS implements Serializable {
    private String fechaIniRecon, fechaFinRecon;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlInterfaseContableDynamicsCPS() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       msnPaso1 = "";
       totalCGenerado = 0;
       totalDGenerado = 0;
@@ -233,7 +238,7 @@ public class ControlInterfaseContableDynamicsCPS implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -2832,7 +2837,18 @@ public class ControlInterfaseContableDynamicsCPS implements Serializable {
    }
 
    public List<Empleados> getLovEmpleados() {
-      lovEmpleados = administrarInterfaseDynamicsCPS.buscarEmpleadosEmpresa();
+      if (lovEmpleados == null) {
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarInterfaseDynamicsCPS.buscarEmpleadosEmpresa();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
+      }
       return lovEmpleados;
    }
 

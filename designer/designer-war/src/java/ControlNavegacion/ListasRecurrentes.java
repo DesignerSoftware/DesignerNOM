@@ -8,6 +8,7 @@ package ControlNavegacion;
 import Entidades.CentrosCostos;
 import Entidades.Conceptos;
 import Entidades.Cuentas;
+import Entidades.Empleados;
 import Entidades.Formulas;
 import Entidades.FormulasConceptos;
 import Entidades.GruposConceptos;
@@ -33,6 +34,7 @@ public class ListasRecurrentes {
    private List<Formulas> lovFormulas;
    private List<FormulasConceptos> lovFormulasConceptos;
    private List<Conceptos> lovConceptos;
+   private List<Empleados> lovEmpleados;
 
    public ListasRecurrentes() {
       lovCuentas = new ArrayList<Cuentas>();
@@ -43,6 +45,7 @@ public class ListasRecurrentes {
       lovFormulas = new ArrayList<Formulas>();
       lovFormulasConceptos = new ArrayList<FormulasConceptos>();
       lovConceptos = new ArrayList<Conceptos>();
+      lovEmpleados = new ArrayList<Empleados>();
    }
 
    public List<CentrosCostos> getLovCentrosCostos() {
@@ -50,12 +53,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovCentrosCostos(List<CentrosCostos> lovCentrosCostosp) {
-//      this.lovCentrosCostos = new ArrayList<CentrosCostos>(lovCentrosCostosp);
-      this.lovCentrosCostos = new ArrayList<CentrosCostos>();
+//      this.lovCentrosCostos = new ArrayList<CentrosCostos>();
+      this.lovCentrosCostos.clear();
       for (CentrosCostos recC : lovCentrosCostosp) {
          this.lovCentrosCostos.add(recC);
       }
-//      this.lovCentrosCostos.addAll(lovCentrosCostos);
       log.info("SET : setLovCentrosCostos");
    }
 
@@ -64,12 +66,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovProcesos(List<Procesos> lovProcesosp) {
-//      this.lovProcesos = new ArrayList<Procesos>(lovProcesosp);
-      this.lovProcesos = new ArrayList<Procesos>();
+//      this.lovProcesos = new ArrayList<Procesos>();
+      this.lovProcesos.clear();
       for (Procesos recC : lovProcesosp) {
          this.lovProcesos.add(recC);
       }
-//      this.lovProcesos.addAll(lovProcesos);
       log.info("SET : setLovProcesos");
    }
 
@@ -78,12 +79,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovGruposConceptos(List<GruposConceptos> lovGruposConceptosp) {
-//      this.lovGruposConceptos = new ArrayList<GruposConceptos>(lovGruposConceptosp);
-      this.lovGruposConceptos = new ArrayList<GruposConceptos>();
+//      this.lovGruposConceptos = new ArrayList<GruposConceptos>();
+      this.lovGruposConceptos.clear();
       for (GruposConceptos recC : lovGruposConceptosp) {
          this.lovGruposConceptos.add(recC);
       }
-//      this.lovGruposConceptos.addAll(lovGruposConceptos);
       log.info("SET : setLovGruposConceptos");
    }
 
@@ -92,12 +92,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovTiposTrabajadores(List<TiposTrabajadores> lovTiposTrabajadoresp) {
-//      this.lovTiposTrabajadores = new ArrayList<TiposTrabajadores>(lovTiposTrabajadoresp);
-      this.lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
+//      this.lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
+      this.lovTiposTrabajadores.clear();
       for (TiposTrabajadores recC : lovTiposTrabajadoresp) {
          this.lovTiposTrabajadores.add(recC);
       }
-//      this.lovTiposTrabajadores.addAll(lovTiposTrabajadores);
       log.info("SET : setLovTiposTrabajadores");
    }
 
@@ -106,12 +105,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovFormulas(List<Formulas> lovFormulasp) {
-//      this.lovFormulas = new ArrayList<Formulas>(lovFormulasp);
-      this.lovFormulas = new ArrayList<Formulas>();
+//      this.lovFormulas = new ArrayList<Formulas>();
+      this.lovFormulas.clear();
       for (Formulas recC : lovFormulasp) {
          this.lovFormulas.add(recC);
       }
-//      this.lovFormulas.addAll(lovFormulas);
       log.info("SET : setLovFormulas");
    }
 
@@ -120,12 +118,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovFormulasConceptos(List<FormulasConceptos> lovFormulasConceptosp) {
-//      this.lovFormulasConceptos = new ArrayList<FormulasConceptos>(lovFormulasConceptosp);
-      this.lovFormulasConceptos = new ArrayList<FormulasConceptos>();
+//      this.lovFormulasConceptos = new ArrayList<FormulasConceptos>();
+      this.lovFormulasConceptos.clear();
       for (FormulasConceptos recC : lovFormulasConceptosp) {
          this.lovFormulasConceptos.add(recC);
       }
-//      this.lovFormulasConceptos.addAll(lovFormulasConceptos);
       log.info("SET : setLovFormulasConceptos");
    }
 
@@ -134,12 +131,11 @@ public class ListasRecurrentes {
    }
 
    public void setLovConceptos(List<Conceptos> lovConceptosp) {
-//      this.lovConceptos = new ArrayList<Conceptos>(lovConceptosp);
-      this.lovConceptos = new ArrayList<Conceptos>();
+//      this.lovConceptos = new ArrayList<Conceptos>();
+      this.lovConceptos.clear();
       for (Conceptos recC : lovConceptosp) {
          this.lovConceptos.add(recC);
       }
-//      this.lovConceptos.addAll(lovConceptos);
       log.info("SET : setLovConceptos");
    }
 
@@ -148,13 +144,24 @@ public class ListasRecurrentes {
    }
 
    public void setLovCuentas(List<Cuentas> lovCuentasp) {
-//      this.lovCuentas = new ArrayList<Cuentas>(lovCuentasp);
-      this.lovCuentas = new ArrayList<Cuentas>();
+//      this.lovCuentas = new ArrayList<Cuentas>();
+      this.lovCuentas.clear();
       for (Cuentas recC : lovCuentasp) {
          this.lovCuentas.add(recC);
       }
-//      this.lovCuentas.addAll(lovCuentas);
       log.info("SET : setLovCuentas");
+   }
+
+   public List<Empleados> getLovEmpleados() {
+      return lovEmpleados;
+   }
+
+   public void setLovEmpleados(List<Empleados> lovEmpleadosp) {
+      this.lovEmpleados.clear();
+      for (Empleados recC : lovEmpleadosp) {
+         this.lovEmpleados.add(recC);
+      }
+      log.info("SET : setLovEmpleados");
    }
 
 }

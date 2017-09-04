@@ -283,15 +283,17 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    PersistenciaVwTiposEmpleadosInterface persistenciaVwTiposEmpleados;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -309,7 +311,8 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    //MÉTODOS
    //--------------------------------------------------------------------------    
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -338,9 +341,9 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    }
 
    @Override
-   public String consultarActualARP(BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
+   public String consultarActualARP(BigInteger secEmpleado) {
       try {
-         return persistenciaVigenciasArps.actualARP(getEm(), secEstructura, secCargo, fechaHasta);
+         return persistenciaVigenciasArps.actualARP(getEm(), secEmpleado);
       } catch (Exception e) {
          log.warn("Error - AdministrarCarpetaPersonal.consultarActualesFechas" + e);
          return null;

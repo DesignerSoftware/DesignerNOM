@@ -2018,8 +2018,17 @@ public class ControlNovedadesConceptos implements Serializable {
    }
 
    public List<Conceptos> getLovConceptos() {
-      if (lovConceptos == null) {
-         lovConceptos = administrarNovedadesConceptos.Conceptos();
+      if (lovConceptos == null || lovConceptos.isEmpty()) {
+         if (listasRecurrentes.getLovConceptos().isEmpty()) {
+            lovConceptos = administrarNovedadesConceptos.Conceptos();
+            if (lovConceptos != null) {
+               listasRecurrentes.setLovConceptos(lovConceptos);
+               log.warn("GUARDANDO lovConceptos en Listas recurrentes");
+            }
+         } else {
+            lovConceptos = new ArrayList<Conceptos>(listasRecurrentes.getLovConceptos());
+            log.warn("CONSULTANDO lovConceptos de Listas recurrentes");
+         }
       }
       return lovConceptos;
    }

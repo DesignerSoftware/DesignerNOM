@@ -8,6 +8,7 @@ package Controlador;
 import ClasesAyuda.ErroresNovedades;
 import ClasesAyuda.ResultadoBorrarTodoNovedades;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import Entidades.ActualUsuario;
 import Entidades.NombresEmpleadosAux;
 import Entidades.TempProrrateos;
@@ -116,11 +117,12 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    private BigInteger l;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
-   /**
-    * Creates a new instance of ControlArchivoPlanoProyecto
-    */
    public ControlArchivoPlanoCentroC() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       tempProrrateoSeleccionado = null;
       cualCelda = -1;
       editarNovedad = new TempProrrateos();
@@ -154,7 +156,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");

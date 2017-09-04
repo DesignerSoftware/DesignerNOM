@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -121,8 +122,12 @@ public class ControlNovedadesReemplazos implements Serializable {
    private String infoRegistro, infoRegistroTipoReemplazo, infoRegistroMotivosReemplazos, infoRegistroEstructuras, infoRegistroCargos, infoRegistroEmpleados, infoRegistroEmpleadosNovedad, infoRegistroBuscarEmpleados;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlNovedadesReemplazos() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       permitirIndex = true;
       aceptar = true;
       empleadoParametro = new Empleados();
@@ -1401,7 +1406,16 @@ public class ControlNovedadesReemplazos implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNovedadesReemplazos.lovEmpleados();
+         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+            lovEmpleados = administrarNovedadesReemplazos.lovEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
+               listasRecurrentes.setLovEmpleados(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
+            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+         }
       }
    }
 

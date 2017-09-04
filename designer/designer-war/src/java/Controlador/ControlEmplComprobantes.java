@@ -2896,7 +2896,14 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public List<CentrosCostos> getLovCentrosCostos() {
-      lovCentrosCostos = administrarComprobantes.lovCentrosCostos();
+      if (listasRecurrentes.getLovCentrosCostos().isEmpty()) {
+         lovCentrosCostos = administrarComprobantes.lovCentrosCostos();
+         if (lovCentrosCostos != null) {
+            listasRecurrentes.setLovCentrosCostos(lovCentrosCostos);
+         }
+      } else {
+         lovCentrosCostos = new ArrayList<CentrosCostos>(listasRecurrentes.getLovCentrosCostos());
+      }
       return lovCentrosCostos;
    }
 

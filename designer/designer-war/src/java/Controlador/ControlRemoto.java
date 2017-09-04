@@ -266,8 +266,8 @@ public class ControlRemoto implements Serializable {
             identificacion = vwActualesTiposTrabajadoresPosicion.getNumeroDocumentoEmpleado();
             try {
                vwActualesCargos = administrarCarpetaPersonal.consultarActualCargoEmpleado(secuencia);
-               Date actualFechaHasta = administrarCarpetaPersonal.consultarActualesFechas();
-               String actualARP = administrarCarpetaPersonal.consultarActualARP(vwActualesCargos.getEstructura().getSecuencia(), vwActualesCargos.getCargo().getSecuencia(), actualFechaHasta);
+//               Date actualFechaHasta = administrarCarpetaPersonal.consultarActualesFechas();
+               String actualARP = administrarCarpetaPersonal.consultarActualARP(vwActualesTiposTrabajadoresPosicion.getEmpleado());
                actualCargo = "%ARP: " + actualARP + " > " + vwActualesCargos.getCargo().getNombre() + " - " + vwActualesCargos.getEstructura().getOrganigrama().getEmpresa().getNombre();
             } catch (Exception e) {
                actualCargo = null;

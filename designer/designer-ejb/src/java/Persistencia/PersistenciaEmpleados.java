@@ -291,23 +291,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
       }
    }
 
-//   @Override
-//   public Empleados buscarEmpleadoPorCodigoyEmpresa(EntityManager em, BigDecimal codigo, BigInteger empresa) {
-//      try {
-//         em.clear();
-//         String sql = "SELECT * FROM empleados WHERE CODIGOEMPLEADO =? AND NVL(EMPRESA,?)=?";
-//         Query query = em.createNativeQuery(sql, Empleados.class);
-//         query.setParameter(1, codigo);
-//         query.setParameter(2, empresa);
-//         query.setParameter(3, empresa);
-//         Empleados empleado = (Empleados) query.getSingleResult();
-//            empleado = consultarTransients(em, empleado);
-//         return empleado;
-//      } catch (Exception e) {
-//         log.error("Persistencia.PersistenciaEmpleados.buscarEmpleadoPorCodigoyEmpresa()");
-//         return null;
-//      }
-//   }
    @Override
    public Empleados buscarEmpleadoCodigo_Empresa(EntityManager em, BigInteger codigoEmpleado, BigInteger secEmpresa) {
       try {
@@ -325,21 +308,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
       }
    }
 
-//   @Override
-//   public Empleados buscarEmpleadoTipo(EntityManager em, BigInteger codigoEmpleado) {
-//      try {
-//         em.clear();
-//         Query query = em.createQuery("SELECT e FROM Empleados e WHERE e.codigoempleado = :codigoE");
-//         query.setParameter("codigoE", codigoEmpleado);
-//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-//         Empleados empleado = (Empleados) query.getSingleResult();
-//            empleado = consultarTransients(em, empleado);
-//         return empleado;
-//      } catch (Exception e) {
-//         log.error("Persistencia.PersistenciaEmpleados.buscarEmpleadoTipo() e: " + e);
-//         return null;
-//      }
-//   }
    @Override
    public Empleados buscarEmpleadoCodigo(EntityManager em, BigInteger codigoEmpleado) {
       try {
@@ -549,50 +517,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
       }
    }
 
-//   @Override
-//   public List<Empleados> empleadosAuxilios(EntityManager em) {
-//      try {
-//         em.clear();
-//         String sqlQuery = "select * from empleados v where EXISTS (SELECT 'x'"
-//                 + " from VWACTUALESTIPOSTRABAJADORES vtt, tipostrabajadores tt"
-//                 + " where tt.secuencia = vtt.tipotrabajador"
-//                 + " and vtt.empleado = v.secuencia "
-//                 + " and tt.tipo='ACTIVO')";
-//         Query query = em.createNativeQuery(sqlQuery, Empleados.class);
-//         listaEmpleados = query.getResultList();
-//         consultarTransientsLista(em, "SELECT E.SECUENCIA, P.PATHFOTO, P.NOMBRE NOMBREPERSONA, P.PRIMERAPELLIDO, P.SEGUNDOAPELLIDO,\n"
-//                 + " P.EMAIL, P.NUMERODOCUMENTO, EM.NOMBRE NOMBREEMPRESA, EM.RETENCIONYSEGSOCXPERSONA RETENCIONYSEGSOCXPERSONA\n"
-//                 + " FROM EMPLEADOS E, EMPRESAS EM, PERSONAS P\n"
-//                 + " WHERE E.PERSONA = P.SECUENCIA AND E.EMPRESA = EM.SECUENCIA AND EXISTS\n"
-//                 + " (SELECT 'x' from VWACTUALESTIPOSTRABAJADORES vtt, tipostrabajadores tt\n"
-//                 + " where tt.secuencia = vtt.tipotrabajador and vtt.empleado = E.secuencia and tt.tipo='ACTIVO')");
-//         return (new ArrayList<Empleados>(listaEmpleados));
-//      } catch (Exception e) {
-//         log.error("Persistencia.PersistenciaEmpleados.empleadosAuxilios()");
-//         return null;
-//      } finally {
-//         listaEmpleados.clear();
-//      }
-//   }
-//   @Override
-//   public List<Empleados> empleadosNovedadEmbargo(EntityManager em) {
-//      try {
-//         em.clear();
-//         String sqlQuery = "select * from empleados v where EXISTS (SELECT 'X'\n"
-//                 + " from VWACTUALESTIPOSTRABAJADORES vtt, tipostrabajadores tt\n"
-//                 + " where tt.secuencia = vtt.tipotrabajador\n"
-//                 + " and vtt.empleado = v.secuencia\n"
-//                 + " and tt.tipo='ACTIVO')";
-//         Query query = em.createNativeQuery(sqlQuery, Empleados.class);
-//         listaEmpleados = query.getResultList();
-//         return (new ArrayList<Empleados>(listaEmpleados));
-//      } catch (Exception e) {
-//         log.error("Persistencia.PersistenciaEmpleados.empleadosNovedadEmbargo( e: " + e);
-//         return null;
-//      } finally {
-//         listaEmpleados.clear();
-//      }
-//   }
    @Override
    public List<Empleados> buscarEmpleadosBusquedaAvanzada(EntityManager em, String queryBusquedaAvanzada) {
       try {
@@ -931,47 +855,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          listaEmpleados.clear();
       }
    }
-//
-//   @Override
-//   public List<Empleados> consultarEmpleadosParaAprobarHorasExtras(EntityManager em) {
-//      try {
-//         em.clear();
-//         String sql = "SELECT E.* FROM PERSONAS P, EMPLEADOS E \n"
-//                 + " WHERE E.PERSONA = P.SECUENCIA AND EXISTS"
-//                 + " (SELECT 1 FROM VWACTUALESTIPOSTRABAJADORES VTT, TIPOSTRABAJADORES TT \n"
-//                 + " WHERE VTT.TIPOTRABAJADOR = TT.SECUENCIA \n"
-//                 + " AND VTT.EMPLEADO = E.SECUENCIA \n"
-//                 + " AND TT.TIPO IN ('ACTIVO','PENSIONADO'))";
-//         Query query = em.createNativeQuery(sql, Empleados.class);
-//         listaEmpleados = query.getResultList();
-//         return (new ArrayList<Empleados>(listaEmpleados));
-//      } catch (Exception e) {
-//         log.error("Persistencia.PersistenciaEmpleados.consultarEmpleadosParaAprobarHorasExtras() e: " + e);
-//         return null;
-//      } finally {
-//         listaEmpleados.clear();
-//      }
-//   }
 
-//   @Override
-//   public List<Empleados> empleadosCesantias(EntityManager em) {
-//      try {
-//         em.clear();
-//         String sqlQuery = "select v.SECUENCIA,v.PERSONA,v.CODIGOEMPLEADO \n"
-//                 + "from empleados v where EXISTS (SELECT 'X' from  VWACTUALESTIPOSTRABAJADORES vtt, tipostrabajadores  tt \n"
-//                 + "where tt.secuencia = vtt.tipotrabajador\n"
-//                 + "and vtt.empleado = v.secuencia\n"
-//                 + "and tt.tipo IN ('ACTIVO'))";
-//         Query query = em.createNativeQuery(sqlQuery, Empleados.class);
-//         listaEmpleados = query.getResultList();
-//         return (new ArrayList<Empleados>(listaEmpleados));
-//      } catch (Exception e) {
-//         log.error("Persistencia.PersistenciaEmpleados.empleadosCesantias e: " + e);
-//         return null;
-//      } finally {
-//         listaEmpleados.clear();
-//      }
-//   }
    @Override
    public List<Empleados> consultarCesantiasnoLiquidadas(EntityManager em) {
       try {

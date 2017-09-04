@@ -2200,6 +2200,7 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
    <navigation-rule>
       <from-view-id>/formulanovedad.xhtml</from-view-id>
       <navigation-case>
@@ -2235,6 +2236,7 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
    <navigation-rule>
       <from-view-id>/detalleconcepto.xhtml</from-view-id>
       <navigation-case>

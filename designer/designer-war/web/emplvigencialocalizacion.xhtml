@@ -672,23 +672,24 @@
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.contarRegistrosCentroC()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarCC"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarCentroCostoVP()}" update=":form:lovCentroCostos" process="@this"/>
+                      
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarLP']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCentroCostos').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{centro.codigo}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <p:column filterBy="#{centro.codigo}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['codigoLP']}"/>
                            </f:facet>
                            <h:outputText  value="#{centro.codigo}"/>
                         </p:column>
-                        <p:column filterBy="#{centro.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <p:column filterBy="#{centro.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['localLP']}"/>
                            </f:facet>
                            <h:outputText value="#{centro.nombre}"/>
                         </p:column>
-                        <p:column filterBy="#{centro.empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <p:column filterBy="#{centro.empresa.nombre}" width="320" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['empresaLP']}"/>
                            </f:facet>

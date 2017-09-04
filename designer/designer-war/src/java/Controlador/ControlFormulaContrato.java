@@ -186,7 +186,7 @@ public class ControlFormulaContrato implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -918,19 +918,18 @@ public class ControlFormulaContrato implements Serializable {
       listFormulasContratosCrear.clear();
       listFormulasContratosModificar.clear();
       activoDetalle = true;
-
       formulaTablaSeleccionada = null;
       formulaActual = null;
       k = 0;
       listFormulasContratos = null;
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       cambiosFormulaContrato = false;
       nuevaFormulaContrato = new Formulascontratos();
       duplicarFormulaContrato = new Formulascontratos();
       lovPeriodicidades = null;
       lovTerceros = null;
       lovContratos = null;
+      navegar("atras");
    }
 
    public void actualizarContrato() {

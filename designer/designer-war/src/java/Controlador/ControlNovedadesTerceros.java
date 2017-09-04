@@ -1850,7 +1850,18 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void cargarlovConceptos() {
       if (lovConceptos == null) {
-         lovConceptos = administrarNovedadesTerceros.lovConceptos();
+         if (lovConceptos == null || lovConceptos.isEmpty()) {
+            if (listasRecurrentes.getLovConceptos().isEmpty()) {
+               lovConceptos = administrarNovedadesTerceros.lovConceptos();
+               if (lovConceptos != null) {
+                  listasRecurrentes.setLovConceptos(lovConceptos);
+                  log.warn("GUARDANDO lovConceptos en Listas recurrentes");
+               }
+            } else {
+               lovConceptos = new ArrayList<Conceptos>(listasRecurrentes.getLovConceptos());
+               log.warn("CONSULTANDO lovConceptos de Listas recurrentes");
+            }
+         }
       }
    }
 

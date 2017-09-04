@@ -101,7 +101,7 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       log.warn("cargo : " + cargo);
       log.warn("fecha : " + fecha);
       try {
-         return persistenciaVigenciasArp.actualARP(getEm(), estructura, cargo, fecha);
+         return persistenciaVigenciasArp.actualARPVig(getEm(), estructura, cargo, fecha);
       } catch (Exception e) {
          log.warn("error en AdministrarVigenciasArps.buscarPorcentaje() : " + e.toString());
          return null;

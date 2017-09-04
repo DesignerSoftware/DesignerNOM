@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -161,8 +162,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
    private boolean activarLOV;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlVigenciaLocalizacion() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
+
       msnConfirmarRastro = "";
       msnConfirmarRastroHistorico = "";
       backUp = null;
@@ -248,7 +254,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -2472,6 +2478,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
          restablecerTablas();
       }
    }
+
    //SALIR
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
@@ -3740,7 +3747,14 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
    public List<CentrosCostos> getLovCentrosCostos() {
       if (lovCentrosCostos == null) {
-         lovCentrosCostos = administrarVigenciaLocalizacion.centrosCostos();
+         if (listasRecurrentes.getLovCentrosCostos().isEmpty()) {
+            lovCentrosCostos = administrarVigenciaLocalizacion.centrosCostos();
+            if (lovCentrosCostos != null) {
+               listasRecurrentes.setLovCentrosCostos(lovCentrosCostos);
+            }
+         } else {
+            lovCentrosCostos = new ArrayList<CentrosCostos>(listasRecurrentes.getLovCentrosCostos());
+         }
       }
       return lovCentrosCostos;
    }

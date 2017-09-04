@@ -578,13 +578,13 @@
                         <h:outputText value="#{msg['buscarEmp']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{empresa.codigo}" width="110" filterMatchMode="contains" >
+                     <p:column filterBy="#{empresa.codigo}" sortBy="#{empresa.codigo}" width="110" filterMatchMode="contains" >
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoEmp']}"/>
                         </f:facet>
                         <h:outputText value="#{empresa.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                     <p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreEmp']}"/>
                         </f:facet>
@@ -612,13 +612,13 @@
                         <h:outputText value="#{msg['buscarM']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMoneda').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{moneda.codigo}" filterMatchMode="contains">
+                     <p:column filterBy="#{moneda.codigo}" sortBy="#{moneda.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoM']}"/>
                         </f:facet>
                         <h:outputText value="#{moneda.codigo}"/>
                      </p:column>
-                     <p:column filterBy="#{moneda.nombre}" filterMatchMode="contains">
+                     <p:column filterBy="#{moneda.nombre}" sortBy="#{moneda.nombre}" filterMatchMode="contains">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreM']}"/>
                         </f:facet>
@@ -646,7 +646,13 @@
                         <h:outputText value="#{msg['buscarCC']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{centroCosto.nombre}" filterMatchMode="contains">
+                     <p:column filterBy="#{centroCosto.codigo}" width="90" sortBy="#{centroCosto.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{centroCosto.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{centroCosto.nombre}" sortBy="#{centroCosto.nombre}" filterMatchMode=" contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreCC']}"/>
                         </f:facet>

@@ -20,7 +20,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
    private static Logger log = Logger.getLogger(PersistenciaVigenciasArps.class);
 
    @Override
-   public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
+   public String actualARPVig(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -31,6 +31,28 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          query.setParameter(1, secEstructura);
          query.setParameter(2, secCargo);
          query.setParameter(3, fecha);
+         String actualARP = (String) query.getSingleResult().toString();
+         tx.commit();
+         return actualARP;
+      } catch (Exception e) {
+         log.error("Exepcion: PersistenciaVigenciasArps.actualARPVig " + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         return null;
+      }
+   }
+
+   @Override
+   public String actualARP(EntityManager em, BigInteger secEmpleado) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         Query query = em.createNativeQuery("SELECT APORTESENTIDADES_PKG.TARIFACTT( ?, (SELECT SECUENCIA FROM TIPOSENTIDADES WHERE CODIGO=2),\n"
+                 + " TO_CHAR((SELECT FECHAHASTACAUSADO FROM VWACTUALESFECHAS),'YYYY'),\n"
+                 + " TO_CHAR((SELECT FECHAHASTACAUSADO FROM VWACTUALESFECHAS),'MM')) ARL FROM dual");
+         query.setParameter(1, secEmpleado);
          String actualARP = (String) query.getSingleResult().toString();
          tx.commit();
          return actualARP;
