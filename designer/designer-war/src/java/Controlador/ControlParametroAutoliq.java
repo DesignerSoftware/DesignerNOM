@@ -1726,6 +1726,7 @@ public class ControlParametroAutoliq implements Serializable {
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 contarRegistrosParametros();
+                RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
                 RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                 parametroTablaSeleccionado = null;
                 activoBtnsPaginas = true;
@@ -1770,10 +1771,13 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void borrarAporteEntidadProcesoAutomatico() {
         RequestContext context = RequestContext.getCurrentInstance();
+        msgError ="";
+        msgErrorAux ="";
         if (listaAportesEntidades != null) {
             if (!listaAportesEntidades.isEmpty()) {
-                if (msgError.equals("PROCESO_EXITOSO")) {
-                    administrarParametroAutoliq.borrarAportesEntidadesProcesoAutomatico(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
+                msgError = administrarParametroAutoliq.borrarAportesEntidadesProcesoAutomatico(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
+                msgErrorAux = administrarParametroAutoliq.ejecutarPKGEliminarAportesXDia(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+                if (msgError.equals("PROCESO_EXITOSO") && msgErrorAux.equals("PROCESO_EXITOSO")) {
                     listaAportesEntidades = null;
                     contarRegistrosAporte();
                     disabledBuscar = true;
@@ -1845,29 +1849,42 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         msgError = "";
         msgErrorAux = "";
+        String msgprocesar = "", msgeliminar = "";
         if (guardado == false) {
             guardadoGeneral();
         } else {
+
             getParametroEstructura();
             getParametroInforme();
+            msgError = administrarParametroAutoliq.ejecutarPKGEliminarAportesXDia(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+            if ((msgError.equals("PROCESO_EXITOSO"))) {
+                msgError = "";
+                msgError = administrarParametroAutoliq.ejecutarPKGInsertar(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroTablaSeleccionado.getTipotrabajador().getSecuencia(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+                msgErrorAux = administrarParametroAutoliq.ejecutarPKGActualizarNovedades(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+                if ((msgError.equals("PROCESO_EXITOSO")) && (msgErrorAux.equals("PROCESO_EXITOSO"))) {
+                    msgErrorAux = "";
+                    msgErrorAux = administrarParametroAutoliq.ejecutarPKGProcesarAportesXDia(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+                    if ((msgErrorAux.equals("PROCESO_EXITOSO"))) {
 
-            msgError = administrarParametroAutoliq.ejecutarPKGInsertar(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroTablaSeleccionado.getTipotrabajador().getSecuencia(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
-            msgErrorAux = administrarParametroAutoliq.ejecutarPKGActualizarNovedades(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
-            if ((msgError.equals("PROCESO_EXITOSO")) && (msgErrorAux.equals("PROCESO_EXITOSO"))) {
-                listaAportesEntidades = null;
-                getListaAportesEntidades();
-                contarRegistrosAporte();
-                disabledBuscar = true;
-                activoBtnsPaginas = true;
-                visibilidadMostrarTodos = "hidden";
-                RequestContext.getCurrentInstance().update("form:mostrarTodos");
-                RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-                FacesMessage msg = new FacesMessage("Información", "El proceso de Liquidación fue realizado con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-            } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorProceso");
-                RequestContext.getCurrentInstance().execute("PF('errorProceso').show()");
+                        listaAportesEntidades = null;
+                        getListaAportesEntidades();
+                        contarRegistrosAporte();
+                        disabledBuscar = true;
+                        activoBtnsPaginas = true;
+                        visibilidadMostrarTodos = "hidden";
+                        RequestContext.getCurrentInstance().update("form:mostrarTodos");
+                        RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
+                        FacesMessage msg = new FacesMessage("Información", "El proceso de Liquidación fue realizado con éxito");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                        RequestContext.getCurrentInstance().update("form:growl");
+                    } else {
+                        RequestContext.getCurrentInstance().update("formularioDialogos:errorProceso");
+                        RequestContext.getCurrentInstance().execute("PF('errorProceso').show()");
+                    }
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorProceso");
+                    RequestContext.getCurrentInstance().execute("PF('errorProceso').show()");
+                }
             }
 
         }

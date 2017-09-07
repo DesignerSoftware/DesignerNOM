@@ -92,4 +92,20 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             return null;
         }
     }
+
+    @Override
+    public String obtenerPathError(EntityManager em) {
+        try {
+            em.clear();
+            String sql = "select patherror\n"
+                    + "  from  generales\n"
+                    + "  group by patherror";
+            Query query = em.createNativeQuery(sql);
+            String path = (String) query.getSingleResult();
+            return path;
+        } catch (Exception e) {
+            log.error("Error obtenerPathError PersistenciaGenerales : " + e.toString());
+            return null;
+        }
+    }
 }

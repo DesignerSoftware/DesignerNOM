@@ -293,7 +293,8 @@
                               <p:commandButton id="cuotasp" style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad23.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
                                                value="" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></p:commandButton>
                               <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
-                              <h:commandLink id="txtcuotasp" style="font-weight: bold; color: #14388B;" value="Cuotas Partes" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'Impresion')}"></h:commandLink>
+                              <h:commandLink id="txtcuotasp" style="font-weight: bold; color: #14388B;" value="Cuotas Partes" action="#{controlListaNavegacion.guardarNavegacion('novedad', 'salidasutl')}" 
+                                             actionListener="#{controlSalidasUTL.recibirPaginaEntrante('novedad')}" ></h:commandLink>
                               <!--actionListener="#/{controlNovedad.recibir('Cuotas Partes')}"-->
                               <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                  <h:outputText style="color: #000;" value="Registro y configuración de las cuotas parte"/>

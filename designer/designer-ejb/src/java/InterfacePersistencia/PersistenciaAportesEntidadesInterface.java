@@ -7,6 +7,7 @@ package InterfacePersistencia;
 
 import Entidades.AportesEntidades;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -36,5 +37,10 @@ public interface PersistenciaAportesEntidadesInterface {
     public String ejecutarAcumularDiferencia(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
     public List<AportesEntidades> consultarAportesEntidadesPorEmpleado (EntityManager em, BigInteger secEmpleado, short mes, short ano);
+    
+     public String ejecutarPKGEliminarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa);
+
+    public String ejecutarPKGProcesarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa);
+    
     
 }

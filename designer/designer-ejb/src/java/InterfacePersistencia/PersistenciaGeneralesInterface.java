@@ -24,5 +24,7 @@ public interface PersistenciaGeneralesInterface {
     public String obtenerPathServidorWeb(EntityManager em);
 
     public String obtenerPathProceso(EntityManager em);
+    
+    public String obtenerPathError(EntityManager em);
 
 }

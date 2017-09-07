@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -281,6 +282,62 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
         } catch (Exception e) {
             log.error("error en consultarAportesPorEmpleado" + e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public String ejecutarPKGEliminarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa) {
+        log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGEliminarAportesEntidadesXDia()");
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "call aportesentidadesxdia$pkg.ELIMINAR(?, ?, ?)";
+             Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, ano);
+            query.setParameter(2, mes);
+            query.setParameter(3, secEmpresa);
+            query.executeUpdate();
+            tx.commit();
+            return "PROCESO_EXITOSO";
+        } catch (Exception e) {
+            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar: " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException || e instanceof RuntimeException) {
+                return e.toString();
+            } else {
+                return "ERROR_PERSISTENCIA";
+            }
+        }
+    }
+
+    @Override
+    public String ejecutarPKGProcesarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa) {
+       log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGProcesasAportesEntidadesXDia()");
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "call aportesentidadesxdia$pkg.PROCESAR(?, ?,?)";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, ano);
+            query.setParameter(2, mes);
+            query.setParameter(3, secEmpresa);
+            query.executeUpdate();
+            tx.commit();
+            return "PROCESO_EXITOSO";
+        } catch (Exception e) {
+            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar: " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLException || e instanceof SQLSyntaxErrorException || e instanceof RuntimeException) {
+                return e.toString();
+            } else {
+                return "ERROR_PERSISTENCIA";
+            }
         }
     }
 }

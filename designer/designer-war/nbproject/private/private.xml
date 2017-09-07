@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/web/concepto.xhtml</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/Controlador/ControlNovedadesTerceros.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/Controlador/ControlConcepto.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/ControlNavegacion/ListasRecurrentes.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/Controlador/ControlNovedadesEmpleados.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/Controlador/ControlCambiosMasivos.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/Controlador/ControlNovedadesConceptos.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/web/parametroautoliq.xhtml</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/DesignerNOM/designer/designer-war/src/java/Controlador/ControlParametroAutoliq.java</file>
         </group>
     </open-files>
 </project-private>
