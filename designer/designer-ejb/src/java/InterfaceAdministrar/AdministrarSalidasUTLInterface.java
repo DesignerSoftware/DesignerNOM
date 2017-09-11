@@ -17,8 +17,6 @@ public interface AdministrarSalidasUTLInterface {
     
     public void obtenerConexion(String idSesion);
     
-    public List<File> consultarArchivosProceso();
-    
     public List<File> consultarArchivosError();
     
     public String pathError();

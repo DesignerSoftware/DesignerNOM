@@ -194,7 +194,7 @@
                             <h:outputText id="infoRegistroParametro" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroParametro}" style="position: relative; top: 90px; font-weight: bold; margin-top: 0px;"/>
                         </fieldset>  
 
-                        <fieldset style="position: absolute; left: 10px; top: 202px; width: 835px; height: 248px; border-radius: 10px; padding-top: 0px;">
+                        <fieldset style="position: absolute; left: 10px; top: 202px; width: 835px; height: 255px; border-radius: 10px; padding-top: 0px;">
                             <legend style="color: blue;text-align:left;"><strong>#{msg['aportesEntidades']}</strong></legend>
 
                             <p:dataTable id="tablaAportesEntidades" var="infoAE"  rowKey="#{infoAE.secuencia}" style="width: 4650px; position: absolute;"
@@ -1406,35 +1406,35 @@
 
                             </p:dataTable>
                             <!--</p:scrollPanel>-->
-                            <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: relative; left: 5px; top: 230px; font-weight: bold;"/>
-                        </fieldset>
+                            <p:commandButton id="buscar" style="position: relative; left: 655px; top: 221px;" class="cssBotonBuscar"
+                                         actionListener="#{controlParametroAutoliq.dispararDialogoBuscar()}" onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
+                        <p:tooltip value="#{msg['btn1']}" for="buscar"/>
 
-                        <p:commandButton id="novedadauto" style="position: absolute; left: 10px; top: 462px;" class="cssBoton"
+                        <p:commandButton id="mostrarTodos" style="position: relative; left: 655px; top: 221px;" class="cssBotonMostrarTodos"
+                                         onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this"/>
+
+                        </fieldset>
+                        <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: absolute; left: 25px; top: 445px; font-weight: bold;"/>
+
+                        <p:commandButton id="novedadauto" style="position: absolute; left: 10px; top: 473px; height: 22px;" 
                                          onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'novedadautoliq')}" actionListener="#{controlNovedadAutoLiquidacion.recibirPag('novedadautoliq',controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" 
                                          value="#{msg['novAuto']}" process="@this" icon="ui-icon-extlink"/>
                         <p:tooltip value="#{msg['btn2']}" for="novedadauto"/>
 
-                        <p:commandButton id="eliminarToda" style="position: absolute; left: 140px; top: 464px; height: 28px;" class="cssBotonLargo"
-                                         icon="ui-icon-extlink"  value="#{msg['eliminarToda']}" onclick="PF('confirmarBorrarTodoAuto').show()" process="@this"/>
+                        <p:commandButton id="eliminarToda" style="position: absolute; left: 125px; top: 473px; height: 22px;" 
+                                         icon="ui-icon-extlink"  value="Eliminar Liq." onclick="PF('confirmarBorrarTodoAuto').show()" process="@this"/>
                         <p:tooltip value="#{msg['btn4']}" for="eliminarToda"/>
 
-                        <p:commandButton id="procesoLiq" style="position: absolute; left: 310px; top: 462px;" class="cssBoton"
+                        <p:commandButton id="procesoLiq" style="position: absolute; left: 252px; top: 473px; height: 22px;" 
                                          icon="ui-icon-extlink"  value="#{msg['procesoLiq']}" actionListener="#{controlParametroAutoliq.procesoLiquidacionAporteEntidad()}" process="@this"/>
                         <p:tooltip value="#{msg['btn5']}" for="procesoLiq"/>
 
-                        <p:commandButton id="generacionArch" style="position: absolute; left: 440px; top: 464px; height: 28px;" class="cssBotonLargo"
+                        <p:commandButton id="generacionArch" style="position: absolute; left: 382px; top: 473px; height: 22px;" 
                                          icon="ui-icon-extlink" value="#{msg['generacionArch']}" process="@this" onstart="#{controlParametroAutoliq.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametroautoliq', 'nreporteseguridad')}"/>
                         <p:tooltip value="#{msg['btn6']}" for="generacionArch"/>
 
                   <!--<p:commandButton id="acumDif"  style="position: absolute; left: 612px; top: 467px; width: 6px; height: 20px; color: #1a22a4; background-color: #1a22a4;"  actionListener="#{controlParametroAutoliq.procesoAcumularDiferenciaAporteEntidad()}" value=" " process="@this"/>-->
                   <!--<p:tooltip value="#{msg['btn7']}" for="acumDif"/>-->
-
-                        <p:commandButton id="buscar" style="position: absolute; left: 685px; top: 464px;" class="cssBotonBuscar"
-                                         actionListener="#{controlParametroAutoliq.dispararDialogoBuscar()}" onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
-                        <p:tooltip value="#{msg['btn1']}" for="buscar"/>
-
-                        <p:commandButton id="mostrarTodos" style="position: absolute; left: 775px; top: 464px;" class="cssBotonMostrarTodos"
-                                         onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this"/>
 
                         <p:commandButton class="cssBotonAceptar" disabled="#{controlParametroAutoliq.guardado}" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" process="@this"/>
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlParametroAutoliq.salir()}" process="@this"/>
@@ -1640,8 +1640,8 @@
                 <h:form id="formularioLovAporteEntidad">
 
                     <p:dialog header="#{msg['aporteEntidadM']}" widgetVar="BuscarAporteDialogo" draggable="true" resizable="false" closable="false" id="BuscarAporteDialogo"  
-                              showEffect="fade" hideEffect="fade" width="545" modal="true">
-                        <p:dataTable id="lovBuscarAporte" liveScroll="true" scrollRows="20" style="width: 500px;" var="buscarA" value="#{controlParametroAutoliq.lovAportesEntidades}" rowKey="#{buscarA.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="545" modal="true" onShow="PF('lovBuscarAporte').clearFilters()">
+                        <p:dataTable id="lovBuscarAporte" liveScroll="true"  scrollRows="20" style="width: 500px;" var="buscarA" value="#{controlParametroAutoliq.lovAportesEntidades}" rowKey="#{buscarA.secuencia}"
                                      selection="#{controlParametroAutoliq.aporteEntidadSeleccionado}" selectionMode="single" widgetVar="lovBuscarAporte" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovAportesEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovAporteEntidad:aceptarBA"/>
@@ -1664,11 +1664,11 @@
                                 </f:facet>
                                 <h:outputText  value="#{buscarA.mes}"/>
                             </p:column>
-                            <p:column filterBy="#{buscarA.empleado.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                            <p:column filterBy="#{buscarA.nombrecompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center;" value="#{msg['empleado']}"/>
                                 </f:facet>
-                                <h:outputText  value="#{buscarA.empleado.nombreCompleto}"/>
+                                <h:outputText  value="#{buscarA.nombrecompleto}"/>
                             </p:column>
 
                         </p:dataTable>

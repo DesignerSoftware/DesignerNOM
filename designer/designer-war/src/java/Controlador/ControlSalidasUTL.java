@@ -46,6 +46,7 @@ public class ControlSalidasUTL implements Serializable {
     private File archivoErrorSeleccionado;
     private String altoTabla, paginaAnterior;
     private String pathError, rutaArchivo, infoRegistro;
+    private String msgError;
 
     public ControlSalidasUTL() {
         listArchivosError = null;
@@ -70,6 +71,7 @@ public class ControlSalidasUTL implements Serializable {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarSalidasUTL.obtenerConexion(ses.getId());
+            recibirPaginaEntrante("nominaf");
         } catch (Exception e) {
             log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
             log.error("Causa: " + e.getCause());
@@ -97,17 +99,6 @@ public class ControlSalidasUTL implements Serializable {
         } else {
             controlListaNavegacion.guardarNavegacion(pagActual, pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            //mapParaEnviar.put("paginaAnterior", pagActual);
-            //mas Parametros
-            //         if (pag.equals("rastrotabla")) {
-            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-            //      } else if (pag.equals("rastrotablaH")) {
-            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
-            //   pag = "rastrotabla";
-            //}
         }
         limpiarListasValor();
     }
@@ -116,118 +107,23 @@ public class ControlSalidasUTL implements Serializable {
         navegar("atras");
     }
 
-    public void exportarPlano(String nombre) throws IOException {
-        try {
-            log.info("path proceso en exportarPlano() : " + pathError);
-//            if (pathError != null || !pathError.startsWith("Error:")) {
-            if (pathError != null) {
-                rutaArchivo = pathError + nombre;
-                File planof = new File(rutaArchivo);
-                System.out.println("crea el archivo : " + planof);
-                FacesContext ctx = FacesContext.getCurrentInstance();
-                FileInputStream fis = new FileInputStream(planof);
-                byte[] bytes = new byte[1024];
-                int read;
-                if (!ctx.getResponseComplete()) {
-                    String fileName = planof.getName();
-                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-//                    String contentType = "application/pdf";
-//                    response.setContentType(contentType);
-                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                    ServletOutputStream out = response.getOutputStream();
-                    while ((read = fis.read(bytes)) != -1) {
-                        out.write(bytes, 0, read);
-                    }
-                    out.flush();
-                    out.close();
-                    ctx.responseComplete();
-                }
-            }
-        } catch (Exception e) {
-            log.warn("Error exportando plano : " + e.getMessage());
-        }
-    }
-    
-    public void exportarPlano() throws IOException {
-        try {
-            log.info("path proceso en exportarPlano() : " + pathError);
-//            if (pathError != null || !pathError.startsWith("Error:")) {
-            if (pathError != null) {
-                rutaArchivo = pathError + archivoErrorSeleccionado.getName();
-                File planof = new File(rutaArchivo);
-                System.out.println("crea el archivo : " + planof);
-                FacesContext ctx = FacesContext.getCurrentInstance();
-                FileInputStream fis = new FileInputStream(planof);
-                byte[] bytes = new byte[1024];
-                int read;
-                if (!ctx.getResponseComplete()) {
-                    String fileName = planof.getName();
-                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-//                    String contentType = "application/pdf";
-//                    response.setContentType(contentType);
-                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                    ServletOutputStream out = response.getOutputStream();
-                System.out.println("fis.read(bytes)) : " + fis.read(bytes));
-                    while ((read = fis.read(bytes)) != -1) {
-                        out.write(bytes, 0, read);
-                System.out.println("valor de read en el while : " + read);
-                    }
-                    out.flush();
-                    out.close();
-                    ctx.responseComplete();
-                }
-            }
-        } catch (Exception e) {
-            log.warn("Error exportando plano : " + e.getMessage());
-        }
-    }
-    
-    
-    /*
-    
-    File ficheroXLS = new File(strPathXLS);
-FacesContext ctx = FacesContext.getCurrentInstance();
-FileInputStream fis = new FileInputStream(ficheroXLS);
-byte[] bytes = new byte[1000];
-int read = 0;
-
-if (!ctx.getResponseComplete()) {
-   String fileName = ficheroXLS.getName();
-   String contentType = "application/vnd.ms-excel";
-   //String contentType = "application/pdf";
-   HttpServletResponse response =(HttpServletResponse) ctx.getExternalContext().getResponse();
-   response.setContentType(contentType);
-   response.setHeader("Content-Disposition","attachment;filename=\"" + fileName + "\"");
-   ServletOutputStream out = response.getOutputStream();
-
-   while ((read = fis.read(bytes)) != -1) {
-        out.write(bytes, 0, read);
-   }
-
-   out.flush();
-   out.close();
-   System.out.println("\nDescargado\n");
-   ctx.responseComplete();
-}
-    
-    */
-
     public StreamedContent descargarArchivo(String nombre) {
-        System.out.println("nombre : " + nombre);
-        System.out.println("pathError : " + pathError);
         StreamedContent archivoDescarga = null;
         if (pathError != null && !pathError.isEmpty()) {
+            rutaArchivo = pathError + nombre;
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.setResponseHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             ec.setResponseHeader("Pragma", "no-cache");
             ec.setResponseHeader("Expires", "0");
             ec.setResponseHeader("Expires", "Mon, 8 Aug 1980 10:00:00 GMT");
             try {
-                File archivo = new File(pathError+nombre);
+                File archivo = new File(rutaArchivo);
                 FileInputStream fis = new FileInputStream(archivo);
                 archivoDescarga = new DefaultStreamedContent(fis, "text/xml", nombre);
             } catch (Exception e) {
                 archivoDescarga = null;
+                msgError = e.getMessage();
+                RequestContext.getCurrentInstance().execute("PF('errorDescargarArchivo').show()");
             }
         }
         return archivoDescarga;
@@ -288,4 +184,11 @@ if (!ctx.getResponseComplete()) {
         this.pathError = pathError;
     }
 
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
 }

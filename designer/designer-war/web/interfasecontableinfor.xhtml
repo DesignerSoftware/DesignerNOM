@@ -123,7 +123,9 @@
                                         <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(controlInterfaseContableInfor.parametroContableActual,3)}"/>
                                     </p:inputText>
                                 </div>
-
+                                
+                                
+                                <div style="position: relative; top: 0px; left: 0px">
                                 <strong><h:outputText value="#{msg['fechaInicial']}" style="position: relative; top: -86px; left: 480px"/></strong>
                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableInfor.parametroContableActual.fechainicialcontabilizacion}"
                                             style="position: relative; top: -88px; left: 492px" >
@@ -133,18 +135,20 @@
                                 </p:calendar>
 
 
-                                <strong><h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 44px; left: 489px"/></strong>
+                                <strong><h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: -56px; left: 482px"/></strong>
                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableInfor.parametroContableActual.fechafinalcontabilizacion}"
                                             style="position: relative; top: -60px; left: 408px" >
                                     <p:ajax event="dateSelect" listener="#{controlInterfaseContableInfor.modificarFechasParametro(controlInterfaseContableInfor.parametroContableActual,4)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlInterfaseContableInfor.modificarFechasParametro(controlInterfaseContableInfor.parametroContableActual,4)}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableInfor.cambiarIndiceParametro(controlInterfaseContableInfor.parametroContableActual,5)}"/>
                                 </p:calendar>
+                                </div>
 
-
+                                <div style="position: relative; top: -130px; left: 0px">
                                 <p:commandButton value="#{msg['actualizar']}" style="position: absolute; top: 30px; left: 680px;" icon="ui-icon-refresh"  process="@this" actionListener="#{controlInterfaseContableInfor.actionBtnActualizar()}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                 <p:commandButton id="btnAnular" value="." style="position: absolute; top: 33px; left: 795px; width: 10px; text-align: left" actionListener="#{controlInterfaseContableInfor.anularComprobantesCerrados()}"/>
                                 <p:tooltip  for="btnAnular" value="#{msg['btnAnular']}"/>
+                                </div>
                             </fieldset> 
                         </p:panel>
 
@@ -302,13 +306,13 @@
                                              style="position: relative; top: 34px; left: 4px; text-align: center;"/>
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}"/>
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 0px; left: 18px;"/></strong>
-                            <p:inputText autocomplete="off" id="totalDGenerado" value="#{controlInterfaseContableInfor.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px; width: 100px; height: 10px; text-align: left; border-color: transparent">
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: -2px; left: 18px;"/></strong>
+                            <p:inputText autocomplete="off" id="totalDGenerado" value="#{controlInterfaseContableInfor.totalDGenerado}" readonly="true" style="position: relative; top: -2px; left: 20px; width: 100px; height: 10px; text-align: left; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 0px; left: 22px;"/></strong>
-                            <p:inputText autocomplete="off" id="totalCGenerado" value="#{controlInterfaseContableInfor.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px; width: 100px; height: 10px; text-align: right; border-color: transparent">
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: -2px; left: 22px;"/></strong>
+                            <p:inputText autocomplete="off" id="totalCGenerado" value="#{controlInterfaseContableInfor.totalCGenerado}" readonly="true" style="position: relative; top: -2px; left: 22px; width: 100px; height: 10px; text-align: right; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"/>
                             </p:inputText>
                         </fieldset>

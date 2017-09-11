@@ -8220,7 +8220,7 @@
    </navigation-rule>
    
       <navigation-rule>
-      <from-view-id>/novedad.xhtml</from-view-id>
+      <from-view-id>/nominaf.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>salidasutl</from-outcome>
          <to-view-id>/salidasutl.xhtml</to-view-id>
@@ -8230,8 +8230,25 @@
    <navigation-rule>
       <from-view-id>/salidasutl.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>novedad</from-outcome>
-         <to-view-id>/novedad.xhtml</to-view-id>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+         <navigation-rule>
+      <from-view-id>/nominaf.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>operador</from-outcome>
+         <to-view-id>/operador.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/operador.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>nominaf</from-outcome>
+         <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>

@@ -67,47 +67,19 @@ public class AdministrarSalidasUTL implements AdministrarSalidasUTLInterface {
     }
 
     @Override
-    public List<File> consultarArchivosProceso() {
-        try {
-            Generales general = persistenciaGenerales.obtenerRutas(getEm());
-            String rutaReporte = general.getPathproceso();
-            List<File> listaArchivos = new ArrayList<File>();
-
-            File folder = new File("C:\\DesignerRHN\\SalidasUTL\\BOMEDICA\\");
-            File[] listOfFiles = folder.listFiles();
-            for (File listOfFile : listOfFiles) {
-                if (listOfFile.isFile()) {
-                    String archivo = listOfFile.getName();
-                    String archivoSinExt = archivo.substring(0, archivo.lastIndexOf("."));
-                    if (archivo.startsWith("proceso") || archivo.startsWith("cierre")) {
-                        listaArchivos.add(listOfFile);
-                    }
-                }
-            }
-            return listaArchivos;
-        } catch (Exception ex) {
-            log.error("Error AdministrarSalidasUTL.consultarArchivosProceso: " + ex);
-            return null;
-        }
-    }
-
-    @Override
     public List<File> consultarArchivosError() {
         try {
             Generales general = persistenciaGenerales.obtenerRutas(getEm());
-            String rutaReporte = general.getPathproceso();
+            String rutaReporte = general.getPatherror();
             List<File> listaArchivos = new ArrayList<File>();
 
             File folder = new File(rutaReporte);
-//            File folder = new File("C:\\DesignerRHN\\SalidasUTL\\BOMEDICA\\");
             File[] listOfFiles = folder.listFiles();
             for (File listOfFile : listOfFiles) {
                 if (listOfFile.isFile()) {
                     String archivo = listOfFile.getName();
                     String archivoSinExt = archivo.substring(0, archivo.lastIndexOf("."));
-//                    if (archivo.startsWith("errores")) {
-                        listaArchivos.add(listOfFile);
-//                    }
+                    listaArchivos.add(listOfFile);
                 }
             }
             return listaArchivos;

@@ -264,6 +264,34 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
                     + " AND   A.ano = " + ano + " \n";
             Query query = em.createNativeQuery(sql, AportesEntidades.class);
             List<AportesEntidades> listAportesEmpleado = query.getResultList();
+
+            if (listAportesEmpleado != null) {
+                if (!listAportesEmpleado.isEmpty()) {
+                    em.clear();
+                    Query query2 = em.createNativeQuery("SELECT P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '|| P.NOMBRE NOMBRECOMPLETO , E.CODIGOEMPLEADO, a.secuencia SECUENCIA,t.nit NITTERCERO, t.nombre NOMBRETERCERO \n"
+                            + " FROM AportesEntidades a ,TERCEROS t, Empleados e,Personas p where A.TERCERO=T.SECUENCIA(+) \n"
+                            + " and a.empleado=e.secuencia and p.secuencia=e.persona\n"
+                            + " AND a.empleado = ? AND a.ano = ? AND a.mes = ? \n"
+                            + " AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado)  ", AportesEntidadesAux.class);
+                    query2.setParameter(1, secEmpleado);
+                    query2.setParameter(2, ano);
+                    query2.setParameter(3, mes);
+                    List<AportesEntidadesAux> listaAportesAux = query2.getResultList();
+                    if (listaAportesAux != null) {
+                        if (!listaAportesAux.isEmpty()) {
+                            log.warn("PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio() listaEmpleadosAux.size(): " + listaAportesAux.size());
+                            for (AportesEntidadesAux recAux : listaAportesAux) {
+                                for (AportesEntidades recAporte : listAportesEmpleado) {
+                                    if (recAux.getSecuencia().equals(recAporte.getSecuencia())) {
+                                        recAporte.llenarTransients(recAux);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if (listAportesEmpleado != null) {
                 if (!listAportesEmpleado.isEmpty()) {
                     for (int i = 0; i < listAportesEmpleado.size(); i++) {
@@ -293,7 +321,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
         try {
             tx.begin();
             String sqlQuery = "call aportesentidadesxdia$pkg.ELIMINAR(?, ?, ?)";
-             Query query = em.createNativeQuery(sqlQuery);
+            Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, ano);
             query.setParameter(2, mes);
             query.setParameter(3, secEmpresa);
@@ -315,7 +343,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
 
     @Override
     public String ejecutarPKGProcesarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa) {
-       log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGProcesasAportesEntidadesXDia()");
+        log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGProcesasAportesEntidadesXDia()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {

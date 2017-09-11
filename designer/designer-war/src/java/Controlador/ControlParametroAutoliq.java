@@ -1771,8 +1771,8 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void borrarAporteEntidadProcesoAutomatico() {
         RequestContext context = RequestContext.getCurrentInstance();
-        msgError ="";
-        msgErrorAux ="";
+        msgError = "";
+        msgErrorAux = "";
         if (listaAportesEntidades != null) {
             if (!listaAportesEntidades.isEmpty()) {
                 msgError = administrarParametroAutoliq.borrarAportesEntidadesProcesoAutomatico(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
@@ -2641,6 +2641,9 @@ public class ControlParametroAutoliq implements Serializable {
         context.reset("formularioLovEmpleado:lovEmpleado:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpleado').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formularioLovEmpleado:lovEmpleado");
+        RequestContext.getCurrentInstance().update("formularioLovEmpleado:aceptarEMPL");
     }
 
     public void cancelarCambioEmpleado() {
@@ -2653,6 +2656,10 @@ public class ControlParametroAutoliq implements Serializable {
         context.reset("formularioLovEmpleado:lovEmpleado:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpleado').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
+        RequestContext.getCurrentInstance().update("formularioLovEmpleado:lovEmpleado");
+        RequestContext.getCurrentInstance().update("formularioLovEmpleado:aceptarEMPL");
+
     }
 
     public void actualizarTercero() {
@@ -2791,6 +2798,7 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void actualizarAporteEntidad() {
+        System.out.println("Controlador.ControlParametroAutoliq.actualizarAporteEntidad()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (banderaAporte == 1) {
             desactivarFiltradoAporteEntidad();
@@ -2798,12 +2806,8 @@ public class ControlParametroAutoliq implements Serializable {
             filtrarListaAportesEntidades = null;
             tipoListaAporte = 0;
         }
-//        listaAportesEntidades = null;
         listaAportesEntidades.clear();
-//        listaAportesEntidades.add(aporteEntidadSeleccionado);
-        log.info("ControlParametroAutoliq.actualizarAporteEntidad()");
         listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorEmpleado(aporteEntidadSeleccionado.getEmpleado(), aporteEntidadSeleccionado.getMes(), aporteEntidadSeleccionado.getAno());
-//        getListaAportesEntidades();
         if (listaAportesEntidades != null) {
             if (!listaAportesEntidades.isEmpty()) {
                 aporteTablaSeleccionado = listaAportesEntidades.get(0);
@@ -2816,7 +2820,6 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext.getCurrentInstance().update("form:novedadauto");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
-//      RequestContext.getCurrentInstance().update("form:acumDif");
         tipoActualizacion = -1;
         visibilidadMostrarTodos = "visible";
         RequestContext.getCurrentInstance().update("form:mostrarTodos");
@@ -2841,7 +2844,6 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext.getCurrentInstance().update("form:novedadauto");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
-//      RequestContext.getCurrentInstance().update("form:acumDif");
         tipoActualizacion = -1;
         permitirIndex = true;
         RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");

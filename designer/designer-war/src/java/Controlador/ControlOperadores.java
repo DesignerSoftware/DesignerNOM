@@ -35,11 +35,11 @@ import org.primefaces.context.RequestContext;
  *
  * @author user
  */
-@Named(value = "controlOperadoresInterface")
+@Named(value = "controlOperadores")
 @SessionScoped
-public class ControlOperadoresInterface implements Serializable {
+public class ControlOperadores implements Serializable {
 
-   private static Logger log = Logger.getLogger(ControlOperadoresInterface.class);
+    private static Logger log = Logger.getLogger(ControlOperadores.class);
 
     @EJB
     AdministrarOperadoresInterface administrarOperadores;
@@ -48,33 +48,20 @@ public class ControlOperadoresInterface implements Serializable {
 
     private List<Operadores> listOperadores;
     private List<Operadores> listaOperadoresFiltrar;
-//   private List<Operadores> listaOperadoresCrear;
-//   private List<Operadores> listaOperadoresModificar;
-//   private List<Operadores> listaOperadoresBorrar;
-//   private Operadores nuevoOperador;
-//   private Operadores duplicarOperador;
     private Operadores editarOperador;
     private Operadores operadorSeleccionado;
     private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
-//   private BigInteger l;
     private boolean aceptar, guardado;
     private Column signo, descripcion;
-//   private int registrosBorrados;
-//    private String mensajeValidacion;
     private int tamano;
     private String infoRegistro;
     private DataTable tablaC;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public ControlOperadoresInterface() {
+    public ControlOperadores() {
         listOperadores = null;
-//      crearTiposCursos = new ArrayList<TiposCursos>();
-//      modificarTiposCursos = new ArrayList<TiposCursos>();
-//      borrarTiposCursos = new ArrayList<TiposCursos>();
         editarOperador = new Operadores();
-//      nuevoOperador = new Operadores();
-//      duplicarOperador = new Operadores();
         guardado = true;
         tamano = 270;
         cualCelda = -1;
@@ -87,13 +74,13 @@ public class ControlOperadoresInterface implements Serializable {
     }
 
     @PreDestroy
-   public void destruyendoce() {
-      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
-   }
-   
-   @PostConstruct
+    public void destruyendoce() {
+        log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+    }
+
+    @PostConstruct
     public void inicializarAdministrador() {
-      log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
+        log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
@@ -136,17 +123,6 @@ public class ControlOperadoresInterface implements Serializable {
         } else {
             controlListaNavegacion.guardarNavegacion(pagActual, pag);
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-            //mapParaEnviar.put("paginaAnterior", pagActual);
-            //mas Parametros
-            //         if (pag.equals("rastrotabla")) {
-            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-            //      } else if (pag.equals("rastrotablaH")) {
-            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
-            //   pag = "rastrotabla";
-            //}
         }
         limpiarListasValor();
     }
@@ -184,10 +160,6 @@ public class ControlOperadoresInterface implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosOperadores");
             tipoLista = 0;
         }
-
-//      borrarTiposCursos.clear();
-//      crearTiposCursos.clear();
-//      modificarTiposCursos.clear();
         operadorSeleccionado = null;
         contarRegistros();
         k = 0;
@@ -211,9 +183,6 @@ public class ControlOperadoresInterface implements Serializable {
             tipoLista = 0;
             tamano = 270;
         }
-//      borrarTiposCursos.clear();
-//      crearTiposCursos.clear();
-//      modificarTiposCursos.clear();
         operadorSeleccionado = null;
         k = 0;
         listOperadores = null;
@@ -226,9 +195,9 @@ public class ControlOperadoresInterface implements Serializable {
         if (bandera == 0) {
             tamano = 250;
             signo = (Column) c.getViewRoot().findComponent("form:datosOperadores:signo");
-            signo.setFilterStyle("width: 85% !important;");
+            signo.setFilterStyle("width: 80% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosOperadores:descripcion");
-            descripcion.setFilterStyle("width: 85% !important;");
+            descripcion.setFilterStyle("width: 80% !important;");
             RequestContext.getCurrentInstance().update("form:datosOperadores");
             bandera = 1;
         } else if (bandera == 1) {
@@ -249,7 +218,7 @@ public class ControlOperadoresInterface implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosOperadoresExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "Operadores", false, false, "UTF-8", null, null);
         context.responseComplete();
     }
 
@@ -257,14 +226,14 @@ public class ControlOperadoresInterface implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosOperadoresExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "Operadores", false, false, "UTF-8", null, null);
         context.responseComplete();
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (operadorSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(operadorSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            int resultado = administrarRastros.obtenerTabla(operadorSeleccionado.getSecuencia(), "Operadores"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             log.info("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
@@ -284,14 +253,6 @@ public class ControlOperadoresInterface implements Serializable {
         }
     }
 
-    public void recordarSeleccion() {
-        if (operadorSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosOperadores");
-            tablaC.setSelection(operadorSeleccionado);
-        }
-    }
-
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
@@ -303,33 +264,10 @@ public class ControlOperadoresInterface implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-//    public void revisarDialogoGuardar() {
-//        if (!list.isEmpty() || !crearTiposCursos.isEmpty() || !modificarTiposCursos.isEmpty()) {
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-//            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-//        }
-//    }
-
     public void guardarTiposCursos() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (guardado == false) {
-//                if (!borrarTiposCursos.isEmpty()) {
-//                    administrarTiposCursos.borrarTiposCursos(borrarTiposCursos);
-//                    registrosBorrados = borrarTiposCursos.size();
-//                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-//                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-//                    borrarTiposCursos.clear();
-//                }
-//                if (!modificarTiposCursos.isEmpty()) {
-//                    administrarTiposCursos.modificarTiposCursos(modificarTiposCursos);
-//                    modificarTiposCursos.clear();
-//                }
-//                if (!crearTiposCursos.isEmpty()) {
-//                    administrarTiposCursos.crearTiposCursos(crearTiposCursos);
-//                    crearTiposCursos.clear();
-//                }
                 listOperadores = null;
                 getListOperadores();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -350,6 +288,10 @@ public class ControlOperadoresInterface implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
         }
 
+    }
+    
+    public void limpiarExportar(){
+        editarOperador = new Operadores();
     }
 
     public void editarCelda() {
@@ -373,190 +315,11 @@ public class ControlOperadoresInterface implements Serializable {
         }
     }
 
-    /*
-    public void modificarTiposCursos(TiposCursos tipo) {
-      operadorSeleccionado = tipo;
-      if (!crearTiposCursos.contains(operadorSeleccionado)) {
-         if (modificarTiposCursos.isEmpty()) {
-            modificarTiposCursos.add(operadorSeleccionado);
-         } else if (!modificarTiposCursos.contains(operadorSeleccionado)) {
-            modificarTiposCursos.add(operadorSeleccionado);
-         }
-         guardado = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      }
-      RequestContext.getCurrentInstance().update("form:datosOperadores");
-   }
-
-   public void borrandoTiposCursos() {
-      if (operadorSeleccionado != null) {
-         if (!modificarTiposCursos.isEmpty() && modificarTiposCursos.contains(operadorSeleccionado)) {
-            modificarTiposCursos.remove(modificarTiposCursos.indexOf(operadorSeleccionado));
-            borrarTiposCursos.add(operadorSeleccionado);
-         } else if (!crearTiposCursos.isEmpty() && crearTiposCursos.contains(operadorSeleccionado)) {
-            crearTiposCursos.remove(crearTiposCursos.indexOf(operadorSeleccionado));
-         } else {
-            borrarTiposCursos.add(operadorSeleccionado);
-         }
-         listTiposCursos.remove(operadorSeleccionado);
-         if (tipoLista == 1) {
-            filtrarTiposCursos.remove(operadorSeleccionado);
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:datosOperadores");
-         contarRegistros();
-         operadorSeleccionado = null;
-         guardado = true;
-
-         if (guardado == true) {
-            guardado = false;
-         }
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      }
-   }
-
-  
-   public void agregarNuevoTiposCursos() {
-      log.info("agregarNuevoTiposCursos");
-      int contador = 0;
-      int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      mensajeValidacion = " ";
-
-      if (nuevoTiposCursos.getDescripcion().equals(" ") || nuevoTiposCursos.getDescripcion().equals("")) {
-         mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-         contador++;
-      }
-      if (nuevoTiposCursos.getCodigo() == 0) {
-         mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
-         contador++;
-      }
-
-      for (int i = 0; i < listTiposCursos.size(); i++) {
-         if (listTiposCursos.get(i).getCodigo() == nuevoTiposCursos.getCodigo()) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-            RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
-            duplicados++;
-         }
-      }
-
-      if (contador != 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoSector");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevoSector').show()");
-      }
-
-      if (contador == 0 && duplicados == 0) {
-         if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            //CERRAR FILTRADO
-            log.info("Desactivar");
-            codigo = (Column) c.getViewRoot().findComponent("form:datosOperadores:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosOperadores:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            bandera = 0;
-            filtrarTiposCursos = null;
-            tipoLista = 0;
-            tamano = 270;
-            RequestContext.getCurrentInstance().update("form:datosOperadores");
-         }
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoTiposCursos.setSecuencia(l);
-         crearTiposCursos.add(nuevoTiposCursos);
-         listTiposCursos.add(nuevoTiposCursos);
-         contarRegistros();
-         operadorSeleccionado = nuevoTiposCursos;
-         nuevoTiposCursos = new TiposCursos();
-         RequestContext.getCurrentInstance().update("form:datosOperadores");
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposCursos').hide()");
-      }
-   }
-
-   public void limpiarNuevoTiposCursos() {
-      nuevoTiposCursos = new TiposCursos();
-   }
-
-   public void duplicandoTiposCursos() {
-      if (operadorSeleccionado != null) {
-         duplicarTiposCursos = new TiposCursos();
-         k++;
-         l = BigInteger.valueOf(k);
-
-         if (tipoLista == 0) {
-            duplicarTiposCursos.setSecuencia(l);
-            duplicarTiposCursos.setCodigo(operadorSeleccionado.getCodigo());
-            duplicarTiposCursos.setDescripcion(operadorSeleccionado.getDescripcion());
-         }
-         if (tipoLista == 1) {
-            duplicarTiposCursos.setSecuencia(l);
-            duplicarTiposCursos.setCodigo(operadorSeleccionado.getCodigo());
-            duplicarTiposCursos.setDescripcion(operadorSeleccionado.getDescripcion());
-            tamano = 270;
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').show()");
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      }
-   }
-
-   public void confirmarDuplicar() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      int contador = 0;
-
-      for (int i = 0; i < listTiposCursos.size(); i++) {
-         if (duplicarTiposCursos.getCodigo() == listTiposCursos.get(i).getCodigo()) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-            RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
-            contador++;
-         }
-      }
-
-      if (contador == 0) {
-         listTiposCursos.add(duplicarTiposCursos);
-         crearTiposCursos.add(duplicarTiposCursos);
-         operadorSeleccionado = duplicarTiposCursos;
-         contarRegistros();
-         RequestContext.getCurrentInstance().update("form:datosOperadores");
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-
-         if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            //CERRAR FILTRADO
-            codigo = (Column) c.getViewRoot().findComponent("form:datosOperadores:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosOperadores:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            bandera = 0;
-            filtrarTiposCursos = null;
-            RequestContext.getCurrentInstance().update("form:datosOperadores");
-            tipoLista = 0;
-         }
-         duplicarTiposCursos = new TiposCursos();
-      }
-      RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTiposCursos");
-      RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').hide()");
-   }
-
-   public void limpiarDuplicarTiposCursos() {
-      duplicarTiposCursos = new TiposCursos();
-   }
-
-     */
     //////////set y get/////////////
     public List<Operadores> getListOperadores() {
+        if (listOperadores == null) {
+            listOperadores = administrarOperadores.listOperadores();
+        }
         return listOperadores;
     }
 
@@ -597,11 +360,30 @@ public class ControlOperadoresInterface implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosOperadores");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
     public void setInfoRegistro(String infoRegistro) {
         this.infoRegistro = infoRegistro;
+    }
+
+    public List<Operadores> getListaOperadoresFiltrar() {
+        return listaOperadoresFiltrar;
+    }
+
+    public void setListaOperadoresFiltrar(List<Operadores> listaOperadoresFiltrar) {
+        this.listaOperadoresFiltrar = listaOperadoresFiltrar;
+    }
+
+    public int getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(int tamano) {
+        this.tamano = tamano;
     }
 
 }
