@@ -11,12 +11,15 @@ import javax.ejb.Stateless;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JExcelApiExporterParameter;
 import net.sf.jasperreports.engine.export.JExcelApiMetadataExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
 import net.sf.jasperreports.engine.export.JRCsvMetadataExporter;
 import net.sf.jasperreports.engine.export.JRCsvMetadataExporterParameter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.AsynchronousFillHandle;
@@ -87,6 +90,10 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 case "CSV":
                     exporter = new JRCsvMetadataExporter();
                     exporter.setParameter(JRCsvMetadataExporterParameter.CHARACTER_ENCODING, "ISO-8859-1");
+                    JRCsvMetadataExporter.PROPERTY_COLUMN_NAME.isEmpty();
+                    exporter.setParameter(JRCsvExporterParameter.RECORD_DELIMITER, "\r\n");
+                    exporter.setParameter(JRCsvExporterParameter.RECORD_DELIMITER, "\r\n");
+
                     break;
                 case "HTML":
                     exporter = new JRXhtmlExporter();
@@ -102,6 +109,8 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     break;
                 case "TXT":
                     exporter = new JRTextExporter();
+                    exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(687).floatValue());
+                    exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(15).floatValue());
                     break;
                 default:
                     break;
