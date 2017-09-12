@@ -30,8 +30,6 @@ import org.apache.log4j.Logger;
  *
  * @author betelgeuse
  */
-
-
 @Stateful
 public class AdministrarComprobantes implements AdministrarComprobantesInterface {
 
@@ -91,15 +89,17 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -114,7 +114,8 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
    //--------------------------------------------------------------------------
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -130,7 +131,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
          log.warn("administrarcomprobantes consultarParametrosComprobantesActualUsuario()  actualUsuario: " + usuarioBD);
          return persistenciaParametros.parametrosComprobantes(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametrosComprobantesActualUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -142,7 +143,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
          usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametroEstructuraActualUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -152,7 +153,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaSolucionesNodos.solucionNodoEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSolucionesNodosEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -162,7 +163,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaSolucionesNodos.solucionNodoEmpleador(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSolucionesNodosEmpleador() ERROR: " + e);
          return null;
       }
    }
@@ -172,7 +173,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaDetallesFormulas.detallesFormula(getEm(), secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDetallesFormulasEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -182,7 +183,7 @@ public class AdministrarComprobantes implements AdministrarComprobantesInterface
       try {
          return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(getEm(), secFormula, fechaDesde);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarHistoriaFormulaFormula() ERROR: " + e);
          return null;
       }
    }

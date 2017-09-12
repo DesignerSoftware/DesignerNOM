@@ -1945,15 +1945,15 @@ public class ControlNReporteNomina implements Serializable {
 
    public void cargarListaEmpleados() {
       if (lovEmpleados == null) {
-         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+         if (listasRecurrentes.getLovEmpleadosActivos().isEmpty()) {
             lovEmpleados = administrarNReportesNomina.listEmpleados();
             if (lovEmpleados != null) {
-               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
-               listasRecurrentes.setLovEmpleados(lovEmpleados);
+               log.warn("GUARDANDO lovEmpleadosActivos en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActivos(lovEmpleados);
             }
          } else {
-            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
-            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActivos());
+            log.warn("CONSULTANDO lovEmpleadosActivos de Listas recurrentes");
          }
       }
    }

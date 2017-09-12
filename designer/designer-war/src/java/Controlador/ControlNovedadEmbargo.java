@@ -3231,15 +3231,15 @@ public class ControlNovedadEmbargo implements Serializable {
 
    public List<Empleados> getListaEmpleados() {
       if (listaEmpleados == null) {
-         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+         if (listasRecurrentes.getLovEmpleadosActivos().isEmpty()) {
             listaEmpleados = administrarNovedadesEmbargos.listaEmpleados();
             if (listaEmpleados != null) {
-               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
-               listasRecurrentes.setLovEmpleados(listaEmpleados);
+               log.warn("GUARDANDO lovEmpleadosActivos en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActivos(listaEmpleados);
             }
          } else {
-            listaEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
-            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+            listaEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActivos());
+            log.warn("CONSULTANDO lovEmpleadosActivos de Listas recurrentes");
          }
       }
       return listaEmpleados;

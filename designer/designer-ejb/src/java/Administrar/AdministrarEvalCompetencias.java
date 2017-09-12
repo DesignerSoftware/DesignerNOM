@@ -73,7 +73,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
             persistenciaEvalCompetencias.editar(getEm(), listEvalCompetencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEvalCompetencias() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
             persistenciaEvalCompetencias.borrar(getEm(), listEvalCompetencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEvalCompetencias() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
             persistenciaEvalCompetencias.crear(getEm(), listEvalCompetencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEvalCompetencias() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
       try {
          return persistenciaEvalCompetencias.buscarEvalCompetencias(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEvalCompetencias() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarEvalCompetencias implements AdministrarEvalCompetenciasI
       try {
          return persistenciaEvalCompetencias.buscarEvalCompetencia(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEvalCompetencia() ERROR: " + e);
          return null;
       }
    }

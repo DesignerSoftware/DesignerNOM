@@ -93,7 +93,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
             persistenciaConceptosSoportes.editar(getEm(), listaConceptosSoportes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarConceptosSoportes() ERROR: " + e);
       }
    }
 
@@ -104,7 +104,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
             persistenciaConceptosSoportes.borrar(getEm(), listaConceptosSoportes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarConceptosSoportes() ERROR: " + e);
       }
    }
 
@@ -114,7 +114,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
             persistenciaConceptosSoportes.crear(getEm(), listaConceptosSoportes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearConceptosSoportes() ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
          listaConceptosSoportes = persistenciaConceptosSoportes.consultarConceptosSoportes(getEm());
          return listaConceptosSoportes;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarConceptosSoportes() ERROR: " + e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
          listLOVOperandos = persistenciaOperandos.buscarOperandos(getEm());
          return listLOVOperandos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVOperandos() ERROR: " + e);
          return null;
       }
    }
@@ -148,7 +148,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
          listLOVOperandos = persistenciaOperandos.operandoPorConceptoSoporte(getEm(), secConceptoSoporte);
          return listLOVOperandos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVOperandosPorConcepto() ERROR: " + e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
          listLOVConceptos = persistenciaConceptos.buscarConceptos(getEm());
          return listLOVConceptos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVConceptos() ERROR: " + e);
          return null;
       }
    }
@@ -169,7 +169,7 @@ public class AdministrarConceptosSoportes implements AdministrarConceptosSoporte
          BigInteger contarConceptosOperandos = persistenciaConceptosSoportes.consultarConceptoSoporteConceptoOperador(getEm(), concepto, operando);
          return contarConceptosOperandos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarConceptosOperandos() ERROR: " + e);
          return null;
       }
    }

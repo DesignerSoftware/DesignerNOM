@@ -79,7 +79,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
             persistenciaEvalActividades.borrar(getEm(), listaEvalActividades.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEvalActividades() ERROR: " + e);
       }
    }
 
@@ -90,7 +90,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
             persistenciaEvalActividades.crear(getEm(), listaEvalActividades.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEvalActividades() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
       try {
          return persistenciaEvalActividades.consultarEvalActividades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEvalActividades() ERROR: " + e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class AdministrarEvalActividades implements AdministrarEvalActividadesInt
       try {
          return persistenciaEvalActividades.consultarEvalActividad(getEm(), secEvalActividades);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEvalActividad() ERROR: " + e);
          return null;
       }
    }

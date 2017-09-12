@@ -126,7 +126,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             persistenciaVigenciasFormasPagos.editar(getEm(), listaVigenciasFormasPagos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciasFormasPagos() ERROR: " + e);
       }
    }
 
@@ -142,7 +142,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
             persistenciaVigenciasFormasPagos.borrar(getEm(), listaVigenciasFormasPagos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciasFormasPagos() ERROR: " + e);
       }
    }
 
@@ -151,7 +151,7 @@ public class AdministrarEmplVigenciasFormasPagos implements AdministrarEmplVigen
       try {
          persistenciaVigenciasFormasPagos.crear(getEm(), vigenciasFormasPagos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigencasFormasPagos() ERROR: " + e);
       }
    }
 

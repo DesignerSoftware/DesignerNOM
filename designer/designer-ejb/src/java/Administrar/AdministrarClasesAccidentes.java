@@ -88,7 +88,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
             persistenciaClasesAccidentes.editar(getEm(), clasesAccidentesSeleccionada);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarClasesAccidentes() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
             persistenciaClasesAccidentes.borrar(getEm(), listaClasesAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarClasesAccidentes() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
             persistenciaClasesAccidentes.crear(getEm(), listaClasesAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearClasesAccidentes() ERROR: " + e);
       }
    }
 
@@ -121,7 +121,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
       try {
          return persistenciaClasesAccidentes.buscarClasesAccidentes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClasesAccidentes() ERROR: " + e);
          return null;
       }
    }
@@ -131,7 +131,7 @@ public class AdministrarClasesAccidentes implements AdministrarClasesAccidentesI
       try {
          return persistenciaClasesAccidentes.buscarClaseAccidente(getEm(), secClasesAccidentes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClaseAccidente() ERROR: " + e);
          return null;
       }
    }

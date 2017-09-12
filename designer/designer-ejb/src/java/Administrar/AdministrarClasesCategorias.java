@@ -37,15 +37,17 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -57,7 +59,8 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -73,7 +76,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
             persistenciaClasesCategorias.editar(getEm(), listaClasesCategorias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarClasesCategorias() ERROR: " + e);
       }
    }
 
@@ -85,7 +88,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
             persistenciaClasesCategorias.borrar(getEm(), listaClasesCategorias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarClasesCategorias() ERROR: " + e);
       }
    }
 
@@ -97,7 +100,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
             persistenciaClasesCategorias.crear(getEm(), listaClasesCategorias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearClasesCategorias() ERROR: " + e);
       }
    }
 
@@ -107,7 +110,7 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
          listMotivosCambiosCargos = persistenciaClasesCategorias.consultarClasesCategorias(getEm());
          return listMotivosCambiosCargos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClasesCategorias() ERROR: " + e);
          return null;
       }
    }
@@ -119,17 +122,15 @@ public class AdministrarClasesCategorias implements AdministrarClasesCategoriasI
          subCategoria = persistenciaClasesCategorias.consultarClaseCategoria(getEm(), secClasesCategorias);
          return subCategoria;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClaseCategoria() ERROR: " + e);
          return null;
       }
    }
 
    @Override
    public BigInteger contarCategoriaClaseCategoria(BigInteger secClasesCategorias) {
-      BigInteger contarCategoriaClaseCategoria = null;
-
       try {
-         return contarCategoriaClaseCategoria = persistenciaClasesCategorias.contarCategoriasClaseCategoria(getEm(), secClasesCategorias);
+         return persistenciaClasesCategorias.contarCategoriasClaseCategoria(getEm(), secClasesCategorias);
       } catch (Exception e) {
          log.error("ERROR AdministrarClasesCategorias contarCategoriaClaseCategoria ERROR : " + e);
          return null;

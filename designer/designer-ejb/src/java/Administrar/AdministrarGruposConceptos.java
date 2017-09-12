@@ -94,7 +94,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
             persistenciaGruposConceptos.editar(getEm(), listaGruposConceptosModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarGruposConceptos() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
       try {
          persistenciaGruposConceptos.borrar(getEm(), gruposConceptos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarGruposConceptos() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
       try {
          persistenciaGruposConceptos.crear(getEm(), gruposConceptos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearGruposConceptos() ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
             persistenciaVigenciasGruposConceptos.editar(getEm(), listaVigenciasGruposConceptosModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciaGruposConceptos() ERROR: " + e);
       }
    }
 
@@ -134,7 +134,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
       try {
          persistenciaVigenciasGruposConceptos.borrar(getEm(), vigenciasGruposConceptos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciaGruposConceptos() ERROR: " + e);
       }
    }
 
@@ -143,7 +143,7 @@ public class AdministrarGruposConceptos implements AdministrarGruposConceptosInt
       try {
          persistenciaVigenciasGruposConceptos.crear(getEm(), vigenciasGruposConceptos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciaGruposConceptos() ERROR: " + e);
       }
    }
 

@@ -34,27 +34,45 @@ public class ListasRecurrentes {
    private List<Formulas> lovFormulas;
    private List<FormulasConceptos> lovFormulasConceptos;
    private List<Conceptos> lovConceptos;
-   private List<Empleados> lovEmpleados;
+   private List<Empleados> lovEmpleadosActivos;
+   private List<Empleados> lovEmpleadosNovedad;
+   private List<Empleados> lovEmpleadosActPenc;
 
    public ListasRecurrentes() {
-      lovCuentas = new ArrayList<Cuentas>();
-      lovCentrosCostos = new ArrayList<CentrosCostos>();
-      lovProcesos = new ArrayList<Procesos>();
-      lovGruposConceptos = new ArrayList<GruposConceptos>();
-      lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
-      lovFormulas = new ArrayList<Formulas>();
-      lovFormulasConceptos = new ArrayList<FormulasConceptos>();
-      lovConceptos = new ArrayList<Conceptos>();
-      lovEmpleados = new ArrayList<Empleados>();
+      lovCuentas = null;
+      lovCentrosCostos = null;
+      lovProcesos = null;
+      lovGruposConceptos = null;
+      lovTiposTrabajadores = null;
+      lovFormulas = null;
+      lovFormulasConceptos = null;
+      lovConceptos = null;
+      lovEmpleadosActivos = null;
+      lovEmpleadosNovedad = null;
+      lovEmpleadosActPenc = null;
+//      lovCuentas = new ArrayList<Cuentas>();
+//      lovCentrosCostos = new ArrayList<CentrosCostos>();
+//      lovProcesos = new ArrayList<Procesos>();
+//      lovGruposConceptos = new ArrayList<GruposConceptos>();
+//      lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
+//      lovFormulas = new ArrayList<Formulas>();
+//      lovFormulasConceptos = new ArrayList<FormulasConceptos>();
+//      lovConceptos = new ArrayList<Conceptos>();
+//      lovEmpleadosActivos = new ArrayList<Empleados>();
+//      lovEmpleadosNovedad = new ArrayList<Empleados>();
+//      lovEmpleadosActPenc = new ArrayList<Empleados>();
    }
 
    public List<CentrosCostos> getLovCentrosCostos() {
+      if (lovCentrosCostos == null) {
+      }
+      lovCentrosCostos = new ArrayList<CentrosCostos>();
       return lovCentrosCostos;
    }
 
    public void setLovCentrosCostos(List<CentrosCostos> lovCentrosCostosp) {
-//      this.lovCentrosCostos = new ArrayList<CentrosCostos>();
-      this.lovCentrosCostos.clear();
+      getLovCentrosCostos().clear();
+//      this.lovCentrosCostos.clear();
       for (CentrosCostos recC : lovCentrosCostosp) {
          this.lovCentrosCostos.add(recC);
       }
@@ -62,12 +80,15 @@ public class ListasRecurrentes {
    }
 
    public List<Procesos> getLovProcesos() {
+      if (lovProcesos == null) {
+      }
+      lovProcesos = new ArrayList<Procesos>();
       return lovProcesos;
    }
 
    public void setLovProcesos(List<Procesos> lovProcesosp) {
-//      this.lovProcesos = new ArrayList<Procesos>();
-      this.lovProcesos.clear();
+      getLovProcesos().clear();
+//      this.lovProcesos.clear();
       for (Procesos recC : lovProcesosp) {
          this.lovProcesos.add(recC);
       }
@@ -75,12 +96,15 @@ public class ListasRecurrentes {
    }
 
    public List<GruposConceptos> getLovGruposConceptos() {
+      if (lovGruposConceptos == null) {
+      }
+      lovGruposConceptos = new ArrayList<GruposConceptos>();
       return lovGruposConceptos;
    }
 
    public void setLovGruposConceptos(List<GruposConceptos> lovGruposConceptosp) {
-//      this.lovGruposConceptos = new ArrayList<GruposConceptos>();
-      this.lovGruposConceptos.clear();
+      getLovGruposConceptos().clear();
+//      this.lovGruposConceptos.clear();
       for (GruposConceptos recC : lovGruposConceptosp) {
          this.lovGruposConceptos.add(recC);
       }
@@ -88,12 +112,15 @@ public class ListasRecurrentes {
    }
 
    public List<TiposTrabajadores> getLovTiposTrabajadores() {
+      if (lovTiposTrabajadores == null) {
+      }
+      lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
       return lovTiposTrabajadores;
    }
 
    public void setLovTiposTrabajadores(List<TiposTrabajadores> lovTiposTrabajadoresp) {
-//      this.lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
-      this.lovTiposTrabajadores.clear();
+      getLovTiposTrabajadores().clear();
+//      this.lovTiposTrabajadores.clear();
       for (TiposTrabajadores recC : lovTiposTrabajadoresp) {
          this.lovTiposTrabajadores.add(recC);
       }
@@ -101,12 +128,15 @@ public class ListasRecurrentes {
    }
 
    public List<Formulas> getLovFormulas() {
+      if (lovFormulas == null) {
+      }
+      lovFormulas = new ArrayList<Formulas>();
       return lovFormulas;
    }
 
    public void setLovFormulas(List<Formulas> lovFormulasp) {
-//      this.lovFormulas = new ArrayList<Formulas>();
-      this.lovFormulas.clear();
+      getLovFormulas().clear();
+//      this.lovFormulas.clear();
       for (Formulas recC : lovFormulasp) {
          this.lovFormulas.add(recC);
       }
@@ -114,12 +144,15 @@ public class ListasRecurrentes {
    }
 
    public List<FormulasConceptos> getLovFormulasConceptos() {
+      if (lovFormulasConceptos == null) {
+      }
+      lovFormulasConceptos = new ArrayList<FormulasConceptos>();
       return lovFormulasConceptos;
    }
 
    public void setLovFormulasConceptos(List<FormulasConceptos> lovFormulasConceptosp) {
-//      this.lovFormulasConceptos = new ArrayList<FormulasConceptos>();
-      this.lovFormulasConceptos.clear();
+      getLovFormulasConceptos().clear();
+//      this.lovFormulasConceptos.clear();
       for (FormulasConceptos recC : lovFormulasConceptosp) {
          this.lovFormulasConceptos.add(recC);
       }
@@ -127,12 +160,15 @@ public class ListasRecurrentes {
    }
 
    public List<Conceptos> getLovConceptos() {
+      if (lovConceptos == null) {
+         lovConceptos = new ArrayList<Conceptos>();
+      }
       return lovConceptos;
    }
 
    public void setLovConceptos(List<Conceptos> lovConceptosp) {
-//      this.lovConceptos = new ArrayList<Conceptos>();
-      this.lovConceptos.clear();
+      getLovConceptos().clear();
+//      this.lovConceptos.clear();
       for (Conceptos recC : lovConceptosp) {
          this.lovConceptos.add(recC);
       }
@@ -140,28 +176,73 @@ public class ListasRecurrentes {
    }
 
    public List<Cuentas> getLovCuentas() {
+      if (lovCuentas == null) {
+         lovCuentas = new ArrayList<Cuentas>();
+      }
       return lovCuentas;
    }
 
    public void setLovCuentas(List<Cuentas> lovCuentasp) {
-//      this.lovCuentas = new ArrayList<Cuentas>();
-      this.lovCuentas.clear();
+      getLovCuentas().clear();
+//      this.lovCuentas.clear();
       for (Cuentas recC : lovCuentasp) {
          this.lovCuentas.add(recC);
       }
       log.info("SET : setLovCuentas");
    }
 
-   public List<Empleados> getLovEmpleados() {
-      return lovEmpleados;
+   public List<Empleados> getLovEmpleadosActivos() {
+      if (lovEmpleadosActivos == null) {
+         lovEmpleadosActivos = new ArrayList<Empleados>();
+      }
+      return lovEmpleadosActivos;
    }
 
-   public void setLovEmpleados(List<Empleados> lovEmpleadosp) {
-      this.lovEmpleados.clear();
+   public void setLovEmpleadosActivos(List<Empleados> lovEmpleadosp) {
+      getLovEmpleadosActivos().clear();
+//      this.lovEmpleadosActivos.clear();
       for (Empleados recC : lovEmpleadosp) {
-         this.lovEmpleados.add(recC);
+         this.lovEmpleadosActivos.add(recC);
       }
-      log.info("SET : setLovEmpleados");
+      log.info("SET : setLovEmpleadosActivos");
+   }
+
+   public List<Empleados> getLovEmpleadosNovedad() {
+      if (lovEmpleadosNovedad == null) {
+         lovEmpleadosNovedad = new ArrayList<Empleados>();
+      }
+      return lovEmpleadosNovedad;
+   }
+
+   public void setLovEmpleadosNovedad(List<Empleados> lovEmpleadosp) {
+      getLovEmpleadosNovedad().clear();
+//      this.lovEmpleadosNovedad.clear();
+      for (Empleados recC : lovEmpleadosp) {
+         this.lovEmpleadosNovedad.add(recC);
+      }
+      log.info("SET : setLovEmpleadosNovedad");
+   }
+
+   public List<Empleados> getLovEmpleadosActPenc() {
+      if (lovEmpleadosActPenc == null) {
+         lovEmpleadosActPenc = new ArrayList<Empleados>();
+      }
+      return lovEmpleadosActPenc;
+   }
+
+   public void setLovEmpleadosActPenc(List<Empleados> lovEmpleadosActPencP) {
+      getLovEmpleadosActPenc().clear();
+//      this.lovEmpleadosActPenc.clear();
+      for (Empleados recC : lovEmpleadosActPencP) {
+         this.lovEmpleadosActPenc.add(recC);
+      }
+      log.info("SET : setLovEmpleadosActPenc");
+   }
+
+   public void limpiarListasEmpleados() {
+      getLovEmpleadosActPenc().clear();
+      getLovEmpleadosActivos().clear();
+      getLovEmpleadosNovedad().clear();
    }
 
 }

@@ -97,7 +97,7 @@ public class AdministrarEvalConvocatorias implements AdministrarEvalConvocatoria
       try {
          return persistenciaevalconv.consultarEvalConvocatorias(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEvalConvocatorias() ERROR: " + e);
          return null;
       }
    }

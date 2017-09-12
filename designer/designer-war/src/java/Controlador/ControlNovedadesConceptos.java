@@ -514,7 +514,6 @@ public class ControlNovedadesConceptos implements Serializable {
       contarRegistrosConceptos();
       contarRegistrosNovedades();
       anularBotonLOV();
-      listaNovedades.clear();
       RequestContext.getCurrentInstance().update("form:datosConceptos");
       filtradosListaConceptos = null;
       aceptar = true;
@@ -1803,6 +1802,7 @@ public class ControlNovedadesConceptos implements Serializable {
    }
 
    public void llenarTablaNovedades() {
+      listaNovedades.clear();
       if (conceptoSeleccionado != null) {
          listaNovedades = administrarNovedadesConceptos.novedadesConcepto(conceptoSeleccionado.getSecuencia());
       }
@@ -1814,7 +1814,7 @@ public class ControlNovedadesConceptos implements Serializable {
 
    //GETTER & SETTER
    public List<Conceptos> getListaConceptosNovedad() {
-      if (listaConceptosNovedad == null) {
+      if (listaConceptosNovedad == null || listaConceptosNovedad.isEmpty()) {
          listaConceptosNovedad = administrarNovedadesConceptos.Conceptos();
       }
       return listaConceptosNovedad;
@@ -1893,7 +1893,16 @@ public class ControlNovedadesConceptos implements Serializable {
 
    public List<Empleados> getLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNovedadesConceptos.lovEmpleados();
+         if (listasRecurrentes.getLovEmpleadosNovedad().isEmpty()) {
+            lovEmpleados = administrarNovedadesConceptos.lovEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleadosNovedad en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosNovedad(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosNovedad());
+            log.warn("CONSULTANDO lovEmpleadosNovedad de Listas recurrentes");
+         }
       }
       return lovEmpleados;
    }

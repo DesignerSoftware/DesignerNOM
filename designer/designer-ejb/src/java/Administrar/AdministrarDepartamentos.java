@@ -88,7 +88,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
             persistenciaDepartamentos.editar(getEm(), listaDepartamentos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDepartamentos() ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
             persistenciaDepartamentos.borrar(getEm(), listaDepartamentos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDepartamentos() ERROR: " + e);
       }
    }
 
@@ -110,7 +110,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
             persistenciaDepartamentos.crear(getEm(), listaDepartamentos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDepartamentos() ERROR: " + e);
       }
    }
 
@@ -118,7 +118,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
       try {
          return persistenciaDepartamentos.consultarDepartamentos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDepartamentos() ERROR: " + e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
       try {
          return persistenciaDepartamentos.consultarDepartamento(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoIndicador() ERROR: " + e);
          return null;
       }
    }
@@ -136,7 +136,6 @@ public class AdministrarDepartamentos implements AdministrarDepartamentosInterfa
       try {
          return persistenciaPaises.consultarPaises(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
          return null;
       }
    }

@@ -35,7 +35,7 @@ public interface AdministrarNovedadesSistemaInterface {
 
     public List<Empleados> buscarEmpleados();
     
-    public List<Empleados> lovEmpleados();
+//    public List<Empleados> lovEmpleados();
     
     public List<MotivosDefinitivas> lovMotivos();
      

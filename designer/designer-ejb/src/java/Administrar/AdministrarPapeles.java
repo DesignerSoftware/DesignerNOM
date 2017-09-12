@@ -140,7 +140,7 @@ public class AdministrarPapeles implements AdministrarPapelesInterface {
       try {
          return persistenciaPantallas.buscarIntContable(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".interfaceContable() ERROR: " + e);
          return null;
       }
    }

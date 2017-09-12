@@ -66,7 +66,7 @@ public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
       try {
          return persistencisKioAdmin.consultarEmpleadosCK(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listEmpleadosCK() ERROR: " + e);
          return null;
       }
    }
@@ -76,7 +76,7 @@ public class AdministrarKioAdmin implements AdministrarKioAdminInterface {
       try {
          return persistencisKioAdmin.conexionesKioskos(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listCK() ERROR: " + e);
          return null;
       }
    }

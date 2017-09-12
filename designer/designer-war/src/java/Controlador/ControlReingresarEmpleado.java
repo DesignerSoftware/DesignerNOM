@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import Entidades.Personas;
 import java.util.Map;
 import java.util.LinkedHashMap;
@@ -62,8 +63,12 @@ public class ControlReingresarEmpleado implements Serializable {
    public String nombre;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlReingresarEmpleado() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       lovEmpleados = null;
       lovEstructuras = null;
       empleado = new Empleados();
@@ -297,6 +302,7 @@ public class ControlReingresarEmpleado implements Serializable {
       try {
          administrarReingresarEmpleado.reintegrarEmpleado(empleado.getCodigoempleado(), estructura.getCentrocosto().getCodigo(), fechaReingreso, estructura.getCentrocosto().getEmpresa().getCodigo(), fechaFinContrato);
          RequestContext.getCurrentInstance().update("formularioDialogos:exito");
+         listasRecurrentes.limpiarListasEmpleados();
          RequestContext.getCurrentInstance().execute("PF('exito').show()");
          log.info("ControlReingresarEmpleado.reingresoEmpleado() 1");
          empleado = new Empleados();

@@ -95,7 +95,7 @@ public class AdministrarProyecciones implements AdministrarProyeccionesInterface
             persistenciaProyecciones.borrar(getEm(), lista.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarProyecciones() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarProyecciones implements AdministrarProyeccionesInterface
       try {
          return persistenciaProyecciones.consultarProyecciones(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarProyeccionesEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarProyecciones implements AdministrarProyeccionesInterface
       try {
          return persistenciaEmpleado.consultarEmpleadosParaProyecciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVEmpleados() ERROR: " + e);
          return null;
       }
    }

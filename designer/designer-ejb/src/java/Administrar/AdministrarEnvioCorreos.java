@@ -104,7 +104,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
             }
             return retorno;
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".comprobarConfigCorreo() ERROR: " + e);
             return false;
         }
     }
@@ -120,7 +120,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
             }
             return res;
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".enviarCorreo() ERROR: " + e);
             return false;
         }
     }
@@ -138,7 +138,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
             String aux = persistenciaActualUsuario.actualAliasBD(getEm());
             return persistenciaParametrosEstructuras.buscarEmpresaParametros(getEm(), aux);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".empresaAsociada() ERROR: " + e);
             return null;
         }
     }
@@ -148,7 +148,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
         try {
             return persistenciaEnvioCorreos.consultarRemitente(getEm(), secEmpresa);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".consultarRemitente() ERROR: " + e);
             return null;
         }
     }
@@ -158,7 +158,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
         try {
             persistenciaEnvioCorreos.insertarFalloCorreos(getEm(), envioCorreo);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".insertarRegistroEnvios() ERROR: " + e);
         }
     }
 }

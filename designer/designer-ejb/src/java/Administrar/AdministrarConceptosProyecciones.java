@@ -70,7 +70,7 @@ public class AdministrarConceptosProyecciones implements AdministrarConceptosPro
             persistenciaConceptosProyecciones.crear(getEm(), lista.get(j));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearConceptosProyecciones() ERROR: " + e);
       }
    }
 
@@ -80,7 +80,7 @@ public class AdministrarConceptosProyecciones implements AdministrarConceptosPro
             persistenciaConceptosProyecciones.borrar(getEm(), lista.get(j));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarConceptosProyecciones() ERROR: " + e);
       }
    }
 
@@ -90,7 +90,7 @@ public class AdministrarConceptosProyecciones implements AdministrarConceptosPro
             persistenciaConceptosProyecciones.editar(getEm(), lista.get(j));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarConceptosProyecciones() ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarConceptosProyecciones implements AdministrarConceptosPro
          List<ConceptosProyecciones> lista = persistenciaConceptosProyecciones.buscarConceptosProyecciones(getEm());
          return lista;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarConceptosProyecciones() ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarConceptosProyecciones implements AdministrarConceptosPro
          List<Conceptos> lista = persistenciaConceptos.buscarConceptos(getEm());
          return lista;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVConceptos() ERROR: " + e);
          return null;
       }
    }

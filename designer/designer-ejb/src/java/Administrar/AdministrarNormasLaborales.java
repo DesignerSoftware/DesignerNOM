@@ -72,7 +72,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
             persistenciaNormasLaborales.editar(getEm(), listaNormasLaborales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarNormasLaborales() ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
             persistenciaNormasLaborales.borrar(getEm(), listaNormasLaborales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarNormasLaborales() ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
             persistenciaNormasLaborales.crear(getEm(), listaNormasLaborales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearNormasLaborales() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
       try {
          return persistenciaNormasLaborales.consultarNormasLaborales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarNormasLaborales() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarNormasLaborales implements AdministrarNormasLaboralesInt
       try {
          return persistenciaNormasLaborales.consultarNormaLaboral(getEm(), secNormasLaborales);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivoContrato() ERROR: " + e);
          return null;
       }
    }

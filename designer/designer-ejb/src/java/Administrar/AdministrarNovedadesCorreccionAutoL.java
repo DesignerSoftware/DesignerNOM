@@ -71,7 +71,7 @@ public class AdministrarNovedadesCorreccionAutoL implements AdministrarNovedades
       try {
          return persistenciaNovedadesAuto.listaEmpresas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".empresasNovedadAuto() ERROR: " + e);
          return null;
       }
    }
@@ -81,7 +81,7 @@ public class AdministrarNovedadesCorreccionAutoL implements AdministrarNovedades
       try {
          return persistenciaNovedadesAuto.listaTerceros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".tercerosNovedadAuto() ERROR: " + e);
          return null;
       }
    }
@@ -91,7 +91,7 @@ public class AdministrarNovedadesCorreccionAutoL implements AdministrarNovedades
       try {
          return persistenciaNovedadesAuto.listaTiposEntidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".tiposEntidadesNovedadAuto() ERROR: " + e);
          return null;
       }
    }
@@ -101,7 +101,7 @@ public class AdministrarNovedadesCorreccionAutoL implements AdministrarNovedades
       try {
          return persistenciaNovedadesAuto.listasucursalesPila(getEm(), secuenciaEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".sucursalesNovedadAuto() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarNovedadesCorreccionAutoL implements AdministrarNovedades
       try {
          return persistenciaNovedadesAuto.listaNovedades(getEm(), anio, mes, secuenciaEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaNovedades() ERROR: " + e);
          return null;
       }
    }

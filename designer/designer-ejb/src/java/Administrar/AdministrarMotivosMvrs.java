@@ -36,15 +36,17 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -56,7 +58,8 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -72,7 +75,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
             persistenciaMotivosMvrs.editar(getEm(), listaMotivosMvrs.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosMvrs() ERROR: " + e);
       }
    }
 
@@ -84,7 +87,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
             persistenciaMotivosMvrs.borrar(getEm(), listaMotivosMvrs.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosMvrs() ERROR: " + e);
       }
    }
 
@@ -96,7 +99,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
             persistenciaMotivosMvrs.crear(getEm(), listaMotivosMvrs.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosMvrs() ERROR: " + e);
       }
    }
 
@@ -105,7 +108,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
       try {
          return persistenciaMotivosMvrs.buscarMotivosMvrs(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivosMvrs() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +118,7 @@ public class AdministrarMotivosMvrs implements AdministrarMotivosMvrsInterface {
       try {
          return persistenciaMotivosMvrs.buscarMotivosMvrs(getEm(), secMotivosMvrs);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivosMvrs() ERROR: " + e);
          return null;
       }
    }

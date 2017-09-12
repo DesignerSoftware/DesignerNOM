@@ -127,7 +127,8 @@
                               <div style="position: absolute; top: 0px; left: 265px; display: inline-block; padding: 0px;">
                                  <p:commandButton value="" id="botonPeriodoAct" style="width: 25px; height: 25px;
                                                   background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                                  actionListener="#{controlPeriodosActivos.recibirEmpresa(controlParametro.parametroLiquidacion.estructura.centrocosto.empresa.secuencia)}" process="@this" onstart="#{controlParametro.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametro', 'controlperiodoactivo')}"/>
+                                                  actionListener="#{controlPeriodosActivos.recibirEmpresa(controlParametro.parametroLiquidacion.estructura.centrocosto.empresa.secuencia)}"
+                                                  process="@this" onstart="#{controlParametro.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametro', 'controlperiodoactivo')}"/>
                                  <p:tooltip for="botonPeriodoAct" value="#{msg['config']}"/>
                               </div>
 

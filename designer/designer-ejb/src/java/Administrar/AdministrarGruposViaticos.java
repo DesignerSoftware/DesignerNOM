@@ -73,7 +73,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
             persistenciaGruposViaticos.editar(getEm(), listGruposViaticos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarGruposViaticos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
             persistenciaGruposViaticos.borrar(getEm(), listGruposViaticos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarGruposViaticos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
             persistenciaGruposViaticos.crear(getEm(), listGruposViaticos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearGruposViaticos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
       try {
          return persistenciaGruposViaticos.buscarGruposViaticos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarGruposViaticos() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarGruposViaticos implements AdministrarGruposViaticosInter
       try {
          return persistenciaGruposViaticos.buscarGrupoViatico(getEm(), secGruposViaticos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarGrupoViatico() ERROR: " + e);
          return null;
       }
    }

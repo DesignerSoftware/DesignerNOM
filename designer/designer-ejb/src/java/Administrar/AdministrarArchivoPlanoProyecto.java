@@ -72,7 +72,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
             persistenciaTempProrrateosProy.crear(getEm(), listaTempPP.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crear() ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.editar(getEm(), tempPP);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editar() ERROR: " + e);
       }
    }
 
@@ -90,7 +90,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.borrar(getEm(), tempPP);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrar() ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.borrarRegistrosTempProrrateosProy(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRegistrosTempProrrateosProy() ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaTempProrrateosProy.obtenerTempProrrateosProy(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerTempProrrateosProy() ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaTempProrrateosProy.obtenerDocumentosSoporteCargados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerDocumentosSoporteCargados() ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaActualUsuario.actualUsuarioBD(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".actualUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          persistenciaTempProrrateosProy.cargarTempProrrateosProy(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".cargarTempProrrateosProy() ERROR: " + e);
       }
    }
 
@@ -150,7 +150,7 @@ public class AdministrarArchivoPlanoProyecto implements AdministrarArchivoPlanoP
       try {
          return persistenciaTempProrrateosProy.reversarTempProrrateosProy(getEm(), usuarioBD.getAlias(), documentoSoporte);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".reversarTempProrrateosProy() ERROR: " + e);
          return 0;
       }
    }

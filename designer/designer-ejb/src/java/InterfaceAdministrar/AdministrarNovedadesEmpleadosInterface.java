@@ -34,7 +34,7 @@ public interface AdministrarNovedadesEmpleadosInterface {
     public List<PruebaEmpleados> empleadosNovedadSoloAlgunos();
     public List<PruebaEmpleados> empleadosNovedades();
 
-    public List<Empleados> lovEmpleados();
+//    public List<Empleados> lovEmpleados();
 
     public Empleados elEmpleado(BigInteger secuenciaEmpleado);
 

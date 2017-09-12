@@ -72,7 +72,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
             persistenciaMotivosEmbargos.editar(getEm(), listaMotivosEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosEmbargos() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
             persistenciaMotivosEmbargos.borrar(getEm(), listaMotivosEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosEmbargos() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
             persistenciaMotivosEmbargos.crear(getEm(), listaMotivosEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosEmbargos() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
       try {
          return persistenciaMotivosEmbargos.buscarMotivosEmbargos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarMotivosEmbargos() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarMotivosEmbargos implements AdministrarMotivosEmbargosInt
       try {
          return persistenciaMotivosEmbargos.buscarMotivoEmbargo(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarMotivoEmbargo() ERROR: " + e);
          return null;
       }
    }

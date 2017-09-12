@@ -45,15 +45,17 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -70,7 +72,8 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
    Declarantes declarantes;
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -105,7 +108,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
             persistenciaDeclarantes.editar(getEm(), listaDeclarantesModificados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDeclarantes() ERROR: " + e);
       }
    }
 
@@ -114,7 +117,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
       try {
          persistenciaDeclarantes.borrar(getEm(), declarantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDeclarantes() ERROR: " + e);
       }
    }
 
@@ -123,7 +126,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
       try {
          persistenciaDeclarantes.crear(getEm(), declarantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDeclarantes() ERROR: " + e);
       }
    }
 
@@ -131,7 +134,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
       try {
          return persistenciaTarifaDeseo.retenciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".retencionesMinimas() ERROR: " + e);
          return null;
       }
    }
@@ -140,7 +143,7 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
       try {
          return persistenciaRetencionesMinimas.retenciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".retencionesMinimasLista() ERROR: " + e);
          return null;
       }
    }

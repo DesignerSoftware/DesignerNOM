@@ -73,7 +73,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
             persistenciaEventos.editar(getEm(), listaEventos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEventos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
             persistenciaEventos.borrar(getEm(), listaEventos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEventos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
             persistenciaEventos.crear(getEm(), listaEventos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEventos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
       try {
          return persistenciaEventos.buscarEventos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEventos() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarEventos implements AdministrarEventosInterface {
       try {
          return persistenciaEventos.buscarEvento(getEm(), secDeportes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEvento() ERROR: " + e);
          return null;
       }
    }

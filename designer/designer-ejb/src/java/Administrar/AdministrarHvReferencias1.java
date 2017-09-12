@@ -88,7 +88,7 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
             persistenciaHvReferencias.borrar(getEm(), listaHvReferencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarHvReferencias() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
             persistenciaHvReferencias.crear(getEm(), listaHvReferencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearHvReferencias() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
             persistenciaHvReferencias.editar(getEm(), listaHvReferencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarHvReferencias() ERROR: " + e);
       }
    }
 
@@ -132,7 +132,7 @@ public class AdministrarHvReferencias1 implements AdministrarHvReferencias1Inter
          persistenciaHvReferencias.buscarHvReferencia(getEm(), secHvEntrevista);
          return hvReferencias;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarHvReferencia() ERROR: " + e);
          return null;
       }
    }

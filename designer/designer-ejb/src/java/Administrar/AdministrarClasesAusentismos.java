@@ -41,15 +41,17 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -61,7 +63,8 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -76,7 +79,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
             persistenciaClasesAusentismos.editar(getEm(), listClasesAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarClasesAusentismos() ERROR: " + e);
       }
    }
 
@@ -87,7 +90,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
             persistenciaClasesAusentismos.borrar(getEm(), listClasesAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarClasesAusentismos() ERROR: " + e);
       }
    }
 
@@ -98,7 +101,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
             persistenciaClasesAusentismos.crear(getEm(), listClasesAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearClasesAusentismos() ERROR: " + e);
       }
    }
 
@@ -108,7 +111,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
          List<Clasesausentismos> listClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
          return listClasesAusentismos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClasesAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -140,7 +143,7 @@ public class AdministrarClasesAusentismos implements AdministrarClasesAusentismo
          listTiposAusentismos = PersistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
          return listTiposAusentismos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVTiposAusentismos() ERROR: " + e);
          return null;
       }
    }

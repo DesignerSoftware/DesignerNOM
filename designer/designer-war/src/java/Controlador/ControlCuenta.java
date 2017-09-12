@@ -112,7 +112,7 @@ public class ControlCuenta implements Serializable {
       listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       empresaSeleccionada = new Empresas();
       activoDetalle = true;
-      altoTabla = "265";
+      altoTabla = "280";
       cuentaActual = null;
       lovRubros = null;
       lovCuentasTesoreria = null;
@@ -312,7 +312,6 @@ public class ControlCuenta implements Serializable {
    }
 
    public void modificarCuenta(Cuentas cuenta) {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (validarDatosNull(0) == true) {
          if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
             if (listCuentasModificar.isEmpty()) {
@@ -340,7 +339,6 @@ public class ControlCuenta implements Serializable {
       cuentaTablaSeleccionada = cuenta;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CONTRACUENTA")) {
          if (!valorConfirmar.isEmpty()) {
             cuentaTablaSeleccionada.getContracuentatesoreria().setCodigo(cuentaTablaSeleccionada.getContracuentatesoreria().getCodigo());
@@ -508,46 +506,50 @@ public class ControlCuenta implements Serializable {
       }
    }
 
+   public void restaurarTabla() {
+      altoTabla = "280";
+      FacesContext c = FacesContext.getCurrentInstance();
+      cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
+      cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
+      cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
+      cuentasDescripcion.setFilterStyle("display: none; visibility: hidden;");
+      cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
+      cuentaContracuenta.setFilterStyle("display: none; visibility: hidden;");
+      cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
+      cuentaRubro.setFilterStyle("display: none; visibility: hidden;");
+      cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
+      cuentaManejaNit.setFilterStyle("display: none; visibility: hidden;");
+      cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
+      cuentaManejaNitEmpleado.setFilterStyle("display: none; visibility: hidden;");
+      cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
+      cuentaProrrateo.setFilterStyle("display: none; visibility: hidden;");
+      cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
+      cuentaCodigoA.setFilterStyle("display: none; visibility: hidden;");
+      cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
+      cuentaConsolidaNit.setFilterStyle("display: none; visibility: hidden;");
+      cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
+      cuentaIncluyeShort.setFilterStyle("display: none; visibility: hidden;");
+      cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
+      cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
+      cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
+      cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
+      cuentaNaturaleza = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaNaturaleza");
+      cuentaNaturaleza.setFilterStyle("display: none; visibility: hidden;");
+      cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
+      cuentaTipo.setFilterStyle("display: none; visibility: hidden;");
+      cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
+      cuentaCC.setFilterStyle("display: none; visibility: hidden;");
+      cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
+      cuentaICC.setFilterStyle("display: none; visibility: hidden;");
+      RequestContext.getCurrentInstance().update("form:datosCuenta");
+      bandera = 0;
+      filtrarListCuentas = null;
+      tipoLista = 0;
+   }
+
    public void cancelarModificacion() {
       if (bandera == 1) {
-         altoTabla = "265";
-         FacesContext c = FacesContext.getCurrentInstance();
-         cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
-         cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
-         cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
-         cuentasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-         cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
-         cuentaContracuenta.setFilterStyle("display: none; visibility: hidden;");
-         cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
-         cuentaRubro.setFilterStyle("display: none; visibility: hidden;");
-         cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-         cuentaManejaNit.setFilterStyle("display: none; visibility: hidden;");
-         cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-         cuentaManejaNitEmpleado.setFilterStyle("display: none; visibility: hidden;");
-         cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-         cuentaProrrateo.setFilterStyle("display: none; visibility: hidden;");
-         cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
-         cuentaCodigoA.setFilterStyle("display: none; visibility: hidden;");
-         cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-         cuentaConsolidaNit.setFilterStyle("display: none; visibility: hidden;");
-         cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-         cuentaIncluyeShort.setFilterStyle("display: none; visibility: hidden;");
-         cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-         cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
-         cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-         cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-         cuentaNaturaleza = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaNaturaleza");
-         cuentaNaturaleza.setFilterStyle("display: none; visibility: hidden;");
-         cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
-         cuentaTipo.setFilterStyle("display: none; visibility: hidden;");
-         cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
-         cuentaCC.setFilterStyle("display: none; visibility: hidden;");
-         cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
-         cuentaICC.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosCuenta");
-         bandera = 0;
-         filtrarListCuentas = null;
-         tipoLista = 0;
+         restaurarTabla();
       }
       listCuentasBorrar.clear();
       listCuentasCrear.clear();
@@ -565,7 +567,6 @@ public class ControlCuenta implements Serializable {
       contarRegistro();
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
       getLovCuentasTesoreria();
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:datosCuenta");
    }
@@ -576,7 +577,6 @@ public class ControlCuenta implements Serializable {
          editarCuentas = cuentaTablaSeleccionada;
          log.info("editarCuentas : " + editarCuentas.getDescripcion());
          log.info("cual celda en editarCelda : " + cualCelda);
-         RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCuentaD");
             RequestContext.getCurrentInstance().execute("PF('editarCodigoCuentaD').show()");
@@ -605,16 +605,11 @@ public class ControlCuenta implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
-
-//        activoDetalle = true;
-//        RequestContext.getCurrentInstance().update("form:DETALLES");
    }
 
    public void validarIngresoNuevoRegistro() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCuenta");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCuenta').show()");
-
    }
 
    public void validarDuplicadoRegistro() {
@@ -679,44 +674,7 @@ public class ControlCuenta implements Serializable {
    public void agregarNuevoCuenta() {
       if (validarDatosNull(1) == true) {
          if (bandera == 1) {
-            altoTabla = "265";
-            FacesContext c = FacesContext.getCurrentInstance();
-            cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
-            cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
-            cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
-            cuentasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
-            cuentaContracuenta.setFilterStyle("display: none; visibility: hidden;");
-            cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
-            cuentaRubro.setFilterStyle("display: none; visibility: hidden;");
-            cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-            cuentaManejaNit.setFilterStyle("display: none; visibility: hidden;");
-            cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-            cuentaManejaNitEmpleado.setFilterStyle("display: none; visibility: hidden;");
-            cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-            cuentaProrrateo.setFilterStyle("display: none; visibility: hidden;");
-            cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
-            cuentaCodigoA.setFilterStyle("display: none; visibility: hidden;");
-            cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-            cuentaConsolidaNit.setFilterStyle("display: none; visibility: hidden;");
-            cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-            cuentaIncluyeShort.setFilterStyle("display: none; visibility: hidden;");
-            cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-            cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
-            cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-            cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-            cuentaNaturaleza = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaNaturaleza");
-            cuentaNaturaleza.setFilterStyle("display: none; visibility: hidden;");
-            cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
-            cuentaTipo.setFilterStyle("display: none; visibility: hidden;");
-            cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
-            cuentaCC.setFilterStyle("display: none; visibility: hidden;");
-            cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
-            cuentaICC.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
-            bandera = 0;
-            filtrarListCuentas = null;
-            tipoLista = 0;
+            restaurarTabla();
          }
          //AGREGAR REGISTRO A LA LISTA VIGENCIAS 
          k++;
@@ -795,44 +753,7 @@ public class ControlCuenta implements Serializable {
       int aux = 0;
       if (validarDatosNull(2) == true) {
          if (bandera == 1) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            altoTabla = "265";
-            cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
-            cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
-            cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
-            cuentasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
-            cuentaContracuenta.setFilterStyle("display: none; visibility: hidden;");
-            cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
-            cuentaRubro.setFilterStyle("display: none; visibility: hidden;");
-            cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-            cuentaManejaNit.setFilterStyle("display: none; visibility: hidden;");
-            cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-            cuentaManejaNitEmpleado.setFilterStyle("display: none; visibility: hidden;");
-            cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-            cuentaProrrateo.setFilterStyle("display: none; visibility: hidden;");
-            cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
-            cuentaCodigoA.setFilterStyle("display: none; visibility: hidden;");
-            cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-            cuentaConsolidaNit.setFilterStyle("display: none; visibility: hidden;");
-            cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-            cuentaIncluyeShort.setFilterStyle("display: none; visibility: hidden;");
-            cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-            cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
-            cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-            cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-            cuentaNaturaleza = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaNaturaleza");
-            cuentaNaturaleza.setFilterStyle("display: none; visibility: hidden;");
-            cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
-            cuentaTipo.setFilterStyle("display: none; visibility: hidden;");
-            cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
-            cuentaCC.setFilterStyle("display: none; visibility: hidden;");
-            cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
-            cuentaICC.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
-            bandera = 0;
-            filtrarListCuentas = null;
-            tipoLista = 0;
+            restaurarTabla();
          }
 
          for (int i = 0; i < listCuentas.size(); i++) {
@@ -912,10 +833,9 @@ public class ControlCuenta implements Serializable {
    }
 
    public void filtradoCuenta() {
-
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "240";
+         altoTabla = "260";
          cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
          cuentaCodigo.setFilterStyle("width: 85% !important");
          cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
@@ -925,69 +845,33 @@ public class ControlCuenta implements Serializable {
          cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
          cuentaTipo.setFilterStyle("width: 85% !important");
          cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
-         cuentaCC.setFilterStyle("width: 85% !important");
+         cuentaCC.setFilterStyle("width: 70% !important");
          cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
-         cuentaICC.setFilterStyle("width: 85% !important");
+         cuentaICC.setFilterStyle("width: 70% !important");
          cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
          cuentaContracuenta.setFilterStyle("width: 85% !important");
          cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
          cuentaRubro.setFilterStyle("width: 85% !important");
          cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-         cuentaManejaNit.setFilterStyle("width: 85% !important");
+         cuentaManejaNit.setFilterStyle("width: 60% !important");
          cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-         cuentaManejaNitEmpleado.setFilterStyle("width: 85% !important");
+         cuentaManejaNitEmpleado.setFilterStyle("width: 60% !important");
          cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-         cuentaProrrateo.setFilterStyle("width: 85% !important");
+         cuentaProrrateo.setFilterStyle("width: 60% !important");
          cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
          cuentaCodigoA.setFilterStyle("width: 85% !important");
          cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-         cuentaConsolidaNit.setFilterStyle("width: 85% !important");
+         cuentaConsolidaNit.setFilterStyle("width: 60% !important");
          cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-         cuentaIncluyeShort.setFilterStyle("width: 85% !important");
+         cuentaIncluyeShort.setFilterStyle("width: 60% !important");
          cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-         cuentaAsociadaSAP.setFilterStyle("width: 85% !important");
+         cuentaAsociadaSAP.setFilterStyle("width: 60% !important");
          cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-         cuentaSubCuenta.setFilterStyle("width: 85% !important");
+         cuentaSubCuenta.setFilterStyle("width: 60% !important");
          RequestContext.getCurrentInstance().update("form:datosCuenta");
          bandera = 1;
       } else if (bandera == 1) {
-         altoTabla = "265";
-         cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
-         cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
-         cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
-         cuentasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-         cuentaNaturaleza = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaNaturaleza");
-         cuentaNaturaleza.setFilterStyle("display: none; visibility: hidden;");
-         cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
-         cuentaTipo.setFilterStyle("display: none; visibility: hidden;");
-         cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
-         cuentaCC.setFilterStyle("display: none; visibility: hidden;");
-         cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
-         cuentaICC.setFilterStyle("display: none; visibility: hidden;");
-         cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
-         cuentaContracuenta.setFilterStyle("display: none; visibility: hidden;");
-         cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
-         cuentaRubro.setFilterStyle("display: none; visibility: hidden;");
-         cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-         cuentaManejaNit.setFilterStyle("display: none; visibility: hidden;");
-         cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-         cuentaManejaNitEmpleado.setFilterStyle("display: none; visibility: hidden;");
-         cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-         cuentaProrrateo.setFilterStyle("display: none; visibility: hidden;");
-         cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
-         cuentaCodigoA.setFilterStyle("display: none; visibility: hidden;");
-         cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-         cuentaConsolidaNit.setFilterStyle("display: none; visibility: hidden;");
-         cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-         cuentaIncluyeShort.setFilterStyle("display: none; visibility: hidden;");
-         cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-         cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
-         cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-         cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosCuenta");
-         bandera = 0;
-         filtrarListCuentas = null;
-         tipoLista = 0;
+         restaurarTabla();
       }
 
    }
@@ -995,44 +879,7 @@ public class ControlCuenta implements Serializable {
    public void salir() {
       limpiarListasValor();
       if (bandera == 1) {
-         altoTabla = "265";
-         FacesContext c = FacesContext.getCurrentInstance();
-         cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
-         cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
-         cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
-         cuentasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-         cuentaNaturaleza = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaNaturaleza");
-         cuentaNaturaleza.setFilterStyle("display: none; visibility: hidden;");
-         cuentaTipo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaTipo");
-         cuentaTipo.setFilterStyle("display: none; visibility: hidden;");
-         cuentaCC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCC");
-         cuentaCC.setFilterStyle("display: none; visibility: hidden;");
-         cuentaICC = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaICC");
-         cuentaICC.setFilterStyle("display: none; visibility: hidden;");
-         cuentaContracuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaContracuenta");
-         cuentaContracuenta.setFilterStyle("display: none; visibility: hidden;");
-         cuentaRubro = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaRubro");
-         cuentaRubro.setFilterStyle("display: none; visibility: hidden;");
-         cuentaManejaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNit");
-         cuentaManejaNit.setFilterStyle("display: none; visibility: hidden;");
-         cuentaManejaNitEmpleado = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaManejaNitEmpleado");
-         cuentaManejaNitEmpleado.setFilterStyle("display: none; visibility: hidden;");
-         cuentaProrrateo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaProrrateo");
-         cuentaProrrateo.setFilterStyle("display: none; visibility: hidden;");
-         cuentaCodigoA = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigoA");
-         cuentaCodigoA.setFilterStyle("display: none; visibility: hidden;");
-         cuentaConsolidaNit = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaConsolidaNit");
-         cuentaConsolidaNit.setFilterStyle("display: none; visibility: hidden;");
-         cuentaIncluyeShort = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaIncluyeShort");
-         cuentaIncluyeShort.setFilterStyle("display: none; visibility: hidden;");
-         cuentaAsociadaSAP = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaAsociadaSAP");
-         cuentaAsociadaSAP.setFilterStyle("display: none; visibility: hidden;");
-         cuentaSubCuenta = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaSubCuenta");
-         cuentaSubCuenta.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosCuenta");
-         bandera = 0;
-         filtrarListCuentas = null;
-         tipoLista = 0;
+         restaurarTabla();
       }
       listCuentasBorrar.clear();
       listCuentasCrear.clear();

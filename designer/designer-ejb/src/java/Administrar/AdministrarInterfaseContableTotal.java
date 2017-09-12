@@ -395,7 +395,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
       try {
          return persistenciaInterconTotal.ejecutarPKGCrearArchivoPlano(getEm(), tipoArchivo, fechaIni, fechaFin, proceso, nombreArchivo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".ejecutarPKGCrearArchivoPlano() ERROR: " + e);
          return null;
       }
    }
@@ -417,7 +417,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
             persistenciaSolucionesNodos.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRegistroGenerado() ERROR: " + e);
       }
    }
 
@@ -428,7 +428,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
             persistenciaInterconTotal.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRegistroIntercon() ERROR: " + e);
       }
    }
 }

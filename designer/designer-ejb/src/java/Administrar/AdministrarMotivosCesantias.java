@@ -73,7 +73,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
             persistenciaMotivosCensantias.editar(getEm(), listaMotivosCesantias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosCesantias() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
             persistenciaMotivosCensantias.borrar(getEm(), listaMotivosCesantias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosCesantias() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
             persistenciaMotivosCensantias.crear(getEm(), listaMotivosCesantias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosCesantias() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
       try {
          return persistenciaMotivosCensantias.buscarMotivosCesantias(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivosCesantias() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarMotivosCesantias implements AdministrarMotivosCesantiasI
       try {
          return persistenciaMotivosCensantias.buscarMotivoCensantia(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivoCesantia() ERROR: " + e);
          return null;
       }
    }

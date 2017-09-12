@@ -214,7 +214,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaParametros.actualizarParametroCambioMasivo(getEm(), parametro);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".actualizarParametroCM() ERROR: " + e);
          return false;
       }
    }
@@ -223,7 +223,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaConceptos.verificarConceptoManual(getEm(), secuenciaConcepto);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".comprobarConceptoManual() ERROR: " + e);
          return false;
       }
    }
@@ -233,7 +233,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaEstructuras.buscarEstructuras(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovCargos_Estructuras() ERROR: " + e);
          return null;
       }
    }
@@ -243,7 +243,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovMotivosDefinitivas() ERROR: " + e);
          return null;
       }
    }
@@ -253,7 +253,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovMotivosRetiros() ERROR: " + e);
          return null;
       }
    }
@@ -263,7 +263,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovTiposEntidades() ERROR: " + e);
          return null;
       }
    }
@@ -273,7 +273,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaTercerosSucursales.buscarTercerosSucursales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovTercerosSucursales() ERROR: " + e);
          return null;
       }
    }
@@ -283,7 +283,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaCentrosCostos.buscarCentrosCostosCM(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovCentrosCostos() ERROR: " + e);
          return null;
       }
    }
@@ -293,7 +293,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovPeriodicidades() ERROR: " + e);
          return null;
       }
    }
@@ -303,7 +303,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaConceptos.buscarConceptosLovNovedades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovConceptos() ERROR: " + e);
          return null;
       }
    }
@@ -313,7 +313,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaFormulas.buscarFormulas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovFormulas() ERROR: " + e);
          return null;
       }
    }
@@ -323,7 +323,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovTerceros() ERROR: " + e);
          return null;
       }
    }
@@ -333,7 +333,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovMotivosCambiosSueldos() ERROR: " + e);
          return null;
       }
    }
@@ -343,7 +343,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaTiposSueldos.buscarTiposSueldos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovTiposSueldos() ERROR: " + e);
          return null;
       }
    }
@@ -353,7 +353,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovTiposausentismos() ERROR: " + e);
          return null;
       }
    }
@@ -363,7 +363,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaUnidades.consultarUnidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovUnidades() ERROR: " + e);
          return null;
       }
    }
@@ -373,7 +373,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovEmpleados() ERROR: " + e);
          return null;
       }
    }
@@ -383,7 +383,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaPapeles.consultarPapeles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovPapeles() ERROR: " + e);
          return null;
       }
    }
@@ -393,7 +393,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaCausasAusentismos.buscarCausasAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovCausasausentismos() ERROR: " + e);
          return null;
       }
    }
@@ -403,7 +403,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       try {
          return persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLovClasesausentismos() ERROR: " + e);
          return null;
       }
    }
@@ -414,7 +414,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaEstructuraCM2()");
          persistenciaEstructuras.adicionaEstructuraCambiosMasivos(getEm(), secEstructura, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaEstructuraCM2() ERROR: " + e);
       }
    }
 
@@ -423,7 +423,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaEstructuraCM2()");
          persistenciaEstructuras.undoAdicionaEstructuraCambiosMasivos(getEm(), secEstructura, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaEstructuraCM2() ERROR: " + e);
       }
    }
 
@@ -432,7 +432,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaVacacionCM2()");
          persistenciaVacaciones.adicionaVacacionCambiosMasivos(getEm(), ndias, fechaCambio, fechaPago);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaVacacionCM2() ERROR: " + e);
       }
    }
 
@@ -441,7 +441,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaVacacionCM2()");
          persistenciaVacaciones.undoAdicionaVacacionCambiosMasivos(getEm(), ndias, fechaCambio, fechaPago);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaVacacionCM2() ERROR: " + e);
       }
    }
 
@@ -450,7 +450,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaRetiroCM2()");
          persistenciaRetirados.adicionaRetiroCambiosMasivos(getEm(), indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaRetiroCM2() ERROR: " + e);
       }
    }
 
@@ -459,7 +459,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaRetiroCM2()");
          persistenciaRetirados.undoAdicionaRetiroCambiosMasivos(getEm(), indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaRetiroCM2() ERROR: " + e);
       }
    }
 
@@ -468,7 +468,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaAfiliacionCM2()");
          persistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos(getEm(), secTipoEntidad, secTerceroSuc, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaAfiliacionCM2() ERROR: " + e);
       }
    }
 
@@ -477,7 +477,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAfiliacionCM2()");
          persistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos(getEm(), secTipoEntidad, secTerceroSuc, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaAfiliacionCM2() ERROR: " + e);
       }
    }
 
@@ -486,7 +486,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaLocalizacionCM2()");
          persistenciaEstructuras.adicionaLocalizacionCambiosMasivos(getEm(), secEstructura, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaLocalizacionCM2() ERROR: " + e);
       }
    }
 
@@ -495,7 +495,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaLocalizacionCM2()");
          persistenciaEstructuras.undoAdicionaLocalizacionCambiosMasivos(getEm(), secEstructura, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaLocalizacionCM2() ERROR: " + e);
       }
    }
 
@@ -504,7 +504,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaSueldoCM2()");
          persistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos(getEm(), secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaSueldoCM2() ERROR: " + e);
       }
    }
 
@@ -513,7 +513,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaSueldoCM2()");
          persistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos(getEm(), secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaSueldoCM2() ERROR: " + e);
       }
    }
 
@@ -525,7 +525,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaNovedadCM2()");
          persistenciaNovedadesSistema.adicionaNovedadCambiosMasivos(getEm(), tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal, unidadParteEntera, unidadParteFraccion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaNovedadCM2() ERROR: " + e);
       }
    }
 
@@ -536,7 +536,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaNovedadCM2()");
          persistenciaNovedadesSistema.undoAdicionaNovedadCambiosMasivos(getEm(), tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaNovedadCM2() ERROR: " + e);
       }
    }
 
@@ -545,7 +545,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaReingresoCM2()");
          persistenciaRetirados.adicionaReingresoCambiosMasivos(getEm(), fechaIni, fechaFin);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaReingresoCM2() ERROR: " + e);
       }
    }
 
@@ -554,7 +554,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaEmplJefeCM2()");
          persistenciaVigenciasCargos.adicionaEmplJefeCambiosMasivos(getEm(), secEmpleado, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaEmplJefeCM2() ERROR: " + e);
       }
    }
 
@@ -563,7 +563,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaPapelCM2()");
          persistenciaPapeles.adicionaPapelCambiosMasivos(getEm(), secPapel, fechaCambio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaPapelCM2() ERROR: " + e);
       }
    }
 
@@ -574,7 +574,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.adicionaAusentismoCM2()");
          persistenciaSoausentismos.adicionaAusentismoCambiosMasivos(getEm(), secTipo, secClase, secCausa, dias, horas, fechaIniAusen, fechaFinAusen, fechaExpedicion, fechaIpago, fechaPago, porcent, baseliq, forma);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".adicionaAusentismoCM2() ERROR: " + e);
       }
    }
 
@@ -583,7 +583,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
          log.warn("Administrar.AdministrarCambiosMasivos.undoAdicionaAusentismoCM2()");
          persistenciaSoausentismos.undoAdicionaAusentismoCambiosMasivos(getEm(), secTipo, secClase, secCausa, dias, fechaIniAusen, fechaFinAusen);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".undoAdicionaAusentismoCM2() ERROR: " + e);
       }
    }
 

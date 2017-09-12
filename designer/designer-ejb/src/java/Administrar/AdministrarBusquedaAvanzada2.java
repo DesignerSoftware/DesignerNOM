@@ -135,7 +135,7 @@ public class AdministrarBusquedaAvanzada2 implements AdministrarBusquedaAvanzada
          }
          return query;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".armarQueryModulosBusquedaAvanzada() ERROR: " + e);
          return null;
       }
    }
@@ -999,7 +999,7 @@ public class AdministrarBusquedaAvanzada2 implements AdministrarBusquedaAvanzada
          }
          return queryAux;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearQueryPorModulo() ERROR: " + e);
          return null;
       }
    }
@@ -1011,7 +1011,7 @@ public class AdministrarBusquedaAvanzada2 implements AdministrarBusquedaAvanzada
             retorno.add(listaAuxiliar.get(i).getModulo());
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaParametrosPorModulos() ERROR: " + e);
       }
       return retorno;
    }

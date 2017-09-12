@@ -85,7 +85,7 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
             persistenciaDetallesTiposCotizantes.borrar(getEm(), listaBorrar.get(t));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDetalleTipoCotizante() ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
             persistenciaDetallesTiposCotizantes.borrar(getEm(), listaCrear.get(t));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDetalleTipoCotizante() ERROR: " + e);
       }
    }
 
@@ -120,7 +120,7 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
             persistenciaDetallesTiposCotizantes.editar(getEm(), listaDetallesTiposCotizantesModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDetalleTipoCotizante() ERROR: " + e);
       }
    }
 
@@ -129,7 +129,7 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
       try {
          return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposEntidades() ERROR: " + e);
          return null;
       }
    }

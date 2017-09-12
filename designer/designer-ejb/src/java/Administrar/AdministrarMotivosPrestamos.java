@@ -73,7 +73,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
             persistenciaMotivosPrestamos.editar(getEm(), listaMotivosPrestamos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosPrestamos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
             persistenciaMotivosPrestamos.borrar(getEm(), listaMotivosPrestamos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosPrestamos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
             persistenciaMotivosPrestamos.crear(getEm(), listaMotivosPrestamos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosPrestamos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
       try {
          return persistenciaMotivosPrestamos.buscarMotivosPrestamos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarMotivosPrestamos() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarMotivosPrestamos implements AdministrarMotivosPrestamosI
       try {
          return persistenciaMotivosPrestamos.buscarMotivoPrestamo(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarMotivoPrestamo() ERROR: " + e);
          return null;
       }
    }

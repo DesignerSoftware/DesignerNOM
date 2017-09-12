@@ -89,7 +89,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
             persistenciaProcesosProductivos.editar(getEm(), listaProcesosProductivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarProcesosProductivos() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
             persistenciaProcesosProductivos.borrar(getEm(), listaProcesosProductivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarProcesosProductivos() ERROR: " + e);
       }
    }
 
@@ -110,7 +110,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
             persistenciaProcesosProductivos.crear(getEm(), listaProcesosProductivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearProcesosProductivos() ERROR: " + e);
       }
    }
 
@@ -119,7 +119,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.consultarProcesosProductivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarProcesosProductivos() ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaCentrosCostos.buscarCentrosCostos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVCentrosCostos() ERROR: " + e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.contarCargosProcesoProductivo(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarCargosProcesoProductivo() ERROR: " + e);
          return null;
       }
    }
@@ -146,7 +146,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.contarTarifasProductosProcesoProductivo(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarTarifasProductosProcesoProductivo() ERROR: " + e);
          return null;
       }
    }
@@ -155,7 +155,7 @@ public class AdministrarProcesosProductivos implements AdministrarProcesosProduc
       try {
          return persistenciaProcesosProductivos.contarUnidadesProducidasProcesoProductivo(getEm(), secuenciaSucursal);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarUnidadesProducidasProcesoProductivo() ERROR: " + e);
          return null;
       }
    }

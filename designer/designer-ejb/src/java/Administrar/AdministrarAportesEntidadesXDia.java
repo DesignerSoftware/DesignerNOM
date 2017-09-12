@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,15 +37,17 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
    PersistenciaEmpleadoInterface persistenciaEmpleados;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -58,7 +59,8 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -71,7 +73,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
       try {
          return persistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAportesEntidadesXDia() ERROR: " + e);
          return null;
       }
    }
@@ -81,7 +83,7 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
       try {
          return persistenciaAportesEntidadesXDia.consultarAportesEntidadesPorEmpleadoMesYAnio(getEm(), secEmpleado, mes, ano);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAportesEntidadesPorEmpleadoMesYAnio() ERROR: " + e);
          return null;
       }
    }
@@ -124,19 +126,19 @@ public class AdministrarAportesEntidadesXDia implements AdministrarAportesEntida
       try {
          return persistenciaAportesEntidadesXDia.cosultarTarifa(getEm(), secEmpresa, secEmpleado, mes, ano, secTipoEntidad);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTarifas() ERROR: " + e);
          return null;
       }
    }
 
-    @Override
-    public Empleados buscarEmpleado(BigInteger secuenciaEmpleado) {
-        try {
+   @Override
+   public Empleados buscarEmpleado(BigInteger secuenciaEmpleado) {
+      try {
          return persistenciaEmpleados.buscarEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEmpleado() ERROR: " + e);
          return null;
       }
-    }
+   }
 
 }

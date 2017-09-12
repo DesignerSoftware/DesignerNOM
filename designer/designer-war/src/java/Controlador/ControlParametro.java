@@ -609,8 +609,7 @@ public class ControlParametro implements Serializable {
             if (parametroLiquidacion.getFechahastacausado() != null) {
                if (parametroLiquidacion.getFechasistema() != null) {
                   if (parametroLiquidacion.getProceso().getSecuencia() != null) {
-                     int comprar = parametroLiquidacion.getFechadesdecausado().compareTo(parametroLiquidacion.getFechahastacausado());
-                     if (comprar < 0) {
+                     if ((parametroLiquidacion.getFechadesdecausado().compareTo(parametroLiquidacion.getFechahastacausado())) < 0) {
                         Calendar c = Calendar.getInstance();
                         c.setTime(parametroLiquidacion.getFechadesdecausado());
                         int dia = c.get(Calendar.DAY_OF_MONTH);
@@ -785,9 +784,9 @@ public class ControlParametro implements Serializable {
       } catch (Exception e) {
          FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:growl");
       }
+      listasRecurrentes.limpiarListasEmpleados();
       cambiosFechasParametros = false;
    }
 
@@ -1174,8 +1173,16 @@ public class ControlParametro implements Serializable {
 ///////////  Cargar listas de valores:  //////////
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarParametros.empleadosLov();
-         log.debug("lovEmpleados: " + lovEmpleados);
+         if (listasRecurrentes.getLovEmpleadosActPenc().isEmpty()) {
+            lovEmpleados = administrarParametros.empleadosLov();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleadosActPenc en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActPenc(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActPenc());
+            log.warn("CONSULTANDO lovEmpleadosActPenc de Listas recurrentes");
+         }
       }
       contarRegistrosLovEmpl();
       RequestContext.getCurrentInstance().update("formularioDialogos:buscarEmpleadoDialogo");

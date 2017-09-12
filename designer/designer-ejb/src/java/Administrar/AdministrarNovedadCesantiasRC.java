@@ -78,7 +78,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
       try {
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".empleadosCesantias() ERROR: " + e);
          return null;
       }
    }
@@ -88,7 +88,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
       try {
          return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".tiposTrabajadores() ERROR: " + e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
       try {
          return persistenciaMotivosCensantias.buscarMotivosCesantias(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivosCesantias() ERROR: " + e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
       try {
          return persistenciaEmpleados.consultarCesantiasnoLiquidadas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".empleadoscesantiasnoliquidados() ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
       try {
          return persistenciaEmpleados.novedadescesantiasnoliquidadas(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".novedadesnoliquidadas() ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarNovedadCesantiasRC implements AdministrarNovedadlCesanti
       try {
          return persistenciaEmpleados.novedadescesantiasnoliquidadas(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".todasnovedadescesantias() ERROR: " + e);
          return null;
       }
    }

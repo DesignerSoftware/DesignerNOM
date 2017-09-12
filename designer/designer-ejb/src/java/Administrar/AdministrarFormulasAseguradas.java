@@ -98,7 +98,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
             persistenciaFormulasAseguradas.editar(getEm(), listaFormulasAseguradas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarFormulasAseguradas() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
             persistenciaFormulasAseguradas.borrar(getEm(), listaFormulasAseguradas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarFormulasAseguradas() ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
             persistenciaFormulasAseguradas.crear(getEm(), listaFormulasAseguradas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearFormulasAseguradas() ERROR: " + e);
       }
    }
 
@@ -134,7 +134,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
       try {
          return persistenciaFormulasAseguradas.consultarFormulasAseguradas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarFormulasAseguradas() ERROR: " + e);
          return null;
       }
    }
@@ -144,7 +144,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
       try {
          return persistenciaFormulas.buscarFormulas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVFormulas() ERROR: " + e);
          return null;
       }
    }
@@ -153,7 +153,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
       try {
          return persistenciaProcesos.buscarProcesos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVProcesos() ERROR: " + e);
          return null;
       }
    }
@@ -162,7 +162,7 @@ public class AdministrarFormulasAseguradas implements AdministrarFormulasAsegura
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVPPeriodicidades() ERROR: " + e);
          return null;
       }
    }

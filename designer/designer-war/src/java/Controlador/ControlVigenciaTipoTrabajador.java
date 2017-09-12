@@ -690,6 +690,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
+         listasRecurrentes.limpiarListasEmpleados();
       }
    }
    //CANCELAR MODIFICACIONES
@@ -1633,6 +1634,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Retirados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
+         listasRecurrentes.limpiarListasEmpleados();
 
          RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
          RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
@@ -1738,7 +1740,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Pensionados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
-
+         listasRecurrentes.limpiarListasEmpleados();
          RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
          RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
          RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
@@ -2229,22 +2231,19 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             log.info("ENTRO IF ALMACENAR RETIRADOS");
             guardarDatosRetiros();
          }
-
          if ((almacenarPensionado == true) && (banderaEliminarPension == false)) {
             log.info("ENTRO IF ALMACENAR PENSIONADO");
             guardarDatosPensiones();
          }
-
          if (guardado == false) {
             guardarCambiosVTT();
          }
       }
+
       log.info("SALIO guardarGeneral");
    }
 
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (vigenciaTTSeleccionada != null) {
          int resultado = administrarRastros.obtenerTabla(vigenciaTTSeleccionada.getSecuencia(), "VIGENCIASTIPOSTRABAJADORES");
          if (resultado == 1) {

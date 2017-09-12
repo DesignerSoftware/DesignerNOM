@@ -73,7 +73,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
             persistenciaMotivosDemandas.editar(getEm(), listMotivosDemandas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosDemandas() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
             persistenciaMotivosDemandas.borrar(getEm(), listMotivosDemandas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosDemandas() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
             persistenciaMotivosDemandas.crear(getEm(), listMotivosDemandas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosDemandas() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
       try {
          return persistenciaMotivosDemandas.buscarMotivosDemandas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivosDemandas() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarMotivosDemandas implements AdministrarMotivosDemandasInt
       try {
          return persistenciaMotivosDemandas.buscarMotivoDemanda(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivoDemanda() ERROR: " + e);
          return null;
       }
    }

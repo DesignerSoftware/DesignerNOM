@@ -67,7 +67,7 @@ public class AdministrarBancos implements AdministrarBancosInterface {
             persistenciaBancos.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarBanco() ERROR: " + e);
       }
    }
 
@@ -78,7 +78,7 @@ public class AdministrarBancos implements AdministrarBancosInterface {
             persistenciaBancos.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarBanco() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarBancos implements AdministrarBancosInterface {
       try {
          return persistenciaBancos.buscarBancos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarBancos() ERROR: " + e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class AdministrarBancos implements AdministrarBancosInterface {
       try {
          return persistenciaBancos.buscarBancosPorSecuencia(getEm(), secuencia);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarBancosPorSecuencia() ERROR: " + e);
          return null;
       }
    }

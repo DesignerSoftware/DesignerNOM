@@ -100,7 +100,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaEmpleados.buscarEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".encontrarEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEmpleados() ERROR: " + e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaTiposReemplazos.buscarTiposReemplazos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposReemplazos() ERROR: " + e);
          return null;
       }
    }
@@ -131,7 +131,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaMotivosReemplazos.motivosReemplazos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosReemplazos() ERROR: " + e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaEstructuras.estructuras(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEstructuras() ERROR: " + e);
          return null;
       }
    }
@@ -150,7 +150,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaCargos.cargosSalario(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCargos() ERROR: " + e);
          return null;
       }
    }
@@ -180,7 +180,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
             persistenciaEncargaturas.editar(getEm(), listaEncargaturasModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEncargatura() ERROR: " + e);
       }
    }
 
@@ -189,7 +189,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          persistenciaEncargaturas.borrar(getEm(), encargaturas);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEncargaturas() ERROR: " + e);
       }
    }
 
@@ -198,7 +198,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          persistenciaEncargaturas.crear(getEm(), encargaturas);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEncargaturas() ERROR: " + e);
       }
    }
 
@@ -207,7 +207,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaEmpleados.empleadosReemplazosHV(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEmpleadoReemplazosHV() ERROR: " + e);
          return null;
       }
    }
@@ -217,7 +217,7 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
       try {
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEmpleados() ERROR: " + e);
          return null;
       }
    }

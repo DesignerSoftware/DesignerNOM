@@ -103,7 +103,7 @@ public class AdministrarEvalResultadosConv implements AdministrarEvalResultadosC
       try {
          return persistenciarevalresconv.consultarEvalResultadosConvocatorias(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEvalResultadosConvocatorias() ERROR: " + e);
          return null;
       }
    }

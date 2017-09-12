@@ -68,7 +68,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
          listaCausasAusentismo = persistenciaCausasausentismos.buscarCausasAusentismos(getEm());
          return listaCausasAusentismo;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarCausasAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -80,7 +80,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
          listaClasesAusentismos = persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
          return listaClasesAusentismos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClasesAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -101,7 +101,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarCausasAusentismos() ERROR: " + e);
       }
    }
 
@@ -120,7 +120,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarCausasAusentismos() ERROR: " + e);
       }
    }
 
@@ -139,7 +139,7 @@ public class AdministrarCausasAusentismos implements AdministrarCausasAusentismo
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearCausasAusentismos() ERROR: " + e);
       }
    }
 

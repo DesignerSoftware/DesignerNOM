@@ -73,7 +73,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
             persistenciaLesiones.editar(getEm(), listaLesiones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarLesiones() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
             persistenciaLesiones.borrar(getEm(), listaLesiones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarLesiones() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
             persistenciaLesiones.crear(getEm(), listaLesiones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearLesiones() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
       try {
          return persistenciaLesiones.buscarLesiones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLesiones() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarLesiones implements AdministrarLesionesInterface {
       try {
          return persistenciaLesiones.buscarLesion(getEm(), secLesion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLesion() ERROR: " + e);
          return null;
       }
    }

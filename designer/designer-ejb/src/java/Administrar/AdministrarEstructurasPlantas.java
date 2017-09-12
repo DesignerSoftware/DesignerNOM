@@ -302,7 +302,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
             persistenciaOrganigramas.editar(getEm(), org);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarOrganigrama() ERROR: " + e);
       }
    }
 
@@ -311,7 +311,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
       try {
          persistenciaOrganigramas.borrar(getEm(), organigrama);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarOrganigrama() ERROR: " + e);
       }
    }
 
@@ -320,7 +320,7 @@ public class AdministrarEstructurasPlantas implements AdministrarEstructurasPlan
       try {
          persistenciaOrganigramas.crear(getEm(), organigrama);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearOrganigrama() ERROR: " + e);
       }
    }
 }

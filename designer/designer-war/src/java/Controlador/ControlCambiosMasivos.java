@@ -2694,15 +2694,15 @@ public class ControlCambiosMasivos {
 
    public void cargarLOVEmpleados() {
       if (lovEmpleados.isEmpty()) {
-         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+         if (listasRecurrentes.getLovEmpleadosActivos().isEmpty()) {
             lovEmpleados = administrarCambiosMasivos.consultarLovEmpleados();
             if (lovEmpleados != null) {
-               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
-               listasRecurrentes.setLovEmpleados(lovEmpleados);
+               log.warn("GUARDANDO lovEmpleadosActivos en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActivos(lovEmpleados);
             }
          } else {
-            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
-            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActivos());
+            log.warn("CONSULTANDO lovEmpleadosActivos de Listas recurrentes");
          }
       }
    }

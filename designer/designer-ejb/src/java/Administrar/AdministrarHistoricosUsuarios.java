@@ -44,15 +44,17 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
    PersistenciaPerfilesInterface persistenciaPerfiles;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -64,7 +66,8 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -78,7 +81,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
          List<HistoricosUsuarios> listaHistoricos = persistenciaHistoricosUsuarios.buscarHistoricosUsuarios(getEm(), secUsuario);
          return listaHistoricos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarHistoricosUsuarios() ERROR: " + e);
          return null;
       }
    }
@@ -99,7 +102,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
             persistenciaHistoricosUsuarios.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearHistoricosUsuarios() ERROR: " + e);
       }
    }
 
@@ -119,7 +122,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
             persistenciaHistoricosUsuarios.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarHistoricosUsuarios() ERROR: " + e);
       }
    }
 
@@ -139,7 +142,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
             persistenciaHistoricosUsuarios.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarHistoricosUsuarios() ERROR: " + e);
       }
    }
 
@@ -148,7 +151,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
       try {
          return persistenciaPersonas.consultarPersonas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovPersonas() ERROR: " + e);
          return null;
       }
    }
@@ -158,7 +161,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
       try {
          return persistenciaPerfiles.consultarPerfiles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovPerfiles() ERROR: " + e);
          return null;
       }
    }
@@ -168,7 +171,7 @@ public class AdministrarHistoricosUsuarios implements AdministrarHistoricosUsuar
       try {
          return persistenciaUsuarios.buscarUsuariosXSecuencia(getEm(), secUsuario);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovUsuarios() ERROR: " + e);
          return null;
       }
    }

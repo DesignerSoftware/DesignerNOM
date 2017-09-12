@@ -90,7 +90,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
       try {
          return persistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarCiudades() ERROR: " + e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
             persistenciaCiudades.editar(getEm(), c);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarCiudades() ERROR: " + e);
       }
    }
 
@@ -128,7 +128,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
          }
          return borradosTodos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarCiudades() ERROR: " + e);
          return false;
       }
    }
@@ -147,7 +147,7 @@ public class AdministrarCiudades implements AdministrarCiudadesInterface {
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearCiudades() ERROR: " + e);
       }
    }
 

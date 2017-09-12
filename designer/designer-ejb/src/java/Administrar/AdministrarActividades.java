@@ -72,7 +72,7 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
             persistenciaActividades.editar(getEm(), listaActividades.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarActividades() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
             persistenciaActividades.borrar(getEm(), listaActividades.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarActividades() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
             persistenciaActividades.crear(getEm(), listaActividades.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearActividades() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarActividades implements AdministrarActividadesInterface {
       try {
          return persistenciaActividades.buscarActividades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActividades() ERROR: " + e);
          return null;
       }
    }

@@ -98,7 +98,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
       try {
          return persistenciaOdicabecera.lovEmpleados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEmpleados() ERROR: " + e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
       try {
          return persistenciaOdicabecera.lovEmpresas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEmpresas() ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
       try {
          return persistenciaOdicabecera.lovTerceros(getEm(), anio, mes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTerceros() ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
       try {
          return persistenciaOdicabecera.lovTiposEntidades(getEm(), anio, mes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovtiposEntidades() ERROR: " + e);
          return null;
       }
    }
@@ -143,7 +143,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
       try {
          return persistenciaOdicabecera.lovSucursalesPila(getEm(), secuenciaEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovSucursales() ERROR: " + e);
          return null;
       }
    }
@@ -153,7 +153,7 @@ public class AdministrarOdiCabecera implements AdministrarOdiCabeceraInterface {
       try {
          return persistenciaOdicabecera.listOdisCabeceras(getEm(), anio, mes, secuenciaEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaNovedades() ERROR: " + e);
          return null;
       }
    }

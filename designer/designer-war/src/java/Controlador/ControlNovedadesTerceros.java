@@ -1867,7 +1867,16 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         lovEmpleados = administrarNovedadesTerceros.lovEmpleados();
+         if (listasRecurrentes.getLovEmpleadosNovedad().isEmpty()) {
+            lovEmpleados = administrarNovedadesTerceros.lovEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleadosNovedad en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosNovedad(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosNovedad());
+            log.warn("CONSULTANDO lovEmpleadosNovedad de Listas recurrentes");
+         }
       }
    }
    //GETTER & SETTER

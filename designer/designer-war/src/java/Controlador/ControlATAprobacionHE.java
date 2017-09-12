@@ -20,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -114,7 +115,13 @@ public class ControlATAprobacionHE implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private ListasRecurrentes listasRecurrentes;
+
    public ControlATAprobacionHE() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
+
       actualUsuario = null;
 
       altoDivTablaInferiorIzquierda = "95px";
@@ -1406,7 +1413,18 @@ public class ControlATAprobacionHE implements Serializable {
 
    //GET - SET
    public List<Empleados> getLovEmpleados() {
-      lovEmpleados = administrarATAprobacionHE.lovEmpleados();
+      if (lovEmpleados == null) {
+         if (listasRecurrentes.getLovEmpleadosActPenc().isEmpty()) {
+            lovEmpleados = administrarATAprobacionHE.lovEmpleados();
+            if (lovEmpleados != null) {
+               log.warn("GUARDANDO lovEmpleadosActPenc en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActPenc(lovEmpleados);
+            }
+         } else {
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActPenc());
+            log.warn("CONSULTANDO lovEmpleadosActPenc de Listas recurrentes");
+         }
+      }
       if (lovEmpleados != null) {
          infoRegistroEmpleado = "Cantidad de registros : " + lovEmpleados.size();
       } else {

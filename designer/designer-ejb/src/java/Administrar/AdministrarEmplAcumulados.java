@@ -111,7 +111,7 @@ public class AdministrarEmplAcumulados implements AdministrarEmplAcumuladosInter
       try {
          return persistenciaVWAcumulados.getTotalRegistros(getEm(), secUsuario);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".getTotalRegistros() ERROR: " + e);
          return null;
       }
    }

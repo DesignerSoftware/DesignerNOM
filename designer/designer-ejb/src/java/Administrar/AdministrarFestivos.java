@@ -76,7 +76,7 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
             persistenciaFestivos.editar(getEm(), listaFestivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarFestivos() ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
             persistenciaFestivos.borrar(getEm(), listaFestivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarFestivos() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
             persistenciaFestivos.crear(getEm(), listaFestivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearFestivos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
       try {
          return persistenciaFestivos.consultarFestivosPais(getEm(), secPais);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarFestivosPais() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarFestivos implements AdministrarFestivosInterface {
       try {
          return persistenciaPaises.consultarPaises(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVPaises() ERROR: " + e);
          return null;
       }
    }

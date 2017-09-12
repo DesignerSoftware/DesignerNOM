@@ -95,7 +95,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          return persistenciaModulos.buscarModulos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarModulos() ERROR: " + e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          return persistenciaTablas.buscarTablas(getEm(), secuenciaMod);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTablas() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          return persistenciaPantallas.buscarPantalla(getEm(), secuenciaTab);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPantalla() ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
          Pantallas p = persistenciaPantallas.buscarPantalla(getEm(), secuenciaTab);
          return p.getNombre();
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarNombrePantalla() ERROR: " + e);
          return null;
       }
    }
@@ -135,7 +135,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          return persistenciaAficiones.buscarAficiones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAficiones() ERROR: " + e);
          return null;
       }
    }
@@ -146,7 +146,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
          aficion = persistenciaAficiones.buscarAficion(getEm(), secuencia);
          return aficion;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAficion() ERROR: " + e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
             persistenciaAficiones.editar(getEm(), aficion);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarAficiones() ERROR: " + e);
       }
    }
 
@@ -173,7 +173,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
          max = max + 1;
          return max;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".sugerirCodigoAficiones() ERROR: " + e);
          return null;
       }
    }
@@ -183,7 +183,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          persistenciaAficiones.crear(getEm(), aficion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearAficion() ERROR: " + e);
       }
    }
 
@@ -192,7 +192,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          persistenciaAficiones.borrar(getEm(), aficion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarAficion() ERROR: " + e);
       }
    }
 
@@ -201,7 +201,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          return persistenciaAficiones.buscarAficionCodigo(getEm(), cod);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAficionCodigo() ERROR: " + e);
          return null;
       }
    }
@@ -248,7 +248,7 @@ public class AdministrarCarpetaDesigner implements AdministrarCarpetaDesignerInt
       try {
          return persistenciaTablas.consultarTablas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTablas() ERROR: " + e);
          return null;
       }
    }

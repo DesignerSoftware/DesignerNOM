@@ -73,7 +73,7 @@ public class AdministrarEstadosCiviles implements AdministrarEstadosCivilesInter
             persistenciaEstadosCiviles.editar(getEm(), listaEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEstadosCiviles() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarEstadosCiviles implements AdministrarEstadosCivilesInter
             persistenciaEstadosCiviles.borrar(getEm(), listaEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEstadosCiviles() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarEstadosCiviles implements AdministrarEstadosCivilesInter
             persistenciaEstadosCiviles.crear(getEm(), listaEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEstadosCiviles() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarEstadosCiviles implements AdministrarEstadosCivilesInter
       try {
          return persistenciaEstadosCiviles.consultarEstadosCiviles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEstadosCiviles() ERROR: " + e);
          return null;
       }
    }

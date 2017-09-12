@@ -282,7 +282,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             return persistenciaAportesEntidades.borrarAportesEntidadesProcesoAutomatico(getEm(), empresa, mes, ano);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".borrarAportesEntidadesProcesoAutomatico() ERROR: " + e);
             return null;
         }
     }
@@ -363,7 +363,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             return persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(getEm(), secuencia, mes, ano);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".ejecutarPKGAcumularDiferencia() ERROR: " + e);
             return null;
         }
     }
@@ -383,7 +383,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             return persistenciaAportesEntidades.ejecutarPKGProcesarAportesEntidadesXDia(getEm(), ano, mes, secuencia);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".ejecutarPKGProcesarAportesXDia() ERROR: " + e);
             return null;
         }
     }
@@ -393,7 +393,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             return persistenciaAportesEntidades.ejecutarPKGEliminarAportesEntidadesXDia(getEm(), ano, mes, secuencia);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".ejecutarPKGEliminarAportesXDia() ERROR: " + e);
             return null;
         }
     }

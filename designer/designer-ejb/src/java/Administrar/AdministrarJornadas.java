@@ -72,7 +72,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
             persistenciaJornadas.editar(getEm(), listaJornadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarJornadas() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
             persistenciaJornadas.borrar(getEm(), listaJornadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarJornadas() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
             persistenciaJornadas.crear(getEm(), listaJornadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearJornadas() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
       try {
          return persistenciaJornadas.consultarJornadas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarJornadas() ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarJornadas implements AdministrarJornadasInterface {
       try {
          return persistenciaJornadas.consultarJornada(getEm(), secJornadas);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarJornada() ERROR: " + e);
          return null;
       }
    }

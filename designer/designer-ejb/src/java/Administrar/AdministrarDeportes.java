@@ -86,7 +86,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
             persistenciaDeportes.editar(getEm(), deporteSeleccionado);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDeportes() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
             persistenciaDeportes.borrar(getEm(), listaDeportes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDeportes() ERROR: " + e);
       }
    }
 
@@ -110,7 +110,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
             persistenciaDeportes.crear(getEm(), listaDeportes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDeportes() ERROR: " + e);
       }
    }
 
@@ -119,7 +119,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
       try {
          return persistenciaDeportes.buscarDeportes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDeportes() ERROR: " + e);
          return null;
       }
    }
@@ -129,7 +129,7 @@ public class AdministrarDeportes implements AdministrarDeportesInterface {
       try {
          return persistenciaDeportes.buscarDeporte(getEm(), secDeportes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDeporte() ERROR: " + e);
          return null;
       }
    }

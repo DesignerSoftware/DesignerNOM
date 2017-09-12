@@ -114,7 +114,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
       try {
          return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPersona() ERROR: " + e);
          return null;
       }
    }
@@ -124,7 +124,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
       try {
          return PersistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVCiudades() ERROR: " + e);
          return null;
       }
    }
@@ -144,7 +144,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             persistenciaDirecciones.editar(getEm(), d);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDirecciones() ERROR: " + e);
       }
    }
 
@@ -159,7 +159,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             persistenciaDirecciones.borrar(getEm(), listaDirecciones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDirecciones() ERROR: " + e);
       }
    }
 
@@ -174,7 +174,7 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             persistenciaDirecciones.crear(getEm(), listaDirecciones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDirecciones() ERROR: " + e);
       }
    }
 

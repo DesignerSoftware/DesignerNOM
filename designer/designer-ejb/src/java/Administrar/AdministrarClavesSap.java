@@ -71,7 +71,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
             persistenciaClavesSap.editar(getEm(), listaClavesSap.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarClavesSap() ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
             persistenciaClavesSap.borrar(getEm(), listaClavesSap.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarClavesSap() ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
             persistenciaClavesSap.crear(getEm(), listaClavesSap.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearClavesSap() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
          listMotivosCambiosCargos = persistenciaClavesSap.consultarClavesSap(getEm());
          return listMotivosCambiosCargos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClavesSap() ERROR: " + e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
          listMotivosCambiosCargos = persistenciaClavesSap.consultarClavesSap(getEm());
          return listMotivosCambiosCargos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVClavesSap() ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
          BigInteger retorno = persistenciaClavesSap.contarClavesContablesCreditoClaveSap(getEm(), secuencia);
          return retorno;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarClavesContablesCreditoClaveSap() ERROR: " + e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class AdministrarClavesSap implements AdministrarClavesSapInterface {
          BigInteger retorno = persistenciaClavesSap.contarClavesContablesDebitoClaveSap(getEm(), secuencia);
          return retorno;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarClavesContablesDebitoClaveSap() ERROR: " + e);
          return null;
       }
    }

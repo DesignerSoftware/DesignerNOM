@@ -97,10 +97,10 @@
 
                      <p:dataTable id="datosConceptos" var="conceptos" value="#{controlNovedadesConceptos.listaConceptosNovedad}"
                                   rowKey="#{conceptos.secuencia}" rowIndexVar="indiceT" style="width: 640px;" scrollHeight="#{controlNovedadesConceptos.altoTablaConceptos}"
-                                  scrollable="true" scrollWidth="640" filteredValue="#{controlNovedadesConceptos.filtradosListaConceptos}" 
+                                  scrollable="true" scrollWidth="640" filteredValue="#{controlNovedadesConceptos.filtradosListaConceptos}"
                                   emptyMessage="#{msg['vacio']}" selection="#{controlNovedadesConceptos.conceptoSeleccionado}" widgetVar="datosConceptos"
-                                  editable="true" editMode="cell" selectionMode="single" rows="#{controlNovedadesConceptos.altoTablaRegConc}" paginator="true" 
-                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                  editable="true" editMode="cell" selectionMode="single" rows="#{controlNovedadesConceptos.altoTablaRegConc}" paginator="true"
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
                                   currentPageReportTemplate="{totalPages}">
 
                         <p:ajax event="filter" listener="#{controlNovedadesConceptos.eventoFiltrarConcepto()}"/>

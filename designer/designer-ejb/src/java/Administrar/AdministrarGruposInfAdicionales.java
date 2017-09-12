@@ -76,7 +76,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
             persistenciaGruposInfAdicionales.editar(getEm(), listGruposInfAdicionales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarGruposInfAdicionales() ERROR: " + e);
       }
    }
 
@@ -88,7 +88,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
             persistenciaGruposInfAdicionales.borrar(getEm(), listGruposInfAdicionales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarGruposInfAdicionales() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
             persistenciaGruposInfAdicionales.crear(getEm(), listGruposInfAdicionales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearGruposInfAdicionales() ERROR: " + e);
       }
    }
 
@@ -110,7 +110,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
          listGruposInfAdicionales = persistenciaGruposInfAdicionales.buscarGruposInfAdicionales(getEm());
          return listGruposInfAdicionales;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarGruposInfAdicionales() ERROR: " + e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarGruposInfAdicionales implements AdministrarGruposInfAdic
          gruposInfAdicionales = persistenciaGruposInfAdicionales.buscarGrupoInfAdicional(getEm(), secDeportes);
          return gruposInfAdicionales;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarGrupoInfAdicional() ERROR: " + e);
          return null;
       }
    }

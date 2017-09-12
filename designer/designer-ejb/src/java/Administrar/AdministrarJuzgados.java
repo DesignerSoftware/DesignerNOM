@@ -157,7 +157,7 @@ public class AdministrarJuzgados implements AdministrarJuzgadosInterface {
          Integer.parseInt(cadena);
          return true;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".isNumeric() ERROR: " + e);
          return false;
       }
    }

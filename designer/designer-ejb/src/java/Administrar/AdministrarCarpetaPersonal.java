@@ -325,7 +325,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesCargos.buscarCargoEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualCargoEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -355,7 +355,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaActualesTiposContratos.buscarTiposContratosEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualTipoContratoEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -365,7 +365,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesNormasEmpleados.buscarNormaLaboral(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualNormaLaboralEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -375,7 +375,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesAfiliacionesSalud.buscarAfiliacionSalud(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualAfiliacionSaludEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -385,7 +385,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesAfiliacionesPension.buscarAfiliacionPension(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualAfiliacionPensionEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -395,7 +395,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesLocalizaciones.buscarLocalizacion(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualLocalizacionEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -405,7 +405,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualTipoTrabajadorEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -425,7 +425,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesContratos.buscarContrato(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualContratoEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -435,7 +435,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesJornadas.buscarJornada(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualJornadaEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -453,7 +453,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
             valor = persistenciaVWActualesPensiones.buscarSueldoPensionado(getEm(), secEmpleado);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualSueldoEmpleado() ERROR: " + e);
          valor = null;
       }
       return valor;
@@ -464,7 +464,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesReformasLaborales.buscarReformaLaboral(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualReformaLaboralEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -474,7 +474,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesUbicaciones.buscarUbicacion(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualUbicacionEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -484,7 +484,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesFormasPagos.buscarFormaPago(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualFormaPagoEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -494,7 +494,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesVigenciasViajeros.buscarTipoViajero(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualTipoViajeroEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -504,7 +504,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaNovedadesSistema.buscarEstadoVacaciones(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualEstadoVacaciones() ERROR: " + e);
          return null;
       }
    }
@@ -514,7 +514,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return PersistenciaVWActualesMvrs.buscarActualMVR(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualMVR() ERROR: " + e);
          return null;
       }
    }
@@ -540,7 +540,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          }
          return ibcEmpleado;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".actualIBC() ERROR: " + e);
          return null;
       }
    }
@@ -557,7 +557,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          }
          return actualSetEmpleado;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualSet() ERROR: " + e);
          return null;
       }
    }
@@ -574,7 +574,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          }
          return actualComprobante;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarActualComprobante() ERROR: " + e);
          return null;
       }
    }
@@ -584,7 +584,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo(getEm(), tipo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEmpleadosTipoTrabajador() ERROR: " + e);
          return null;
       }
    }
@@ -594,7 +594,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesTiposTrabajadores.filtrarTipoTrabajadorPosicion(getEm(), tipo, posicion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEmpleadosTipoTrabajadorPosicion() ERROR: " + e);
          return null;
       }
    }
@@ -604,7 +604,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador(getEm(), tipo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerTotalRegistrosTipoTrabajador() ERROR: " + e);
          return 0;
       }
    }
@@ -615,7 +615,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          Short codigoEmpresa = persistenciaEmpresas.codigoEmpresa(getEm());
          return persistenciaDetallesEmpresas.buscarDetalleEmpresa(getEm(), codigoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDetalleEmpresaUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -649,7 +649,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaUsuarios.buscarUsuario(getEm(), alias);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -659,7 +659,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), consultarAliasActualUsuario());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametrosUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -669,7 +669,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVigenciasCargos.buscarVigenciasCargosEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarVigenciasCargosEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -679,7 +679,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVwTiposEmpleados.buscarTiposEmpleados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarRapidaEmpleados() ERROR: " + e);
          return null;
       }
    }
@@ -689,7 +689,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaPersonas.buscarFotoPersona(getEm(), identificacion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarFotoPersona() ERROR: " + e);
          return null;
       }
    }
@@ -699,7 +699,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          persistenciaPersonas.actualizarFotoPersona(getEm(), identificacion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".actualizarFotoPersona() ERROR: " + e);
       }
    }
 
@@ -708,7 +708,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaEmpleado.buscarEmpleadoSecuencia(getEm(), secuencia);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -729,7 +729,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaActualUsuario.actualAliasBD(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAliasActualUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -739,7 +739,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          persistenciaCandados.borrarLiquidacionAutomatico(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarLiquidacionAutomatico() ERROR: " + e);
       }
    }
 
@@ -748,7 +748,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          persistenciaCandados.borrarLiquidacionNoAutomatico(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarLiquidacionNoAutomatico() ERROR: " + e);
       }
    }
 
@@ -759,7 +759,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          resultadoActivos = persistenciaSolucionesNodos.activos(getEm(), secuencia);
          return resultadoActivos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarActivo() ERROR: " + e);
          return null;
       }
    }
@@ -769,7 +769,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaEmpleado.eliminarEmpleadoNominaF(getEm(), secuenciaEmpleado, secuenciaPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEmpleadoActivo() ERROR: " + e);
          return false;
       }
    }

@@ -3,6 +3,7 @@ package Controlador;
 import Administrar.AdministrarCarpetaPersonal;
 import Banner.BannerInicioRed;
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import Entidades.*;
 import InterfaceAdministrar.*;
 import javax.ejb.EJB;
@@ -126,7 +127,7 @@ public class ControlRemoto implements Serializable {
    private String infoRegistroTablas;
    private String infoRegistroMod;
    private int posicion;
-   private int totalRegistros;
+   private int totalRegistros, totalRegistrosBk;
    private String informacionTiposTrabajadores;
    private final String extension;
    private List<BannerInicioRed> banner;
@@ -400,6 +401,7 @@ public class ControlRemoto implements Serializable {
                log.info("ControlRemoto.recibirBusquedaAvansada() lovBuscarEmplTipo.size(): " + lovBuscarEmplTipo.size());
             }
             totalRegistros = listaBusquedaAvanzada.size();
+            totalRegistrosBk = listaBusquedaAvanzada.size();
             tipoPersonal = "activos";
             tipoBk = tipo;
             tipo = "ACTIVO";
@@ -410,6 +412,7 @@ public class ControlRemoto implements Serializable {
                vwActualesTiposTrabajadoresPosicion = backup;
                Mensaje = "Activo";
                RequestContext.getCurrentInstance().execute("PF('alerta').show()");
+               totalRegistrosBk = totalRegistros;
                tipo = tipoBk;
             } else {
                backup = null;
@@ -419,6 +422,7 @@ public class ControlRemoto implements Serializable {
                styleRetirados = "";
                styleAspirantes = "";
                buscarEmp = false;
+               totalRegistrosBk = 0;
                tipoBk = null;
                acumulado = false;
                novedad = false;
@@ -449,6 +453,7 @@ public class ControlRemoto implements Serializable {
       tipoPersonal = "activos";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
+      totalRegistrosBk = totalRegistros;
       tipo = "ACTIVO";
       posicion = 0;
       requerirTipoTrabajador(posicion);
@@ -458,6 +463,7 @@ public class ControlRemoto implements Serializable {
          Mensaje = "Activo";
          RequestContext.getCurrentInstance().execute("PF('alerta').show()");
          tipo = tipoBk;
+         totalRegistros = totalRegistrosBk;
       } else {
          backup = null;
          Imagen = "personal1" + extension;
@@ -467,6 +473,7 @@ public class ControlRemoto implements Serializable {
          styleAspirantes = "";
          buscarEmp = false;
          tipoBk = null;
+         totalRegistrosBk = 0;
          acumulado = false;
          novedad = false;
          evaluacion = false;
@@ -498,6 +505,7 @@ public class ControlRemoto implements Serializable {
       tipoPersonal = "pensionados";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
+      totalRegistrosBk = totalRegistros;
       tipo = "PENSIONADO";
       posicion = 0;
       requerirTipoTrabajador(posicion);
@@ -507,6 +515,7 @@ public class ControlRemoto implements Serializable {
          Mensaje = "Pensionado";
          RequestContext.getCurrentInstance().execute("PF('alerta').show()");
          tipo = tipoBk;
+         totalRegistros = totalRegistrosBk;
       } else {
          backup = null;
          Imagen = "personal2" + extension;
@@ -515,6 +524,7 @@ public class ControlRemoto implements Serializable {
          styleRetirados = "";
          styleAspirantes = "";
          buscarEmp = false;
+         totalRegistrosBk = 0;
          tipoBk = null;
          acumulado = false;
          novedad = false;
@@ -530,8 +540,7 @@ public class ControlRemoto implements Serializable {
             valorInputText();
 
          } catch (ParseException ex) {
-            log.info(ControlRemoto.class
-                    .getName() + " error en la entrada");
+            log.info(ControlRemoto.class.getName() + " error en la entrada");
          }
          lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
@@ -548,6 +557,7 @@ public class ControlRemoto implements Serializable {
       tipoPersonal = "retirados";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
+      totalRegistrosBk = totalRegistros;
       tipo = "RETIRADO";
       posicion = 0;
       requerirTipoTrabajador(posicion);
@@ -557,6 +567,7 @@ public class ControlRemoto implements Serializable {
          Mensaje = "Retirado";
          RequestContext.getCurrentInstance().execute("PF('alerta').show()");
          tipo = tipoBk;
+         totalRegistros = totalRegistrosBk;
       } else {
          backup = null;
          Imagen = "personal3" + extension;
@@ -565,6 +576,7 @@ public class ControlRemoto implements Serializable {
          styleActivos = "";
          styleAspirantes = "";
          buscarEmp = false;
+         totalRegistrosBk = 0;
          tipoBk = null;
          acumulado = false;
          novedad = false;
@@ -598,6 +610,7 @@ public class ControlRemoto implements Serializable {
       tipoPersonal = "aspirantes";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
+      totalRegistrosBk = totalRegistros;
       tipo = "DISPONIBLE";
       posicion = 0;
       requerirTipoTrabajador(posicion);
@@ -607,6 +620,7 @@ public class ControlRemoto implements Serializable {
          Mensaje = "Aspirante";
          RequestContext.getCurrentInstance().execute("PF('alerta').show()");
          tipo = tipoBk;
+         totalRegistros = totalRegistrosBk;
       } else {
          backup = null;
          Imagen = "personal4" + extension;
@@ -616,6 +630,7 @@ public class ControlRemoto implements Serializable {
          styleRetirados = "";
          buscarEmp = false;
          tipoBk = null;
+         totalRegistrosBk = 0;
          acumulado = true;
          novedad = true;
          evaluacion = false;
@@ -679,6 +694,7 @@ public class ControlRemoto implements Serializable {
       try {
          boolean b = administrarCarpetaPersonal.borrarEmpleadoActivo(vwActualesTiposTrabajadoresPosicion.getEmpleado(), vwActualesTiposTrabajadoresPosicion.getPersona());
          if (b) {
+            controlListaNavegacion.getListasRecurrentes().limpiarListasEmpleados();
             RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
             RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso4').show()");
          } else {
@@ -689,6 +705,7 @@ public class ControlRemoto implements Serializable {
             totalRegistros = listaBusquedaAvanzada.size();
             tipoPersonal = "activos";
             tipoBk = tipo;
+            totalRegistrosBk = totalRegistros;
             tipo = "ACTIVO";
             posicion = 0;
             listaBusquedaAvanzada.remove(vwActualesTiposTrabajadoresPosicion);
@@ -702,6 +719,7 @@ public class ControlRemoto implements Serializable {
                styleAspirantes = "";
                buscarEmp = false;
                tipoBk = null;
+               totalRegistrosBk = 0;
                acumulado = false;
                novedad = false;
                evaluacion = false;

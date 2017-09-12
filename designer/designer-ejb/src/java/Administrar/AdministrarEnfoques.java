@@ -72,7 +72,7 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
             PersistenciaEnfoques.editar(getEm(), listEnfoques.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEnfoques() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
             PersistenciaEnfoques.borrar(getEm(), listEnfoques.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEnfoques() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
             PersistenciaEnfoques.crear(getEm(), listEnfoques.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEnfoques() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
       try {
          return PersistenciaEnfoques.buscarEnfoques(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEnfoques() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarEnfoques implements AdministrarEnfoquesInterface {
       try {
          return PersistenciaEnfoques.buscarEnfoque(getEm(), secEnfoques);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEnfoque() ERROR: " + e);
          return null;
       }
    }

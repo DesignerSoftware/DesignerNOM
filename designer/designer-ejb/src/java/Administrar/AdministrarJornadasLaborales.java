@@ -78,7 +78,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
       try {
          return persistenciaJornadasLaborales.buscarJornadasLaborales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarJornadasLaborales() ERROR: " + e);
          return null;
       }
    }
@@ -88,7 +88,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
       try {
          return persistenciaJornadas.consultarJornadas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarJornadas() ERROR: " + e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
             persistenciaJornadasLaborales.editar(getEm(), listaJornadasLaborales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarJornadasLaborales() ERROR: " + e);
       }
    }
 
@@ -124,7 +124,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
             persistenciaJornadasLaborales.borrar(getEm(), listaJornadasLaborales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarJornadasLaborales() ERROR: " + e);
       }
    }
 
@@ -136,7 +136,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
             persistenciaJornadasLaborales.crear(getEm(), listaJornadasLaborales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearJornadasLaborales() ERROR: " + e);
       }
    }
 
@@ -148,7 +148,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
             persistenciaJornadasSemanales.editar(getEm(), listaJornadasSemanales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarJornadasSemanales() ERROR: " + e);
       }
    }
 
@@ -161,7 +161,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
 
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarJornadasSemanales() ERROR: " + e);
       }
    }
 
@@ -174,7 +174,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
             persistenciaJornadasSemanales.crear(getEm(), listaJornadasSemanales.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearJornadasSemanales() ERROR: " + e);
       }
    }
 
@@ -183,7 +183,7 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
       try {
          return persistenciaJornadasSemanales.buscarJornadasSemanalesPorJornadaLaboral(getEm(), secuencia);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarJornadasSemanales() ERROR: " + e);
          return null;
       }
    }

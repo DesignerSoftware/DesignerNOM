@@ -88,7 +88,7 @@ public class AdministrarNovedadesOperandos implements AdministrarNovedadesOperan
       try {
          persistenciaNovedadesOperandos.crear(getEm(), novedadesOperandos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearNovedadesOperandos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarNovedadesOperandos implements AdministrarNovedadesOperan
       try {
          persistenciaNovedadesOperandos.editar(getEm(), novedadesOperandos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarNovedadesOperandos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarNovedadesOperandos implements AdministrarNovedadesOperan
       try {
          return persistenciaOperandos.buscarOperandos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarOperandos() ERROR: " + e);
          return null;
       }
    }

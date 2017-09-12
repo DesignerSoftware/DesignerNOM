@@ -110,15 +110,17 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
    PersistenciaUsuariosInterface persistenciaUsuarios;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -131,7 +133,8 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
    private boolean usoWhere = false;
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -145,7 +148,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCargos() ERROR: " + e);
          return null;
       }
    }
@@ -155,7 +158,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaEstructuras.buscarEstructuras(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEstructuras() ERROR: " + e);
          return null;
       }
    }
@@ -165,7 +168,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovJefe() ERROR: " + e);
          return null;
       }
    }
@@ -175,7 +178,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosCargos() ERROR: " + e);
          return null;
       }
    }
@@ -185,7 +188,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaPapeles.consultarPapeles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovPapeles() ERROR: " + e);
          return null;
       }
    }
@@ -195,7 +198,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaMotivosLocalizaciones.buscarMotivosLocalizaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosLocalizaciones() ERROR: " + e);
          return null;
       }
    }
@@ -205,7 +208,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaTiposSueldos.buscarTiposSueldos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposSueldos() ERROR: " + e);
          return null;
       }
    }
@@ -215,7 +218,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaMotivosCambiosSueldos.buscarMotivosCambiosSueldos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosSueldos() ERROR: " + e);
          return null;
       }
    }
@@ -225,7 +228,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaTiposContratos.tiposContratos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposContratos() ERROR: " + e);
          return null;
       }
    }
@@ -235,7 +238,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaMotivosContratos.buscarMotivosContratos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosContratos() ERROR: " + e);
          return null;
       }
    }
@@ -245,7 +248,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaTiposTrabajadores.buscarTiposTrabajadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposTrabajadores() ERROR: " + e);
          return null;
       }
    }
@@ -255,7 +258,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaReformasLaborales.buscarReformasLaborales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovReformasLaborales() ERROR: " + e);
          return null;
       }
    }
@@ -265,7 +268,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaContratos.buscarContratos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovContratos() ERROR: " + e);
          return null;
       }
    }
@@ -275,7 +278,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaUbicacionesGeograficas.consultarUbicacionesGeograficas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovUbicaciones() ERROR: " + e);
          return null;
       }
    }
@@ -285,7 +288,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaTercerosSucursales.buscarTercerosSucursales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTercerosSucursales() ERROR: " + e);
          return null;
       }
    }
@@ -295,7 +298,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposEntidades() ERROR: " + e);
          return null;
       }
    }
@@ -305,7 +308,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaEstadosAfiliaciones.buscarEstadosAfiliaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEstadosAfiliaciones() ERROR: " + e);
          return null;
       }
    }
@@ -315,7 +318,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaPeriodicidades.consultarPeriodicidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovFormasPagos() ERROR: " + e);
          return null;
       }
    }
@@ -325,7 +328,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaSucursales.consultarSucursales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovSucursales() ERROR: " + e);
          return null;
       }
    }
@@ -336,7 +339,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaMotivosMvrs.buscarMotivosMvrs(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosMvrs() ERROR: " + e);
          return null;
       }
    }
@@ -346,7 +349,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaNormasLaborales.consultarNormasLaborales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovNormasLaborales() ERROR: " + e);
          return null;
       }
    }
@@ -356,7 +359,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaJornadasLaborales.buscarJornadasLaborales(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovJornadasLaborales() ERROR: " + e);
          return null;
       }
    }
@@ -366,7 +369,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosRetiros() ERROR: " + e);
          return null;
       }
    }
@@ -376,7 +379,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCiudades() ERROR: " + e);
          return null;
       }
    }
@@ -386,7 +389,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaEstadosCiviles.consultarEstadosCiviles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEstadosCiviles() ERROR: " + e);
          return null;
       }
    }
@@ -396,7 +399,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaIdiomas.buscarIdiomas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovIdiomas() ERROR: " + e);
          return null;
       }
    }
@@ -406,7 +409,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaTiposIndicadores.buscarTiposIndicadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposIndicadores() ERROR: " + e);
          return null;
       }
    }
@@ -416,7 +419,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaIndicadores.buscarIndicadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovIndicadores() ERROR: " + e);
          return null;
       }
    }
@@ -426,7 +429,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaProfesiones.profesiones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovProfesiones() ERROR: " + e);
          return null;
       }
    }
@@ -436,7 +439,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaInstituciones.instituciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovInstitucioneses() ERROR: " + e);
          return null;
       }
    }
@@ -446,7 +449,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaCursos.cursos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCursos() ERROR: " + e);
          return null;
       }
    }
@@ -456,7 +459,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaSectoresEconomicos.buscarSectoresEconomicos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovSectoresEconomicos() ERROR: " + e);
          return null;
       }
    }
@@ -466,7 +469,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaProyectos.proyectos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovProyectos() ERROR: " + e);
          return null;
       }
    }
@@ -476,7 +479,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          return persistenciaPryRoles.pryroles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovRoles() ERROR: " + e);
          return null;
       }
    }
@@ -540,7 +543,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          }
          return query;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".armarQueryModulosBusquedaAvanzada() ERROR: " + e);
          return null;
       }
    }
@@ -552,7 +555,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
             retorno.add(listaAuxiliar.get(i).getModulo());
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaParametrosPorModulos() ERROR: " + e);
       }
       return retorno;
    }
@@ -1425,7 +1428,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          }
          return queryAux;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearQueryPorModulo() ERROR: " + e);
          return null;
       }
    }
@@ -1487,7 +1490,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          persistenciaParametros.borrarParametros(getEm(), secParametroEstructura);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarParametros() ERROR: " + e);
       }
    }
 
@@ -1497,7 +1500,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".parametrosLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -1508,7 +1511,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaUsuarios.buscarUsuario(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".usuarioActual() ERROR: " + e);
          return null;
       }
    }
@@ -1518,7 +1521,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          persistenciaParametrosEstructuras.editar(getEm(), parametroEstructura);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearParametroEstructura() ERROR: " + e);
       }
    }
 
@@ -1528,7 +1531,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
             persistenciaParametros.crear(getEm(), listaParametros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearParametros() ERROR: " + e);
       }
    }
 

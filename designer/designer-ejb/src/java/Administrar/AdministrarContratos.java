@@ -54,15 +54,17 @@ public class AdministrarContratos implements AdministrarContratosInterface {
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -77,11 +79,12 @@ public class AdministrarContratos implements AdministrarContratosInterface {
    //MÉTODOS
    //--------------------------------------------------------------------------
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerConexion() ERROR: " + e);
       }
    }
 
@@ -90,7 +93,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          return persistenciaContratos.lovContratos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarContratos() ERROR: " + e);
          return null;
       }
    }
@@ -100,7 +103,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          return persistenciaTiposCotizantes.lovTiposCotizantes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultaLOVTiposCotizantes() ERROR: " + e);
       }
       return null;
    }
@@ -115,7 +118,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             persistenciaContratos.editar(getEm(), listContratosModificados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarConceptos() ERROR: " + e);
       }
    }
 
@@ -131,7 +134,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarConceptos() ERROR: " + e);
       }
    }
 
@@ -147,7 +150,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearConceptos() ERROR: " + e);
       }
    }
 
@@ -156,7 +159,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
       try {
          persistenciaContratos.reproducirContrato(getEm(), codigoOrigen, codigoDestino);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".reproducirContrato() ERROR: " + e);
       }
    }
 

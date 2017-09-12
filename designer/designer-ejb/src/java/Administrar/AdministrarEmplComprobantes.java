@@ -165,7 +165,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaComprobantes.numeroMaximoComprobante(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMaximoNumeroComprobante() ERROR: " + e);
          return null;
       }
    }
@@ -175,7 +175,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaComprobantes.comprobantesEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarComprobantesEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -185,7 +185,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaCortesProcesos.cortesProcesosComprobante(getEm(), secuenciaComprobante);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarCortesProcesosComprobante() ERROR: " + e);
          return null;
       }
    }
@@ -195,7 +195,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado(getEm(), secuenciaCorteProceso, secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSolucionesNodosEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -205,7 +205,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador(getEm(), secuenciaCorteProceso, secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSolucionesNodosEmpleador() ERROR: " + e);
          return null;
       }
    }
@@ -215,7 +215,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaProcesos.lovProcesos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVProcesos() ERROR: " + e);
          return null;
       }
    }
@@ -225,7 +225,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaTerceros.lovTerceros(getEm(), secEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVTerceros() ERROR: " + e);
          return null;
       }
    }
@@ -238,7 +238,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
             persistenciaComprobantes.editar(getEm(), listComprobantes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarComprobantes() ERROR: " + e);
       }
    }
 
@@ -256,7 +256,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          persistenciaComprobantes.crear(getEm(), comprobantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearComprobante() ERROR: " + e);
       }
    }
 
@@ -273,7 +273,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarCortesProcesos() ERROR: " + e);
       }
    }
 
@@ -291,7 +291,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          persistenciaCortesProcesos.crear(getEm(), corteProceso);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearCorteProceso() ERROR: " + e);
       }
    }
 
@@ -308,7 +308,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSolucionesNodosEmpleado() ERROR: " + e);
       }
    }
 
@@ -317,7 +317,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaDetallesFormulas.detallesFormula(getEm(), secEmpleado, fechaDesde, fechaHasta, secProceso, secHistoriaFormula);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDetallesFormula() ERROR: " + e);
          return null;
       }
    }
@@ -327,7 +327,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula(getEm(), secFormula, fechaDesde);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarHistoriaFormula() ERROR: " + e);
          return null;
       }
    }
@@ -337,7 +337,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaCuentas.buscarCuentas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCuentas() ERROR: " + e);
          return null;
       }
    }
@@ -347,7 +347,7 @@ public class AdministrarEmplComprobantes implements AdministrarEmplComprobantesI
       try {
          return persistenciaCentrosCostos.buscarCentrosCostos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCentrosCostos() ERROR: " + e);
          return null;
       }
    }

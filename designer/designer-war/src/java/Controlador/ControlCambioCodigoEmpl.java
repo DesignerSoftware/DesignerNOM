@@ -6,6 +6,7 @@
 package Controlador;
 
 import ControlNavegacion.ControlListaNavegacion;
+import ControlNavegacion.ListasRecurrentes;
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.Personas;
@@ -62,8 +63,12 @@ public class ControlCambioCodigoEmpl implements Serializable {
    private boolean aceptar;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private ListasRecurrentes listasRecurrentes;
 
    public ControlCambioCodigoEmpl() {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      listasRecurrentes = controlListaNavegacion.getListasRecurrentes();
       lovEmpleados = null;
       lovEmpresas = null;
       empleado = new Empleados();
@@ -237,6 +242,7 @@ public class ControlCambioCodigoEmpl implements Serializable {
             }
             if (contador == 0) {
                administrarEmpleados.cambiarCodEmpl(empleado.getCodigoempleado(), codEmplNuevo);
+               listasRecurrentes.limpiarListasEmpleados();
                RequestContext.getCurrentInstance().execute("PF('exito').show()");
             } else {
                RequestContext.getCurrentInstance().execute("PF('CodRepetido').show()");

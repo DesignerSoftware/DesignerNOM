@@ -118,7 +118,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
          em.close();
          return i;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarEmpleadosParaLiquidar() ERROR: " + e);
          return null;
       }
    }
@@ -129,7 +129,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
          String user = consultarUsuarioBD();
          return persistenciaParametrosEstados.empleadosLiquidados(getEm(), user);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarEmpleadosLiquidados() ERROR: " + e);
          return null;
       }
    }
@@ -139,7 +139,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          return persistenciaCandados.permisoLiquidar(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".verificarPermisosLiquidar() ERROR: " + e);
          return false;
       }
    }
@@ -149,7 +149,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          return persistenciaActualUsuario.actualAliasBD(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarUsuarioBD() ERROR: " + e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          persistenciaCandados.liquidar(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".liquidarNomina() ERROR: " + e);
       }
    }
 
@@ -168,7 +168,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          return persistenciaCandados.estadoLiquidacion(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEstadoLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -179,7 +179,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
          String user = consultarUsuarioBD();
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), user);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametrosLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -189,7 +189,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          persistenciaParametrosEstados.inicializarParametrosEstados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".inicializarParametrosEstados() ERROR: " + e);
       }
    }
 
@@ -198,7 +198,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          return persistenciaCandados.progresoLiquidacion(getEm(), totalEmpleadoALiquidar);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarProgresoLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -208,7 +208,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          persistenciaCandados.cancelarLiquidacion(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".cancelarLiquidacion() ERROR: " + e);
       }
    }
 
@@ -219,7 +219,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
          log.warn("AdministrarBarra liquidacionesCerradas() fechaFinal : " + fechaFinal);
          return persistenciaConsultasLiquidaciones.liquidacionesCerradas(getEm(), fechaInicial, fechaFinal);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".liquidacionesCerradas() ERROR: " + e);
          return null;
       }
    }
@@ -229,7 +229,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          return persistenciaConsultasLiquidaciones.preNomina(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPreNomina() ERROR: " + e);
          return null;
       }
    }
@@ -239,7 +239,7 @@ public class AdministrarBarra implements AdministrarBarraInterface {
       try {
          return persistenciaEmpresas.estadoConsultaDatos(getEm(), secuenciaEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEstadoConsultaDatos() ERROR: " + e);
          return null;
       }
    }

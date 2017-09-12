@@ -73,7 +73,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
             persistenciaEnfermedades.editar(getEm(), listDeportesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEnfermedades() ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
             persistenciaEnfermedades.borrar(getEm(), listDeportesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarEnfermedades() ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
             persistenciaEnfermedades.crear(getEm(), listDeportesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearEnfermedades() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
       try {
          return persistenciaEnfermedades.buscarEnfermedades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEnfermedades() ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarEnfermedades implements AdministrarEnfermedadesInterface
       try {
          return persistenciaEnfermedades.buscarEnfermedad(getEm(), secDeportes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEnfermedad() ERROR: " + e);
          return null;
       }
    }

@@ -72,7 +72,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
             persistenciaPartesCuerpo.editar(getEm(), listPartesCuerpo.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarPartesCuerpo() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
             persistenciaPartesCuerpo.borrar(getEm(), listPartesCuerpo.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarPartesCuerpo() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
             persistenciaPartesCuerpo.crear(getEm(), listPartesCuerpo.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPartesCuerpo() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
       try {
          return persistenciaPartesCuerpo.buscarPartesCuerpo(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPartesCuerpo() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarPartesCuerpo implements AdministrarPartesCuerpoInterface
       try {
          return persistenciaPartesCuerpo.buscarParteCuerpo(getEm(), secElementosCausasAccidentes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParteCuerpo() ERROR: " + e);
          return null;
       }
    }

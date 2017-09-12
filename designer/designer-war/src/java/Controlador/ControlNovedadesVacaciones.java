@@ -163,6 +163,50 @@ public class ControlNovedadesVacaciones implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
+   @PreDestroy
+   public void destruyendoce() {
+      log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
+   }
+
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarNovedadesVacaciones.obtenerConexion(ses.getId());
+         administrarNovedadesSistema.obtenerConexion(ses.getId());
+         administrarVigFormasPagos.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+         getListaEmpleadosNovedad();
+         if (listaEmpleadosNovedad != null) {
+            if (!listaEmpleadosNovedad.isEmpty()) {
+               empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+            }
+         }
+         listaNovedades = null;
+         getListaNovedades();
+         if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
+            secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
+            listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
+            if (listaNovedades != null) {
+               if (!listaNovedades.isEmpty()) {
+                  for (int i = 0; i < listaNovedades.size(); i++) {
+                     if (listaNovedades.get(i).getDias() != null) {
+                        diasTotales = diasTotales.add(listaNovedades.get(i).getDias());
+                     }
+                     if (listaNovedades.get(i).getVacadiasaplazados() != null) {
+                        diasAplazadosTotal = diasAplazadosTotal.add(listaNovedades.get(i).getVacadiasaplazados());
+                     }
+                  }
+               }
+            }
+         }
+      } catch (Exception e) {
+         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Causa: " + e.getCause());
+      }
+   }
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -206,45 +250,6 @@ public class ControlNovedadesVacaciones implements Serializable {
       lovPeriodos = null;
    }
 
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarNovedadesVacaciones.obtenerConexion(ses.getId());
-         administrarNovedadesSistema.obtenerConexion(ses.getId());
-         administrarVigFormasPagos.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-         getListaEmpleadosNovedad();
-         if (listaEmpleadosNovedad != null) {
-            if (!listaEmpleadosNovedad.isEmpty()) {
-               empleadoSeleccionado = listaEmpleadosNovedad.get(0);
-            }
-         }
-         listaNovedades = null;
-         getListaNovedades();
-         if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
-            secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
-            listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
-            if (listaNovedades != null) {
-               if (!listaNovedades.isEmpty()) {
-                  for (int i = 0; i < listaNovedades.size(); i++) {
-                     if (listaNovedades.get(i).getDias() != null) {
-                        diasTotales = diasTotales.add(listaNovedades.get(i).getDias());
-                     }
-                     if (listaNovedades.get(i).getVacadiasaplazados() != null) {
-                        diasAplazadosTotal = diasAplazadosTotal.add(listaNovedades.get(i).getVacadiasaplazados());
-                     }
-                  }
-               }
-            }
-         }
-      } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
-         log.error("Causa: " + e.getCause());
-      }
-   }
-
    public void recibirPag(String pag) {
       paginaAnterior = pag;
    }
@@ -254,7 +259,6 @@ public class ControlNovedadesVacaciones implements Serializable {
    }
 
    public void editarCelda() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (novedadSeleccionada != null) {
          editarNovedades = novedadSeleccionada;
          if (cualCelda == 0) {
@@ -1229,15 +1233,15 @@ public class ControlNovedadesVacaciones implements Serializable {
 
    public void cargarLovEmpleados() {
       if (lovEmpleados == null) {
-         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+         if (listasRecurrentes.getLovEmpleadosActivos().isEmpty()) {
             lovEmpleados = administrarNovedadesVacaciones.empleadosVacaciones();
             if (lovEmpleados != null) {
-               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
-               listasRecurrentes.setLovEmpleados(lovEmpleados);
+               log.warn("GUARDANDO lovEmpleadosActivos en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActivos(lovEmpleados);
             }
          } else {
-            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
-            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+            lovEmpleados = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActivos());
+            log.warn("CONSULTANDO lovEmpleadosActivos de Listas recurrentes");
          }
       }
    }
@@ -1251,15 +1255,15 @@ public class ControlNovedadesVacaciones implements Serializable {
 //GETTER & SETTER
    public List<Empleados> getListaEmpleadosNovedad() {
       if (listaEmpleadosNovedad == null) {
-         if (listasRecurrentes.getLovEmpleados().isEmpty()) {
+         if (listasRecurrentes.getLovEmpleadosActivos().isEmpty()) {
             listaEmpleadosNovedad = administrarNovedadesVacaciones.empleadosVacaciones();
             if (listaEmpleadosNovedad != null) {
-               log.warn("GUARDANDO lovEmpleados en Listas recurrentes");
-               listasRecurrentes.setLovEmpleados(listaEmpleadosNovedad);
+               log.warn("GUARDANDO lovEmpleadosActivos en Listas recurrentes");
+               listasRecurrentes.setLovEmpleadosActivos(listaEmpleadosNovedad);
             }
          } else {
-            listaEmpleadosNovedad = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleados());
-            log.warn("CONSULTANDO lovEmpleados de Listas recurrentes");
+            listaEmpleadosNovedad = new ArrayList<Empleados>(listasRecurrentes.getLovEmpleadosActivos());
+            log.warn("CONSULTANDO lovEmpleadosActivos de Listas recurrentes");
          }
       }
       return listaEmpleadosNovedad;

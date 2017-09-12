@@ -72,7 +72,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
             persistenciaMotivosDefinitivas.editar(getEm(), listaMotivosDefinitivas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosDefinitivas() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
             persistenciaMotivosDefinitivas.borrar(getEm(), listaMotivosDefinitivas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosDefinitivas() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
             persistenciaMotivosDefinitivas.crear(getEm(), listaMotivosDefinitivas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosDefinitivas() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
       try {
          return persistenciaMotivosDefinitivas.buscarMotivosDefinitivas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarMotivosDefinitivas() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarMotivosDefinitivas implements AdministrarMotivosDefiniti
       try {
          return persistenciaMotivosDefinitivas.buscarMotivoDefinitiva(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarMotivoDefinitiva() ERROR: " + e);
          return null;
       }
    }

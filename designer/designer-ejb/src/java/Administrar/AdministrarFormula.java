@@ -62,7 +62,7 @@ public class AdministrarFormula implements AdministrarFormulaInterface {
       try {
          return persistenciaFormulas.lovFormulas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".formulas() ERROR: " + e);
          return null;
       }
    }
@@ -80,7 +80,7 @@ public class AdministrarFormula implements AdministrarFormulaInterface {
             persistenciaFormulas.editar(getEm(), listFormulasModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listFormulasModificadas() ERROR: " + e);
       }
    }
 
@@ -89,7 +89,7 @@ public class AdministrarFormula implements AdministrarFormulaInterface {
       try {
          persistenciaFormulas.borrar(getEm(), formula);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrar() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarFormula implements AdministrarFormulaInterface {
       try {
          persistenciaFormulas.crear(getEm(), formula);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crear() ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarFormula implements AdministrarFormulaInterface {
       try {
          persistenciaFormulas.clonarFormulas(getEm(), nombreCortoOrigen, nombreCortoClon, nombreLargoClon, observacionClon);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".clonarFormula() ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarFormula implements AdministrarFormulaInterface {
       try {
          persistenciaFormulas.operandoFormulas(getEm(), secFormula);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".operandoFormula() ERROR: " + e);
       }
    }
 

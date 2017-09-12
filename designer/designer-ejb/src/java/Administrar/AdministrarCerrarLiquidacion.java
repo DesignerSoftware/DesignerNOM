@@ -134,7 +134,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
           String user = consultarAliasUsuarioBD();
          return persistenciaParametrosEstados.empleadosParaLiquidar(getEm(), user);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarEmpleadosParaLiquidar() ERROR: " + e);
          return null;
       }
    }
@@ -144,7 +144,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          return persistenciaCandados.permisoLiquidar(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".verificarPermisosLiquidar() ERROR: " + e);
          return false;
       }
    }
@@ -154,7 +154,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          return persistenciaActualUsuario.actualAliasBD(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAliasUsuarioBD() ERROR: " + e);
          return null;
       }
    }
@@ -165,7 +165,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
           String user = consultarAliasUsuarioBD();
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), user);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametrosLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -175,7 +175,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          return persistenciaParametros.parametrosComprobantes(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEmpleadosCerrarLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -185,7 +185,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          persistenciaCandados.cerrarLiquidacionAutomatico(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".cerrarLiquidacionAutomatico() ERROR: " + e);
       }
    }
 
@@ -194,7 +194,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          persistenciaCandados.cerrarLiquidacionNoAutomatico(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".cerrarLiquidacionNoAutomatico() ERROR: " + e);
       }
    }
 
@@ -203,7 +203,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          return persistenciaSolucionesNodos.ContarProcesosSN(getEm(), secProceso);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarConteoProcesoSN() ERROR: " + e);
          return null;
       }
    }
@@ -213,7 +213,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          return persistenciaCortesProcesos.contarLiquidacionesCerradas(getEm(), secProceso, fechaDesde, fechaHasta);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarLiquidacionesCerradas() ERROR: " + e);
          return null;
       }
    }
@@ -223,7 +223,7 @@ public class AdministrarCerrarLiquidacion implements AdministrarCerrarLiquidacio
       try {
          return persistenciaCortesProcesos.eliminarComprobante(getEm(), codigoProceso, fechaDesde, fechaHasta);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".abrirLiquidacion() ERROR: " + e);
          return null;
       }
    }

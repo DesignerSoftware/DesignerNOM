@@ -88,7 +88,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
             persistenciaHvReferencias.borrar(getEm(), listaHvReferencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarHvReferencias() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
             persistenciaHvReferencias.crear(getEm(), listaHvReferencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearHvReferencias() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarHvReferencias implements AdministrarHvReferenciasInterfa
             persistenciaHvReferencias.editar(getEm(), listaHvReferencias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarHvReferencias() ERROR: " + e);
       }
    }
 

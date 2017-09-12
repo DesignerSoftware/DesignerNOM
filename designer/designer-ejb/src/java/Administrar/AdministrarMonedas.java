@@ -77,7 +77,7 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
             persistenciaMonedas.editar(getEm(), monedaSeleccionado);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMonedas() ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
       try {
          persistenciaMonedas.borrar(getEm(), monedas);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMonedas() ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
       try {
          persistenciaMonedas.crear(getEm(), monedas);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMonedas() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
          listMonedas = persistenciaMonedas.consultarMonedas(getEm());
          return listMonedas;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMonedas() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarMonedas implements AdministrarMonedasInterface {
          monedas = persistenciaMonedas.consultarMoneda(getEm(), secMoneda);
          return monedas;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMoneda() ERROR: " + e);
          return null;
       }
    }

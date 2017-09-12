@@ -37,15 +37,17 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -57,7 +59,8 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -73,7 +76,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
             persistenciaClasesPensiones.editar(getEm(), listaClasesPensiones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarClasesPensiones() ERROR: " + e);
       }
    }
 
@@ -85,7 +88,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
             persistenciaClasesPensiones.borrar(getEm(), listaClasesPensiones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarClasesPensiones() ERROR: " + e);
       }
    }
 
@@ -97,7 +100,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
             persistenciaClasesPensiones.crear(getEm(), listaClasesPensiones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearClasesPensiones() ERROR: " + e);
       }
    }
 
@@ -107,7 +110,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
          listMotivosCambiosCargos = persistenciaClasesPensiones.consultarClasesPensiones(getEm());
          return listMotivosCambiosCargos;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClasesPensiones() ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +122,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
          subCategoria = persistenciaClasesPensiones.consultarClasePension(getEm(), secClasesPensiones);
          return subCategoria;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarClasePension() ERROR: " + e);
          return null;
       }
    }
@@ -127,8 +130,7 @@ public class AdministrarClasesPensiones implements AdministrarClasesPensionesInt
    @Override
    public BigInteger contarRetiradosClasePension(BigInteger secClasesPensiones) {
       try {
-         BigInteger contarRetiradosClasePension = null;
-         return contarRetiradosClasePension = persistenciaClasesPensiones.contarRetiradosClasePension(getEm(), secClasesPensiones);
+         return persistenciaClasesPensiones.contarRetiradosClasePension(getEm(), secClasesPensiones);
       } catch (Exception e) {
          log.error("ERROR AdministrarClasesPensiones contarEscalafones ERROR : " + e);
          return null;

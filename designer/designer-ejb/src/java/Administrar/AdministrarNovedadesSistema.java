@@ -93,7 +93,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          persistenciaNovedades.borrar(getEm(), novedades);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarNovedades() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          persistenciaNovedades.crear(getEm(), novedades);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearNovedades() ERROR: " + e);
       }
    }
 
@@ -111,7 +111,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          persistenciaNovedades.editar(getEm(), novedades);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarNovedades() ERROR: " + e);
       }
    }
 
@@ -120,26 +120,26 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaEmpleados.buscarEmpleadosActivosPensionados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEmpleados() ERROR: " + e);
          return null;
       }
    }
-
-   public List<Empleados> lovEmpleados() {
-      try {
-         return persistenciaEmpleados.buscarEmpleadosActivosPensionados(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
-         return null;
-      }
-   }
+//
+//   public List<Empleados> lovEmpleados() {
+//      try {
+//         return persistenciaEmpleados.buscarEmpleadosActivosPensionados(getEm());
+//      } catch (Exception e) {
+//         log.error(this.getClass().getSimpleName() + ".lovEmpleados() ERROR: " + e);
+//         return null;
+//      }
+//   }
 
    @Override
    public List<MotivosDefinitivas> lovMotivos() {
       try {
          return persistenciaMotivos.buscarMotivosDefinitivas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivos() ERROR: " + e);
          return null;
       }
    }
@@ -149,7 +149,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaRetiros.consultarMotivosRetiros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovRetiros() ERROR: " + e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaNovedades.novedadesEmpleadoVacaciones(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".vacacionesEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -169,7 +169,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaNovedades.novedadesEmpleadoCesantias(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".cesantiasEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -179,7 +179,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaVacaciones.periodoVacaciones(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".periodosEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -189,7 +189,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaNovedades.valorCesantias(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".valorCesantias() ERROR: " + e);
          return null;
       }
    }
@@ -200,7 +200,7 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
       try {
          return persistenciaNovedades.valorIntCesantias(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".valorIntCesantias() ERROR: " + e);
          return null;
       }
    }

@@ -271,7 +271,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".parametrosLiquidacion() ERROR: " + e);
          return null;
       }
    }
@@ -408,7 +408,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
       try {
          return persistenciaInterconInfor.ejecutarPKGCrearArchivoPlanoInfor(getEm(), fechaIni, fechaFin, CodigoEmpresa, proceso, nombreArchivo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".ejecutarPKGCrearArchivoPlano() ERROR: " + e);
          return null;
       }
    }
@@ -430,7 +430,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             persistenciaSolucionesNodos.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRegistroGenerado() ERROR: " + e);
       }
    }
 
@@ -441,7 +441,7 @@ public class AdministrarInterfaseContableInfor implements AdministrarInterfaseCo
             persistenciaInterconInfor.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRegistroIntercon() ERROR: " + e);
       }
    }
 

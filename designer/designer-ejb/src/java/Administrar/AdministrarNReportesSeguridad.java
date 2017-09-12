@@ -169,7 +169,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
          listTerceros = persistenciaTerceros.todosTerceros(getEm());
          return listTerceros;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listTerceros() ERROR: " + e);
          return null;
       }
    }
@@ -197,7 +197,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
          listSucursalesPila = persistenciaSucursales.consultarSucursalesPilaPorEmpresa(getEm(), secuenciaEmpresa);
          return listSucursalesPila;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listSucursalesPorEmpresa() ERROR: " + e);
          return null;
       }
    }
@@ -208,7 +208,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
          listSucursalesPila = persistenciaSucursales.consultarSucursalesPila(getEm());
          return listSucursalesPila;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listSucursales() ERROR: " + e);
          return null;
       }
    }

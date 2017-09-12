@@ -70,7 +70,7 @@ public class AdministrarIndicadores implements AdministrarIndicadoresInterface {
             persistenciaIndicadores.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearIndicador() ERROR: " + e);
       }
    }
 
@@ -81,7 +81,7 @@ public class AdministrarIndicadores implements AdministrarIndicadoresInterface {
             persistenciaIndicadores.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarIndicador() ERROR: " + e);
       }
    }
 
@@ -92,7 +92,7 @@ public class AdministrarIndicadores implements AdministrarIndicadoresInterface {
             persistenciaIndicadores.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarIndicador() ERROR: " + e);
       }
    }
 
@@ -101,7 +101,7 @@ public class AdministrarIndicadores implements AdministrarIndicadoresInterface {
       try {
          return persistenciaIndicadores.buscarIndicadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarIndicadores() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarIndicadores implements AdministrarIndicadoresInterface {
       try {
          return persistenciaTiposIndicadores.buscarTiposIndicadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposIndicadores() ERROR: " + e);
          return null;
       }
    }

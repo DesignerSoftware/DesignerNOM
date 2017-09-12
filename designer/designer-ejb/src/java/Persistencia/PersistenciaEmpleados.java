@@ -894,13 +894,13 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
       try {
          em.clear();
          String qr = "select * from novedadessistema ns \n"
-                 + "                where NS.empleado = ? \n"
-                 + "                and ns.tipo = 'CESANTIA' \n"
-                 + "                AND not EXISTS (SELECT 'X' \n"
-                 + "                                FROM detallesnovedadessistema dns, novedades n, solucionesformulas sf\n"
-                 + "                                WHERE ns.secuencia = dns.novedadsistema \n"
-                 + "                                AND dns.novedad = n.secuencia\n"
-                 + "                                AND N.secuencia = SF.novedad)";
+                 + " where NS.empleado = ?\n"
+                 + " and ns.tipo = 'CESANTIA'\n"
+                 + " AND not EXISTS (SELECT 'X'\n"
+                 + " FROM detallesnovedadessistema dns, novedades n, solucionesformulas sf\n"
+                 + " WHERE ns.secuencia = dns.novedadsistema \n"
+                 + " AND dns.novedad = n.secuencia\n"
+                 + " AND N.secuencia = SF.novedad)";
          Query query = em.createNativeQuery(qr, NovedadesSistema.class);
          query.setParameter(1, secuenciaEmpleado);
          List<NovedadesSistema> novedadesnoliquidadas = query.getResultList();

@@ -69,7 +69,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
       try {
          return persistenciaInforeportes.buscarInforeportes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".inforeportes() ERROR: " + e);
          return null;
       }
    }
@@ -78,7 +78,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
       try {
          return persistenciaModulos.buscarModulosPorSecuencia(getEm(), secModulo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarModuloPorSecuencia() ERROR: " + e);
          return null;
       }
    }
@@ -87,7 +87,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
       try {
          return persistenciaModulos.buscarModulos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovmodulos() ERROR: " + e);
          return null;
       }
    }
@@ -97,7 +97,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
       try {
          persistenciaInforeportes.borrar(getEm(), inforeportes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarInforeporte() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
       try {
          persistenciaInforeportes.crear(getEm(), inforeportes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearInforeporte() ERROR: " + e);
       }
    }
 
@@ -196,7 +196,7 @@ public class AdministrarInforeportes implements AdministrarInforeportesInterface
             persistenciaInforeportes.editar(getEm(), listaInforeportesModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarInforeporte() ERROR: " + e);
       }
    }
 

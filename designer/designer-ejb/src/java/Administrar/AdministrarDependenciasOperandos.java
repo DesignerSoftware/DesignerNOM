@@ -74,7 +74,7 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
       try {
          return persistenciaDependenciasOperandos.dependenciasOperandos(getEm(), secuenciaOperando);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarDependenciasOperandos() ERROR: " + e);
          return null;
       }
    }
@@ -84,7 +84,7 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
       try {
          persistenciaDependenciasOperandos.borrar(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDependenciasOperandos() ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
       try {
          persistenciaDependenciasOperandos.crear(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDependenciasOperandos() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
       try {
          persistenciaDependenciasOperandos.editar(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDependenciasOperandos() ERROR: " + e);
       }
    }
 
@@ -111,7 +111,7 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
       try {
          return persistenciaOperandos.buscarOperandos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarOperandos() ERROR: " + e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarDependenciasOperandos implements AdministrarDependencias
       try {
          return persistenciaDependenciasOperandos.nombreOperandos(getEm(), codigo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".nombreOperandos() ERROR: " + e);
          return null;
       }
    }

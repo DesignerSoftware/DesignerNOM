@@ -80,7 +80,7 @@ public class AdministrarAdiestramientosF implements AdministrarAdiestramientosFI
       try {
          return persistenciaAdiestramientosF.adiestramientosF(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAdiestramientosF() ERROR: " + e);
          return null;
       }
    }

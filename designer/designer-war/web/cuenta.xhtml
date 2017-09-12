@@ -22,68 +22,68 @@
             <h:form id="form">
                <f:loadBundle basename="Recursos.cuenta" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 530px; text-align: left;" styleClass="panelTotal">  
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left"> 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlCuenta.guardadoGeneral()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-size: 100% 100%; background-image: url(Imagenes/Iconos/guardar.png); background-repeat: no-repeat; width: 25px; height: 25px; border: none;"/>
+                                         style="background-size: 100% 100%; background-image: url(Imagenes/Iconos/guardar.png);"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                         <p:commandButton id="editar" value="" actionListener="#{controlCuenta.editarCelda()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
+                                         style="background-image: url(Imagenes/Iconos/editar.png);"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" actionListener="#{controlCuenta.listaValoresBoton()}" process="@this" styleClass="cssToobarButton" disabled="#{controlCuenta.activarLov}"
-                                         style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
+                                         style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
                         <p:commandButton id="filtrar" value="" actionListener="#{controlCuenta.activarCtrlF11()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/embudo.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
+                                         style="background-image: url(Imagenes/Iconos/embudo.png);"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" actionListener="#{controlCuenta.verificarExportXLS()}" ajax="false" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
+                                         style="background-image: url(Imagenes/Iconos/excel.png);;"/>
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
                         <p:commandButton id="exportarXML" value="" ajax="false" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;">
+                                         style="background-image: url(Imagenes/Iconos/xml.png);;">
                            <p:dataExporter type="xml" target="#{controlCuenta.exportXML()}" fileName="#{controlCuenta.nombreXML}" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
                         <p:commandButton id="exportarPDF" value="" actionListener="#{controlCuenta.validarExportPDF()}" ajax="false" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
+                                         style="background-image: url(Imagenes/Iconos/pdf.png);"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="insertar" value="" actionListener="#{controlCuenta.validarIngresoNuevoRegistro()}"  process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/> 
+                                         style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
                         <p:commandButton id="eliminar" value="" actionListener="#{controlCuenta.validarBorradoRegistro()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/delete.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
+                                         style="background-image: url(Imagenes/Iconos/delete.png);"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
                         <p:commandButton id="duplicar" value="" actionListener="#{controlCuenta.validarDuplicadoRegistro()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/duplicar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "/>  
+                                         style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="rastro" value="" actionListener="#{controlCuenta.verificarRastroTabla()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/rastro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
+                                         style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="refrescar" value="" actionListener="#{controlCuenta.cancelarModificacion()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
+                                         style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          oncomplete="window.location.reload()" />  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="salir" value="" actionListener="#{controlCuenta.salir()}" process="@this" styleClass="cssToobarButton"
-                                         style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>  
+                                         style="background-image: url(Imagenes/Iconos/salir.png);"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -99,30 +99,31 @@
                   <fieldset style="position: absolute; left: 5px; top: 110px; width: 835px; height: 360px; border-radius: 10px;">
                      <legend style="color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
-                     <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
+                     <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="width: 830px; font-size: 11px;"   
                                   value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="#{controlCuenta.altoTabla}" scrollWidth="830"
                                   filteredValue="#{controlCuenta.filtrarListCuentas}" emptyMessage="#{msg['vacio']}"
-                                  editable="true" editMode="cell" liveScroll="true" scrollRows="15" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="12" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
 
                         <p:ajax event="filter" listener="#{controlCuenta.eventoFiltrar()}"/>
 
-                        <p:column id="columnaDetalleCuenta" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 19px; text-align: center;">                                                              
+                        <p:column id="columnaDetalleCuenta" width="20">                                                              
                            <f:facet name="header">
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Cuenta"/>
                            </f:facet>
-                           <p:commandButton onstart="#{controlCuenta.limpiarListasValor()}; PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});" action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                            value=""  actionListener="#{controlDetalleCuenta.recibirCuenta(infoC.secuencia)}">
+                           <p:commandButton onstart="#{controlCuenta.limpiarListasValor()}; PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
+                                            action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}"
+                                            style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png);
+                                            background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                            value="" actionListener="#{controlDetalleCuenta.recibirCuenta(infoC.secuencia)}">
                            </p:commandButton>   
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 
-                        <p:column id="cuentaCodigo" sortBy="#{infoC.codigo}" filterBy="#{infoC.codigo}" 
-                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 70px;">
+                        <p:column id="cuentaCodigo" sortBy="#{infoC.codigo}" filterBy="#{infoC.codigo}" width="66"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden">
                            <f:facet name="header">
                               <h:outputText id="headCodigo" value="#{msg['codigo']}"/>
                               <p:tooltip  for="headCodigo" value="#{msg['codigoTtip']}"/> 
@@ -132,8 +133,7 @@
                                  <h:outputText value="#{infoC.codigo}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.codigo}" maxlength="20"  id="editarCuentaCodigo" 
-                                               style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.codigo}" maxlength="20"  id="editarCuentaCodigo"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 1)}" process="@this"
                                             onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
@@ -146,8 +146,7 @@
                         </p:column>
 
                         <p:column id="cuentasDescripcion" sortBy="#{infoC.descripcion}" filterBy="#{infoC.descripcion}" filterMatchMode="contains" 
-                                  filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 190px;">
+                                  filterStyle="display: none; visibility: hidden">
                            <f:facet name="header">
                               <h:outputText id="headDescripcion" value="#{msg['descripcion']}"/>
                               <p:tooltip  for="headDescripcion" value="#{msg['descripcionTtip']}"/> 
@@ -157,7 +156,7 @@
                                  <h:outputText value="#{infoC.descripcion}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.descripcion}" maxlength="100" id="editarCuentaDescripcion" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.descripcion}" maxlength="100" id="editarCuentaDescripcion">
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 2)}" process="@this"
                                             onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
@@ -170,7 +169,7 @@
                         </p:column>
 
                         <p:column headerText="#{msg['naturaleza']}" id="cuentaNaturaleza" filterStyle="display: none; visibility: hidden;" 
-                                 sortBy="#{infoC.naturaleza}" filterBy="#{infoC.naturaleza}" filterMatchMode="contains" style="padding-left: 0px; padding-right: 0px; width: 90px;">
+                                  sortBy="#{infoC.naturaleza}" filterBy="#{infoC.naturaleza}" filterMatchMode="contains" width="75">
                            <f:facet name="header">
                               <h:outputText id="headNaturaleza" value="#{msg['naturaleza']}"/>
                               <p:tooltip  for="headNaturaleza" value="#{msg['naturalezaTtip']}"/> 
@@ -181,7 +180,7 @@
                                  <!--<h:outputText value="#{(infoC.naturaleza == null)||(infoC.naturaleza == '') ? ' ': infoC.naturaleza}"/>-->
                               </f:facet> 
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold; text-transform: uppercase;"
+                                 <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}"
                                                   onblur="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
                                                   onfocus="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});">  
                                     <f:selectItem itemLabel=" " itemValue="NULL"/> 
@@ -196,9 +195,7 @@
                            </f:facet>
                         </p:column>
 
-
-                        <p:column id="cuentaTipo"  filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" filterBy="#{infoC.tipo}" filterMatchMode="contains" 
-                                   style="padding-left: 0px; padding-right: 0px; width: 100px;">
+                        <p:column id="cuentaTipo"  filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" width="80" filterBy="#{infoC.tipo}" filterMatchMode="contains">
                            <f:facet name="header">
                               <h:outputText id="headTipo" value="#{msg['tipo']}"/>
                               <p:tooltip  for="headTipo" value="#{msg['tipoTtip']}"/> 
@@ -208,7 +205,7 @@
                                  <h:outputText value="#{infoC.tipo}"/>
                               </f:facet> 
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}" style="width: 70px; font-weight: bold; text-transform: uppercase;"
+                                 <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}"
                                                   onblur="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
                                                   onfocus="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});">  
                                     <f:selectItem itemLabel=" " itemValue="NULL"/> 
@@ -226,10 +223,10 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.contracuentatesoreria.codigo}" filterBy="#{infoC.contracuentatesoreria.codigo}" filterMatchMode="contains" 
-                                  id="cuentaContracuenta" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 100px;">                                  
+                                  id="cuentaContracuenta" filterStyle="display: none; visibility: hidden" width="66">                                  
                            <f:facet name="header">
-                              <h:outputText id="headContraCtaTes" value="#{msg['contracuentatesoreria']}"/>
+                              <h:outputText id="headContraCtaTes" value="tesoreria"/>
+                              <!--<h:outputText id="headContraCtaTes" value="#/{msg['contracuentatesoreria']}"/>-->
                               <p:tooltip  for="headContraCtaTes" value="#{msg['contractatesTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>  
@@ -237,7 +234,7 @@
                                  <h:outputText value="#{infoC.contracuentatesoreria.codigo}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.contracuentatesoreria.codigo}"  id="editarCuentaContracuenta" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.contracuentatesoreria.codigo}" id="editarCuentaContracuenta"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'CONTRACUENTA', infoC.contracuentatesoreria.codigo)}" process="@this" update="editarCuentaContracuenta"/>
                                     <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,0)}" process="@this" update="editarCuentaContracuenta"/>
@@ -245,15 +242,15 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value=""/>
+                              <p:commandButton style="width: 76px;" value=""/>
                            </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.rubropresupuestal.descripcion}" filterBy="#{infoC.rubropresupuestal.descripcion}" filterMatchMode="contains" 
-                                  id="cuentaRubro" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 100px;">
+                                  id="cuentaRubro" filterStyle="display: none; visibility: hidden" width="60">
                            <f:facet name="header">
-                              <h:outputText id="headRubropresupuestal" value="#{msg['rubropresupuestal']}"/>
+                              <h:outputText id="headRubropresupuestal" value="rubro P"/>
+                              <!--<h:outputText id="headRubropresupuestal" value="#/{msg['rubropresupuestal']}"/>-->
                               <p:tooltip  for="headRubropresupuestal" value="#{msg['rubropresupuestalTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>  
@@ -261,7 +258,7 @@
                                  <h:outputText value="#{infoC.rubropresupuestal.descripcion}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.rubropresupuestal.descripcion}"  id="editarCuentaRubro" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.rubropresupuestal.descripcion}" id="editarCuentaRubro">
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'RUBRO', infoC.rubropresupuestal.descripcion)}" process="@this" update="editarCuentaRubro"/>
                                     <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,0)}" process="@this" update="editarCuentaRubro"/>
@@ -269,18 +266,17 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value=""/>
+                              <p:commandButton style="width: 70px;" value=""/>
                            </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.manejanit}" filterBy="#{infoC.manejanit}" filterMatchMode="contains" 
-                                   id="cuentaManejaNit" filterStyle="display: none; visibility: hidden" 
-                                   style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">                                  
+                                  id="cuentaManejaNit" filterStyle="display: none; visibility: hidden" width="20">                                  
                            <f:facet name="header">
                               <h:outputText id="textN" value="#{msg['n']}"/>
                               <p:tooltip for="textN" value="#{msg['textN']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkManejaNit" value="#{infoC.checkManejaNit}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkManejaNit" value="#{infoC.checkManejaNit}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>
                            <f:facet name="footer">
@@ -289,13 +285,12 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.manejanitempleado}" filterBy="#{infoC.manejanitempleado}" filterMatchMode="contains" 
-                                  id="cuentaManejaNitEmpleado" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">
+                                  id="cuentaManejaNitEmpleado" filterStyle="display: none; visibility: hidden" width="20">
                            <f:facet name="header">
                               <h:outputText id="textC" value="#{msg['c']}"/>
                               <p:tooltip for="textC" value="#{msg['textC']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkManejaNitEmpleado" value="#{infoC.checkCCEmpleado}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkManejaNitEmpleado" value="#{infoC.checkCCEmpleado}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
@@ -304,13 +299,12 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.prorrateo}" filterBy="#{infoC.prorrateo}" filterMatchMode="contains" 
-                                  id="cuentaProrrateo" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">
+                                  id="cuentaProrrateo" filterStyle="display: none; visibility: hidden" width="20">
                            <f:facet name="header">
                               <h:outputText id="textP" value="#{msg['p']}"/>
                               <p:tooltip for="textP" value="#{msg['textP']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkProrrateo" value="#{infoC.checkProrrateo}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkProrrateo" value="#{infoC.checkProrrateo}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
@@ -318,8 +312,8 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column id="cuentaCC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 50px; text-align: center;">
+                        <p:column id="cuentaCC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}" filterMatchMode="contains"
+                                  filterStyle="display: none; visibility: hidden;" width="30">
                            <f:facet name="header">
                               <h:outputText id="textCC" value="#{msg['cc']}"/>
                               <p:tooltip for="textCC" value="#{msg['textCC']}"/>
@@ -329,7 +323,7 @@
                                  <h:outputText value="#{infoC.manejacentrocosto == 'S' ? 'SI' : 'NO'}"/>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaCC" value="#{infoC.manejacentrocosto}" style="width: 99%; font-weight: bold; text-transform: uppercase;">  
+                                 <p:selectOneMenu id="editarCuentaCC" value="#{infoC.manejacentrocosto}">  
                                     <f:selectItem itemLabel="" itemValue="null"/> 
                                     <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -341,9 +335,9 @@
                               <h:outputText value=""/>
                            </f:facet>
                         </p:column>
+                        
                         <p:column id="cuentaICC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}"
-                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 50px; text-align: center;">                                  
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" width="30">                                  
                            <f:facet name="header">
                               <h:outputText id="textICC" value="#{msg['icc']}"/>
                               <p:tooltip for="textICC" value="#{msg['textICC']}"/>
@@ -353,7 +347,7 @@
                                  <h:outputText value="#{infoC.manejacentrocosto == 'S' ? 'SI':'NO'}"/>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarCuentaICC" value="#{infoC.incluyecentrocostocodigocuenta}" style="width: 99%; font-weight: bold; text-transform: uppercase;">  
+                                 <p:selectOneMenu id="editarCuentaICC" value="#{infoC.incluyecentrocostocodigocuenta}">  
                                     <f:selectItem itemLabel="" itemValue="null"/> 
                                     <f:selectItem itemLabel="#{msg['sii']}" itemValue="S"/>  
                                     <f:selectItem itemLabel="#{msg['noo']}" itemValue="N"/> 
@@ -367,10 +361,10 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.codigoalternativo}" filterBy="#{infoC.codigoalternativo}" filterMatchMode="contains" 
-                                  id="cuentaCodigoA" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 130px; text-align: left;">                                  
+                                  id="cuentaCodigoA" filterStyle="display: none; visibility: hidden" width="66">                                  
                            <f:facet name="header">
-                              <h:outputText id="headCodigoalternativo" value="#{msg['codigoalternativo']}"/>
+                              <h:outputText id="headCodigoalternativo" value="Codigo A"/>
+                              <!--<h:outputText id="headCodigoalternativo" value="#/{msg['codigoalternativo']}"/>-->
                               <p:tooltip  for="headCodigoalternativo" value="#{msg['codigoalternativoTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>  
@@ -378,7 +372,7 @@
                                  <h:outputText value="#{infoC.codigoalternativo}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoC.codigoalternativo}" maxlength="30" id="editarCuentaCodigoA" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;"> 
+                                 <p:inputText autocomplete="off" value="#{infoC.codigoalternativo}" maxlength="30" id="editarCuentaCodigoA"> 
                                     <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 12)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                  </p:inputText>
@@ -390,13 +384,12 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.consolidanitempresa}" filterBy="#{infoC.consolidanitempresa}" filterMatchMode="contains" 
-                                  id="cuentaConsolidaNit" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">                                  
+                                  id="cuentaConsolidaNit" filterStyle="display: none; visibility: hidden" width="20">                                  
                            <f:facet name="header">
                               <h:outputText id="textE" value="#{msg['e']}"/>
                               <p:tooltip for="textE" value="#{msg['textE']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkConsolidaNit" value="#{infoC.checkConsolidaNITEmpresa}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkConsolidaNit" value="#{infoC.checkConsolidaNITEmpresa}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
@@ -405,13 +398,12 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.incluyeshortnamesapbo}" filterBy="#{infoC.incluyeshortnamesapbo}" filterMatchMode="contains" 
-                                  id="cuentaIncluyeShort" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">                                  
+                                  id="cuentaIncluyeShort" filterStyle="display: none; visibility: hidden" width="20">                                  
                            <f:facet name="header">
                               <h:outputText id="textI" value="#{msg['i']}"/>
                               <p:tooltip for="textI" value="#{msg['textI']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkIncluyeShort" value="#{infoC.checkShortName}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkIncluyeShort" value="#{infoC.checkShortName}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
@@ -420,13 +412,12 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.cuentaasociadasap}" filterBy="#{infoC.cuentaasociadasap}" filterMatchMode="contains" 
-                                  id="cuentaAsociadaSAP" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">                                  
+                                  id="cuentaAsociadaSAP" filterStyle="display: none; visibility: hidden" width="20">                                  
                            <f:facet name="header">
                               <h:outputText id="textSAP" value="..."/>
                               <p:tooltip for="textSAP" value="#{msg['cuentaasociada']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkAsociadaSAP" value="#{infoC.checkAsociadaSAP}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkAsociadaSAP" value="#{infoC.checkAsociadaSAP}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
@@ -435,13 +426,12 @@
                         </p:column>
 
                         <p:column sortBy="#{infoC.manejasubcuenta}" filterBy="#{infoC.manejasubcuenta}" filterMatchMode="contains" 
-                                  id="cuentaSubCuenta" filterStyle="display: none; visibility: hidden" 
-                                  style="padding-left: 0px; padding-right: 0px; width: 20px; text-align: center;">                                  
+                                  id="cuentaSubCuenta" filterStyle="display: none; visibility: hidden" width="20">                                  
                            <f:facet name="header">
                               <h:outputText id="textSubC" value="..."/>
                               <p:tooltip for="textSubC" value="#{msg['manejasubcuenta']}"/>
                            </f:facet>
-                           <p:selectBooleanCheckbox id="checkSubCuenta" value="#{infoC.checkSubCuenta}" style="alignment-adjust: central">  
+                           <p:selectBooleanCheckbox id="checkSubCuenta" value="#{infoC.checkSubCuenta}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">

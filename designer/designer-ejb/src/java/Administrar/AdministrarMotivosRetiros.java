@@ -74,7 +74,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
             persistenciaMotivosRetiros.editar(getEm(), listaMotivosRetiros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosRetiros() ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
             persistenciaMotivosRetiros.borrar(getEm(), listaMotivosRetiros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosRetiros() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
             persistenciaMotivosRetiros.crear(getEm(), listaMotivosRetiros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosRetiros() ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
       try {
          return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivosRetiros() ERROR: " + e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class AdministrarMotivosRetiros implements AdministrarMotivosRetirosInter
       try {
          return persistenciaMotivosRetiros.consultarMotivoRetiro(getEm(), secMotivosRetiros);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarMotivoRetiro() ERROR: " + e);
          return null;
       }
    }

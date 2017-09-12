@@ -89,7 +89,7 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
             persistenciaMotivosCambiosCargos.editar(getEm(), listaMotivosCambiosCargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMotivosCambiosCargos() ERROR: " + e);
       }
    }
 
@@ -101,7 +101,7 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
             persistenciaMotivosCambiosCargos.borrar(getEm(), listaMotivosCambiosCargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMotivosCambiosCargos() ERROR: " + e);
       }
    }
 
@@ -113,7 +113,7 @@ public class AdministrarMotivosCambiosCargos implements AdministrarMotivosCambio
             persistenciaMotivosCambiosCargos.crear(getEm(), listaMotivosCambiosCargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMotivosCambiosCargos() ERROR: " + e);
       }
    }
 
