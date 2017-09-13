@@ -71,7 +71,7 @@ public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionOb
             persistenciaSoPoblacionObjetivos.editar(getEm(), listSoPoblacionObjetivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSoPoblacionObjetivos() ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionOb
             persistenciaSoPoblacionObjetivos.borrar(getEm(), listSoPoblacionObjetivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSoPoblacionObjetivos() ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionOb
             persistenciaSoPoblacionObjetivos.crear(getEm(), listSoPoblacionObjetivos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSoPoblacionObjetivos() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionOb
       try {
          return persistenciaSoPoblacionObjetivos.consultarSoPoblacionObjetivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoPoblacionObjetivos() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarSoPoblacionObjetivos implements AdministrarSoPoblacionOb
       try {
          return persistenciaSoPoblacionObjetivos.buscarSoPoblacionObjetivo(getEm(), secSoPoblacionObjetivo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarEvalCompetencia() ERROR: " + e);
          return null;
       }
    }

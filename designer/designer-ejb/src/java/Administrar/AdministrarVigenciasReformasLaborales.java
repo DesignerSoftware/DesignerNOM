@@ -98,7 +98,7 @@ public class AdministrarVigenciasReformasLaborales implements AdministrarVigenci
             persistenciaVigenciasReformasLaborales.editar(getEm(), listVRLModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVRL() ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarVigenciasReformasLaborales implements AdministrarVigenci
       try {
          persistenciaVigenciasReformasLaborales.borrar(getEm(), vigenciasReformasLaborales);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVRL() ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarVigenciasReformasLaborales implements AdministrarVigenci
       try {
          persistenciaVigenciasReformasLaborales.crear(getEm(), vigenciasReformasLaborales);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVRL() ERROR: " + e);
       }
    }
 

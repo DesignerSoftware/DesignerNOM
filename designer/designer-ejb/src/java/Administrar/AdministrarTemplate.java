@@ -108,7 +108,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
       try {
          return persistenciaActualUsuario.actualUsuarioBD(getEm());
       } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.fatal(this.getClass().getSimpleName() + ".consultarActualUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -130,7 +130,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          }
          return rutaLogo;
       } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.fatal(this.getClass().getSimpleName() + ".logoEmpresa() ERROR: " + e);
          return null;
       }
    }
@@ -147,7 +147,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          }
          return rutaFoto;
       } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.fatal(this.getClass().getSimpleName() + ".rutaFotoUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -160,7 +160,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
             administrarSesiones.borrarSesion(idSesion);
          }
       } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.fatal(this.getClass().getSimpleName() + ".cerrarSession() ERROR: " + e);
       }
    }
 
@@ -173,7 +173,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          log.warn("consultarDetalleEmpresaUsuario() detallesempresas: " + detallesEmpresas);
          return detallesEmpresas;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDetalleEmpresaUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -185,7 +185,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          ActualUsuario au = consultarActualUsuario();
          return persistenciaParametrosEstructuras.buscarParametro(getEm(), au.getAlias());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametrosUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -197,7 +197,7 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
          ActualUsuario au = consultarActualUsuario();
          return persistenciaPerfiles.consultarPerfil(getEm(), au.getPerfil()).getDescripcion();
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarNombrePerfil() ERROR: " + e);
          return null;
       }
    }

@@ -72,7 +72,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
             persistenciaTiposCertificados.editar(getEm(), listaTiposCertificados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposCertificados() ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
             persistenciaTiposCertificados.borrar(getEm(), listaTiposCertificados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposCertificados() ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
             persistenciaTiposCertificados.crear(getEm(), listaTiposCertificados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposCertificados() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
       try {
          return persistenciaTiposCertificados.buscarTiposCertificados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposCertificados() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarTiposCertificados implements AdministrarTiposCertificado
       try {
          return persistenciaTiposCertificados.buscarTipoCertificado(getEm(), secTipoCertificado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoCertificado() ERROR: " + e);
          return null;
       }
    }

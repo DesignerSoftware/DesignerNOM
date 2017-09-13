@@ -73,7 +73,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
             persistenciaTiposAccidentes.editar(getEm(), listaTiposAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposAccidentes() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
             persistenciaTiposAccidentes.borrar(getEm(), listaTiposAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposAccidentes() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
             persistenciaTiposAccidentes.crear(getEm(), listaTiposAccidentes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposAccidentes() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
       try {
          return persistenciaTiposAccidentes.buscarTiposAccidentes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposAccidentes() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposAccidentes implements AdministrarTiposAccidentesInt
       try {
          return persistenciaTiposAccidentes.buscarTipoAccidente(getEm(), secTiposAccidentes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposAccidentes() ERROR: " + e);
          return null;
       }
    }

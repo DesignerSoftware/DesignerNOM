@@ -70,7 +70,7 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
       try {
          return persistenciaTiposBloques.tiposBloques(getEm(), secuenciaOperando);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarTiposBloques() ERROR: " + e);
          return null;
       }
    }
@@ -80,7 +80,7 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
       try {
          persistenciaTiposBloques.borrar(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposBloques() ERROR: " + e);
       }
    }
 
@@ -89,7 +89,7 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
       try {
          persistenciaTiposBloques.crear(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposBloques() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarTiposBloques implements AdministrarTiposBloquesInterface
       try {
          persistenciaTiposBloques.editar(getEm(), tiposConstantes);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposBloques() ERROR: " + e);
       }
    }
 

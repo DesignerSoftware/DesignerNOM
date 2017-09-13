@@ -88,7 +88,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
       try {
          return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".encontrarPersona() ERROR: " + e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
       try {
          return persistenciaTiposTelefonos.tiposTelefonos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposTelefonos() ERROR: " + e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
       try {
          return PersistenciaCiudades.consultarCiudades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCiudades() ERROR: " + e);
          return null;
       }
    }
@@ -134,7 +134,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
             persistenciaTelefonos.editar(getEm(), t);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTelefono() ERROR: " + e);
       }
    }
 
@@ -143,7 +143,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
       try {
          persistenciaTelefonos.borrar(getEm(), telefonos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTelefono() ERROR: " + e);
       }
    }
 
@@ -152,7 +152,7 @@ public class AdministrarTelefonos implements AdministrarTelefonosInterface {
       try {
          persistenciaTelefonos.crear(getEm(), telefonos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTelefono() ERROR: " + e);
       }
    }
 

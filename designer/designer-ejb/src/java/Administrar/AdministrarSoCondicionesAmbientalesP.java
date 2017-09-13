@@ -73,7 +73,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
             persistenciaSoCondicionesAmbientalesP.editar(getEm(), listSoCondicionesAmbientalesP.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSoCondicionesAmbientalesP() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
             persistenciaSoCondicionesAmbientalesP.borrar(getEm(), listSoCondicionesAmbientalesP.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSoCondicionesAmbientalesP() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
             persistenciaSoCondicionesAmbientalesP.crear(getEm(), listSoCondicionesAmbientalesP.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSoCondicionesAmbientalesP() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
       try {
          return persistenciaSoCondicionesAmbientalesP.buscarSoCondicionesAmbientalesP(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoCondicionesAmbientalesP() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarSoCondicionesAmbientalesP implements AdministrarSoCondic
       try {
          return persistenciaSoCondicionesAmbientalesP.buscarSoCondicionAmbientalP(getEm(), secSoCondicionesAmbientalesP);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoCondicionAmbientalP() ERROR: " + e);
          return null;
       }
    }

@@ -81,7 +81,7 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
       try {
          return persistenciaEnvioCorreos.buscarEnvioCorreoporSecuencia(getEm(), envio);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPorSecuencia() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarEC() ERROR: " + e);
       }
    }
 

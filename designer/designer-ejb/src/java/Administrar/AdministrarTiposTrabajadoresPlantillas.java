@@ -90,7 +90,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaTipoTrabajador.crear(getEm(), tiposTrabajadores);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTT() ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaTipoTrabajador.editar(getEm(), tiposTrabajadores);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarTT() ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaTipoTrabajador.borrar(getEm(), tiposTrabajadores);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTT() ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasTC.crear(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPlantillaTC() ERROR: " + e);
       }
    }
 
@@ -126,7 +126,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasTC.editar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarPlantillaTC() ERROR: " + e);
       }
    }
 
@@ -135,7 +135,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasTC.borrar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarPlantillaTC() ERROR: " + e);
       }
    }
 
@@ -144,7 +144,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasTS.crear(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPlantillaTS() ERROR: " + e);
       }
    }
 
@@ -153,7 +153,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasTS.editar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarPlantillaTS() ERROR: " + e);
       }
    }
 
@@ -162,7 +162,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasTS.borrar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarPlantillaTS() ERROR: " + e);
       }
    }
 
@@ -171,7 +171,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasRL.crear(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPlantillaRL() ERROR: " + e);
       }
    }
 
@@ -180,7 +180,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasRL.editar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarPlantillaRL() ERROR: " + e);
       }
    }
 
@@ -189,7 +189,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasRL.borrar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarPlantillaRL() ERROR: " + e);
       }
    }
 
@@ -198,7 +198,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasLL.crear(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPlantillaLL() ERROR: " + e);
       }
    }
 
@@ -207,7 +207,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasLL.editar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarPlantillaLL() ERROR: " + e);
       }
    }
 
@@ -216,7 +216,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasLL.borrar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarPlantillaLL() ERROR: " + e);
       }
    }
 
@@ -225,7 +225,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasNL.crear(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPlantillaNL() ERROR: " + e);
       }
    }
 
@@ -234,7 +234,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasNL.editar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarPlantillaNL() ERROR: " + e);
       }
    }
 
@@ -243,7 +243,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          persistenciaPlantillasNL.borrar(getEm(), plantilla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarPlantillaNL() ERROR: " + e);
       }
    }
 
@@ -252,7 +252,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          return persistenciaTTPlantillas.consultarTiposTrabajadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaTT() ERROR: " + e);
          return null;
       }
    }
@@ -262,7 +262,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          return persistenciaTTPlantillas.consultarPlanillaTC(getEm(), secTT);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaPlantillaTC() ERROR: " + e);
          return null;
       }
    }
@@ -272,7 +272,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          return persistenciaTTPlantillas.consultarPlanillaTS(getEm(), secTT);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaPlantillaTS() ERROR: " + e);
          return null;
       }
    }
@@ -282,7 +282,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          return persistenciaTTPlantillas.consultarPlanillaRL(getEm(), secTT);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaPlantillaRL() ERROR: " + e);
          return null;
       }
    }
@@ -292,7 +292,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          return persistenciaTTPlantillas.consultarPlanillaLL(getEm(), secTT);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaPlantillaLL() ERROR: " + e);
          return null;
       }
    }
@@ -302,7 +302,7 @@ public class AdministrarTiposTrabajadoresPlantillas implements AdministrarTiposT
       try {
          return persistenciaTTPlantillas.consultarPlanillaNL(getEm(), secTT);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaPlantillaNL() ERROR: " + e);
          return null;
       }
    }

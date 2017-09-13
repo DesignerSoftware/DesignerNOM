@@ -84,7 +84,7 @@ public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbic
             persistenciaVigenciasUbicaciones.editar(getEm(), vu);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVU() ERROR: " + e);
       }
    }
 
@@ -93,7 +93,7 @@ public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbic
       try {
          persistenciaVigenciasUbicaciones.borrar(getEm(), vigenciasUbicaciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVU() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarVigenciasUbicaciones implements AdministrarVigenciasUbic
       try {
          persistenciaVigenciasUbicaciones.crear(getEm(), vigenciasUbicaciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVU() ERROR: " + e);
       }
    }
 

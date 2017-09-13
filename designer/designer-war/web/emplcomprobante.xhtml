@@ -372,37 +372,21 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column id="pasivoSNE" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleado.pago}" width="70"
+                              <p:column id="pasivoSNE" headerText="#{msg['pago']}" sortBy="#{solucionNodoEmpleado.pago}" width="70" class="cssColumnasNumericas"
                                         style="text-align: right;" filterBy="#{solucionNodoEmpleado.pago}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <p:cellEditor>
-                                    <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleado.pago}"/>
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.pago}"
-                                                    onselect="posicionEmpleado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceEM}'}]);
-                                                          PF('tablaEmpleado').unselectAllRows();
-                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                 <p:inputNumber value="#{solucionNodoEmpleado.pago}" decimalPlaces="1" readonly="true" symbol="$"
+                                                onblur="PF('tablaEmpleado').unselectAllRows(); PF('tablaEmpleado').selectRow(#{indiceEM});"
+                                                onfocus="PF('tablaEmpleado').unselectAllRows(); PF('tablaEmpleado').selectRow(#{indiceEM});"/>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
-                              <p:column id="gastoSNE" headerText="#{msg['descuento']}" sortBy="#{solucionNodoEmpleado.descuento}" width="70"
+                              <p:column id="gastoSNE" headerText="#{msg['descuento']}" sortBy="#{solucionNodoEmpleado.descuento}" width="70" class="cssColumnasNumericas"
                                         style="text-align: right;" filterBy="#{solucionNodoEmpleado.descuento}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <p:cellEditor>
-                                    <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleado.descuento}"/>
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.descuento}"
-                                                    onselect="posicionEmpleado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceEM}'}]);
-                                                          PF('tablaEmpleado').unselectAllRows();
-                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                 <p:inputNumber value="#{solucionNodoEmpleado.descuento}" decimalPlaces="1" readonly="true" symbol="$"
+                                                onblur="PF('tablaEmpleado').unselectAllRows(); PF('tablaEmpleado').selectRow(#{indiceEM});"
+                                                onfocus="PF('tablaEmpleado').unselectAllRows(); PF('tablaEmpleado').selectRow(#{indiceEM});"/>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -513,19 +497,11 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column id="saldoSNE" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleado.saldo}" width="70"
+                              <p:column id="saldoSNE" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleado.saldo}" width="70" class="cssColumnasNumericas"
                                         filterBy="#{solucionNodoEmpleado.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <p:cellEditor>
-                                    <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleado.saldo}"/>
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                       <p:inputText readonly="true" value="#{solucionNodoEmpleado.saldo}"
-                                                    onselect="posicionEmpleado([{name: 'n', value: '12'}, {name: 't', value: '#{indiceEM}'}]);
-                                                          PF('tablaEmpleado').unselectAllRows();
-                                                          PF('tablaEmpleado').selectRow(#{indiceEM});"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                                 <p:inputNumber value="#{solucionNodoEmpleado.saldo}" decimalPlaces="1" readonly="true" symbol="$"
+                                                onblur="PF('tablaEmpleado').unselectAllRows(); PF('tablaEmpleado').selectRow(#{indiceEM});"
+                                                onfocus="PF('tablaEmpleado').unselectAllRows(); PF('tablaEmpleado').selectRow(#{indiceEM});"/>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -689,35 +665,21 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column id="pasivoSNEM" headerText="#{msg['pasivo']}" style=" text-align: right;" sortBy="#{solucionNodoEmpleador.pasivo}" width="70" filterBy="#{solucionNodoEmpleador.pasivo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
-                                 <p:cellEditor>
-                                    <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.pasivo}"/>
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.pasivo}"
-                                                    onselect="posicionEmpleador([{name: 'n', value: '5'}, {name: 't', value: '#{indiceER}'}]);
-                                                          PF('tablaEmpleador').unselectAllRows();
-                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                              <p:column id="pasivoSNEM" headerText="#{msg['pasivo']}" style=" text-align: right;" sortBy="#{solucionNodoEmpleador.pasivo}" width="70" class="cssColumnasNumericas"
+                                        filterBy="#{solucionNodoEmpleador.pasivo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">
+                                 <p:inputNumber value="#{solucionNodoEmpleador.pasivo}" decimalPlaces="1" readonly="true" symbol="$"
+                                                onblur="PF('tablaEmpleador').unselectAllRows(); PF('tablaEmpleador').selectRow(#{indiceER});"
+                                                onfocus="PF('tablaEmpleador').unselectAllRows(); PF('tablaEmpleador').selectRow(#{indiceER});"/>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
                               </p:column>
 
-                              <p:column id="gastoSNEM" headerText="#{msg['gasto']}" style=" text-align: right;" sortBy="#{solucionNodoEmpleador.gasto}" width="70" filterBy="#{solucionNodoEmpleador.gasto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <p:cellEditor>
-                                    <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.gasto}"/>
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.gasto}"
-                                                    onselect="posicionEmpleador([{name: 'n', value: '6'}, {name: 't', value: '#{indiceER}'}]);
-                                                          PF('tablaEmpleador').unselectAllRows();
-                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                              <p:column id="gastoSNEM" headerText="#{msg['gasto']}" style=" text-align: right;" sortBy="#{solucionNodoEmpleador.gasto}" width="70" class="cssColumnasNumericas"
+                                        filterBy="#{solucionNodoEmpleador.gasto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                 <p:inputNumber value="#{solucionNodoEmpleador.gasto}" decimalPlaces="1" readonly="true" symbol="$"
+                                                onblur="PF('tablaEmpleador').unselectAllRows(); PF('tablaEmpleador').selectRow(#{indiceER});"
+                                                onfocus="PF('tablaEmpleador').unselectAllRows(); PF('tablaEmpleador').selectRow(#{indiceER});"/>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>
@@ -822,18 +784,11 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column id="saldoSNEM" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleador.saldo}" width="70" filterBy="#{solucionNodoEmpleador.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                 <p:cellEditor>
-                                    <f:facet name="output">
-                                       <h:outputText value="#{solucionNodoEmpleador.saldo}"/>
-                                    </f:facet>  
-                                    <f:facet name="input">
-                                       <p:inputText readonly="true" value="#{solucionNodoEmpleador.saldo}"
-                                                    onselect="posicionEmpleador([{name: 'n', value: '12'}, {name: 't', value: '#{indiceER}'}]);
-                                                          PF('tablaEmpleador').unselectAllRows();
-                                                          PF('tablaEmpleador').selectRow(#{indiceER});"/>
-                                    </f:facet>
-                                 </p:cellEditor>
+                              <p:column id="saldoSNEM" headerText="#{msg['saldo']}" sortBy="#{solucionNodoEmpleador.saldo}" width="70" class="cssColumnasNumericas"
+                                        filterBy="#{solucionNodoEmpleador.saldo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                 <p:inputNumber value="#{solucionNodoEmpleador.saldo}" decimalPlaces="1" readonly="true" symbol="$"
+                                                onblur="PF('tablaEmpleador').unselectAllRows(); PF('tablaEmpleador').selectRow(#{indiceER});"
+                                                onfocus="PF('tablaEmpleador').unselectAllRows(); PF('tablaEmpleador').selectRow(#{indiceER});"/>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
                                  </f:facet>

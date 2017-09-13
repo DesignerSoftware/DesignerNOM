@@ -108,7 +108,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          persistenciaSoausentismos.borrar(getEm(), ausentismos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarAusentismos() ERROR: " + e);
       }
    }
 
@@ -117,7 +117,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          persistenciaSoausentismos.crear(getEm(), ausentismos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearAusentismos() ERROR: " + e);
       }
    }
 
@@ -184,7 +184,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
             persistenciaSoausentismos.editar(getEm(), listaAusentismosModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarAusentismos() ERROR: " + e);
       }
    }
 
@@ -206,7 +206,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
          log.warn("Administrar.AdministrarSoausentismos.lovEmpleados()");
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovEmpleados() ERROR: " + e);
          return null;
       }
    }
@@ -215,7 +215,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -224,7 +224,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaClasesAusentismos.buscarClasesAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovClasesAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -233,7 +233,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaCausasAusentismos.buscarCausasAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCausasAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -242,7 +242,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaSoaccdicentes.accidentesEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovAccidentes() ERROR: " + e);
          return null;
       }
    }
@@ -251,7 +251,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaTerceros.buscarTerceros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTerceros() ERROR: " + e);
          return null;
       }
    }
@@ -260,7 +260,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaDiagnosticos.buscarDiagnosticos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovDiagnosticos() ERROR: " + e);
          return null;
       }
    }
@@ -269,7 +269,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaIBCS.buscarIbcsPorEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".empleadosIBCS() ERROR: " + e);
          return null;
       }
    }
@@ -278,7 +278,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaEnfermedades.buscarEnfermedades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".enfermedades() ERROR: " + e);
          return null;
       }
    }
@@ -287,7 +287,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaEP.buscarEPPorEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".empleadosEP() ERROR: " + e);
          return null;
       }
    }
@@ -297,7 +297,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaSoausentismos.prorrogaMostrar(getEm(), secuenciaProrroga);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarProrroga() ERROR: " + e);
          return null;
       }
    }
@@ -307,7 +307,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaRelacionesIncapacidades.relaciones(getEm(), secuenciaAusentismo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarRelacion() ERROR: " + e);
          return null;
       }
    }
@@ -317,7 +317,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
       try {
          return persistenciaSoausentismos.prorrogas(getEm(), secEmpleado, secuenciaCausa, secuenciaAusentismo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovProrrogas() ERROR: " + e);
          return null;
       }
    }

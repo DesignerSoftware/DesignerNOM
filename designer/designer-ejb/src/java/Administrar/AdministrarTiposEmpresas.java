@@ -74,7 +74,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
             persistenciaTiposEmpresas.editar(getEm(), listTiposEmpresas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposEmpresas() ERROR: " + e);
       }
    }
 
@@ -86,7 +86,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
             persistenciaTiposEmpresas.borrar(getEm(), listTiposEmpresas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposEmpresas() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
             persistenciaTiposEmpresas.crear(getEm(), listTiposEmpresas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposEmpresas() ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
       try {
          return persistenciaTiposEmpresas.buscarTiposEmpresas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposEmpresas() ERROR: " + e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class AdministrarTiposEmpresas implements AdministrarTiposEmpresasInterfa
       try {
          return persistenciaTiposEmpresas.buscarTipoEmpresa(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoEmpresa() ERROR: " + e);
          return null;
       }
    }

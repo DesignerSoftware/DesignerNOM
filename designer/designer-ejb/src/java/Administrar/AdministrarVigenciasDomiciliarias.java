@@ -177,7 +177,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigenciasDomiciliarias.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigencia() ERROR: " + e);
       }
    }
 
@@ -186,7 +186,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".vigenciasDomiciliariasporPersona() ERROR: " + e);
          return null;
       }
    }
@@ -196,7 +196,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaMotivosRetiros.consultarMotivosRetiros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovMotivosRetiros() ERROR: " + e);
          return null;
       }
    }
@@ -206,7 +206,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaEstadosCiviles.consultarEstadosCiviles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovVigenciasEstadosCiviles() ERROR: " + e);
          return null;
       }
    }
@@ -216,7 +216,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTiposTelefonos.tiposTelefonos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposTelefonos() ERROR: " + e);
          return null;
       }
    }
@@ -226,7 +226,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaCiudades.lovCiudades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCiudades() ERROR: " + e);
          return null;
       }
    }
@@ -236,7 +236,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaCargos.lovCargos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCargos() ERROR: " + e);
          return null;
       }
    }
@@ -246,7 +246,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaDirecciones.listaDireccionPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".direccionesPersona() ERROR: " + e);
          return null;
       }
    }
@@ -256,7 +256,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTelefonos.telefonoActual(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".telefonoActualPersona() ERROR: " + e);
          return null;
       }
    }
@@ -266,7 +266,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaVigEstadosCiviles.estadoCivilActual(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".estadoCivilActualPersona() ERROR: " + e);
          return null;
       }
    }
@@ -276,7 +276,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaEmpleados.buscarEmpleadoSecuenciaPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -287,7 +287,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaDirecciones.listaDireccionPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDireccionesPersona() ERROR: " + e);
          return null;
       }
    }
@@ -299,7 +299,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaDirecciones.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearDirecciones() ERROR: " + e);
       }
    }
 
@@ -310,7 +310,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaDirecciones.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarDirecciones() ERROR: " + e);
       }
    }
 
@@ -321,7 +321,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaDirecciones.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarDirecciones() ERROR: " + e);
       }
    }
 
@@ -331,7 +331,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTelefonos.telefonosPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".telefonosPersona() ERROR: " + e);
          return null;
       }
    }
@@ -341,7 +341,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          persistenciaTelefonos.crear(getEm(), telefono);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTelefonos() ERROR: " + e);
       }
    }
 
@@ -350,7 +350,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          persistenciaTelefonos.borrar(getEm(), telefono);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTelefonos() ERROR: " + e);
       }
    }
 
@@ -361,7 +361,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaTelefonos.editar(getEm(), listModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTelefonos() ERROR: " + e);
       }
    }
 
@@ -371,7 +371,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaVigEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".estadosCivilesPersona() ERROR: " + e);
          return null;
       }
    }
@@ -383,7 +383,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigEstadosCiviles.editar(getEm(), listaVigenciasEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciasEstadosCiviles() ERROR: " + e);
       }
    }
 
@@ -394,7 +394,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigEstadosCiviles.borrar(getEm(), listaVigenciasEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciasEstadosCiviles() ERROR: " + e);
       }
    }
 
@@ -405,7 +405,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigEstadosCiviles.crear(getEm(), listaVigenciasEstadosCiviles.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciasEstadosCiviles() ERROR: " + e);
       }
    }
 
@@ -415,7 +415,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaAntecedentes.lovAntecedentes(getEm(), secTipoAntecedente);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovAntecedentes() ERROR: " + e);
          return null;
       }
    }
@@ -425,7 +425,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTiposAntecedentes.lovTiposAntecedentes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposAntecedentes() ERROR: " + e);
          return null;
       }
    }
@@ -435,7 +435,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaAntecdentesM.listaAntecedentesMedicos(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarAntecedentesMedicos() ERROR: " + e);
          return null;
       }
    }
@@ -454,7 +454,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaAntecdentesM.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearAntecedenteM() ERROR: " + e);
       }
    }
 
@@ -465,7 +465,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaAntecdentesM.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarAntecedenteM() ERROR: " + e);
       }
    }
 
@@ -476,7 +476,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaAntecdentesM.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarAntecedenteM() ERROR: " + e);
       }
    }
 
@@ -501,7 +501,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigenciasFormales.editar(getEm(), listaVigenciasFormalesModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciaFormal() ERROR: " + e);
       }
    }
 
@@ -522,7 +522,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigenciasFormales.borrar(getEm(), listaVigenciasFormalesBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciaFormal() ERROR: " + e);
       }
    }
 
@@ -557,7 +557,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaVigenciasFormales.crear(getEm(), listaVigenciasFormalesCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciaFormal() ERROR: " + e);
       }
    }
 
@@ -566,7 +566,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTiposEducaciones.tiposEducaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposEducaciones() ERROR: " + e);
          return null;
       }
    }
@@ -576,7 +576,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaProfesiones.profesiones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovProfesiones() ERROR: " + e);
          return null;
       }
    }
@@ -586,7 +586,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaAdiestramientos.adiestramientosF(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovAdiestramientos() ERROR: " + e);
          return null;
       }
    }
@@ -596,7 +596,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaInstituciones.lovInstituciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovInstituciones() ERROR: " + e);
          return null;
       }
    }
@@ -606,7 +606,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaVigenciasFormales.vigenciasFormalesPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".vigenciasFormalesPersona() ERROR: " + e);
          return null;
       }
    }
@@ -675,7 +675,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciahv.hvHojaDeVidaPersona(getEm(), secuencia);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerHojaVidaPersona() ERROR: " + e);
          return null;
       }
    }
@@ -685,7 +685,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaHvExp.experienciasLaboralesSecuenciaEmpleado(getEm(), secuencia);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".experienciasLaboralesEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -695,7 +695,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaSectoresE.buscarSectoresEconomicos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovSectoresEconomicos() ERROR: " + e);
          return null;
       }
    }
@@ -706,7 +706,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTiposFamiliares.buscarTiposFamiliares(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposFamiliares() ERROR: " + e);
          return null;
       }
    }
@@ -716,7 +716,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaPersonas.consultarPersonas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovPersonas() ERROR: " + e);
          return null;
       }
    }
@@ -726,7 +726,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaPersonas.buscarPersona(getEm(), secpersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".encontrarPersona() ERROR: " + e);
          return null;
       }
    }
@@ -736,7 +736,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaFamiliares.familiaresPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".buscarFamiliares() ERROR: " + e);
          return null;
       }
    }
@@ -746,7 +746,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          persistenciaPersonas.crear(getEm(), persona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearPersona() ERROR: " + e);
       }
    }
 
@@ -755,7 +755,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaTipoDocumento.consultarTiposDocumentos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposDocumentos() ERROR: " + e);
          return null;
       }
    }
@@ -771,7 +771,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaFamiliares.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarFamiliares() ERROR: " + e);
       }
    }
 
@@ -786,7 +786,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaFamiliares.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarFamiliares() ERROR: " + e);
       }
    }
 
@@ -801,7 +801,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaFamiliares.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearFamilares() ERROR: " + e);
       }
    }
 
@@ -810,7 +810,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
       try {
          return persistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".vigenciaDomiciliariaActual() ERROR: " + e);
          return null;
       }
    }
@@ -822,7 +822,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciahv.editar(getEm(), listaEditar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarHojadeVida() ERROR: " + e);
       }
    }
 
@@ -833,7 +833,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaPersonas.editar(getEm(), listaEditar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".editarPersona() ERROR: " + e);
       }
    }
 

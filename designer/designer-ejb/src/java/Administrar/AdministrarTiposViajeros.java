@@ -74,7 +74,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
             persistenciaTiposViajeros.editar(getEm(), listaTiposViajeros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposViajeros() ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
             persistenciaTiposViajeros.borrar(getEm(), listaTiposViajeros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposViajeros() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
             persistenciaTiposViajeros.crear(getEm(), listaTiposViajeros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposViajeros() ERROR: " + e);
       }
    }
 
@@ -109,7 +109,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
       try {
          return persistenciaTiposViajeros.consultarTiposViajeros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposViajeros() ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class AdministrarTiposViajeros implements AdministrarTiposViajerosInterfa
       try {
          return persistenciaTiposViajeros.consultarSubCategoria(getEm(), secTiposViajeros);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoViajero() ERROR: " + e);
          return null;
       }
    }

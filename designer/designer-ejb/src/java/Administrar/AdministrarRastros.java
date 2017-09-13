@@ -41,15 +41,17 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -61,7 +63,8 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -94,7 +97,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
             return 1;
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerTabla() ERROR: " + e);
          return 0;
       }
    }
@@ -108,7 +111,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
             return false;
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".verificarHistoricosTabla() ERROR: " + e);
          return false;
       }
    }
@@ -118,7 +121,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastros.rastrosTabla(getEm(), secRegistro, nombreTabla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".rastrosTabla() ERROR: " + e);
          return null;
       }
    }
@@ -128,7 +131,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastros.rastrosTablaHistoricos(getEm(), nombreTabla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".rastrosTablaHistoricos() ERROR: " + e);
          return null;
       }
    }
@@ -138,7 +141,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastros.rastrosTablaHistoricosEliminados(getEm(), nombreTabla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".rastrosTablaHistoricosEliminados() ERROR: " + e);
          return null;
       }
    }
@@ -148,7 +151,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastros.rastrosTablaHistoricosEliminadosEmpleados(getEm(), nombreTabla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".rastrosTablaHistoricosEliminadosEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -158,7 +161,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastros.rastrosTablaFecha(getEm(), fechaRegistro, nombreTabla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".rastrosTablaFecha() ERROR: " + e);
          return null;
       }
    }
@@ -168,7 +171,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastrosValores.rastroValores(getEm(), secRastro);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".valorRastro() ERROR: " + e);
          return null;
       }
    }
@@ -178,7 +181,7 @@ public class AdministrarRastros implements AdministrarRastrosInterface, Serializ
       try {
          return persistenciaRastros.verificarEmpleadoTabla(getEm(), nombreTabla);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".existenciaEmpleadoTabla() ERROR: " + e);
          return false;
       }
    }

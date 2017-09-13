@@ -73,7 +73,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
             persistenciaTiposAusentismos.editar(getEm(), listaTiposAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposAusentismos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
             persistenciaTiposAusentismos.borrar(getEm(), listaTiposAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposAusentismos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
             persistenciaTiposAusentismos.crear(getEm(), listaTiposAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposAusentismos() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
       try {
          return persistenciaTiposAusentismos.consultarTiposAusentismos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarTiposAusentismos implements AdministrarTiposAusentismosI
       try {
          return persistenciaTiposAusentismos.consultarTipoAusentismo(getEm(), secTiposAusentismos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoAusentismo() ERROR: " + e);
          return null;
       }
    }

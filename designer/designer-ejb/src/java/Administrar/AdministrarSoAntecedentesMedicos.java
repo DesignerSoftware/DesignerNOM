@@ -74,7 +74,7 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
             PersistenciaAntecedentesM.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarAntecedentesM() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
             PersistenciaAntecedentesM.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearAntecedentesM() ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
             PersistenciaAntecedentesM.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarAntecedentesM() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
       try {
          return persistenciaTiposAntecedentes.listaTiposAntecedentes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposAntecedentes() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
       try {
          return persistenciaAntecedentes.lovAntecedentes(getEm(), secTipoAntecedente);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAntecedentes() ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarSoAntecedentesMedicos implements AdministrarSoAntecedent
       try {
          return PersistenciaAntecedentesM.listaAntecedentesMedicos(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarAntecedentesMedicos() ERROR: " + e);
          return null;
       }
    }

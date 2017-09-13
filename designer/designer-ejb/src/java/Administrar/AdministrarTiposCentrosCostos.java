@@ -76,7 +76,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
             persistenciaTiposCentrosCostos.editar(getEm(), listaTiposCentrosCostos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTipoCentrosCostos() ERROR: " + e);
       }
    }
 
@@ -88,7 +88,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
             persistenciaTiposCentrosCostos.borrar(getEm(), listaTiposCentrosCostos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposCentrosCostos() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
             persistenciaTiposCentrosCostos.crear(getEm(), listaTiposCentrosCostos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposCentrosCostos() ERROR: " + e);
       }
    }
 
@@ -109,7 +109,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
       try {
          return persistenciaTiposCentrosCostos.buscarTiposCentrosCostos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposCentrosCostos() ERROR: " + e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
       try {
          return persistenciaTiposCentrosCostos.buscarTipoCentrosCostos(getEm(), secTipoCentrosCostos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoCentroCosto() ERROR: " + e);
          return null;
       }
    }
@@ -129,7 +129,7 @@ public class AdministrarTiposCentrosCostos implements AdministrarTiposCentrosCos
       try {
          return persistenciaGruposTiposCC.buscarGruposTiposCC(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVGruposTiposCentrosCostos() ERROR: " + e);
          return null;
       }
    }

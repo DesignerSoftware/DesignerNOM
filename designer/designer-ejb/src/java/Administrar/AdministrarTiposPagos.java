@@ -72,7 +72,7 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
             persistenciaTiposPagos.editar(getEm(), listaTiposPagos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposPagos() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
             persistenciaTiposPagos.borrar(getEm(), listaTiposPagos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposPagos() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
             persistenciaTiposPagos.crear(getEm(), listaTiposPagos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposPagos() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
       try {
          return persistenciaTiposPagos.consultarTiposPagos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposPagos() ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarTiposPagos implements AdministrarTiposPagosInterface {
       try {
          return persistenciaTiposPagos.consultarTipoPago(getEm(), secTiposPagos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoPago() ERROR: " + e);
          return null;
       }
    }

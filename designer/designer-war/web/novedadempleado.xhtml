@@ -125,7 +125,7 @@
 
                         <p:column sortBy="#{empleados.valor}" filterBy="#{empleados.valor}" class="cssColumnasNumericas"
                                   filterMatchMode="contains" id="nEEmpleadosValor" width="110" filterStyle="display: none; visibility: hidden;">                                  
-                           <p:inputNumber value="#{empleados.valor}" decimalPlaces="2" readonly="true" symbol="$" style="padding-bottom: 0px; padding-top: 0px; margin: 0px;"
+                           <p:inputNumber value="#{empleados.valor}" decimalPlaces="2" readonly="true" symbol="$"
                                           onblur="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"
                                           onfocus="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"/>
                            <f:facet name="header">
@@ -242,18 +242,12 @@
 
                         <p:column headerText="#{msg['vaalor']}" sortBy="#{novedades.valortotal}" filterBy="#{novedades.valortotal}" filterMatchMode="contains" 
                                   id="nEValor" width="90" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                  
-                           <!--<p:cellEditor>-->  
-                              <!--<f:facet name="output"><h:outputText value="#{novedades.valortotal}"/></f:facet>-->  
-                           <!--<f:facet name="input">-->
                            <p:inputNumber autocomplete="off" value="#{novedades.valortotal}" id="editarValor" symbol="$" decimalPlaces="2"
-                                          style=" border-radius: 0px; text-transform: uppercase;"
                                           onblur="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"
                                           onfocus="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"> 
                               <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
                               <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 4)}" process="@this"/>
                            </p:inputNumber>
-                           <!--</f:facet>-->  
-                           <!--</p:cellEditor>-->
                            <f:facet name="footer">
                               <h:outputText value=" "/>
                            </f:facet>
@@ -261,18 +255,12 @@
 
                         <p:column headerText="#{msg['saldo']}" sortBy="#{novedades.saldo}" filterBy="#{novedades.saldo}" filterMatchMode="contains"
                                   id="nESaldo" width="90" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                  
-                           <!--<p:cellEditor>-->  
-                              <!--<f:facet name="output"><h:outputText value="#{novedades.saldo}"/></f:facet>-->  
-                           <!--<f:facet name="input">-->
                            <p:inputNumber autocomplete="off" value="#{novedades.saldo}" id="editarSaldo" symbol="$" decimalPlaces="2"
-                                          style=" border-radius: 0px; text-transform: uppercase;"
                                           onblur="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"
                                           onfocus="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});">
                               <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.saldo)}"/>
                               <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 5)}" process="@this"/>
                            </p:inputNumber>
-                           <!--</f:facet>-->  
-                           <!--</p:cellEditor>-->
                            <f:facet name="footer">
                               <h:outputText value=""/>
                            </f:facet>

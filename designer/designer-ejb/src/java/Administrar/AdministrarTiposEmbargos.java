@@ -73,7 +73,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
             persistenciaTiposEmbargos.editar(getEm(), listaTiposEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposPrestamos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
             persistenciaTiposEmbargos.borrar(getEm(), listaTiposEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposPrestamos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
             persistenciaTiposEmbargos.crear(getEm(), listaTiposEmbargos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposPrestamos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
       try {
          return persistenciaTiposEmbargos.buscarTiposEmbargos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposPrestamos() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposEmbargos implements AdministrarTiposEmbargosInterfa
       try {
          return persistenciaTiposEmbargos.buscarTipoEmbargo(getEm(), secMotivoPrestamo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoPrestamo() ERROR: " + e);
          return null;
       }
    }

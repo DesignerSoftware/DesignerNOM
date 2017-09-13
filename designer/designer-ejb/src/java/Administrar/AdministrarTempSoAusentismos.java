@@ -79,7 +79,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
             persistenciaTempSoAusentismos.crear(getEm(), listaTempSoAusentismos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTempSoAusentismos() ERROR: " + e);
       }
    }
 
@@ -88,7 +88,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          persistenciaTempSoAusentismos.editar(getEm(), tempNovedades);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTempSoAusentismos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          persistenciaTempSoAusentismos.borrar(getEm(), tempNovedades);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTempSoAusentismos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       persistenciaTempSoAusentismos.borrarRegistrosTempNovedades(getEm(), usuarioBD);
       try {
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRegistrosTempSoAusentismos() ERROR: " + e);
       }
    }
 
@@ -115,7 +115,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          return persistenciaTempSoAusentismos.obtenerTempAusentismos(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTempSoAusentismos() ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          return persistenciaActualUsuario.actualUsuarioBD(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".actualUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -135,7 +135,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          return persistenciaTempSoAusentismos.obtenerDocumentosSoporteCargados(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarDocumentosSoporteCargadosUsuario() ERROR: " + e);
          return null;
       }
    }
@@ -150,7 +150,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          return persistenciaTempSoAusentismos.reversarTempAusentismos(getEm(), usuarioBD.getAlias(), documentoSoporte);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".reversarNovedades() ERROR: " + e);
          return 0;
       }
    }
@@ -176,7 +176,7 @@ public class AdministrarTempSoAusentismos implements AdministrarTempSoAusentismo
       try {
          return persistenciaParametrosEstructuras.buscarEmpresaParametros(getEm(), usuarioBD);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarParametrosEmpresa() ERROR: " + e);
          return null;
       }
    }

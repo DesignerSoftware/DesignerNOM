@@ -72,7 +72,7 @@ public class AdministrarVigenciasPlantas implements AdministrarVigenciasPlantasI
             persistenciaVigenciasPlantas.editar(getEm(), listaVigenciasPlantas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerConexion() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarVigenciasPlantas implements AdministrarVigenciasPlantasI
             persistenciaVigenciasPlantas.borrar(getEm(), listaVigenciasPlantas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciasPlantas() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarVigenciasPlantas implements AdministrarVigenciasPlantasI
             persistenciaVigenciasPlantas.crear(getEm(), listaVigenciasPlantas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciasPlantas() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarVigenciasPlantas implements AdministrarVigenciasPlantasI
       try {
          return persistenciaVigenciasPlantas.consultarVigenciasPlantas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarVigenciasPlantas() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarVigenciasPlantas implements AdministrarVigenciasPlantasI
       try {
          return persistenciaVigenciasPlantas.consultarVigenciaPlanta(getEm(), secVigenciasPlantas);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarVigenciaPlanta() ERROR: " + e);
          return null;
       }
    }

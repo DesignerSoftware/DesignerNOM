@@ -80,7 +80,7 @@ public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInt
             persistenciaTiposCotizantes.borrar(getEm(), listBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTipoCotizante() ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarTiposCotizantes implements AdministrarTiposCotizantesInt
             persistenciaTiposCotizantes.crear(getEm(), listCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTipoCotizante() ERROR: " + e);
       }
    }
 

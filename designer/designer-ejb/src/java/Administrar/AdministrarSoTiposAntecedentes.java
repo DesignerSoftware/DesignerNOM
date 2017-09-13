@@ -61,7 +61,7 @@ public class AdministrarSoTiposAntecedentes implements AdministrarSoTiposAnteced
             persistenciaTiposAntecedentes.editar(getEm(), listaModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTipoAntecedente() ERROR: " + e);
       }
    }
 
@@ -72,7 +72,7 @@ public class AdministrarSoTiposAntecedentes implements AdministrarSoTiposAnteced
             persistenciaTiposAntecedentes.crear(getEm(), listaCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTipoAntecedente() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarSoTiposAntecedentes implements AdministrarSoTiposAnteced
             persistenciaTiposAntecedentes.borrar(getEm(), listaBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTipoAntecedente() ERROR: " + e);
       }
    }
 

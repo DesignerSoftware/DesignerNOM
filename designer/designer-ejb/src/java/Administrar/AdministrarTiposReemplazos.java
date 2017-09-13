@@ -72,7 +72,7 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
             persistenciaTiposReemplazos.editar(getEm(), listaTiposReemplazos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposReemplazos() ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
             persistenciaTiposReemplazos.borrar(getEm(), listaTiposReemplazos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposReemplazos() ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
             persistenciaTiposReemplazos.crear(getEm(), listaTiposReemplazos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposReemplazos() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
       try {
          return persistenciaTiposReemplazos.buscarTiposReemplazos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposReemplazos() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
       try {
          return persistenciaTiposReemplazos.buscarTipoReemplazo(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoReemplazo() ERROR: " + e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class AdministrarTiposReemplazos implements AdministrarTiposReemplazosInt
       try {
          return persistenciaTiposReemplazos.buscarTiposReemplazos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVTiposReemplazos() ERROR: " + e);
          return null;
       }
    }

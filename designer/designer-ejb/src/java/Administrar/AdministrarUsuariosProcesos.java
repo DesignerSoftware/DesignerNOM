@@ -63,7 +63,7 @@ public class AdministrarUsuariosProcesos implements AdministrarUsuariosProcesosI
         try {
             return persistenciaUsuariosProcesos.buscarUsuariosProcesos(getEm());
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".consultarUsuariosProcesos() ERROR: " + e);
             return null;
         }
     }
@@ -75,7 +75,7 @@ public class AdministrarUsuariosProcesos implements AdministrarUsuariosProcesosI
                 persistenciaUsuariosProcesos.editar(getEm(), listaUsuarios.get(i));
             }
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".modificarUsuariosProcesos() ERROR: " + e);
         }
     }
 
@@ -87,7 +87,7 @@ public class AdministrarUsuariosProcesos implements AdministrarUsuariosProcesosI
                 persistenciaUsuariosProcesos.borrar(getEm(), listaUsuarios.get(i));
             }
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".borrarUsuariosProcesos() ERROR: " + e);
         }
     }
 
@@ -99,7 +99,7 @@ public class AdministrarUsuariosProcesos implements AdministrarUsuariosProcesosI
                 persistenciaUsuariosProcesos.crear(getEm(), listaUsuarios.get(i));
             }
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".crearUsuariosProcesos() ERROR: " + e);
         }
     }
 

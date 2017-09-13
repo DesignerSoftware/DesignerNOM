@@ -73,7 +73,7 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
             persistenciaTiposFamiliares.editar(getEm(), listTiposFamiliares.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposFamiliares() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
             persistenciaTiposFamiliares.borrar(getEm(), listTiposFamiliares.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposFamiliares() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
             persistenciaTiposFamiliares.crear(getEm(), listTiposFamiliares.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposFamiliares() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
       try {
          return persistenciaTiposFamiliares.buscarTiposFamiliares(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposFamiliares() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
       try {
          return persistenciaTiposFamiliares.buscarTiposFamiliares(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoExamen() ERROR: " + e);
          return null;
       }
    }

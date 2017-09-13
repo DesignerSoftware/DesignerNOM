@@ -73,7 +73,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
             persistenciaTiposIndicadores.editar(getEm(), listTiposIndicadores.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposIndicadores() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
             persistenciaTiposIndicadores.borrar(getEm(), listTiposIndicadores.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposIndicadores() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
             persistenciaTiposIndicadores.crear(getEm(), listTiposIndicadores.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposIndicadores() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
       try {
          return persistenciaTiposIndicadores.buscarTiposIndicadores(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposIndicadores() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposIndicadores implements AdministrarTiposIndicadoresI
       try {
          return persistenciaTiposIndicadores.buscarTiposIndicadoresSecuencia(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoIndicador() ERROR: " + e);
          return null;
       }
    }

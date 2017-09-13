@@ -73,7 +73,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
             persistenciaSectoresEvaluaciones.editar(getEm(), listaSectoresEvaluaciones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSectoresEvaluaciones() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
             persistenciaSectoresEvaluaciones.borrar(getEm(), listaSectoresEvaluaciones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSectoresEvaluaciones() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
             persistenciaSectoresEvaluaciones.crear(getEm(), listaSectoresEvaluaciones.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSectoresEvaluaciones() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
       try {
          return persistenciaSectoresEvaluaciones.consultarSectoresEvaluaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSectoresEvaluaciones() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarSectoresEvaluaciones implements AdministrarSectoresEvalu
       try {
          return persistenciaSectoresEvaluaciones.consultarSectorEvaluacion(getEm(), secSectoresEvaluaciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSectorEvaluacion() ERROR: " + e);
          return null;
       }
    }

@@ -75,7 +75,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
       try {
          persistenciaVigenciasRetencionesMinimas.borrar(getEm(), vretenciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciaRetencion() ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
       try {
          persistenciaVigenciasRetencionesMinimas.crear(getEm(), vretenciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciaRetencion() ERROR: " + e);
       }
    }
 
@@ -96,7 +96,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
             persistenciaVigenciasRetencionesMinimas.editar(getEm(), listaVigenciasRetencionesModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciaRetencion() ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
       try {
          persistenciaRetencionesMinimas.borrar(getEm(), retenciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarRetencion() ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
       try {
          persistenciaRetencionesMinimas.crear(getEm(), retenciones);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearRetencion() ERROR: " + e);
       }
    }
 
@@ -137,7 +137,7 @@ public class AdministrarRetencionesMinimas implements AdministrarRetencionesMini
             persistenciaRetencionesMinimas.editar(getEm(), listaRetencionesModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarRetencion() ERROR: " + e);
       }
    }
 

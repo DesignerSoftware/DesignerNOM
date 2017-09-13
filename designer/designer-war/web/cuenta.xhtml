@@ -96,7 +96,7 @@
                      <h:outputText id="nitEmpresa" value="#{controlCuenta.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 200px; top: 5px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 5px; top: 110px; width: 835px; height: 360px; border-radius: 10px;">
+                  <fieldset style="position: absolute; left: 5px; top: 110px; width: 835px; height: 366px; border-radius: 10px;">
                      <legend style="color: blue;"><strong>#{msg['titulo']}</strong></legend>
 
                      <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="width: 830px; font-size: 11px;"   
@@ -446,9 +446,9 @@
                   </fieldset>
 
                   <p:commandButton id="BUSCARTODOS" value="" actionListener="#{controlCuenta.dialogoSeleccionarCuenta()}" process="@this"
-                                   style="position: absolute; left: 670px; top: 450px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
+                                   style="position: absolute; left: 670px; top: 454px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
                   <p:commandButton id="MOSTRARTODOS" value="" actionListener="#{controlCuenta.mostrarTodos()}" process="@this"
-                                   style="position: absolute; left: 765px; top: 450px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
+                                   style="position: absolute; left: 765px; top: 454px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
 
                   <p:commandButton id="ACEPTAR" value="" disabled="#{controlCuenta.guardado}" onclick="PF('confirmarGuardarSalida').show();" process="@this" update=":form:datosCuenta"
                                    style="position: absolute; left: 670px; top: 500px; height: 30px; width: 90px; border: none; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
@@ -531,7 +531,7 @@
                </p:dialog>
 
                <p:dialog header="#{msg['cuentasC']}" widgetVar="BuscarCuentasDialogo" draggable="true" resizable="false" closable="false" id="BuscarCuentasDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="438" modal="true">
                   <p:dataTable id="lovCuentas" style="width: 400px;" var="buscarC" value="#{controlCuenta.lovCuentasTesoreria}" rowKey="#{buscarC.secuencia}"
                                selection="#{controlCuenta.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentas" scrollable="true" scrollWidth="416" scrollHeight="225"
                                filteredValue="#{controlCuenta.filtrarListCuentasTesoreria}" emptyMessage="#{msg['lovvacio']}">              

@@ -64,7 +64,7 @@ public class AdministrarUsuariosContratos implements AdministrarUsuariosContrato
       try {
          return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarUsuariosC() ERROR: " + e);
          return persistenciaUsuariosContratos.buscarUsuariosContratos(getEm());
       }
    }
@@ -76,7 +76,7 @@ public class AdministrarUsuariosContratos implements AdministrarUsuariosContrato
             persistenciaUsuariosContratos.editar(getEm(), listaUsuarios.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarUsuarioC() ERROR: " + e);
       }
    }
 
@@ -87,7 +87,7 @@ public class AdministrarUsuariosContratos implements AdministrarUsuariosContrato
             persistenciaUsuariosContratos.borrar(getEm(), listaUsuarios.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarUsuarioC() ERROR: " + e);
       }
    }
 
@@ -98,7 +98,7 @@ public class AdministrarUsuariosContratos implements AdministrarUsuariosContrato
             persistenciaUsuariosContratos.crear(getEm(), listaUsuarios.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearUsuarioC() ERROR: " + e);
       }
    }
 

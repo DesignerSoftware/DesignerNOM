@@ -73,7 +73,7 @@ public class AdministrarSoCondicionesTrabajos implements AdministrarSoCondicione
             persistenciaSoCondicionesTrabajos.editar(getEm(), listSoCondicionesTrabajos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSoCondicionesTrabajos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarSoCondicionesTrabajos implements AdministrarSoCondicione
             persistenciaSoCondicionesTrabajos.borrar(getEm(), listSoCondicionesTrabajos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSoCondicionesTrabajos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarSoCondicionesTrabajos implements AdministrarSoCondicione
             persistenciaSoCondicionesTrabajos.crear(getEm(), listSoCondicionesTrabajos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSoCondicionesTrabajos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarSoCondicionesTrabajos implements AdministrarSoCondicione
       try {
          return persistenciaSoCondicionesTrabajos.buscarSoCondicionesTrabajos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoCondicionesTrabajos() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarSoCondicionesTrabajos implements AdministrarSoCondicione
       try {
          return persistenciaSoCondicionesTrabajos.buscarSoCondicionTrabajo(getEm(), secSoCondicionesTrabajos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoCondicionTrabajo() ERROR: " + e);
          return null;
       }
    }

@@ -73,7 +73,7 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
             persistenciaTiposChequeos.editar(getEm(), listaTiposChequeos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposChequeos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
             persistenciaTiposChequeos.borrar(getEm(), listaTiposChequeos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposChequeos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
             persistenciaTiposChequeos.crear(getEm(), listaTiposChequeos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposChequeos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
       try {
          return persistenciaTiposChequeos.buscarTiposChequeos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposChequeos() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarTiposChequeos implements AdministrarTiposChequeosInterfa
       try {
          return persistenciaTiposChequeos.buscarTipoChequeo(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoChequeo() ERROR: " + e);
          return null;
       }
    }

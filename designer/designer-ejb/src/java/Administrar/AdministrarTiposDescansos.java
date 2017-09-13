@@ -73,7 +73,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
             persistenciaTiposDescansos.editar(getEm(), listaTiposDescansos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposDescansos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
             persistenciaTiposDescansos.borrar(getEm(), listaTiposDescansos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposDescansos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
             persistenciaTiposDescansos.crear(getEm(), listaTiposDescansos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposDescansos() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
       try {
          return persistenciaTiposDescansos.consultarTiposDescansos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposDescansos() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposDescansos implements AdministrarTiposDescansosInter
       try {
          return persistenciaTiposDescansos.consultarTipoDescanso(getEm(), secTipoDescanso);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoDescanso() ERROR: " + e);
          return null;
       }
    }

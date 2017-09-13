@@ -73,7 +73,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
             persistenciaTiposDocumentos.editar(getEm(), listaTiposDocumentos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposDocumentos() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
             persistenciaTiposDocumentos.borrar(getEm(), listaTiposDocumentos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposDocumentos() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
             persistenciaTiposDocumentos.crear(getEm(), listaTiposDocumentos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposDocumentos() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
       try {
          return persistenciaTiposDocumentos.consultarTiposDocumentos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposDocumentos() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarTiposDocumentos implements AdministrarTiposDocumentosInt
       try {
          return persistenciaTiposDocumentos.consultarTipoDocumento(getEm(), secTiposDocumentos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoDocumento() ERROR: " + e);
          return null;
       }
    }

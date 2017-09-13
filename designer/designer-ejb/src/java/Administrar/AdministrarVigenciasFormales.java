@@ -100,7 +100,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaPersonas.buscarPersonaSecuencia(getEm(), secPersona);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".encontrarPersona() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaTiposEducaciones.tiposEducaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposEducaciones() ERROR: " + e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaProfesiones.profesiones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovProfesiones() ERROR: " + e);
          return null;
       }
    }
@@ -131,7 +131,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaInstituciones.instituciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovInstituciones() ERROR: " + e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
       try {
          return persistenciaAdiestramientosF.adiestramientosF(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovAdiestramientosF() ERROR: " + e);
          return null;
       }
    }
@@ -163,7 +163,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             persistenciaVigenciasFormales.editar(getEm(), listaVigenciasFormalesModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciaFormal() ERROR: " + e);
       }
    }
 
@@ -184,7 +184,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             persistenciaVigenciasFormales.borrar(getEm(), listaVigenciasFormalesBorrar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciaFormal() ERROR: " + e);
       }
    }
 
@@ -216,7 +216,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             persistenciaVigenciasFormales.crear(getEm(), listaVigenciasFormalesCrear.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciaFormal() ERROR: " + e);
       }
    }
 

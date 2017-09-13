@@ -89,7 +89,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
             persistenciaVigenciasViajeros.editar(getEm(), listaVigenciasViajeros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciasViajeros() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
             persistenciaVigenciasViajeros.borrar(getEm(), listaVigenciasViajeros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciasViajeros() ERROR: " + e);
       }
    }
 
@@ -111,7 +111,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
             persistenciaVigenciasViajeros.crear(getEm(), listaVigenciasViajeros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciasViajeros() ERROR: " + e);
       }
    }
 
@@ -120,7 +120,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
       try {
          return persistenciaVigenciasViajeros.consultarVigenciasViajeros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarVigenciasViajeros() ERROR: " + e);
          return null;
       }
    }
@@ -129,7 +129,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
       try {
          return persistenciaVigenciasViajeros.consultarTipoExamen(getEm(), secVigenciasViajeros);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoViajero() ERROR: " + e);
          return null;
       }
    }
@@ -138,7 +138,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
       try {
          return persistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado(getEm(), secVigenciasViajeros);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarVigenciasViajerosPorEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -147,7 +147,7 @@ public class AdministrarVigenciasViajeros implements AdministrarVigenciasViajero
       try {
          return persistenciaTiposViajeros.consultarTiposViajeros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVTiposViajeros() ERROR: " + e);
          return null;
       }
    }

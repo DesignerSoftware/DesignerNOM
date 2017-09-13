@@ -105,7 +105,7 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
             }
          }
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".modificarVC() ERROR: " + e);
         }
     }
 
@@ -119,7 +119,7 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
             }
             persistenciaVigenciasContratos.borrar(getEm(), vigenciasContratos);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".borrarVC() ERROR: " + e);
         }
     }
 
@@ -133,7 +133,7 @@ public class AdministrarVigenciasContratos implements AdministrarVigenciasContra
             }
             persistenciaVigenciasContratos.crear(getEm(), vigenciasContratos);
         } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".crearVC() ERROR: " + e);
         }
     }
 

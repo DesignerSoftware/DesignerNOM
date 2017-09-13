@@ -94,7 +94,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaEmpleados.buscarEmpleado(getEm(), secEmpleado);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".encontrarEmpleado() ERROR: " + e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaProyectos.proyectos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovProyectos() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaPryRoles.pryroles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovPryRoles() ERROR: " + e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          return persistenciaCargos.consultarCargos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovCargos() ERROR: " + e);
          return null;
       }
    }
@@ -134,7 +134,6 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
    public void modificarVigenciaProyecto(List<VigenciasProyectos> listaVigenciasProyectosModificar) {
       try {
          for (int i = 0; i < listaVigenciasProyectosModificar.size(); i++) {
-            log.warn("Modificando...");
             if (listaVigenciasProyectosModificar.get(i).getProyecto().getSecuencia() == null) {
                listaVigenciasProyectosModificar.get(i).setProyecto(null);
                vP = listaVigenciasProyectosModificar.get(i);
@@ -156,7 +155,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
             persistenciaVigenciasProyectos.editar(getEm(), vP);
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciaProyecto() ERROR: " + e);
       }
    }
 
@@ -165,7 +164,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          persistenciaVigenciasProyectos.borrar(getEm(), vigenciasProyectos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciaProyecto() ERROR: " + e);
       }
    }
 
@@ -174,7 +173,7 @@ public class AdministrarVigenciasProyectos implements AdministrarVigenciasProyec
       try {
          persistenciaVigenciasProyectos.crear(getEm(), vigenciasProyectos);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciaProyecto() ERROR: " + e);
       }
    }
 

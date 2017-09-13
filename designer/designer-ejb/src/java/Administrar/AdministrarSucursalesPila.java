@@ -88,7 +88,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             persistenciaSucursalesPila.editar(getEm(), listaSucursalesPila.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSucursalesPila() ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             persistenciaSucursalesPila.borrar(getEm(), listaSucursalesPila.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSucursalesPila() ERROR: " + e);
       }
    }
 
@@ -110,7 +110,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
             persistenciaSucursalesPila.crear(getEm(), listaSucursalesPila.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSucursalesPila() ERROR: " + e);
       }
    }
 
@@ -118,7 +118,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
       try {
          return persistenciaSucursalesPila.consultarSucursalesPila(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSucursalesPila() ERROR: " + e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class AdministrarSucursalesPila implements AdministrarSucursalesPilaInter
       try {
          return persistenciaSucursalesPila.consultarSucursalesPilaPorEmpresa(getEm(), secSucursalesPila);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSucursalPila() ERROR: " + e);
          return null;
       }
    }

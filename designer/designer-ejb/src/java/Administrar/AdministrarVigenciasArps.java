@@ -73,7 +73,7 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       try {
          persistenciaVigenciasArp.editar(getEm(), vigarp);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVArp() ERROR: " + e);
       }
    }
 
@@ -82,7 +82,7 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       try {
          persistenciaVigenciasArp.borrar(getEm(), vigarp);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVArp() ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       try {
          persistenciaVigenciasArp.crear(getEm(), vigarp);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVArp() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       try {
          return persistenciaVigenciasArp.contarVigenciasARPsPorEstructuraYCargo(getEm(), estructura, cargo);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".contarVigenciasARPsPorEstructuraYCargo() ERROR: " + e);
          return 0;
       }
    }
@@ -121,7 +121,7 @@ public class AdministrarVigenciasArps implements AdministrarVigenciasArpsInterfa
       try {
          return persistenciaVigenciasArp.consultarVigenciasArps(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarVigenciasArps() ERROR: " + e);
          return null;
       }
    }

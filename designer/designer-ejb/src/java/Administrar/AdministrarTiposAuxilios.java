@@ -73,7 +73,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
             persistenciaTiposAuxilios.editar(getEm(), listaTiposAuxilios.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposAuxilios() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
             persistenciaTiposAuxilios.borrar(getEm(), listaTiposAuxilios.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposAuxilios() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
             persistenciaTiposAuxilios.crear(getEm(), listaTiposAuxilios.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposAuxilios() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
       try {
          return persistenciaTiposAuxilios.buscarTiposAuxilios(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposAuxilios() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposAuxilios implements AdministrarTiposAuxiliosInterfa
       try {
          return persistenciaTiposAuxilios.buscarTipoAuxilio(getEm(), secTiposAuxilios);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoAuxilio() ERROR: " + e);
          return null;
       }
    }

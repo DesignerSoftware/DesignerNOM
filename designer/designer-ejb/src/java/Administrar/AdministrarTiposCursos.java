@@ -72,7 +72,7 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
             persistenciaTiposCursos.editar(getEm(), listaTiposCursos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposCursos() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
             persistenciaTiposCursos.borrar(getEm(), listaTiposCursos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposCursos() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
             persistenciaTiposCursos.crear(getEm(), listaTiposCursos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposCursos() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
       try {
          return persistenciaTiposCursos.consultarTiposCursos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposCursos() ERROR: " + e);
          return null;
       }
    }
@@ -113,7 +113,7 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
       try {
          return persistenciaTiposCursos.consultarTipoCurso(getEm(), secMotivoDemanda);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoIndicador() ERROR: " + e);
          return null;
       }
    }

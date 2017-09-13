@@ -73,7 +73,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
             persistenciaTiposPensionados.editar(getEm(), listaTiposPensionados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposPensionados() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
             persistenciaTiposPensionados.borrar(getEm(), listaTiposPensionados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposPensionados() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
             persistenciaTiposPensionados.crear(getEm(), listaTiposPensionados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposPensionados() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
       try {
          return persistenciaTiposPensionados.consultarTiposPensionados(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposPensionados() ERROR: " + e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class AdministrarTiposPensionados implements AdministrarTiposPensionadosI
       try {
          return persistenciaTiposPensionados.consultarTipoPensionado(getEm(), secTiposPensionados);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoPensionado() ERROR: " + e);
          return null;
       }
    }

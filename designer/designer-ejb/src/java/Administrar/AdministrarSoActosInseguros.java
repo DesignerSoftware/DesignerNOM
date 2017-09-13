@@ -37,15 +37,17 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
    AdministrarSesionesInterface administrarSesiones;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -57,7 +59,8 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -73,7 +76,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
             persistenciaSoActosInseguros.editar(getEm(), listSoActosInseguros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSoActosInseguros() ERROR: " + e);
       }
    }
 
@@ -85,7 +88,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
             persistenciaSoActosInseguros.borrar(getEm(), listSoActosInseguros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSoActosInseguros() ERROR: " + e);
       }
    }
 
@@ -97,7 +100,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
             persistenciaSoActosInseguros.crear(getEm(), listSoActosInseguros.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSoActosInseguros() ERROR: " + e);
       }
    }
 
@@ -106,7 +109,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
       try {
          return persistenciaSoActosInseguros.buscarSoActosInseguros(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoActosInseguros() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +119,7 @@ public class AdministrarSoActosInseguros implements AdministrarSoActosInsegurosI
       try {
          return persistenciaSoActosInseguros.buscarSoActoInseguro(getEm(), secSoCondicionesAmbientalesP);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSoActoInseguro() ERROR: " + e);
          return null;
       }
    }

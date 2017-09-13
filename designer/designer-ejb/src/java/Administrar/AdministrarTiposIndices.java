@@ -72,7 +72,7 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
             persistenciaTiposIndices.editar(getEm(), listaTiposIndices.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposIndices() ERROR: " + e);
       }
    }
 
@@ -83,7 +83,7 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
             persistenciaTiposIndices.borrar(getEm(), listaTiposIndices.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposIndices() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
             persistenciaTiposIndices.crear(getEm(), listaTiposIndices.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposIndices() ERROR: " + e);
       }
    }
 
@@ -102,7 +102,7 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
       try {
          return persistenciaTiposIndices.consultarTiposIndices(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposIndices() ERROR: " + e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class AdministrarTiposIndices implements AdministrarTiposIndicesInterface
       try {
          return persistenciaTiposIndices.consultarTipoIndice(getEm(), secTiposIndices);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoIndice() ERROR: " + e);
          return null;
       }
    }

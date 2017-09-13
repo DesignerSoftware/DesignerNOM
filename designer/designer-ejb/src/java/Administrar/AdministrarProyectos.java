@@ -75,7 +75,7 @@ public class AdministrarProyectos implements AdministrarProyectosInterface {
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+         log.fatal(this.getClass().getSimpleName() + ".obtenerConexion ERROR: " + e);
       }
    }
 

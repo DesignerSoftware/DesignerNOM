@@ -94,7 +94,7 @@ public class AdministrarVigenciaNormaLaboral implements AdministrarVigenciaNorma
             persistenciaVigenciasNormasEmpleados.editar(getEm(), listaVigenciasNormasEmpleados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarVigenciaNormaLaboral() ERROR: " + e);
       }
    }
 
@@ -105,7 +105,7 @@ public class AdministrarVigenciaNormaLaboral implements AdministrarVigenciaNorma
             persistenciaVigenciasNormasEmpleados.borrar(getEm(), listaVigenciasNormasEmpleados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarVigenciaNormaLaboral() ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarVigenciaNormaLaboral implements AdministrarVigenciaNorma
             persistenciaVigenciasNormasEmpleados.crear(getEm(), listaVigenciasNormasEmpleados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearVigenciaNormaLaboral() ERROR: " + e);
       }
    }
 

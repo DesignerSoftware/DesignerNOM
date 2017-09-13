@@ -73,7 +73,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
             persistenciaSubCategorias.editar(getEm(), listaSubCategorias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarSubCategorias() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
             persistenciaSubCategorias.borrar(getEm(), listaSubCategorias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarSubCategorias() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
             persistenciaSubCategorias.crear(getEm(), listaSubCategorias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearSubCategorias() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
       try {
          return persistenciaSubCategorias.consultarSubCategorias(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSubCategorias() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarSubCategorias implements AdministrarSubCategoriasInterfa
       try {
          return persistenciaSubCategorias.consultarSubCategoria(getEm(), secSubCategorias);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarSubCategoria() ERROR: " + e);
          return null;
       }
    }

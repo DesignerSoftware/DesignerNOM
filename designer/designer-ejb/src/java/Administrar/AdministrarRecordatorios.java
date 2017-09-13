@@ -68,7 +68,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
       try {
          return persistenciaRecordatorios.proverbiosRecordatorios(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".recordatorios() ERROR: " + e);
          return null;
       }
    }
@@ -77,7 +77,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
       try {
          return persistenciaRecordatorios.mensajesRecordatorios(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mensajesRecordatorios() ERROR: " + e);
          return null;
       }
    }
@@ -86,7 +86,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
       try {
          persistenciaRecordatorios.borrar(getEm(), proverbios);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrar() ERROR: " + e);
       }
    }
 
@@ -94,7 +94,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
       try {
          persistenciaRecordatorios.crear(getEm(), proverbios);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crear() ERROR: " + e);
       }
    }
 
@@ -107,7 +107,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
             persistenciaRecordatorios.editar(getEm(), listaProverbiosModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificar() ERROR: " + e);
       }
    }
 
@@ -116,7 +116,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
       try {
          persistenciaRecordatorios.borrar(getEm(), mensajeUsuario);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarMU() ERROR: " + e);
       }
    }
 
@@ -125,7 +125,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
       try {
          persistenciaRecordatorios.crear(getEm(), mensajeUsuario);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearMU() ERROR: " + e);
       }
    }
 
@@ -148,7 +148,7 @@ public class AdministrarRecordatorios implements AdministrarRecordatoriosInterfa
             persistenciaRecordatorios.editar(getEm(), listaMensajesUsuariosModificar.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarMU() ERROR: " + e);
       }
    }
 }

@@ -77,7 +77,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
       try {
          return persistenciaUsuarios.buscarUsuarios(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarUsuarios() ERROR: " + e);
          return null;
       }
    }
@@ -88,7 +88,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
          persistenciaUsuarios.crearUsuario(getEm(), alias);
          persistenciaUsuarios.crearUsuarioPerfil(getEm(), alias, perfil);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearUsuariosBD() ERROR: " + e);
       }
    }
 
@@ -99,7 +99,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
          persistenciaUsuarios.borrarUsuarioTotal(getEm(), alias);
          log.warn("algo estarÃ¡ haciendo de eliminar");
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".eliminarUsuariosBD() ERROR: " + e);
       }
    }
 
@@ -108,7 +108,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
       try {
          persistenciaUsuarios.clonarUsuario(getEm(), usuarioOrigen, usuarioDestino);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".clonarUsuariosBD() ERROR: " + e);
       }
    }
 
@@ -118,7 +118,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
          persistenciaUsuarios.desbloquearUsuario(getEm(), alias);
          log.warn("estÃ¡ haciendo algo de desbloquear");
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".desbloquearUsuariosBD() ERROR: " + e);
       }
    }
 
@@ -128,7 +128,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
          persistenciaUsuarios.restaurarUsuario(getEm(), alias, fecha);
          log.warn("estÃ¡ haciendo algo de restaurar");
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".restaurarUsuariosBD() ERROR: " + e);
       }
    }
 
@@ -136,7 +136,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
       try {
          return persistenciaPersonas.consultarPersonas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPersonas() ERROR: " + e);
          return null;
       }
    }
@@ -145,7 +145,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
       try {
          return persistenciaPerfiles.consultarPerfiles(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPerfiles() ERROR: " + e);
          return null;
       }
    }
@@ -154,7 +154,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
       try {
          return persistenciaPantallas.buscarPantallas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarPantallas() ERROR: " + e);
          return null;
       }
    }
@@ -177,7 +177,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarUsuarios() ERROR: " + e);
       }
    }
 
@@ -200,7 +200,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarUsuarios() ERROR: " + e);
       }
    }
 
@@ -223,7 +223,7 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearUsuarios() ERROR: " + e);
       }
    }
 

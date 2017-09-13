@@ -73,7 +73,7 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
             persistenciaTiposExamenes.editar(getEm(), listaTiposExamenes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposExamenes() ERROR: " + e);
       }
    }
 
@@ -84,7 +84,7 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
             persistenciaTiposExamenes.borrar(getEm(), listaTiposExamenes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposExamenes() ERROR: " + e);
       }
    }
 
@@ -95,7 +95,7 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
             persistenciaTiposExamenes.crear(getEm(), listaTiposExamenes.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposExamenes() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
       try {
          return persistenciaTiposExamenes.buscarTiposExamenes(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposExamenes() ERROR: " + e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class AdministrarTiposExamenes implements AdministrarTiposExamenesInterfa
       try {
          return persistenciaTiposExamenes.buscarTipoExamen(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoExamen() ERROR: " + e);
          return null;
       }
    }

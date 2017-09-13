@@ -76,7 +76,7 @@ public class AdministrarReingresarEmpleado implements AdministrarReingresarEmple
          fechaDeRetiro = persistenciaEmpleado.verificarFecha(getEm(), secuenciaEmpleado);
          return fechaDeRetiro;
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".obtenerFechaRetiro() ERROR: " + e);
          return null;
       }
    }
@@ -93,7 +93,7 @@ public class AdministrarReingresarEmpleado implements AdministrarReingresarEmple
       try {
          return persistenciaEmpleado.consultarEmpleadosReingreso(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaEmpleados() ERROR: " + e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class AdministrarReingresarEmpleado implements AdministrarReingresarEmple
       try {
          return persistenciaEstructuras.consultarEstructurasReingreso(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".listaEstructuras() ERROR: " + e);
          return null;
       }
    }

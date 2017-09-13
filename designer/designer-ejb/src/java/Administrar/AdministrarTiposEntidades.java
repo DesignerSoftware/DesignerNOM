@@ -79,7 +79,7 @@ public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInter
             persistenciaTiposEntidades.editar(getEm(), listTiposEntidadesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTipoEntidad() ERROR: " + e);
       }
    }
 
@@ -91,7 +91,7 @@ public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInter
             persistenciaTiposEntidades.borrar(getEm(), listTiposEntidadesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTipoEntidad() ERROR: " + e);
       }
    }
 
@@ -103,7 +103,7 @@ public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInter
             persistenciaTiposEntidades.crear(getEm(), listTiposEntidadesModificadas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTipoEntidad() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInter
       try {
          return persistenciaTiposEntidades.buscarTiposEntidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposEntidades() ERROR: " + e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInter
       try {
          return persistenciaTiposEntidades.buscarTiposEntidadesSecuencia(getEm(), secTipoEntidad);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoEntidad() ERROR: " + e);
          return null;
       }
    }
@@ -132,7 +132,7 @@ public class AdministrarTiposEntidades implements AdministrarTiposEntidadesInter
       try {
          return persistenciaGruposTiposEntidades.consultarGruposTiposEntidades(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVGruposTiposEntidades() ERROR: " + e);
          return null;
       }
    }

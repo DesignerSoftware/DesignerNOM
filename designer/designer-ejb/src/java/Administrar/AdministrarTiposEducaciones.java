@@ -68,7 +68,7 @@ public class AdministrarTiposEducaciones implements AdministrarTiposEducacionesI
       try {
          return persistenciaTiposEducaciones.tiposEducaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".TiposEducaciones() ERROR: " + e);
          return null;
       }
    }
@@ -78,7 +78,7 @@ public class AdministrarTiposEducaciones implements AdministrarTiposEducacionesI
       try {
          return persistenciaTiposEducaciones.tiposEducaciones(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".lovTiposEducaciones() ERROR: " + e);
          return null;
       }
    }

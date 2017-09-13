@@ -50,17 +50,6 @@ public class ListasRecurrentes {
       lovEmpleadosActivos = null;
       lovEmpleadosNovedad = null;
       lovEmpleadosActPenc = null;
-//      lovCuentas = new ArrayList<Cuentas>();
-//      lovCentrosCostos = new ArrayList<CentrosCostos>();
-//      lovProcesos = new ArrayList<Procesos>();
-//      lovGruposConceptos = new ArrayList<GruposConceptos>();
-//      lovTiposTrabajadores = new ArrayList<TiposTrabajadores>();
-//      lovFormulas = new ArrayList<Formulas>();
-//      lovFormulasConceptos = new ArrayList<FormulasConceptos>();
-//      lovConceptos = new ArrayList<Conceptos>();
-//      lovEmpleadosActivos = new ArrayList<Empleados>();
-//      lovEmpleadosNovedad = new ArrayList<Empleados>();
-//      lovEmpleadosActPenc = new ArrayList<Empleados>();
    }
 
    public List<CentrosCostos> getLovCentrosCostos() {

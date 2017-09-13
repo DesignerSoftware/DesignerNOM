@@ -73,7 +73,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
             persistenciaTiposTallas.editar(getEm(), listTiposTallas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposTallas() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
             persistenciaTiposTallas.borrar(getEm(), listTiposTallas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposTallas() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
             persistenciaTiposTallas.crear(getEm(), listTiposTallas.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposTallas() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
       try {
          return persistenciaTiposTallas.buscarTiposTallas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTiposTallas() ERROR: " + e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class AdministrarTiposTallas implements AdministrarTiposTallasInterface {
       try {
          return persistenciaTiposTallas.buscarTipoTalla(getEm(), secTipoEmpresa);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarTipoTalla() ERROR: " + e);
          return null;
       }
    }

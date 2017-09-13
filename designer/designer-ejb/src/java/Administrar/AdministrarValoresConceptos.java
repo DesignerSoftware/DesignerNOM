@@ -88,7 +88,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
             persistenciaValoresConceptos.editar(getEm(), listaValoresConceptos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarValoresConceptos() ERROR: " + e);
       }
    }
 
@@ -100,7 +100,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
             persistenciaValoresConceptos.borrar(getEm(), listaValoresConceptos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarValoresConceptos() ERROR: " + e);
       }
    }
 
@@ -111,7 +111,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
             persistenciaValoresConceptos.crear(getEm(), listaValoresConceptos.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearValoresConceptos() ERROR: " + e);
       }
    }
 
@@ -120,7 +120,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
       try {
          return persistenciaValoresConceptos.consultarValoresConceptos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarValoresConceptos() ERROR: " + e);
          return null;
       }
    }
@@ -130,7 +130,7 @@ public class AdministrarValoresConceptos implements AdministrarValoresConceptosI
       try {
          return persistenciaConceptos.buscarConceptos(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarLOVConceptos() ERROR: " + e);
          return null;
       }
    }

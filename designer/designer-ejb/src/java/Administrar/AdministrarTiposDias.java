@@ -73,7 +73,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
             persistenciaTiposDias.editar(getEm(), listaTiposDias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarTiposDias() ERROR: " + e);
       }
    }
 
@@ -85,7 +85,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
             persistenciaTiposDias.borrar(getEm(), listaTiposDias.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarTiposDias() ERROR: " + e);
       }
    }
 
@@ -97,7 +97,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
       }
       try {
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearTiposDias() ERROR: " + e);
       }
    }
 
@@ -106,7 +106,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
       try {
          return persistenciaTiposDias.buscarTiposDias(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarTiposDias() ERROR: " + e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class AdministrarTiposDias implements AdministrarTiposDiasInterface {
       try {
          return persistenciaTiposDias.buscarTipoDia(getEm(), secTipoDia);
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".mostrarTipoDia() ERROR: " + e);
          return null;
       }
    }

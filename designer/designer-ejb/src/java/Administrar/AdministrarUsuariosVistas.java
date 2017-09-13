@@ -68,7 +68,7 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
       try {
          return persistenciaUsuariosVistas.buscarUsuariosVistas(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarUsuariosVistas() ERROR: " + e);
          return null;
       }
    }
@@ -77,7 +77,7 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
       try {
          return persistenciaObjetoDB.consultarObjetoDB(getEm());
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".consultarObjetosDB() ERROR: " + e);
          return null;
       }
    }
@@ -95,7 +95,7 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarUsuariosVistas() ERROR: " + e);
       }
    }
 
@@ -112,7 +112,7 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarUsuariosVistas() ERROR: " + e);
       }
    }
 
@@ -129,7 +129,7 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + "." + new Exception().getStackTrace()[1].getMethodName() + " ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearUsuariosVistas() ERROR: " + e);
       }
    }
 
