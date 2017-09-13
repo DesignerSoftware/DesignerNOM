@@ -192,6 +192,7 @@
                                     <f:selectItem itemLabel="#{msg['pago']}" itemValue="PAGO"/>
                                     <f:selectItem itemLabel="#{msg['pasivo']}" itemValue="PASIVO"/>  
                                     <p:ajax event="change" listener="#{controlConcepto.seleccionarItem(concepto.naturalezaConcepto, concepto, 2)}" update=":form:datosConceptos"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 2)}" process="@this"/>
                                  </p:selectOneMenu>
                               </f:facet>  
                            </p:cellEditor>

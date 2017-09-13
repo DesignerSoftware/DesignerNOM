@@ -244,7 +244,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
    public boolean verificarTipoTrabajador(EntityManager em, Empleados empleado) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT vw.tipoTrabajador.tipo FROM VWActualesTiposTrabajadores vw WHERE vw.empleado.secuencia= :secuencia");
+         Query query = em.createQuery("SELECT vw.tipoTrabajador.tipo FROM VWActualesTiposTrabajadores vw WHERE vw.empleado = :secuencia");
          query.setParameter("secuencia", empleado.getSecuencia());
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          String tipoEmpleado = (String) query.getSingleResult();
@@ -259,7 +259,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
    public String consultarTipoTrabajador(EntityManager em, BigInteger secEmpleado) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT vw.tipoTrabajador.tipo FROM VWActualesTiposTrabajadores vw WHERE vw.empleado.secuencia= :secuencia");
+         Query query = em.createQuery("SELECT vw.tipoTrabajador.tipo FROM VWActualesTiposTrabajadores vw WHERE vw.empleado = :secuencia");
          query.setParameter("secuencia", secEmpleado);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          String tipoEmpleado = (String) query.getSingleResult();
@@ -274,7 +274,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
    public Date consultarFechaVigencia(EntityManager em, BigInteger secEmpleado) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT vw FROM VWActualesTiposTrabajadores vw WHERE vw.empleado.secuencia= :secuencia");
+         Query query = em.createQuery("SELECT vw FROM VWActualesTiposTrabajadores vw WHERE vw.empleado = :secuencia");
          query.setParameter("secuencia", secEmpleado);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          VWActualesTiposTrabajadores objfecha = (VWActualesTiposTrabajadores) query.getSingleResult();
