@@ -18,19 +18,19 @@ public interface PersistenciaVigenciasDeportesInterface {
      * Método encargado de insertar una VigenciaDeporte en la base de datos.
      * @param vigenciasDeportes VigenciaDeporte que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasDeportes vigenciasDeportes);
+    public String crear(EntityManager em, VigenciasDeportes vigenciasDeportes);
     /**
      * Método encargado de modificar una VigenciaDeporte de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 
      * información de la base de datos.
      * @param vigenciasDeportes VigenciaDeporte con los cambios que se van a realizar.
      */
-    public void editar(EntityManager em, VigenciasDeportes vigenciasDeportes);
+    public String editar(EntityManager em, VigenciasDeportes vigenciasDeportes);
     /**
      * Método encargado de eliminar de la base de datos la VigenciaDeporte que entra por parámetro.
      * @param vigenciasDeportes VigenciaDeporte que se quiere eliminar.
      */
-    public void borrar(EntityManager em, VigenciasDeportes vigenciasDeportes);
+    public String borrar(EntityManager em, VigenciasDeportes vigenciasDeportes);
     /**
      * Método encargado de buscar los últimos deportes practicados por una Persona.
      * @param secuencia Secuencia de la Persona.

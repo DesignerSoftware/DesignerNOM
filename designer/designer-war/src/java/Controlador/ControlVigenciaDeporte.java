@@ -70,6 +70,7 @@ public class ControlVigenciaDeporte implements Serializable {
     private String altoTabla;
     private String infoRegistro;
     private String infoRegistroDeporte;
+    private String msgError;
     private DataTable tablaC;
     private boolean activarLOV;
     private String paginaAnterior = "nominaf";
@@ -355,27 +356,47 @@ public class ControlVigenciaDeporte implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (guardado == false) {
+                msgError = "";
                 if (!listVigenciaDeporteBorrar.isEmpty()) {
-                    administrarVigenciaDeporte.borrarVigenciasDeportes(listVigenciaDeporteBorrar);
+                    for (int i = 0; i < listVigenciaDeporteBorrar.size(); i++) {
+                        if (listVigenciaDeporteBorrar.get(i).getDeporte().getSecuencia() == null) {
+                            listVigenciaDeporteBorrar.get(i).setDeporte(null);
+                        }
+                        msgError = administrarVigenciaDeporte.borrarVigenciasDeportes(listVigenciaDeporteBorrar.get(i));
+                    }
                     listVigenciaDeporteBorrar.clear();
                 }
                 if (!listVigenciaDeporteCrear.isEmpty()) {
-                    administrarVigenciaDeporte.crearVigenciasDeportes(listVigenciaDeporteCrear);
+                    for (int i = 0; i < listVigenciaDeporteCrear.size(); i++) {
+                        if (listVigenciaDeporteCrear.get(i).getDeporte().getSecuencia() == null) {
+                            listVigenciaDeporteCrear.get(i).setDeporte(null);
+                        }
+                        msgError = administrarVigenciaDeporte.crearVigenciasDeportes(listVigenciaDeporteCrear.get(i));
+                    }
                     listVigenciaDeporteCrear.clear();
                 }
                 if (!listVigenciaDeporteModificar.isEmpty()) {
-                    administrarVigenciaDeporte.editarVigenciasDeportes(listVigenciaDeporteModificar);
+                    for (int i = 0; i < listVigenciaDeporteModificar.size(); i++) {
+                        if (listVigenciaDeporteModificar.get(i).getDeporte().getSecuencia() == null) {
+                            listVigenciaDeporteModificar.get(i).setDeporte(null);
+                        }
+                        msgError = administrarVigenciaDeporte.editarVigenciasDeportes(listVigenciaDeporteModificar.get(i));
+                    }
                     listVigenciaDeporteModificar.clear();
                 }
-                listVigenciasDeportes = null;
-                getListVigenciasDeportes();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                k = 0;
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                contarRegistrosVD();
-                vigenciaTablaSeleccionada = null;
+                if (msgError.equals("EXITO")) {
+                    listVigenciasDeportes = null;
+                    getListVigenciasDeportes();
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    k = 0;
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    contarRegistrosVD();
+                    vigenciaTablaSeleccionada = null;
+                } else {
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
+                }
             }
 
             guardado = true;
@@ -579,7 +600,7 @@ public class ControlVigenciaDeporte implements Serializable {
                 deshabilitarBotonLov();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
-                RequestContext.getCurrentInstance().execute("PF('form:errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             if (tipoLista == 0) {
@@ -1192,4 +1213,11 @@ public class ControlVigenciaDeporte implements Serializable {
         this.activarLOV = activarLOV;
     }
 
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
 }

@@ -1025,7 +1025,7 @@
                     </p:dialog>
 
                     <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
-                        <p:media value="#{controlNReporteNomina.reporte}" style="width: 800px; height: 500px;" player="pdf" cache="false" styleClass="curr_file" rendered="#{controlNReporteNomina.reporte != null}"/>
+                        <p:media value="#{controlNReporteNomina.reporte}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteNomina.reporte != null}"/>
                     </p:dialog>
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

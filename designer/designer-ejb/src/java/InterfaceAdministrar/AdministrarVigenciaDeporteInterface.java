@@ -27,11 +27,11 @@ public interface AdministrarVigenciaDeporteInterface {
 
    public List<VigenciasDeportes> listVigenciasDeportesPersona(BigInteger secuenciaP);
 
-   public void crearVigenciasDeportes(List<VigenciasDeportes> listaVD);
+   public String crearVigenciasDeportes(VigenciasDeportes vigenciaD);
 
-   public void editarVigenciasDeportes(List<VigenciasDeportes> listaVD);
+   public String editarVigenciasDeportes(VigenciasDeportes vigenciaD);
 
-   public void borrarVigenciasDeportes(List<VigenciasDeportes> listaVD);
+   public String borrarVigenciasDeportes(VigenciasDeportes vigenciaD);
 
    public List<Deportes> listDeportes();
 

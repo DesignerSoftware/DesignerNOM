@@ -28,130 +28,106 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarVigenciaDeporte implements AdministrarVigenciaDeporteInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarVigenciaDeporte.class);
+    private static Logger log = Logger.getLogger(AdministrarVigenciaDeporte.class);
 
-   @EJB
-   PersistenciaVigenciasDeportesInterface persistenciaVigenciasDeportes;
-   @EJB
-   PersistenciaDeportesInterface persistenciaDeportes;
-   @EJB
-   PersistenciaEmpleadoInterface persistenciaEmpleado;
-   /**
-    * Enterprise JavaBean.<br>
-    * Atributo que representa todo lo referente a la conexión del usuario que
-    * está usando el aplicativo.
-    */
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaVigenciasDeportesInterface persistenciaVigenciasDeportes;
+    @EJB
+    PersistenciaDeportesInterface persistenciaDeportes;
+    @EJB
+    PersistenciaEmpleadoInterface persistenciaEmpleado;
+    /**
+     * Enterprise JavaBean.<br>
+     * Atributo que representa todo lo referente a la conexión del usuario que
+     * está usando el aplicativo.
+     */
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
 
-   private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
+            } else {
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
 
-   @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
-   @Override
-   public List<VigenciasDeportes> listVigenciasDeportesPersona(BigInteger secuenciaP) {
-      try {
-         return persistenciaVigenciasDeportes.deportesTotalesSecuenciaPersona(getEm(), secuenciaP);
-      } catch (Exception e) {
-         log.warn("Error listVigenciasDeportesPersona Admi : " + e.toString());
-         return null;
-      }
-   }
+    @Override
+    public List<VigenciasDeportes> listVigenciasDeportesPersona(BigInteger secuenciaP) {
+        try {
+            return persistenciaVigenciasDeportes.deportesTotalesSecuenciaPersona(getEm(), secuenciaP);
+        } catch (Exception e) {
+            log.warn("Error listVigenciasDeportesPersona Admi : " + e.toString());
+            return null;
+        }
+    }
 
-   @Override
-   public void crearVigenciasDeportes(List<VigenciasDeportes> listaVD) {
-      try {
-         for (int i = 0; i < listaVD.size(); i++) {
-            if (listaVD.get(i).getDeporte().getSecuencia() == null) {
-               listaVD.get(i).setDeporte(null);
-            }
-            persistenciaVigenciasDeportes.crear(getEm(), listaVD.get(i));
-         }
-      } catch (Exception e) {
-         log.warn("Error crearVigenciasDeportes Admi : " + e.toString());
-      }
-   }
+    @Override
+    public String crearVigenciasDeportes(VigenciasDeportes vigenciaD) {
+        return persistenciaVigenciasDeportes.crear(getEm(), vigenciaD);
+    }
 
-   @Override
-   public void editarVigenciasDeportes(List<VigenciasDeportes> listaVD) {
-      try {
-         for (int i = 0; i < listaVD.size(); i++) {
-            if (listaVD.get(i).getDeporte().getSecuencia() == null) {
-               listaVD.get(i).setDeporte(null);
-            }
-            persistenciaVigenciasDeportes.editar(getEm(), listaVD.get(i));
-         }
-      } catch (Exception e) {
-         log.warn("Error editarVigenciasDeportes Admi : " + e.toString());
-      }
-   }
+    @Override
+    public String editarVigenciasDeportes(VigenciasDeportes vigenciaD) {
+        return persistenciaVigenciasDeportes.editar(getEm(), vigenciaD);
+    }
 
-   @Override
-   public void borrarVigenciasDeportes(List<VigenciasDeportes> listaVD) {
-      try {
-         for (int i = 0; i < listaVD.size(); i++) {
-            if (listaVD.get(i).getDeporte().getSecuencia() == null) {
-               listaVD.get(i).setDeporte(null);
-            }
-            persistenciaVigenciasDeportes.borrar(getEm(), listaVD.get(i));
-         }
-      } catch (Exception e) {
-         log.warn("Error borrarVigenciasDeportes Admi : " + e.toString());
-      }
-   }
+    @Override
+    public String borrarVigenciasDeportes(VigenciasDeportes vigenciaD) {
+        return persistenciaVigenciasDeportes.borrar(getEm(), vigenciaD);
+    }
 
-   @Override
-   public List<Deportes> listDeportes() {
-      try {
-         return persistenciaDeportes.buscarDeportes(getEm());
-      } catch (Exception e) {
-         log.warn("Error listDeportes Admi : " + e.toString());
-         return null;
-      }
-   }
+    @Override
+    public List<Deportes> listDeportes() {
+        try {
+            return persistenciaDeportes.buscarDeportes(getEm());
+        } catch (Exception e) {
+            log.warn("Error listDeportes Admi : " + e.toString());
+            return null;
+        }
+    }
 
-   @Override
-   public Empleados empleadoActual(BigInteger secuenciaP) {
-      try {
-         return persistenciaEmpleado.buscarEmpleado(getEm(), secuenciaP);
-      } catch (Exception e) {
-         log.warn("Error empleadoActual Admi : " + e.toString());
-         return null;
-      }
-   }
+    @Override
+    public Empleados empleadoActual(BigInteger secuenciaP) {
+        try {
+            return persistenciaEmpleado.buscarEmpleado(getEm(), secuenciaP);
+        } catch (Exception e) {
+            log.warn("Error empleadoActual Admi : " + e.toString());
+            return null;
+        }
+    }
 
-   @Override
-   public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
-      try {
-         return persistenciaEmpleado.buscarPersonaPorEmpleado(em, secEmpleado);
-      } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + " ERROR en obtenerPersonaPorEmpleado() : " + e.getMessage());
-         return null;
-      }
-   }
+    @Override
+    public Personas obtenerPersonaPorEmpleado(BigInteger secEmpleado) {
+        try {
+            return persistenciaEmpleado.buscarPersonaPorEmpleado(em, secEmpleado);
+        } catch (Exception e) {
+            log.warn(this.getClass().getSimpleName() + " ERROR en obtenerPersonaPorEmpleado() : " + e.getMessage());
+            return null;
+        }
+    }
 }
