@@ -342,11 +342,12 @@ public class Cuentas implements Serializable {
 
     public boolean isCheckManejaNit() {
         getManejanit();
-        if (manejanit == null || manejanit.equalsIgnoreCase("N")) {
+        if (manejanitempleado == null || manejanit.equalsIgnoreCase("N")) {
             checkManejaNit = false;
         }
         if (manejanit.equalsIgnoreCase("S")) {
             checkManejaNit = true;
+            checkCCEmpleado = false;
         }
         return checkManejaNit;
     }
@@ -357,6 +358,7 @@ public class Cuentas implements Serializable {
         }
         if (check == true) {
             manejanit = "S";
+            manejanitempleado = "N";
         }
         this.checkManejaNit = check;
     }
@@ -368,6 +370,7 @@ public class Cuentas implements Serializable {
         }
         if (manejanitempleado.equalsIgnoreCase("S")) {
             checkCCEmpleado = true;
+            checkManejaNit = false;
         }
         return checkCCEmpleado;
     }
@@ -375,6 +378,7 @@ public class Cuentas implements Serializable {
     public void setCheckCCEmpleado(boolean check) {
         if (check == true) {
             manejanitempleado = "S";
+            manejanit = "N";
         }
         if (check == false) {
             manejanitempleado = "N";
@@ -470,10 +474,8 @@ public class Cuentas implements Serializable {
         getManejasubcuenta();
         if (manejasubcuenta == null || manejasubcuenta.equalsIgnoreCase("N")) {
             checkSubCuenta = false;
-        } else {
-            if (manejasubcuenta.equalsIgnoreCase("S")) {
-                checkSubCuenta = true;
-            }
+        } else if (manejasubcuenta.equalsIgnoreCase("S")) {
+            checkSubCuenta = true;
         }
         return checkSubCuenta;
     }

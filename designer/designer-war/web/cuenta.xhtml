@@ -101,8 +101,8 @@
 
                      <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="width: 830px; font-size: 11px;"   
                                   value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="#{controlCuenta.altoTabla}" scrollWidth="830"
-                                  filteredValue="#{controlCuenta.filtrarListCuentas}" emptyMessage="#{msg['vacio']}"
-                                  editable="true" editMode="cell" liveScroll="true" scrollRows="12" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
+                                  filteredValue="#{controlCuenta.filtrarListCuentas}" emptyMessage="#{msg['vacio']}" 
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="50" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
 
                         <p:ajax event="filter" listener="#{controlCuenta.eventoFiltrar()}"/>
 
@@ -277,7 +277,7 @@
                               <p:tooltip for="textN" value="#{msg['textN']}"/>
                            </f:facet>
                            <p:selectBooleanCheckbox id="checkManejaNit" value="#{infoC.checkManejaNit}">  
-                              <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
+                               <p:ajax event="change" listener="#{controlCuenta.seleccionarCheck(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -291,7 +291,7 @@
                               <p:tooltip for="textC" value="#{msg['textC']}"/>
                            </f:facet>
                            <p:selectBooleanCheckbox id="checkManejaNitEmpleado" value="#{infoC.checkCCEmpleado}">  
-                              <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
+                              <p:ajax event="change" listener="#{controlCuenta.seleccionarCheck(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
                            <f:facet name="footer">
                               <h:outputText value=""/>
