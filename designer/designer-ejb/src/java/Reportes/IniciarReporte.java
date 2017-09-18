@@ -21,11 +21,13 @@ import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.JRXhtmlExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.AsynchronousFillHandle;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import net.sf.jasperreports.engine.query.QueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.*;
 import net.sf.jasperreports.web.servlets.AsyncJasperPrintAccessor;
 import net.sf.jasperreports.web.servlets.JasperPrintAccessor;
 import org.apache.log4j.Logger;
@@ -88,16 +90,21 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
                     break;
                 case "CSV":
-                    exporter = new JRCsvMetadataExporter();
-                    exporter.setParameter(JRCsvMetadataExporterParameter.CHARACTER_ENCODING, "ISO-8859-1");
-                    JRCsvMetadataExporter.PROPERTY_COLUMN_NAME.isEmpty();
-                    exporter.setParameter(JRCsvExporterParameter.RECORD_DELIMITER, "\r\n");
-                    exporter.setParameter(JRCsvExporterParameter.RECORD_DELIMITER, "\r\n");
-
+//                    exporter = new JRCsvMetadataExporter();
+//                    csvExporter.setParameter(JRCsvMetadataExporterParameter.CHARACTER_ENCODING, "ISO-8859-1");
+//                    exporter.setParameter(JRCsvExporterParameter.RECORD_DELIMITER, "\r\n");
+                    JRCsvExporter csvExporter = new JRCsvExporter();
+                    csvExporter.setExporterInput(new SimpleExporterInput(imprimir));
+                    csvExporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+                    SimpleCsvExporterConfiguration config = new SimpleCsvExporterConfiguration();
+                    config.setRecordDelimiter("\r\n");
+                    csvExporter.setConfiguration(config);
+                    csvExporter.exportReport();
                     break;
                 case "HTML":
                     exporter = new JRXhtmlExporter();
                     exporter.setParameter(JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR, Boolean.FALSE);
+                    exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "image?image=");
                     break;
                 case "RTF":
                     //exporter = new JRDocxExporter();
@@ -105,12 +112,26 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     //exporter.setParameter(JRDocxExporterParameter., Boolean.FALSE);
                     break;
                 case "DELIMITED":
-                    exporter = new JRTextExporter();
+                    JRTextExporter txtexporter = new JRTextExporter();
+                    txtexporter.setExporterInput(new SimpleExporterInput(imprimir));
+                    txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+                    SimpleTextExporterConfiguration c = new SimpleTextExporterConfiguration();
+                    c.setTrimLineRight(Boolean.TRUE);
+                    c.setLineSeparator("\r\n");
+                    txtexporter.setConfiguration(c);
+                    txtexporter.exportReport();
                     break;
                 case "TXT":
-                    exporter = new JRTextExporter();
-                    exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(687).floatValue());
-                    exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(15).floatValue());
+//                    exporter = new JRTextExporter();
+//                    exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(687).floatValue());
+//                    exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(15).floatValue());
+                    txtexporter = new JRTextExporter();
+                    txtexporter.setExporterInput(new SimpleExporterInput(imprimir));
+                    txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+                    c = new SimpleTextExporterConfiguration();
+                    c.setTrimLineRight(Boolean.TRUE);
+                    txtexporter.setConfiguration(c);
+                    txtexporter.exportReport();
                     break;
                 default:
                     break;

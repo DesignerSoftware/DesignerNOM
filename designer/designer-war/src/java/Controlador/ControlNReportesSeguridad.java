@@ -1072,7 +1072,7 @@ public class ControlNReportesSeguridad implements Serializable {
         cambiosReporte = false;
         if (reporteSeleccionado.getEstadoTipo().equals("PLANO")) {
             reporteSeleccionado.setTipo("DELIMITED");
-            tipoReporte = reporteSeleccionado.getEstadoTipo();
+            tipoReporte = reporteSeleccionado.getTipo();
         } else if (reporteSeleccionado.getEstadoTipo().equals("CSV")) {
             reporteSeleccionado.setTipo("SPREADSHEET");
             tipoReporte = reporteSeleccionado.getEstadoTipo();
@@ -1106,7 +1106,7 @@ public class ControlNReportesSeguridad implements Serializable {
                 nombreReporte = reporteSeleccionado.getNombrereporte();
                 if (reporteSeleccionado.getEstadoTipo().equals("PLANO")) {
                     reporteSeleccionado.setTipo("DELIMITED");
-                    tipoReporte = reporteSeleccionado.getEstadoTipo();
+                    tipoReporte = reporteSeleccionado.getTipo();
                 } else if (reporteSeleccionado.getEstadoTipo().equals("CSV")) {
                     reporteSeleccionado.setTipo("SPREADSHEET");
                     tipoReporte = reporteSeleccionado.getEstadoTipo();
@@ -1205,6 +1205,7 @@ public class ControlNReportesSeguridad implements Serializable {
 //    }
     public void exportarReporte() throws IOException {
         try {
+            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
                 FacesContext ctx = FacesContext.getCurrentInstance();
