@@ -554,31 +554,22 @@ public class ControlInterfaseContableInfor implements Serializable {
 
     public void exportarPlano() throws IOException {
         try {
-            log.info("path proceso en exportarPlano() : " + pathProceso);
             if (pathProceso != null || !pathProceso.startsWith("Error:")) {
-                System.out.println("entra al if de esxportar");
                 File planof = new File(rutaArchivo);
-                System.out.println("crea el archivo : " + planof);
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 FileInputStream fis = new FileInputStream(planof);
-                System.out.println("llena el archivo");
                 byte[] bytes = new byte[1024];
-                System.out.println("ctx : " + ctx);
                 int read;
                 if (!ctx.getResponseComplete()) {
                     String fileName = planof.getName();
-                    System.out.println("filename : " + fileName);
                     HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
                     response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
                     ServletOutputStream out = response.getOutputStream();
                     while ((read = fis.read(bytes)) != -1) {
                         out.write(bytes, 0, read);
                     }
-                    System.out.println("antes del out");
                     out.flush();
-                    System.out.println("antes del close");
                     out.close();
-                    System.out.println("antes del response");
                     ctx.responseComplete();
                 }
             }

@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.tiposcursos" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/> 
+                    <p:panel  id="PanelTotal" header="Empleados" styleClass="panelTotal">    
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left;"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmpresaEmpleado.guardarCambios()}" process="@this"/>
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmpresaEmpleado.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlEmpresaEmpleado.activarLov}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmpresaEmpleado.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlEmpresaEmpleado.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmpresaEmpleado.limpiarExportar()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosEmpresaEmpleadoExportar" fileName="Empleados" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmpresaEmpleado.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" disabled="true" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" disabled="true" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEmpresaEmpleado.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmpresaEmpleado.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmpresaEmpleado.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlEmpresaEmpleado.revisarDialogoGuardar()}" disabled="#{controlEmpresaEmpleado.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  actionListener="#{controlEmpresaEmpleado.salir()}"  value=""/>
+
+                        <fieldset style="position: absolute; top: 75px; left: 10px; height: 395px; width: 830px; border-radius: 10px; text-align: left;">
+                            <legend style="font-size: 14px; color: blue"><strong>Empleados</strong></legend>
+
+                            <p:dataTable id="datosEmpresaEmpleado" widgetVar="datosEmpresaEmpleado" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlEmpresaEmpleado.listaEmpleados}" scrollable="true" scrollHeight="#{controlEmpresaEmpleado.altoTabla}"
+                                         scrollWidth="830" filteredValue="#{controlEmpresaEmpleado.listaEmpleadosFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false" selection="#{controlEmpresaEmpleado.empleadoSeleccionado}"
+                                         selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlEmpresaEmpleado.eventoFiltrar()}"/>
+
+                                <p:column headerText="Código" sortBy="#{info.codigoempleado}" filterBy="#{info.codigoempleado}" filterMatchMode="contains" id="codigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigoempleado}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" readonly="true" value="#{info.codigoempleado}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"
+                                                         onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]); PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});" > 
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+
+                                </p:column>
+                                <p:column headerText="Prrimer Apellido" sortBy="#{info.primerApellidoPersona}" filterBy="#{info.primerApellidoPersona}" filterMatchMode="contains" id="primerapellido" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.primerApellidoPersona}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" readonly="true" value="#{info.primerApellidoPersona}" maxlength="50"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"
+                                                         onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]); PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});" > 
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Segundo Apellido" sortBy="#{info.segundoApellidoPersona}" filterBy="#{info.segundoApellidoPersona}" filterMatchMode="contains" id="segundoapellido" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.segundoApellidoPersona}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" readonly="true" value="#{info.segundoApellidoPersona}" maxlength="50"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"
+                                                         onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]); PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});" > 
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Nombre" sortBy="#{info.nombrePersona}" filterBy="#{info.nombrePersona}" filterMatchMode="contains" id="nombres" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombrePersona}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" readonly="true" value="#{info.nombrePersona}" maxlength="50"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"
+                                                         onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]); PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});" > 
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Empresa" sortBy="#{info.nombreEmpresa}" filterBy="#{info.nombreEmpresa}" filterMatchMode="contains" id="empresa" width="260" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.nombreEmpresa}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.nombreEmpresa}" maxlength="50"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlEmpresaEmpleado.cambiarIndice(info, 4)}" process="@this"
+                                                        onstart="PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});"/> 
+                                                <p:ajax event="dblclick" listener="#{controlEmpresaEmpleado.asignarIndex(0)}"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Digitado" sortBy="#{info.fechacreacion}" filterBy="#{info.fechacreacion}" filterMatchMode="contains" id="digitado" width="70" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.fechacreacion}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" readonly="true" value="#{info.fechacreacion}" maxlength="50"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"
+                                                         onselect="posicionOtro([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]); PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});" > 
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                                <p:column headerText="Código Alternativo" sortBy="#{info.codigoalternativo}" filterBy="#{info.codigoalternativo}" filterMatchMode="contains" id="codalter" width="120" filterStyle="display: none; visibility: hidden;">                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{info.codigoalternativo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.codigoalternativo}" maxlength="50"  style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlEmpresaEmpleado.cambiarIndice(info, 6)}" process="@this"
+                                                        onstart="PF('datosEmpresaEmpleado').unselectAllRows();PF('datosEmpresaEmpleado').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlEmpresaEmpleado.modificarEmpleado(info)}" process="@this" update="@this"/>                                   
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmpresaEmpleado.infoRegistro}" style="position: relative; left: 0px; top: 5px; font-weight: bold;"/>
+                            <p:commandButton id="buscar" style="position: absolute; left: 665px; top: 373px;" class="cssBotonBuscar" actionListener="#{controlEmpresaEmpleado.asignarIndex(1)}"
+                                             onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
+
+                            <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 755px; top: 373px;" class="cssBotonMostrarTodos" disabled="#{controlEmpresaEmpleado.activarMTodos}"
+                                             actionListener="#{controlEmpresaEmpleado.mostrarTodos()}"
+                                             onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
+                            <p:remoteCommand name="posicionOtro" actionListener="#{controlEmpresaEmpleado.posicionOtro()}"/>
+                        </fieldset>
+
+
+                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                            <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check">
+                                <f:actionListener binding="#{controlEmpresaEmpleado.guardarCambios()}"/>
+                                <f:actionListener binding="#{controlEmpresaEmpleado.salir()}"/>
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"
+                                             actionListener="#{controlEmpresaEmpleado.salir()}" />
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"
+                                             actionListener="#{controlEmpresaEmpleado.salir()}" />
+                        </p:dialog><!--
+                        -->
+                        <p:hotkey bind="ctrl+f11" actionListener="#{controlEmpresaEmpleado.activarCtrlF11()}"/> 
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+
+                    <p:dialog header="Empresas" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
+                        <p:dataTable id="lovEmpresas"  var="empresa" value="#{controlEmpresaEmpleado.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlEmpresaEmpleado.empresaLovSeleccionado}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlEmpresaEmpleado.lovEmpresasFiltrar}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlEmpresaEmpleado.contarRegistrosEmpresas()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlEmpresaEmpleado.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmpresaEmpleado.actualizarEmpresa()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empresa"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Nombre"/>
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistros']} #{controlEmpresaEmpleado.infoRegistroEmpresas}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpresaEmpleado.aceptar}" 
+                                             actionListener="#{controlEmpresaEmpleado.actualizarEmpresa()}"  process="@this"/>
+                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmpresaEmpleado.cancelarCambioEmpresa()}" process="@this"/>
+                        </div>
+                    </p:dialog> 
+
+
+                    <p:dialog header="Empleados" widgetVar="empleadosDialogo" draggable="true" resizable="false" closable="false" id="empleadosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="445" modal="true">
+                        <p:dataTable id="LOVEmpleados"  var="empl" value="#{controlEmpresaEmpleado.lovEmpleados}" rowKey="#{empl.secuencia}"
+                                     selection="#{controlEmpresaEmpleado.empleadoLovSeleccionado}" selectionMode="single" widgetVar="LOVEmpleados" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlEmpresaEmpleado.lovEmpleadosFiltrar}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlEmpresaEmpleado.contarRegistrosEmpleados()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlEmpresaEmpleado.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEmpresaEmpleado.actualizarEmpleados()}" process="@this"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Empleado"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column filterBy="#{empl.nombreCompleto}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center;" value="Nombre"/>
+                                </f:facet>
+                                <h:outputText  value="#{empl.nombreCompleto}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpl" value="#{msg['infoRegistros']} #{controlEmpresaEmpleado.infoRegistroEmpleados}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpresaEmpleado.aceptar}" 
+                                             actionListener="#{controlEmpresaEmpleado.actualizarEmpleados()}"  process="@this"/>
+                            <p:commandButton id="atrasE" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmpresaEmpleado.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog> 
+
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'EMPLEADOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlEmpresaEmpleado.empleadoSeleccionado.secuencia, 'Empleados', 'empresaempleado')}"
+                                         style="position: absolute; top: 65px; left: 175px;" onstart="#{controlEmpresaEmpleado.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresaempleado', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla EMPLEADOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Empleados', 'empresaempleado')}"
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlEmpresaEmpleado.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresaempleado', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpresaEmpleado.empleadoSeleccionado.secuencia, 'Empleados', 'empresaempleado')}"
+                                         icon="ui-icon-close" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlEmpresaEmpleado.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('empresaempleado', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                        <h:outputText value="La tabla 'EMPLEADOS' no se encuentra en ObjetosDB. Por favor comunicarse con soporte." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
+                    </p:dialog>
+
+                    <p:dialog id="editCodigo" header="Código Empleado" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.codigoempleado}" style="overflow: auto; " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.nombrePersona}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editPrimerApellido" header="Primer Apellido" widgetVar="editPrimerApellido" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.primerApellidoPersona}" style="overflow: auto; " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editSegundoApellido" header="Segundo Apellido" widgetVar="editSegundoApellido" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.segundoApellidoPersona}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editEmpresa" header="Empresa" widgetVar="editEmpresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editDigitado" header="Fecha Creación" widgetVar="editDigitado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.fechacreacion}" style="overflow: auto; " readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+                    <p:dialog id="editCodAlternativo" header="Código Alternativo" widgetVar="editCodAlternativo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea value="#{controlEmpresaEmpleado.editarEmpleado.codigoalternativo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosEmpresaEmpleadoExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlEmpresaEmpleado.listaEmpleados}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
+                            <h:outputText value="#{info2.codigoempleado}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Primer_Apellido"/></f:facet> 
+                            <h:outputText value="#{info2.primerApellidoPersona}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Segundo_Apellido"/></f:facet> 
+                            <h:outputText value="#{info2.segundoApellidoPersona}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Nombre"/></f:facet> 
+                            <h:outputText value="#{info2.nombrePersona}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Empresa"/></f:facet> 
+                            <h:outputText value="#{info2.nombreEmpresa}"/>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Fecha_Creacion"/></f:facet> 
+                            <h:outputText value="#{info2.fechacreacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>  
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Codigo_Alternativo"/></f:facet> 
+                            <h:outputText value="#{info2.codigoalternativo}"/>
+                        </p:column>  
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

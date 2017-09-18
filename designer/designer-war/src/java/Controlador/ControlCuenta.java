@@ -320,8 +320,18 @@ public class ControlCuenta implements Serializable {
             cuentaSeleccionada.setCheckManejaNit(false);
             cuentaSeleccionada.setManejanit("N");
         }
+        if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
+            if (listCuentasModificar.isEmpty()) {
+                listCuentasModificar.add(cuentaTablaSeleccionada);
+            } else if (!listCuentasModificar.contains(cuentaTablaSeleccionada)) {
+                listCuentasModificar.add(cuentaTablaSeleccionada);
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        cambiosCuentas = true;
+        activoDetalle = true;
         RequestContext.getCurrentInstance().update("form:datosCuenta");
-        modificarCuenta(cuentaSeleccionada);
     }
 
     public void modificarCuenta(Cuentas cuenta) {
@@ -629,11 +639,7 @@ public class ControlCuenta implements Serializable {
         boolean retorno = true;
         if (i == 0) {
             Cuentas aux = null;
-            if (tipoLista == 0) {
-                aux = cuentaTablaSeleccionada;
-            } else {
-                aux = cuentaTablaSeleccionada;
-            }
+            aux = cuentaTablaSeleccionada;
             if (aux.getDescripcion() == null) {
                 retorno = false;
             } else if (aux.getDescripcion().isEmpty()) {

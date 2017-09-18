@@ -22,4 +22,6 @@ public interface AdministrarEmpleadosInterface {
     public void editarEmpleado(List<Empleados> listaE);
 
     public void cambiarCodEmpl(BigDecimal codactual, BigDecimal codnuevo);
+
+    public List<Empleados> listaEmpleadosEmpresa();
 }
