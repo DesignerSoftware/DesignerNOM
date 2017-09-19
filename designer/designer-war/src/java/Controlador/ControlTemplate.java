@@ -63,7 +63,7 @@ public class ControlTemplate implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -72,10 +72,10 @@ public class ControlTemplate implements Serializable {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarTemplate.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-         actualUsuario = administrarTemplate.consultarActualUsuario();
-         detalleEmpresa = administrarTemplate.consultarDetalleEmpresaUsuario();
-         nombrePerfil = administrarTemplate.consultarNombrePerfil();
+            administrarRastros.obtenerConexion(ses.getId());
+            actualUsuario = administrarTemplate.consultarActualUsuario();
+            detalleEmpresa = administrarTemplate.consultarDetalleEmpresaUsuario();
+            nombrePerfil = administrarTemplate.consultarNombrePerfil();
       } catch (Exception e) {
          log.error("Error postconstruct ControlTemplate: " + e);
          log.error("Causa: " + e.getCause());
@@ -83,34 +83,34 @@ public class ControlTemplate implements Serializable {
    }
 
    public void informacionUsuario() {
-      if (actualUsuario != null) {
-         int n = 0;
-         if (rutaFotoUs == null) {
-            rutaFotoUs = administrarTemplate.rutaFotoUsuario();
-            n = 1;
-         }
-         if (rutaFotoUs != null) {
-            String bckRuta = rutaFotoUs;
-            try {
-               rutaFotoUs = rutaFotoUs + actualUsuario.getAlias() + ".png";
-               fis = new FileInputStream(new File(rutaFotoUs));
-               fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
-            } catch (FileNotFoundException e) {
-               try {
-                  if (n == 1) {
-                     rutaFotoUs = bckRuta + "sinFoto.jpg";
-                  } else {
-                     rutaFotoUs = bckRuta;
+         if (actualUsuario != null) {
+            int n = 0;
+            if (rutaFotoUs == null) {
+               rutaFotoUs = administrarTemplate.rutaFotoUsuario();
+               n = 1;
+            }
+            if (rutaFotoUs != null) {
+                  String bckRuta = rutaFotoUs;
+                  try {
+                     rutaFotoUs = rutaFotoUs + actualUsuario.getAlias() + ".png";
+                     fis = new FileInputStream(new File(rutaFotoUs));
+                     fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
+                  } catch (FileNotFoundException e) {
+                     try {
+                        if (n == 1) {
+                           rutaFotoUs = bckRuta + "sinFoto.jpg";
+                        } else {
+                           rutaFotoUs = bckRuta;
+                        }
+                        fis = new FileInputStream(new File(rutaFotoUs));
+                        fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
+                     } catch (FileNotFoundException ex) {
+                        log.info("No se encontro el siguiente archivo, verificar. \n" + rutaFotoUs);
+                     }
                   }
-                  fis = new FileInputStream(new File(rutaFotoUs));
-                  fotoUsuario = new DefaultStreamedContent(fis, "image/jpg");
-               } catch (FileNotFoundException ex) {
-                  log.info("No se encontro el siguiente archivo, verificar. \n" + rutaFotoUs);
                }
             }
          }
-      }
-   }
 
    public void cerrarSession() throws IOException {
       FacesContext x = FacesContext.getCurrentInstance();
@@ -129,7 +129,6 @@ public class ControlTemplate implements Serializable {
       boolean resultado = administrarTemplate.obtenerConexion(ses.getId());
       if (resultado == false) {
          ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-         //ec.invalidateSession();
          ec.redirect(ec.getRequestContextPath() + "/iniciored.xhtml");
       }
    }
@@ -147,27 +146,27 @@ public class ControlTemplate implements Serializable {
    }
 
    public StreamedContent getLogoEmpresa() {
-      if (rutaFotoLogo == null) {
-         rutaFotoLogo = administrarTemplate.logoEmpresa();
-      }
-      if (rutaFotoLogo != null) {
-         try {
-            fis = new FileInputStream(new File(rutaFotoLogo));
-            logoEmpresa = new DefaultStreamedContent(fis, "image/png");
-         } catch (FileNotFoundException fnfe) {
-            try {
-               logoEmpresa = null;
-               fis = null;
-               rutaFotoLogo = administrarTemplate.rutaFotoUsuario() + "sinLogo.png";
-//               log.info("ruta sin logo: " + rutaFotoLogo);
-               fis = new FileInputStream(new File(rutaFotoLogo));
-               logoEmpresa = new DefaultStreamedContent(fis, "image/png");
-            } catch (FileNotFoundException fnfei) {
-               log.info("Logo de empresa por defecto no encontrado. \n" + fnfei);
-               logoEmpresa = null;
-            }
+         if (rutaFotoLogo == null) {
+            rutaFotoLogo = administrarTemplate.logoEmpresa();
          }
-      }
+            if (rutaFotoLogo != null) {
+               try {
+                  fis = new FileInputStream(new File(rutaFotoLogo));
+                  logoEmpresa = new DefaultStreamedContent(fis, "image/png");
+               } catch (FileNotFoundException fnfe) {
+                  try {
+                     logoEmpresa = null;
+                     fis = null;
+                     rutaFotoLogo = administrarTemplate.rutaFotoUsuario() + "sinLogo.png";
+//               log.info("ruta sin logo: " + rutaFotoLogo);
+                        fis = new FileInputStream(new File(rutaFotoLogo));
+                        logoEmpresa = new DefaultStreamedContent(fis, "image/png");
+                  } catch (FileNotFoundException fnfei) {
+                     log.info("Logo de empresa por defecto no encontrado. \n" + fnfei);
+                     logoEmpresa = null;
+                  }
+               }
+            }
       return logoEmpresa;
    }
 

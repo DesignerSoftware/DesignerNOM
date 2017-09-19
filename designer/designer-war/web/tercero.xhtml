@@ -342,13 +342,14 @@
                               <p:tooltip for="headcodigoalterno" value="#{msg['codAlterno']}"/>
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{infoT.strCodAlt}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{infoT.codigoalternativo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{infoT.strCodAlt}"  id="editarTerceroCodigoAlterno" style="text-transform: uppercase;"> 
+                                 <p:inputNumber autocomplete="off" value="#{infoT.codigoalternativo}" decimalPlaces="0" decimalSeparator="" thousandSeparator=""
+                                                id="editarTerceroCodigoAlterno" style="text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this" 
                                             onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"/>
-                                    <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
-                                 </p:inputText>
+                                    <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}"/>
+                                 </p:inputNumber>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -532,7 +533,7 @@
                         </f:facet>
                         <h:outputText value="#{tercero.nit}"/>
                      </p:column>
-                     
+
                      <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreT']}"/>
@@ -615,7 +616,7 @@
                         <f:facet name="header">
                            <h:outputText value="Departamento"/>
                         </f:facet>
-                         <h:outputText  value="#{ciudad.departamento.nombre}"/>
+                        <h:outputText  value="#{ciudad.departamento.nombre}"/>
                      </p:column>
 
                   </p:dataTable>

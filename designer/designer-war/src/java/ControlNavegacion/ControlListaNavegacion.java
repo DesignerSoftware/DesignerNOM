@@ -82,7 +82,7 @@ public class ControlListaNavegacion implements Serializable {
          caracteres[0] = Character.toLowerCase(caracteres[0]);
          nombrePagina = new String(caracteres);
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(nombrePagina, null);
-         log.warn("ControlListaNavegacion.matarPagina() : " + nombrePagina + " : YA");
+//         log.warn("ControlListaNavegacion.matarPagina() : " + nombrePagina + " : YA");
       } catch (Exception e) {
          log.error("ERROR ControlListaNavegacion.matarPagina() e: " + e);
       }

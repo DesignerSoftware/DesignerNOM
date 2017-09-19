@@ -624,7 +624,7 @@ public class ControlGrupoConcepto implements Serializable {
          log.info("Activa 1");
          //Tabla Vigencias VigenciasGruposConceptos
          colCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colCodigo");
-         colCodigo.setFilterStyle("width: 85% !important");
+         colCodigo.setFilterStyle("width: 80% !important");
          colDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colDescripcion");
          colDescripcion.setFilterStyle("width: 85% !important");
          colFundamental = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colFundamental");
@@ -635,17 +635,17 @@ public class ControlGrupoConcepto implements Serializable {
 
          log.info("Activa 2");
          colCodigo2 = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colCodigo2");
-         colCodigo2.setFilterStyle("width: 85% !important;");
+         colCodigo2.setFilterStyle("width: 80% !important;");
          colDescripcion2 = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colDescripcion2");
          colDescripcion2.setFilterStyle("width: 85% !important;");
          colNaturaleza = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colNaturaleza");
          colNaturaleza.setFilterStyle("width: 85% !important;");
          colInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colInicial");
-         colInicial.setFilterStyle("");
+         colInicial.setFilterStyle("width: 75% !important;");
          colFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colFinal");
-         colFinal.setFilterStyle("");
+         colFinal.setFilterStyle("width: 75% !important;");
          colEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasGruposConceptos:colEmpresa");
-         colEmpresa.setFilterStyle("");
+         colEmpresa.setFilterStyle("width: 85% !important;");
          RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
          contarRegistrosVigencias();
          bandera = 1;
@@ -956,10 +956,12 @@ public class ControlGrupoConcepto implements Serializable {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       tipoActualizacion = tipoNuevo;
-      if (tipoNuevo == 1) {
-         nuevoVigenciasGruposConceptos.getConcepto().setCodigoSTR(codigo);
-      } else if (tipoNuevo == 2) {
-         duplicarVigenciaGruposConceptos.getConcepto().setCodigoSTR(codigo);
+      if (codigo != null) {
+         if (tipoNuevo == 1) {
+            nuevoVigenciasGruposConceptos.getConcepto().setCodigoSTR(codigo);
+         } else if (tipoNuevo == 2) {
+            duplicarVigenciaGruposConceptos.getConcepto().setCodigoSTR(codigo);
+         }
       }
       for (int i = 0; i < lovConceptos.size(); i++) {
          if (lovConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
@@ -1448,9 +1450,10 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void validarNuevaVigencia() {
-      nuevoVigenciasGruposConceptos = new VigenciasGruposConceptos();
-      nuevoVigenciasGruposConceptos.setConcepto(new Conceptos());
       if (grupoConceptoSeleccionado != null) {
+         nuevoVigenciasGruposConceptos = new VigenciasGruposConceptos();
+         nuevoVigenciasGruposConceptos.setConcepto(new Conceptos());
+         nuevoVigenciasGruposConceptos.setGrupoconcepto(grupoConceptoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasGruposConceptos");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').show()");
       } else {
@@ -1809,13 +1812,17 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public String getTamano() {
-      colCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colCodigo");
-      String estilo = colCodigo.getFilterStyle();
-      log.info("getTamano() estilo : " + estilo);
-      if (estilo.startsWith("width: 85%")) {
-         tamano = "" + 113;
-      } else {
-         tamano = "" + 133;
+      try {
+         colCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosGruposConceptos:colCodigo");
+         String estilo = colCodigo.getFilterStyle();
+         log.info("getTamano() estilo : " + estilo);
+         if (estilo.startsWith("width: 85%")) {
+            tamano = "" + 113;
+         } else {
+            tamano = "" + 133;
+         }
+      } catch (Exception e) {
+         log.warn("ERROR ControlgrupoConcepto.getTamano: " + e);
       }
       return tamano;
    }

@@ -102,7 +102,7 @@
                      <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="width: 830px; font-size: 11px;"   
                                   value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="#{controlCuenta.altoTabla}" scrollWidth="830"
                                   filteredValue="#{controlCuenta.filtrarListCuentas}" emptyMessage="#{msg['vacio']}" 
-                                  editable="true" editMode="cell" liveScroll="true" scrollRows="50" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="20" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
 
                         <p:ajax event="filter" listener="#{controlCuenta.eventoFiltrar()}"/>
 
@@ -111,15 +111,21 @@
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Cuenta"/>
                            </f:facet>
-                           <p:commandButton onstart="#{controlCuenta.limpiarListasValor()}; PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
-                                            action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}"
+                           <!--                           <p:commandButton onstart="#/{controlCuenta.limpiarListasValor()}; PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#/{indice});"
+                                                                       action="#/{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}"
                                             style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png);
                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                            value="" actionListener="#{controlDetalleCuenta.recibirCuenta(infoC.secuencia)}">
-                           </p:commandButton>   
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
+                                                                       value="" actionListener="#/{controlDetalleCuenta.recibirCuenta(infoC.secuencia)}">
+                                                      </p:commandButton>  -->
+                           <p:cellEditor>  
+                              <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
+                                    <p:ajax event="select" listener="#{controlDetalleCuenta.recibirCuenta(infoC.secuencia, 'cuenta')}" process="@this"
+                                            onstart="PF('datosCuenta').unselectAllRows(); PF('datosCuenta').selectRow(#{indice}); #{controlCuenta.limpiarListasValor()}"/>
+                                 </p:inputText>
                            </f:facet>
+                           </p:cellEditor>  
                         </p:column>
 
                         <p:column id="cuentaCodigo" sortBy="#{infoC.codigo}" filterBy="#{infoC.codigo}" width="66"
@@ -140,9 +146,6 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column id="cuentasDescripcion" sortBy="#{infoC.descripcion}" filterBy="#{infoC.descripcion}" filterMatchMode="contains" 
@@ -163,9 +166,6 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column headerText="#{msg['naturaleza']}" id="cuentaNaturaleza" filterStyle="display: none; visibility: hidden;" 
@@ -190,9 +190,6 @@
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column id="cuentaTipo"  filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" width="80" filterBy="#{infoC.tipo}" filterMatchMode="contains">
@@ -217,9 +214,6 @@
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.contracuentatesoreria.codigo}" filterBy="#{infoC.contracuentatesoreria.codigo}" filterMatchMode="contains" 
@@ -235,7 +229,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoC.contracuentatesoreria.codigo}" id="editarCuentaContracuenta"> 
-                                    <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
+                                    <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this"
+                                            onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'CONTRACUENTA', infoC.contracuentatesoreria.codigo)}" process="@this" update="editarCuentaContracuenta"/>
                                     <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,0)}" process="@this" update="editarCuentaContracuenta"/>
                                  </p:inputText>
@@ -259,7 +254,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="#{infoC.rubropresupuestal.descripcion}" id="editarCuentaRubro">
-                                    <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
+                                    <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this"
+                                            onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'RUBRO', infoC.rubropresupuestal.descripcion)}" process="@this" update="editarCuentaRubro"/>
                                     <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,0)}" process="@this" update="editarCuentaRubro"/>
                                  </p:inputText>
@@ -279,9 +275,6 @@
                            <p:selectBooleanCheckbox id="checkManejaNit" value="#{infoC.checkManejaNit}">  
                                <p:ajax event="change" listener="#{controlCuenta.seleccionarCheck(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.manejanitempleado}" filterBy="#{infoC.manejanitempleado}" filterMatchMode="contains" 
@@ -293,9 +286,6 @@
                            <p:selectBooleanCheckbox id="checkManejaNitEmpleado" value="#{infoC.checkCCEmpleado}">  
                               <p:ajax event="change" listener="#{controlCuenta.seleccionarCheck(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.prorrateo}" filterBy="#{infoC.prorrateo}" filterMatchMode="contains" 
@@ -307,9 +297,6 @@
                            <p:selectBooleanCheckbox id="checkProrrateo" value="#{infoC.checkProrrateo}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column id="cuentaCC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}" filterMatchMode="contains"
@@ -331,9 +318,6 @@
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
                         
                         <p:column id="cuentaICC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}"
@@ -355,9 +339,6 @@
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.codigoalternativo}" filterBy="#{infoC.codigoalternativo}" filterMatchMode="contains" 
@@ -378,9 +359,6 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.consolidanitempresa}" filterBy="#{infoC.consolidanitempresa}" filterMatchMode="contains" 
@@ -392,9 +370,6 @@
                            <p:selectBooleanCheckbox id="checkConsolidaNit" value="#{infoC.checkConsolidaNITEmpresa}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.incluyeshortnamesapbo}" filterBy="#{infoC.incluyeshortnamesapbo}" filterMatchMode="contains" 
@@ -406,9 +381,6 @@
                            <p:selectBooleanCheckbox id="checkIncluyeShort" value="#{infoC.checkShortName}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.cuentaasociadasap}" filterBy="#{infoC.cuentaasociadasap}" filterMatchMode="contains" 
@@ -420,9 +392,6 @@
                            <p:selectBooleanCheckbox id="checkAsociadaSAP" value="#{infoC.checkAsociadaSAP}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                         <p:column sortBy="#{infoC.manejasubcuenta}" filterBy="#{infoC.manejasubcuenta}" filterMatchMode="contains" 
@@ -434,9 +403,6 @@
                            <p:selectBooleanCheckbox id="checkSubCuenta" value="#{infoC.checkSubCuenta}">  
                               <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                            </p:selectBooleanCheckbox>  
-                           <f:facet name="footer">
-                              <h:outputText value=""/>
-                           </f:facet>
                         </p:column>
 
                      </p:dataTable>

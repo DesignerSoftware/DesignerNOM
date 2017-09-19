@@ -94,10 +94,10 @@
                      </p:toolbarGroup>
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 70px; font-size: 11px; width: 835px; height: 206px; border-radius: 10px; left: 10px;">
+                  <fieldset style="position: absolute; top: 70px; font-size: 11px; width: 835px; height: 210px; border-radius: 10px; left: 10px; padding-top: 0px;">
                      <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['gruposconceptos']}</legend>
 
-                     <p:dataTable id="datosGruposConceptos" var="g" style="font-size: 11px; width: 810px;" value="#{controlGrupoConcepto.listaGruposConceptos}"
+                     <p:dataTable id="datosGruposConceptos" var="g" style="width: 810px;" value="#{controlGrupoConcepto.listaGruposConceptos}"
                                   rowKey="#{g.secuencia}" scrollable="true" rowIndexVar="indice" editable="true" editMode="cell" selectionMode="single"
                                   selection="#{controlGrupoConcepto.grupoConceptoSeleccionado}" scrollWidth="830"
                                   scrollHeight="#{controlGrupoConcepto.tamano}" widgetVar="datosGruposConceptos" liveScroll="true" scrollRows="20"
@@ -149,7 +149,8 @@
                               <f:facet name="input">
                                  <p:selectOneMenu id="editarFundamental" value="#{g.estadoFundamental}" style="width: 175px !important;"
                                                   onblur="PF('datosGruposConceptos').unselectAllRows(); PF('datosGruposConceptos').selectRow(#{indice});"
-                                                  onfocus="PF('datosGruposConceptos').unselectAllRows(); PF('datosGruposConceptos').selectRow(#{indice});">  
+                                                  onfocus="PF('datosGruposConceptos').unselectAllRows(); PF('datosGruposConceptos').selectRow(#{indice});
+                                                  #{controlGrupoConcepto.cambiarIndice(g, 2)};">  
                                     <f:selectItem itemLabel="#{msg['sies']}" itemValue="SI ES PERSONALIZABLE"/>  
                                     <f:selectItem itemLabel="#{msg['noes']}" itemValue="NO ES PERSONALIZABLE"/>  
                                     <p:ajax listener="#{controlGrupoConcepto.seleccionarFundamental(g.estadoFundamental, g, 2)}" event="change" update="editarFundamental"/>
@@ -163,14 +164,14 @@
 
                      </p:dataTable>
                      <h:outputText value="#{msg['infoRegistros']} #{controlGrupoConcepto.infoRegistro}" id="infoRegistro" style="position: relative; top: 2px; font-weight: bold; display: block;"/>
-                     <p:commandButton style="position: relative; left: 657px; top: -12px;" id="btnBuscarGrupos" class="cssBotonBuscar"
+                     <p:commandButton style="position: relative; left: 657px; top: -9px;" id="btnBuscarGrupos" class="cssBotonBuscar"
                                       actionListener="#{controlGrupoConcepto.gruposConceptosDialogo()}" value="" process="@this"/>
-                     <p:commandButton style="position: relative; left: 657px; top: -12px;" id="btnMostrarTodos" class="cssBotonMostrarTodos"
+                     <p:commandButton style="position: relative; left: 657px; top: -9px;" id="btnMostrarTodos" class="cssBotonMostrarTodos"
                                       actionListener="#{controlGrupoConcepto.mostrarTodos()}" value="" process="@this"/>
                   </fieldset>
 
                   <!-- VIGENCIAS GRUPOS CONCEPTOS -->    
-                  <fieldset style="position: absolute; top: 292px; font-size: 11px; width: 835px; height: 190px; border-radius: 10px; left: 10px;">
+                  <fieldset style="position: absolute; top: 292px; font-size: 11px; width: 835px; height: 194px; border-radius: 10px; left: 10px; padding-top: 0px;">
                      <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['vigencias']}</legend>
 
                      <p:dataTable id="datosVigenciasGruposConceptos" var="v" style="font-size: 11px; width: 810px;" value="#{controlGrupoConcepto.listaVigenciasGruposConceptos}"
@@ -327,25 +328,31 @@
                   <fieldset id="nuevoGrupoConcepto" style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border: none; ">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px; left: 40px;"/></strong>
-                     <p:inputText autocomplete="off" maxlength="7" id="nuevoCodigo" value="#{controlGrupoConcepto.nuevoGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 145px; top: 15px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" maxlength="7" id="nuevoCodigo" value="#{controlGrupoConcepto.nuevoGruposConceptos.codigo}"
+                                  style="font-size: 12px; width: 122px; position: absolute; left: 145px; top: 15px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoCodigo"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 12px; position: absolute; top: 59px; left: 40px;"/></strong>
-                     <p:inputText autocomplete="off" maxlength="50" id="nuevoDescripcion" value="#{controlGrupoConcepto.nuevoGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 145px; top: 57px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText autocomplete="off" maxlength="50" id="nuevoDescripcion" value="#{controlGrupoConcepto.nuevoGruposConceptos.descripcion}"
+                                  style="font-size: 12px; width: 122px; position: absolute; left: 145px; top: 57px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="nuevoDescripcion"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['fundamentalN']}" style="font-size: 12px; position: absolute; top: 99px; left: 40px;"/></strong>
-                     <p:selectOneMenu id="nuevoFundamental" value="#{controlGrupoConcepto.nuevoGruposConceptos.estadoFundamental}" style="font-size: 12px; width: 130px; position: absolute; left: 145px; top: 95px; text-transform: uppercase;">
+                     <p:selectOneMenu id="nuevoFundamental" value="#{controlGrupoConcepto.nuevoGruposConceptos.estadoFundamental}"
+                                      style="font-size: 12px; width: 130px; position: absolute; left: 145px; top: 95px; text-transform: uppercase;">
                         <f:selectItem itemLabel="#{msg['sies']}" itemValue="SI ES PERSONALIZABLE"/>
                         <f:selectItem itemLabel="#{msg['noes']}" itemValue="NO ES PERSONALIZABLE"/>
                         <p:ajax listener="#{controlGrupoConcepto.seleccionarTipoNuevoFundamental(controlGrupoConcepto.nuevoGruposConceptos.estadoFundamental, 1)}" update="@this"/>
                      </p:selectOneMenu>
 
-                     <p:commandButton id="limpiarGC" icon="ui-icon-trash" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 150px;" actionListener="#{controlGrupoConcepto.limpiarNuevoGruposConceptos()}" process="@this"/>
-                     <p:commandButton id="agregarGC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 155px; top: 150px;" process="@this" actionListener="#{controlGrupoConcepto.agregarNuevoGrupoConcepto()}"/>
-                     <p:commandButton id="cancelarGC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 245px; top: 150px;" actionListener="#{controlGrupoConcepto.limpiarNuevoGruposConceptos()}" onclick="PF('NuevoRegistroGruposConceptos').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarGC" icon="ui-icon-trash" value="#{msg['limpiar']}" style=" font-size: 11px ;position: absolute; left: 20px; top: 150px;"
+                                      actionListener="#{controlGrupoConcepto.limpiarNuevoGruposConceptos()}" process="@this"/>
+                     <p:commandButton id="agregarGC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="font-size: 11px; position: absolute; left: 155px; top: 150px;"
+                                      process="@this" actionListener="#{controlGrupoConcepto.agregarNuevoGrupoConcepto()}"/>
+                     <p:commandButton id="cancelarGC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="font-size: 11px; position: absolute; left: 245px; top: 150px;"
+                                      actionListener="#{controlGrupoConcepto.limpiarNuevoGruposConceptos()}" onclick="PF('NuevoRegistroGruposConceptos').hide();"  process="@this"/>
                   </fieldset>
                   <!--</p:panel>-->
                </p:dialog>
@@ -396,15 +403,18 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; width: 295px; border: none; ">
 
                         <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 17px; left: 30px;"/></strong>
-                        <p:inputText autocomplete="off" id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigo}" style="width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
+                        <p:inputText autocomplete="off" id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigo}"
+                                     style="width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase;" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1)}"/>
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocomplConceptoNuevoyDuplicado(controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigo, 1)}"/>
-                           <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(0, 1)}" process="@this"/>
+                           <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(0, 1)}"/>
                         </p:inputText>
-                        <p:commandButton class="cssBotonLovDialogos" value="" style="position: absolute; left: 285px; top: 15px;" id="btnNuevoConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(0, 1)}" process="@this"/>
+                        <p:commandButton class="cssBotonLovDialogos" value="" style="position: absolute; left: 285px; top: 15px;" id="btnNuevoConcepto"
+                                         actionListener="#{controlGrupoConcepto.asignarIndex(0, 1)}" process="@this"/>
 
                         <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 57px; left: 30px;"/></strong>
-                        <p:inputText autocomplete="off" id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}" style="width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase;" onclick="select();">
+                        <p:inputText autocomplete="off" id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}"
+                                     style="width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase;" onclick="select();">
                            <p:ajax event="change" update="nuevoDescripcionV"/>
                         </p:inputText>
 

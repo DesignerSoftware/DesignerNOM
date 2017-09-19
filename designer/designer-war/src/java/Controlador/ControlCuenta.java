@@ -277,7 +277,6 @@ public class ControlCuenta implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
@@ -312,13 +311,13 @@ public class ControlCuenta implements Serializable {
     }
 
     public void seleccionarCheck(Cuentas cuenta) {
-        cuentaSeleccionada = cuenta;
-        if (cuentaSeleccionada.getManejanit().equals("S")) {
-            cuentaSeleccionada.setManejanitempleado("N");
-            cuentaSeleccionada.setCheckCCEmpleado(false);
-        } else if (cuentaSeleccionada.getManejanitempleado().equals("S")) {
-            cuentaSeleccionada.setCheckManejaNit(false);
-            cuentaSeleccionada.setManejanit("N");
+        cuentaTablaSeleccionada = cuenta;
+        if (cuentaTablaSeleccionada.getManejanit().equals("S")) {
+            cuentaTablaSeleccionada.setManejanitempleado("N");
+            cuentaTablaSeleccionada.setCheckCCEmpleado(false);
+        } else if (cuentaTablaSeleccionada.getManejanitempleado().equals("S")) {
+            cuentaTablaSeleccionada.setCheckManejaNit(false);
+            cuentaTablaSeleccionada.setManejanit("N");
         }
         if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
             if (listCuentasModificar.isEmpty()) {
@@ -335,6 +334,7 @@ public class ControlCuenta implements Serializable {
     }
 
     public void modificarCuenta(Cuentas cuenta) {
+      cuentaTablaSeleccionada = cuenta;
         if (validarDatosNull(0) == true) {
             if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
                 if (listCuentasModificar.isEmpty()) {
@@ -352,7 +352,7 @@ public class ControlCuenta implements Serializable {
             cuentaTablaSeleccionada.setDescripcion(auxDescripcionCuenta);
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullCuenta').show()");
         }
-        RequestContext.getCurrentInstance().update("form:datosCuenta");
+//        RequestContext.getCurrentInstance().update("form:datosCuenta");
     }
 
     public void modificarCuentaAutocompletar(Cuentas cuenta, String confirmarCambio, String valorConfirmar) {
@@ -436,10 +436,11 @@ public class ControlCuenta implements Serializable {
             activoDetalle = true;
             cambiosCuentas = true;
         }
-        RequestContext.getCurrentInstance().update("form:datosCuenta");
+//        RequestContext.getCurrentInstance().update("form:datosCuenta");
     }
 
     public void cambiarIndice(Cuentas cuenta, int celda) {
+      cuentaTablaSeleccionada = cuenta;
         if (permitirIndex == true) {
             cualCelda = celda;
             cuentaTablaSeleccionada = cuenta;
@@ -479,7 +480,6 @@ public class ControlCuenta implements Serializable {
         try {
             if (guardado == false) {
                 if (!listCuentasBorrar.isEmpty()) {
-
                     log.info("entró al administrar de borrar");
                     administrarCuentas.borrarCuentas(listCuentasBorrar);
                     listCuentasBorrar.clear();

@@ -134,20 +134,12 @@ public class ControlDetalleCuenta implements Serializable {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual, this.getClass().getSimpleName());
+      } else if (pag.equals(pagActual)) {
+         controlListaNavegacion.guardarNavegacion("cuenta", pagActual);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pagActual);
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
       }
       limpiarListasValor();
    }
@@ -160,7 +152,7 @@ public class ControlDetalleCuenta implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -175,7 +167,10 @@ public class ControlDetalleCuenta implements Serializable {
       }
    }
 
-   public void recibirCuenta(BigInteger cuenta) {
+   public void recibirCuenta(BigInteger cuenta, String paginaAnt) {
+      if (paginaAnt.equals("cuenta")) {
+         navegar("detallecuenta");
+      }
       listCuentasCredito = null;
       listCuentasDebito = null;
       cuentaActual = administrarDetalleCuenta.mostrarCuenta(cuenta);

@@ -200,7 +200,7 @@ public class ControlTercero implements Serializable {
    public void destruyendoce() {
       log.info(this.getClass().getName() + ".destruyendoce() @Destroy");
    }
-   
+
    @PostConstruct
    public void inicializarAdministrador() {
       log.info(this.getClass().getName() + ".inicializarAdministrador() @PostConstruct");
@@ -301,7 +301,6 @@ public class ControlTercero implements Serializable {
     * @param indice Fila donde se efectu el cambio
     */
    public void modificarTercero(Terceros t) {
-      RequestContext context = RequestContext.getCurrentInstance();
       terceroTablaSeleccionado = t;
       if (validarCamposNulosTercero(0) == true) {
          if (!listTerceroCrear.contains(terceroTablaSeleccionado)) {
@@ -316,7 +315,8 @@ public class ControlTercero implements Serializable {
             }
          }
          terceroTablaSeleccionado.getTerceroconsolidador().setNit(nitConsolidado);
-         terceroTablaSeleccionado.setCodigoalternativo(Long.parseLong(terceroTablaSeleccionado.getStrCodAlt()));
+//         terceroTablaSeleccionado.setCodigoalternativo(Long.parseLong(terceroTablaSeleccionado.getStrCodAlt()));
+         terceroTablaSeleccionado.setCodigoalternativo(terceroTablaSeleccionado.getCodigoalternativo());
 
          cambiosTercero = true;
       } else {
@@ -1920,11 +1920,13 @@ public class ControlTercero implements Serializable {
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-       if (terceroSucursalTablaSeleccionado != null) {
+      {
+         if (terceroSucursalTablaSeleccionado != null) {
             verificarRastroTercerosSucursales();
          } else if (terceroTablaSeleccionado != null) {
             verificarRastroTerceros();
          }
+      }
    }
 
    //Verificar Rastro Vigencia Terceros

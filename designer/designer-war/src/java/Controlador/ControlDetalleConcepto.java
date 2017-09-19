@@ -464,9 +464,9 @@ public class ControlDetalleConcepto implements Serializable {
          mapParaEnviar.put("cargarFormula", (String) "SI");
          ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
          controlFormula.recibirParametros(mapParaEnviar);
-      } else if (pag.equals("detalleconcepto")) {
-         controlListaNavegacion.guardarNavegacion("concepto", pag);
-         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleconcepto");
+      } else if (pag.equals(pagActual)) {
+         controlListaNavegacion.guardarNavegacion("concepto", pagActual);
+         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pagActual);
       } else {
          controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
