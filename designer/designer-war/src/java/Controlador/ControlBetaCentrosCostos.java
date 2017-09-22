@@ -237,17 +237,16 @@ public class ControlBetaCentrosCostos implements Serializable {
    }
 
    public void cambiarIndice(CentrosCostos centroCosto, int celda) {
-      log.info("cambiarIndice():");
-      log.error("cualCeldaEntra = " + cualCelda);
+      log.info("cambiarIndice(): cualCeldaEntra = " + cualCelda);
       if (centroCostoSeleccionado != null) {
-         log.error("centroCostoSeleccionado = " + centroCostoSeleccionado.getNombre());
+         log.info("centroCostoSeleccionado = " + centroCostoSeleccionado.getNombre());
       } else {
-         log.error("centroCostoSeleccionado = NULL");
+         log.info("centroCostoSeleccionado = NULL");
       }
-      log.error("centroCosto quedo : " + centroCosto.getNombre());
+      log.info("centroCosto quedo : " + centroCosto.getNombre());
       centroCostoSeleccionado = centroCosto;
       cualCelda = celda;
-      log.error("cualCelda quedo : " + cualCelda + "\n");
+      log.info("cualCelda quedo : " + cualCelda + "\n");
       if (permitirIndex == true) {
          if (cualCelda == 2) {
             permitirCambioBotonLov = "NOapagar";
@@ -264,7 +263,7 @@ public class ControlBetaCentrosCostos implements Serializable {
 
    public void cambiarIndiceDefault() {
       log.info("cambiarIndiceDefault");
-      log.error("cualCelda = " + cualCelda);
+      log.info("cualCelda = " + cualCelda);
 //        if (cualCelda == 2) {
 //            activarLOV = false;
 //        } else {
@@ -281,12 +280,12 @@ public class ControlBetaCentrosCostos implements Serializable {
       }
       permitirCambioBotonLov = "SIapagar";
 //        }
-      log.error("cualCelda quedo = " + cualCelda);
-      log.error("centroCostoSeleccionado = " + centroCostoSeleccionado.getNombre());
+      log.info("cualCelda quedo = " + cualCelda);
+      log.info("centroCostoSeleccionado = " + centroCostoSeleccionado.getNombre());
    }
 
    public void modificandoCentroCosto(CentrosCostos centroCosto, String confirmarCambio, String valorConfirmar) {
-      log.error("ENTRE A MODIFICAR CENTROCOSTO");
+      log.info("ENTRE A MODIFICAR CENTROCOSTO");
       centroCostoSeleccionado = centroCosto;
       banderaModificacionEmpresa = 1;
       int coincidencias = 0;
@@ -297,7 +296,7 @@ public class ControlBetaCentrosCostos implements Serializable {
       Short a;
       a = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      log.error("TIPO LISTA = " + tipoLista);
+      log.info("TIPO LISTA = " + tipoLista);
       if (confirmarCambio.equalsIgnoreCase("N")) {
 
          if (!crearCentrosCostos.contains(centroCostoSeleccionado)) {
@@ -653,11 +652,11 @@ public class ControlBetaCentrosCostos implements Serializable {
 
          if (guardado == true) {
             listCentrosCostosPorEmpresa.clear();
-            log.error("seleccionCentrosCostosPorEmpresa " + centrosCostosLovSeleccionado.getNombre());
+            log.info("seleccionCentrosCostosPorEmpresa " + centrosCostosLovSeleccionado.getNombre());
             listCentrosCostosPorEmpresa.add(centrosCostosLovSeleccionado);
             centroCostoSeleccionado = centrosCostosLovSeleccionado;
-            log.error("listCentrosCostosPorEmpresa tamaño " + listCentrosCostosPorEmpresa.size());
-            log.error("listCentrosCostosPorEmpresa nombre " + listCentrosCostosPorEmpresa.get(0).getNombre());
+            log.info("listCentrosCostosPorEmpresa tamaño " + listCentrosCostosPorEmpresa.size());
+            log.info("listCentrosCostosPorEmpresa nombre " + listCentrosCostosPorEmpresa.get(0).getNombre());
             centrosCostosLovSeleccionado = null;
             filtrarCentrosCostosLOV = null;
             aceptar = true;
@@ -1026,7 +1025,7 @@ public class ControlBetaCentrosCostos implements Serializable {
    }
 
    public void confirmarDuplicar() {
-      log.error("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
+      log.info("ESTOY EN CONFIRMAR DUPLICAR CONTROLTIPOSCENTROSCOSTOS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
@@ -1086,10 +1085,10 @@ public class ControlBetaCentrosCostos implements Serializable {
       }
 
       if (contador == 3) {
-         log.error("DUPLICAR MANO DE OBRA " + duplicarCentroCosto.getManoobra());
+         log.info("DUPLICAR MANO DE OBRA " + duplicarCentroCosto.getManoobra());
 
-         log.error("DUPLICAR OBSOLETO " + duplicarCentroCosto.getObsoleto());
-         log.error("DUPLICAR DIMENSIONES " + duplicarCentroCosto.getDimensiones());
+         log.info("DUPLICAR OBSOLETO " + duplicarCentroCosto.getObsoleto());
+         log.info("DUPLICAR DIMENSIONES " + duplicarCentroCosto.getDimensiones());
          if (crearCentrosCostos.contains(duplicarCentroCosto)) {
             log.info("Ya lo contengo.");
          } else {
@@ -1275,7 +1274,7 @@ public class ControlBetaCentrosCostos implements Serializable {
                contarRegistros();
             }
             centroCostoSeleccionado = null;
-            log.error("verificar Borrado " + guardado);
+            log.info("verificar Borrado " + guardado);
             if (guardado == true) {
                guardado = false;
             }

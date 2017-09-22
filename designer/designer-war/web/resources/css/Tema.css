@@ -468,9 +468,11 @@ button .ui-widget-header{
 .ui-datatable-scrollable .ui-cell-editor-input .ui-input,
 .ui-datatable-scrollable .ui-cell-editor-input .ui-inputfield
 {
-   height: 99% !important;
+   /*height: 99% !important;*/
    width: 99% !important;
    padding: 2px 2px !important; 
+   margin-top: 0px !important;
+   margin-bottom: 0px !important;
 }
 
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
@@ -540,6 +542,12 @@ button .ui-widget-header{
    height: 19px;
    padding-right: 27px;
    font-size: 11px !important;
+}
+
+.ui-datatable-scrollable-body .ui-selectonemenu {
+   height: 18px;
+   font-size: 10px !important;
+   border: none;
 }
 
 .ui-selectonemenu .ui-selectonemenu-trigger {
@@ -621,7 +629,6 @@ button .ui-widget-header{
 {
    width: 100% !important;
    text-align: right !important;
-   margin-left: -2px !important;
 }
 .cssColumnasNumericas
 {

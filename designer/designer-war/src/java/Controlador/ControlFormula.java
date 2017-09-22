@@ -947,6 +947,7 @@ public class ControlFormula implements Serializable {
          FacesMessage msg = new FacesMessage("Información", "Formula clonada con exito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
+         listasRecurrentes.getLovFormulas().clear();
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoClon");
          RequestContext.getCurrentInstance().execute("PF('validacioNuevoClon').show()");

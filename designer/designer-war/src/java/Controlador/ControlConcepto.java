@@ -1693,6 +1693,7 @@ public class ControlConcepto implements Serializable {
             conceptoOriginal = new Conceptos();
             listaConceptosEmpresa = null;
             getListaConceptosEmpresa();
+            listasRecurrentes.getLovConceptos().clear();
             FacesMessage msg = new FacesMessage("Información", "Concepto clonado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -2021,10 +2022,10 @@ public class ControlConcepto implements Serializable {
    public String getAltoTablaReg() {
       columnaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
       if (columnaCodigo.getFilterStyle().startsWith("width: 85%")) {
-         altoTablaReg = "" + 7;
+         altoTablaReg = "" + 6;
       } else {
          bandera = 0;
-         altoTablaReg = "" + 8;
+         altoTablaReg = "" + 7;
       }
       return altoTablaReg;
    }

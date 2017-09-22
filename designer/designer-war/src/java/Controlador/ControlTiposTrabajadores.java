@@ -1279,7 +1279,6 @@ public class ControlTiposTrabajadores implements Serializable {
    }
 
    public void clonarTT() {
-      RequestContext context = RequestContext.getCurrentInstance();
       log.info("Entro en Clonar()");
       if (nombreNuevoClonado != null && codigoNuevoClonado > 0 && tipoTrabajadorAClonar.getCodigo() > 0) {
          int error = 0;
@@ -1310,6 +1309,7 @@ public class ControlTiposTrabajadores implements Serializable {
                      FacesMessage msg = new FacesMessage("Información", "Tipo trabajador clonado correctamente");
                      FacesContext.getCurrentInstance().addMessage(null, msg);
                      RequestContext.getCurrentInstance().update("form:growl");
+                     listasRecurrentes.getLovTiposTrabajadores().clear();
                   }
                }
                RequestContext.getCurrentInstance().update("form:datosTTrabajadores");

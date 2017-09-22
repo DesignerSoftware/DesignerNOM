@@ -929,16 +929,19 @@
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleConcepto.activarCtrlF11()}"/>
+            </h:form>
 
+
+            <h:form id="formlovTiposCC">
                <p:dialog header="#{msg['tiposcentroscostosTCC']}" widgetVar="TipoCCDialogo" draggable="true" resizable="false" closable="false" id="TipoCCDialogo"
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovTiposCC').clearFilters()">
 
                   <p:dataTable id="lovTiposCC" var="tiposCC" scrollWidth="405" value="#{controlDetalleConcepto.lovTiposCentrosCostos}" rowKey="#{tiposCC.secuencia}"
                                selection="#{controlDetalleConcepto.tipoCentroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovTiposCC" scrollable="true" scrollHeight="210"
                                filteredValue="#{controlDetalleConcepto.filtrarListTiposCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoCentroCosto()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarTCC"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovTiposCC:aceptarTCC"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoCentroCosto()}"/>
 
                      <f:facet name="header">  
@@ -967,15 +970,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioTipoCentroCosto()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovDebito">
                <p:dialog id="DebitoDialogo" widgetVar="DebitoDialogo" header="#{msg['cuentasdebitoCD']}" draggable="true" resizable="false" closable="false"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovDebito').clearFilters()">
+
                   <p:dataTable id="lovDebito" var="debito" value="#{controlDetalleConcepto.lovCuentas}" rowKey="#{debito.secuencia}"
                                selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovDebito" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCuentaDebito()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCD"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovDebito:aceptarCD"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCuentaDebito()}"/>
 
                      <f:facet name="header">  
@@ -1005,15 +1011,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioCuentaDebito()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovCuentas">
                <p:dialog id="CuentasDialogo" widgetVar="CuentasDialogo" header="#{msg['cuentas']}" draggable="true" resizable="false" closable="false"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true"  onShow="PF('lovCuentas').clearFilters()">
+
                   <p:dataTable id="lovCuentas" var="cuenta" value="#{controlDetalleConcepto.lovCuentas2505}" rowKey="#{cuenta.secuencia}"
                                selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCuentas" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCuentas()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCuentas"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovCuentas:aceptarCuentas"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCuentaDebito()}"/>
 
                      <f:facet name="header">
@@ -1037,21 +1046,24 @@
                   </p:dataTable>
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroLovCuentas" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroLovCuentaDebito}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton icon="ui-icon-check"  id="aceptarCuentas" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleConcepto.aceptar}" 
+                     <p:commandButton icon="ui-icon-check" id="aceptarCuentas" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleConcepto.aceptar}" 
                                       actionListener="#{controlDetalleConcepto.actualizarCuentas2505()}" process="@this"/>
                      <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCuentas" class="cssAtrasLOV" value="#{msg['atras']}" 
                                       actionListener="#{controlDetalleConcepto.cancelarCambioCuentas()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovCredito">
                <p:dialog header="#{msg['cuentascreditoCC']}" widgetVar="CreditoDialogo" draggable="true" resizable="false" closable="false" 
-                         id="CreditoDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         id="CreditoDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovCredito').clearFilters()">
+
                   <p:dataTable id="lovCredito" var="credito" value="#{controlDetalleConcepto.lovCuentas}" rowKey="#{credito.secuencia}"
                                selection="#{controlDetalleConcepto.cuentaSeleccionadaLOV}" selectionMode="single" widgetVar="lovCredito" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCuentaCredito()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCC"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovCredito:aceptarCC"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCuentaCredito()}"/>
 
                      <f:facet name="header">  
@@ -1075,21 +1087,24 @@
                   </p:dataTable>
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroLovCuentaCredito" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroLovCuentaCredito}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton icon="ui-icon-check"  id="aceptarCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleConcepto.aceptar}" 
+                     <p:commandButton icon="ui-icon-check" id="aceptarCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleConcepto.aceptar}" 
                                       actionListener="#{controlDetalleConcepto.actualizarCuentaCredito()}" process="@this"/>
                      <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCC" class="cssAtrasLOV" value="#{msg['atras']}" 
                                       actionListener="#{controlDetalleConcepto.cancelarCambioCuentaCredito()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovCentroCostoD">
                <p:dialog header="#{msg['centrocostoconsolidadorCCC']}" widgetVar="CentroCostoDDialogo" draggable="true" resizable="false" closable="false" 
-                         id="CentroCostoDDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         id="CentroCostoDDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovCentroCostoD').clearFilters()">
+
                   <p:dataTable id="lovCentroCostoD" var="centroD" value="#{controlDetalleConcepto.lovCentrosCostos}" rowKey="#{centroD.secuencia}"
                                selection="#{controlDetalleConcepto.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoD" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCentroCostoDebito()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCCD"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovCentroCostoD:aceptarCCD"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCentroCostoDebito()}"/>
 
                      <f:facet name="header">  
@@ -1119,16 +1134,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioCentroCostoDebito()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
-
+            <h:form id="formlovCentroCostoC">
                <p:dialog header="#{msg['centrocostoconsolidadorCCC']}" widgetVar="CentroCostoCDialogo" draggable="true" resizable="false" closable="false" 
-                         id="CentroCostoCDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         id="CentroCostoCDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovCentroCostoC').clearFilters()">
+
                   <p:dataTable id="lovCentroCostoC" var="centroC" value="#{controlDetalleConcepto.lovCentrosCostos}" rowKey="#{centroC.secuencia}"
                                selection="#{controlDetalleConcepto.centroCostoSeleccionadoLOV}" selectionMode="single" widgetVar="lovCentroCostoC" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovCentroCostoCredito()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCCC"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovCentroCostoC:aceptarCCC"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarCentroCostoCredito()}"/>
 
                      <f:facet name="header">  
@@ -1158,15 +1175,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioCentroCostoCredito()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovProceso">
                <p:dialog header="#{msg['proceso']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" 
-                         id="ProcesosDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         id="ProcesosDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovProceso').clearFilters()">
+
                   <p:dataTable id="lovProceso" widgetVar="lovProceso" var="proceso" value="#{controlDetalleConcepto.lovProcesos}" rowKey="#{proceso.secuencia}"
                                selection="#{controlDetalleConcepto.procesoSeleccionadoLOV}" selectionMode="single" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarlovProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovProcesos()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarCCC"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovProceso:aceptarPro"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarProceso()}"/>
 
                      <f:facet name="header">  
@@ -1196,15 +1216,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioProceso()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovGrupoConcepto">
                <p:dialog header="#{msg['gruposconceptosGC']}" widgetVar="GruposConceptosDialogo" draggable="true" resizable="false" closable="false" 
-                         id="GruposConceptosDialogo" showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         id="GruposConceptosDialogo" showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovGrupoConcepto').clearFilters()">
+
                   <p:dataTable id="lovGrupoConcepto" var="grupoC" value="#{controlDetalleConcepto.lovGruposConceptos}" rowKey="#{grupoC.secuencia}"
                                selection="#{controlDetalleConcepto.grupoConceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovGrupoConcepto" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListGruposConceptos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovGrupoConcepto()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarGC"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovGrupoConcepto:aceptarGC"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarGrupoConcepto()}"/>
 
                      <f:facet name="header">  
@@ -1234,16 +1257,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioGrupoConcepto()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
-
+            <h:form id="formlovTipoTrabajador">
                <p:dialog header="#{msg['tipostrabajadoresTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovTipoTrabajador').clearFilters()">
+
                   <p:dataTable id="lovTipoTrabajador" var="tiposTra" value="#{controlDetalleConcepto.lovTiposTrabajadores}" rowKey="#{tiposTra.secuencia}"
                                selection="#{controlDetalleConcepto.tipoTrabajadorSeleccionadoLOV}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoTrabajador()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarTTr"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovTipoTrabajador:aceptarTTr"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoTrabajador()}"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTT']}"/>
@@ -1272,15 +1297,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioTipoTrabajador()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovTipoContrato">
                <p:dialog header="#{msg['tiposcontratosTC']}" widgetVar="TipoContratosDialogo" draggable="true" resizable="false" closable="false" id="TipoContratosDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovTipoContrato').clearFilters()">
+
                   <p:dataTable id="lovTipoContrato" var="tiposCon" value="#{controlDetalleConcepto.lovTiposContratos}" rowKey="#{tiposCon.secuencia}"
                                selection="#{controlDetalleConcepto.tipoContratoSeleccionadoLOV}" selectionMode="single" widgetVar="lovTipoContrato" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListTiposContratos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovTipoContrato()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarTCt"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovTipoContrato:aceptarTCt"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarTipoContrato()}"/>
 
                      <f:facet name="header">  
@@ -1308,19 +1336,22 @@
                                       actionListener="#{controlDetalleConcepto.actualizarTipoContrato()}" process="@this"/>
                      <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTCt" class="cssAtrasLOV" value="#{msg['atras']}" 
                                       actionListener="#{controlDetalleConcepto.cancelarCambioTipoContrato()}" process="@this">
-                        <p:resetInput target=":form:lovTipoContrato:globalFilter"/>
+                        <p:resetInput target=":formlovTipoContrato:lovTipoContrato:globalFilter"/>
                      </p:commandButton>
                   </div>
                </p:dialog>
+            </h:form>      
 
+            <h:form id="formlovReformaLaboral">
                <p:dialog header="#{msg['reformaslaboralesRL']}" widgetVar="ReformaLaboralDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovReformaLaboral').clearFilters()">
+
                   <p:dataTable id="lovReformaLaboral" var="reformaL" value="#{controlDetalleConcepto.lovReformasLaborales}" rowKey="#{reformaL.secuencia}"
                                selection="#{controlDetalleConcepto.reformaLaboralSeleccionadoLOV}" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovReformaLaboral()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarRL"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovReformaLaboral:aceptarRL"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarReformaLaboral()}"/>
 
                      <f:facet name="header">  
@@ -1350,16 +1381,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioReformaLaboral()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
-
+            <h:form id="formlovFormula">
                <p:dialog header="#{msg['formulasF']}" widgetVar="FormulasDialogo" draggable="true" resizable="false" closable="false" id="FormulasDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovFormula').clearFilters()">
+
                   <p:dataTable id="lovFormula" var="formula" value="#{controlDetalleConcepto.lovFormulas}" rowKey="#{formula.secuencia}"
                                selection="#{controlDetalleConcepto.formulaSeleccionadoLOV}" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="210" scrollWidth="405"
                                filteredValue="#{controlDetalleConcepto.filtrarListFormulas}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovFormula()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarF"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovFormula:aceptarF"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarFormula()}"/>
 
                      <f:facet name="header">  
@@ -1390,15 +1423,18 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioFormula()}" process="@this"/>
                   </div>
                </p:dialog>
+            </h:form>
 
+            <h:form id="formlovFormulaC">
                <p:dialog header="#{msg['ordendeliquidacionOL']}" widgetVar="FormulaConceptoDialogo" draggable="true" resizable="false" closable="false" id="FormulaConceptoDialogo"  
-                         showEffect="fade" hideEffect="fade" width="435" modal="true">
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" onShow="PF('lovFormulaC').clearFilters()">
+
                   <p:dataTable id="lovFormulaC" var="formulaC" value="#{controlDetalleConcepto.lovFormulasConceptos}" rowKey="#{formulaC.secuencia}"
                                selection="#{controlDetalleConcepto.formulaConceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovFormulaC" scrollable="true" scrollHeight="210" scrollWidth="410"
                                filteredValue="#{controlDetalleConcepto.filtrarListFormulasConceptos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlDetalleConcepto.contarRegistrosLovFormCon()}"/>
-                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":form:aceptarFC"/>
+                     <p:ajax event="rowSelect" listener="#{controlDetalleConcepto.activarAceptar()}" update=":formlovFormulaC:aceptarFC"/>
                      <p:ajax event="rowDblselect" listener="#{controlDetalleConcepto.actualizarOrden()}"/>
 
                      <f:facet name="header">  
@@ -1428,7 +1464,6 @@
                                       actionListener="#{controlDetalleConcepto.cancelarCambioOrden()}" process="@this"/>
                   </div>
                </p:dialog>
-
             </h:form>
 
             <h:form id="formularioDialogos">
@@ -1653,12 +1688,12 @@
                   </p:scrollPanel>
 
                   <p:commandButton icon="ui-icon-trash" id="limpiarNVC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; margin-top: 20px;"
-                                   actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" update="nuevaVC" process="@this"/>
+                                   actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" update=":formularioDialogos:datosNuevaVigCuenta" process="@this"/>
                   <p:commandButton icon="ui-icon-circle-check" id="agregarNVC" value="#{msg['agregar']}" style="position: absolute; right: 120px; margin-top: 20px;"
                                    actionListener="#{controlDetalleConcepto.agregarNuevoVigenciaCuenta()}" process="@this"/>
                   <p:commandButton icon="ui-icon-circle-close" id="cancelarNVC" value="#{msg['cancelar']}" style="position: absolute; right: 20px; margin-top: 20px;"
-                                   actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" 
-                                   process="@this" update="nuevaVC" onclick="PF('NuevoRegistroVigenciaCuenta').hide();"/>
+                                   actionListener="#{controlDetalleConcepto.limpiarNuevoVigenciaCuenta()}" update=":formularioDialogos:datosNuevaVigCuenta"
+                                   process="@this" onclick="PF('NuevoRegistroVigenciaCuenta').hide();"/>
                </p:dialog>
 
                <!--

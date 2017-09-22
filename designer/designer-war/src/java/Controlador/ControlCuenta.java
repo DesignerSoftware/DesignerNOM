@@ -330,7 +330,7 @@ public class ControlCuenta implements Serializable {
         }
         cambiosCuentas = true;
         activoDetalle = true;
-        RequestContext.getCurrentInstance().update("form:datosCuenta");
+//        RequestContext.getCurrentInstance().update("form:datosCuenta");
     }
 
     public void modificarCuenta(Cuentas cuenta) {

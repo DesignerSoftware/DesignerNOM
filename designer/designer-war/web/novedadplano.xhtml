@@ -109,7 +109,8 @@
                      <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}"/>
 
                      <p:fileUpload id="FileUp" mode="advanced" disabled="#{cargarArchivoPlano.botones}" label="#{msg['examinar']}" auto="true" skinSimple="true"
-                                   style="position: absolute; top: 28px; left: 175px;" fileUploadListener="#{cargarArchivoPlano.cargarArchivo}"
+                                   style="position: absolute; top: 28px; left: 175px;" fileUploadListener="#{cargarArchivoPlano.cargarArchivo}" 
+                                   oncomplete="PF('operacionEnProceso').hide()"
                                    invalidSizeMessage="#{msg['tamaño']}"/>
 
                      <h:outputText value="#{msg['formula']}" style="font-weight: bold; position: absolute; top: 69px;"/>

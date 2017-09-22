@@ -356,6 +356,7 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public void cargarArchivo(FileUploadEvent event) throws IOException {
+      RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').show()");
       if (event.getFile().getFileName().substring(event.getFile().getFileName().lastIndexOf(".") + 1).equalsIgnoreCase("prn")) {
          nombreArchivoPlano = event.getFile().getFileName();
          log.info("CargarArchivoPlano.cargarArchivo()");
@@ -364,7 +365,6 @@ public class CargarArchivoPlano implements Serializable {
          log.info("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
          log.info("event.getFile().getFileName() : " + event.getFile().getFileName());
          log.info("event.getFile().getInputstream() : " + event.getFile().getInputstream());
-
          transformarArchivo(event.getFile().getSize(), event.getFile().getInputstream(), event.getFile().getFileName());
          contarRegistros();
       } else {

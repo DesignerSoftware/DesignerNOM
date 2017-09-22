@@ -188,9 +188,9 @@ public class ControlNovedadesEmpleados implements Serializable {
       nuevaNovedad.setUsuarioreporta(new Usuarios());
       nuevaNovedad.setTerminal(" ");
       nuevaNovedad.setFechareporte(new Date());
+      nuevaNovedad.setValortotal(valor);
       altoTabla = "125";
       altoTablaEmpl = "95";
-      nuevaNovedad.setValortotal(valor);
 //      cargarTodos = false;
       cantidadEmpleadosNov = 0;
       CodigoConcepto = "0";
@@ -486,10 +486,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    //CREAR NOVEDADES
    public void agregarNuevaNovedadEmpleado() throws UnknownHostException {
       int pasa = 0;
-      int pasa2 = 0;
       Empleados emp = new Empleados();
-//        Empleados emp2 = new Empleados();
-      RequestContext context = RequestContext.getCurrentInstance();
 
       log.info("nuevaNovedad Fechainicial : " + nuevaNovedad.getFechainicial());
       log.info("Concepto : " + nuevaNovedad.getConcepto().getSecuencia());
@@ -500,8 +497,10 @@ public class ControlNovedadesEmpleados implements Serializable {
       log.info("getTipo() : " + nuevaNovedad.getTipo());
 
       if (nuevaNovedad.getFechainicial() == null || nuevaNovedad.getConcepto().getCodigoSTR() == null || nuevaNovedad.getConcepto().getCodigoSTR().equals("0")
-              || nuevaNovedad.getFormula().getNombrelargo() == null || nuevaNovedad.getFormula().getNombrelargo().equals("") || nuevaNovedad.getTipo() == null
-              || ((nuevaNovedad.getValortotal() == null || nuevaNovedad.getValortotal() == valor) && nuevaNovedad.getUnidadesparteentera() == null && nuevaNovedad.getUnidadespartefraccion() == null)) {
+              || nuevaNovedad.getFormula().getNombrelargo() == null || nuevaNovedad.getPeriodicidad().getSecuencia() == null || nuevaNovedad.getFormula().getNombrelargo().equals("") || nuevaNovedad.getTipo() == null
+              || ((nuevaNovedad.getValortotal() == null || nuevaNovedad.getValortotal() == valor)
+              && nuevaNovedad.getUnidadesparteentera() == null
+              && nuevaNovedad.getUnidadespartefraccion() == null)) {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
       } else {
@@ -512,21 +511,21 @@ public class ControlNovedadesEmpleados implements Serializable {
                if (nuevaNovedad.getFechainicial().compareTo(fechaIngreso) < 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
                   RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
-                  pasa2++;
+                  pasa++;
                }
             } else if (nuevaNovedad.getFechafinal() != null) {
                if (nuevaNovedad.getFechainicial().compareTo(nuevaNovedad.getFechafinal()) > 0) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
                   RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-                  pasa2++;
+                  pasa++;
                }
             }
          } else {
             log.error("La fecha de ingreso retorno null");
-            pasa2++;
+            pasa++;
          }
 
-         if (pasa2 == 0) {
+         if (pasa == 0) {
             log.info("Paso todas las validaciones");
             cerrarFiltrado();
             //AGREGAR REGISTRO A LA LISTA NOVEDADES .
@@ -534,12 +533,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             l = BigInteger.valueOf(k);
             nuevaNovedad.setSecuencia(l);
 
-//            for (int i = 0; i < lovEmpleados.size(); i++) {
-//                if (empleadoSeleccionado.getId().compareTo(lovEmpleados.get(i).getId()) == 0) {
-//                    emp = administrarNovedadesEmpleados.elEmpleado(lovEmpleados.get(i).getId());
             emp = administrarNovedadesEmpleados.elEmpleado(empleadoSeleccionado.getId());
-//                }
-//            }
 
             // OBTENER EL TERMINAL 
             HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().getExternalContext().getRequest());
@@ -578,6 +572,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             nuevaNovedad.setUsuarioreporta(new Usuarios());
             nuevaNovedad.setTerminal(" ");
             nuevaNovedad.setFechareporte(new Date());
+            nuevaNovedad.setValortotal(valor);
 
             log.info("nuevaNovedad : " + nuevaNovedad.getFechareporte());
             activoBtnAcumulado = true;
@@ -597,59 +592,145 @@ public class ControlNovedadesEmpleados implements Serializable {
       log.info("controlNovedadesEmpleados.getNuevaNovedad().getFechainicial() : " + nuevaNovedad.getFechainicial());
    }
 
-   public void confirmarDuplicar() {
-      int pasa2 = 0;
+   public void confirmarDuplicar() throws UnknownHostException {
       int pasa = 0;
-      Empleados emp2 = new Empleados();
-      if (duplicarNovedad.getFechainicial() == null || duplicarNovedad.getEmpleado() == null
-              || duplicarNovedad.getFormula().getNombrelargo() == null || duplicarNovedad.getTipo() == null
-              || (duplicarNovedad.getValortotal() == null && duplicarNovedad.getUnidadesparteentera() == null && duplicarNovedad.getUnidadespartefraccion() == null)) {
-         pasa++;
-      }
-      if (pasa == 0) {
-         emp2 = administrarNovedadesEmpleados.elEmpleado(empleadoSeleccionado.getId());
-         if (duplicarNovedad.getFechainicial() != null) {
-            if (duplicarNovedad.getFechainicial().compareTo(emp2.getFechacreacion()) < 0) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
-               RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
-               pasa2++;
+      Empleados emp = new Empleados();
+
+      log.info("duplicarNovedad Fechainicial : " + duplicarNovedad.getFechainicial());
+      log.info("Concepto : " + duplicarNovedad.getConcepto().getSecuencia());
+      log.info("Concepto codigo : " + duplicarNovedad.getConcepto().getCodigoSTR());
+      log.info("Formula : " + duplicarNovedad.getFormula().getSecuencia());
+      log.info("Formula NL :" + duplicarNovedad.getFormula().getNombrelargo() + "...");
+      log.info("Periodicidad : " + duplicarNovedad.getPeriodicidad().getNombre());
+      log.info("getTipo() : " + duplicarNovedad.getTipo());
+
+      if (duplicarNovedad.getFechainicial() == null || duplicarNovedad.getConcepto().getCodigoSTR() == null || duplicarNovedad.getConcepto().getCodigoSTR().equals("0")
+              || duplicarNovedad.getFormula().getNombrelargo() == null || duplicarNovedad.getPeriodicidad().getSecuencia() == null || duplicarNovedad.getFormula().getNombrelargo().equals("") || duplicarNovedad.getTipo() == null
+              || ((duplicarNovedad.getValortotal() == null || duplicarNovedad.getValortotal() == valor)
+              && duplicarNovedad.getUnidadesparteentera() == null
+              && duplicarNovedad.getUnidadespartefraccion() == null)) {
+         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
+      } else {
+         Date fechaIngreso = administrarNovedadesEmpleados.vigenciaTipoContratoSecEmpleado(empleadoSeleccionado.getId());
+
+         if (fechaIngreso != null) {
+            if (duplicarNovedad.getFechainicial() != null) {
+               if (duplicarNovedad.getFechainicial().compareTo(fechaIngreso) < 0) {
+                  RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
+                  RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
+                  pasa++;
+               }
+            } else if (duplicarNovedad.getFechafinal() != null) {
+               if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getFechafinal()) > 0) {
+                  RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
+                  RequestContext.getCurrentInstance().execute("PF('fechas').show()");
+                  pasa++;
+               }
             }
-         } else if (duplicarNovedad.getFechafinal() != null) {
-            if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getFechafinal()) > 0) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-               RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-               pasa2++;
-            }
+         } else {
+            log.error("La fecha de ingreso retorno null");
+            pasa++;
          }
-         if (pasa2 == 0) {
-            listaNovedades.add(duplicarNovedad);
-            listaNovedadesCrear.add(duplicarNovedad);
-            contarRegistros();
-            novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
-            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-            if (guardado) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+
+         if (pasa == 0) {
+            log.info("Paso todas las validaciones");
             cerrarFiltrado();
+            //AGREGAR REGISTRO A LA LISTA NOVEDADES .
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarNovedad.setSecuencia(l);
+
+            emp = administrarNovedadesEmpleados.elEmpleado(empleadoSeleccionado.getId());
+
             // OBTENER EL TERMINAL 
+            HttpServletRequest request = (HttpServletRequest) (FacesContext.getCurrentInstance().getExternalContext().getRequest());
             String equipo = null;
             java.net.InetAddress localMachine = null;
+            if (request.getRemoteAddr().startsWith("127.0.0.1")) {
+               localMachine = java.net.InetAddress.getLocalHost();
+               equipo = localMachine.getHostAddress();
+            } else {
+               equipo = request.getRemoteAddr();
+            }
+            localMachine = java.net.InetAddress.getByName(equipo);
             getAlias();
             log.info("Alias: " + alias);
             getUsuarioBD();
             log.info("UsuarioBD: " + usuarioBD);
             duplicarNovedad.setTerminal(localMachine.getHostName());
+            duplicarNovedad.setUsuarioreporta(usuarioBD);
+            duplicarNovedad.setEmpleado(emp); //Envia empleado
+            log.info("Empleado enviado: " + emp.getNombreCompleto());
+            listaNovedadesCrear.add(duplicarNovedad);
+            listaNovedades.add(duplicarNovedad);
+            contarRegistros();
+            novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
             duplicarNovedad = new Novedades();
+            log.info("duplicarNovedad : " + duplicarNovedad.getFechareporte());
             activoBtnAcumulado = true;
             RequestContext.getCurrentInstance().update("form:ACUMULADOS");
-            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroNovedad");
+            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+            if (guardado) {
+               guardado = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroNovedad').hide()");
          }
-      } else {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
       }
+//      int pasa2 = 0;
+//      int pasa = 0;
+//      Empleados emp2 = new Empleados();
+//      if (duplicarNovedad.getFechainicial() == null || duplicarNovedad.getEmpleado() == null
+//              || duplicarNovedad.getFormula().getNombrelargo() == null || duplicarNovedad.getTipo() == null
+//              || (duplicarNovedad.getValortotal() == null && duplicarNovedad.getUnidadesparteentera() == null && duplicarNovedad.getUnidadespartefraccion() == null)) {
+//         pasa++;
+//      }
+//      if (pasa == 0) {
+//         emp2 = administrarNovedadesEmpleados.elEmpleado(empleadoSeleccionado.getId());
+//         if (duplicarNovedad.getFechainicial() != null) {
+//            if (duplicarNovedad.getFechainicial().compareTo(emp2.getFechacreacion()) < 0) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
+//               RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
+//               pasa2++;
+//            }
+//         } else if (duplicarNovedad.getFechafinal() != null) {
+//            if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getFechafinal()) > 0) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
+//               RequestContext.getCurrentInstance().execute("PF('fechas').show()");
+//               pasa2++;
+//            }
+//         }
+//         if (pasa2 == 0) {
+//            listaNovedades.add(duplicarNovedad);
+//            listaNovedadesCrear.add(duplicarNovedad);
+//            contarRegistros();
+//            novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
+//            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+//            if (guardado) {
+//               guardado = false;
+//               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            }
+//            cerrarFiltrado();
+//            // OBTENER EL TERMINAL 
+//            String equipo = null;
+//            java.net.InetAddress localMachine = null;
+//            getAlias();
+//            log.info("Alias: " + alias);
+//            getUsuarioBD();
+//            log.info("UsuarioBD: " + usuarioBD);
+//            duplicarNovedad.setTerminal(localMachine.getHostName());
+//            duplicarNovedad = new Novedades();
+//            activoBtnAcumulado = true;
+//            RequestContext.getCurrentInstance().update("form:ACUMULADOS");
+//            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroNovedad");
+//            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroNovedad').hide()");
+//         }
+//      } else {
+//         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaNovedadEmpleado");
+//         RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
+//      }
+///////////////////////////////////////////////////////////////////////////
    }
 
    public void asignarIndex(int cualLista, int tipoAct) {
@@ -1677,6 +1758,7 @@ public class ControlNovedadesEmpleados implements Serializable {
       nuevaNovedad.setUsuarioreporta(new Usuarios());
       nuevaNovedad.setTerminal(" ");
       nuevaNovedad.setFechareporte(new Date());
+      nuevaNovedad.setValortotal(valor);
       resultado = 0;
    }
 
@@ -1814,8 +1896,10 @@ public class ControlNovedadesEmpleados implements Serializable {
       if (listaEmpleadosNovedad == null) {
          listaEmpleadosNovedad = administrarNovedadesEmpleados.empleadosNovedades();
          lovEmpleados = new ArrayList<PruebaEmpleados>();
-         for (int i = 0; i < listaEmpleadosNovedad.size(); i++) {
-            lovEmpleados.add(listaEmpleadosNovedad.get(i));
+         if (listaEmpleadosNovedad != null) {
+            for (int i = 0; i < listaEmpleadosNovedad.size(); i++) {
+               lovEmpleados.add(listaEmpleadosNovedad.get(i));
+            }
          }
       }
    }
