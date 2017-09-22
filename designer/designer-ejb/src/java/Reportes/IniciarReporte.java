@@ -12,16 +12,14 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JExcelApiExporterParameter;
 import net.sf.jasperreports.engine.export.JExcelApiMetadataExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRCsvMetadataExporter;
 import net.sf.jasperreports.engine.export.JRCsvMetadataExporterParameter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
-import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.JRXhtmlExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.AsynchronousFillHandle;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
@@ -42,17 +40,25 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
 
     @Override
     public void inicarC() {
-        log.warn("inicarC(). NO IMPLEMENTADO. ");
     }
 
     @Override
     public String ejecutarReporte(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map parametrosemp) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
             log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
             log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
             log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
+            System.out.println("parametrosemp: " + parametrosemp);
+            Map parametros = new HashMap();
+            parametros.put("RutaReportes", rutaReporte);
+            if (parametrosemp != null && !parametrosemp.isEmpty()) {
+//                if (parametrosemp.containsKey("envioMasivo")) {
+                    System.out.println("Buenas Ingrese a parametros.put");
+                    parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
+                    parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
+//                }
+            }
+            System.out.println("parametros antes de generar: " + parametros);
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -62,17 +68,9 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             JRPropertiesUtil jrPropertiesUtil = JRPropertiesUtil.getInstance(jasperReportsContext);
             jrPropertiesUtil.setProperty(QueryExecuterFactory.QUERY_EXECUTER_FACTORY_PREFIX + "plsql", "net.sf.jasperreports.engine.query.PlSqlQueryExecuterFactory");
             log.warn("INICIARREPORTE creo master ");
-            Map parametros = new HashMap();
-            parametros.put("RutaReportes", rutaReporte);
-            if (parametrosemp != null && !parametrosemp.isEmpty()) {
-                if (parametrosemp.containsKey("envioMasivo")) {
-                    parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
-                    parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
-                }
-            }
-            log.warn("parametrosemp: " + parametrosemp);
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             log.warn("INICIARREPORTE lleno reporte ");
+            System.out.println("parametros: " + parametros);
             String outFileName = rutaGenerado + nombreArchivo;
             log.warn("INICIARREPORTE outFileName: " + outFileName);
             JRExporter exporter = null;
@@ -84,10 +82,20 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     exporter = new JRXlsxExporter();
                     break;
                 case "XLS":
-                    exporter = new JExcelApiMetadataExporter();
-                    exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
-                    exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-                    exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
+//                    exporter = new JExcelApiMetadataExporter();
+//                    exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
+//                    exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+//                    exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
+                   JRXlsExporter xlsExporter = new JRXlsExporter();
+                   xlsExporter.setExporterInput(new SimpleExporterInput(imprimir));
+                   xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(outFileName)));
+                   SimpleXlsReportConfiguration con = new SimpleXlsReportConfiguration();
+//                   con.setFontSizeFixEnabled(Boolean.TRUE);
+//                   con.setWhitePageBackground(Boolean.FALSE);
+//                   con.setIgnoreCellBackground(Boolean.TRUE);
+                   con.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
+                   xlsExporter.setConfiguration(con);
+                   xlsExporter.exportReport();
                     break;
                 case "CSV":
 //                    exporter = new JRCsvMetadataExporter();
@@ -118,7 +126,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     SimpleTextExporterConfiguration c = new SimpleTextExporterConfiguration();
                     c.setTrimLineRight(Boolean.TRUE);
                     c.setLineSeparator("\r\n");
+                    c.isOverrideHints();
                     txtexporter.setConfiguration(c);
+                    SimpleTextReportConfiguration conf = new SimpleTextReportConfiguration();
+                    conf.getCharHeight();
+                    conf.getCharWidth();
+                    txtexporter.setConfiguration(conf);
                     txtexporter.exportReport();
                     break;
                 case "TXT":
@@ -130,7 +143,8 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
                     c = new SimpleTextExporterConfiguration();
                     c.setTrimLineRight(Boolean.TRUE);
-                    txtexporter.setConfiguration(c);
+                    c.setLineSeparator("\r\n");
+                    txtexporter.setConfiguration(c);                    
                     txtexporter.exportReport();
                     break;
                 default:
@@ -163,15 +177,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             handle = AsynchronousFillHandle.createHandle(masterReport, null, conexion);
             handle.addListener(new AsynchronousFilllListener() {
                 public void reportFinished(JasperPrint print) {
-                    log.warn("Finalizado");
                 }
 
                 public void reportCancelled() {
-                    log.warn("Cancelado");
                 }
 
                 public void reportFillError(Throwable t) {
-                    log.warn("Error llenando el reporte");
                 }
             });
             //handle.startFill();
@@ -229,7 +240,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             handle = AsynchronousFillHandle.createHandle(masterReport, null, conexion);
             handle.addListener(asistenteReporte);
             handle.startFill();
-            log.warn("Inicio Llenado");
         } catch (Exception ex) {
             log.error("Error antes de llenar el reporte (llenarReporte)\n" + ex);
             throw ex;
@@ -289,7 +299,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             handle.cancellFill();
             handle = null;
         } catch (Exception ex) {
-            log.error("Reporte cancelado. \n" + ex);
         }
     }
 
@@ -298,7 +307,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
         try {
             conexion.close();
         } catch (Exception e) {
-            log.error("Error Cerrar Conexión: " + e.getCause());
         }
     }
 
@@ -334,7 +342,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
-            log.warn("fin. " + outFileName);
             return outFileName;
         } catch (Exception e) {
             log.error("Error IniciarReporte.ejecutarReporte: " + e);
@@ -393,12 +400,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteEstadisResumido(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map paramResumido) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
-            log.warn("INICIARREPORTE ejecutarReporteEstadisResumido Map : " + paramResumido);
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -438,12 +439,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteFuncionesCargo(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
-            log.warn("INICIARREPORTE ejecutarCifraControl Map : " + param);
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -481,12 +476,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteHojaVida(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
-            log.warn("INICIARREPORTE ejecutarReporteHojaVida param : " + param);
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -524,11 +513,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReportePlanta1(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
+          
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -561,11 +546,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteSegUsuarios(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
+            
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -588,7 +569,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (Exception e) {
             log.error("Error IniciarReporte.ejecutarReporteSegUsuarios: " + e);
-            log.error("************************************");
             if (e.getCause() != null) {
                 return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -600,12 +580,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteHistoricosUsuarios(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
-            log.warn("INICIARREPORTE Parametros : " + param);
+            
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -631,7 +606,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (Exception e) {
             log.error("Error IniciarReporte.ejecutarReporte: " + e);
-            log.error("************************************");
             if (e.getCause() != null) {
                 return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -643,11 +617,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReportePantallas(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -670,7 +639,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (Exception e) {
             log.error("Error IniciarReporte.ejecutarReportePantallas: " + e);
-            log.error("************************************");
             if (e.getCause() != null) {
                 return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -682,11 +650,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteObjetos(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-            log.warn("INICIARREPORTE NombreReporte: " + nombreReporte);
-            log.warn("INICIARREPORTE rutaReporte: " + rutaReporte);
-            log.warn("INICIARREPORTE rutaGenerado: " + rutaGenerado);
-            log.warn("INICIARREPORTE nombreArchivo: " + nombreArchivo);
-            log.warn("INICIARREPORTE tipoReporte: " + tipoReporte);
+           
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -709,7 +673,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (Exception e) {
             log.error("Error IniciarReporte.ejecutarReporteObjetos: " + e);
-            log.error("************************************");
             if (e.getCause() != null) {
                 return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {

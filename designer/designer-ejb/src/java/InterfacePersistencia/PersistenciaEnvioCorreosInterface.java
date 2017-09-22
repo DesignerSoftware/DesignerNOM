@@ -76,10 +76,17 @@ public interface PersistenciaEnvioCorreosInterface {
     /**
      *
      * @param em
+     * @return
+     */
+    public List<String> Correos(EntityManager em);
+
+    /**
+     *
+     * @param em
      * @param secEmpresa
      * @return
      */
     public ConfiguracionCorreo consultarRemitente(EntityManager em, BigInteger secEmpresa);
-    
-   public void insertarFalloCorreos(EntityManager em, EnvioCorreos enviocorreo);
+
+    public void insertarFalloCorreos(EntityManager em, EnvioCorreos enviocorreo);
 }

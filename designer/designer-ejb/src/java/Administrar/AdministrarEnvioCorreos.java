@@ -43,19 +43,21 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
     PersistenciaActualUsuarioInterface persistenciaActualUsuario;
 
     private EntityManagerFactory emf;
-    private EntityManager em; private String idSesionBck;
+    private EntityManager em;
+    private String idSesionBck;
 
     private EntityManager getEm() {
         try {
-            if (this.emf != null) { if (this.em != null) {
-                if (this.em.isOpen()) {
-                    this.em.close();
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
                 }
-            }
             } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
+            }
+            this.em = emf.createEntityManager();
         } catch (Exception e) {
             log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
         }
@@ -63,7 +65,8 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
     }
 
     @Override
-    public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
         try {
             emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
         } catch (Exception e) {
@@ -73,7 +76,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
 
     @Override
     public List<Empleados> correoCodigoEmpleado(BigDecimal emplDesde, BigDecimal emplHasta) {
-        log.warn("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
+        log.warn("Administrar.AdministrarEnvioCorreos.consultarEnvioCorreos()");
         log.warn("emplDesde: " + emplDesde);
         log.warn("emplHasta: " + emplHasta);
         List<Empleados> correoEmpleados;
@@ -82,10 +85,25 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
             correoEmpleados = persistenciaEnvioCorreos.CorreoCodEmpleados(getEm(), emplDesde, emplHasta);
         } catch (Exception e) {
             log.warn("Ingrese al catch");
-            log.warn("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
+            log.warn("Error Administrar.AdministrarEnvioCorreos.consultarEnvioCorreos() " + e);
             correoEmpleados = new ArrayList<>();
         }
         return correoEmpleados;
+    }
+
+    @Override
+    public List<String> correos() {
+        log.warn("Administrar.AdministrarEnvioCorreos.correos()");
+        List<String> correo;
+        try {
+            log.warn("Ingrese al try");
+            correo = persistenciaEnvioCorreos.Correos(getEm());
+        } catch (Exception e) {
+            log.warn("Ingrese al catch");
+            log.warn("Error Administrar.AdministrarEnvioCorreos.correos() " + e);
+            correo = new ArrayList<>();
+        }
+        return correo;
     }
 
     @Override

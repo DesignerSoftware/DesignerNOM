@@ -57,6 +57,7 @@ public class ControlEnvioCorreos implements Serializable {
     private Empleados empleadoSeleccionado;
     private EnvioCorreos registrofallocorreo;
     private List<EnvioCorreos> listRegistrosFallos;
+    private List<String> correosM;
     private ConfiguracionCorreo correoRemitente;
     private Inforeportes reporteActual;
     private ParametrosReportes codigoParametros;
@@ -199,54 +200,57 @@ public class ControlEnvioCorreos implements Serializable {
 
     public boolean validarCorreo() {
         log.info("Controlador.ControlEnvioCorreos.validarCorreo()");
+        System.out.println("email:   " + email);
         if (email != null) {
-            log.info("Ingrese a primer if");
-            String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-            Pattern pattern = Pattern.compile(PATTERN_EMAIL);
-            Matcher matcher = pattern.matcher(email);
-            if (matcher.matches()) {
-                log.info("Ingrese al segundo if");
-                return true;
+            if (!email.isEmpty()) {
+                String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+                Matcher matcher = pattern.matcher(email);
+                if (matcher.matches()) {
+                    return true;
+                } else {
+                    log.info("Correo Invalido");
+                    FacesMessage msg = new FacesMessage("Error", "Correo inválido, por favor verifique.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                }
             } else {
-                log.info("Correo Invalido");
-//                FacesMessage msg = new FacesMessage("Error", "Correo inválido, por favor verifique.");
-//                FacesContext.getCurrentInstance().addMessage(null, msg);
-//                RequestContext.getCurrentInstance().update("form:growl");
+                log.info("Correo Vacío");
+                return true;
             }
         } else {
-            log.info("Ingrese segundo else");
             return true;
         }
         return false;
     }
 
     public void envioMasivo() {
-        log.info("Controlador.ControlEnvioCorreos.envioMasivo()");
         if (reporteActual.isEstadoEnvioMasivo() == true) {
             getListCorreoCodigos();
+            getCorreosM();
             email = "";
             String tipoRespCorreo = "D";
             String mensaje = "";
-            log.info("listCorreoCodigos: " + listCorreoCodigos);
             if (listCorreoCodigos != null) {
                 if (!listCorreoCodigos.isEmpty()) {
                     for (int i = 0; i < listCorreoCodigos.size(); i++) {
                         String[] msjResul = new String[1];
                         msjResul[0] = "";
+                        email = correosM.get(i);
+//                        email = listCorreoCodigos.get(i).getEmailPersona();
                         if (validarCorreo()) {
-                            log.info("Entre if validar el correo");
                             Map paramEmpl = new HashMap();
                             paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
                             paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
                             pathReporteGenerado = generaReporte(paramEmpl);
-                            if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getEmailPersona(), asunto,
-                                    "Mensaje enviado automáticamente, por favor no responda a este correo.",
-                                    pathReporteGenerado, msjResul)) {
+//                            generaReporte(paramEmpl);
+                            if (enviarReporteCorreo(secEmpresa, email, asunto, "Mensaje enviado automáticamente, por favor no responda a este correo.", pathReporteGenerado, msjResul)) {
                                 mensaje = mensaje + " " + msjResul[0];
                                 if (!tipoRespCorreo.equalsIgnoreCase("E")) {
                                     tipoRespCorreo = "I";
                                 }
+                                email = "";
                             } else {
                                 mensaje = mensaje + " Hubo error en los envíos. " + msjResul[0];
                                 tipoRespCorreo = "E";
@@ -264,8 +268,8 @@ public class ControlEnvioCorreos implements Serializable {
                             l = BigInteger.valueOf(k);
                             registrofallocorreo.setSecuencia(l);
                             registrofallocorreo.setCodigoEmpleado(listCorreoCodigos.get(i));
-                     registrofallocorreo.setNombreEmpleado(listCorreoCodigos.get(i).getNombreCompleto());
-                     registrofallocorreo.setCorreo(listCorreoCodigos.get(i).getEmailPersona());
+                            registrofallocorreo.setNombreEmpleado(listCorreoCodigos.get(i).getNombreCompleto());
+                            registrofallocorreo.setCorreo(listCorreoCodigos.get(i).getEmailPersona());
                             registrofallocorreo.setCorreoorigen(remitente);
                             registrofallocorreo.setEstado("NO ENVIADO");
                             registrofallocorreo.setReporte(reporteActual);
@@ -287,7 +291,6 @@ public class ControlEnvioCorreos implements Serializable {
             } else {
                 log.info("Lista null");
             }
-
             mostrarMensajes(tipoRespCorreo, mensaje);
         } else {
             validarEnviaCorreo();
@@ -296,6 +299,8 @@ public class ControlEnvioCorreos implements Serializable {
 
     private String generaReporte(Map paramEmpl) {
         log.info("Controlador.ControlEnvioCorreos.generaReporte(Map paramEmpl)");
+        System.out.println("paramEmpl: " + paramEmpl);
+        //for para que pathReporteGenerado sea para una sola persona
         pathReporteGenerado = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo(), paramEmpl);
         log.info("adjunto: " + pathReporteGenerado);
         return pathReporteGenerado;
@@ -310,8 +315,9 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     private boolean enviarReporteCorreo(BigInteger secEmp, String correoE, String asuntoCorreo, String mensaje, String rutaArchivo, String[] msjResul) {
+        System.out.println("Buenas Estoy enviarReporteCorreo()");
         boolean resultado = false;
-        rutaArchivo=pathReporteGenerado;
+        rutaArchivo = pathReporteGenerado;
         if (administrarEnviosCorreos.enviarCorreo(secEmp, correoE,
                 asuntoCorreo, mensaje,
                 rutaArchivo, msjResul)) {
@@ -397,7 +403,7 @@ public class ControlEnvioCorreos implements Serializable {
 //        parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
 //        parametroModificacion = parametroDeReporte;
 //        cambiosReporte = false;
-      setEmail(empleadoSeleccionado.getEmailPersona());
+        setEmail(empleadoSeleccionado.getEmailPersona());
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovCorreoEmpleado:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCorreoEmpleado').clearFilters()");
@@ -446,6 +452,17 @@ public class ControlEnvioCorreos implements Serializable {
 
     public void setListCorreoCodigos(List<Empleados> listCorreoCodigos) {
         this.listCorreoCodigos = listCorreoCodigos;
+    }
+
+    public List<String> getCorreosM() {
+        if (correosM == null || correosM.isEmpty()) {
+            correosM = administrarEnviosCorreos.correos();
+        }
+        return correosM;
+    }
+
+    public void setCorreosM(List<String> correosM) {
+        this.correosM = correosM;
     }
 
     public String getEmail() {

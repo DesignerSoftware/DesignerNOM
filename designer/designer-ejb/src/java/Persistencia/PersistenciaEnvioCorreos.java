@@ -23,7 +23,7 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterface {
 
-   private static Logger log = Logger.getLogger(PersistenciaEnvioCorreos.class);
+    private static Logger log = Logger.getLogger(PersistenciaEnvioCorreos.class);
 
     @Override
     public List<EnvioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte) {
@@ -63,11 +63,11 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             }
             return listaEnvios;
         } catch (Exception e) {
-         if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
-         } else {
-            log.error("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
-         }
+            if (e.getMessage().contains("did not retrieve any entities")) {
+                log.trace("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
+            } else {
+                log.error("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
+            }
             return null;
         }
     }
@@ -167,6 +167,24 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             return correoCod;
         } catch (Exception e) {
             log.error("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<String> Correos(EntityManager em) {
+        log.warn("Persistencia.PersistenciaEnvioCorreos.correos()");
+        try {
+            em.clear();
+            String consulta = "SELECT p.email \n"
+                    + "FROM Personas p \n"
+                    + "WHERE p.email IS NOT NULL";
+
+            Query query = em.createNativeQuery(consulta);
+            List<String> correo = query.getResultList();
+            return correo;
+        } catch (Exception e) {
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.Correos(): " + e);
             return null;
         }
     }

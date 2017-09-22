@@ -17,6 +17,8 @@ public interface AdministrarEnvioCorreosInterface {
     public void obtenerConexion(String idSesion);
 
     public List<Empleados> correoCodigoEmpleado(BigDecimal emplDesde, BigDecimal emplHasta);
+    
+    public List<String> correos();
 
     public boolean comprobarConfigCorreo(BigInteger secuenciaEmpresa);
 
