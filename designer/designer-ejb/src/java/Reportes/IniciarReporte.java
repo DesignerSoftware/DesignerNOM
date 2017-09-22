@@ -82,20 +82,20 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     exporter = new JRXlsxExporter();
                     break;
                 case "XLS":
-//                    exporter = new JExcelApiMetadataExporter();
-//                    exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
-//                    exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-//                    exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
-                   JRXlsExporter xlsExporter = new JRXlsExporter();
-                   xlsExporter.setExporterInput(new SimpleExporterInput(imprimir));
-                   xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(outFileName)));
-                   SimpleXlsReportConfiguration con = new SimpleXlsReportConfiguration();
-//                   con.setFontSizeFixEnabled(Boolean.TRUE);
-//                   con.setWhitePageBackground(Boolean.FALSE);
-//                   con.setIgnoreCellBackground(Boolean.TRUE);
-                   con.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
-                   xlsExporter.setConfiguration(con);
-                   xlsExporter.exportReport();
+                    exporter = new JExcelApiMetadataExporter();
+                    exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
+                    exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+                    exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
+//                   JRXlsExporter xlsExporter = new JRXlsExporter();
+//                   xlsExporter.setExporterInput(new SimpleExporterInput(imprimir));
+//                   xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(outFileName)));
+//                   SimpleXlsReportConfiguration con = new SimpleXlsReportConfiguration();
+////                   con.setFontSizeFixEnabled(Boolean.TRUE);
+////                   con.setWhitePageBackground(Boolean.FALSE);
+////                   con.setIgnoreCellBackground(Boolean.TRUE);
+//                   con.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
+//                   xlsExporter.setConfiguration(con);
+//                   xlsExporter.exportReport();
                     break;
                 case "CSV":
 //                    exporter = new JRCsvMetadataExporter();
