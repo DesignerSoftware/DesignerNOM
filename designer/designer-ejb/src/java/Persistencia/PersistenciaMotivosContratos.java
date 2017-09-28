@@ -42,7 +42,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             em.merge(motivosContratos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosContratos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosContratos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +58,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             em.merge(motivosContratos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosContratos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosContratos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosContratos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosContratos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             em.clear();
             return em.find(MotivosContratos.class, secuenciaMotivosContratos);
         } catch (Exception e) {
-            log.error("ERROR PersistenciaMotivosContratos buscarMotivosContratos ERROR " + e.getMessage());
+            log.error("ERROR PersistenciaMotivosContratos buscarMotivosContratos ERROR  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             List<MotivosContratos> motivosContratos = query.getResultList();
             return motivosContratos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosContratos.motivosContratos()" + e.getMessage());
+            log.error("PersistenciaMotivosContratos.motivosContratos():  ", e);
             return null;
         }
     }
@@ -115,7 +115,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             cq.select(cq.from(MotivosContratos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error(" ERROR EN PersistenciaMotivosContratos buscarMotivosCambiosCargos ERROR" + e.getMessage());
+            log.error(" ERROR EN PersistenciaMotivosContratos buscarMotivosCambiosCargos ERROR ", e);
             return null;
         }
     }
@@ -130,7 +130,7 @@ public class PersistenciaMotivosContratos implements PersistenciaMotivosContrato
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             retorno = new BigInteger(query.getSingleResult().toString());
         } catch (Exception e) {
-            log.error("ERROR EN PersistenciaMotivosMotivosContratos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaMotivosMotivosContratos verificarBorrado ERROR :  ", e);
         } finally {
             return retorno;
         }

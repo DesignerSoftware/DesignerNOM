@@ -37,7 +37,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          em.merge(evalCompetencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalActividades.crear: " + e);
+         log.error("Error PersistenciaEvalActividades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +52,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          em.merge(evalCompetencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalActividades.editar: " + e);
+         log.error("Error PersistenciaEvalActividades.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +73,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaEvalActividades.borrar: " + e);
+            log.error("Error PersistenciaEvalActividades.borrar:  ", e);
          }
       }
    }
@@ -86,7 +86,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          List<EvalActividades> evalActividades = query.getResultList();
          return evalActividades;
       } catch (Exception e) {
-         log.error("Error buscarEvalActividades ERROR" + e);
+         log.error("Error buscarEvalActividades ERROR:  ", e);
          return null;
       }
    }
@@ -100,7 +100,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          EvalActividades evalCompetencias = (EvalActividades) query.getSingleResult();
          return evalCompetencias;
       } catch (Exception e) {
-         log.error("Error buscarEvalActividadSecuencia " + e);
+         log.error("Error buscarEvalActividadSecuencia  ", e);
          EvalActividades evalCompetencias = null;
          return evalCompetencias;
       }
@@ -117,7 +117,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          log.warn("Contador PersistenciaEvalActividades contarChequeosMedicosEvalActividad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalActividades contarChequeosMedicosEvalActividad ERROR : " + e);
+         log.error("Error PersistenciaEvalActividades contarChequeosMedicosEvalActividad ERROR :  ", e);
          return retorno;
       }
    }
@@ -133,7 +133,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          log.warn("Contador PersistenciaEvalActividades contarCapNecesidadesEvalActividad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalActividades contarCapNecesidadesEvalActividad ERROR : " + e);
+         log.error("Error PersistenciaEvalActividades contarCapNecesidadesEvalActividad ERROR :  ", e);
          return retorno;
       }
    }
@@ -149,7 +149,7 @@ public class PersistenciaEvalActividades implements PersistenciaEvalActividadesI
          log.warn("Contador PersistenciaEvalActividades contarCapBuzonesEvalActividad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalActividades contarCapBuzonesEvalActividad ERROR : " + e);
+         log.error("Error PersistenciaEvalActividades contarCapBuzonesEvalActividad ERROR :  ", e);
          return retorno;
       }
    }

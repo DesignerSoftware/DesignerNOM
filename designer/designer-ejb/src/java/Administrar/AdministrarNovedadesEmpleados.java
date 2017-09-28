@@ -160,7 +160,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
 //        }
    @Override
    public List<PruebaEmpleados> empleadosNovedades() {
-      log.warn("Administrar.AdministrarNovedadesEmpleados.empleadosNovedades()");
+      log.warn("AdministrarNovedadesEmpleados.empleadosNovedades()");
       try {
          return persistenciaPruebaEmpleados.empleadosNovedadesEmple(getEm());
       } catch (Exception e) {
@@ -183,7 +183,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
 
    @Override
    public List<Novedades> todasNovedades(BigInteger secuenciaEmpleado) {
-      log.warn("Administrar.AdministrarNovedadesEmpleados.todasNovedades() secuenciaEmpleado:" + secuenciaEmpleado);
+      log.warn("AdministrarNovedadesEmpleados.todasNovedades() secuenciaEmpleado:" + secuenciaEmpleado);
       try {
          return persistenciaNovedades.todasNovedadesEmpleado(getEm(), secuenciaEmpleado);
       } catch (Exception e) {

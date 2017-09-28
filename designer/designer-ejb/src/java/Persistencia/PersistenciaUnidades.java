@@ -27,7 +27,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.merge(unidad);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUnidades.crear: " + e.getMessage());
+            log.error("Error PersistenciaUnidades.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.merge(unidad);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUnidades.editar: " + e.getMessage());
+            log.error("Error PersistenciaUnidades.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.remove(em.merge(unidad));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUnidades.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUnidades.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             List<Unidades> listaUnidades = query.getResultList();
             return listaUnidades;
         } catch (Exception e) {
-            log.error("Error consultarUnidades PersistenciaUnidades : " + e.getMessage());
+            log.error("Error consultarUnidades PersistenciaUnidades :  ", e);
             return null;
         }
     }

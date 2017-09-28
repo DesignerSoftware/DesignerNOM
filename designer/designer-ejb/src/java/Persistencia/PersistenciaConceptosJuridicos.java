@@ -39,7 +39,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          em.merge(conceptosJuridicos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosJuridicos.crear: " + e);
+         log.error("Error PersistenciaConceptosJuridicos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          em.merge(conceptosJuridicos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosJuridicos.crear: " + e);
+         log.error("Error PersistenciaConceptosJuridicos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaConceptosJuridicos.borrar: " + e);
+         log.error("Error PersistenciaConceptosJuridicos.borrar:  ", e);
       }
    }
 
@@ -86,7 +86,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          List<ConceptosJuridicos> conceptosJuridicos = (List<ConceptosJuridicos>) em.createQuery("SELECT c FROM ConceptosJuridicos c").getResultList();
          return conceptosJuridicos;
       } catch (Exception e) {
-         log.error("Error buscarConceptosJuridicos PersistenciaConceptosJuridicos : " + e.toString());
+         log.error("Error buscarConceptosJuridicos PersistenciaConceptosJuridicos :  ", e);
          return null;
       }
    }
@@ -101,7 +101,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          ConceptosJuridicos conceptosJuridicos = (ConceptosJuridicos) query.getSingleResult();
          return conceptosJuridicos;
       } catch (Exception e) {
-         log.error("Error buscarConceptosJuridicosSecuencia PersistenciaConceptosJuridicos : " + e.toString());
+         log.error("Error buscarConceptosJuridicosSecuencia PersistenciaConceptosJuridicos :  ", e);
          ConceptosJuridicos conceptosJuridicos = null;
          return conceptosJuridicos;
       }
@@ -117,7 +117,7 @@ public class PersistenciaConceptosJuridicos implements PersistenciaConceptosJuri
          List<ConceptosJuridicos> conceptosJuridicos = (List<ConceptosJuridicos>) query.getResultList();
          return conceptosJuridicos;
       } catch (Exception e) {
-         log.error("Error buscarConceptosJuridicosEmpresa PersistenciaConceptosJuridicos : " + e.toString());
+         log.error("Error buscarConceptosJuridicosEmpresa PersistenciaConceptosJuridicos :  ", e);
          List<ConceptosJuridicos> conceptosJuridicos = null;
          return conceptosJuridicos;
       }

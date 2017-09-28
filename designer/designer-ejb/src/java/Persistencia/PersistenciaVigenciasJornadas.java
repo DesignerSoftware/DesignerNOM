@@ -29,7 +29,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          tx.commit();
          return true;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaVigenciasJornadas.crear()" + e.getMessage());
+          log.error("PersistenciaVigenciasJornadas.crear():  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          em.merge(vigenciasJornadas);
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaVigenciasJornadas.editar()" + e.getMessage());
+          log.error("PersistenciaVigenciasJornadas.editar():  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          em.remove(em.merge(vigenciasJornadas));
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaVigenciasJornadas.borrar()" + e.getMessage());
+          log.error("PersistenciaVigenciasJornadas.borrar():  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -77,7 +77,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          cq.select(cq.from(VigenciasJornadas.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarVigenciasJornadas" + e.getMessage());
+         log.error("Error buscarVigenciasJornadas ", e);
          return null;
       }
    }
@@ -92,7 +92,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          List<VigenciasJornadas> vigenciasJornadas = query.getResultList();
          return vigenciasJornadas;
       } catch (Exception e) {
-         log.error("Error en buscarVigenciasJornadasEmpleado " + e.getMessage());
+         log.error("Error en buscarVigenciasJornadasEmpleado  ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          VigenciasJornadas vigenciasJornadas = (VigenciasJornadas) query.getSingleResult();
          return vigenciasJornadas;
       } catch (Exception e) {
-         log.error("Error buscarVigenciasJornadasSecuencia Persistencia VL" + e.getMessage());
+         log.error("Error buscarVigenciasJornadasSecuencia Persistencia VL ", e);
          return null;
       }
    }

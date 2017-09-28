@@ -28,7 +28,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          em.persist(eersCabeceras);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEersCabeceras.crear: " + e.toString());
+         log.error("Error PersistenciaEersCabeceras.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +44,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          em.merge(eersCabeceras);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEersCabeceras.crear: " + e.toString());
+         log.error("Error PersistenciaEersCabeceras.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -61,7 +61,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaEersCabeceras.borrar: " + e.toString());
+         log.error("Error PersistenciaEersCabeceras.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          List<EersCabeceras> eersCabeceras = query.getResultList();
          return eersCabeceras;
       } catch (Exception e) {
-         log.error("Error buscarEersCabecerasTotales PersistenciaEersCabeceras " + e.toString());
+         log.error("Error buscarEersCabecerasTotales PersistenciaEersCabeceras  ", e);
          e.printStackTrace();
          return null;
       }
@@ -124,7 +124,7 @@ public class PersistenciaEersCabeceras implements PersistenciaEersCabecerasInter
          return eersCabeceras;
       } catch (Exception e) {
          e.printStackTrace();
-         log.error("Error buscarEersCabecerasTotalesPorEmpleado PersistenciaEersCabeceras " + e.toString());
+         log.error("Error buscarEersCabecerasTotalesPorEmpleado PersistenciaEersCabeceras  ", e);
          return null;
       }
    }

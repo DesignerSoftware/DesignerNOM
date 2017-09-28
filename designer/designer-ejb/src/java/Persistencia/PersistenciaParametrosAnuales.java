@@ -42,7 +42,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal smlv = (BigDecimal) query.getSingleResult();
             return smlv;
         } catch (Exception e) {
-            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV :  ", e);
             return null;
         }
     }
@@ -66,7 +66,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal auxtrans = (BigDecimal) query.getSingleResult();
             return auxtrans;
         } catch (Exception e) {
-            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV :  ", e);
             return null;
         }
     }
@@ -88,7 +88,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal valoruvt = (BigDecimal) query.getSingleResult();
             return valoruvt;
         } catch (Exception e) {
-            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV :  ", e);
             return null;
         }
     }
@@ -112,7 +112,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal valorminibc = (BigDecimal) query.getSingleResult();
             return valorminibc;
         } catch (Exception e) {
-            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV :  ", e);
             return null;
         }
     }
@@ -136,7 +136,7 @@ public class PersistenciaParametrosAnuales implements PersistenciaParametrosAnua
             BigDecimal topesegsocial = (BigDecimal) query.getSingleResult();
             return topesegsocial;
         } catch (Exception e) {
-            log.error("error PersistenciaParametrosAnuales.consultarSMLV : " + e.getMessage());
+            log.error("error PersistenciaParametrosAnuales.consultarSMLV :  ", e);
             return null;
         }
     }

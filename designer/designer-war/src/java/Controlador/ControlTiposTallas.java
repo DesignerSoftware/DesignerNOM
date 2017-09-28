@@ -102,7 +102,7 @@ public class ControlTiposTallas implements Serializable {
          administrarTiposTallas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -312,7 +312,7 @@ public class ControlTiposTallas implements Serializable {
             contarElementosTipoTalla = new BigInteger("-1");
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposTallas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposTallas verificarBorrado ERROR  ", e);
       }
    }
 

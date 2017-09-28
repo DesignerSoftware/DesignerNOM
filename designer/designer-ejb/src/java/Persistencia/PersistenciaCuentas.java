@@ -42,7 +42,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          em.persist(cuentas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCuentas.crear: " + e);
+         log.error("Error PersistenciaCuentas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -61,7 +61,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCuentas.editar: " + e);
+         log.error("Error PersistenciaCuentas.editar:  ", e);
       }
    }
 
@@ -78,7 +78,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCuentas.borrar: " + e);
+         log.error("Error PersistenciaCuentas.borrar:  ", e);
       }
    }
 
@@ -89,7 +89,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          List<Cuentas> cuentas = (List<Cuentas>) em.createQuery("SELECT c FROM Cuentas c").getResultList();
          return cuentas;
       } catch (Exception e) {
-         log.error("Error buscarCuentas PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentas PersistenciaCuentas :  ", e);
          return null;
       }
    }
@@ -104,7 +104,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          Cuentas cuentas = (Cuentas) query.getSingleResult();
          return cuentas;
       } catch (Exception e) {
-         log.error("Error buscarCuentasSecuencia PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentasSecuencia PersistenciaCuentas :  ", e);
          Cuentas cuentas = null;
          return cuentas;
       }
@@ -120,7 +120,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          List<Cuentas> cuentas = (List<Cuentas>) query.getResultList();
          return cuentas;
       } catch (Exception e) {
-         log.error("Error buscarCuentasSecuenciaEmpresa PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentasSecuenciaEmpresa PersistenciaCuentas :  ", e);
          List<Cuentas> cuentas = null;
          return cuentas;
       }
@@ -142,7 +142,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
             return 0;
          }
       } catch (Exception e) {
-         log.error("Error contarVigCuentasPorTipoccConceptoYCuentac PersistenciaCuentas : " + e.toString());
+         log.error("Error contarVigCuentasPorTipoccConceptoYCuentac PersistenciaCuentas :  ", e);
          return 0;
       }
    }
@@ -163,7 +163,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
             return 0;
          }
       } catch (Exception e) {
-         log.error("Error contarVigCuentasPorTipoccConceptoYCuentad PersistenciaCuentas : " + e.toString());
+         log.error("Error contarVigCuentasPorTipoccConceptoYCuentad PersistenciaCuentas :  ", e);
          return 0;
       }
    }
@@ -177,7 +177,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          CentrosCostos cc = (CentrosCostos) query.getSingleResult();
          return cc;
       } catch (Exception e) {
-         log.error("Error centroCostoLocalizacionTrabajador PersistenciaCuentas : " + e.toString());
+         log.error("Error centroCostoLocalizacionTrabajador PersistenciaCuentas :  ", e);
          return null;
       }
    }
@@ -191,7 +191,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          CentrosCostos cc = (CentrosCostos) query.getSingleResult();
          return cc;
       } catch (Exception e) {
-         log.error("Error centroCostoContabilidad PersistenciaCuentas : " + e.toString());
+         log.error("Error centroCostoContabilidad PersistenciaCuentas :  ", e);
          return null;
       }
    }
@@ -205,7 +205,7 @@ public class PersistenciaCuentas implements PersistenciaCuentasInterface {
          List<Cuentas> cc = query.getResultList();
          return cc;
       } catch (Exception e) {
-         log.error("Error cuenta2505 PersistenciaCuentas : " + e.toString());
+         log.error("Error cuenta2505 PersistenciaCuentas :  ", e);
          return null;
       }
    }

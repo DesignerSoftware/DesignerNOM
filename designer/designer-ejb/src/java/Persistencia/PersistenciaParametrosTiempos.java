@@ -30,7 +30,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             em.persist(parametrosTiempos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.crear : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.crear :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             em.merge(parametrosTiempos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.editar : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.editar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             em.remove(em.merge(parametrosTiempos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.borrar : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.borrar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +78,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             List<ParametrosTiempos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.buscarParametrosTiempos : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.buscarParametrosTiempos :  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             ParametrosTiempos parametro = (ParametrosTiempos) query.getSingleResult();
             return parametro;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.buscarParametrosTiemposPorUsuarioBD : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.buscarParametrosTiemposPorUsuarioBD :  ", e);
             return null;
         }
     }
@@ -111,7 +111,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_INSERTARCUADRILLA : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_INSERTARCUADRILLA :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -132,7 +132,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_SIMULARTURNOSEMPLEADOS : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_SIMULARTURNOSEMPLEADOS :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -161,7 +161,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_LIQUIDAR : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_LIQUIDAR :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -180,7 +180,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_EliminarProgramacion : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_EliminarProgramacion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -202,7 +202,7 @@ public class PersistenciaParametrosTiempos implements PersistenciaParametrosTiem
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_ELIMINARSIMULACION : " + e.toString());
+            log.error("Error PersistenciaParametrosTiempos.EjecutarPKG_ELIMINARSIMULACION :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

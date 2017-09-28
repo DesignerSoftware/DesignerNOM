@@ -44,7 +44,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
             em.merge(detallesTiposCotizantes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaDetallesTiposCotizantes.crear: " + e);
+            log.error("Error PersistenciaDetallesTiposCotizantes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
             em.merge(detallesTiposCotizantes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaDetallesTiposCotizantes.editar: " + e);
+            log.error("Error PersistenciaDetallesTiposCotizantes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaDetallesTiposCotizantes.borrar: " + e);
+                log.error("Error PersistenciaDetallesTiposCotizantes.borrar:  ", e);
             }
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaDetallesTiposCotizantes implements PersistenciaDetalles
             List<DetallesTiposCotizantes> listaDetalles = query.getResultList();
             return listaDetalles;
         } catch (Exception e) {
-            log.error("Exepcion en PersistenciaDetallesTiposCotizantes.detallesTiposCotizantes" + e);
+            log.error("Exepcion en PersistenciaDetallesTiposCotizantes.detallesTiposCotizantes ", e);
             return null;
         }
     }

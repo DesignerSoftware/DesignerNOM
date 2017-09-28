@@ -153,7 +153,7 @@ public class ControlAcercaDe implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarPapeles.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -230,7 +230,7 @@ public class ControlAcercaDe implements Serializable {
          }
          return listaEmpresas;
       } catch (Exception e) {
-         log.warn("Error LISTA EMPRESAS " + e);
+         log.warn("Error LISTA EMPRESAS  ", e);
          return null;
       }
    }

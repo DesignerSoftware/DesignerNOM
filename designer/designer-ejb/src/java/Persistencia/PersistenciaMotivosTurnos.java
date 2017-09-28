@@ -28,7 +28,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             em.persist(motivosTurnos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosTurnos.crear: " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             em.merge(motivosTurnos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosTurnos.editar: " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             em.remove(em.merge(motivosTurnos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosTurnos.borrar: " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             List<MotivosTurnos> motivosTurnos = query.getResultList();
             return motivosTurnos;
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosTurnos.consultarMotivosTurnos :" + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.consultarMotivosTurnos ERROR:  ", e);
             return null;
         }
 
@@ -93,7 +93,7 @@ public class PersistenciaMotivosTurnos implements PersistenciaMotivosTurnosInter
             MotivosTurnos motivosTurnos = (MotivosTurnos) query.getSingleResult();
             return motivosTurnos;
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosTurnos.consultarMotivoTurnoPorSecuencia : " + e.toString());
+            log.error("Error PersistenciaMotivosTurnos.consultarMotivoTurnoPorSecuencia :  ", e);
             MotivosTurnos motivosTurnos = null;
             return motivosTurnos;
         }

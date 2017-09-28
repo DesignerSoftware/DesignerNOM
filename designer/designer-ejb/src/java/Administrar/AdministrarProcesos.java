@@ -308,7 +308,7 @@ public class AdministrarProcesos implements AdministrarProcesosInterface {
       try {
          return persistenciaProcesos.clonarProceso(getEm(), descripcionN, codigoN, codigoO);
       } catch (Exception e) {
-         log.warn("Administrar.AdministrarProcesos.clonarProceso() Error : " + e.toString());
+         log.warn("AdministrarProcesos.clonarProceso() Error : " + e.toString());
          return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";
       }
    }

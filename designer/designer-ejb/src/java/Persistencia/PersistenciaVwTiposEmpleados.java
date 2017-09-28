@@ -32,7 +32,7 @@ public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleado
             List<VwTiposEmpleados> VwTiposEmpleadosPorTipo = query.getResultList();
             return VwTiposEmpleadosPorTipo;
         } catch (Exception e) {
-            log.error("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo " + e.getMessage());
+            log.error("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleadosPorTipo  ", e);
             return null;
         }
     }
@@ -45,7 +45,7 @@ public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleado
             List<VwTiposEmpleados> VwTiposEmpleados = query.getResultList();
             return VwTiposEmpleados;
         } catch (Exception e) {
-            log.error("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleados " + e.getMessage());
+            log.error("Error en PersistenciaVwTiposEmpleados.buscarTiposEmpleados  ", e);
             return null;
         }
     }

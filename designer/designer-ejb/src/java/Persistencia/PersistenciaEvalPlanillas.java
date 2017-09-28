@@ -32,7 +32,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          em.merge(evalplanilla);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalPlanillas.crear: " + e);
+         log.error("Error PersistenciaEvalPlanillas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -48,7 +48,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          em.merge(evalplanilla);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalPlanillas.editar: " + e);
+         log.error("Error PersistenciaEvalPlanillas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +68,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEvalPlanillas.borrar: " + e);
+         log.error("Error PersistenciaEvalPlanillas.borrar:  ", e);
       }
    }
 
@@ -81,7 +81,7 @@ public class PersistenciaEvalPlanillas implements PersistenciaEvalPlanillasInter
          List<Evalplanillas> evalPlanilla = query.getResultList();
          return evalPlanilla;
       } catch (Exception e) {
-         log.error("Error Persistencia.PersistenciaEvalPlanillas.consultarEvalPlanilla(): " + e);
+         log.error("Error Persistencia.PersistenciaEvalPlanillas.consultarEvalPlanilla():  ", e);
          return null;
       }
    }

@@ -137,7 +137,7 @@ public class ControlMotivosPrestamos implements Serializable {
          administrarMotivosPrestamos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -462,7 +462,7 @@ public class ControlMotivosPrestamos implements Serializable {
             borrandoMotivosPrestamos();
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
       }
    }
 

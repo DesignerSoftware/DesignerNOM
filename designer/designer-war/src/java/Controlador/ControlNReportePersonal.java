@@ -297,7 +297,7 @@ public class ControlNReportePersonal implements Serializable {
          administarReportes.obtenerConexion(ses.getId());
          administrarInforeportes.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.info("Causa: " + e.getMessage());
       }
    }

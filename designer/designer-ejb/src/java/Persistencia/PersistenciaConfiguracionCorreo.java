@@ -33,7 +33,7 @@ public class PersistenciaConfiguracionCorreo implements PersistenciaConfiguracio
             eManager.getTransaction().commit();
             return cc;
         } catch (Exception e) {
-            log.error("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo: " + e);
+            log.error("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo:  ", e);
             eManager.getTransaction().rollback();
             return null;
         }

@@ -284,7 +284,7 @@ public class ControlEmpresa implements Serializable {
          administrarEmpresa.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -703,10 +703,10 @@ public class ControlEmpresa implements Serializable {
 
    public void cambiarIndice(Empresas empresa, int celda) {
       tablaActiva = 0;
-      log.info("Controlador.ControlEmpresa.cambiarIndice()");
+      log.info("ControlEmpresa.cambiarIndice()");
       empresaSeleccionada = empresa;
       if (guardadoVigencia == true && guardadoCircular == true) {
-         log.info("Controlador.ControlEmpresa.cambiarIndice() empresaSeleccionada: " + empresaSeleccionada);
+         log.info("ControlEmpresa.cambiarIndice() empresaSeleccionada: " + empresaSeleccionada);
          cualCelda = celda;
          vigenciaMBSeleccionada = null;
          circularSeleccionada = null;
@@ -736,7 +736,7 @@ public class ControlEmpresa implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
-      log.info("Controlador.ControlEmpresa.cambiarIndice() Saliendo de la selección");
+      log.info("ControlEmpresa.cambiarIndice() Saliendo de la selección");
    }
 
    public void cambiarIndiceVigencia(VigenciasMonedasBases vigMoneda, int celda) {
@@ -2790,7 +2790,7 @@ public class ControlEmpresa implements Serializable {
       if (listaCirculares == null) {
          if (empresaSeleccionada != null) {
             listaCirculares = administrarEmpresa.listaCircularesParaEmpresa(empresaSeleccionada.getSecuencia());
-            log.info("Controlador.ControlEmpresa.getListaCirculares(): " + listaCirculares);
+            log.info("ControlEmpresa.getListaCirculares(): " + listaCirculares);
          }
       }
       return listaCirculares;

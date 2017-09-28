@@ -168,13 +168,13 @@ public class ControlEnvioCorreos implements Serializable {
             }
             log.info(this.getClass().getName() + " fin de iniciarAdministradores()");
         } catch (Exception e) {
-            log.error("Error postconstruct controlEnvioCorreos" + e);
+            log.error("Error postconstruct controlEnvioCorreos ", e);
             log.info("Causa: " + e.getMessage());
         }
     }
 
     public void recibirPaginaEntrante(String pagina, BigInteger secReporte) {
-        log.info("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
+        log.info("ControlRegistroEnvios.recibirPaginaEntrante()");
         log.info("pagina: " + pagina);
         log.info("secReporte: " + secReporte);
         paginaAnterior = pagina;
@@ -199,7 +199,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public boolean validarCorreo() {
-        log.info("Controlador.ControlEnvioCorreos.validarCorreo()");
+        log.info("ControlEnvioCorreos.validarCorreo()");
         System.out.println("email:   " + email);
         if (email != null) {
             if (!email.isEmpty()) {
@@ -298,7 +298,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     private String generaReporte(Map paramEmpl) {
-        log.info("Controlador.ControlEnvioCorreos.generaReporte(Map paramEmpl)");
+        log.info("ControlEnvioCorreos.generaReporte(Map paramEmpl)");
         System.out.println("paramEmpl: " + paramEmpl);
         //for para que pathReporteGenerado sea para una sola persona
         pathReporteGenerado = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo(), paramEmpl);
@@ -307,7 +307,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     private String generaReporte() {
-        log.info("Controlador.ControlEnvioCorreos.generaReporte()");
+        log.info("ControlEnvioCorreos.generaReporte()");
 //        String pathReporteGeneradoLoc = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
         pathReporteGenerado = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
         log.info("adjunto: " + pathReporteGenerado);
@@ -371,7 +371,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public boolean validarConfigSMTP() {
-        log.info("Controlador.ControlEnvioCorreos.validarConfigSMTP()");
+        log.info("ControlEnvioCorreos.validarConfigSMTP()");
         return administrarEnviosCorreos.comprobarConfigCorreo(secEmpresa);
     }
 
@@ -399,7 +399,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public void actualizarCorreoEmpl() {
-        log.info("Controlador.ControlEnvioCorreos.actualizarCorreoEmpl()");
+        log.info("ControlEnvioCorreos.actualizarCorreoEmpl()");
 //        parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
 //        parametroModificacion = parametroDeReporte;
 //        cambiosReporte = false;
@@ -417,7 +417,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public void cancelarCambioCorreoEmpl() {
-        log.info("Controlador.ControlEnvioCorreos.cancelarCambioCorreoEmpl()");
+        log.info("ControlEnvioCorreos.cancelarCambioCorreoEmpl()");
         empleadoSeleccionado = null;
         aceptar = true;
         filtrarListEmpleados = null;
@@ -435,7 +435,7 @@ public class ControlEnvioCorreos implements Serializable {
 
     public void salir() {
         limpiarListasValor();
-        log.info("Controlador.ControlRegistroEnvios.salir()");
+        log.info("ControlRegistroEnvios.salir()");
         empleadoSeleccionado = null;
         email = "";
         navegar("atras");
@@ -466,7 +466,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public String getEmail() {
-        log.info("Controlador.ControlEnvioCorreos.getEmail(). email= " + email);
+        log.info("ControlEnvioCorreos.getEmail(). email= " + email);
         if (email == null) {
             email = " ";
         }
@@ -502,7 +502,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public ParametrosReportes getCodigoParametros() {
-        log.info("Controlador.ControlEnvioCorreos.getCodigoParametros()");
+        log.info("ControlEnvioCorreos.getCodigoParametros()");
         if (codigoParametros == null) {
             codigoParametros = new ParametrosReportes();
             codigoParametros = administrarNReporteNomina.parametrosDeReporte();
@@ -523,7 +523,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public String getPathReporteGenerado() {
-//        log.info("Controlador.ControlEnvioCorreos.getPathReporteGenerado()");
+//        log.info("ControlEnvioCorreos.getPathReporteGenerado()");
 //        if (pathReporteGenerado == null || pathReporteGenerado.isEmpty()) {
 //            pathReporteGenerado = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
 //        }
@@ -577,7 +577,7 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public BigInteger getSecEmpresa() {
-        log.info("Controlador.ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
+        log.info("ControlEnvioCorreos.getSecEmpresa() secEmpresa: " + secEmpresa);
         if (secEmpresa == null) {
             try {
                 secEmpresa = codigoParametros.getEmpresa().getSecuencia();

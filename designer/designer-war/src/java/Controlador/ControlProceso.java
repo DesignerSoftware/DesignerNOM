@@ -244,7 +244,7 @@ public class ControlProceso implements Serializable {
          administrarProcesos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -844,7 +844,7 @@ public class ControlProceso implements Serializable {
    }
 
    public void editarCelda() {
-      log.info("Controlador.ControlProceso.editarCelda() tablaActiva: " + tablaActiva);
+      log.info("ControlProceso.editarCelda() tablaActiva: " + tablaActiva);
       if (tablaActiva == 2) {
          editarFormulaProceso = formulaProcesoSeleccionada;
          if (cualCeldaFormulaProceso == 0) {

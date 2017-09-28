@@ -39,7 +39,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          em.persist(formulas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulas.crear: " + e);
+         log.error("Error PersistenciaFormulas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          em.merge(formulas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulas.crear: " + e);
+         log.error("Error PersistenciaFormulas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFormulas.borrar: " + e);
+         log.error("Error PersistenciaFormulas.borrar:  ", e);
       }
    }
 
@@ -85,7 +85,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          log.warn("Entro en buscarFormula()");
          return em.find(Formulas.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaFormulas.buscarFormula() e: " + e);
+         log.error("PersistenciaFormulas.buscarFormula() e:  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          cq.select(cq.from(Formulas.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("PersistenciaFormulas.buscarFormulas() ERROR: " + e);
+         log.error("PersistenciaFormulas.buscarFormulas() ERROR:  ", e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          List<Formulas> listaFormulas = query.getResultList();
          return listaFormulas;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaFormulas.buscarFormulasCarge() e: " + e);
+         log.error("PersistenciaFormulas.buscarFormulasCarge() e:  ", e);
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          Formulas formulaInicial = (Formulas) query.getSingleResult();
          return formulaInicial;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaFormulas.buscarFormulaCargeInicial() e: " + e);
+         log.error("PersistenciaFormulas.buscarFormulaCargeInicial() e:  ", e);
          return null;
       }
    }
@@ -140,7 +140,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          List<Formulas> listaFormulas = query.getResultList();
          return listaFormulas;
       } catch (Exception e) {
-         log.error("Error lovFormulas: " + e);
+         log.error("Error lovFormulas:  ", e);
          return null;
       }
    }
@@ -161,7 +161,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          i = query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error en clonarFormulas: " + e);
+         log.error("Error en clonarFormulas:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -181,7 +181,7 @@ public class PersistenciaFormulas implements PersistenciaFormulasInterface {
          i = query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error en oprandoFormulas: " + e);
+         log.error("Error en oprandoFormulas:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

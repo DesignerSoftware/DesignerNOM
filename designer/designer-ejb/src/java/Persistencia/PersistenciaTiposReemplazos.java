@@ -29,7 +29,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.merge(tiposReemplazos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposReemplazos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposReemplazos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +45,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.merge(tiposReemplazos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposReemplazos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposReemplazos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +61,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.remove(em.merge(tiposReemplazos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposReemplazos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposReemplazos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +74,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.clear();
             return em.find(TiposReemplazos.class, secuenciaTR);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposReemplazos.buscarTipoReemplazo()" + e.getMessage());
+            log.error("PersistenciaTiposReemplazos.buscarTipoReemplazo():  ", e);
             return null;
         }
     }
@@ -88,7 +88,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             List<TiposReemplazos> tiposReemplazos = query.getResultList();
             return tiposReemplazos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposReemplazos.buscarTiposReemplazos()" + e.getMessage());
+            log.error("PersistenciaTiposReemplazos.buscarTiposReemplazos():  ", e);
             return null;
         }
     }
@@ -104,7 +104,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposReemplazos.contadorEncargaturas()" + e.getMessage());
+            log.error("PersistenciaTiposReemplazos.contadorEncargaturas():  ", e);
             return retorno;
         }
     }
@@ -120,7 +120,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposReemplazos.contadorProgramacionesTiempos()" + e.getMessage());
+            log.error("PersistenciaTiposReemplazos.contadorProgramacionesTiempos():  ", e);
             return retorno;
         }
     }
@@ -136,7 +136,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposReemplazos.contadorReemplazos()" + e.getMessage());
+            log.error("PersistenciaTiposReemplazos.contadorReemplazos():  ", e);
             return retorno;
         }
     }

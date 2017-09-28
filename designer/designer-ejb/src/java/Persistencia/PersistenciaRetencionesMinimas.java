@@ -38,7 +38,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetencionesMinimas.crear: " + e.getMessage());
+            log.error("Error PersistenciaRetencionesMinimas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetencionesMinimas.editar: " + e.getMessage());
+            log.error("Error PersistenciaRetencionesMinimas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             em.remove(em.merge(retenciones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetencionesMinimas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaRetencionesMinimas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             return resultado;
 
         } catch (Exception e) {
-            log.error("Error: ( RetencionesMinimas)" + e.toString());
+            log.error("Error: ( RetencionesMinimas) ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             List<RetencionesMinimas> retenciones = query.getResultList();
             return retenciones;
         } catch (Exception e) {
-            log.error("Error en Persistencia Retenciones Minimas " + e.getMessage());
+            log.error("Error en Persistencia Retenciones Minimas  ", e);
             return null;
         }
     }

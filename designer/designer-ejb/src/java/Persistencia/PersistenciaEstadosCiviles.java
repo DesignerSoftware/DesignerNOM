@@ -38,7 +38,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             em.persist(estadosCiviles);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEstadosCiviles.crear: " + e);
+            log.error("Error PersistenciaEstadosCiviles.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             em.merge(estadosCiviles);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEstadosCiviles.editar: " + e);
+            log.error("Error PersistenciaEstadosCiviles.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaEstadosCiviles.borrar: " + e);
+                log.error("Error PersistenciaEstadosCiviles.borrar:  ", e);
             }
         }
     }
@@ -87,7 +87,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             em.clear();
             return em.find(EstadosCiviles.class, secuencia);
         } catch (Exception e) {
-            log.error("Error buscarEstadoCivil PersistenciaEstadosCiviles : " + e.toString());
+            log.error("Error buscarEstadoCivil PersistenciaEstadosCiviles :  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
         List<EstadosCiviles> listEstadosCiviles = query.getResultList();
         return listEstadosCiviles;
         } catch(Exception e){
-            log.error("error consultarEstadosCiviles PersistenciaEstadosCivilires : " + e.toString());
+            log.error("error consultarEstadosCiviles PersistenciaEstadosCivilires :  ", e);
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             log.warn("PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAESTADOSCIVILES contadorVigenciasEstadosCiviles  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

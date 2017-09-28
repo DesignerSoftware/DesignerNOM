@@ -41,7 +41,7 @@ public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCam
          em.merge(motivosCambiosSueldos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaMotivosCambiosSueldos.crear: " + e.getMessage());
+         log.error("Error PersistenciaMotivosCambiosSueldos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +57,7 @@ public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCam
          em.merge(motivosCambiosSueldos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
+         log.error("Error PersistenciaMotivosCambiosSueldos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCam
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaMotivosCambiosSueldos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -90,7 +90,7 @@ public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCam
          List<MotivosCambiosSueldos> motivosCambiosSueldos = (List<MotivosCambiosSueldos>) query.getResultList();
          return motivosCambiosSueldos;
       } catch (Exception e) {
-         log.error("Error buscarMotivosCambiosSueldos PersistenciaMotivoCambioSueldo : " + e.toString());
+         log.error("Error buscarMotivosCambiosSueldos PersistenciaMotivoCambioSueldo :  ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCam
          MotivosCambiosSueldos motivosCambiosSueldos = (MotivosCambiosSueldos) query.getSingleResult();
          return motivosCambiosSueldos;
       } catch (Exception e) {
-         log.error("Error buscarMotivoCambioSueldoSecuencia" + e.getMessage());
+         log.error("Error buscarMotivoCambioSueldoSecuencia ", e);
          MotivosCambiosSueldos motivosCambiosSueldos = null;
          return motivosCambiosSueldos;
       }
@@ -122,7 +122,7 @@ public class PersistenciaMotivosCambiosSueldos implements PersistenciaMotivosCam
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          retorno = new BigInteger(query.getSingleResult().toString());
       } catch (Exception e) {
-         log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
+         log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :  ", e);
       } finally {
          return retorno;
       }

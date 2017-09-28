@@ -166,7 +166,7 @@ public class ControlUsuariosClon implements Serializable {
             infoRegistro = "Cantidad de registros : 0";
          }
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

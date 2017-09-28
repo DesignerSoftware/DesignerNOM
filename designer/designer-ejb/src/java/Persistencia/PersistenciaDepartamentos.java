@@ -38,7 +38,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             em.merge(departamentos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaDepartamentos.crear: " + e);
+            log.error("Error PersistenciaDepartamentos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             em.merge(departamentos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaDepartamentos.editar: " + e);
+            log.error("Error PersistenciaDepartamentos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaDepartamentos.borrar: " + e);
+            log.error("Error PersistenciaDepartamentos.borrar:  ", e);
         }
     }
 
@@ -81,7 +81,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             em.clear();
             return em.find(Departamentos.class, secuencia);
         } catch (Exception e) {
-            log.error("Error buscarDeporte PersistenciaDepartamentos : " + e.toString());
+            log.error("Error buscarDeporte PersistenciaDepartamentos :  ", e);
             return null;
         }
     }
@@ -95,7 +95,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             List<Departamentos> departamentos = query.getResultList();
             return departamentos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaDepartamentos.consultarDepartamentos()" + e.getMessage());
+            log.error("PersistenciaDepartamentos.consultarDepartamentos():  ", e);
             return null;
         }
     }
@@ -110,7 +110,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaDepartamentos contarSoAccidentesMedicosDepartamento  ERROR = " + e);
+            log.error("ERROR PersistenciaDepartamentos contarSoAccidentesMedicosDepartamento  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -126,7 +126,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaDepartamentos contarCiudadesDepartamento  ERROR = " + e);
+            log.error("ERROR PersistenciaDepartamentos contarCiudadesDepartamento  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -142,7 +142,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaDepartamentos contarCapModulosDepartamento  ERROR = " + e);
+            log.error("ERROR PersistenciaDepartamentos contarCapModulosDepartamento  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -159,7 +159,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaDepartamentos contarBienProgramacionesDepartamento  ERROR = " + e);
+            log.error("ERROR PersistenciaDepartamentos contarBienProgramacionesDepartamento  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -175,7 +175,7 @@ public class PersistenciaDepartamentos implements PersistenciaDepartamentosInter
             List<Departamentos> departamentos = query.getResultList();
             return departamentos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaDepartamentos.consultarDepartamentosPorPais()" + e.getMessage());
+            log.error("PersistenciaDepartamentos.consultarDepartamentosPorPais():  ", e);
             return null;
         }
     }

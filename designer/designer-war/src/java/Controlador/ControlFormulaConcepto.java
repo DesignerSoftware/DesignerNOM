@@ -155,7 +155,7 @@ public class ControlFormulaConcepto implements Serializable {
          administrarFormulaConcepto.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -172,7 +172,7 @@ public class ControlFormulaConcepto implements Serializable {
    }
 
    public void recibirFormula(Formulas formula, String pagina) {
-      log.info("Controlador.ControlFormulaConcepto.recibirFormula() formula: " + formula + " , y pagina: " + pagina);
+      log.info("ControlFormulaConcepto.recibirFormula() formula: " + formula + " , y pagina: " + pagina);
       paginaAnterior = pagina;
       formulaActual = formula;
       listFormulasConceptos = null;

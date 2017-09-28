@@ -127,7 +127,7 @@ public class ControlProcesosProductivos implements Serializable {
          administrarProcesosProductivos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -800,7 +800,7 @@ public class ControlProcesosProductivos implements Serializable {
 
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR  ", e);
       }
    }
 
@@ -1026,7 +1026,7 @@ public class ControlProcesosProductivos implements Serializable {
 
      }
      } catch (Exception e) {
-     log.error("ERROR ControlProcesosProductivos verificarBorrado ERROR " + e);
+     log.error("ERROR ControlProcesosProductivos verificarBorrado ERROR  ", e);
      }
      }
     */

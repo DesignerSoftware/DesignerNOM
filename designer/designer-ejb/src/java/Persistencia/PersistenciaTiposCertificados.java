@@ -27,7 +27,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
          em.merge(motivosMvrs);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposCertificados.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposCertificados.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +43,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
          em.merge(motivosMvrs);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposCertificados.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposCertificados.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
          em.remove(em.merge(motivosMvrs));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposCertificados.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposCertificados.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
          em.clear();
          return em.find(TiposCertificados.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposCertificados.buscarTipoCertificado()" + e.getMessage());
+         log.error("PersistenciaTiposCertificados.buscarTipoCertificado():  ", e);
          return null;
       }
    }
@@ -85,7 +85,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
          cq.select(cq.from(TiposCertificados.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposCertificados.buscarTiposCertificados()" + e.getMessage());
+         log.error("PersistenciaTiposCertificados.buscarTiposCertificados():  ", e);
          return null;
       }
    }

@@ -143,7 +143,7 @@ public class ControlEvalEvaluadores implements Serializable {
          administrarEvalEvaluadores.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -622,7 +622,7 @@ public class ControlEvalEvaluadores implements Serializable {
          }
 
       } catch (Exception e) {
-         log.error("ERROR ControlMotivosContratos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlMotivosContratos verificarBorrado ERROR  ", e);
       }
    }
 

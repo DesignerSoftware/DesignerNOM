@@ -28,7 +28,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             em.merge(tiposIndices);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposIndices.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             em.merge(tiposIndices);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposIndices.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +58,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             em.remove(em.merge(tiposIndices));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposIndices.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             List<TiposIndices> evalActividades = query.getResultList();
             return evalActividades;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposIndices.consultarTiposIndices()" + e.getMessage());
+            log.error("PersistenciaTiposIndices.consultarTiposIndices():  ", e);
             return null;
         }
     }
@@ -87,7 +87,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             TiposIndices tiposIndices = (TiposIndices) query.getSingleResult();
             return tiposIndices;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposIndices.consultarTipoIndice()" + e.getMessage());
+            log.error("PersistenciaTiposIndices.consultarTipoIndice():  ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             log.warn("Contador PersistenciaTiposIndices contarIndicesTipoIndice Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndices contarIndicesTipoIndice ERROR : " + e.getMessage());
+            log.error("Error PersistenciaTiposIndices contarIndicesTipoIndice ERROR :  ", e);
             return retorno;
         }
     }

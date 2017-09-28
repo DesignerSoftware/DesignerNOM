@@ -41,7 +41,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             em.persist(circulares);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaCentrosCostos.crear: " + e);
+            log.error("Error PersistenciaCentrosCostos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +57,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             em.merge(circulares);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaCentrosCostos.editar: " + e);
+            log.error("Error PersistenciaCentrosCostos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaCentrosCostos.borrar: " + e);
+                log.error("Error PersistenciaCentrosCostos.borrar:  ", e);
             }
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             List<Circulares> circulares = query.getResultList();
             return circulares;
         } catch (Exception e) {
-            log.error("Error buscarCirculares PersistenciaCirculares : " + e.toString());
+            log.error("Error buscarCirculares PersistenciaCirculares :  ", e);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             Circulares circulares = (Circulares) query.getSingleResult();
             return circulares;
         } catch (Exception e) {
-            log.error("Error buscarCircularSecuencia  PersistenciaCirculares : " + e.toString());
+            log.error("Error buscarCircularSecuencia  PersistenciaCirculares :  ", e);
             Circulares circulares = null;
             return circulares;
         }
@@ -124,7 +124,7 @@ public class PersistenciaCirculares implements PersistenciaCircularesInterface {
             List<Circulares> circulares = query.getResultList();
             return circulares;
         } catch (Exception e) {
-            log.error("Error buscarCircularesPorSecuenciaEmpresa  PersistenciaCirculares : " + e.toString());
+            log.error("Error buscarCircularesPorSecuenciaEmpresa  PersistenciaCirculares :  ", e);
             List<Circulares> circulares = null;
             return circulares;
         }

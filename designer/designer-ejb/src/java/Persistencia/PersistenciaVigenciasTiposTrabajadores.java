@@ -48,7 +48,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             log.warn("Ya creo V tipoTrabajador");
             return true;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.crear()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.crear():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             em.merge(vigenciasTiposTrabajadores);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.editar()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.editar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +81,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             em.remove(em.merge(vigenciasTiposTrabajadores));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.borrar()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.borrar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -96,7 +96,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             cq.select(cq.from(VigenciasTiposTrabajadores.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadores()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadores():  ", e);
             return null;
         }
     }
@@ -111,7 +111,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             List<VigenciasTiposTrabajadores> vigenciasTiposTrabajadores = query.getResultList();
             return vigenciasTiposTrabajadores;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresEmpleado()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresEmpleado():  ", e);
             return null;
         }
     }
@@ -125,7 +125,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             VigenciasTiposTrabajadores vigenciasTiposTrabajadores = (VigenciasTiposTrabajadores) query.getSingleResult();
             return vigenciasTiposTrabajadores;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresSecuencia()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresSecuencia():  ", e);
             return null;
         }
     }
@@ -141,7 +141,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
         return query.getResultList();
             
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarEmpleados()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.buscarEmpleados():  ", e);
             return null;
         }
     }
@@ -158,7 +158,7 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
             VigenciasTiposTrabajadores obj = (VigenciasTiposTrabajadores) query.getSingleResult();
             return obj;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasTiposTrabajadores.buscarVigenciaTipoTrabajadorRestriccionUN()" + e.getMessage());
+            log.error("PersistenciaVigenciasTiposTrabajadores.buscarVigenciaTipoTrabajadorRestriccionUN():  ", e);
             return null;
         }
     }

@@ -34,7 +34,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
          em.merge(soPoblacionObjetivos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoPoblacionObjetivos.crear: " + e.getMessage());
+         log.error("Error PersistenciaSoPoblacionObjetivos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +49,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
          em.merge(soPoblacionObjetivos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoPoblacionObjetivos.editar: " + e.getMessage());
+         log.error("Error PersistenciaSoPoblacionObjetivos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -64,7 +64,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
          em.remove(em.merge(soPoblacionObjetivos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoPoblacionObjetivos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSoPoblacionObjetivos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -76,7 +76,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
          em.clear();
          return em.find(SoPoblacionObjetivos.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia SoPoblacionObjetivos " + e.getMessage());
+         log.error("Persistencia SoPoblacionObjetivos  ", e);
          return null;
       }
    }
@@ -88,7 +88,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
          cq.select(cq.from(SoPoblacionObjetivos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSoPoblacionObjetivos.consultarSoPoblacionObjetivos()" + e.getMessage());
+         log.error("PersistenciaSoPoblacionObjetivos.consultarSoPoblacionObjetivos():  ", e);
          return null;
       }
    }

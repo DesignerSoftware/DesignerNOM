@@ -38,7 +38,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             em.merge(grupoFactoresRiesgos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaGruposFactoresRiesgos.crear: " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaGruposFactoresRiesgos.editar: " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos.editar:  ", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaGruposFactoresRiesgos.borrar: " + e);
+                log.error("Error PersistenciaGruposFactoresRiesgos.borrar:  ", e);
         }
     }
 
@@ -83,7 +83,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             List<GruposFactoresRiesgos> evalActividades = query.getResultList();
             return evalActividades;
         } catch (Exception e) {
-            log.error("Error buscarGruposFactoresRiesgos ERROR" + e);
+            log.error("Error buscarGruposFactoresRiesgos ERROR:  ", e);
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             GruposFactoresRiesgos grupoFactoresRiesgos = (GruposFactoresRiesgos) query.getSingleResult();
             return grupoFactoresRiesgos;
         } catch (Exception e) {
-            log.error("Error buscarGrupoFactorRiesgoSecuencia " + e);
+            log.error("Error buscarGrupoFactorRiesgoSecuencia  ", e);
             GruposFactoresRiesgos grupoFactoresRiesgos = null;
             return grupoFactoresRiesgos;
         }
@@ -114,7 +114,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             log.warn("Contador PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR : " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos contarSoProActividadesGrupoFactorRiesgo ERROR :  ", e);
             return retorno;
         }
     }
@@ -130,7 +130,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             log.warn("Contador PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR : " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos contarSoIndicadoresGrupoFactorRiesgo ERROR :  ", e);
             return retorno;
         }
     }
@@ -146,7 +146,7 @@ public class PersistenciaGruposFactoresRiesgos implements PersistenciaGruposFact
             log.warn("Contador PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR : " + e);
+            log.error("Error PersistenciaGruposFactoresRiesgos contarFactoresRiesgoGrupoFactorRiesgo ERROR :  ", e);
             return retorno;
         }
     }

@@ -40,7 +40,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
          em.merge(tiposAuxilios);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposAuxilios.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposAuxilios.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
          em.merge(tiposAuxilios);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposAuxilios.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposAuxilios.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
          em.remove(em.merge(tiposAuxilios));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposAuxilios.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposAuxilios.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -98,7 +98,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
          List<TiposAuxilios> listaMotivosEmbargos = query.getResultList();
          return listaMotivosEmbargos;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposAuxilios.buscarTiposAuxilios()" + e.getMessage());
+         log.error("PersistenciaTiposAuxilios.buscarTiposAuxilios():  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposAuxilios.contadorTablasAuxilios()" + e.getMessage());
+         log.error("PersistenciaTiposAuxilios.contadorTablasAuxilios():  ", e);
          retorno = new BigInteger("-1");
          return retorno;
       }

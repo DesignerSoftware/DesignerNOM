@@ -33,7 +33,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
             em.merge(anteriorContrato);
             tx.commit();
         }catch(Exception e){
-            log.error("Error PersistenciaAnterioresContratos.crear: " + e.getMessage());
+            log.error("Error PersistenciaAnterioresContratos.crear:  ", e);
             if(tx.isActive()){
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
         em.merge(anteriorContrato);
         tx.commit();
         }catch(Exception e){
-            log.error("Error PersistenciaAnterioresContratos.editar: " + e.getMessage());
+            log.error("Error PersistenciaAnterioresContratos.editar:  ", e);
             if(tx.isActive()){
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
         em.remove(em.merge(anteriorContrato));
         tx.commit();
        }catch(Exception e){
-           log.error("Error PersitenciaAnterioresContratos.borrar: " + e.getMessage());   
+           log.error("Error PersitenciaAnterioresContratos.borrar:  ", e);   
            if(tx.isActive()){
                tx.rollback();
            }
@@ -82,7 +82,7 @@ public class PersistenciaAnterioresContratos implements PersistenciaAnterioresCo
        List<AnterioresContratos> listAnterioresContratos = query.getResultList();
        return listAnterioresContratos;
        }catch(Exception e){
-           log.error("error PersistenciaAnterioresContratosInterface.anterioresContratosPersona : " + e.getMessage());
+           log.error("error PersistenciaAnterioresContratosInterface.anterioresContratosPersona :  ", e);
            return null;
        }
     }

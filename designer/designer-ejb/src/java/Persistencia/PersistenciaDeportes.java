@@ -38,7 +38,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          em.merge(deportes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDeportes.crear: " + e);
+         log.error("Error PersistenciaDeportes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +54,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          em.merge(deportes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDeportes.editar: " + e);
+         log.error("Error PersistenciaDeportes.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDeportes.borrar: " + e);
+         log.error("Error PersistenciaDeportes.borrar:  ", e);
       }
    }
 
@@ -84,7 +84,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          em.clear();
          return em.find(Deportes.class, secuencia);
       } catch (Exception e) {
-         log.error("Error buscarDeporte PersistenciaDeportes : " + e.toString());
+         log.error("Error buscarDeporte PersistenciaDeportes :  ", e);
          return null;
       }
    }
@@ -97,7 +97,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          cq.select(cq.from(Deportes.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarDeportes PersistenciaDeportes " + e);
+         log.error("Error buscarDeportes PersistenciaDeportes  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          log.warn("PERSISTENCIADEPORTES contadorParametrosInformes = " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("ERROR PERSISTENCIADEPORTES contadorParametrosInformes  ERROR = " + e);
+         log.error("ERROR PERSISTENCIADEPORTES contadorParametrosInformes  ERROR =  ", e);
          retorno = new BigInteger("-1");
          return retorno;
       }
@@ -133,7 +133,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          log.warn("PERSISTENCIADEPORTES contadorDeportesPersonas = " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("ERROR PERSISTENCIADEPORTES contadorDeportesPersonas  ERROR = " + e);
+         log.error("ERROR PERSISTENCIADEPORTES contadorDeportesPersonas  ERROR =  ", e);
          retorno = new BigInteger("-1");
          return retorno;
       }
@@ -151,7 +151,7 @@ public class PersistenciaDeportes implements PersistenciaDeportesInterface {
          log.error("PERSISTENCIADEPORTES verificarBorradoVigenciasDeportes = " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("ERROR PERSISTENCIADEPORTES verificarBorradoVigenciasDeportes  ERROR = " + e);
+         log.error("ERROR PERSISTENCIADEPORTES verificarBorradoVigenciasDeportes  ERROR =  ", e);
          retorno = new BigInteger("-1");
          return retorno;
       }

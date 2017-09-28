@@ -35,7 +35,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
          List<VigenciasDomiciliarias> listVisitas = query.getResultList();
          return listVisitas;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona" + e.getMessage());
+         log.error("Error PersistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona ", e);
          return null;
       }
    }
@@ -49,7 +49,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
          em.merge(visita);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasDomiciliarias.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasDomiciliarias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaVigenciasDomiciliarias.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDomiciliarias.borrar:  ", e);
          }
       }
    }
@@ -85,7 +85,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
          em.merge(visita);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasDomiciliarias.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasDomiciliarias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -104,7 +104,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
          return vigenciaActual;
 
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona" + e.getMessage());
+         log.error("Error PersistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona ", e);
          return null;
       }
    }
@@ -128,9 +128,9 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
          return visita;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria()" + e.getMessage());
+            log.trace("PersistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria()" + e.getMessage());
+            log.error("PersistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria():  ", e);
          }
          return "";
       }

@@ -174,7 +174,7 @@ public class ControlUsuariosEstructuras implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarUsuariosFiltros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -807,7 +807,7 @@ public class ControlUsuariosEstructuras implements Serializable {
             contarUsuariosFiltros = new BigDecimal("-1");
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposFamiliares verificarBorrado ERROR  ", e);
       }
 
    }

@@ -76,7 +76,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
 
     @Override
     public List<Empleados> correoCodigoEmpleado(BigDecimal emplDesde, BigDecimal emplHasta) {
-        log.warn("Administrar.AdministrarEnvioCorreos.consultarEnvioCorreos()");
+        log.warn("AdministrarEnvioCorreos.consultarEnvioCorreos()");
         log.warn("emplDesde: " + emplDesde);
         log.warn("emplHasta: " + emplHasta);
         List<Empleados> correoEmpleados;
@@ -93,7 +93,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
 
     @Override
     public List<String> correos() {
-        log.warn("Administrar.AdministrarEnvioCorreos.correos()");
+        log.warn("AdministrarEnvioCorreos.correos()");
         List<String> correo;
         try {
             log.warn("Ingrese al try");
@@ -116,7 +116,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
             } catch (NullPointerException npe) {
                 retorno = false;
             } catch (Exception e) {
-                log.warn("Administrar.AdministrarEnvioCorreos.comprobarConfigCorreo()");
+                log.warn("AdministrarEnvioCorreos.comprobarConfigCorreo()");
                 log.warn("Error validando configuracion");
                 log.warn("ex: " + e);
             }
@@ -130,7 +130,7 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
     @Override
     public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto, String[] paramResultado) {
         try {
-            log.warn("Administrar.AdministrarEnvioCorreos.enviarCorreo()");
+            log.warn("AdministrarEnvioCorreos.enviarCorreo()");
             ConfiguracionCorreo cc = persistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo(getEm(), secEmpresa);
             boolean res = EnvioCorreo.enviarCorreo(cc, destinatario, asunto, mensaje, pathAdjunto, paramResultado);
             if (paramResultado != null) {

@@ -128,7 +128,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarVigenciaNormaLaboral.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Error postconstruct ControlVigenciasCargos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -613,7 +613,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          context.responseComplete();
          index = -1;
       } catch (Exception e) {
-         log.warn("Error: " + e);
+         log.warn("Error:  ", e);
       }
    }
    //EVENTO FILTRAR

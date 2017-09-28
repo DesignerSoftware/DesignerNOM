@@ -39,7 +39,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             em.merge(extrasRecargos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaExtrasRecargos.crear: " + e);
+            log.error("Error PersistenciaExtrasRecargos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +58,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaExtrasRecargos.editar: " + e);
+            log.error("Error PersistenciaExtrasRecargos.editar:  ", e);
         }
     }
 
@@ -77,7 +77,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaExtrasRecargos.borrar: " + e);
+                log.error("Error PersistenciaExtrasRecargos.borrar:  ", e);
             }
         }
     }
@@ -88,7 +88,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             em.clear();
             return em.find(ExtrasRecargos.class, secuencia);
         } catch (Exception e) {
-            log.error("Error PersistenciaExtrasRecargos buscarExtraRecargo : " + e.toString());
+            log.error("Error PersistenciaExtrasRecargos buscarExtraRecargo :  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaExtrasRecargos implements PersistenciaExtrasRecargosInt
             List<ExtrasRecargos> extrasRecargos = query.getResultList();
             return extrasRecargos;
         } catch (Exception e) {
-            log.error("Error PersistenciaExtrasRecargos buscarExtrasRecargos : " + e.toString());
+            log.error("Error PersistenciaExtrasRecargos buscarExtrasRecargos :  ", e);
             return null;
         }
     }

@@ -27,7 +27,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAusentismos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAusentismos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.remove(em.merge(tiposAusentismos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAusentismos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             List<Tiposausentismos> todosTiposAusentismos = query.getResultList();
             return todosTiposAusentismos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAusentismos.consultarTiposAusentismos()" + e.getMessage());
+            log.error("PersistenciaTiposAusentismos.consultarTiposAusentismos():  ", e);
             return null;
         }
     }
@@ -89,7 +89,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             Tiposausentismos clasesCategorias = (Tiposausentismos) query.getSingleResult();
             return clasesCategorias;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAusentismos.consultarTipoAusentismo()" + e.getMessage());
+            log.error("PersistenciaTiposAusentismos.consultarTipoAusentismo():  ", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             log.warn("Contador PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR :  ", e);
             return retorno;
         }
     }
@@ -121,7 +121,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             log.warn("Contador PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo ERROR : " + e.getMessage());
+            log.error("Error PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo ERROR :  ", e);
             return retorno;
         }
     }

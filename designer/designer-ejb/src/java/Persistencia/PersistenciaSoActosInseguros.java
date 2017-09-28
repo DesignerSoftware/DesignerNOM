@@ -39,7 +39,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
          em.merge(SoActosInseguros);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoActosInseguros.crear: " + e.getMessage());
+         log.error("Error PersistenciaSoActosInseguros.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
          em.merge(SoActosInseguros);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoActosInseguros.editar: " + e.getMessage());
+         log.error("Error PersistenciaSoActosInseguros.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
          em.remove(em.merge(SoActosInseguros));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoActosInseguros.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSoActosInseguros.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,7 +84,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
          em.clear();
          return em.find(SoActosInseguros.class, secuenciaSCAP);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSoActosInseguros.buscarSoActoInseguro()" + e.getMessage());
+         log.error("PersistenciaSoActosInseguros.buscarSoActoInseguro():  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
          List<SoActosInseguros> listSoCondicionesAmbientalesP = query.getResultList();
          return listSoCondicionesAmbientalesP;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSoActosInseguros.buscarSoActosInseguros()" + e.getMessage());
+         log.error("PersistenciaSoActosInseguros.buscarSoActosInseguros():  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
          retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSoActosInseguros.contadorSoAccidentesMedicos()" + e.getMessage());
+         log.error("PersistenciaSoActosInseguros.contadorSoAccidentesMedicos():  ", e);
          return retorno;
       }
    }

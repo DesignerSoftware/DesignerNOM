@@ -40,7 +40,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<ReformasLaborales> listaReformasLaborales = query.getResultList();
             return listaReformasLaborales;
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasTT.consultarReformasLaboralesValidas() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarReformasLaboralesValidas() :  ", e);
             return null;
         }
     }
@@ -55,7 +55,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<TiposSueldos> listaTiposSueldos = query.getResultList();
             return listaTiposSueldos;
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasTT.consultarTiposSueldosValidos() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarTiposSueldosValidos() :  ", e);
             return null;
         }
     }
@@ -70,7 +70,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<TiposContratos> listaTiposContratos = query.getResultList();
             return listaTiposContratos;
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasTT.consultarTiposContratosValidos() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarTiposContratosValidos() :  ", e);
             return null;
         }
     }
@@ -85,7 +85,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<NormasLaborales> listaNormasLaborales = query.getResultList();
             return listaNormasLaborales;
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasTT.consultarNormasLaboralesValidas() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarNormasLaboralesValidas() :  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaPlantillasTT implements PersistenciaPlantillasTTInterfa
             List<Contratos> listaContratos = query.getResultList();
             return listaContratos;
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasTT.consultarContratosValidos() : " + e.toString());
+            log.error("Error PersistenciaPlantillasTT.consultarContratosValidos() :  ", e);
             return null;
         }
     }

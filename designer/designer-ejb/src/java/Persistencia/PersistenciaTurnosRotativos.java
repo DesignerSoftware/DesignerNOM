@@ -28,7 +28,7 @@ public class PersistenciaTurnosRotativos implements PersistenciaTurnosRotativosI
          em.persist(turnosrotativos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error crear PersistenciaTurnosRotativos " + e.getMessage());
+         log.error("Error crear PersistenciaTurnosRotativos  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -44,7 +44,7 @@ public class PersistenciaTurnosRotativos implements PersistenciaTurnosRotativosI
          em.merge(turnosrotativos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error editar PersistenciaTurnosRotativos " + e.getMessage());
+         log.error("Error editar PersistenciaTurnosRotativos  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +60,7 @@ public class PersistenciaTurnosRotativos implements PersistenciaTurnosRotativosI
          em.remove(em.merge(turnosrotativos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error borrar PersistenciaTurnosRotativos " + e.getMessage());
+         log.error("Error borrar PersistenciaTurnosRotativos  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +77,7 @@ public class PersistenciaTurnosRotativos implements PersistenciaTurnosRotativosI
          Turnosrotativos turnorotativo = (Turnosrotativos) query.getSingleResult();
          return turnorotativo;
       } catch (Exception e) {
-         log.error("Error buscarTurnoRotativoPorSecuencia PersistenciaTurnosRotativos " + e.getMessage());
+         log.error("Error buscarTurnoRotativoPorSecuencia PersistenciaTurnosRotativos  ", e);
          return null;
       }
    }
@@ -91,7 +91,7 @@ public class PersistenciaTurnosRotativos implements PersistenciaTurnosRotativosI
          List<Turnosrotativos> turnosrotativos = query.getResultList();
          return turnosrotativos;
       } catch (Exception e) {
-         log.error("Error buscarTurnosRotativos PersistenciaTurnosRotativos " + e.getMessage());
+         log.error("Error buscarTurnosRotativos PersistenciaTurnosRotativos  ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaTurnosRotativos implements PersistenciaTurnosRotativosI
          List<Turnosrotativos> turnosrotativos = query.getResultList();
          return turnosrotativos;
       } catch (Exception e) {
-         log.error("Error buscarTurnosRotativosPorCuadrilla PersistenciaTurnosRotativos " + e.getMessage());
+         log.error("Error buscarTurnosRotativosPorCuadrilla PersistenciaTurnosRotativos  ", e);
          return null;
       }
    }

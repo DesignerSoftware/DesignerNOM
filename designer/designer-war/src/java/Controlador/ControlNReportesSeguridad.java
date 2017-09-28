@@ -263,7 +263,7 @@ public class ControlNReportesSeguridad implements Serializable {
             administarReportes.obtenerConexion(ses.getId());
             administrarNReportesSeguridad.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct controlNReporteNomina" + e);
+            log.error("Error postconstruct controlNReporteNomina ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -372,7 +372,7 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void guardarCambios() {
-        log.info("Controlador.ControlNReportesSeguridad.guardarCambios()");
+        log.info("ControlNReportesSeguridad.guardarCambios()");
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (!cambiosReporte) {
@@ -1371,7 +1371,7 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public void cargarLovSucursales() {
-        log.info("Controlador.ControlNReportesSeguridad.cargarLovSucursales()");
+        log.info("ControlNReportesSeguridad.cargarLovSucursales()");
         if (lovSucursales == null) {
             if (parametroDeReporte.getEmpresa().getSecuencia() != null && !parametroDeReporte.getEmpresa().getSecuencia().equals("")) {
                 auxiliar = parametroDeReporte.getEmpresa().getSecuencia();
@@ -1444,7 +1444,7 @@ public class ControlNReportesSeguridad implements Serializable {
 
             return parametroDeReporte;
         } catch (Exception e) {
-            log.warn("Error getParametroDeInforme : " + e);
+            log.warn("Error getParametroDeInforme :  ", e);
             return null;
         }
     }

@@ -38,7 +38,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.persist(vigenciasGruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasGruposConceptos.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposConceptos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.merge(vigenciasGruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasGruposConceptos.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposConceptos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.remove(em.merge(vigenciasGruposConceptos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasGruposConceptos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasGruposConceptos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            log.error("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
+            log.error("Exepcion PersistenciaVigenciasConceptosRL:  ", e);
             return false;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             List<VigenciasGruposConceptos> resultado = (List<VigenciasGruposConceptos>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            log.error("Exepcion listVigenciasGruposConceptosPorConcepto PersistenciaVigenciasGruposConceptos: " + e.getMessage());
+            log.error("Exepcion listVigenciasGruposConceptosPorConcepto PersistenciaVigenciasGruposConceptos:  ", e);
             return null;
         }
     }
@@ -119,7 +119,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             List<VigenciasGruposConceptos> resultado = query.getResultList();
             return resultado;
         } catch (Exception e) {
-            log.error("Error: (prorrogaMostrar)" + e.getMessage());
+            log.error("Error: (prorrogaMostrar) ", e);
             return null;
         }
     }

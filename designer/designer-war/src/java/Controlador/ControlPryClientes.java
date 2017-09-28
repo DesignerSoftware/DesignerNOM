@@ -159,7 +159,7 @@ public class ControlPryClientes implements Serializable {
             administrarPryClientes.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -356,7 +356,7 @@ public class ControlPryClientes implements Serializable {
                 proyectos = new BigInteger("-1");
             }
         } catch (Exception e) {
-            log.error("ERROR ControlEvalCompetencias verificarBorrado ERROR " + e);
+            log.error("ERROR ControlEvalCompetencias verificarBorrado ERROR  ", e);
         }
     }
 

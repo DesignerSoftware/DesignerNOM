@@ -46,7 +46,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          em.persist(conceptos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulasConceptos.crear: " + e);
+         log.error("Error PersistenciaFormulasConceptos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -63,7 +63,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          em.merge(fConceptos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulasConceptos.editar : " + e);
+         log.error("Error PersistenciaFormulasConceptos.editar :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -83,7 +83,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFormulasConceptos.borrar: " + e);
+         log.error("Error PersistenciaFormulasConceptos.borrar:  ", e);
       }
    }
 
@@ -125,7 +125,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          }
          return resultado;
       } catch (Exception e) {
-         log.error("Error buscarFormulasConceptos Persistencia : " + e.toString());
+         log.error("Error buscarFormulasConceptos Persistencia :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -142,7 +142,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          BigDecimal resultado = (BigDecimal) query.getSingleResult();
          return resultado.compareTo(BigDecimal.ZERO) > 0;
       } catch (Exception e) {
-         log.error("Exepcion: " + e);
+         log.error("Exepcion:  ", e);
          return false;
       }
    }
@@ -184,7 +184,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          }
          return resultado;
       } catch (Exception e) {
-         log.error("Error en formulasConcepto() : " + e);
+         log.error("Error en formulasConcepto() :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -202,7 +202,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          BigDecimal resultado = (BigDecimal) query.getSingleResult();
          return resultado.compareTo(BigDecimal.ZERO) > 0;
       } catch (Exception e) {
-         log.error("Exepcion verificarFormulaCargue_Concepto: " + e);
+         log.error("Exepcion verificarFormulaCargue_Concepto:  ", e);
          return false;
       }
    }
@@ -218,7 +218,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          Long resultado = resTemp.longValue();
          return resultado;
       } catch (Exception e) {
-         log.error("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto : " + e.toString());
+         log.error("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto :  ", e);
          return null;
       }
    }
@@ -234,7 +234,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          Long resultado = resTemp.longValue();
          return resultado;
       } catch (Exception e) {
-         log.error("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto : " + e.toString());
+         log.error("Error Persistencia comportamientoConceptoAutomaticoSecuenciaConcepto :  ", e);
          return null;
       }
    }
@@ -279,7 +279,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          }
          return resultado;
       } catch (Exception e) {
-         log.error("Error Persistencia formulasConceptosParaFormulaSecuencia : " + e.toString());
+         log.error("Error Persistencia formulasConceptosParaFormulaSecuencia :  ", e);
          e.printStackTrace();
          return null;
       }

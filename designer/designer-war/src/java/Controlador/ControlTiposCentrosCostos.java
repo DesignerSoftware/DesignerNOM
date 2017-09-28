@@ -123,7 +123,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          administrarTiposCentrosCostos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -730,7 +730,7 @@ public class ControlTiposCentrosCostos implements Serializable {
          }
 
       } catch (Exception e) {
-         log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposEntidades verificarBorrado ERROR  ", e);
       }
    }
 

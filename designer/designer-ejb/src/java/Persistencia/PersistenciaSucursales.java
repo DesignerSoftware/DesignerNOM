@@ -28,7 +28,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.merge(sucursales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSucursales.crear: " + e.getMessage());
+            log.error("Error PersistenciaSucursales.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.merge(sucursales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSucursales.editar: " + e.getMessage());
+            log.error("Error PersistenciaSucursales.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.remove(em.merge(sucursales));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSucursales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSucursales.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.clear();
             return em.find(Sucursales.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaSucursales.buscarSucursal()" + e.getMessage());
+            log.error("PersistenciaSucursales.buscarSucursal():  ", e);
             return null;
         }
     }
@@ -87,7 +87,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             List<Sucursales> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("error consultarSucursales :  " + e.toString());
+            log.error("error consultarSucursales :   ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             log.warn("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
+            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal :  ", e);
             return retorno;
         }
     }

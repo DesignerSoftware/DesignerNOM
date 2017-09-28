@@ -27,7 +27,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             em.merge(tipospagos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposPagos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposPagos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             em.merge(tipospagos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposPagos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposPagos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             em.remove(em.merge(tipospagos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposPagos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposPagos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             List<Tipospagos> tipospagos = query.getResultList();
             return tipospagos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposPagos.consultarTiposPagos()" + e.getMessage());
+            log.error("PersistenciaTiposPagos.consultarTiposPagos():  ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             Tipospagos tipospagos = (Tipospagos) query.getSingleResult();
             return tipospagos;
         } catch (Exception e) {
-            log.error("Error buscarTipoPagoSecuencia" + e.getMessage());
+            log.error("Error buscarTipoPagoSecuencia ", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposPagos.contarProcesosTipoPago()"+ e.getMessage());
+            log.error("PersistenciaTiposPagos.contarProcesosTipoPago():  ", e);
             return retorno;
         }
     }

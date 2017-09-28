@@ -35,7 +35,7 @@ public class PersistenciaDeclarantes implements PersistenciaDeclarantesInterface
          em.merge(declarantes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDeclarantes.crear: " + e);
+         log.error("Error PersistenciaDeclarantes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -51,7 +51,7 @@ public class PersistenciaDeclarantes implements PersistenciaDeclarantesInterface
          em.merge(declarantes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDeclarantes.editar: " + e);
+         log.error("Error PersistenciaDeclarantes.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaDeclarantes implements PersistenciaDeclarantesInterface
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDeclarantes.borrar: " + e);
+         log.error("Error PersistenciaDeclarantes.borrar:  ", e);
       }
    }
 
@@ -94,7 +94,7 @@ public class PersistenciaDeclarantes implements PersistenciaDeclarantesInterface
          Declarantes declarantes = (Declarantes) query.getSingleResult();
          return declarantes;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaDeclarantes.buscarDeclaranteSecuencia() e: " + e);
+         log.error("PersistenciaDeclarantes.buscarDeclaranteSecuencia() e:  ", e);
          Declarantes declarantes = null;
          return declarantes;
       }
@@ -110,7 +110,7 @@ public class PersistenciaDeclarantes implements PersistenciaDeclarantesInterface
          List<Declarantes> declarantesE = query.getResultList();
          return declarantesE;
       } catch (Exception e) {
-         log.error("Error en Persistencia Declarantes " + e);
+         log.error("Error en Persistencia Declarantes  ", e);
          return null;
       }
    }

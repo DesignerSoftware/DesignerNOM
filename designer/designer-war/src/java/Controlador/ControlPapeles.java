@@ -129,7 +129,7 @@ public class ControlPapeles implements Serializable {
             administrarPapeles.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -830,7 +830,7 @@ public class ControlPapeles implements Serializable {
                 contarVigenciasCargosPapel = new BigInteger("-1");
             }
         } catch (Exception e) {
-            log.error("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR " + e);
+            log.error("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR  ", e);
         }
     }
 
@@ -1241,7 +1241,7 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
             return lovEmpresas;
         } catch (Exception e) {
-            log.info("ERRO LISTA EMPRESAS " + e);
+            log.info("ERRO LISTA EMPRESAS  ", e);
             return null;
         }
     }
@@ -1265,7 +1265,7 @@ public class ControlPapeles implements Serializable {
                 return empresaSeleccionada;
             }
         } catch (Exception e) {
-            log.warn("Error CONTROLPAPELES.getEmpresaSeleccionada ERROR " + e);
+            log.warn("Error CONTROLPAPELES.getEmpresaSeleccionada ERROR  ", e);
         } finally {
             return empresaSeleccionada;
         }
@@ -1296,7 +1296,7 @@ public class ControlPapeles implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             return listPapelesPorEmpresa;
         } catch (Exception e) {
-            log.error("ERROR CONTROLPAPELES GETLISTAPAPELESPOREMPRESA ERROR : " + e);
+            log.error("ERROR CONTROLPAPELES GETLISTAPAPELESPOREMPRESA ERROR :  ", e);
             return null;
         }
     }

@@ -28,7 +28,7 @@ public class PersistenciaEersDetalles implements PersistenciaEersDetallesInterfa
             List<EersDetalles> eersCabeceras = query.getResultList();
             return eersCabeceras;
         } catch (Exception e) {
-            log.error("Error buscarEersDetallesPorEersCabecera PersistenciaEersDetalles " + e.toString());
+            log.error("Error buscarEersDetallesPorEersCabecera PersistenciaEersDetalles  ", e);
             return null;
         }
     }

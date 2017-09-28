@@ -27,7 +27,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             em.persist(tiposSueldos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposSueldos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposSueldos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             em.merge(tiposSueldos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposSueldos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             em.remove(em.merge(tiposSueldos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposSueldos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposSueldos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             List<TiposSueldos> tiposSueldos = (List<TiposSueldos>) query.getResultList();
             return tiposSueldos;
         } catch (Exception e) {
-            log.error("Error buscar lista tipos sueldos" + e.getMessage());
+            log.error("Error buscar lista tipos sueldos ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             List<TiposSueldos> tiposSueldos = query.getResultList();
             return tiposSueldos;
         } catch (Exception e) {
-            log.error("Error buscarTiposSueldosParaUsuarioConectado PersistenciaTiposSueldos : " + e.toString());
+            log.error("Error buscarTiposSueldosParaUsuarioConectado PersistenciaTiposSueldos :  ", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
             TiposSueldos tiposSueldos = (TiposSueldos) query.getSingleResult();
             return tiposSueldos;
         } catch (Exception e) {
-            log.error("Error buscar tipo sueldo por secuencia" + e.getMessage());
+            log.error("Error buscar tipo sueldo por secuencia ", e);
             TiposSueldos tiposSueldos = null;
             return tiposSueldos;
         }

@@ -44,7 +44,7 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface {
                 return null;
             }
         } catch (Exception e) {
-            log.error("Excepcion en verificarRastroTabla " + e.getMessage());
+            log.error("Excepcion en verificarRastroTabla  ", e);
             return null;
         }
     }
@@ -58,7 +58,7 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface {
             List<ObjetosDB> todosObjetos = query.getResultList();
             return todosObjetos;
         } catch (Exception e) {
-            log.error("Error: PersistenciaObjetosDB consultarObjetoDB ERROR " + e.getMessage());
+            log.error("Error: PersistenciaObjetosDB consultarObjetoDB ERROR  ", e);
             return null;
         }
         

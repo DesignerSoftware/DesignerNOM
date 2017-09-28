@@ -38,7 +38,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             em.persist(vigenciasConceptosRL);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasConceptosRL.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasConceptosRL.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             em.merge(vigenciasConceptosRL);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasConceptosRL.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasConceptosRL.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             em.remove(em.merge(vigenciasConceptosRL));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasConceptosRL.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasConceptosRL.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            log.error("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
+            log.error("Exepcion PersistenciaVigenciasConceptosRL:  ", e);
             return false;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             List<VigenciasConceptosRL> resultado = (List<VigenciasConceptosRL>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            log.error("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
+            log.error("Exepcion PersistenciaVigenciasConceptosRL:  ", e);
             return null;
         }
     }

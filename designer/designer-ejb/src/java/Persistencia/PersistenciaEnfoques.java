@@ -38,7 +38,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             em.merge(enfoques);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEnfoques.crear: " + e);
+            log.error("Error PersistenciaEnfoques.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             em.merge(enfoques);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEnfoques.editar: " + e);
+            log.error("Error PersistenciaEnfoques.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaEnfoques.borrar: " + e);
+                log.error("Error PersistenciaEnfoques.borrar:  ", e);
         }
     }
 
@@ -81,7 +81,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             em.clear();
             return em.find(Enfoques.class, secuenciaEnfoques);
         } catch (Exception e) {
-            log.error("ERROR PersistenciaEnfoques buscarEnfoque ERROR " + e);
+            log.error("ERROR PersistenciaEnfoques buscarEnfoque ERROR  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             cq.select(cq.from(Enfoques.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("\n ERROR EN PersistenciaEnfoques buscarEnfoques ERROR" + e);
+            log.error("\n ERROR EN PersistenciaEnfoques buscarEnfoques ERROR:  ", e);
             return null;
         }
     }
@@ -109,7 +109,7 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             log.warn("PERSISTENCIAENFOQUES contadorTiposDetalles = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAENFOQUES contadorTiposDetalles  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFOQUES contadorTiposDetalles  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

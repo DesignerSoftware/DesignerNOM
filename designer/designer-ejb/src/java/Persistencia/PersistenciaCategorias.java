@@ -6,13 +6,11 @@ package Persistencia;
 import Entidades.Categorias;
 import InterfacePersistencia.PersistenciaCategoriasInterface;
 import java.math.BigInteger;
-import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -42,7 +40,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          em.merge(categorias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCategorias.crear: " + e);
+         log.error("Error PersistenciaCategorias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +56,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          em.merge(categorias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCategorias.editar: " + e);
+         log.error("Error PersistenciaCategorias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +73,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaCategorias.borrar: " + e);
+         log.error("Error PersistenciaCategorias.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,10 +82,15 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
 
    @Override
    public List<Categorias> buscarCategorias(EntityManager em) {
-      em.clear();
-      CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-      cq.select(cq.from(Categorias.class));
-      return em.createQuery(cq).getResultList();
+      try {
+         em.clear();
+         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         cq.select(cq.from(Categorias.class));
+         return em.createQuery(cq).getResultList();
+      } catch (Exception e) {
+         log.error("PersistenciaCategorias.buscarCategorias() ERROR:  ", e);
+         return null;
+      }
    }
 
    @Override
@@ -100,7 +103,7 @@ public class PersistenciaCategorias implements PersistenciaCategoriasInterface {
          Categorias categorias = (Categorias) query.getSingleResult();
          return categorias;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaCategorias.buscarCategoriaSecuencia() e: " + e);
+         log.error("PersistenciaCategorias.buscarCategoriaSecuencia() ERROR:  ", e);
          return null;
       }
    }

@@ -204,7 +204,7 @@ public class ControlPerfiles implements Serializable {
             externalContext = x.getExternalContext();
             userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -1987,7 +1987,7 @@ public class ControlPerfiles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('pantallasClonadas').show()");
             }
         } catch (Exception e) {
-            log.info("Controlador.ControlPerfiles.clonarPermisosPantallas()" + e.getMessage());
+            log.info("ControlPerfiles.clonarPermisosPantallas()" + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('errorClonarPantalla').show()");
         }
     }
@@ -2002,7 +2002,7 @@ public class ControlPerfiles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('permisosClonados').show()");
             }
         } catch (Exception e) {
-            log.info("Controlador.ControlPerfiles.clonarPermisosObjetos()" + e.getMessage());
+            log.info("ControlPerfiles.clonarPermisosObjetos()" + e.getMessage());
             RequestContext.getCurrentInstance().execute("PF('errorClonarPermisos').show()");
         }
     }
@@ -2168,7 +2168,7 @@ public class ControlPerfiles implements Serializable {
 
     public void exportarReporte() throws IOException {
         try {
-            log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+            log.info("ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
             if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
                 FacesContext ctx = FacesContext.getCurrentInstance();

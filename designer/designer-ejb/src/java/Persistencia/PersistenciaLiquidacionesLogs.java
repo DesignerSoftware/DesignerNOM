@@ -32,7 +32,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             em.merge(liquidacionesLogs);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaLiquidacionesLogs.crear: " + e.getMessage());
+            log.error("Error PersistenciaLiquidacionesLogs.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             em.merge(liquidacionesLogs);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaLiquidacionesLogs.editar: " + e.getMessage());
+            log.error("Error PersistenciaLiquidacionesLogs.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +63,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaLiquidacionesLogs.borrar: " + e.getMessage());
+            log.error("Error PersistenciaLiquidacionesLogs.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +78,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogs ERROR : " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogs ERROR :  ", e);
             return null;
         }
     }
@@ -92,7 +92,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR  ", e);
             return null;
         }
     }
@@ -106,7 +106,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR  ", e);
             return null;
         }
     }
@@ -120,7 +120,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR " + e.getMessage());
+            log.error("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR  ", e);
             return null;
         }
     }
@@ -137,7 +137,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return count;
         } catch (Exception e) {
-            log.error("Error en getTotalRegistrosLiquidacionesLogsPorEmpleado :" + e.getMessage());
+            log.error("Error en getTotalRegistrosLiquidacionesLogsPorEmpleado :  ", e);
             count = Long.valueOf(0);
             return count;
         }
@@ -156,7 +156,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return count;
         } catch (Exception e) {
-            log.error("Error en getTotalRegistrosBuscarLiquidacionesLogsPorOperando :" + e.getMessage());
+            log.error("Error en getTotalRegistrosBuscarLiquidacionesLogsPorOperando :  ", e);
             count = Long.valueOf(0);
             return count;
         }
@@ -174,7 +174,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return count;
         } catch (Exception e) {
-            log.error("Error en getTotalRegistrosBuscarLiquidacionesLogsPorProceso :" + e.getMessage());
+            log.error("Error en getTotalRegistrosBuscarLiquidacionesLogsPorProceso :  ", e);
             count = Long.valueOf(0);
             return count;
         }

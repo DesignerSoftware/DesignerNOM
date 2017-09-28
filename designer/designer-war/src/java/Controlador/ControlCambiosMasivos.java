@@ -317,8 +317,8 @@ public class ControlCambiosMasivos {
          administrarRastros.obtenerConexion(ses.getId());
          administrarFormulaConcepto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
-         log.warn("Error: " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
+         log.warn("Error:  ", e);
       }
    }
 
@@ -2273,7 +2273,7 @@ public class ControlCambiosMasivos {
    }
 
    public void editar() {
-      log.info("Controlador.ControlCambiosMasivos.editar() campo: " + campo + ",  panelActivo: " + panelActivo);
+      log.info("ControlCambiosMasivos.editar() campo: " + campo + ",  panelActivo: " + panelActivo);
       if (panelActivo == 1) {
          //Estructura Cargo Desempeñado
          switch (campo) {

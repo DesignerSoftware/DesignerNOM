@@ -104,7 +104,7 @@ public class ControlVigenciasPlantas implements Serializable {
          administrarVigenciasPlantas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Error postconstruct ControlVigenciasCargos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -669,7 +669,7 @@ public class ControlVigenciasPlantas implements Serializable {
 
          }
       } catch (Exception e) {
-         log.error("ERROR ControlVigenciasPlantas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlVigenciasPlantas verificarBorrado ERROR  ", e);
       }
    }
 

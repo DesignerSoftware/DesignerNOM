@@ -32,7 +32,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosContratos.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosContratos.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             em.remove(em.merge(usuariots));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosContratos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaUsuariosContratos implements PersistenciaUsuariosContra
             List<UsuariosContratos> usuariosTS = query.getResultList();
             return usuariosTS;
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosContratos.buscarUsuariosContratos" + e.getMessage());
+            log.error("Error PersistenciaUsuariosContratos.buscarUsuariosContratos ", e);
             return null;
         }
     }

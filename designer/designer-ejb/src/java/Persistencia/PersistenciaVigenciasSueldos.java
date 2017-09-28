@@ -30,7 +30,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             tx.commit();
             return true;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.crear()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.crear():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             em.merge(vigenciasSueldos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.editar()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.editar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +61,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             em.remove(em.merge(vigenciasSueldos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.borrar()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.borrar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             cq.select(cq.from(VigenciasSueldos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.buscarVigenciasSeldos()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.buscarVigenciasSeldos():  ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             List<VigenciasSueldos> vigenciasSueldos = query.getResultList();
             return vigenciasSueldos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.buscarVigenciasSueldosEmpleado()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.buscarVigenciasSueldosEmpleado():  ", e);
             return null;
         }
     }
@@ -104,7 +104,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             VigenciasSueldos vigenciasSueldos = (VigenciasSueldos) query.getSingleResult();
             return vigenciasSueldos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.buscarVigenciasSueldosSecuencia()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.buscarVigenciasSueldosSecuencia():  ", e);
             return null;
         }
     }
@@ -133,7 +133,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             List<VigenciasSueldos> vigenciasSueldos = (List<VigenciasSueldos>) em.createNativeQuery(consulta, VigenciasSueldos.class).setParameter(1, secEmpleado).getResultList();
             return vigenciasSueldos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.buscarVigenciasSueldosEmpleadoRecientes()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.buscarVigenciasSueldosEmpleadoRecientes():  ", e);
             return null;
         }
     }
@@ -158,7 +158,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             query.setParameter(5, fechaCambio);
             query.execute();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos():  ", e);
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -188,7 +188,7 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
             query.setParameter(5, fechaCambio);
             query.execute();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos()" + e.getMessage());
+            log.error("PersistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos():  ", e);
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();

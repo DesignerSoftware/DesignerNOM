@@ -38,7 +38,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
          em.merge(sectoresEvaluaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSectoresEvaluaciones.crear: " + e.getMessage());
+         log.error("Error PersistenciaSectoresEvaluaciones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +54,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
          em.merge(sectoresEvaluaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSectoresEvaluaciones.editar: " + e.getMessage());
+         log.error("Error PersistenciaSectoresEvaluaciones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +70,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
          em.remove(em.merge(sectoresEvaluaciones));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSectoresEvaluaciones.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSectoresEvaluaciones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -86,7 +86,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
          List<SectoresEvaluaciones> listTiposViajeros = query.getResultList();
          return listTiposViajeros;
       } catch (Exception e) {
-         log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
+         log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :  ", e);
          return null;
       }
 
@@ -103,7 +103,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
          SectoresEvaluaciones motivoR = (SectoresEvaluaciones) query.getSingleResult();
          return motivoR;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSectoresEvaluaciones.consultarSectorEvaluacion()" + e.getMessage());
+         log.error("PersistenciaSectoresEvaluaciones.consultarSectorEvaluacion():  ", e);
          return null;
       }
 

@@ -39,7 +39,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          em.merge(detallesExtrasRecargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesExtrasRecargos.crear: " + e);
+         log.error("Error PersistenciaDetallesExtrasRecargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          em.merge(detallesExtrasRecargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesExtrasRecargos.crear: " + e);
+         log.error("Error PersistenciaDetallesExtrasRecargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDetallesExtrasRecargos.borrar: " + e);
+         log.error("Error PersistenciaDetallesExtrasRecargos.borrar:  ", e);
       }
    }
 
@@ -85,7 +85,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          em.clear();
          return em.find(DetallesExtrasRecargos.class, secuencia);
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesExtrasRecargos buscarDetalleExtraRecargo : " + e.toString());
+         log.error("Error PersistenciaDetallesExtrasRecargos buscarDetalleExtraRecargo :  ", e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          List<DetallesExtrasRecargos> extrasRecargos = query.getResultList();
          return extrasRecargos;
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargos : " + e.toString());
+         log.error("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargos :  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaDetallesExtrasRecargos implements PersistenciaDetallesE
          List<DetallesExtrasRecargos> extrasRecargos = query.getResultList();
          return extrasRecargos;
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargosPorSecuenciaExtraRecargo : " + e.toString());
+         log.error("Error PersistenciaDetallesExtrasRecargos buscaDetallesExtrasRecargosPorSecuenciaExtraRecargo :  ", e);
          return null;
       }
    }

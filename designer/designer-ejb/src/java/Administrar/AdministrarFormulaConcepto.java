@@ -69,7 +69,7 @@ public class AdministrarFormulaConcepto implements AdministrarFormulaConceptoInt
    @Override
    public List<FormulasConceptos> formulasConceptosParaFormula(BigInteger secuencia) {
       try {
-         log.warn("Administrar.AdministrarFormulaConcepto.formulasConceptosParaFormula() secuencia : " + secuencia);
+         log.warn("AdministrarFormulaConcepto.formulasConceptosParaFormula() secuencia : " + secuencia);
          return persistenciaFormulasConceptos.formulasConceptosParaFormulaSecuencia(getEm(), secuencia);
       } catch (Exception e) {
          log.warn("Error formulasConceptosParaFormula Admi : " + e.toString());

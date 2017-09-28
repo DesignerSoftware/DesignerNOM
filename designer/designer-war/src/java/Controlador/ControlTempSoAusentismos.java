@@ -153,7 +153,7 @@ public class ControlTempSoAusentismos implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCargueArchivos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Error postconstruct CargarArchivoPlano:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -663,7 +663,7 @@ public class ControlTempSoAusentismos implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         log.warn("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt)  ", e);
       }
    }
 

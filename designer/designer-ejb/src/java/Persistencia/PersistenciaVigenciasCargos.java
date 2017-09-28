@@ -48,7 +48,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          em.merge(vigenciasCargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +67,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaVigenciasCargos.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasCargos.editar:  ", e);
       }
    }
 
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaVigenciasCargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCargos.borrar:  ", e);
          }
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          VigenciasCargos vigCargo = (VigenciasCargos) query.getSingleResult();
          return vigCargo;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + "buscarVigenciaCargoXEmpleado catch() ERROR : " + e.getMessage());
+         log.error(this.getClass().getName() + "buscarVigenciaCargoXEmpleado catch() ERROR :  ", e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          List<VigenciasCargos> vigenciasCargos = (List<VigenciasCargos>) query2.getResultList();
          return vigenciasCargos;
       } catch (Exception e) {
-          log.error("error en buscarVigenciasCargosEmpleado : " + e.getMessage());
+          log.error("error en buscarVigenciasCargosEmpleado :  ", e);
          List<VigenciasCargos> vigenciasCargos = null;
          return vigenciasCargos;
       }
@@ -157,7 +157,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          query.setParameter(2, fechaCambio);
          query.execute();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

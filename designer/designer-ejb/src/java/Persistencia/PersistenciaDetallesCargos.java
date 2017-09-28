@@ -39,7 +39,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          em.persist(detallesCargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          em.merge(detallesCargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.editar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar:  ", e);
       }
    }
 
@@ -88,7 +88,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          List<DetallesCargos> detallesCargos = query.getResultList();
          return detallesCargos;
       } catch (Exception e) {
-         log.error("Error buscarDetallesCargos PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetallesCargos PersistenciaDetallesCargos :  ", e);
          return null;
       }
    }
@@ -103,7 +103,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          DetallesCargos detallesCargos = (DetallesCargos) query.getSingleResult();
          return detallesCargos;
       } catch (Exception e) {
-         log.error("Error buscarDetallesCargosSecuencia PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetallesCargosSecuencia PersistenciaDetallesCargos :  ", e);
          DetallesCargos detallesCargos = null;
          return detallesCargos;
       }
@@ -120,7 +120,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          DetallesCargos detallesCargos = (DetallesCargos) query.getSingleResult();
          return detallesCargos;
       } catch (Exception e) {
-         log.error("Error buscarDetalleCargoParaSecuenciaTipoDetalle PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetalleCargoParaSecuenciaTipoDetalle PersistenciaDetallesCargos :  ", e);
          return null;
       }
    }
@@ -135,7 +135,7 @@ public class PersistenciaDetallesCargos implements PersistenciaDetallesCargosInt
          List<DetallesCargos> detallesCargos = query.getResultList();
          return detallesCargos;
       } catch (Exception e) {
-         log.error("Error buscarDetallesCargosDeCargoSecuencia PersistenciaDetallesCargos : " + e.toString());
+         log.error("Error buscarDetallesCargosDeCargoSecuencia PersistenciaDetallesCargos :  ", e);
          List<DetallesCargos> detallesCargos = null;
          return detallesCargos;
       }

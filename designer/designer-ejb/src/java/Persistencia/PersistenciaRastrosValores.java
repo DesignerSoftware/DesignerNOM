@@ -40,7 +40,7 @@ public class PersistenciaRastrosValores implements PersistenciaRastrosValoresInt
             List<RastrosValores> listaRastroV = query.getResultList();
             return listaRastroV;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRastrosValores.rastroValores()" + e.getMessage());
+            log.error("PersistenciaRastrosValores.rastroValores():  ", e);
             return null;
         }
     }

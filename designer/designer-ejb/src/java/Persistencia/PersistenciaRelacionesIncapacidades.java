@@ -47,7 +47,7 @@ public class PersistenciaRelacionesIncapacidades implements PersistenciaRelacion
                 return null;
             }
         } catch (Exception e) {
-            log.error("Error: ( Relaciones)" + e.toString());
+            log.error("Error: ( Relaciones) ", e);
             return null;
         }
     }

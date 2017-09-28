@@ -27,7 +27,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
          em.persist(tiposContratos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposContratos.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposContratos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +43,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
          em.merge(tiposContratos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposContratos.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposContratos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
          em.remove(em.merge(tiposContratos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposContratos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposContratos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
          TiposContratos tipoC = (TiposContratos) query.getSingleResult();
          return tipoC;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposContratos.buscarTipoContratoSecuencia()" + e.getMessage());
+         log.error("PersistenciaTiposContratos.buscarTipoContratoSecuencia():  ", e);
          return null;
       }
    }
@@ -92,7 +92,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
          List<TiposContratos> tiposContratos = query.getResultList();
          return tiposContratos;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposContratos.tiposContratos()" + e.getMessage());
+         log.error("PersistenciaTiposContratos.tiposContratos():  ", e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
       try {
          log.error("No esta clonando nada");
       } catch (Exception e) {
-         log.error("Error en clonarTipoContrato : " + e.getMessage());
+         log.error("Error en clonarTipoContrato :  ", e);
       }
    }
 }

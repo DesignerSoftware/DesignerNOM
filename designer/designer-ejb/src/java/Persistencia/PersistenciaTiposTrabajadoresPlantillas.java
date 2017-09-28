@@ -39,7 +39,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaTC> listaPlantillaTC = query.getResultList();
             return listaPlantillaTC;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTC() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTC() :  ", e);
             return null;
         }
     }
@@ -54,7 +54,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaTS> listaPlantillaTS = query.getResultList();
             return listaPlantillaTS;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTS() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaTS() :  ", e);
             return null;
         }
     }
@@ -69,7 +69,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaRL> listaPlantillaRL = query.getResultList();
             return listaPlantillaRL;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaRL() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaRL() :  ", e);
             return null;
         }
     }
@@ -84,7 +84,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaLL> listaPlantillaLL = query.getResultList();
             return listaPlantillaLL;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaLL() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaLL() :  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<PlantillasValidaNL> listaPlantillaNL = query.getResultList();
             return listaPlantillaNL;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaNL() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarPlanillaNL() :  ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
             List<TiposTrabajadores> listatt = query.getResultList();
             return listatt;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarTiposTrabajadores() : " + e.toString());
+            log.error("Error PersistenciaTiposTrabajadoresPlantillas.consultarTiposTrabajadores() :  ", e);
             return null;
         }
     }
@@ -141,7 +141,7 @@ public class PersistenciaTiposTrabajadoresPlantillas implements PersistenciaTipo
                 return false;
             }
         } catch (Exception e) {
-            log.error("PersistenciaTiposTrabajadoresPlantillas.consultarRegistrosSecundarios()" + e.getMessage());
+            log.error("PersistenciaTiposTrabajadoresPlantillas.consultarRegistrosSecundarios():  ", e);
             return false;
         }
     }

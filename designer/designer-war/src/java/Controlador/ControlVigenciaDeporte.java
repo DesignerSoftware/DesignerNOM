@@ -120,7 +120,7 @@ public class ControlVigenciaDeporte implements Serializable {
             vigenciaTablaSeleccionada = listVigenciasDeportes.get(0);
             log.info("El nombre del empleado es" + empleado.getNombreCompleto());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -648,7 +648,7 @@ public class ControlVigenciaDeporte implements Serializable {
                 try {
                     nuevaVigenciaDeporte.setPersona(administrarVigenciaDeporte.obtenerPersonaPorEmpleado(empleado.getSecuencia()));
                 } catch (Exception e) {
-                    log.error(this.getClass().getSimpleName() + ".agregarNuevaVigenciaDeporte() ERROR: " + e);
+                    log.error(this.getClass().getSimpleName() + ".agregarNuevaVigenciaDeporte() ERROR:  ", e);
                 }
                 listVigenciaDeporteCrear.add(nuevaVigenciaDeporte);
                 listVigenciasDeportes.add(nuevaVigenciaDeporte);
@@ -733,7 +733,7 @@ public class ControlVigenciaDeporte implements Serializable {
                     try {
                         duplicarVigenciaDeporte.setPersona(administrarVigenciaDeporte.obtenerPersonaPorEmpleado(empleado.getSecuencia()));
                     } catch (Exception e) {
-                        log.error(this.getClass().getSimpleName() + ".duplicarVigenciaDeporteM() ERROR: " + e);
+                        log.error(this.getClass().getSimpleName() + ".duplicarVigenciaDeporteM() ERROR:  ", e);
                     }
                     listVigenciasDeportes.add(duplicarVigenciaDeporte);
                     listVigenciaDeporteCrear.add(duplicarVigenciaDeporte);

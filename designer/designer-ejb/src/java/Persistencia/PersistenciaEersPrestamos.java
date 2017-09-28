@@ -36,7 +36,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          em.merge(eersPrestamos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEersPrestamos.crear: " + e);
+         log.error("Error PersistenciaEersPrestamos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +52,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          em.merge(eersPrestamos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEersPrestamos.crear: " + e);
+         log.error("Error PersistenciaEersPrestamos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEersPrestamos.borrar: " + e);
+         log.error("Error PersistenciaEersPrestamos.borrar:  ", e);
       }
    }
 
@@ -87,7 +87,7 @@ public class PersistenciaEersPrestamos implements PersistenciaEersPrestamosInter
          List<EersPrestamos> eersPrestamosResult = new ArrayList<EersPrestamos>(eersPrestamos);
          return eersPrestamosResult;
       } catch (Exception e) {
-         log.error("Error: (eersPrestamos)" + e);
+         log.error("Error: (eersPrestamos) ", e);
          return null;
       }
    }

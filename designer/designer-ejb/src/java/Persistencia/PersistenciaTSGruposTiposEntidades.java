@@ -27,7 +27,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          em.persist(tSGruposTiposEntidades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTSGruposTiposEntidades.crear: " + e.getMessage());
+         log.error("Error PersistenciaTSGruposTiposEntidades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +43,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          em.merge(tSGruposTiposEntidades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTSGruposTiposEntidades.editar: " + e.getMessage());
+         log.error("Error PersistenciaTSGruposTiposEntidades.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          em.remove(em.merge(tSGruposTiposEntidades));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTSGruposTiposEntidades.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTSGruposTiposEntidades.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          List<TSGruposTiposEntidades> tSGruposTiposEntidades = (List<TSGruposTiposEntidades>) query.getResultList();
          return tSGruposTiposEntidades;
       } catch (Exception e) {
-         log.error("Error buscarTSGruposTiposEntidades PersistenciaTSGruposTiposEntidades : " + e.toString());
+         log.error("Error buscarTSGruposTiposEntidades PersistenciaTSGruposTiposEntidades :  ", e);
          return null;
       }
    }
@@ -90,7 +90,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          TSGruposTiposEntidades tSGruposTiposEntidades = (TSGruposTiposEntidades) query.getSingleResult();
          return tSGruposTiposEntidades;
       } catch (Exception e) {
-         log.error("Error buscarTSGrupoTipoEntidadSecuencia PersistenciaTSGruposTiposEntidades : " + e.toString());
+         log.error("Error buscarTSGrupoTipoEntidadSecuencia PersistenciaTSGruposTiposEntidades :  ", e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
          log.warn("PersistenciaTSGruposTiposEntidades.buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo()2");
          return tSGruposTiposEntidades;
       } catch (Exception e) {
-         log.error("Error buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo PersistenciaTSGruposTiposEntidades : " + e.toString());
+         log.error("Error buscarTSGruposTiposEntidadesPorSecuenciaTipoSueldo PersistenciaTSGruposTiposEntidades :  ", e);
          return null;
       }
    }

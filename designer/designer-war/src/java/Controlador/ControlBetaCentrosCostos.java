@@ -176,7 +176,7 @@ public class ControlBetaCentrosCostos implements Serializable {
          administrarCentroCostos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -642,7 +642,7 @@ public class ControlBetaCentrosCostos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('buscarCentrosCostosDialogo').show()");
          }
       } catch (Exception e) {
-         log.error("ERROR LLAMADO DIALOGO BUSCAR CENTROS COSTOS " + e);
+         log.error("ERROR LLAMADO DIALOGO BUSCAR CENTROS COSTOS  ", e);
       }
    }
 
@@ -1248,7 +1248,7 @@ public class ControlBetaCentrosCostos implements Serializable {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
       } catch (Exception e) {
-         log.error("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR " + e);
+         log.error("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR  ", e);
       }
    }
 
@@ -1684,7 +1684,7 @@ public class ControlBetaCentrosCostos implements Serializable {
          }
          return lovEmpresas;
       } catch (Exception e) {
-         log.info("ERRO LISTA EMPRESAS " + e);
+         log.info("ERRO LISTA EMPRESAS  ", e);
          return null;
       }
    }

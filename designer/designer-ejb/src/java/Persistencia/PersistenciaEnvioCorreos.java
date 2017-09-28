@@ -66,7 +66,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             if (e.getMessage().contains("did not retrieve any entities")) {
                 log.trace("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
             } else {
-                log.error("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios() " + e);
+                log.error("Error Persistencia.PersisteciaEnvioCorreos.consultarEnvios()  ", e);
             }
             return null;
         }
@@ -82,14 +82,14 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             Inforeportes reporte = (Inforeportes) query.getSingleResult();
             return reporte;
         } catch (Exception e) {
-            log.error("Error Persistencia.PersisteciaEnvioCorreos.buscarEnvioCorreoporSecuencia(): " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.buscarEnvioCorreoporSecuencia():  ", e);
             return null;
         }
     }
 
 //    @Override
 //    public List<Empleados> buscarEmpleados(EntityManager em, BigInteger secEnvioRepEmp) {
-//        log.warn("Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()");
+//        log.warn("PersistenciaEnvioCorreos.buscarEmpleados()");
 //        log.warn("secEnvioRepEmp:  " + secEnvioRepEmp);
 //        try {
 //            em.clear();
@@ -104,7 +104,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 //            List<Empleados> listEmpleados = (List<Empleados>) query2.getResultList();
 //            return listEmpleados;
 //        } catch (Exception e) {
-//            log.error("Error Persistencia.PersistenciaEnvioCorreos.buscarEmpleados() " + e);
+//            log.error("Error Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()  ", e);
 //            return null;
 //        }
 //    }
@@ -117,7 +117,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             em.merge(enviocorreos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error Persistencia.PersisteciaEnvioCorreos.editar() " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.editar()  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -141,7 +141,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error Persistencia.PersisteciaEnvioCorreos.borrar() " + e);
+                log.error("Error Persistencia.PersisteciaEnvioCorreos.borrar()  ", e);
             }
         }
 
@@ -149,7 +149,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
 
     @Override
     public List<Empleados> CorreoCodEmpleados(EntityManager em, BigDecimal emplDesde, BigDecimal emplHasta) {
-        log.warn("Persistencia.PersistenciaEnvioCorreos.CorreoCodEmpleados()");
+        log.warn("PersistenciaEnvioCorreos.CorreoCodEmpleados()");
         log.warn("emplDesde: " + emplDesde);
         log.warn("emplHasta: " + emplHasta);
         try {
@@ -166,14 +166,14 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             log.warn("CorreoCod: " + correoCod);
             return correoCod;
         } catch (Exception e) {
-            log.error("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados():  ", e);
             return null;
         }
     }
 
     @Override
     public List<String> Correos(EntityManager em) {
-        log.warn("Persistencia.PersistenciaEnvioCorreos.correos()");
+        log.warn("PersistenciaEnvioCorreos.correos()");
         try {
             em.clear();
             String consulta = "SELECT p.email \n"
@@ -184,14 +184,14 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             List<String> correo = query.getResultList();
             return correo;
         } catch (Exception e) {
-            log.error("Error Persistencia.PersisteciaEnvioCorreos.Correos(): " + e);
+            log.error("Error Persistencia.PersisteciaEnvioCorreos.Correos():  ", e);
             return null;
         }
     }
 
     @Override
     public ConfiguracionCorreo consultarRemitente(EntityManager em, BigInteger secEmpresa) {
-        log.warn("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
+        log.warn("PersistenciaEnvioCorreos.consultarRemitente()");
         try {
             em.clear();
             String consulta = "SELECT cc.* FROM ConfiguracionCorreos cc WHERE cc.empresa = " + secEmpresa + " ";
@@ -200,14 +200,14 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             log.warn("CorreoCod: " + remitente);
             return remitente;
         } catch (Exception e) {
-            log.error("Error Persistencia.PersistenciaEnvioCorreos.consultarRemitente(): " + e);
+            log.error("Error Persistencia.PersistenciaEnvioCorreos.consultarRemitente():  ", e);
             return null;
         }
     }
 
     @Override
     public void insertarFalloCorreos(EntityManager em, EnvioCorreos enviocorreo) {
-        log.warn("Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos()");
+        log.warn("PersistenciaEnvioCorreos.insertarFalloCorreos()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -215,7 +215,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             em.persist(enviocorreo);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos(): " + e.toString());
+            log.error("Error Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

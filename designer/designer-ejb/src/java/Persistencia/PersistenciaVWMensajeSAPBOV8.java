@@ -30,7 +30,7 @@ public class PersistenciaVWMensajeSAPBOV8 implements PersistenciaVWMensajeSAPBOV
             List<VWMensajeSAPBOV8> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error buscarListaErroresSAPBOV8 PersistenciaVWMensajesAPBOV8 : " + e.getMessage());
+            log.error("Error buscarListaErroresSAPBOV8 PersistenciaVWMensajesAPBOV8 :  ", e);
             return null;
         }
     }

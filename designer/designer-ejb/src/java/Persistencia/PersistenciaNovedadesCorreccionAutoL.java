@@ -37,7 +37,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             em.merge(novedades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNovedadesCorreccionAutoL.crear: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesCorreccionAutoL.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             em.merge(novedades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNovedadesCorreccionAutoL.editar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesCorreccionAutoL.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             em.remove(em.merge(novedades));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNovedadesCorreccionAutoL.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesCorreccionAutoL.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<SucursalesPila> listasucursalespila = query.getResultList();
             return listasucursalespila;
         } catch (Exception e) {
-            log.error("Error: (listasucursalesPila)" + e.getMessage());
+            log.error("Error: (listasucursalesPila) ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<Terceros> listaTerceros = query.getResultList();
             return listaTerceros;
         } catch (Exception e) {
-            log.error("Error: (listaTerceros)" + e.getMessage());
+            log.error("Error: (listaTerceros) ", e);
             return null;
         }
     }
@@ -118,7 +118,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<TiposEntidades> tiposentidades = query.getResultList();
             return tiposentidades;
         } catch (Exception e) {
-            log.error("Error: (listaTiposEntidades)" + e.getMessage());
+            log.error("Error: (listaTiposEntidades) ", e);
             return null;
         }
     }
@@ -134,7 +134,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<Empresas> listaEmpresas = query.getResultList();
             return listaEmpresas;
         } catch (Exception e) {
-            log.error("Error: (listaEmpresas)" + e.getMessage());
+            log.error("Error: (listaEmpresas) ", e);
             return null;
         }
 
@@ -154,7 +154,7 @@ public class PersistenciaNovedadesCorreccionAutoL  implements PersistenciaNoveda
             List<NovedadesCorreccionesAutoLiquidaciones> listanovedades = query.getResultList();
             return listanovedades;
         } catch (Exception e) {
-            log.error("Error: (listaNovedades)" + e.getMessage());
+            log.error("Error: (listaNovedades) ", e);
             return null;
         }
     }

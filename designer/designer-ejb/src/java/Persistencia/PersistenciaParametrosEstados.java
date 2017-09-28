@@ -43,7 +43,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          Integer empeladosALiquidar = a.intValueExact();
          return empeladosALiquidar;
       } catch (Exception e) {
-         log.error("Error PersistenciaParametrosEstados.empleadosParaLiquidar " + e.getMessage());
+         log.error("Error PersistenciaParametrosEstados.empleadosParaLiquidar  ", e);
          return null;
       }
    }
@@ -61,7 +61,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          Integer empeladosALiquidar = a.intValueExact();
          return empeladosALiquidar;
       } catch (Exception e) {
-         log.error("Error PersistenciaParametrosEstados.empleadosLiquidados " + e.getMessage());
+         log.error("Error PersistenciaParametrosEstados.empleadosLiquidados  ", e);
          return null;
       }
    }
@@ -81,7 +81,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaParametrosEstados.inicializarparametrosestados " + e.getMessage());
+         log.error("Error PersistenciaParametrosEstados.inicializarparametrosestados  ", e);
       }
    }
 
@@ -96,7 +96,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          String estadoParametro = (String) query.getSingleResult();
          return estadoParametro;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaParametrosEstados.parametrosComprobantes" + e.getMessage());
+         log.error("Exepcion en PersistenciaParametrosEstados.parametrosComprobantes ", e);
          return null;
       }
    }

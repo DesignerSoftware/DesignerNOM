@@ -36,7 +36,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          em.merge(detallesFormasDtos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesFormasDtos.crear: " + e);
+         log.error("Error PersistenciaDetallesFormasDtos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +52,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          em.merge(detallesFormasDtos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesFormasDtos.editar: " + e);
+         log.error("Error PersistenciaDetallesFormasDtos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDetallesFormasDtos.borrar: " + e);
+         log.error("Error PersistenciaDetallesFormasDtos.borrar:  ", e);
       }
    }
 
@@ -87,7 +87,7 @@ public class PersistenciaDetallesFormasDtos implements PersistenciaDetallesForma
          List<DetallesFormasDtos> detallesFormasDtosResult = new ArrayList<DetallesFormasDtos>(detallesFormasDtos);
          return detallesFormasDtosResult;
       } catch (Exception e) {
-         log.error("Error: (eersPrestamos)" + e);
+         log.error("Error: (eersPrestamos) ", e);
          return null;
       }
    }

@@ -39,7 +39,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
          em.merge(asociaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaAsociaciones.crear: " + e);
+         log.error("Error PersistenciaAsociaciones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
          em.merge(asociaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaAsociaciones.editar: " + e);
+         log.error("Error PersistenciaAsociaciones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
          em.remove(em.merge(asociaciones));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaAsociaciones.borrar: " + e);
+         log.error("Error PersistenciaAsociaciones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -88,7 +88,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
 
          return asociaciones;
       } catch (Exception e) {
-         log.error("Error buscarAsociaciones " + e);
+         log.error("Error buscarAsociaciones  ", e);
          return null;
       }
    }
@@ -104,7 +104,7 @@ public class PersistenciaAsociaciones implements PersistenciaAsociacionesInterfa
          Asociaciones asociaciones = (Asociaciones) query.getSingleResult();
          return asociaciones;
       } catch (Exception e) {
-         log.error("Error buscarAsociacionesSecuencia " + e);
+         log.error("Error buscarAsociacionesSecuencia  ", e);
          Asociaciones asociaciones = null;
          return asociaciones;
       }

@@ -38,7 +38,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
          listaCK = (ConexionesKioskos) query.getSingleResult();
          return listaCK;
       } catch (NoResultException e) {
-         log.error(this.getClass().getName() + " error en conexionesKioskos()" + e.getMessage());
+         log.error(this.getClass().getName() + " error en conexionesKioskos():  ", e);
          return null;
       }
    }
@@ -93,7 +93,7 @@ public class PersistenciaKioAdmin implements PersistenciaKioAdminInterface {
          em.merge(ck);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaKioAdmin.modificarck: " + e.getMessage());
+         log.error("Error PersistenciaKioAdmin.modificarck:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

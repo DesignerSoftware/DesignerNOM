@@ -40,7 +40,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaOperandosLogs.crear: " + e.getMessage());
+         log.error("Error PersistenciaOperandosLogs.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaOperandosLogs.editar: " + e.getMessage());
+         log.error("Error PersistenciaOperandosLogs.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
          em.remove(em.merge(operandos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaOperandosLogs.borrar: " + e.getMessage());
+         log.error("Error PersistenciaOperandosLogs.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -87,7 +87,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
          cq.select(cq.from(OperandosLogs.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarOperandos PersistenciaOperandosLogs : " + e.toString());
+         log.error("Error buscarOperandos PersistenciaOperandosLogs :  ", e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
          List<OperandosLogs> listMotivosDemandas = query.getResultList();
          return listMotivosDemandas;
       } catch (Exception e) {
-         log.error("Error buscarOperandosLogsParaProcesoSecuencia (PersistenciaOperandosLogs): " + e.toString());
+         log.error("Error buscarOperandosLogsParaProcesoSecuencia (PersistenciaOperandosLogs):  ", e);
          return null;
       }
    }

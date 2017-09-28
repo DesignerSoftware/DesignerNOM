@@ -36,7 +36,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.merge(tiposDescansos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDescansos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDescansos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.merge(tiposDescansos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDescansos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDescansos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.remove(em.merge(tiposDescansos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDescansos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDescansos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +84,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             List<TiposDescansos> listaTiposDescansos = query.getResultList();
             return listaTiposDescansos;
         } catch (Exception e) {
-            log.error("Error buscarTiposDescansos PersistenciaTiposDescansos" + e.getMessage());
+            log.error("Error buscarTiposDescansos PersistenciaTiposDescansos ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             TiposDescansos tiposDescansos = (TiposDescansos) query.getSingleResult();
             return tiposDescansos;
         } catch (Exception e) {
-            log.error("Error buscarTiposDescansosSecuencia PersistenciaTiposDescansos" + e.getMessage());
+            log.error("Error buscarTiposDescansosSecuencia PersistenciaTiposDescansos ", e);
             TiposDescansos tiposDescansos = null;
             return tiposDescansos;
         }
@@ -116,7 +116,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             log.warn("PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso contador" + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso()" + e.getMessage());
+            log.error("PersistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso():  ", e);
             return retorno;
         }
     }

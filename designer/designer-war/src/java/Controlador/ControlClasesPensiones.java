@@ -110,7 +110,7 @@ public class ControlClasesPensiones implements Serializable {
          administrarClasesPensiones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -603,7 +603,7 @@ public class ControlClasesPensiones implements Serializable {
 
          }
       } catch (Exception e) {
-         log.error("ERROR ControlClasesPensiones verificarBorrado ERROR " + e);
+         log.error("ERROR ControlClasesPensiones verificarBorrado ERROR  ", e);
       }
    }
 

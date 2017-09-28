@@ -41,7 +41,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          em.merge(procesos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaProcesos.crear: " + e.getMessage());
+         log.error("Error PersistenciaProcesos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +57,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          em.merge(procesos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaProcesos.editar: " + e.getMessage());
+         log.error("Error PersistenciaProcesos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +73,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          em.remove(em.merge(procesos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaProcesos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaProcesos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
 //            log.warn("procesos : " + procesos);
          return procesos;
       } catch (Exception e) {
-         log.error("Error buscarProcesos : " + e.getMessage());
+         log.error("Error buscarProcesos :  ", e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          Procesos procesos = (Procesos) query.getSingleResult();
          return procesos;
       } catch (Exception e) {
-         log.error("Error buscarProcesosSecuencia : " + e.getMessage());
+         log.error("Error buscarProcesosSecuencia :  ", e);
          Procesos procesos = null;
          return procesos;
       }
@@ -123,7 +123,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          Procesos procesos = (Procesos) query.getSingleResult();
          return procesos;
       } catch (Exception e) {
-         log.error("Error buscarProcesosSecuencia : " + e.getMessage());
+         log.error("Error buscarProcesosSecuencia :  ", e);
          Procesos procesos = null;
          return procesos;
       }
@@ -138,7 +138,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          List<Procesos> listaProcesos = query.getResultList();
          return listaProcesos;
       } catch (Exception e) {
-         log.error("Error PersistenciaProcesos.lovProcesos: " + e.getMessage());
+         log.error("Error PersistenciaProcesos.lovProcesos:  ", e);
          return null;
       }
    }
@@ -160,7 +160,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          List<Procesos> listaProcesosParametros = query.getResultList();
          return listaProcesosParametros;
       } catch (Exception e) {
-         log.error("Error en PersistenciaProcesos.procesosParametros: " + e.getMessage());
+         log.error("Error en PersistenciaProcesos.procesosParametros:  ", e);
          return null;
       }
    }
@@ -180,7 +180,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          }
          return desripcion;
       } catch (Exception e) {
-         log.error("Error  PersistenciaProcesos  obtenerDescripcionProcesoPorSecuencia : " + e.toString());
+         log.error("Error  PersistenciaProcesos  obtenerDescripcionProcesoPorSecuencia :  ", e);
          return null;
       }
    }
@@ -202,7 +202,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          query.execute();
          query.hasMoreResults();
          String strRetorno = (String) query.getOutputParameterValue(1);
-         log.warn("Persistencia.PersistenciaProcesos.clonarProceso() Ya clono strRetorno:_" + strRetorno + "_");
+         log.warn("PersistenciaProcesos.clonarProceso() Ya clono strRetorno:_" + strRetorno + "_");
          return strRetorno;
       } catch (Exception e) {
          log.error("ERROR: " + this.getClass().getName() + ".clonarProceso()");

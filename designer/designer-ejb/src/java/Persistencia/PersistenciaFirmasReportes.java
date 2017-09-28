@@ -37,7 +37,7 @@ public class PersistenciaFirmasReportes implements PersistenciaFirmasReportesInt
          em.merge(tiposCursos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFirmasReportes.crear: " + e);
+         log.error("Error PersistenciaFirmasReportes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaFirmasReportes implements PersistenciaFirmasReportesInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFirmasReportes.editar: " + e);
+         log.error("Error PersistenciaFirmasReportes.editar:  ", e);
       }
    }
 
@@ -72,7 +72,7 @@ public class PersistenciaFirmasReportes implements PersistenciaFirmasReportesInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFirmasReportes.borrar: " + e);
+         log.error("Error PersistenciaFirmasReportes.borrar:  ", e);
       }
    }
 
@@ -85,7 +85,7 @@ public class PersistenciaFirmasReportes implements PersistenciaFirmasReportesInt
          return listMotivosDemandas;
 
       } catch (Exception e) {
-         log.error("Error consultarFirmasReportes PersistenciaFirmasReportes : " + e.toString());
+         log.error("Error consultarFirmasReportes PersistenciaFirmasReportes :  ", e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class PersistenciaFirmasReportes implements PersistenciaFirmasReportesInt
          FirmasReportes tiposCursos = (FirmasReportes) query.getSingleResult();
          return tiposCursos;
       } catch (Exception e) {
-         log.error("Error PersistenciaFirmasReportes consultarTipoCurso : " + e.toString());
+         log.error("Error PersistenciaFirmasReportes consultarTipoCurso :  ", e);
          FirmasReportes tiposEntidades = null;
          return tiposEntidades;
       }

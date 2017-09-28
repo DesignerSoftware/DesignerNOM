@@ -34,7 +34,7 @@ public class PersistenciaVWPrestamoDtosRealizados implements PersistenciaVWPrest
             List<VWPrestamoDtosRealizados> listaPrestamos =  query.getResultList();
             return listaPrestamos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVWPrestamoDtosRealizados.buscarPrestamosDtos()" + e.getMessage());
+            log.error("PersistenciaVWPrestamoDtosRealizados.buscarPrestamosDtos():  ", e);
             return null;
         }
     }

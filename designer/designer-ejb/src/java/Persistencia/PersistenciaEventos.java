@@ -39,7 +39,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          em.merge(eventos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEventos.crear: " + e);
+         log.error("Error PersistenciaEventos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          em.merge(eventos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEventos.editar: " + e);
+         log.error("Error PersistenciaEventos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaEventos.borrar: " + e);
+         log.error("Error PersistenciaEventos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -85,7 +85,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          em.clear();
          return em.find(Eventos.class, secuencia);
       } catch (Exception e) {
-         log.error("Error en la PersistenciaEventos : " + e);
+         log.error("Error en la PersistenciaEventos :  ", e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          List<Eventos> eventos = query.getResultList();
          return eventos;
       } catch (Exception e) {
-         log.error("Error en PersistenciaEventos Por buscarEventos ERROR" + e);
+         log.error("Error en PersistenciaEventos Por buscarEventos ERROR:  ", e);
          return null;
       }
    }
@@ -115,7 +115,7 @@ public class PersistenciaEventos implements PersistenciaEventosInterface {
          log.warn("Contador PersitenciaEventos contadorVigenciasEventos persistencia " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersitenciaEventos contadorVigenciasEventos. " + e);
+         log.error("Error PersitenciaEventos contadorVigenciasEventos.  ", e);
          return retorno;
       }
    }

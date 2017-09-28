@@ -27,7 +27,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSubCategorias.crear: " + e.getMessage());
+            log.error("Error PersistenciaSubCategorias.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSubCategorias.editar: " + e.getMessage());
+            log.error("Error PersistenciaSubCategorias.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             em.remove(em.merge(subCategorias));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSubCategorias.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSubCategorias.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             List<SubCategorias> listSubCategorias = query.getResultList();
             return listSubCategorias;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaSubCategorias ConsultarSubCategorias ERROR :" + e.getMessage());
+            log.error("ERROR PersistenciaSubCategorias ConsultarSubCategorias ERROR :  ", e);
             return null;
         }
 
@@ -91,7 +91,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             SubCategorias subCategorias = (SubCategorias) query.getSingleResult();
             return subCategorias;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaSubCategorias.consultarSubCategoria()" + e.getMessage());
+            log.error("PersistenciaSubCategorias.consultarSubCategoria():  ", e);
             return null;
         }
     }
@@ -107,7 +107,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaSubCategorias contarEscalafones. " + e.getMessage());
+            log.error("Error PersistenciaSubCategorias contarEscalafones.  ", e);
             return retorno;
         }
     }

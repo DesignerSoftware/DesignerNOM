@@ -34,7 +34,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             em.merge(aporteEntidad);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidadesXDia.crear : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.crear :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             em.merge(aporteEntidad);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidadesXDia.editar : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.editar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             em.remove(em.merge(aporteEntidad));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidadesXDia.borrar : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.borrar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             List<AportesEntidadesXDia> aportesEntidades = query.getResultList();
             return aportesEntidades;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia :  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             List<AportesEntidadesXDia> aportesEntidadesDia = query.getResultList();
             return aportesEntidadesDia;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.consultarAportesEntidadesXDia :  ", e);
             return null;
         }
     }
@@ -126,7 +126,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
             BigDecimal tarifa = (BigDecimal) query.getSingleResult();
             return tarifa;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidadesXDia.cosultarTarifa : " + e.toString());
+            log.error("Error PersistenciaAportesEntidadesXDia.cosultarTarifa :  ", e);
             return null;
         }
     }

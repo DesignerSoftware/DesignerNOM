@@ -32,7 +32,7 @@ public class PersistenciaEvalVigConvocatorias implements PersistenciaEvalVigConv
             em.merge(evalvigconvocatoria);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEvalVigConvocatorias.crear: " + e);
+            log.error("Error PersistenciaEvalVigConvocatorias.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaEvalVigConvocatorias implements PersistenciaEvalVigConv
             em.merge(evalvigconvocatoria);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEvalVigConvocatorias.editar: " + e);
+            log.error("Error PersistenciaEvalVigConvocatorias.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaEvalVigConvocatorias implements PersistenciaEvalVigConv
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaEvalConvocatorias.borrar: " + e);
+                log.error("Error PersistenciaEvalConvocatorias.borrar:  ", e);
             }
         }
     }
@@ -84,7 +84,7 @@ public class PersistenciaEvalVigConvocatorias implements PersistenciaEvalVigConv
             List<Evalvigconvocatorias> evalvigconvocatorias = query.getResultList();
             return evalvigconvocatorias;
         } catch (Exception e) {
-            log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
+            log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR:  ", e);
             return null;
         }
     }

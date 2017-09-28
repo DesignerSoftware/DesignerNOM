@@ -34,7 +34,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             List<HistoricosUsuarios> historicosusu = query.getResultList();
             return historicosusu;
         } catch (Exception e) {
-            log.error("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
+            log.error("Error buscarUsuarios PersistenciaUsuariosVista ", e);
             return null;
         }
     }
@@ -48,7 +48,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             em.merge(historicou);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoricosUsuarios.crear: " + e.getMessage());
+            log.error("Error PersistenciaHistoricosUsuarios.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             em.merge(historicou);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoricosUsuarios.editar: " + e.getMessage());
+            log.error("Error PersistenciaHistoricosUsuarios.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaHistoricosUsuarios implements PersistenciaHistoricosUsu
             em.remove(em.merge(historicou));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoricosUsuarios.borrar: " + e.getMessage());
+            log.error("Error PersistenciaHistoricosUsuarios.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

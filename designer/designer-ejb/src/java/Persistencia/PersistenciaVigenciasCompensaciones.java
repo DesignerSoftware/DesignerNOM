@@ -40,7 +40,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             em.merge(vigenciasCompensaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasCompensaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCompensaciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             em.merge(vigenciasCompensaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasCompensaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCompensaciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             em.remove(em.merge(vigenciasCompensaciones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasCompensaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasCompensaciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             cq.select(cq.from(VigenciasCompensaciones.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Error buscarVigenciasCompensaciones PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensaciones PersistenciaVigenciasCompensaciones ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            log.error("Error en buscarVigenciasCompensacionesEmpleado PersistenciaVigenciasCompensaciones " + e.getMessage());
+            log.error("Error en buscarVigenciasCompensacionesEmpleado PersistenciaVigenciasCompensaciones  ", e);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             VigenciasCompensaciones vigenciasCompensaciones = (VigenciasCompensaciones) query.getSingleResult();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            log.error("Error buscarVigenciaCompensacionSecuencia PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciaCompensacionSecuencia PersistenciaVigenciasCompensaciones ", e);
             return null;
         }
     }
@@ -131,7 +131,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            log.error("Error buscarVigenciasCompensacionesVigenciaSecuencia PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensacionesVigenciaSecuencia PersistenciaVigenciasCompensaciones ", e);
             return null;
         }
     }
@@ -146,7 +146,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
            List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
            return vigenciasCompensaciones;
         }catch(Exception e){
-            log.error("Error buscarVigenciasCompensacionesTipoCompensacion PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensacionesTipoCompensacion PersistenciaVigenciasCompensaciones ", e);
             return null;
         }
     }
@@ -162,7 +162,7 @@ public class PersistenciaVigenciasCompensaciones implements PersistenciaVigencia
             List<VigenciasCompensaciones> vigenciasCompensaciones = query.getResultList();
             return vigenciasCompensaciones;
         } catch (Exception e) {
-            log.error("Error buscarVigenciasCompensacionesVigenciayCompensacion PersistenciaVigenciasCompensaciones" + e.getMessage());
+            log.error("Error buscarVigenciasCompensacionesVigenciayCompensacion PersistenciaVigenciasCompensaciones ", e);
             return null;
         }
     }

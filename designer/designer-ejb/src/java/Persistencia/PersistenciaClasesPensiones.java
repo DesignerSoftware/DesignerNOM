@@ -39,7 +39,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          em.merge(clasesPensiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesPensiones.crear: " + e);
+         log.error("Error PersistenciaClasesPensiones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          em.merge(clasesPensiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesPensiones.editar: " + e);
+         log.error("Error PersistenciaClasesPensiones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaClasesPensiones.borrar: " + e);
+         log.error("Error PersistenciaClasesPensiones.borrar:  ", e);
       }
    }
 
@@ -89,7 +89,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          List<ClasesPensiones> clasesPensionesLista = query.getResultList();
          return clasesPensionesLista;
       } catch (Exception e) {
-         log.error("Error consultarClasesPensiones PersistenciaClasesPensiones " + e);
+         log.error("Error consultarClasesPensiones PersistenciaClasesPensiones  ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          ClasesPensiones claseP = (ClasesPensiones) query.getSingleResult();
          return claseP;
       } catch (Exception e) {
-         log.error("Error buscarClasePennsion PersistenciaClasesPensiones " + e);
+         log.error("Error buscarClasePennsion PersistenciaClasesPensiones  ", e);
          ClasesPensiones claseP = null;
          return claseP;
       }
@@ -124,7 +124,7 @@ public class PersistenciaClasesPensiones implements PersistenciaClasesPensionesI
          log.warn("Contador PersistenciaMotivosRetiros  contarRetiradosClasePension  " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e);
+         log.error("Error PersistenciaMotivosRetiros   contarRetiradosClasePension.  ", e);
          return retorno;
       }
    }

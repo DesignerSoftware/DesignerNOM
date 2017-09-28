@@ -39,7 +39,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          em.persist(diasLaborables);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiasLaborables.crear: " + e);
+         log.error("Error PersistenciaDiasLaborables.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          em.merge(diasLaborables);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiasLaborables.editar: " + e);
+         log.error("Error PersistenciaDiasLaborables.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDiasLaborables.borrar: " + e);
+         log.error("Error PersistenciaDiasLaborables.borrar:  ", e);
       }
    }
 
@@ -89,7 +89,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          DiasLaborables diasLaborables = (DiasLaborables) query.getSingleResult();
          return diasLaborables;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaDiasLaborables.buscarDiaLaborableSecuencia() e: " + e);
+         log.error("PersistenciaDiasLaborables.buscarDiaLaborableSecuencia() e:  ", e);
          DiasLaborables diasLaborables = null;
          return diasLaborables;
       }
@@ -104,7 +104,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          List<DiasLaborables> diasLaborables = query.getResultList();
          return diasLaborables;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaDiasLaborables.diasLaborables() e: " + e);
+         log.error("PersistenciaDiasLaborables.diasLaborables() e:  ", e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class PersistenciaDiasLaborables implements PersistenciaDiasLaborablesInt
          List<DiasLaborables> diasLaborables = query.getResultList();
          return diasLaborables;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaDiasLaborables.diasLaborablesParaSecuenciaTipoContrato() e: " + e);
+         log.error("PersistenciaDiasLaborables.diasLaborablesParaSecuenciaTipoContrato() e:  ", e);
          return null;
       }
    }

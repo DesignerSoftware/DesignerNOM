@@ -44,7 +44,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDeportes.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDeportes.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDeportes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -117,7 +117,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             }
             return null;
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDeportes.deportePersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasDeportes.deportePersona ", e);
             return null;
         }
     }
@@ -132,7 +132,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             List<VigenciasDeportes> listaVigenciasDeportes = queryFinal.getResultList();
             return listaVigenciasDeportes;
         } catch (Exception e) {
-            log.error("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
+            log.error("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes :  ", e);
             return null;
         }
     }
@@ -153,9 +153,9 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             return deporte;
         } catch (Exception e) {
             if (e.getMessage().contains("did not retrieve any entities")) {
-                log.trace("Persistencia.PersistenciaVigenciasDeportes.consultarPrimerDeporte()" + e.getMessage());
+                log.trace("PersistenciaVigenciasDeportes.consultarPrimerDeporte(): " + e);
             } else {
-                log.error("Persistencia.PersistenciaVigenciasDeportes.consultarPrimerDeporte()" + e.getMessage());
+                log.error("PersistenciaVigenciasDeportes.consultarPrimerDeporte():  ", e);
             }
             deporte = "";
             return deporte;

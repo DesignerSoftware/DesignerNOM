@@ -27,7 +27,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             em.persist(autoliq);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.crear : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.crear :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             em.merge(autoliq);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.editar : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.editar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             em.remove(em.merge(autoliq));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.borrar : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.borrar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             List<ParametrosAutoliq> listaParametros = query.getResultList();
             return listaParametros;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliq : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliq :  ", e);
             return null;
         }
     }
@@ -89,7 +89,7 @@ public class PersistenciaParametrosAutoliq implements PersistenciaParametrosAuto
             List<ParametrosAutoliq> listaParametros = query.getResultList();
             return listaParametros;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas :  ", e);
             return null;
         }
     }

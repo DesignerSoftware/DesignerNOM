@@ -39,7 +39,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          em.merge(gruposTiposEntidades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaGruposTiposEntidades.crear: " + e);
+         log.error("Error PersistenciaGruposTiposEntidades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaGruposTiposEntidades.editar: " + e);
+         log.error("Error PersistenciaGruposTiposEntidades.editar:  ", e);
       }
    }
 
@@ -75,7 +75,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaGruposTiposEntidades.borrar: " + e);
+         log.error("Error PersistenciaGruposTiposEntidades.borrar:  ", e);
       }
    }
 
@@ -85,7 +85,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          em.clear();
          return em.find(Grupostiposentidades.class, secuencia);
       } catch (Exception e) {
-         log.error("\n ERROR EN PersistenciaGruposTiposEntidades buscarGrupoTipoEntidad ERROR " + e);
+         log.error("\n ERROR EN PersistenciaGruposTiposEntidades buscarGrupoTipoEntidad ERROR  ", e);
 
          return null;
       }
@@ -100,7 +100,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          List<Grupostiposentidades> todosGrupostiposentidades = query.getResultList();
          return todosGrupostiposentidades;
       } catch (Exception e) {
-         log.error("Error: PersistenciaGrupostiposentidades consultarGrupostiposentidades ERROR " + e);
+         log.error("Error: PersistenciaGrupostiposentidades consultarGrupostiposentidades ERROR  ", e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          log.warn("Contador PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad ERROR : " + e);
+         log.error("Error PersistenciaGrupostiposentidades contarTiposEntidadesGrupoTipoEntidad ERROR :  ", e);
          return retorno;
       }
    }
@@ -132,7 +132,7 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
          log.warn("Contador PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad ERROR : " + e);
+         log.error("Error PersistenciaGrupostiposentidades contarTSgruposTiposEntidadesTipoEntidad ERROR :  ", e);
          return retorno;
       }
    }

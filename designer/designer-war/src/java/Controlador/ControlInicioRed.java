@@ -82,7 +82,7 @@ public class ControlInicioRed implements Serializable {
          }
          log.info("estadoinicio constructor: " + estadoInicio);
       } catch (Exception e) {
-         log.fatal("ControlInicioRed.<init>()" + e);
+         log.fatal("ControlInicioRed.<init>() ", e);
       }
    }
 
@@ -133,7 +133,7 @@ public class ControlInicioRed implements Serializable {
          }
          return cadena;
       } catch (Exception e) {
-         log.fatal("ControlInicioRed.obtenerCadenas()" + e);
+         log.fatal("ControlInicioRed.obtenerCadenas() ", e);
          return null;
       }
    }

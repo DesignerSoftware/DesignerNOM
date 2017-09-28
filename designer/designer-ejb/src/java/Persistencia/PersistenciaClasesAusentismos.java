@@ -39,7 +39,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             em.merge(clasesAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaClasesAusentismos.crear: " + e);
+            log.error("Error PersistenciaClasesAusentismos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             em.merge(clasesAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaClasesAusentismos.editar: " + e);
+            log.error("Error PersistenciaClasesAusentismos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +77,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaClasesAusentismos.borrar: " + e);
+                log.error("Error PersistenciaClasesAusentismos.borrar:  ", e);
             }
         }
     }
@@ -91,7 +91,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             List<Clasesausentismos> todasClasesAusentismos = query.getResultList();
             return todasClasesAusentismos;
         } catch (Exception e) {
-            log.error("Error: (todasNovedades)" + e);
+            log.error("Error: (todasNovedades) ", e);
             return null;
         }
     }
@@ -107,7 +107,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             log.warn("Contador PersistenciaClasesAusentismos contadorSoAusentismosClaseAusentismo  " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaClasesAusentismos  contadorSoAusentismosClaseAusentismo. " + e);
+            log.error("Error PersistenciaClasesAusentismos  contadorSoAusentismosClaseAusentismo.  ", e);
             return retorno;
         }
     }
@@ -122,7 +122,7 @@ public class PersistenciaClasesAusentismos implements PersistenciaClasesAusentis
             log.warn("Contador PersistenciaClasesAusentismos contadorCausasAusentismosClaseAusentismo  " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaClasesAusentismos  contadorCausasAusentismosClaseAusentismo. " + e);
+            log.error("Error PersistenciaClasesAusentismos  contadorCausasAusentismosClaseAusentismo.  ", e);
             return retorno;
         }
     }

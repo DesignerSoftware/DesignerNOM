@@ -38,7 +38,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             em.persist(recordatorios);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRecordatorios.crear: " + e.toString());
+            log.error("Error PersistenciaRecordatorios.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             em.merge(recordatorios);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRecordatorios.editar: " + e.toString());
+            log.error("Error PersistenciaRecordatorios.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             em.remove(em.merge(recordatorios));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRecordatorios.borrar: " + e.toString());
+            log.error("Error PersistenciaRecordatorios.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -90,7 +90,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             Recordatorios recordatorio = (Recordatorios) query.getSingleResult();
             return recordatorio;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRecordatorios.recordatorioRandom()" + e.getMessage());
+            log.error("PersistenciaRecordatorios.recordatorioRandom():  ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             List<String> listaRecordatorios = query.getResultList();
             return listaRecordatorios;
         } catch (Exception e) {
-            log.error("Error: PersistenciaRecordatorios.recordatoriosInicio : " + e.toString());
+            log.error("Error: PersistenciaRecordatorios.recordatoriosInicio :  ", e);
             return null;
         }
     }
@@ -132,7 +132,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             List<Recordatorios> listaConsultas = query.getResultList();
             return listaConsultas;
         } catch (Exception e) {
-            log.error("Error: PersistenciaRecordatorios.consultasInicio : " + e.toString());
+            log.error("Error: PersistenciaRecordatorios.consultasInicio :  ", e);
             return null;
         }
     }
@@ -145,7 +145,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             List<Recordatorios> recordatorios = query.getResultList();
             return recordatorios;
         } catch (Exception e) {
-            log.error("Error: PersistenciaRecordatorios.proverbiosRecordatorios : " + e.toString());
+            log.error("Error: PersistenciaRecordatorios.proverbiosRecordatorios :  ", e);
             return null;
         }
     }
@@ -161,7 +161,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             List<Recordatorios> listaConsultas = query.getResultList();
             return listaConsultas;
         } catch (Exception e) {
-            log.error("Error: PersistenciaRecordatorios.mensajesRecordatorios : " + e.toString());
+            log.error("Error: PersistenciaRecordatorios.mensajesRecordatorios :  ", e);
             return null;
         }
     }
@@ -172,7 +172,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             em.clear();
             return em.find(Recordatorios.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRecordatorios.consultaRecordatorios()" + e.getMessage());
+            log.error("PersistenciaRecordatorios.consultaRecordatorios():  ", e);
             e.printStackTrace();
             throw e;
         }
@@ -188,7 +188,7 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
             List<String> listaConsultas = query.getResultList();
             return listaConsultas;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRecordatorios.ejecutarConsultaRecordatorio()" + e.getMessage());
+            log.error("PersistenciaRecordatorios.ejecutarConsultaRecordatorio():  ", e);
             e.printStackTrace();
             throw e;
         }

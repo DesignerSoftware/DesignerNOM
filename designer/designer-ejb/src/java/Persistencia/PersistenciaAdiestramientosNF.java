@@ -35,7 +35,7 @@ public class PersistenciaAdiestramientosNF implements PersistenciaAdiestramiento
             List<AdiestramientosNF> adiestramientosNF = query.getResultList();
             return adiestramientosNF;
         } catch (Exception e) {
-           log.error("Persistencia.PersistenciaAdiestramientosNF.adiestramientosNF() e: " + e);
+           log.error("PersistenciaAdiestramientosNF.adiestramientosNF() e:  ", e);
             return null;
         }
     }

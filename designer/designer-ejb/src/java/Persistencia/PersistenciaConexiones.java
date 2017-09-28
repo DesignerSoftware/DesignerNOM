@@ -33,7 +33,7 @@ public class PersistenciaConexiones implements PersistenciaConexionesInterface {
          em.merge(conexion);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConexiones.crear_modificar: " + e);
+         log.error("Error PersistenciaConexiones.crear_modificar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +49,7 @@ public class PersistenciaConexiones implements PersistenciaConexionesInterface {
          BigInteger SID = new BigInteger(strSID);
          return SID;
       } catch (Exception e) {
-         log.error("Error PersistenciaConexiones.buscarSID: " + e);
+         log.error("Error PersistenciaConexiones.buscarSID:  ", e);
          return null;
       }
    }
@@ -74,7 +74,7 @@ public class PersistenciaConexiones implements PersistenciaConexionesInterface {
             crear_Modificar(conexion, em);
          }
       } catch (Exception e) {
-         log.error("Error PersistenciaConexiones.verificarSID: " + e);
+         log.error("Error PersistenciaConexiones.verificarSID:  ", e);
       }
    }
 }

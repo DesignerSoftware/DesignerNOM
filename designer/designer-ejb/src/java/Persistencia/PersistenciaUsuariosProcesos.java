@@ -33,7 +33,7 @@ public class PersistenciaUsuariosProcesos implements PersistenciaUsuariosProceso
             em.merge(usuarioproceso);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosProcesos.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosProcesos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaUsuariosProcesos implements PersistenciaUsuariosProceso
             em.merge(usuarioproceso);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosProcesos.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosProcesos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaUsuariosProcesos implements PersistenciaUsuariosProceso
             em.remove(em.merge(usuarioproceso));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosProcesos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosProcesos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +81,7 @@ public class PersistenciaUsuariosProcesos implements PersistenciaUsuariosProceso
             List<UsuariosProcesos> listaUsuariosP = query.getResultList();
             return listaUsuariosP;
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosProcesos.buscarUsuariosProcesos" + e.getMessage());
+            log.error("Error PersistenciaUsuariosProcesos.buscarUsuariosProcesos ", e);
             return null;
         }
     }

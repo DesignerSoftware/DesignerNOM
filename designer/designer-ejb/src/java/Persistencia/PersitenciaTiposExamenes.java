@@ -40,7 +40,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.merge(tiposExamenes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersitenciaTiposExamenes.crear: " + e.getMessage());
+            log.error("Error PersitenciaTiposExamenes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.merge(tiposExamenes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersitenciaTiposExamenes.editar: " + e.getMessage());
+            log.error("Error PersitenciaTiposExamenes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.remove(em.merge(tiposExamenes));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersitenciaTiposExamenes.borrar: " + e.getMessage());
+            log.error("Error PersitenciaTiposExamenes.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.clear();
             return em.find(TiposExamenes.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersitenciaTiposExamenes.buscarTipoExamen()" + e.getMessage());
+            log.error("Persistencia.PersitenciaTiposExamenes.buscarTipoExamen():  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             List<TiposExamenes> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Persistencia.PersitenciaTiposExamenes.buscarTiposExamenes()" + e.getMessage());
+            log.error("Persistencia.PersitenciaTiposExamenes.buscarTiposExamenes():  ", e);
             return null;
         }
     }
@@ -115,7 +115,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             log.warn("Contador contadorTiposExamenesCargos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposExamenes contadorTiposExamenesCargos. " + e.getMessage());
+            log.error("Error PersistenciaTiposExamenes contadorTiposExamenesCargos.  ", e);
             return retorno;
         }
     }
@@ -131,7 +131,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposExamenes   contadorVigenciasExamenesMedicos. " + e.getMessage());
+            log.error("Error PersistenciaTiposExamenes   contadorVigenciasExamenesMedicos.  ", e);
             return retorno;
         }
     }

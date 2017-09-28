@@ -41,7 +41,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          em.persist(detallesReformasLaborales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+         log.error("Error PersistenciaDetallesReformasLaborales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +57,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          em.merge(detallesReformasLaborales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+         log.error("Error PersistenciaDetallesReformasLaborales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +77,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
+         log.error("Error PersistenciaDetallesReformasLaborales.borrar:  ", e);
       }
    }
 
@@ -100,7 +100,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          DetallesReformasLaborales detallesReformasLaborales = (DetallesReformasLaborales) query.getSingleResult();
          return detallesReformasLaborales;
       } catch (Exception e) {
-         log.error("Error buscarDetalleReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
+         log.error("Error buscarDetalleReformaSecuencia PersistenciaDetallesReformasLaborales :  ", e);
          DetallesReformasLaborales detallesReformasLaborales = null;
          return detallesReformasLaborales;
       }
@@ -116,7 +116,7 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          List<DetallesReformasLaborales> detallesReformasLaborales = (List<DetallesReformasLaborales>) query.getResultList();
          return detallesReformasLaborales;
       } catch (Exception e) {
-         log.error("Error buscarDetalleReformasParaReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
+         log.error("Error buscarDetalleReformasParaReformaSecuencia PersistenciaDetallesReformasLaborales :  ", e);
          List<DetallesReformasLaborales> detallesReformasLaborales = null;
          return detallesReformasLaborales;
       }

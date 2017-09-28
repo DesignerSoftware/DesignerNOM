@@ -45,7 +45,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.merge(parametro);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaParametros.crear: " + e.getMessage());
+         log.error("Error PersistenciaParametros.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -61,7 +61,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.remove(em.merge(parametro));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaMotivosCambiosSueldos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -128,7 +128,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          }
          return listaParametros2;
       } catch (Exception e) {
-         log.error("PersistenciaParametros.parametrosComprobantes ERROR: " + e.getMessage());
+         log.error("PersistenciaParametros.parametrosComprobantes ERROR:  ", e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
    @Override
    public List<Parametros> empleadosParametros(EntityManager em, String usuarioBD) {
       try {
-         log.warn("Persistencia.PersistenciaParametros.empleadosParametros() usuarioBD: " + usuarioBD + ", em: " + em);
+         log.warn("PersistenciaParametros.empleadosParametros() usuarioBD: " + usuarioBD + ", em: " + em);
          em.clear();
          Query query = em.createQuery("SELECT p FROM Parametros p WHERE p.empleado IS NOT NULL AND p.usuario.alias = :usuarioBD", Parametros.class
          );
@@ -171,7 +171,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          }
          return listaParametros;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaParametros.empleadosParametros" + e.getMessage());
+         log.error("Exepcion en PersistenciaParametros.empleadosParametros ", e);
          return null;
       }
    }
@@ -187,7 +187,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("PersistenciaParametros.borrarParametros. " + e.getMessage());
+         log.error("PersistenciaParametros.borrarParametros.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -204,7 +204,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.persist(cambioMasivo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCambiosMasivos.crear: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -220,7 +220,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          em.merge(cambioMasivo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCambiosMasivos.editar: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -239,7 +239,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCambiosMasivos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.borrar:  ", e);
       }
    }
 
@@ -250,7 +250,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       try {
          return em.find(CambiosMasivos.class, secuencia);
       } catch (Exception e) {
-         log.error("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia(): " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia():  ", e);
          return null;
       }
    }
@@ -271,7 +271,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
 //         List<CambiosMasivos> lista = query.getResultList();
 //         return lista;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos:  ", e);
       return null;
 //      }
    }
@@ -283,7 +283,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
     * @return
     */
    public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
-      log.warn("Persistencia.PersistenciaParametros.consultarParametroCambiosMasivos()");
+      log.warn("PersistenciaParametros.consultarParametroCambiosMasivos()");
 //         em.clear();
 //      try {
 //         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
@@ -292,7 +292,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
 //         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
 //         return parametro;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos:  ", e);
       return null;
 //      }
    }
@@ -321,7 +321,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                      String nom = (String) query2.getSingleResult();
                      lista.get(i).setNombreEmpleado(nom);
                   } catch (Exception e2) {
-                     log.error("Error consultando Transients : " + e2);
+                     log.error("Error consultando Transients : ", e2);
                   }
                   em.clear();
                   try {
@@ -333,21 +333,21 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                      BigDecimal cod = (BigDecimal) query1.getSingleResult();
                      lista.get(i).setCodigoEmpleado(cod);
                   } catch (Exception e3) {
-                     log.error("Error consultando Transients : " + e3);
+                     log.error("Error consultando Transients : ", e3);
                   }
                }
             }
          }
          return lista;
       } catch (Exception e) {
-         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos:  ", e);
          return null;
       }
    }
 
    @Override
    public ParametrosCambiosMasivos parametrosCambiosMasivos(EntityManager em, String user) {
-      log.warn("Persistencia.PersistenciaParametros.parametrosCambiosMasivos()");
+      log.warn("PersistenciaParametros.parametrosCambiosMasivos()");
       em.clear();
       try {
          String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + user + "' AND ROWNUM < 2";
@@ -476,13 +476,13 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                      parametro.setSueldoUnidadPago(null);
                   }
                } catch (Exception e2) {
-                  log.error("ERROR al consultar @transients : " + e2);
+                  log.error("ERROR al consultar @transients : ", e2);
                }
             }
          }
          return parametro;
       } catch (Exception e) {
-         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e.getMessage());
+         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos:  ", e);
          return null;
       }
    }
@@ -518,7 +518,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("ERROR PersistenciaParametros.actualizarParametroCambioMasivo: " + e.getMessage());
+         log.error("ERROR PersistenciaParametros.actualizarParametroCambioMasivo:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

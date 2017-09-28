@@ -41,7 +41,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
          em.merge(parametrosInformes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaParametrosInformes.crear: " + e.getMessage());
+         log.error("Error PersistenciaParametrosInformes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +57,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
          em.merge(parametrosInformes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaParametrosInformes.editar: " + e.getMessage());
+         log.error("Error PersistenciaParametrosInformes.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +73,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
          em.remove(em.merge(parametrosInformes));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaParametrosInformes.borrar: " + e.getMessage());
+         log.error("Error PersistenciaParametrosInformes.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -86,7 +86,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
          em.clear();
          return em.find(ParametrosInformes.class, secuencia);
       } catch (Exception e) {
-         log.error("Error buscarParametroInforme Persistencia" + e.getMessage());
+         log.error("Error buscarParametroInforme Persistencia ", e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
          cq.select(cq.from(ParametrosInformes.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarParametrosInformes" + e.getMessage());
+         log.error("Error buscarParametrosInformes ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
          ParametrosInformes parametrosInformes = (ParametrosInformes) query.getSingleResult();
          return parametrosInformes;
       } catch (Exception e) {
-         log.error("Error en buscarParametroInformeUsuario " + e.getMessage());
+         log.error("Error en buscarParametroInformeUsuario  ", e);
          return null;
       }
    }

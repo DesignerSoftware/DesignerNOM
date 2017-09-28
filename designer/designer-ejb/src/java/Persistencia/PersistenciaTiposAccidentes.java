@@ -32,7 +32,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.merge(tiposAccidentes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAccidentes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.merge(tiposAccidentes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAccidentes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.remove(em.merge(tiposAccidentes));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAccidentes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +74,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.clear();
             return em.find(TiposAccidentes.class, secuenciaTA);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAccidentes.buscarTipoAccidente()" + e.getMessage());
+            log.error("PersistenciaTiposAccidentes.buscarTipoAccidente():  ", e);
             return null;
         }
     }
@@ -87,7 +87,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             List<TiposAccidentes> listPartesCuerpo = query.getResultList();
             return listPartesCuerpo;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAccidentes.buscarTiposAccidentes()" + e.getMessage());
+            log.error("PersistenciaTiposAccidentes.buscarTiposAccidentes():  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAccidentes.contadorSoAccidentesMedicos()" + e.getMessage());
+            log.error("PersistenciaTiposAccidentes.contadorSoAccidentesMedicos():  ", e);
             return retorno;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAccidentes.contadorAccidentes()" + e.getMessage());
+            log.error("PersistenciaTiposAccidentes.contadorAccidentes():  ", e);
             return retorno;
         }
     }

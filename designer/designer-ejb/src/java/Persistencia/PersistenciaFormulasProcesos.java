@@ -38,7 +38,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             em.persist(formulasProcesos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaFormulasProcesos.crear: " + e);
+            log.error("Error PersistenciaFormulasProcesos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             em.merge(formulasProcesos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaFormulasProcesos.editar: " + e);
+            log.error("Error PersistenciaFormulasProcesos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +74,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaFormulasProcesos.borrar: " + e);
+                log.error("Error PersistenciaFormulasProcesos.borrar:  ", e);
         }
     }
 
@@ -88,7 +88,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             List<FormulasProcesos> formulasProcesos = queryFinal.getResultList();
             return formulasProcesos;
         } catch (Exception e) {
-            log.error("Error PersistenciaFormulasProcesos.formulasProcesosParaFormulaSecuencia : " + e.toString());
+            log.error("Error PersistenciaFormulasProcesos.formulasProcesosParaFormulaSecuencia :  ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             List<FormulasProcesos> formulasProcesos = queryFinal.getResultList();
             return formulasProcesos;
         } catch (Exception e) {
-            log.error("Error PersistenciaFormulasProcesos.formulasProcesosParaProcesoSecuencia : " + e.toString());
+            log.error("Error PersistenciaFormulasProcesos.formulasProcesosParaProcesoSecuencia :  ", e);
             return null;
         }
     }

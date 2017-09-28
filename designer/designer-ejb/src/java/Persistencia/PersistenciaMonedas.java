@@ -40,7 +40,7 @@ public class PersistenciaMonedas implements PersistenciaMonedasInterface {
             em.merge(monedas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMonedas.crear: " + e.getMessage());
+            log.error("Error PersistenciaMonedas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaMonedas implements PersistenciaMonedasInterface {
             em.merge(monedas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMonedas.editar: " + e.getMessage());
+            log.error("Error PersistenciaMonedas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaMonedas implements PersistenciaMonedasInterface {
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaMonedas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMonedas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -91,7 +91,7 @@ public class PersistenciaMonedas implements PersistenciaMonedasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error(" PersistenciaMonedas contadorIdiomasPersonas Error : " + e.getMessage());
+            log.error(" PersistenciaMonedas contadorIdiomasPersonas Error :  ", e);
             return retorno;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaMonedas implements PersistenciaMonedasInterface {
             em.clear();
             return em.find(Monedas.class, secuenciaTI);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMonedas.consultarMoneda()" + e.getMessage());
+            log.error("PersistenciaMonedas.consultarMoneda():  ", e);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class PersistenciaMonedas implements PersistenciaMonedasInterface {
             List<Monedas> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMonedas.consultarMonedas()" + e.getMessage());
+            log.error("PersistenciaMonedas.consultarMonedas():  ", e);
             return null;
         }
     }

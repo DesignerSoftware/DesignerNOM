@@ -256,7 +256,7 @@ public class ControlEstructura implements Serializable {
          externalContext = x.getExternalContext();
          userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1032,7 +1032,7 @@ public class ControlEstructura implements Serializable {
 
    public void exportarReporte() throws IOException {
       try {
-         log.info("Controlador.ControlEstructura.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("ControlEstructura.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();

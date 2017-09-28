@@ -83,7 +83,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             tx.commit();
         } catch (Exception e) {
 //            PropertyConfigurator.configure("log4j.properties");
-//            logger.error("Metodo: borrar - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+//            logger.error("Metodo: borrar - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -99,7 +99,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             cq.select(cq.from(VigenciasReformasLaborales.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciasRefLab()" + e.getMessage());
+            log.error("PersistenciaVigenciasReformasLaborales.buscarVigenciasRefLab():  ", e);
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             List<VigenciasReformasLaborales> vigenciasRefLab = query.getResultList();
             return vigenciasRefLab;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciasReformasLaboralesEmpleado()" + e.getMessage());
+            log.error("PersistenciaVigenciasReformasLaborales.buscarVigenciasReformasLaboralesEmpleado():  ", e);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             VigenciasReformasLaborales vigenciaRefLab = (VigenciasReformasLaborales) query.getSingleResult();
             return vigenciaRefLab;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasReformasLaborales.buscarVigenciaReformaLaboralSecuencia()" + e.getMessage());
+            log.error("PersistenciaVigenciasReformasLaborales.buscarVigenciaReformaLaboralSecuencia():  ", e);
             return null;
         }
     }

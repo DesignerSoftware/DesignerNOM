@@ -38,7 +38,7 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
          log.warn(this.getClass().getSimpleName() + " CONEXION : ENTRADA, BD: " + baseDatos);
          return true;
       } catch (Exception e) {
-         log.fatal(this.getClass().getName() + " ERROR crearFactoryInicial" + e.getMessage());
+         log.fatal(this.getClass().getName() + " ERROR crearFactoryInicial ", e);
          return false;
       }
    }
@@ -56,7 +56,7 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
          log.warn(this.getClass().getSimpleName() + " CONEXION : " + usuario + " , BD: " + baseDatos);
          return true;
       } catch (Exception e) {
-         log.fatal("Error crearFactoryUsuario: " + e.getMessage());
+         log.fatal("Error crearFactoryUsuario:  ", e);
          return false;
       }
    }

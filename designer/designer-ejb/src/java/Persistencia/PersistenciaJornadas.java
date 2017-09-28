@@ -38,7 +38,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             em.merge(jornadas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaJornadas.crear: " + e.getMessage());
+            log.error("Error PersistenciaJornadas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             em.merge(jornadas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaJornadas.editar: " + e.getMessage());
+            log.error("Error PersistenciaJornadas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaJornadas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaJornadas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +84,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             em.clear();
             return em.find(Jornadas.class, secuencia);
         } catch (Exception e) {
-            log.error("\n ERROR EN PersistenciaJornadas buscarJornada ERROR " + e.getMessage());
+            log.error("\n ERROR EN PersistenciaJornadas buscarJornada ERROR  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             List<Jornadas> todosJornadas = query.getResultList();
             return todosJornadas;
         } catch (Exception e) {
-            log.error("Error: PersistenciaJornadas consultarJornadas ERROR " + e.getMessage());
+            log.error("Error: PersistenciaJornadas consultarJornadas ERROR  ", e);
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaJornadas contarTiposEntidadesJornada ERROR : " + e.getMessage());
+            log.error("Error PersistenciaJornadas contarTiposEntidadesJornada ERROR :  ", e);
             return retorno;
         }
     }
@@ -130,7 +130,7 @@ public class PersistenciaJornadas implements PersistenciaJornadasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaJornadas contarTSjornadasTipoEntidad ERROR : " + e.getMessage());
+            log.error("Error PersistenciaJornadas contarTSjornadasTipoEntidad ERROR :  ", e);
             return retorno;
         }
     }

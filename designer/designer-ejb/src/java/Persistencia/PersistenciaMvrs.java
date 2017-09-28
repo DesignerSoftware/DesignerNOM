@@ -39,7 +39,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.merge(mvrs);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMvrs.crear()" + e.getMessage());
+            log.error("PersistenciaMvrs.crear():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.merge(mvrs);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMvrs.editar()" + e.getMessage());
+            log.error("PersistenciaMvrs.editar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.remove(em.merge(mvrs));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMvrs.borrar()" + e.getMessage());
+            log.error("PersistenciaMvrs.borrar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
         List<Mvrs> mvrs = (List<Mvrs>) em.createQuery("SELECT m FROM Mvrs m").getResultList();
         return mvrs;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaMvrs.buscarMvrs()" + e.getMessage());
+            log.error("PersistenciaMvrs.buscarMvrs():  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             Mvrs mvrs = (Mvrs) query.getSingleResult();
             return mvrs;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMvrs.buscarMvrSecuencia()" + e.getMessage());
+            log.error("PersistenciaMvrs.buscarMvrSecuencia():  ", e);
             Mvrs mvrs = null;
             return mvrs;
         }
@@ -116,7 +116,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             List<Mvrs> mvrs = (List<Mvrs>) query.getResultList();
             return mvrs;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMvrs.buscarMvrsEmpleado()" + e.getMessage());
+            log.error("PersistenciaMvrs.buscarMvrsEmpleado():  ", e);
             List<Mvrs> mvrs = null;
             return mvrs;
         }

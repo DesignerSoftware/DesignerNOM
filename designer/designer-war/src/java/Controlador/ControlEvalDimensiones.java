@@ -142,7 +142,7 @@ public class ControlEvalDimensiones implements Serializable {
          administrarEvalDimensiones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -577,7 +577,7 @@ public class ControlEvalDimensiones implements Serializable {
             borrandoEvalDimensiones();
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
       }
    }
 
@@ -650,7 +650,7 @@ public class ControlEvalDimensiones implements Serializable {
      }
 
      } catch (Exception e) {
-     log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+     log.error("ERROR ControlTiposEntidades verificarBorrado ERROR  ", e);
      }
      }*/
    public void guardarEvalDimensiones() {

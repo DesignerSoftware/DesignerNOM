@@ -42,7 +42,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
          em.merge(jornadasLaborales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
+         log.error("Error PersistenciaJornadasLaborales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +60,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
          tx.commit();
          log.warn("Ya Modifico JornadasLaborales");
       } catch (Exception e) {
-         log.error("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
+         log.error("Error PersistenciaJornadasLaborales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -76,7 +76,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
          em.remove(em.merge(jornadasLaborales));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaJornadasLaborales.borrar: " + e.getMessage());
+         log.error("Error PersistenciaJornadasLaborales.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
          List<JornadasLaborales> jornadasLaborales = (List<JornadasLaborales>) query.getResultList();
          return jornadasLaborales;
       } catch (Exception e) {
-         log.error("Error buscarJornadasLaborales PersistenciaJornadasLaborales" + e.getMessage());
+         log.error("Error buscarJornadasLaborales PersistenciaJornadasLaborales ", e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
          JornadasLaborales jornadasLaborales = (JornadasLaborales) query.getSingleResult();
          return jornadasLaborales;
       } catch (Exception e) {
-         log.error("Error buscarJornadaLaboralSecuencia PersistenciaJornadasLaborales" + e.getMessage());
+         log.error("Error buscarJornadaLaboralSecuencia PersistenciaJornadasLaborales ", e);
          JornadasLaborales jornadasLaborales = null;
          return jornadasLaborales;
       }

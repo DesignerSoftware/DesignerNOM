@@ -37,7 +37,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          em.merge(evalDimensiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalDimensiones.crear: " + e);
+         log.error("Error PersistenciaEvalDimensiones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +52,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          em.merge(evalDimensiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalDimensiones.editar: " + e);
+         log.error("Error PersistenciaEvalDimensiones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -68,7 +68,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalDimensiones.borrar: " + e);
+         log.error("Error PersistenciaEvalDimensiones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -80,7 +80,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          em.clear();
          return em.find(EvalDimensiones.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEvalDimensiones.buscarEvalDimension() e: " + e);
+         log.error("PersistenciaEvalDimensiones.buscarEvalDimension() e:  ", e);
          return null;
       }
    }
@@ -93,7 +93,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          List<EvalDimensiones> evalDimensiones = query.getResultList();
          return evalDimensiones;
       } catch (Exception e) {
-         log.error("PERSISTENCIAEVALDIMENSIONES BUSCAREVALDIMENSIONES ERROR : " + e);
+         log.error("PERSISTENCIAEVALDIMENSIONES BUSCAREVALDIMENSIONES ERROR :  ", e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class PersistenciaEvalDimensiones implements PersistenciaEvalDimensionesI
          log.warn("PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas = " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("ERROR PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas  ERROR = " + e);
+         log.error("ERROR PERSISTENCIAEVALDIMENSIONES contradorEvalPlanillas  ERROR =  ", e);
          retorno = new BigInteger("-1");
          return retorno;
       }

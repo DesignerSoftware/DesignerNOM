@@ -39,7 +39,7 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.merge(ibcs);
          tx.commit();
       } catch (Exception e) {
-         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.merge(ibcs);
          tx.commit();
       } catch (Exception e) {
-         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +73,7 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.remove(em.merge(ibcs));
          tx.commit();
       } catch (Exception e) {
-         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -87,14 +87,14 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          em.clear();
          return em.find(Ibcs.class, secuencia);
       } catch (Exception e) {
-         log.error("Error en la persistenciaIBCS formas pagos ERROR : " + e);
+         log.error("Error en la persistenciaIBCS formas pagos ERROR :  ", e);
          return null;
       }
    }
 
    @Override
    public List<Ibcs> buscarIbcsPorEmpleado(EntityManager em, BigInteger secEmpleado) {
-      log.warn("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
+      log.warn("PersistenciaIBCS.buscarIbcsPorEmpleado()");
       log.warn("empleado en buscar IBC por empleado : " + secEmpleado);
       try {
          em.clear();
@@ -104,7 +104,7 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
          List<Ibcs> ibcs = query.getResultList();
          return ibcs;
       } catch (Exception e) {
-         log.error("Error en PersistenciaIBCS Por Empleados ERROR" + e);
+         log.error("Error en PersistenciaIBCS Por Empleados ERROR:  ", e);
          return null;
       }
    }

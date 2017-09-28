@@ -145,7 +145,7 @@ public class ControlJornadas implements Serializable {
          administrarJornadas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -331,7 +331,7 @@ public class ControlJornadas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
          }
       } catch (Exception e) {
-         log.error("ERROR ControlJornadas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlJornadas verificarBorrado ERROR  ", e);
       }
    }
 

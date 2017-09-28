@@ -40,7 +40,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             em.merge(novedadesOperandos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNovedadesOperandos.crear: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesOperandos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             em.merge(novedadesOperandos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNovedadesOperandos.editar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesOperandos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             em.merge(novedadesOperandos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNovedadesOperandos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNovedadesOperandos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -90,7 +90,7 @@ public class PersistenciaNovedadesOperandos implements PersistenciaNovedadesOper
             List<NovedadesOperandos> novedadesOperandosResult = new ArrayList<NovedadesOperandos>(novedadesOperandos);
             return novedadesOperandosResult;
         } catch (Exception e) {
-            log.error("Error: (novedadesOperandos)" + e.getMessage());
+            log.error("Error: (novedadesOperandos) ", e);
             return null;
         }
     }

@@ -39,7 +39,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.merge(experienciasLaborales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHistoriasformulas.crear: " + e);
+         log.error("Error PersistenciaHistoriasformulas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.merge(experienciasLaborales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHistoriasformulas.editar: " + e);
+         log.error("Error PersistenciaHistoriasformulas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.remove(em.merge(experienciasLaborales));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHistoriasformulas.borrar: " + e);
+         log.error("Error PersistenciaHistoriasformulas.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,7 +84,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          em.clear();
          return em.find(HvExperienciasLaborales.class, secuencia);
       } catch (Exception e) {
-         log.error("Error en la PersistenciaHvExperienciasLaborales ERROR : " + e);
+         log.error("Error en la PersistenciaHvExperienciasLaborales ERROR :  ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaHvExperienciasLaborales.experienciaLaboralPersona" + e);
+         log.error("Error PersistenciaHvExperienciasLaborales.experienciaLaboralPersona ", e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          List<HvExperienciasLaborales> listaExperienciasLaborales = queryFinal.getResultList();
          return listaExperienciasLaborales;
       } catch (Exception e) {
-         log.error("Error experienciasLaboralesSecuenciaEmpleado PersistenciaHvExperienciasLaborales : " + e.toString());
+         log.error("Error experienciasLaboralesSecuenciaEmpleado PersistenciaHvExperienciasLaborales :  ", e);
          return null;
       }
    }
@@ -143,9 +143,9 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          }
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
+            log.trace("PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
          } else {
-            log.error("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
+            log.error("PersistenciaHvExperienciasLaborales.primeraExpLaboral() e:  ", e);
          }
          experiencia = "";
       }

@@ -43,7 +43,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRastros.rastrosTabla()" + e.getMessage());
+            log.error("PersistenciaRastros.rastrosTabla():  ", e);
             return null;
         }
     }
@@ -58,7 +58,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             List<Rastros> listaRastroTabla = query.getResultList();
             return listaRastroTabla;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRastros.rastrosTablaHistoricos()" + e.getMessage());
+            log.error("PersistenciaRastros.rastrosTablaHistoricos():  ", e);
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            log.error("Exepcion en rastrosTablaHistoricos " + e.getMessage());
+            log.error("Exepcion en rastrosTablaHistoricos  ", e);
             return null;
         }
     }
@@ -91,7 +91,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            log.error("Exepcion en rastrosTablaHistoricos " + e.getMessage());
+            log.error("Exepcion en rastrosTablaHistoricos  ", e);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            log.error("Exepcion en rastrosTablaFecha " + e.getMessage());
+            log.error("Exepcion en rastrosTablaFecha  ", e);
             return null;
         }
     }
@@ -124,7 +124,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            log.error("Excepción en verificarRastroRegistroTabla " + e.getMessage());
+            log.error("Excepción en verificarRastroRegistroTabla  ", e);
             return false;
         }
     }
@@ -139,7 +139,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            log.error("Exepcion en verificarRastroHistoricoTabla " + e.getMessage());
+            log.error("Exepcion en verificarRastroHistoricoTabla  ", e);
             return false;
         }
     }
@@ -155,7 +155,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > -1;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRastros.verificarEmpleadoTabla()" + e.getMessage());
+            log.error("PersistenciaRastros.verificarEmpleadoTabla():  ", e);
             return false;
         }
     }

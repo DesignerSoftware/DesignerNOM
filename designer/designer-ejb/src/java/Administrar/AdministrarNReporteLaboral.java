@@ -113,7 +113,7 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
 
    @Override
    public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
-      log.warn("Administrar.AdministrarNReporteLaboral.modificarParametrosReportes()");
+      log.warn("AdministrarNReporteLaboral.modificarParametrosReportes()");
       try {
          log.warn("Ingrese al try");
          persistenciaParametrosReportes.editar(getEm(), parametroInforme);
@@ -157,7 +157,7 @@ public class AdministrarNReporteLaboral implements AdministrarNReporteLaboralInt
 
    @Override
    public void guardarCambiosInfoReportes(List<Inforeportes> listaIR) {
-      log.warn("Administrar.AdministrarNReporteLaboral.guardarCambiosInfoReportes()");
+      log.warn("AdministrarNReporteLaboral.guardarCambiosInfoReportes()");
       try {
          log.warn("Ingrese al try... listaIR: " + listaIR);
          for (int i = 0; i < listaIR.size(); i++) {

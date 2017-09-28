@@ -30,7 +30,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             List<Usuarios> usuarios = (List<Usuarios>) query.getResultList();
             return usuarios;
         } catch (Exception e) {
-            log.error("Error buscarUsuarios PersistenciaUsuarios" + e.getMessage());
+            log.error("Error buscarUsuarios PersistenciaUsuarios ", e);
             return null;
         }
     }
@@ -45,7 +45,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             Usuarios usuarios = (Usuarios) query.getSingleResult();
             return usuarios;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaUsuarios.buscarUsuario()" + e.getMessage());
+            log.error("PersistenciaUsuarios.buscarUsuario():  ", e);
             return null;
         }
     }
@@ -59,7 +59,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             em.merge(usuarios);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -124,7 +124,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             em.merge(usuarios);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -146,7 +146,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaUsuarios.borrar: " + e.getMessage());
+                log.error("Error PersistenciaUsuarios.borrar:  ", e);
             }
         }
     }
@@ -164,7 +164,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.borrarUsuario. " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.borrarUsuario.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -189,7 +189,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.borrarUsuarioTotal. " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.borrarUsuarioTotal.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -215,7 +215,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.clonarUsuario. " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.clonarUsuario.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -241,7 +241,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error desbloquearUsuario. " + e.toString());
+            log.error("Error desbloquearUsuario.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -268,7 +268,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.restaurarUsuario. " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.restaurarUsuario.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -290,7 +290,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             List<Usuarios> usuarios = (List<Usuarios>) query.getResultList();
             return usuarios;
         } catch (Exception e) {
-            log.error("Error buscarUsuarios PersistenciaUsuarios" + e.getMessage());
+            log.error("Error buscarUsuarios PersistenciaUsuarios ", e);
             return null;
         }
     }

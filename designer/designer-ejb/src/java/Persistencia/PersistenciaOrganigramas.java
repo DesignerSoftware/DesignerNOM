@@ -33,7 +33,6 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
 //    private EntityManager em;
    @Override
    public void crear(EntityManager em, Organigramas organigramas) {
-      log.error("em : " + em);
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -41,7 +40,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          em.merge(organigramas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaOrganigramas.crear: " + e.getMessage());
+         log.error("Error PersistenciaOrganigramas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +56,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          em.merge(organigramas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaOrganigramas.editar: " + e.getMessage());
+         log.error("Error PersistenciaOrganigramas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +72,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          em.remove(em.merge(organigramas));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaOrganigramas.borrar: " + e.getMessage());
+         log.error("Error PersistenciaOrganigramas.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -86,7 +85,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          em.clear();
          return em.find(Organigramas.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaOrganigramas.buscarOrganigrama()" + e.getMessage());
+         log.error("PersistenciaOrganigramas.buscarOrganigrama():  ", e);
          return null;
       }
    }
@@ -101,7 +100,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          List<Organigramas> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("Error buscarOrganigramas PersistenciaOrganigramas : " + e.toString());
+         log.error("Error buscarOrganigramas PersistenciaOrganigramas :  ", e);
          return null;
       }
    }
@@ -119,7 +118,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          List<Organigramas> listOrganigramas = query.getResultList();
          return listOrganigramas;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaOrganigramas.buscarOrganigramasVigentes()" + e.getMessage());
+         log.error("PersistenciaOrganigramas.buscarOrganigramasVigentes():  ", e);
          return null;
       }
    }
@@ -140,7 +139,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          log.warn("Otra empresa");
          return listOrganigramas;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaOrganigramas.buscarOrganigramasEmpresa()" + e.getMessage());
+         log.error("PersistenciaOrganigramas.buscarOrganigramasEmpresa():  ", e);
          return null;
       }
    }
@@ -162,7 +161,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
          }
          return organigrama;
       } catch (Exception e) {
-         log.error("Exepcion en organigramaBaseArbol " + e.getMessage());
+         log.error("Exepcion en organigramaBaseArbol  ", e);
          return null;
       }
    }

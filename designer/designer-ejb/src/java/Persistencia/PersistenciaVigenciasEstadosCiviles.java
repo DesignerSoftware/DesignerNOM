@@ -47,7 +47,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.crear()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.crear():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -65,7 +65,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          em.merge(vigenciasEstadosCiviles);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.editar()" + e.toString());
+         log.error("PersistenciaVigenciasEstadosCiviles.editar():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -82,7 +82,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          em.remove(em.merge(vigenciasEstadosCiviles));
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.borrar()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.borrar():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -97,7 +97,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          em.clear();
          return em.find(VigenciasEstadosCiviles.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.buscarVigenciaEstadoCivil()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.buscarVigenciaEstadoCivil():  ", e);
          e.printStackTrace();
          return null;
       }
@@ -111,7 +111,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          cq.select(cq.from(VigenciasEstadosCiviles.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles():  ", e);
          e.printStackTrace();
          return null;
       }
@@ -128,7 +128,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          resultado = (Long) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.contarVigenciasEstadosCivielesPersona()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.contarVigenciasEstadosCivielesPersona():  ", e);
          e.printStackTrace();
          return resultado;
       }
@@ -144,7 +144,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles = queryFinal.getResultList();
             return listaVigenciasEstadosCiviles;
          } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasEstadosCiviles.estadoCivilPersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasEstadosCiviles.estadoCivilPersona ", e);
             return null;
          }
       } else {
@@ -162,7 +162,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles = query.getResultList();
          return listaVigenciasEstadosCiviles;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona():  ", e);
          e.printStackTrace();
          return null;
       }
@@ -178,7 +178,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          VigenciasEstadosCiviles estadoc = (VigenciasEstadosCiviles) query.getSingleResult();
          return estadoc;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.estadoCivilActual()" + e.getMessage());
+         log.error("PersistenciaVigenciasEstadosCiviles.estadoCivilActual():  ", e);
          return null;
       }
    }
@@ -199,9 +199,9 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          return EstadoCivil;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil()" + e.getMessage());
+            log.trace("PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil()" + e.getMessage());
+            log.error("PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil():  ", e);
          }
          EstadoCivil = "";
          return EstadoCivil;

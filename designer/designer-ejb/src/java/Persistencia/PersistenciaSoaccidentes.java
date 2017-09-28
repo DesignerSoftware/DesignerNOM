@@ -39,7 +39,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             em.merge(soaccidentes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoaccidentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaSoaccidentes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             em.merge(soaccidentes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoaccidentes.editar: " + e.getMessage());
+            log.error("Error PersistenciaSoaccidentes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             em.remove(em.merge(soaccidentes));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoaccidentes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSoaccidentes.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaSoaccidentes implements PersistenciaSoaccidentesInterfa
             List<Soaccidentes> todosAccidentes = query.getResultList();
             return todosAccidentes;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaSoaccidentes.accidentesEmpleado()" + e.getMessage());
+            log.error("PersistenciaSoaccidentes.accidentesEmpleado():  ", e);
             return null;
         }
     }

@@ -35,7 +35,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
             em.merge(causasAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaCausasAusentismos.crear: " + e);
+            log.error("Error PersistenciaCausasAusentismos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +51,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
             em.merge(causasAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaCausasAusentismos.editar: " + e);
+            log.error("Error PersistenciaCausasAusentismos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaCausasAusentismos.borrar: " + e);
+                log.error("Error PersistenciaCausasAusentismos.borrar:  ", e);
             }
         }
     }
@@ -87,7 +87,7 @@ public class PersistenciaCausasAusentismos implements PersistenciaCausasAusentis
             List<Causasausentismos> todasCausasAusentismos = query.getResultList();
             return todasCausasAusentismos;
         } catch (Exception e) {
-            log.error("Error: (todasCausas)" + e);
+            log.error("Error: (todasCausas) ", e);
             return null;
         }
     }

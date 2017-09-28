@@ -43,7 +43,7 @@ public class PersistenciaSets implements PersistenciaSetsInterface {
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSets.crear()" + e.getMessage());
+         log.error("PersistenciaSets.crear():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +60,7 @@ public class PersistenciaSets implements PersistenciaSetsInterface {
          em.merge(sets);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSets.editar()" + e.getMessage());
+         log.error("PersistenciaSets.editar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -76,7 +76,7 @@ public class PersistenciaSets implements PersistenciaSetsInterface {
          em.remove(em.merge(sets));
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSets.borrar()" + e.getMessage());
+         log.error("PersistenciaSets.borrar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaSets implements PersistenciaSetsInterface {
          List<Sets> setsLista = (List<Sets>) query.getResultList();
          return setsLista;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSets.buscarSets()" + e.getMessage());
+         log.error("PersistenciaSets.buscarSets():  ", e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class PersistenciaSets implements PersistenciaSetsInterface {
          Sets sets = (Sets) query.getSingleResult();
          return sets;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSets.buscarSetSecuencia() " + e.getMessage());
+         log.error("PersistenciaSets.buscarSetSecuencia()  ", e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class PersistenciaSets implements PersistenciaSetsInterface {
          List<Sets> setsE = query.getResultList();
          return setsE;
       } catch (Exception e) {
-         log.error("Error en Persistencia Sets " + e.getMessage());
+         log.error("Error en Persistencia Sets  ", e);
          return null;
       }
    }

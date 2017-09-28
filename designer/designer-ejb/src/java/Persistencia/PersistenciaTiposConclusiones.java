@@ -32,7 +32,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             em.merge(tiposConclusiones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposConclusiones.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposConclusiones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             em.merge(tiposConclusiones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposConclusiones.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposConclusiones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             em.remove(em.merge(tiposConclusiones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposConclusiones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposConclusiones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +77,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             List<TiposConclusiones> tiposConclusiones = query.getResultList();
             return tiposConclusiones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposConclusiones.consultarTiposConclusiones()" + e.getMessage());
+            log.error("PersistenciaTiposConclusiones.consultarTiposConclusiones():  ", e);
             return null;
         }
     }
@@ -91,7 +91,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             TiposConclusiones tiposConclusiones = (TiposConclusiones) query.getSingleResult();
             return tiposConclusiones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposConclusiones.consultarTipoConclusion()" + e.getMessage());
+            log.error("PersistenciaTiposConclusiones.consultarTipoConclusion():  ", e);
             return null;
         }
     }
@@ -106,7 +106,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e.getMessage());
+            log.error("Error PersistenciaTiposConclusiones contarChequeosMedicosTipoConclusion ERROR :  ", e);
             return retorno;
         }
     }

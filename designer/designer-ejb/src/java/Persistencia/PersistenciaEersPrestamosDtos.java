@@ -38,7 +38,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
             em.merge(eersPrestamosDtos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEersPrestamosDtos.crear: " + e);
+            log.error("Error PersistenciaEersPrestamosDtos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
             em.merge(eersPrestamosDtos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEersPrestamosDtos.editar: " + e);
+            log.error("Error PersistenciaEersPrestamosDtos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +74,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaEersPrestamosDtos.borrar: " + e);
+                log.error("Error PersistenciaEersPrestamosDtos.borrar:  ", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class PersistenciaEersPrestamosDtos implements PersistenciaEersPrestamosD
             List<EersPrestamosDtos> eersPrestamosDtosResult = new ArrayList<EersPrestamosDtos>(eersPrestamosDtos);
             return eersPrestamosDtosResult;
         } catch (Exception e) {
-            log.error("Error: (eersPrestamosDtos)" + e);
+            log.error("Error: (eersPrestamosDtos) ", e);
             return null;
         }
     }

@@ -39,7 +39,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          em.persist(competenciascargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCompetenciasCargos.crear: " + e);
+         log.error("Error PersistenciaCompetenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          em.persist(competenciascargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCompetenciasCargos.editar: " + e);
+         log.error("Error PersistenciaCompetenciasCargos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCompetenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaCompetenciasCargos.borrar:  ", e);
       }
    }
 
@@ -87,7 +87,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          List<Competenciascargos> competenciascargos = query.getResultList();
          return competenciascargos;
       } catch (Exception e) {
-         log.error("Error buscarCompetenciasCargos PersistenciaCompetenciasCargos : " + e.toString());
+         log.error("Error buscarCompetenciasCargos PersistenciaCompetenciasCargos :  ", e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          Competenciascargos competenciascargos = (Competenciascargos) query.getSingleResult();
          return competenciascargos;
       } catch (Exception e) {
-         log.error("Error buscarCompetenciasCargosSecuencia PersistenciaCompetenciasCargos : " + e.toString());
+         log.error("Error buscarCompetenciasCargosSecuencia PersistenciaCompetenciasCargos :  ", e);
          Competenciascargos competenciascargos = null;
          return competenciascargos;
       }
@@ -118,7 +118,7 @@ public class PersistenciaCompetenciasCargos implements PersistenciaCompetenciasC
          List<Competenciascargos> competenciascargos = query.getResultList();
          return competenciascargos;
       } catch (Exception e) {
-         log.error("Error buscarCompetenciasCargosParaSecuenciaCargo PersistenciaCompetenciasCargos : " + e.toString());
+         log.error("Error buscarCompetenciasCargosParaSecuenciaCargo PersistenciaCompetenciasCargos :  ", e);
          return null;
       }
    }

@@ -173,7 +173,7 @@ public class ControlJuzgados implements Serializable {
          administrarJuzgados.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -513,7 +513,7 @@ public class ControlJuzgados implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('lovTipoCentrosCostos').clearFilters()");
          RequestContext.getCurrentInstance().execute("PF('tiposCentrosCostosDialogo').hide()");
       } catch (Exception e) {
-         log.warn("Error BETA .CONTROLJUZGADOS ERROR " + e);
+         log.warn("Error BETA .CONTROLJUZGADOS ERROR  ", e);
       }
    }
 
@@ -700,7 +700,7 @@ public class ControlJuzgados implements Serializable {
             borrandoJuzgados();
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
       }
    }
 
@@ -1075,7 +1075,7 @@ public class ControlJuzgados implements Serializable {
       }
 
       //  } catch (Exception e) {
-      //     log.error("CONTROLJUZGADOS AGREGARNUEVOJUZGADO ERROR :" + e);
+      //     log.error("CONTROLJUZGADOS AGREGARNUEVOJUZGADO ERROR : ", e);
       //  }
    }
 

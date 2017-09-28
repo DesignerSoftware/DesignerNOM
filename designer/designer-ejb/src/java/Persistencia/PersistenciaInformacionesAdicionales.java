@@ -42,7 +42,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          em.merge(informacionesAdicionales);
          tx.commit();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".crear()" + e.getMessage());
+         log.error(this.getClass().getName() + ".crear():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -59,7 +59,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          em.merge(informacionesAdicionales);
          tx.commit();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".editar()" + e.getMessage());
+         log.error(this.getClass().getName() + ".editar():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -76,7 +76,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          em.remove(em.merge(informacionesAdicionales));
          tx.commit();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".borrar()" + e.getMessage());
+         log.error(this.getClass().getName() + ".borrar():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -90,7 +90,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          em.clear();
          return em.find(InformacionesAdicionales.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaInformacionesAdicionales.buscarinformacionAdicional()" + e.getMessage());
+         log.error("PersistenciaInformacionesAdicionales.buscarinformacionAdicional():  ", e);
          return null;
       }
    }
@@ -103,7 +103,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          cq.select(cq.from(InformacionesAdicionales.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".buscarinformacionesAdicionales()" + e.getMessage());
+         log.error(this.getClass().getName() + ".buscarinformacionesAdicionales():  ", e);
          e.printStackTrace();
          return null;
       }
@@ -119,7 +119,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          resultado = (Long) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".conteoInformacionAdicionalPersona()" + e.getMessage());
+         log.error(this.getClass().getName() + ".conteoInformacionAdicionalPersona():  ", e);
          e.printStackTrace();
          return resultado;
       }
@@ -142,7 +142,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             List<InformacionesAdicionales> listaInformacionesAdicionales = queryFinal.getResultList();
             return listaInformacionesAdicionales;
          } catch (Exception e) {
-            log.error("Error PersistenciaInformacionesAdicionales.informacionAdicionalPersona" + e.getMessage());
+            log.error("Error PersistenciaInformacionesAdicionales.informacionAdicionalPersona ", e);
             return null;
          }
       } else {
@@ -161,7 +161,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          List<InformacionesAdicionales> resultado = (List<InformacionesAdicionales>) query.getResultList();
          return resultado;
       } catch (Exception e) {
-         log.error("Error PersistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia : " + e.getMessage());
+         log.error("Error PersistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -185,9 +185,9 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
          return infoAd;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaInformacionesAdicionales.primeraInformacionAdicional()" + e.getMessage());
+            log.trace("PersistenciaInformacionesAdicionales.primeraInformacionAdicional(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaInformacionesAdicionales.primeraInformacionAdicional()" + e.getMessage());
+            log.error("PersistenciaInformacionesAdicionales.primeraInformacionAdicional():  ", e);
          }
          return "";
       }

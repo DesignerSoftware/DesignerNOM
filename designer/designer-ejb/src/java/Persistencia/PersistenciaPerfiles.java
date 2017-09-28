@@ -27,7 +27,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          em.clear();
          return em.find(Perfiles.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPerfiles.consultarPerfil()" + e.getMessage());
+         log.error("PersistenciaPerfiles.consultarPerfil():  ", e);
          return null;
       }
    }
@@ -40,7 +40,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          cq.select(cq.from(Perfiles.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPerfiles.consultarPerfiles()" + e.getMessage());
+         log.error("PersistenciaPerfiles.consultarPerfiles():  ", e);
          return null;
       }
    }
@@ -55,7 +55,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          Perfiles perfil = (Perfiles) query.getSingleResult();
          return perfil;
       } catch (Exception e) {
-         log.error("Error en PersistenciaPerfiles : " + e);
+         log.error("Error en PersistenciaPerfiles :  ", e);
          return null;
       }
    }
@@ -69,7 +69,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          em.merge(perfil);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.crear: " + e.getMessage());
+         log.error("Error PersistenciaPerfiles.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -85,7 +85,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          em.merge(perfil);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.editar: " + e.getMessage());
+         log.error("Error PersistenciaPerfiles.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -101,7 +101,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          em.remove(em.merge(perfil));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.borrar: " + e.getMessage());
+         log.error("Error PersistenciaPerfiles.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -117,7 +117,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          List<Perfiles> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPerfiles.consultarPerfilesAdmon()" + e.getMessage());
+         log.error("PersistenciaPerfiles.consultarPerfilesAdmon():  ", e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          query2.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.ejecutarPKGRecrearPerfil. " + e.toString());
+         log.error("Error PersistenciaPerfiles.ejecutarPKGRecrearPerfil.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -157,7 +157,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.ejecutarPKGRecrearPerfil. " + e.toString());
+         log.error("Error PersistenciaPerfiles.ejecutarPKGRecrearPerfil.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -176,7 +176,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.clonarPantallas. " + e.getMessage());
+         log.error("Error PersistenciaPerfiles.clonarPantallas.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -195,7 +195,7 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPerfiles.clonarPermisosObjetos. " + e.getMessage());
+         log.error("Error PersistenciaPerfiles.clonarPermisosObjetos.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

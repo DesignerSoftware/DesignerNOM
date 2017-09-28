@@ -30,7 +30,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          em.merge(tiposConstantes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposConstantes.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposConstantes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +46,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          em.merge(tiposConstantes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposConstantes.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposConstantes.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          em.remove(em.merge(tiposConstantes));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposConstantes.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposConstantes.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -80,7 +80,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
          List<TiposConstantes> tiposConstantesResult = new ArrayList<TiposConstantes>(tiposConstantes);
          return tiposConstantesResult;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposConstantes.tiposConstantes()" + e.getMessage());
+         log.error("PersistenciaTiposConstantes.tiposConstantes():  ", e);
          return null;
       }
    }

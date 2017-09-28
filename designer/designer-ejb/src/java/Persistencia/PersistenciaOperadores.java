@@ -36,7 +36,7 @@ public class PersistenciaOperadores implements PersistenciaOperadoresInterface {
             List<Operadores> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error buscarOperadores PersistenciaOperadores : "+e.toString());
+            log.error("Error buscarOperadores PersistenciaOperadores :  ", e);
             return null;
         }
     }

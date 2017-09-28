@@ -38,7 +38,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
          resultado = (Long) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEncargaturas.contarReemplazoPersona()");
+         log.error("PersistenciaEncargaturas.contarReemplazoPersona()");
          e.printStackTrace();
          return resultado;
       }
@@ -64,7 +64,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             List<Encargaturas> listaEncargaturas = queryFinal.getResultList();
             return listaEncargaturas;
          } catch (Exception e) {
-            log.error("Error PersistenciaEncargaturas.reemplazoPersona" + e);
+            log.error("Error PersistenciaEncargaturas.reemplazoPersona ", e);
             return null;
          }
       } else {
@@ -82,7 +82,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
          em.merge(encargaturas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEncargaturas.crear: " + e);
+         log.error("Error PersistenciaEncargaturas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -99,7 +99,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
          em.merge(encargaturas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEncargaturas.editar: " + e);
+         log.error("Error PersistenciaEncargaturas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -116,7 +116,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
          em.remove(em.merge(encargaturas));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEncargaturas.borrar: " + e);
+         log.error("Error PersistenciaEncargaturas.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -148,7 +148,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
          List<Encargaturas> listaEncargaturas = query.getResultList();
          return listaEncargaturas;
       } catch (Exception e) {
-         log.error("Error PersistenciaEncargaturas.encargaturasEmpleado" + e);
+         log.error("Error PersistenciaEncargaturas.encargaturasEmpleado ", e);
          return null;
       }
    }
@@ -173,9 +173,9 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
          return reemplazo;
       } catch (NoResultException e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e.getMessage());
+            log.trace("PersistenciaEncargaturas.primeraEncargatura() e: " + e);
          } else {
-            log.error("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e.getMessage());
+            log.error("PersistenciaEncargaturas.primeraEncargatura() e:  ", e);
          }
          return " ";
       }

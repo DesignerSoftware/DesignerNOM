@@ -40,7 +40,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             em.merge(formasPagos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaFormasPagos.crear: " + e);
+            log.error("Error PersistenciaFormasPagos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaFormasPagos.editar: " + e);
+            log.error("Error PersistenciaFormasPagos.editar:  ", e);
         }
     }
 
@@ -76,7 +76,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaFormasPagos.borrar: " + e);
+                log.error("Error PersistenciaFormasPagos.borrar:  ", e);
         }
     }
 
@@ -86,7 +86,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             em.clear();
             return em.find(FormasPagos.class, secuencia);
         } catch (Exception e) {
-            log.error("Error en la persistencia vigencias formas pagos ERROR : " + e);
+            log.error("Error en la persistencia vigencias formas pagos ERROR :  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             List<FormasPagos> vigenciasNormasEmpleados = query.getResultList();
             return vigenciasNormasEmpleados;
         } catch (Exception e) {
-            log.error("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e);
+            log.error("Error en Persistencia Vigencias Formas Pagos Por Empleados  ", e);
             return null;
         }
     }

@@ -152,7 +152,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          administrarVigenciasTiposContratos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Error postconstruct ControlVigenciasCargos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1226,7 +1226,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          return vigenciasTiposContratoEmpleado;
 
       } catch (Exception e) {
-         log.warn("Error...!! getVigenciasTiposContratosEmpleado " + e);
+         log.warn("Error...!! getVigenciasTiposContratosEmpleado  ", e);
          return null;
       }
    }

@@ -39,7 +39,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.merge(nodos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNodos.crear: " + e.getMessage());
+            log.error("Error PersistenciaNodos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.merge(nodos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNodos.editar: " + e.getMessage());
+            log.error("Error PersistenciaNodos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.remove(em.merge(nodos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNodos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNodos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             Nodos nodos = (Nodos) query.getSingleResult();
             return nodos;
         } catch (Exception e) {
-            log.error("Error buscarNodoSecuencia PersistenciaNodos : " + e.toString());
+            log.error("Error buscarNodoSecuencia PersistenciaNodos :  ", e);
             Nodos nodos = null;
             return nodos;
         }
@@ -103,7 +103,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             List<Nodos> nodos = (List<Nodos>) query.getResultList();
             return nodos;
         } catch (Exception e) {
-            log.error("Error listNodos PersistenciaNodos : " + e.toString());
+            log.error("Error listNodos PersistenciaNodos :  ", e);
             return null;
         }
     }
@@ -118,7 +118,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             List<Nodos> nodos = query.getResultList();
             return nodos;
         } catch (Exception e) {
-            log.error("Error buscarNodosPorSecuenciaHistoriaFormula PersistenciaNodos : " + e.toString());
+            log.error("Error buscarNodosPorSecuenciaHistoriaFormula PersistenciaNodos :  ", e);
             List<Nodos> nodos = null;
             return nodos;
         }

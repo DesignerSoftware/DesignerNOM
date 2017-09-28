@@ -38,7 +38,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.persist(proyectos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaProyectos.crear: " + e.getMessage());
+            log.error("Error PersistenciaProyectos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.merge(proyectos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaProyectos.editar: " + e.getMessage());
+            log.error("Error PersistenciaProyectos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.remove(em.merge(proyectos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaProyectos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaProyectos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             Proyectos proyectos = (Proyectos) query.getSingleResult();
             return proyectos;
         } catch (Exception e) {
-            log.error("Error buscarProyectoSecuencia PersistenciaProyectos"+ e.getMessage());
+            log.error("Error buscarProyectoSecuencia PersistenciaProyectos ", e);
             Proyectos proyectos = null;
             return proyectos;
         }
@@ -102,7 +102,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             List<Proyectos> proyectos = query.getResultList();
             return proyectos;
         } catch (Exception e) {
-           log.error("Error en PersistenciaProyectos, proyectos() : " + e.getCause().toString());
+           log.error("Error en PersistenciaProyectos, proyectos() :  ", e);
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
            Proyectos pry = (Proyectos) query.getSingleResult();
            return pry;
        }catch(Exception e){
-           log.error("Error buscarProyectoNombre PersistenciaProyectos : "+e.toString());
+           log.error("Error buscarProyectoNombre PersistenciaProyectos :  ", e);
            return null;
        }
    }

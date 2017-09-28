@@ -157,7 +157,7 @@ public class ControlElementosCausasAccidentes implements Serializable {
          administrarElementosCausasAccidentes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -621,7 +621,7 @@ public class ControlElementosCausasAccidentes implements Serializable {
             borrandoElementosCausasAccidentes();
          }
       } catch (Exception e) {
-         log.error("ERROR ControlDepotes verificarBorrado ERROR " + e);
+         log.error("ERROR ControlDepotes verificarBorrado ERROR  ", e);
       }
    }
 

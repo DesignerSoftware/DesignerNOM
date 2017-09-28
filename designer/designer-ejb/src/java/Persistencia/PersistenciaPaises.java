@@ -38,7 +38,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPaises.crear: " + e.getMessage());
+            log.error("Error PersistenciaPaises.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPaises.editar: " + e.getMessage());
+            log.error("Error PersistenciaPaises.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             em.remove(em.merge(tiposAusentismos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPaises.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPaises.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             List<Paises> todosPaises = query.getResultList();
             return todosPaises;
         } catch (Exception e) {
-            log.error("Error: PersistenciaPaises consultarPaises ERROR " + e.getMessage());
+            log.error("Error: PersistenciaPaises consultarPaises ERROR  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             Paises clasesCategorias = (Paises) query.getSingleResult();
             return clasesCategorias;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPaises.consultarPais()" + e.getMessage());
+            log.error("PersistenciaPaises.consultarPais():  ", e);
             return null;
         }
     }
@@ -115,7 +115,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaPaises contarDepartamentosPais ERROR : " + e.getMessage());
+            log.error("Error PersistenciaPaises contarDepartamentosPais ERROR :  ", e);
             return retorno;
         }
     }
@@ -130,7 +130,7 @@ public class PersistenciaPaises implements PersistenciaPaisesInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaPaises contarFestivosPais ERROR : " + e.getMessage());
+            log.error("Error PersistenciaPaises contarFestivosPais ERROR :  ", e);
             return retorno;
         }
     }

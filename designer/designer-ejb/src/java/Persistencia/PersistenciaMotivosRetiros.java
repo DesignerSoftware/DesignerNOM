@@ -39,7 +39,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             em.merge(motivosRetiros);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             em.merge(motivosRetiros);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             em.remove(em.merge(motivosRetiros));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             List<MotivosRetiros> listTiposViajeros = query.getResultList();
             return listTiposViajeros;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
+            log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :  ", e);
             return null;
         }
 
@@ -106,7 +106,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             MotivosRetiros motivoR = (MotivosRetiros) query.getSingleResult();
             return motivoR;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosRetiros.consultarMotivoRetiro()" + e.getMessage());
+            log.error("PersistenciaMotivosRetiros.consultarMotivoRetiro():  ", e);
             MotivosRetiros motivoR = null;
             return motivoR;
         }
@@ -123,7 +123,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros   contarHVExperienciasLaboralesMotivoRetiro. " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros   contarHVExperienciasLaboralesMotivoRetiro.  ", e);
             return retorno;
         }
     }
@@ -138,7 +138,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros   contarNovedadesSistemasMotivoRetiro. " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros   contarNovedadesSistemasMotivoRetiro.  ", e);
             return retorno;
         }
     }
@@ -153,7 +153,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros   contarRetiMotivosRetirosMotivoRetiro. " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros   contarRetiMotivosRetirosMotivoRetiro.  ", e);
             return retorno;
         }
     }
@@ -168,7 +168,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosRetiros   contarRetiRetiradosMotivoRetiro. " + e.getMessage());
+            log.error("Error PersistenciaMotivosRetiros   contarRetiRetiradosMotivoRetiro.  ", e);
             return retorno;
         }
     }

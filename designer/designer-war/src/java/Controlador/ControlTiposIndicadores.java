@@ -108,7 +108,7 @@ public class ControlTiposIndicadores implements Serializable {
          administrarTiposIndicadores.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -383,7 +383,7 @@ public class ControlTiposIndicadores implements Serializable {
             contarVigenciasIndicadoresTipoIndicador = new BigInteger("-1");
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposIndicadores verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposIndicadores verificarBorrado ERROR  ", e);
       }
    }
 

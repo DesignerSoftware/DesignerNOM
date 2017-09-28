@@ -39,7 +39,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          em.merge(hvEntrevistas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHvEntrevistas.crear: " + e);
+         log.error("Error PersistenciaHvEntrevistas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +57,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaHvEntrevistas.editar: " + e);
+         log.error("Error PersistenciaHvEntrevistas.editar:  ", e);
       }
    }
 
@@ -73,7 +73,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaHvEntrevistas.borrar: " + e);
+         log.error("Error PersistenciaHvEntrevistas.borrar:  ", e);
       }
    }
 
@@ -82,7 +82,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          em.clear();
          return em.find(HvEntrevistas.class, secuenciaHvEntrevista);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaHvEntrevistas.buscarHvEntrevista() e: " + e);
+         log.error("PersistenciaHvEntrevistas.buscarHvEntrevista() e:  ", e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          List<HvEntrevistas> listHvEntrevistas = query.getResultList();
          return listHvEntrevistas;
       } catch (Exception e) {
-         log.error("Error en PERSISTENCIAHVENTREVISTAS ERROR " + e);
+         log.error("Error en PERSISTENCIAHVENTREVISTAS ERROR  ", e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
          return hvHojasDeVIda;
       } catch (Exception e) {
-         log.error("Error en Persistencia HvEntrevistas buscarHvHojaDeVidaPorEmpleado " + e);
+         log.error("Error en Persistencia HvEntrevistas buscarHvHojaDeVidaPorEmpleado  ", e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaHvEntrevistas.entrevistasPersona" + e);
+         log.error("Error PersistenciaHvEntrevistas.entrevistasPersona ", e);
          return null;
       }
    }
@@ -160,9 +160,9 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
          entrevista = (String) query.getSingleResult();
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
+            log.trace("PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
          } else {
-            log.error("Persistencia.PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e: " + e);
+            log.error("PersistenciaHvEntrevistas.consultarPrimeraEnterevista() e:  ", e);
          }
          entrevista = "";
       }

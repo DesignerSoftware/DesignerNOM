@@ -45,7 +45,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          actualUsuario = (ActualUsuario) query.getSingleResult();
          return actualUsuario;
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaActualUsuario.actualUsuarioBD() e: " + e);
+         log.fatal("PersistenciaActualUsuario.actualUsuarioBD() e:  ", e);
          e.printStackTrace();
          return null;
       }
@@ -77,7 +77,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          alias = (String) query.getSingleResult();
          return alias;
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaActualUsuario.actualAliasBD_EM() e: " + e);
+         log.fatal("PersistenciaActualUsuario.actualAliasBD_EM() e:  ", e);
          return null;
       }
    }
@@ -85,7 +85,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
    @Override
    public List<CambiosMasivos> consultarCambiosMasivos(EntityManager em) {
 //      try {
-      log.warn("Persistencia.PersistenciaActualUsuario.consultarCambiosMasivos() NO HACE NADA");
+      log.warn("PersistenciaActualUsuario.consultarCambiosMasivos() NO HACE NADA");
 //         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
 //                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
 //         log.warn("q : " + q);
@@ -93,7 +93,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
 //         List<CambiosMasivos> lista = query.getResultList();
 //         return lista;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos:  ", e);
       return null;
 //      }
    }
@@ -102,14 +102,14 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
    public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
       //         em.clear();
 //      try {
-      log.warn("Persistencia.PersistenciaActualUsuario.consultarParametroCambiosMasivos() NO HACE NADA");
+      log.warn("PersistenciaActualUsuario.consultarParametroCambiosMasivos() NO HACE NADA");
 //         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
 //         Query query = em.createNativeQuery(q);
 //         log.warn("q : " + q);
 //         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
 //         return parametro;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos:  ", e);
       return null;
 //      } 
    }

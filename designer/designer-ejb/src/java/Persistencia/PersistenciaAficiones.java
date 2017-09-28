@@ -44,7 +44,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          em.merge(aficiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaAficiones.crear: " + e);
+         log.error("Error PersistenciaAficiones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +60,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          em.merge(aficiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaAficiones.editar: " + e);
+         log.error("Error PersistenciaAficiones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -76,7 +76,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          em.remove(em.merge(aficiones));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaAficiones.borrar: " + e);
+         log.error("Error PersistenciaAficiones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -99,7 +99,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          return aficiones;
       } catch (Exception e) {
          List<Aficiones> aficiones = null;
-         log.error("Persistencia.PersistenciaAficiones.buscarAficiones() e: " + e);
+         log.error("PersistenciaAficiones.buscarAficiones() e:  ", e);
          return aficiones;
       }
    }
@@ -115,7 +115,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          maximo = (Aficiones) query.getSingleResult();
          max = maximo.getCodigo();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaAficiones.maximoCodigoAficiones() e: " + e);
+         log.error("PersistenciaAficiones.maximoCodigoAficiones() e:  ", e);
       }
       return max;
    }
@@ -130,7 +130,7 @@ public class PersistenciaAficiones implements PersistenciaAficionesInterface {
          Aficiones aficiones = (Aficiones) query.getSingleResult();
          return aficiones;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaAficiones.buscarAficionCodigo() e: " + e);
+         log.error("PersistenciaAficiones.buscarAficionCodigo() e:  ", e);
          return null;
       }
    }

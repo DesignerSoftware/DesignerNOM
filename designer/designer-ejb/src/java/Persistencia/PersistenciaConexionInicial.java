@@ -34,9 +34,9 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          eManager.clear();
          Query q = eManager.createNativeQuery("select user from dual");
          String s = (String) q.getSingleResult();
-         log.warn("Persistencia.PersistenciaConexionInicial.usuarioActual() select user from dual: " + s);
+         log.warn("PersistenciaConexionInicial.usuarioActual() select user from dual: " + s);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaConexionInicial.usuarioActual() ERROR: " + e);
+         log.error("PersistenciaConexionInicial.usuarioActual() ERROR:  ", e);
       }
    }
 
@@ -62,7 +62,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
             return false;
          }
       } catch (Exception e) {
-         log.fatal("Error validarUsuario: " + e);
+         log.fatal("Error validarUsuario:  ", e);
          return false;
       }
    }
@@ -87,7 +87,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
             return false;
          }
       } catch (Exception e) {
-         log.fatal("Error validarUsuarioConJPA: " + e);
+         log.fatal("Error validarUsuarioConJPA:  ", e);
          return false;
       }
    }
@@ -104,7 +104,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
             return em;
          }
       } catch (Exception e) {
-         log.fatal("Error validarConexionUsuario PersistenciaConexionInicial : " + e.toString());
+         log.fatal("Error validarConexionUsuario PersistenciaConexionInicial :  ", e);
          emf.close();
       }
       return null;
@@ -119,7 +119,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          query.executeUpdate();
          eManager.getTransaction().commit();
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaConexionInicial.accesoDefault() e: " + e);
+         log.fatal("PersistenciaConexionInicial.accesoDefault() e:  ", e);
       }
    }
 
@@ -146,7 +146,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          eManager.getTransaction().commit();
          return perfil;
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaConexionInicial.perfilUsuario() e: " + e);
+         log.fatal("PersistenciaConexionInicial.perfilUsuario() e:  ", e);
          return null;
       }
    }
@@ -160,7 +160,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          Perfiles perfil = (Perfiles) query.getSingleResult();
          return perfil;
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaConexionInicial.perfilUsuario() e: " + e);
+         log.fatal("PersistenciaConexionInicial.perfilUsuario() e:  ", e);
          return null;
       }
    }
@@ -176,7 +176,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          BigInteger secPerfil = (BigInteger) query.getSingleResult();
          return secPerfil;
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaConexionInicial.methodName() e: " + e);
+         log.fatal("PersistenciaConexionInicial.methodName() e:  ", e);
          return null;
       }
    }
@@ -190,7 +190,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          BigInteger secPerfil = (BigInteger) query.getSingleResult();
          return secPerfil;
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaConexionInicial.methodName() e: " + e);
+         log.fatal("PersistenciaConexionInicial.methodName() e:  ", e);
          return null;
       }
    }
@@ -210,7 +210,7 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          query.executeUpdate();
          eManager.getTransaction().commit();
       } catch (Exception e) {
-         log.fatal("Persistencia.PersistenciaConexionInicial.setearUsuario() e: " + e);
+         log.fatal("PersistenciaConexionInicial.setearUsuario() e:  ", e);
       }
    }
 
@@ -224,13 +224,13 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
          eManager.getTransaction().commit();
          return resultado;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaConexionInicial.cambiarClave() e: " + e);
+         log.error("PersistenciaConexionInicial.cambiarClave() e:  ", e);
          eManager.getTransaction().rollback();
          try {
             int codigo = ExtraeCausaExcepcion.obtenerCodigoSQLException(e);
             return codigo;
          } catch (Exception ex) {
-            log.error("Persistencia.PersistenciaConexionInicial.cambiarClave() ex: " + ex);
+            log.error("PersistenciaConexionInicial.cambiarClave() ex: ", ex);
             return ex.hashCode();
          }
       }

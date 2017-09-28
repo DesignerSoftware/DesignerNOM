@@ -39,7 +39,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             List<UsuariosVistas> usuariosvistas = query.getResultList();
             return usuariosvistas;
         } catch (Exception e) {
-            log.error("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
+            log.error("Error buscarUsuarios PersistenciaUsuariosVista ", e);
             return null;
         }
     }
@@ -53,7 +53,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             em.merge(usuariosVistas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosVistas.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosVistas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             em.merge(usuariosVistas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosVistas.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosVistas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -91,7 +91,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaUsuariosVistas.borrar: " + e.getMessage());
+                log.error("Error PersistenciaUsuariosVistas.borrar:  ", e);
             }
         }
     }
@@ -110,7 +110,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             tx.commit();
             return exe;
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.crearUsuarioVista. " + e.getMessage());
+            log.error("Error PersistenciaUsuarios.crearUsuarioVista.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

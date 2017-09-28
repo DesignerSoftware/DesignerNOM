@@ -257,7 +257,7 @@ public class ControlHistoriaFormula implements Serializable {
          administrarHistoriaFormula.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -429,7 +429,7 @@ public class ControlHistoriaFormula implements Serializable {
          cargarDatosParaNodos();
          indexNodoSeleecionado = -1;
          indexEstructuraFormula = -1;
-         log.info("Controlador.ControlHistoriaFormula.cambiarIndiceHistoriaFormula()");
+         log.info("ControlHistoriaFormula.cambiarIndiceHistoriaFormula()");
          log.info("historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
          getListEstructurasFormulas();
          if (listEstructurasFormulas != null) {
@@ -511,7 +511,7 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public void guardarCambiosHistoriaFormula() {
-      log.info("Controlador.ControlHistoriaFormula.guardarCambiosHistoriaFormula()");
+      log.info("ControlHistoriaFormula.guardarCambiosHistoriaFormula()");
       FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
@@ -623,7 +623,7 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public void darSeleccion() {
-      log.info("Controlador.ControlHistoriaFormula.darSeleccion() historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
+      log.info("ControlHistoriaFormula.darSeleccion() historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
       if (historiaFormulaSeleccionada != null) {
          if (listHistoriasFormulas.contains(historiaFormulaSeleccionada)) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -2431,7 +2431,7 @@ public class ControlHistoriaFormula implements Serializable {
       }
       if (listNodosHistoriaFormula != null) {
          if (!listNodosHistoriaFormula.isEmpty()) {
-            log.info("Controlador.ControlHistoriaFormula.getListNodosHistoriaFormula() listNodosHistoriaFormula.size() : " + listNodosHistoriaFormula.size());
+            log.info("ControlHistoriaFormula.getListNodosHistoriaFormula() listNodosHistoriaFormula.size() : " + listNodosHistoriaFormula.size());
             if (listNodosHistoriaFormula.size() <= 16) {
                visibilidadBtnS = true;
                visibilidadBtnP = true;

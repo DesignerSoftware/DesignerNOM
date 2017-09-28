@@ -28,7 +28,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             em.persist(cuadrillas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error crear PersistenciaCuadrillas " + e.toString());
+            log.error("Error crear PersistenciaCuadrillas  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             em.merge(cuadrillas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error editar PersistenciaCuadrillas " + e.toString());
+            log.error("Error editar PersistenciaCuadrillas  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             em.remove(em.merge(cuadrillas));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error borrar PersistenciaCuadrillas " + e.toString());
+            log.error("Error borrar PersistenciaCuadrillas  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +77,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             Cuadrillas cuadrilla = (Cuadrillas) query.getSingleResult();
             return cuadrilla;
         } catch (Exception e) {
-            log.error("Error buscarCuadrillaPorSecuencia PersistenciaCuadrillas " + e.toString());
+            log.error("Error buscarCuadrillaPorSecuencia PersistenciaCuadrillas  ", e);
             return null;
         }
     }
@@ -91,7 +91,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             List<Cuadrillas> cuadrillas = query.getResultList();
             return cuadrillas;
         } catch (Exception e) {
-            log.error("Error buscarCuadrillas PersistenciaCuadrillas " + e.toString());
+            log.error("Error buscarCuadrillas PersistenciaCuadrillas  ", e);
             return null;
         }
     }
@@ -110,7 +110,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaCuadrillas.borrarProgramacionCompleta : " + e.toString());
+            log.error("Error PersistenciaCuadrillas.borrarProgramacionCompleta :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -133,7 +133,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             List<Cuadrillas> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error PersistenciaCuadrillas.buscarCuadrillasParaEmpleado : " + e);
+            log.error("Error PersistenciaCuadrillas.buscarCuadrillasParaEmpleado :  ", e);
             return null;
         }
     }

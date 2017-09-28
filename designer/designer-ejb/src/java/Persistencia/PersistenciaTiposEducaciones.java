@@ -33,7 +33,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             List<TiposEducaciones> tiposEducaciones = query.getResultList();
             return tiposEducaciones;
         } catch (Exception e) {
-            log.error("error en PersistenciaTiposEducaciones.tiposeducaciones " + e.getMessage());
+            log.error("error en PersistenciaTiposEducaciones.tiposeducaciones  ", e);
             return null;
         }
     }
@@ -47,7 +47,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             em.merge(tipoEducacion);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEducaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEducaciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEducaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEducaciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             em.merge(tipoEducacion);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEducaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEducaciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

@@ -42,7 +42,7 @@ public class PersistenciaActividades implements PersistenciaActividadesInterface
          em.merge(actividades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaActividades.crear: " + e);
+         log.error("Error PersistenciaActividades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaActividades implements PersistenciaActividadesInterface
          em.merge(actividades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaActividades.editar: " + e);
+         log.error("Error PersistenciaActividades.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaActividades implements PersistenciaActividadesInterface
          em.remove(em.merge(actividades));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaActividades.borrar: " + e);
+         log.error("Error PersistenciaActividades.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +89,7 @@ public class PersistenciaActividades implements PersistenciaActividadesInterface
          cq.select(cq.from(Actividades.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarActividades PersistenciaActividades : " + e.toString());
+         log.error("Error buscarActividades PersistenciaActividades :  ", e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class PersistenciaActividades implements PersistenciaActividadesInterface
          log.warn("Contador PersistenciaActividades contarTiposLegalizaciones persistencia " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaActividades contarTiposLegalizaciones. " + e);
+         log.error("Error PersistenciaActividades contarTiposLegalizaciones.  ", e);
          return retorno;
       }
    }
@@ -122,7 +122,7 @@ public class PersistenciaActividades implements PersistenciaActividadesInterface
          log.warn("Contador PersistenciaActividades contarTiposLegalizaciones persistencia " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaActividades contarTiposLegalizaciones. " + e);
+         log.error("Error PersistenciaActividades contarTiposLegalizaciones.  ", e);
          return retorno;
       }
    }

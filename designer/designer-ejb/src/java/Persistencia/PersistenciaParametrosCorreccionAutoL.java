@@ -32,7 +32,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             em.persist(correccion);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.crearCorreccion : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.crearCorreccion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             em.merge(correccion);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.editarCorreccion : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.editarCorreccion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             em.remove(em.merge(correccion));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.borrarCorreccion : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.borrarCorreccion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaParametrosCorreccionAutoL implements PersistenciaParame
             List<ParametrosCorreccionesAutoL> listaParametros = query.getResultList();
             return listaParametros;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas : " + e.toString());
+            log.error("Error PersistenciaParametrosAutoliq.consultarParametrosAutoliqPorEmpresas :  ", e);
             return null;
         }
     }

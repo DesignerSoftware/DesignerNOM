@@ -251,7 +251,7 @@ public class ControlRemoto implements Serializable {
          ListObjetosJSF = null;
          getListObjetosJSF();
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -382,9 +382,9 @@ public class ControlRemoto implements Serializable {
             for (int i = 0; i < listaSecEmpleados.size(); i++) {
                try {
                   listaBusquedaAvanzada.add(administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(listaSecEmpleados.get(i)));
-                  log.info("Controlador.ControlRemoto.recibirBusquedaAvansada()");
+                  log.info("ControlRemoto.recibirBusquedaAvansada()");
                } catch (Exception e) {
-                  log.info("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e : " + e);
+                  log.info("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e :  ", e);
                }
             }
             if (!listaBusquedaAvanzada.isEmpty()) {

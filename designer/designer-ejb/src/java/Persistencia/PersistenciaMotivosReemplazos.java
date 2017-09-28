@@ -37,7 +37,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             em.merge(motivoReemplazo);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosReemplazos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosReemplazos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             em.merge(motivoReemplazo);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosReemplazos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosReemplazos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosReemplazos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosReemplazos.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -84,7 +84,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             List<MotivosReemplazos> motivosReemplazos = query.getResultList();
             return motivosReemplazos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosReemplazos.motivosReemplazos()" + e.getMessage());
+            log.error("PersistenciaMotivosReemplazos.motivosReemplazos():  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             log.warn("persistenciaMotivosReemplazos contarEncargaturasMotivoReemplazo retorno : " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR : " + e.getMessage());
+            log.error("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR :  ", e);
             return retorno;
         }
     }

@@ -42,7 +42,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          em.persist(idiomasPersonas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaIdiomasPersonas.crear: " + e.getMessage());
+         log.error("Error PersistenciaIdiomasPersonas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          em.merge(idiomasPersonas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaIdiomasPersonas.editar: " + e.getMessage());
+         log.error("Error PersistenciaIdiomasPersonas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaIdiomasPersonas.borrar: " + e.getMessage());
+         log.error("Error PersistenciaIdiomasPersonas.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          resultado = (Long) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-         log.error("error en contarIdiomasPersona" + e.getMessage());
+         log.error("error en contarIdiomasPersona ", e);
          e.printStackTrace();
          return resultado;
       }
@@ -107,7 +107,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          List<IdiomasPersonas> listaIdiomasPersonas = queryFinal.getResultList();
          return listaIdiomasPersonas;
       } catch (Exception e) {
-         log.error("Error PersistenciaIdiomasPersonas.idiomasPersona" + e.toString());
+         log.error("Error PersistenciaIdiomasPersonas.idiomasPersona ", e);
          return null;
       }
    }
@@ -121,7 +121,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          List<IdiomasPersonas> resultado = (List<IdiomasPersonas>) query.getResultList();
          return resultado;
       } catch (Exception e) {
-         log.error("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas" + e.getMessage());
+         log.error("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas ", e);
          return null;
       }
    }
@@ -145,9 +145,9 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
          return idioma;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaIdiomasPersonas.primerIdioma()" + e.getMessage());
+            log.trace("PersistenciaIdiomasPersonas.primerIdioma(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaIdiomasPersonas.primerIdioma()" + e.getMessage());
+            log.error("PersistenciaIdiomasPersonas.primerIdioma():  ", e);
          }
          return "";
       }

@@ -130,7 +130,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          administrarVigenciaEstadosCiviles.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -763,7 +763,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
       try {
          nuevoVigenciaEstadoCivil.setPersona(administrarVigenciaEstadosCiviles.obtenerPersonaPorEmpleado(empleadoSeleccionado.getSecuencia()));
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR:  ", e);
       }
       if (nuevoVigenciaEstadoCivil.getFechavigencia() == null || nuevoVigenciaEstadoCivil.getFechavigencia().equals("")) {
          mensajeValidacion = "Campo Fecha vacío \n";
@@ -910,7 +910,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
          try {
             duplicarVigenciaEstadoCivil.setPersona(administrarVigenciaEstadosCiviles.obtenerPersonaPorEmpleado(empleadoSeleccionado.getSecuencia()));
          } catch (Exception e) {
-            log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR: " + e);
+            log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR:  ", e);
          }
       }
       if (contador == 2) {

@@ -149,7 +149,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          administrarUbicacionesGeograficas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -217,7 +217,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          }
          contarRegistros();
       } catch (Exception e) {
-         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS eventoFiltrar ERROR===" + e);
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS eventoFiltrar ERROR=== ", e);
       }
    }
 
@@ -435,7 +435,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('sucursalesPilaDialogo').show()");
          }
       } catch (Exception e) {
-         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS ASIGNARINDEX ERROR :" + e);
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS ASIGNARINDEX ERROR : ", e);
       }
    }
 
@@ -1033,7 +1033,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          banderaModificacionEmpresa = 0;
          log.info("Se guardaron los datos con exito");
       } catch (Exception e) {
-         log.error("CONTROLUBICACIONESGEOGRAFICAS GUARDARCAMBIOS: " + e);
+         log.error("CONTROLUBICACIONESGEOGRAFICAS GUARDARCAMBIOS:  ", e);
          RequestContext context = RequestContext.getCurrentInstance();
          FacesMessage msg = new FacesMessage("Información", "Hubo un error en el guardado, Por favor intente nuevamente.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1116,7 +1116,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             tipoLista = 0;
          }
       } catch (Exception e) {
-         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 ERROR " + e);
+         log.warn("Error CONTROLUBICACIONESGEOGRAFICAS.activarCtrlF11 ERROR  ", e);
       }
    }
 
@@ -1186,7 +1186,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             }
          }
       } catch (Exception e) {
-         log.info("\n ERROR CONTROLUBICACIONESGEOGRAFICAS.listaValoresBoton ERROR====================" + e);
+         log.info("\n ERROR CONTROLUBICACIONESGEOGRAFICAS.listaValoresBoton ERROR==================== ", e);
 
       }
    }
@@ -1297,7 +1297,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
          }
          return lovEmpresas;
       } catch (Exception e) {
-         log.warn("Error LISTA EMPRESAS " + e);
+         log.warn("Error LISTA EMPRESAS  ", e);
          return null;
       }
    }

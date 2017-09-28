@@ -138,7 +138,7 @@ public class ControlVigenciaAficion implements Serializable {
          administrarVigenciaAficion.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -651,7 +651,7 @@ public class ControlVigenciaAficion implements Serializable {
             try {
                nuevaVigenciaAficion.setPersona(administrarVigenciaAficion.obtenerPersonaPorEmpleado(empleado.getSecuencia()));
             } catch (Exception e) {
-               log.error(this.getClass().getSimpleName() + ".agregarNuevaVigenciaAficion() ERROR: " + e);
+               log.error(this.getClass().getSimpleName() + ".agregarNuevaVigenciaAficion() ERROR:  ", e);
             }
             listVigenciaAficionCrear.add(nuevaVigenciaAficion);
             listVigenciasAficiones.add(nuevaVigenciaAficion);
@@ -734,7 +734,7 @@ public class ControlVigenciaAficion implements Serializable {
             try {
                duplicarVigenciaAficion.setPersona(administrarVigenciaAficion.obtenerPersonaPorEmpleado(empleado.getSecuencia()));
             } catch (Exception e) {
-               log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR: " + e);
+               log.error(this.getClass().getSimpleName() + ".confirmarDuplicar() ERROR:  ", e);
             }
             if (listVigenciasAficiones == null) {
                listVigenciasAficiones = new ArrayList<VigenciasAficiones>();

@@ -151,7 +151,7 @@ public class ControlDepartamentos implements Serializable {
             }
          }
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -414,7 +414,7 @@ public class ControlDepartamentos implements Serializable {
             contarSoAccidentesMedicosDepartamento = new BigInteger("-1");
          }
       } catch (Exception e) {
-         log.error("ERROR ControlDepartamentos verificarBorrado ERROR " + e);
+         log.error("ERROR ControlDepartamentos verificarBorrado ERROR  ", e);
       }
    }
 
@@ -459,7 +459,7 @@ public class ControlDepartamentos implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       } catch (Exception e) {
-         log.info("Controlador.ControlDepartamentos.guardarDepartamentos()" + e.getMessage());
+         log.info("ControlDepartamentos.guardarDepartamentos()" + e.getMessage());
          FacesMessage msg = new FacesMessage("Información", "Hubo un error en el guardado. Intente nuevamente");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

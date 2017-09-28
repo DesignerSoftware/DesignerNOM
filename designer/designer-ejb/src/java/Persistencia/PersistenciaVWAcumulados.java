@@ -38,7 +38,7 @@ public class PersistenciaVWAcumulados implements PersistenciaVWAcumuladosInterfa
             List<VWAcumulados> VWAcumuladosPorEmpleado = query.getResultList();
             return VWAcumuladosPorEmpleado;
         } catch (Exception e) {
-            log.error("Error en Persistencia VWAcumulados " + e.getMessage());
+            log.error("Error en Persistencia VWAcumulados  ", e);
             return null;
         }
     }
@@ -55,7 +55,7 @@ public class PersistenciaVWAcumulados implements PersistenciaVWAcumuladosInterfa
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return count;
         } catch (Exception e) {
-            log.error("Error en getTotalRegistros :" + e.getMessage());
+            log.error("Error en getTotalRegistros :  ", e);
             count = Long.valueOf(0);
             return count;
         }

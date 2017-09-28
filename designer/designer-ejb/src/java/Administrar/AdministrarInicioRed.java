@@ -54,7 +54,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
          persistenciaConexionInicial.accesoDefault(sessionEMF.getEmf().createEntityManager());
          return true;
       } catch (Exception e) {
-         log.fatal("Administrar.AdministrarInicioRed.conexionDefault() ERROR: " + e);
+         log.fatal("AdministrarInicioRed.conexionDefault() ERROR: " + e);
          return false;
       }
    }
@@ -103,7 +103,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
    @Override
    public boolean validarUsuario(String usuario, String usapool) {
       try {
-         log.warn("Administrar.AdministrarInicioRed.validarUsuario() usuario: " + usuario + ", usapool: " + usapool);
+         log.warn("AdministrarInicioRed.validarUsuario() usuario: " + usuario + ", usapool: " + usapool);
          boolean resultado = false;
          if (usapool.equals("S")) {
             resultado = persistenciaConexionInicial.validarUsuarioConJPA(sessionEMF.getEmf().createEntityManager(), usuario);
@@ -149,7 +149,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
             administrarSessiones.borrarSesion(idSesion);
          }
       } catch (Exception e) {
-         log.fatal("Administrar.AdministrarInicioRed.cerrarSession() ERROR: " + e);
+         log.fatal("AdministrarInicioRed.cerrarSession() ERROR: " + e);
       }
    }
 
@@ -162,7 +162,7 @@ public class AdministrarInicioRed implements AdministrarInicioRedInterface, Seri
             return null;
          }
       } catch (Exception e) {
-         log.fatal("Administrar.AdministrarInicioRed.recordatorioAleatorio() ERROR: " + e);
+         log.fatal("AdministrarInicioRed.recordatorioAleatorio() ERROR: " + e);
          return null;
       }
    }

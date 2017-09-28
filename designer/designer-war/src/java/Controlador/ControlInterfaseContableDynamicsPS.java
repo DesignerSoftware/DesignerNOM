@@ -243,7 +243,7 @@ public class ControlInterfaseContableDynamicsPS implements Serializable {
          administrarInterfaseDynamicsPS.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Error postconstruct ControlVigenciasCargos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

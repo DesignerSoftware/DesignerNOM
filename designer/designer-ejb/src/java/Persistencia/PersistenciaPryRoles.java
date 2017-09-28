@@ -36,7 +36,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             List<PryRoles> pryroles = query.getResultList();
             return pryroles;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPryRoles.pryroles()" + e.getMessage());
+            log.error("PersistenciaPryRoles.pryroles():  ", e);
             return null;
         }
     }
@@ -50,7 +50,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             em.merge(pryrol);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryRoles.crear: " + e.getMessage());
+            log.error("Error PersistenciaPryRoles.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             em.merge(pryrol);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryRoles.editar: " + e.getMessage());
+            log.error("Error PersistenciaPryRoles.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
             em.remove(em.merge(pryrol));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryRoles.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPryRoles.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

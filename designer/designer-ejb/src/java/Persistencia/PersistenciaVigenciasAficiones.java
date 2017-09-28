@@ -40,7 +40,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          em.persist(vigenciasAficiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasAficiones.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasAficiones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          em.merge(vigenciasAficiones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasAficiones.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasAficiones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          em.remove(em.merge(vigenciasAficiones));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasAficiones.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasAficiones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          BigInteger in = (BigInteger) secuencia;
          return em.find(VigenciasAficiones.class, in);
       } catch (Exception e) {
-         log.error("Error buscarvigenciaAficion : " + e.getMessage());
+         log.error("Error buscarvigenciaAficion :  ", e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasAficiones.aficionesPersona" + e.getMessage());
+         log.error("Error PersistenciaVigenciasAficiones.aficionesPersona ", e);
          return null;
       }
    }
@@ -123,7 +123,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          List<VigenciasAficiones> listVigenciasAficiones = queryFinal.getResultList();
          return listVigenciasAficiones;
       } catch (Exception e) {
-         log.error("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones : " + e.getMessage());
+         log.error("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones :  ", e);
          return null;
       }
    }
@@ -147,9 +147,9 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
          return aficion;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaVigenciasAficiones.primeraAficion()" + e.getMessage());
+            log.trace("PersistenciaVigenciasAficiones.primeraAficion(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaVigenciasAficiones.primeraAficion()" + e.getMessage());
+            log.error("PersistenciaVigenciasAficiones.primeraAficion():  ", e);
          }
          return "";
       }

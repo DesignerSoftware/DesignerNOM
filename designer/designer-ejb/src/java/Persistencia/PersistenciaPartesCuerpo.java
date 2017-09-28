@@ -39,7 +39,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          em.merge(partesCuerpo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPartesCuerpo.crear: " + e.getMessage());
+         log.error("Error PersistenciaPartesCuerpo.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          em.merge(partesCuerpo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPartesCuerpo.editar: " + e.getMessage());
+         log.error("Error PersistenciaPartesCuerpo.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          em.remove(em.merge(partesCuerpo));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPartesCuerpo.borrar: " + e.getMessage());
+         log.error("Error PersistenciaPartesCuerpo.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,7 +84,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          em.clear();
          return em.find(PartesCuerpo.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPartesCuerpo.buscarParteCuerpo()" + e.getMessage());
+         log.error("PersistenciaPartesCuerpo.buscarParteCuerpo():  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          List<PartesCuerpo> listPartesCuerpo = query.getResultList();
          return listPartesCuerpo;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPartesCuerpo.buscarPartesCuerpo()" + e.getMessage());
+         log.error("PersistenciaPartesCuerpo.buscarPartesCuerpo():  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          retorno = (BigInteger) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPartesCuerpo.contadorSoAccidentesMedicos()" + e.getMessage());
+         log.error("PersistenciaPartesCuerpo.contadorSoAccidentesMedicos():  ", e);
          return retorno;
       }
    }
@@ -130,7 +130,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          retorno = (BigInteger) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPartesCuerpo.contadorDetallesExamenes()" + e.getMessage());
+         log.error("PersistenciaPartesCuerpo.contadorDetallesExamenes():  ", e);
          return retorno;
       }
    }
@@ -147,7 +147,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
          log.warn("PARTESCUERPO CONTADOR SO DETALLES REVISIONES  " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPartesCuerpo.contadorSoDetallesRevisiones()" + e.getMessage());
+         log.error("PersistenciaPartesCuerpo.contadorSoDetallesRevisiones():  ", e);
          return retorno;
       }
    }

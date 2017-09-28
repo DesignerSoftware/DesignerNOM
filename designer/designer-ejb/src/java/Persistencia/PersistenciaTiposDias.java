@@ -34,7 +34,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.merge(tiposDias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDias.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDias.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.merge(tiposDias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDias.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDias.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.remove(em.merge(tiposDias));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDias.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDias.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.clear();
             return em.find(TiposDias.class, secuencia);
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDias buscarTipoDia : " + e.getMessage());
+            log.error("Error PersistenciaTiposDias buscarTipoDia :  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             List<TiposDias> tiposDias = query.getResultList();
             return tiposDias;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDias buscarTiposDias : " + e.getMessage());
+            log.error("Error PersistenciaTiposDias buscarTiposDias :  ", e);
             return null;
         }
     }
@@ -109,7 +109,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposDias.contadorDiasLaborales() + e.getMessage()");
+            log.error("PersistenciaTiposDias.contadorDiasLaborales():  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -126,7 +126,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposDias.contadorExtrasRecargos()" + e.getMessage());
+            log.error("PersistenciaTiposDias.contadorExtrasRecargos():  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

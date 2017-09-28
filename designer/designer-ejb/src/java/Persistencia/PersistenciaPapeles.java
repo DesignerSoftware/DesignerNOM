@@ -40,7 +40,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             em.merge(papel);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPapeles.crear: " + e.getMessage());
+            log.error("Error PersistenciaPapeles.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             em.merge(papel);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPapeles.editar: " + e.getMessage());
+            log.error("Error PersistenciaPapeles.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             em.remove(em.merge(papel));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPapeles.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPapeles.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             List<Papeles> listaPapeles = (List<Papeles>) query.getResultList();
             return listaPapeles;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELES ERROR : " + e.getMessage());
+            log.error("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELES ERROR :  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             Papeles papel = (Papeles) query.getSingleResult();
             return papel;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPEL" + e.getMessage());
+            log.error("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPEL ", e);
             Papeles papel = null;
             return papel;
         }
@@ -114,7 +114,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             List<Papeles> listPapeles = query.getResultList();
             return listPapeles;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELESEMPRESA ERROR " + e.getMessage());
+            log.error("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELESEMPRESA ERROR  ", e);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             return new BigInteger(query.getSingleResult().toString());
 
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAPAPELES CONTARVIGENCIASCARGOSPAPEL ERROR : " + e.getMessage());
+            log.error("ERROR PERSISTENCIAPAPELES CONTARVIGENCIASCARGOSPAPEL ERROR :  ", e);
             return null;
         }
     }
@@ -147,7 +147,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
          query.setParameter(2, fechaCambio);
          query.execute();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".adicionaPapelCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaPapelCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

@@ -33,7 +33,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             em.merge(interconSapBO);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.crear: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             em.merge(interconSapBO);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.editar: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             em.remove(em.merge(interconSapBO));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.borrar: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             InterconSapBO intercon = (InterconSapBO) query.getSingleResult();
             return intercon;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.buscarInterconSAPBOSecuencia: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.buscarInterconSAPBOSecuencia:  ", e);
             return null;
         }
     }
@@ -106,7 +106,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             }
             return intercon;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.buscarInterconSAPBOParametroContable: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.buscarInterconSAPBOParametroContable:  ", e);
             return null;
         }
     }
@@ -120,7 +120,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             Date fecha = (Date) (query.getSingleResult());
             return fecha;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.obtenerFechaMaxInterconSAPBO: " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.obtenerFechaMaxInterconSAPBO:  ", e);
             return null;
         }
     }
@@ -140,7 +140,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBO : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBO :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -162,7 +162,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBOV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagProcesoAnularInterfaseContableSAPBOV8 :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -184,7 +184,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOV8 :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -206,7 +206,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -228,7 +228,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOVHP : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOVHP :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -250,7 +250,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_VCA : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_VCA :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -272,7 +272,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_PE : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBO_PE :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -294,7 +294,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOPQ : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejeuctarPKGUbicarnuevointercon_SAPBOPQ :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -314,7 +314,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGRecontabilizacion : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGRecontabilizacion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -338,7 +338,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarDeleteInterconSAPBOV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarDeleteInterconSAPBOV8 :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -363,7 +363,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.cerrarProcesoLiquidacion : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.cerrarProcesoLiquidacion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -385,7 +385,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPBO : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPBO :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -409,7 +409,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             tx.commit();
             return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPV8 : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPV8 :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -437,7 +437,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPVCA : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPVCA :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -460,7 +460,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPE : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPE :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -483,7 +483,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPQ : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPPQ :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -506,7 +506,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPHP : " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.ejecutarPKGCrearArchivoPlanoSAPHP :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -530,7 +530,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
                 return 0;
             }
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.contarProcesosContabilizadosInterconSAPBO. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.contarProcesosContabilizadosInterconSAPBO.  ", e);
             return -1;
         }
     }
@@ -552,7 +552,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBoProcesoDeshacer. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBoProcesoDeshacer.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -578,7 +578,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.cerrarProcesoContabilizacion. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.cerrarProcesoContabilizacion.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -605,7 +605,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.eliminarInterconSapBO. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.eliminarInterconSapBO.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -630,7 +630,7 @@ public class PersistenciaInterconSapBO implements PersistenciaInterconSapBOInter
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBO. " + e.toString());
+            log.error("Error PersistenciaInterconSapBO.actualizarFlagInterconSapBO.  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

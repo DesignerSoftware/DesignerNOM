@@ -37,7 +37,7 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
          List<ErroresLiquidacion> listaErroresLiquidacionEmpleado = query.getResultList();
          return listaErroresLiquidacionEmpleado;
       } catch (Exception e) {
-         log.error("\n ERROR EN PersistenciaErroresLiquidaciones consultarErroresLiquidacionPorEmpleado ERROR : " + e);
+         log.error("\n ERROR EN PersistenciaErroresLiquidaciones consultarErroresLiquidacionPorEmpleado ERROR :  ", e);
          return null;
       }
    }
@@ -82,7 +82,7 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
          }
          return listaErroresLiquidacionEmpleado;
       } catch (Exception e) {
-         log.error("\n ERROR EN PersistenciaErroresLiquidaciones consultarErroresLiquidacion ERROR : " + e);
+         log.error("\n ERROR EN PersistenciaErroresLiquidaciones consultarErroresLiquidacion ERROR :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -111,7 +111,7 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
          n = n1.intValue();
          log.warn("PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones() n: _" + n + "_");
       } catch (Exception e) {
-         log.error("Error PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones. " + e);
+         log.error("Error PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -132,7 +132,7 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaErroresLiquidaciones.borrar: " + e);
+            log.error("Error PersistenciaErroresLiquidaciones.borrar:  ", e);
          }
       }
    }

@@ -40,7 +40,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             em.merge(indicadores);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIndicadores.crear: " + e.getMessage());
+            log.error("Error PersistenciaIndicadores.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             em.merge(indicadores);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIndicadores.editar: " + e.getMessage());
+            log.error("Error PersistenciaIndicadores.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             tx.commit();
 
         } catch (Exception e) {
-        log.error("Error PersistenciaIndicadores.borrar: " + e.getMessage());
+        log.error("Error PersistenciaIndicadores.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -89,7 +89,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             List<Indicadores> indicadores = (List<Indicadores>) query.getResultList();
             return indicadores;
         } catch (Exception e) {
-            log.error("Error buscarIndicadores PersistenciaIndicadores : " + e.toString());
+            log.error("Error buscarIndicadores PersistenciaIndicadores :  ", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             Indicadores indicadores = (Indicadores) query.getSingleResult();
             return indicadores;
         } catch (Exception e) {
-            log.error("Error buscarIndicadoresSecuencia PersistenciaIndicadores : " + e.toString());
+            log.error("Error buscarIndicadoresSecuencia PersistenciaIndicadores :  ", e);
             Indicadores indicadores = null;
             return indicadores;
         }

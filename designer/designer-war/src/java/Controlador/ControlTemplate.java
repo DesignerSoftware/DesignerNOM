@@ -77,7 +77,7 @@ public class ControlTemplate implements Serializable {
             detalleEmpresa = administrarTemplate.consultarDetalleEmpresaUsuario();
             nombrePerfil = administrarTemplate.consultarNombrePerfil();
       } catch (Exception e) {
-         log.error("Error postconstruct ControlTemplate: " + e);
+         log.error("Error postconstruct ControlTemplate:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

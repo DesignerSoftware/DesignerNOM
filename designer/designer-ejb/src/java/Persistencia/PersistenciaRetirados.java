@@ -43,7 +43,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             em.merge(retirados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetirados.crear: " + e.getMessage());
+            log.error("Error PersistenciaRetirados.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             em.merge(retirados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetirados.editar: " + e.getMessage());
+            log.error("Error PersistenciaRetirados.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             em.remove(em.merge(retirados));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetirados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaRetirados.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -90,7 +90,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             cq.select(cq.from(Retirados.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetirados.buscarRetirados()" + e.getMessage());
+            log.error("PersistenciaRetirados.buscarRetirados():  ", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             List<Retirados> retiros = query.getResultList();
             return retiros;
         } catch (Exception e) {
-            log.error("Error en Persistencia Retirados " + e.getMessage());
+            log.error("Error en Persistencia Retirados  ", e);
             return null;
         }
     }
@@ -119,7 +119,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             Retirados retiro = (Retirados) query.getSingleResult();
             return retiro;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetirados.buscarRetiroSecuencia()" + e.getMessage());
+            log.error("PersistenciaRetirados.buscarRetiroSecuencia():  ", e);
             return null;
         }
     }
@@ -135,7 +135,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             Retirados retiroVigencia = (Retirados) query.getSingleResult();
             return retiroVigencia;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetirados.buscarRetiroVigenciaSecuencia()" + e.getMessage());
+            log.error("PersistenciaRetirados.buscarRetiroVigenciaSecuencia():  ", e);
             return new Retirados();
         }
     }
@@ -158,7 +158,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             query.setParameter(4, fechaCambio);
             query.execute();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetirados.adicionaRetiroCambiosMasivos()" + e.getMessage());
+            log.error("PersistenciaRetirados.adicionaRetiroCambiosMasivos():  ", e);
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -186,7 +186,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             query.setParameter(4, fechaCambio);
             query.execute();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetirados.undoAdicionaRetiroCambiosMasivos()" + e.getMessage());
+            log.error("PersistenciaRetirados.undoAdicionaRetiroCambiosMasivos():  ", e);
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -210,7 +210,7 @@ public class PersistenciaRetirados implements PersistenciaRetiradosInterface {
             query.setParameter(2, fechaFin);
             query.execute();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetirados.adicionaReingresoCambiosMasivos()" + e.getMessage());
+            log.error("PersistenciaRetirados.adicionaReingresoCambiosMasivos():  ", e);
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();

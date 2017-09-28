@@ -48,7 +48,7 @@ public class ControlListaNavegacion implements Serializable {
          paginaActual = pagDestino;
          adicionarPagina(pagActual);
       } catch (Exception e) {
-         log.error("ControlListaNavegacion.guardarNavegacion() ERROR : " + e);
+         log.error("ControlListaNavegacion.guardarNavegacion() ERROR : " , e);
          pagDestino = "nominaf";
       }
       return pagDestino;
@@ -84,7 +84,7 @@ public class ControlListaNavegacion implements Serializable {
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(nombrePagina, null);
 //         log.warn("ControlListaNavegacion.matarPagina() : " + nombrePagina + " : YA");
       } catch (Exception e) {
-         log.error("ERROR ControlListaNavegacion.matarPagina() e: " + e);
+         log.error("ERROR ControlListaNavegacion.matarPagina() e: " , e);
       }
    }
 

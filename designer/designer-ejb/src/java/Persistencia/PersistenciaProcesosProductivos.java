@@ -40,7 +40,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             em.merge(procesos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPensionados.crear: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             em.merge(procesos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPensionados.editar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             em.remove(em.merge(procesos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPensionados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             List<ProcesosProductivos> procesos = query.getResultList();
             return procesos;
         } catch (Exception e) {
-            log.error("Error buscarProcesosProductivos PersistenciaProcesosProductivos : " + e.toString());
+            log.error("Error buscarProcesosProductivos PersistenciaProcesosProductivos :  ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             ProcesosProductivos procesos = (ProcesosProductivos) query.getSingleResult();
             return procesos;
         } catch (Exception e) {
-            log.error("Error buscarProcesosProductivosSecuencia PersistenciaProcesosProductivos : " + e.toString());
+            log.error("Error buscarProcesosProductivosSecuencia PersistenciaProcesosProductivos :  ", e);
             ProcesosProductivos procesos = null;
             return procesos;
         }
@@ -119,7 +119,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
+            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal :  ", e);
             return retorno;
         }
     }
@@ -134,7 +134,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
+            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal :  ", e);
             return retorno;
         }
     }
@@ -149,7 +149,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
+            log.error("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal :  ", e);
             return retorno;
         }
     }

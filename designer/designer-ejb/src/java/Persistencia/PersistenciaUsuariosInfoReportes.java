@@ -35,7 +35,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             em.merge(usuarioIR);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosInfoReportes.crear : " + e.getMessage());
+            log.error("Error PersistenciaUsuariosInfoReportes.crear :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +51,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             em.merge(usuarioIR);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosInfoReportes.editar : " + e.getMessage());
+            log.error("Error PersistenciaUsuariosInfoReportes.editar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +67,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             em.remove(em.merge(usuarioIR));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosInfoReportes.borrar : " + e.getMessage());
+            log.error("Error PersistenciaUsuariosInfoReportes.borrar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +84,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             List<UsuariosInforeportes> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error PersitenciaUsuariosInfoReportes.listaUsuariosIR() : " + e.getMessage());
+            log.error("Error PersitenciaUsuariosInfoReportes.listaUsuariosIR() :  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             List<Inforeportes> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error PersitenciaUsuariosInfoReportes.lovIR() : " + e.getMessage());
+            log.error("Error PersitenciaUsuariosInfoReportes.lovIR() :  ", e);
             return null;
         }
     }
@@ -112,7 +112,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             List<Usuarios> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error Persitencia Usuarios InfoReportes.listaUsuarios() : " + e.getMessage());
+            log.error("Error Persitencia Usuarios InfoReportes.listaUsuarios() :  ", e);
             return null;
         }
     }
@@ -129,7 +129,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return count;
         } catch (Exception e) {
-            log.error("Error en getTotalRegistros :" + e.getMessage());
+            log.error("Error en getTotalRegistros :  ", e);
             count = Long.valueOf(0);
             return count;
         }
@@ -145,7 +145,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return lista;
         } catch (Exception e) {
-            log.error("error en getFind Persistencia :  " + e.getMessage());
+            log.error("error en getFind Persistencia :   ", e);
             return null;
         }
     }
@@ -160,7 +160,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return lista;
         } catch (Exception e) {
-            log.error("error en getBuscarUIR Persistencia :  " + e.getMessage());
+            log.error("error en getBuscarUIR Persistencia :   ", e);
             return null;
         }
     }
@@ -177,7 +177,7 @@ public class PersistenciaUsuariosInfoReportes implements PersistenciaUsuariosInf
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return count;
         } catch (Exception e) {
-            log.error("Error en getTotalRegistrosBuscar :" + e.getMessage());
+            log.error("Error en getTotalRegistrosBuscar :  ", e);
             count = Long.valueOf(0);
             return count;
         }

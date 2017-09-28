@@ -40,7 +40,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             em.merge(plantasPersonales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantasPersonales.crear: " + e.getMessage());
+            log.error("Error PersistenciaPlantasPersonales.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             em.merge(plantasPersonales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantasPersonales.editar: " + e.getMessage());
+            log.error("Error PersistenciaPlantasPersonales.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             em.remove(em.merge(plantasPersonales));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantasPersonales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPlantasPersonales.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             List<PlantasPersonales> plantasPersonales = query.getResultList();
             return plantasPersonales;
         } catch (Exception e) {
-            log.error("Error consultarPlantasPersonales PersistenciaPlantasPersonales: " + e.toString());
+            log.error("Error consultarPlantasPersonales PersistenciaPlantasPersonales:  ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             BigInteger total = (BigInteger) query.getSingleResult();
             return total;
         } catch (Exception e) {
-            log.error("Error consultarCantidadEstructuras PersistenciaPlantasPersonales: " + e.getMessage());
+            log.error("Error consultarCantidadEstructuras PersistenciaPlantasPersonales:  ", e);
             BigInteger total = null;
             return total;
         }

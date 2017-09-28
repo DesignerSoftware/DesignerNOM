@@ -40,7 +40,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             em.merge(motivoCambioCargo);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosCargos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosCargos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             em.merge(motivoCambioCargo);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosCargos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosCargos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosCargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosCargos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             em.clear();
             return em.find(MotivosCambiosCargos.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosCambiosCargos.buscarMotivoCambioCargo()" + e.getMessage());
+            log.error("PersistenciaMotivosCambiosCargos.buscarMotivoCambioCargo():  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             List<MotivosCambiosCargos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos()" + e.getMessage());
+            log.error("PersistenciaMotivosCambiosCargos.buscarMotivosCambiosCargos():  ", e);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class PersistenciaMotivosCambiosCargos implements PersistenciaMotivosCamb
             retorno = new BigInteger(query.getSingleResult().toString());
 
         } catch (Exception e) {
-            log.error("ERROR EN PersistenciaMotivosCambiosCargos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaMotivosCambiosCargos verificarBorrado ERROR :  ", e);
         } finally {
             return retorno;
         }

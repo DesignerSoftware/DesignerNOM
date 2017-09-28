@@ -35,7 +35,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             em.merge(vigenciasProrrateosProyectos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasProrrateosProyectos.crear: " +  e.getMessage());
+            log.error("Error PersistenciaVigenciasProrrateosProyectos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +51,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             em.merge(vigenciasProrrateosProyectos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasProrrateosProyectos.editar: " +  e.getMessage());
+            log.error("Error PersistenciaVigenciasProrrateosProyectos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +67,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             em.remove(em.merge(vigenciasProrrateosProyectos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasProrrateosProyectos.borrar: " +  e.getMessage());
+            log.error("Error PersistenciaVigenciasProrrateosProyectos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             cq.select(cq.from(VigenciasProrrateosProyectos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Error buscarVigenciasProrrateosProyectos PersistenciaVigenciasProrrateosProyectos" +  e.getMessage());
+            log.error("Error buscarVigenciasProrrateosProyectos PersistenciaVigenciasProrrateosProyectos ", e);
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             List<VigenciasProrrateosProyectos> prorrateosProyectos = query.getResultList();
             return prorrateosProyectos;
         } catch (Exception e) {
-            log.error("Error en buscarVigenciasProrrateosProyectosEmpleado PersistenciaVigenciasProrrateosProyectos " +  e.getMessage());
+            log.error("Error en buscarVigenciasProrrateosProyectosEmpleado PersistenciaVigenciasProrrateosProyectos  ", e);
             return null;
         }
     }
@@ -111,7 +111,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             VigenciasProrrateosProyectos prorrateosProyectos = (VigenciasProrrateosProyectos) query.getSingleResult();
             return prorrateosProyectos;
         } catch (Exception e) {
-            log.error("Error buscarVigenciasProrrateosProyectosSecuencia PersistenciaVigenciasProrrateosProyectos" +  e.getMessage());
+            log.error("Error buscarVigenciasProrrateosProyectosSecuencia PersistenciaVigenciasProrrateosProyectos ", e);
             return null;
         }
     }

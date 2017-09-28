@@ -193,7 +193,7 @@ public class ControlOdiCabecera implements Serializable {
          administrarOdiCabecera.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlOdiCabecera: " + e);
+         log.error("Error postconstruct ControlOdiCabecera:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

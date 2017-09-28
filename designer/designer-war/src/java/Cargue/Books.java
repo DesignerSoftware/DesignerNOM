@@ -82,7 +82,7 @@ public class Books {
                 log.info(price + "_");
             }
         } catch (Exception e) {
-            log.warn("Excepcion: " + e);
+            log.warn("Excepcion: " , e);
         }
 
     }

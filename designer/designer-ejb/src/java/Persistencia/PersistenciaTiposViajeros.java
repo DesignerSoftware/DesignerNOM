@@ -33,7 +33,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposViajeros.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposViajeros.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.remove(em.merge(subCategorias));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposViajeros.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +81,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             List<Tiposviajeros> listTiposViajeros = query.getResultList();
             return listTiposViajeros;
         } catch (Exception e) {
-            log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
+            log.error("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :  ", e);
             return null;
         }
     }
@@ -96,7 +96,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             Tiposviajeros subCategorias = (Tiposviajeros) query.getSingleResult();
             return subCategorias;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposViajeros.consultarSubCategoria()" + e.getMessage());
+            log.error("PersistenciaTiposViajeros.consultarSubCategoria():  ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             log.error("Contador PersistenciaTiposViajeros contarVigenciasViajeros persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposViajeros contarVigenciasViajeros. " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros contarVigenciasViajeros.  ", e);
             return retorno;
         }
     }
@@ -130,7 +130,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             log.warn("Contador PersistenciaTiposViajeros contarTiposLegalizaciones persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposViajeros contarTiposLegalizaciones. " + e.getMessage());
+            log.error("Error PersistenciaTiposViajeros contarTiposLegalizaciones.  ", e);
             return retorno;
         }
     }

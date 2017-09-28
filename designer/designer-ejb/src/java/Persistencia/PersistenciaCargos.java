@@ -41,7 +41,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          em.persist(cargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCargos.crear: " + e);
+         log.error("Error PersistenciaCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,7 +57,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          em.merge(cargos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCargos.editar: " + e);
+         log.error("Error PersistenciaCargos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +77,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCargos.borrar: " + e);
+         log.error("Error PersistenciaCargos.borrar:  ", e);
       }
    }
 
@@ -89,7 +89,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          in = (BigInteger) secuencia;
          return em.find(Cargos.class, in);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaCargos.buscarCargoSecuencia() e: " + e);
+         log.error("PersistenciaCargos.buscarCargoSecuencia() e:  ", e);
          return null;
       }
    }
@@ -103,7 +103,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> cargos = query.getResultList();
          return cargos;
       } catch (Exception e) {
-         log.error("Error PersistenciaCargos.consultarCargos: " + e);
+         log.error("Error PersistenciaCargos.consultarCargos:  ", e);
          return null;
       }
    }
@@ -123,7 +123,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          }
          return listaCargosSalario;
       } catch (Exception e) {
-         log.error("PersistenciaCargos: Fallo el nativeQuery.cargosSalario " + e);
+         log.error("PersistenciaCargos: Fallo el nativeQuery.cargosSalario  ", e);
          return null;
       }
    }
@@ -138,7 +138,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> cargos = query.getResultList();
          return cargos;
       } catch (Exception e) {
-         log.error("Error buscarCargosPorSecuenciaEmpresa PersistenciaCargos : " + e.toString());
+         log.error("Error buscarCargosPorSecuenciaEmpresa PersistenciaCargos :  ", e);
          return null;
       }
    }
@@ -152,7 +152,7 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
          List<Cargos> cargos = query.getResultList();
          return cargos;
       } catch (Exception e) {
-         log.error("Error PersistenciaCargos.lovCargos: " + e);
+         log.error("Error PersistenciaCargos.lovCargos:  ", e);
          return null;
       }
    }

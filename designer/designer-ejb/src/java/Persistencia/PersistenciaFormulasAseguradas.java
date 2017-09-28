@@ -37,7 +37,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          em.merge(formulasAseguradas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +52,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          em.merge(formulasAseguradas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar:  ", e);
       }
    }
 
@@ -83,7 +83,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          List<FormulasAseguradas> formulasAseguradas = query.getResultList();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasAseguradas " + e);
+         log.error("Error consultarFormulasAseguradas  ", e);
          return null;
       }
    }
@@ -97,7 +97,7 @@ public class PersistenciaFormulasAseguradas implements PersistenciaFormulasAsegu
          FormulasAseguradas formulasAseguradas = (FormulasAseguradas) query.getSingleResult();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasAseguradas " + e);
+         log.error("Error consultarFormulasAseguradas  ", e);
          FormulasAseguradas formulasAseguradas = null;
          return formulasAseguradas;
       }

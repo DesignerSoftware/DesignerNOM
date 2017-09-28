@@ -153,7 +153,7 @@ public class ControlVigenciasProyectos implements Serializable {
          administrarProyectos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Error postconstruct ControlVigenciasCargos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

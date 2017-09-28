@@ -159,7 +159,7 @@ public class ControlDeclarantes implements Serializable {
          administrarDeclarantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -421,7 +421,7 @@ public class ControlDeclarantes implements Serializable {
    //FALTA GUARDAR
 
    public void asignarIndex(Declarantes declarante, int dlg, int LND) {
-      log.info("Controlador.ControlDeclarantes.asignarIndex()");
+      log.info("ControlDeclarantes.asignarIndex()");
       declaranteSeleccionado = declarante;
       tipoActualizacion = LND;
 

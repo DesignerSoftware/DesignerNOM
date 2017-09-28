@@ -27,7 +27,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             em.persist(monedasBases);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasMonedasBases.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasMonedasBases.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             em.merge(monedasBases);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasMonedasBases.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasMonedasBases.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             em.remove(em.merge(monedasBases));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasMonedasBases.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasMonedasBases.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             List<VigenciasMonedasBases> monedasBases = query.getResultList();
             return monedasBases;
         } catch (Exception e) {
-            log.error("Error buscarVigenciasMonedasBases PersistenciaVigenciasMonedasBases : " + e.getMessage());
+            log.error("Error buscarVigenciasMonedasBases PersistenciaVigenciasMonedasBases :  ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             VigenciasMonedasBases monedasBases = (VigenciasMonedasBases) query.getSingleResult();
             return monedasBases;
         } catch (Exception e) {
-            log.error("Error buscarVigenciaMonedaBaseSecuencia  PersistenciaVigenciasMonedasBases : " + e.getMessage());
+            log.error("Error buscarVigenciaMonedaBaseSecuencia  PersistenciaVigenciasMonedasBases :  ", e);
             VigenciasMonedasBases monedasBases = null;
             return monedasBases;
         }
@@ -106,7 +106,7 @@ public class PersistenciaVigenciasMonedasBases implements PersistenciaVigenciasM
             List<VigenciasMonedasBases> monedasBases = query.getResultList();
             return monedasBases;
         } catch (Exception e) {
-            log.error("Error buscarVigenciasMonedasBasesPorSecuenciaEmpresa  PersistenciaVigenciasMonedasBases : " + e.getMessage());
+            log.error("Error buscarVigenciasMonedasBasesPorSecuenciaEmpresa  PersistenciaVigenciasMonedasBases :  ", e);
             List<VigenciasMonedasBases> monedasBases = null;
             return monedasBases;
         }

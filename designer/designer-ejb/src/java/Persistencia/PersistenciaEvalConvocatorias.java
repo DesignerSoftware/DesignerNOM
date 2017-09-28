@@ -33,7 +33,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          em.merge(evalconvocatoria);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalConvocatorias.crear: " + e);
+         log.error("Error PersistenciaEvalConvocatorias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +49,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          em.merge(evalconvocatoria);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalConvocatorias.editar: " + e);
+         log.error("Error PersistenciaEvalConvocatorias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +69,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEvalConvocatorias.borrar: " + e);
+         log.error("Error PersistenciaEvalConvocatorias.borrar:  ", e);
       }
    }
 
@@ -84,7 +84,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          List<Evalconvocatorias> evalconvocatorias = query.getResultList();
          return evalconvocatorias;
       } catch (Exception e) {
-         log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
+         log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR:  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
          List<Evalconvocatorias> evalConvocatorias = query.getResultList();
          return evalConvocatorias;
       } catch (Exception e) {
-         log.error("Error Persistencia.PersistenciaEvalConvocatorias.consultarEvalConvocatorias(): " + e);
+         log.error("Error Persistencia.PersistenciaEvalConvocatorias.consultarEvalConvocatorias():  ", e);
          return null;
       }
    }

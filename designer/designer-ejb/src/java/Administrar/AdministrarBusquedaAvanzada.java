@@ -1448,7 +1448,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
    @Override
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados) {
       try {
-         log.warn("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigo()");
+         log.warn("AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigo()");
          List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigo(getEm(), listaCodigosEmpleados);
          return retorno;
       } catch (Exception e) {
@@ -1460,7 +1460,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
    @Override
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos(List<BigInteger> listaCodigosEmpleados, List<String> campos) {
       try {
-         log.warn("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         log.warn("AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
          List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(getEm(), listaCodigosEmpleados, campos);
          return retorno;
       } catch (Exception e) {
@@ -1474,7 +1474,7 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       try {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
          List<Parametros> lista = persistenciaParametros.empleadosParametros(getEm(), usuarioBD);
-         log.warn("Administrar.AdministrarBusquedaAvanzada.empleadosParametros() Ya consulto");
+         log.warn("AdministrarBusquedaAvanzada.empleadosParametros() Ya consulto");
          if (lista != null) {
             log.warn("lista.size() : " + lista.size());
          }

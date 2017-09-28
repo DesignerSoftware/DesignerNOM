@@ -31,7 +31,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          em.merge(tiposTrabajadores);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposTrabajadores.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposTrabajadores.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -47,7 +47,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          em.merge(tiposTrabajadores);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposTrabajadores.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposTrabajadores.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -63,7 +63,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          em.remove(em.merge(tiposTrabajadores));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposTrabajadores.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposTrabajadores.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -79,7 +79,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          List<TiposTrabajadores> tipoTLista = query.getResultList();
          return tipoTLista;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposTrabajadores.buscarTiposTrabajadores()" + e.getMessage());
+         log.error("PersistenciaTiposTrabajadores.buscarTiposTrabajadores():  ", e);
          return null;
       }
    }
@@ -94,7 +94,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          TiposTrabajadores tipoT = (TiposTrabajadores) query.getSingleResult();
          return tipoT;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposTrabajadores.buscarTipoTrabajadorSecuencia()" + e.getMessage());
+         log.error("PersistenciaTiposTrabajadores.buscarTipoTrabajadorSecuencia():  ", e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          String retorno = (String) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Error plantillaValidarTipoTrabajadorReformaLaboral PersistenciaTiposTrabajadores : " + e.getMessage());
+         log.error("Error plantillaValidarTipoTrabajadorReformaLaboral PersistenciaTiposTrabajadores :  ", e);
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          String retorno = (String) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Error plantillaValidarTipoTrabajadorTipoSueldo PersistenciaTiposTrabajadores : " + e.getMessage());
+         log.error("Error plantillaValidarTipoTrabajadorTipoSueldo PersistenciaTiposTrabajadores :  ", e);
          return null;
       }
    }
@@ -142,7 +142,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          String retorno = (String) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Error plantillaValidarTipoTrabajadorTipoContrato PersistenciaTiposTrabajadores : " + e.getMessage());
+         log.error("Error plantillaValidarTipoTrabajadorTipoContrato PersistenciaTiposTrabajadores :  ", e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          String retorno = (String) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Error plantillaValidarTipoTrabajadorContrato PersistenciaTiposTrabajadores : " + e.getMessage());
+         log.error("Error plantillaValidarTipoTrabajadorContrato PersistenciaTiposTrabajadores :  ", e);
          return null;
       }
    }
@@ -174,7 +174,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          String retorno = (String) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Error plantillaValidarTipoTrabajadorNormaLaboral PersistenciaTiposTrabajadores : " + e.getMessage());
+         log.error("Error plantillaValidarTipoTrabajadorNormaLaboral PersistenciaTiposTrabajadores :  ", e);
          return null;
       }
    }
@@ -189,7 +189,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          TiposTrabajadores tipoTC = (TiposTrabajadores) query.getSingleResult();
          return tipoTC;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort()" + e.getMessage());
+         log.error("PersistenciaTiposTrabajadores.buscarTipoTrabajadorCodigoTiposhort():  ", e);
          return null;
       }
    }
@@ -218,7 +218,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("PersistenciaTiposTrabajadores.clonarTipoT() ERROR : " + e.getMessage());
+         log.error("PersistenciaTiposTrabajadores.clonarTipoT() ERROR :  ", e);
          return ("ERROR PersistenciaTiposTrabajadores.clonarTipoT()");
       }
    }
@@ -245,7 +245,7 @@ public class PersistenciaTiposTrabajadores implements PersistenciaTiposTrabajado
             return false;
          }
       } catch (Exception e) {
-         log.error("PersistenciaTiposTrabajadores.hayRegistrosSecundarios()" + e.getMessage());
+         log.error("PersistenciaTiposTrabajadores.hayRegistrosSecundarios():  ", e);
          return false;
       }
    }

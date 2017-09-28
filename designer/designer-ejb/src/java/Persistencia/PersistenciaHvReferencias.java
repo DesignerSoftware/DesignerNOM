@@ -43,7 +43,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          em.merge(hvReferencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHvReferencias.crear: " + e);
+         log.error("Error PersistenciaHvReferencias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          em.merge(hvReferencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHvReferencias.editar: " + e);
+         log.error("Error PersistenciaHvReferencias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -79,7 +79,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaHvReferencias.borrar: " + e);
+         log.error("Error PersistenciaHvReferencias.borrar:  ", e);
       }
    }
 
@@ -105,7 +105,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          }
          return listHvReferencias;
       } catch (Exception e) {
-         log.error("Error en Persistencia Vigencias Normas Empleados " + e);
+         log.error("Error en Persistencia Vigencias Normas Empleados  ", e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
+         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona ", e);
          return null;
       }
    }
@@ -143,7 +143,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
          return hvHojasDeVIda;
       } catch (Exception e) {
-         log.error("Error en Persistencia HVREFERENCIAS buscarHvHojaDeVidaPorPersona " + e);
+         log.error("Error en Persistencia HVREFERENCIAS buscarHvHojaDeVidaPorPersona  ", e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          List<HvReferencias> listHvReferencias = query.getResultList();
          return listHvReferencias;
       } catch (Exception e) {
-         log.error("Error en Persistencia HvRefencias 1  " + e);
+         log.error("Error en Persistencia HvRefencias 1   ", e);
          return null;
       }
    }
@@ -169,7 +169,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          em.clear();
          return em.find(HvReferencias.class, secHvReferencias);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaHvReferencias.buscarHvReferencia() e: " + e);
+         log.error("PersistenciaHvReferencias.buscarHvReferencia() e:  ", e);
          return null;
       }
    }
@@ -191,7 +191,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
+         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona ", e);
          return null;
       }
    }
@@ -215,9 +215,9 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          return referenciaF;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaHvReferencias.primeraReferenciaFamiliar() e: " + e);
+            log.trace("PersistenciaHvReferencias.primeraReferenciaFamiliar() e: " + e);
          } else {
-            log.error("Persistencia.PersistenciaHvReferencias.primeraReferenciaFamiliar() e: " + e);
+            log.error("PersistenciaHvReferencias.primeraReferenciaFamiliar() e:  ", e);
          }
          return "";
       }
@@ -243,9 +243,9 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
          return referenciaP;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaHvReferencias.primeraReferenciaPersonal() e: " + e);
+            log.trace("PersistenciaHvReferencias.primeraReferenciaPersonal() e:  ", e);
          } else {
-            log.error("Persistencia.PersistenciaHvReferencias.primeraReferenciaPersonal() e: " + e);
+            log.error("PersistenciaHvReferencias.primeraReferenciaPersonal() e:  ", e);
          }
          return "";
       }

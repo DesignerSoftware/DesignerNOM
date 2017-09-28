@@ -37,7 +37,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          em.merge(formasDtos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormasDtos.crear: " + e);
+         log.error("Error PersistenciaFormasDtos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +53,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          em.merge(formasDtos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormasDtos.editar: " + e);
+         log.error("Error PersistenciaFormasDtos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +70,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaFormasDtos.borrar: " + e);
+         log.error("Error PersistenciaFormasDtos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaFormasDtos implements PersistenciaFormasDtosInterface {
          List<FormasDtos> formasDtosResult = new ArrayList<FormasDtos>(formasDtos);
          return formasDtosResult;
       } catch (Exception e) {
-         log.error("Error: (FormasDtos)" + e);
+         log.error("Error: (FormasDtos) ", e);
          return null;
       }
    }

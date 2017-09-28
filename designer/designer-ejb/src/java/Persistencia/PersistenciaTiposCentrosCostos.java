@@ -28,7 +28,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.merge(TiposCentrosCostos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposCentrosCostos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposCentrosCostos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.merge(TiposCentrosCostos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposCentrosCostos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposCentrosCostos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.remove(em.merge(TiposCentrosCostos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposCentrosCostos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposCentrosCostos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             em.clear();
             return em.find(TiposCentrosCostos.class, secuencia);
         } catch (Exception e) {
-            log.error("ERROR PersistenciaTiposCentosCostos buscarTiposCentrosCostos ERROR " + e.getMessage());
+            log.error("ERROR PersistenciaTiposCentosCostos buscarTiposCentrosCostos ERROR  ", e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             cq.select(cq.from(TiposCentrosCostos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("\n ERROR EN PersistenciaTiposCentrosCostos buscarTiposCentrosCostos ERROR" + e.getMessage());
+            log.error("\n ERROR EN PersistenciaTiposCentrosCostos buscarTiposCentrosCostos ERROR ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             retorno = new BigInteger(query.getSingleResult().toString());
         } catch (Exception e) {
-            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :  ", e);
         } finally {
             return retorno;
         }
@@ -118,7 +118,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             retorno = new BigInteger(query.getSingleResult().toString());
 
         } catch (Exception e) {
-            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :  ", e);
         } finally {
             return retorno;
         }
@@ -135,7 +135,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaTiposCentrosCostos verificarBorrado ERROR :  ", e);
         } finally {
             return retorno;
         }

@@ -30,7 +30,7 @@ public class PersistenciaEersFlujos implements PersistenciaEersFlujosInterface {
             List<EersFlujos> eersCabeceras = query.getResultList();
             return eersCabeceras;
         } catch (Exception e) {
-            log.error("Error buscarEersFlujosPorEersCabecera PersistenciaEersFlujos " + e.toString());
+            log.error("Error buscarEersFlujosPorEersCabecera PersistenciaEersFlujos  ", e);
             return null;
         }
     }

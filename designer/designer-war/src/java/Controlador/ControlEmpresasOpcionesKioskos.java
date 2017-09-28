@@ -124,7 +124,7 @@ public class ControlEmpresasOpcionesKioskos implements Serializable {
          administrarEmpresas.obtenerConexion(ses.getId());
          administrarOK.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

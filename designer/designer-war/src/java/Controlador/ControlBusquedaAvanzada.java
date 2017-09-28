@@ -800,7 +800,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarBusquedaAvanzada.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -2954,7 +2954,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public void cargueQueryModuloNomina() {
-      log.info("Controlador.ControlBusquedaAvanzada.cargueQueryModuloNomina()");
+      log.info("ControlBusquedaAvanzada.cargueQueryModuloNomina()");
       cargueParametrosModuloCargo();
       cargueParametrosModuloCentroCosto();
       cargueParametrosModuloSueldo();
@@ -3881,7 +3881,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public ResultadoBusquedaAvanzada primerResultado() {
-      log.info("Controlador.ControlBusquedaAvanzada.primerResultado()");
+      log.info("ControlBusquedaAvanzada.primerResultado()");
       ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
       if (listaResultadoBusqueda != null) {
          if (!listaResultadoBusqueda.isEmpty()) {
@@ -3920,7 +3920,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                      resultado.setColumna9(resultado2.getColumna9());
                   }
                } catch (Exception e) {
-                  log.info("Entro al catch1() e : " + e);
+                  log.info("Entro al catch1() e :  ", e);
                }
             }
             if (listaResultadoBusqueda.size() > 2) {
@@ -3957,7 +3957,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                      resultado.setColumna9(resultado2.getColumna9());
                   }
                } catch (Exception e) {
-                  log.info("Entro al catch1() e : " + e);
+                  log.info("Entro al catch1() e :  ", e);
                }
             }
 
@@ -4026,7 +4026,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                   totalAncho = totalAncho + calcularAncho(resultado.getColumna9().length());
                }
             } catch (Exception e) {
-               log.info("Entro al catch2() e : " + e);
+               log.info("Entro al catch2() e :  ", e);
             }
             log.info("totalAncho : " + totalAncho);
             anchoTablaResultados = totalAncho + "px";
@@ -4140,7 +4140,7 @@ public class ControlBusquedaAvanzada implements Serializable {
       int k = 0;
       BigInteger l;
       List<Parametros> listaCrearParametros = new ArrayList<Parametros>();
-      log.info("Controlador.ControlBusquedaAvanzada.añadirEmpleadosParametros() Va a entrar al primer try{}");
+      log.info("ControlBusquedaAvanzada.añadirEmpleadosParametros() Va a entrar al primer try{}");
       try {
          for (int i = 0; i < listaEmpleados.size(); i++) {
             k++;
@@ -4156,7 +4156,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             listaCrearParametros.add(parametro);
          }
       } catch (Exception e) {
-         log.warn("Error añadirEmpleadosParametros() llenando listaCrearParametros e: " + e);
+         log.warn("Error añadirEmpleadosParametros() llenando listaCrearParametros e:  ", e);
          RequestContext.getCurrentInstance().execute("PF('errorCreandoParametros').show()");
       }
       if (!listaCrearParametros.isEmpty()) {
@@ -4177,7 +4177,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                }
             }
          } catch (Exception e) {
-            log.warn("Error añadirEmpleadosParametros() añadiemdo datos a listaCrearParametros e: " + e);
+            log.warn("Error añadirEmpleadosParametros() añadiemdo datos a listaCrearParametros e:  ", e);
             RequestContext.getCurrentInstance().execute("PF('errorCreandoParametros').show()");
          }
          administrarBusquedaAvanzada.crearParametros(listaCrearParametros);

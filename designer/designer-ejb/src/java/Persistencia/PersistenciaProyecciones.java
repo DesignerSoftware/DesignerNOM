@@ -37,7 +37,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             em.persist(proyectos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaProyecciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaProyecciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             em.merge(proyectos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaProyecciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaProyecciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +67,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             em.remove(em.merge(proyectos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaProyecciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaProyecciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaProyecciones implements PersistenciaProyeccionesInterfa
             lista = query.getResultList();
         } catch (Exception e) {
             lista = null;
-            log.error("PersistenciaProyecciones consultarProyecciones ERROR : " + e.getMessage());
+            log.error("PersistenciaProyecciones consultarProyecciones ERROR :  ", e);
         }
         return lista;
     }

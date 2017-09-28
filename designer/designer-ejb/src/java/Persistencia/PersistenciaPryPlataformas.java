@@ -39,7 +39,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.merge(plataformas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryPlataformas.crear: " + e.getMessage());
+            log.error("Error PersistenciaPryPlataformas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.merge(plataformas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryPlataformas.editar: " + e.getMessage());
+            log.error("Error PersistenciaPryPlataformas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.remove(em.merge(plataformas));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryPlataformas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPryPlataformas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             List<PryPlataformas> plataformas = (List<PryPlataformas>) query.getResultList();
             return plataformas;
         } catch (Exception e) {
-            log.error("Error buscarPryPlataformas PersistenciaPryPlataformas : " + e.getMessage());
+            log.error("Error buscarPryPlataformas PersistenciaPryPlataformas :  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             PryPlataformas plataformas = (PryPlataformas) query.getSingleResult();
             return plataformas;
         } catch (Exception e) {
-            log.error("Error buscarPryPlataformaSecuencia PersistenciaPryPlataformas : " + e.toString());
+            log.error("Error buscarPryPlataformaSecuencia PersistenciaPryPlataformas :  ", e);
             PryPlataformas plataformas = null;
             return plataformas;
         }
@@ -119,7 +119,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             log.warn("Contador contadorProyectos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos. " + e.getMessage());
+            log.error("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos.  ", e);
             return retorno;
         }
     }

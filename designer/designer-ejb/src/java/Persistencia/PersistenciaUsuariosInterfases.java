@@ -25,7 +25,7 @@ public class PersistenciaUsuariosInterfases implements PersistenciaUsuariosInter
             UsuariosInterfases usuario = (UsuariosInterfases) query.getSingleResult();
             return usuario;
         } catch (Exception e) {
-            log.error("Error obtenerUsuarioInterfaseContabilidad PersistenciaUsuariosInterfases : " + e.getMessage());
+            log.error("Error obtenerUsuarioInterfaseContabilidad PersistenciaUsuariosInterfases :  ", e);
             return null;
         }
     }

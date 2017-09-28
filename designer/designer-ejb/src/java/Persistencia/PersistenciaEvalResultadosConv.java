@@ -47,7 +47,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalResultadosConv.pruebasAplicadasPersona" + e);
+         log.error("Error PersistenciaEvalResultadosConv.pruebasAplicadasPersona ", e);
          return null;
       }
    }
@@ -61,7 +61,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
          em.merge(evalresconvocatoria);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalResultadosConv.crear: " + e);
+         log.error("Error PersistenciaEvalResultadosConv.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +77,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
          em.merge(evalresconvocatoria);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalResultadosConv.editar: " + e);
+         log.error("Error PersistenciaEvalResultadosConv.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -99,7 +99,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaEvalConvocatorias.borrar: " + e);
+            log.error("Error PersistenciaEvalConvocatorias.borrar:  ", e);
          }
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
          List<EvalResultadosConv> evalresconv = query.getResultList();
          return evalresconv;
       } catch (Exception e) {
-         log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
+         log.error("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR:  ", e);
          return null;
       }
    }
@@ -134,9 +134,9 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
          return pruebas;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada() " + e);
+            log.trace("PersistenciaEvalResultadosConv.primerPruebaAplicada() " + e);
          } else {
-            log.error("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada() " + e);
+            log.error("PersistenciaEvalResultadosConv.primerPruebaAplicada()  ", e);
          }
          return "";
       }

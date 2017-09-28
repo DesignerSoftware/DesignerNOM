@@ -107,7 +107,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             administrarSoCondicionesAmbientalesP.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -646,7 +646,7 @@ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
                 verificarBorradoAccidentes = new BigInteger("-1");
             }
         } catch (Exception e) {
-            log.error("ERROR CLASES ACCIDENTES verificarBorrado ERROR " + e);
+            log.error("ERROR CLASES ACCIDENTES verificarBorrado ERROR  ", e);
         }
     }
 

@@ -24,9 +24,9 @@ public class PersistenciaVWActualesIBCS implements PersistenciaVWActualesIBCSInt
          return actualIbc;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
+            log.trace("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e);
          } else {
-            log.error("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
+            log.error("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado) ", e);
          }
          return null;
       }

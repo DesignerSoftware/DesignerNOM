@@ -30,7 +30,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          em.persist(contabilizaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaContabilizaciones.crear: " + e.toString());
+         log.error("Error PersistenciaContabilizaciones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +46,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          em.merge(contabilizaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaContabilizaciones.editar: " + e.toString());
+         log.error("Error PersistenciaContabilizaciones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          em.remove(em.merge(contabilizaciones));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaContabilizaciones.borrar: " + e.toString());
+         log.error("Error PersistenciaContabilizaciones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          List<Contabilizaciones> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("Error buscarContabilizaciones PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error buscarContabilizaciones PersistenciaContabilizaciones :  ", e);
          return null;
       }
    }
@@ -95,7 +95,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          Date fecha = (Date) query.getSingleResult();
          return fecha;
       } catch (Exception e) {
-         log.error("Error obtenerFechaMaximaContabilizaciones PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerFechaMaximaContabilizaciones PersistenciaContabilizaciones :  ", e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          Date fecha = (Date) query.getSingleResult();
          return fecha;
       } catch (Exception e) {
-         log.error("Error obtenerFechaMaximaContabilizacionesSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerFechaMaximaContabilizacionesSAPBOV8 PersistenciaContabilizaciones :  ", e);
          return null;
       }
    }
@@ -137,7 +137,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones :  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -168,7 +168,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error actualizarFlahInterconContableSAPBOV8 PersistenciaContabilizaciones :  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -195,7 +195,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             return conteo;
          }
       } catch (Exception e) {
-         log.error("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -222,7 +222,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             return conteo;
          }
       } catch (Exception e) {
-         log.error("Error obtenerContadorFlagGeneradoFechasTotal PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerContadorFlagGeneradoFechasTotal PersistenciaContabilizaciones :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -247,7 +247,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             return conteo;
          }
       } catch (Exception e) {
-         log.error("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones : " + e.toString());
+         log.error("Error obtenerContadorFlagCerradosFechasSAP PersistenciaContabilizaciones :  ", e);
          e.printStackTrace();
          return null;
       }

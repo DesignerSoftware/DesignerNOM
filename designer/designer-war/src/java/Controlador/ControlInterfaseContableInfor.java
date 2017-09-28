@@ -277,7 +277,7 @@ public class ControlInterfaseContableInfor implements Serializable {
             parametroContableActual = null;
             getParametroContableActual();
         } catch (Exception e) {
-            log.error("Error postconstruct ControlInterfaseContableSapBOV8: " + e);
+            log.error("Error postconstruct ControlInterfaseContableSapBOV8:  ", e);
             log.error("Causa: " + e.getCause());
         }
     }

@@ -29,7 +29,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          tx.commit();
          return true;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaVigenciasLocalizaciones.crear()" + e.getMessage());
+          log.error("PersistenciaVigenciasLocalizaciones.crear():  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          em.merge(vigenciasLocalizaciones);
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaVigenciasLocalizaciones.editar() " + e.getMessage());
+          log.error("PersistenciaVigenciasLocalizaciones.editar()  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          em.remove(em.merge(vigenciasLocalizaciones));
          tx.commit();
       } catch (Exception e) {
-         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("La vigencia no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          try {
             if (tx.isActive()) {
                tx.rollback();
@@ -81,7 +81,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          cq.select(cq.from(VigenciasLocalizaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarVigenciasLocalizaciones" + e.getMessage());
+         log.error("Error buscarVigenciasLocalizaciones ", e);
          return null;
       }
    }
@@ -96,7 +96,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          List<VigenciasLocalizaciones> vigenciasLocalizaciones = query.getResultList();
          return vigenciasLocalizaciones;
       } catch (Exception e) {
-         log.error("Error en Persistencia VigenciasLocalizaciones " + e.getMessage());
+         log.error("Error en Persistencia VigenciasLocalizaciones  ", e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          VigenciasLocalizaciones vigenciasLocalizaciones = (VigenciasLocalizaciones) query.getSingleResult();
          return vigenciasLocalizaciones;
       } catch (Exception e) {
-         log.error("Error buscarVigenciasLocalizacionesSecuencia Persistencia VigenciasLocalizaciones" + e.getMessage());
+         log.error("Error buscarVigenciasLocalizacionesSecuencia Persistencia VigenciasLocalizaciones ", e);
          return null;
       }
    }

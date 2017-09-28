@@ -242,10 +242,10 @@ public class ControlVigenciasCargos implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarVigArp.obtenerConexion(ses.getId());
          administarReportes.obtenerConexion(ses.getId());
-         log.info("Controlador.ControlVigenciasCargos.inicializarAdministrador()");
+         log.info("ControlVigenciasCargos.inicializarAdministrador()");
          buscarCookie();
       } catch (Exception e) {
-         log.error("Error postconstruct ControlVigenciasCargos: " + e);
+         log.error("Error postconstruct ControlVigenciasCargos:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1780,7 +1780,7 @@ public class ControlVigenciasCargos implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('paso3').hide();");
          RequestContext.getCurrentInstance().execute("PF('exito').show()");
       } catch (Exception e) {
-         log.info("ControlVigenciasCargos.crearVRiesgo() ERROR : " + e);
+         log.info("ControlVigenciasCargos.crearVRiesgo() ERROR :  ", e);
          RequestContext.getCurrentInstance().execute("PF('paso3').hide();");
          RequestContext.getCurrentInstance().execute("PF('ERRORRIESGO').show()");
       }

@@ -38,7 +38,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.merge(lugaresOcurrencias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
+            log.error("Error PersistenciaHistoriasformulas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.merge(lugaresOcurrencias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
+            log.error("Error PersistenciaHistoriasformulas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             tx.commit();
 
         } catch (Exception e) {
-        log.error("Error PersistenciaHistoriasformulas.borrar: " + e.getMessage());
+        log.error("Error PersistenciaHistoriasformulas.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -84,7 +84,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.clear();
             return em.find(LugaresOcurrencias.class, secuenciaLO);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
+            log.error("PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias():  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             List<LugaresOcurrencias> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
+            log.error("PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias():  ", e);
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES" + e.getMessage());
+            log.error("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES ", e);
             return retorno;
         }
     }

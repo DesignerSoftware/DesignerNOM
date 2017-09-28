@@ -37,7 +37,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
          em.merge(formulasAseguradas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulasContratosEntidades.crear: " + e);
+         log.error("Error PersistenciaFormulasContratosEntidades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFormulasContratosEntidades.editar: " + e);
+         log.error("Error PersistenciaFormulasContratosEntidades.editar:  ", e);
       }
    }
 
@@ -70,7 +70,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFormulasContratosEntidades.borrar: " + e);
+         log.error("Error PersistenciaFormulasContratosEntidades.borrar:  ", e);
       }
    }
 
@@ -82,7 +82,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
          List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasContratosEntidades ERROR : " + e);
+         log.error("Error consultarFormulasContratosEntidades ERROR :  ", e);
          return null;
       }
    }
@@ -96,7 +96,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
          List<FormulasContratosEntidades> formulasAseguradas = query.getResultList();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasContratosEntidadesPorFormulaContrato ERROR : " + e);
+         log.error("Error consultarFormulasContratosEntidadesPorFormulaContrato ERROR :  ", e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
          FormulasContratosEntidades formulasAseguradas = (FormulasContratosEntidades) query.getSingleResult();
          return formulasAseguradas;
       } catch (Exception e) {
-         log.error("Error consultarFormulasContratosEntidades " + e);
+         log.error("Error consultarFormulasContratosEntidades  ", e);
          FormulasContratosEntidades formulasAseguradas = null;
          return formulasAseguradas;
       }

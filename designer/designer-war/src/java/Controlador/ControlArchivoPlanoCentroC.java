@@ -165,7 +165,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          AdministrarArchivoPlanoCentroCosto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Error postconstruct CargarArchivoPlano:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -396,7 +396,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   BigInteger codEmpleado = new BigInteger(sEmpleado);
                   tNovedades.setCodigoEmpleado(codEmpleado);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codEmpleado : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codEmpleado :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -411,7 +411,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   BigInteger codCentroCosto = new BigInteger(sCentrocosto);
                   tNovedades.setCodigoCentrocosto(codCentroCosto);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codCentroCosto : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codCentroCosto :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -429,7 +429,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   Date fechaInicial = formato.parse(fechaIni);
                   tNovedades.setFechaInicial(fechaInicial);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaInicial : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaInicial :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -447,7 +447,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   Date fechaFinal = formato.parse(fechaFin);
                   tNovedades.setFechaFinal(fechaFinal);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaFinal : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando fechaFinal :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -462,7 +462,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   BigDecimal porcentaje = new BigDecimal(sPorcentaje);
                   tNovedades.setPorcentaje(porcentaje);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando porcentaje : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando porcentaje :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -477,7 +477,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   BigInteger codProyecto = new BigInteger(sProyecto);
                   tNovedades.setCodigoProyecto(codProyecto);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codProyecto : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando codProyecto :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -492,7 +492,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
                   BigDecimal subporcentaje = new BigDecimal(sSubPorcentaje);
                   tNovedades.setSubPorcentaje(subporcentaje);
                } catch (Exception e) {
-                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando subporcentaje : " + e);
+                  log.info("ControlArchivoPlanoCentroC.leerTxt() Error capturando subporcentaje :  ", e);
                   context.update("form:errorArchivo");
                   context.execute("PF('errorArchivo').show()");
                   break;
@@ -530,7 +530,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         log.warn("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt)  ", e);
       }
    }
 

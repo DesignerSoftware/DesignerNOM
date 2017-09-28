@@ -39,7 +39,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          em.persist(escalafones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEscalafones.crear: " + e);
+         log.error("Error PersistenciaEscalafones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          em.merge(escalafones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEscalafones.editar: " + e);
+         log.error("Error PersistenciaEscalafones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEscalafones.borrar: " + e);
+         log.error("Error PersistenciaEscalafones.borrar:  ", e);
       }
    }
 
@@ -87,7 +87,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          List<Escalafones> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("Error PersistenciaEscalafones buscarEscalafones : " + e.toString());
+         log.error("Error PersistenciaEscalafones buscarEscalafones :  ", e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class PersistenciaEscalafones implements PersistenciaEscalafonesInterface
          Escalafones escalafones = (Escalafones) query.getSingleResult();
          return escalafones;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEscalafones.buscarEscalafonSecuencia() e: " + e);
+         log.error("PersistenciaEscalafones.buscarEscalafonSecuencia() e:  ", e);
          return null;
       }
    }

@@ -157,7 +157,7 @@ public class ControlNormasLaborales implements Serializable {
             administrarNormasLaborales.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -397,7 +397,7 @@ public class ControlNormasLaborales implements Serializable {
             }
 
         } catch (Exception e) {
-            log.error("ERROR ControlNormasLaborales verificarBorrado ERROR " + e);
+            log.error("ERROR ControlNormasLaborales verificarBorrado ERROR  ", e);
         }
     }
 

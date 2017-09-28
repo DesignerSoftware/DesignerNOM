@@ -38,7 +38,7 @@ public class PersistenciaVigenciasConceptosTC implements PersistenciaVigenciasCo
             em.persist(vigenciasConceptosTC);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasConceptosTC.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasConceptosTC.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaVigenciasConceptosTC implements PersistenciaVigenciasCo
             em.merge(vigenciasConceptosTC);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasConceptosTC.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasConceptosTC.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaVigenciasConceptosTC implements PersistenciaVigenciasCo
             em.remove(em.merge(vigenciasConceptosTC));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasConceptosTC.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasConceptosTC.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaVigenciasConceptosTC implements PersistenciaVigenciasCo
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            log.error("Exepcion PersistenciaVigenciasConceptosTC: " + e.getMessage());
+            log.error("Exepcion PersistenciaVigenciasConceptosTC:  ", e);
             return false;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaVigenciasConceptosTC implements PersistenciaVigenciasCo
             List<VigenciasConceptosTC> resultado = (List<VigenciasConceptosTC>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            log.error("Exepcion listVigenciasConceptosTCPorConcepto PersistenciaVigenciasConceptosTC : " + e.getMessage());
+            log.error("Exepcion listVigenciasConceptosTCPorConcepto PersistenciaVigenciasConceptosTC :  ", e);
             return null;
         }
     }

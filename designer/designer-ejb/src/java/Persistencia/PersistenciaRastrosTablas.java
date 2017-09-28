@@ -39,7 +39,7 @@ public class PersistenciaRastrosTablas implements PersistenciaRastrosTablasInter
                 return false;
             }
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRastrosTablas.verificarRastroTabla()" + e.getMessage());
+            log.error("PersistenciaRastrosTablas.verificarRastroTabla():  ", e);
             return false;
         }
     }

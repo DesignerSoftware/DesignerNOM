@@ -34,7 +34,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             em.persist(aportesCorrecciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesCorrecciones.crear : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.crear :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             em.merge(aportesCorrecciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesCorrecciones.editar : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.editar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             em.remove(em.merge(aportesCorrecciones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesCorrecciones.borrar : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.borrar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             List<AportesCorrecciones> aportesCorrecciones = query.getResultList();
             return aportesCorrecciones;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesCorrecciones.consultarAportesEntidades : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.consultarAportesEntidades :  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             List<AportesCorrecciones> aportesCorrecciones = query.getResultList();
             return aportesCorrecciones;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesCorrecciones.consultarLovAportesEntidades : " + e.toString());
+            log.error("Error PersistenciaAportesCorrecciones.consultarLovAportesEntidades :  ", e);
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesCorrecciones.borrarAportesEntidadesProcesoAutomatico: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.borrarAportesEntidadesProcesoAutomatico:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -140,7 +140,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGInsertarCorreccion:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -163,7 +163,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGActualizarNovedadesCorreccion:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -186,7 +186,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesCorrecciones.ejecutarIncrementarCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarIncrementarCorreccion:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -209,7 +209,7 @@ public class PersistenciaAportesCorrecciones implements PersistenciaAportesCorre
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion: " + e.toString());
+            log.error("Error en PersistenciaAportesCorrecciones.ejecutarPKGIdentificaCorreccion:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

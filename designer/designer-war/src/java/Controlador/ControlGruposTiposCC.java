@@ -153,7 +153,7 @@ public class ControlGruposTiposCC implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarGrupos.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

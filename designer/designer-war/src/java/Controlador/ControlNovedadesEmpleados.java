@@ -269,7 +269,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          }
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

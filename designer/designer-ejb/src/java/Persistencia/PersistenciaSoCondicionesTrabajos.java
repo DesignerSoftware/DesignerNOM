@@ -39,7 +39,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          em.merge(soCondicionesTrabajos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoCondicionesTrabajos.crear: " + e.getMessage());
+         log.error("Error PersistenciaSoCondicionesTrabajos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          em.merge(soCondicionesTrabajos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoCondicionesTrabajos.editar: " + e.getMessage());
+         log.error("Error PersistenciaSoCondicionesTrabajos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          em.remove(em.merge(soCondicionesTrabajos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoCondicionesTrabajos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSoCondicionesTrabajos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,7 +84,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          em.clear();
          return em.find(SoCondicionesTrabajos.class, secuencia);
       } catch (Exception e) {
-         log.error("ERROR PERSISTENCIASOCONDICIONESTRABAJOS ERROR " + e.getMessage());
+         log.error("ERROR PERSISTENCIASOCONDICIONESTRABAJOS ERROR  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          List<SoCondicionesTrabajos> listaSOCondicionesTrabajos = query.getResultList();
          return listaSOCondicionesTrabajos;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSoCondicionesTrabajos.buscarSoCondicionesTrabajos()" + e.getMessage());
+         log.error("PersistenciaSoCondicionesTrabajos.buscarSoCondicionesTrabajos():  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorInspecciones. " + e.getMessage());
+         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorInspecciones.  ", e);
          return retorno;
       }
    }
@@ -130,7 +130,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoAccidentesMedicos. " + e.getMessage());
+         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoAccidentesMedicos.  ", e);
          return retorno;
       }
    }
@@ -146,7 +146,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoDetallesPanoramas. " + e.getMessage());
+         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoDetallesPanoramas.  ", e);
          return retorno;
       }
    }
@@ -162,7 +162,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
          retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoExposicionesFr. " + e.getMessage());
+         log.error("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoExposicionesFr.  ", e);
          return retorno;
       }
    }

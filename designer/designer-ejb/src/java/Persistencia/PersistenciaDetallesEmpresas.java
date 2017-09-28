@@ -46,7 +46,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          em.merge(detallesEmpresas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesEmpresas.crear: " + e);
+         log.error("Error PersistenciaDetallesEmpresas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          em.merge(detallesEmpresas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesEmpresas.editar: " + e);
+         log.error("Error PersistenciaDetallesEmpresas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -82,7 +82,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDetallesEmpresas.borrar: " + e);
+         log.error("Error PersistenciaDetallesEmpresas.borrar:  ", e);
       }
    }
 
@@ -139,7 +139,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          }
          return detalleEmpresa;
       } catch (Exception e) {
-         log.error("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. " + e.getMessage());
+         log.error("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa.  ", e);
          return null;
       }
    }
@@ -155,7 +155,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
          return detallesEmpresas;
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia. " + e.toString());
+         log.error("Error PersistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia.  ", e);
          return null;
       }
    }
@@ -224,7 +224,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          }
          return listaResultado;
       } catch (Exception e) {
-         log.error("Error PersistenciaDetallesEmpresas.buscarDetallesEmpresas : " + e.toString());
+         log.error("Error PersistenciaDetallesEmpresas.buscarDetallesEmpresas :  ", e);
          return null;
       }
    }
@@ -240,7 +240,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          TercerosSucursales tercerosArl = (TercerosSucursales) query.getSingleResult();
          return tercerosArl;
       } catch (Exception e) {
-         log.error("PersistenciaDetallesEmpresas ERROR buscarARLPorEmpresa() : " + e.toString());
+         log.error("PersistenciaDetallesEmpresas ERROR buscarARLPorEmpresa() :  ", e);
          return null;
       }
    }

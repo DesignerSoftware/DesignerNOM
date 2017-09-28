@@ -27,7 +27,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.merge(tiposJornadas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposJornadas.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposJornadas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.merge(tiposJornadas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposJornadas.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposJornadas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.remove(em.merge(tiposJornadas));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposJornadas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposJornadas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.clear();
             return em.find(TiposJornadas.class, secuencia);
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposJornadas buscarTipoJornada : " + e.getMessage());
+            log.error("Error PersistenciaTiposJornadas buscarTipoJornada :  ", e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             List<TiposJornadas> tiposJornadas = query.getResultList();
             return tiposJornadas;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposJornadas buscarTiposJornadas : " + e.getMessage());
+            log.error("Error PersistenciaTiposJornadas buscarTiposJornadas :  ", e);
             return null;
         }
     }

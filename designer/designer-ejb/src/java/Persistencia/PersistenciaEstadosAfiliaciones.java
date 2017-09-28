@@ -40,7 +40,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          em.merge(afiliaciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEstadosAfiliaciones.crear: " + e);
+         log.error("Error PersistenciaEstadosAfiliaciones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEstadosAfiliaciones.editar: " + e);
+         log.error("Error PersistenciaEstadosAfiliaciones.editar:  ", e);
       }
    }
 
@@ -78,7 +78,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaEstadosAfiliaciones.borrar: " + e);
+            log.error("Error PersistenciaEstadosAfiliaciones.borrar:  ", e);
          }
       }
    }
@@ -89,7 +89,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          em.clear();
          return em.find(EstadosAfiliaciones.class, secuencia);
       } catch (Exception e) {
-         log.error("Error buscarbanco persistencia bancos : " + e.toString());
+         log.error("Error buscarbanco persistencia bancos :  ", e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class PersistenciaEstadosAfiliaciones implements PersistenciaEstadosAfili
          cq.select(cq.from(EstadosAfiliaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarBancos persistencia bancos " + e);
+         log.error("Error buscarBancos persistencia bancos  ", e);
          return null;
       }
    }

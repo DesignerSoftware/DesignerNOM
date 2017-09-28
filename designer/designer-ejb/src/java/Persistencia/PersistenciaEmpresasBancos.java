@@ -54,11 +54,11 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
                   tx.rollback();
                }
             } catch (Exception ex) {
-               log.error("Error PersistenciaEmpresasBancos.crear: " + e);
+               log.error("Error PersistenciaEmpresasBancos.crear:  ", e);
             }
          }
       } catch (Exception e) {
-         log.error("Error crear PersistenciaEmpresasBancos : " + e.toString());
+         log.error("Error crear PersistenciaEmpresasBancos :  ", e);
       }
    }
 
@@ -81,11 +81,11 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
                   tx.rollback();
                }
             } catch (Exception ex) {
-               log.error("Error PersistenciaEmpresasBancos.editar: " + e);
+               log.error("Error PersistenciaEmpresasBancos.editar:  ", e);
             }
          }
       } catch (Exception e) {
-         log.error("Error editar PersistenciaEmpresasBancos : " + e.toString());
+         log.error("Error editar PersistenciaEmpresasBancos :  ", e);
       }
    }
 
@@ -100,7 +100,7 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEmpresasBancos.borrar: " + e);
+         log.error("Error PersistenciaEmpresasBancos.borrar:  ", e);
       }
    }
 
@@ -113,7 +113,7 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
          return listMotivosDemandas;
 
       } catch (Exception e) {
-         log.error("Error consultarEmpresasBancos PersistenciaEmpresasBancos : " + e.toString());
+         log.error("Error consultarEmpresasBancos PersistenciaEmpresasBancos :  ", e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class PersistenciaEmpresasBancos implements PersistenciaEmpresasBancosInt
          EmpresasBancos empresasBancos = (EmpresasBancos) query.getSingleResult();
          return empresasBancos;
       } catch (Exception e) {
-         log.error("Error PersistenciaEmpresasBancos consultarTipoCurso : " + e.toString());
+         log.error("Error PersistenciaEmpresasBancos consultarTipoCurso :  ", e);
          EmpresasBancos tiposEntidades = null;
          return tiposEntidades;
       }

@@ -27,7 +27,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAsociaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposAsociaciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAsociaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAsociaciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposAsociaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposAsociaciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             List<TiposAsociaciones> tiposAsociaciones = (List<TiposAsociaciones>) query.getResultList();
             return tiposAsociaciones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociaciones()" + e.getMessage());
+            log.error("PersistenciaTiposAsociaciones.buscarTiposAsociaciones():  ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             TiposAsociaciones tiposAsociaciones = (TiposAsociaciones) query.getSingleResult();
             return tiposAsociaciones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociacionesSecuencia()" + e.getMessage());
+            log.error("PersistenciaTiposAsociaciones.buscarTiposAsociacionesSecuencia():  ", e);
             return null;
         }
     }

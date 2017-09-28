@@ -52,7 +52,7 @@ public class PersistenciaConsultasLiquidaciones implements PersistenciaConsultas
          log.warn("PersistenciaConsultasLiquidaciones liquidacionesCerradas() retorna : " + listaLiquidacionesCerradas);
          return listaLiquidacionesCerradas;
       } catch (Exception e) {
-         log.error("Error PersistenciaConsultasLiquidaciones.liquidacionesCerradas. " + e);
+         log.error("Error PersistenciaConsultasLiquidaciones.liquidacionesCerradas.  ", e);
          e.printStackTrace();
          return null;
       }
@@ -77,7 +77,7 @@ public class PersistenciaConsultasLiquidaciones implements PersistenciaConsultas
          return listaLiquidacionesPreNomina;
       } catch (Exception e) {
          e.printStackTrace();
-         log.error("Error PersistenciaConsultasLiquidaciones.preNomina. " + e);
+         log.error("Error PersistenciaConsultasLiquidaciones.preNomina.  ", e);
          return null;
       }
    }

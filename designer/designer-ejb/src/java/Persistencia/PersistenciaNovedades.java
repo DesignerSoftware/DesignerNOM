@@ -40,7 +40,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedades.crear: " + e.getMessage());
+         log.error("Error PersistenciaNovedades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedades.editar: " + e.getMessage());
+         log.error("Error PersistenciaNovedades.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.remove(em.merge(novedades));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedades.borrar: " + e.getMessage());
+         log.error("Error PersistenciaNovedades.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -93,7 +93,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
             return null;
          }
       } catch (Exception e) {
-         log.error("Error buscarNovedad PersistenciaNovedades : " + e.toString());
+         log.error("Error buscarNovedad PersistenciaNovedades :  ", e);
          return null;
       }
    }
@@ -109,14 +109,14 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> listNovedades = query.getResultList();
          return listNovedades;
       } catch (Exception e) {
-         log.error("Error: (novedadesParaReversar)" + e.getMessage());
+         log.error("Error: (novedadesParaReversar) ", e);
          return null;
       }
    }
 
    @Override
    public List<Novedades> todasNovedadesEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
-      log.warn("Persistencia.PersistenciaNovedades.todasNovedadesEmpleado() secuenciaEmpleado : " + secuenciaEmpleado);
+      log.warn("PersistenciaNovedades.todasNovedadesEmpleado() secuenciaEmpleado : " + secuenciaEmpleado);
       try {
          em.clear();
 //            Query query = em.createQuery("SELECT n FROM Novedades n WHERE n.empleado.secuencia = :secuenciaEmpleado");
@@ -126,7 +126,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         log.error("Error: (todasNovedades)" + e.getMessage());
+         log.error("Error: (todasNovedades) ", e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         log.error("Error: (todasNovedadesConcepto)" + e.getMessage());
+         log.error("Error: (todasNovedadesConcepto) ", e);
          return null;
       }
    }
@@ -156,7 +156,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         log.error("Error: (todasNovedadesTercero)" + e.getMessage());
+         log.error("Error: (todasNovedadesTercero) ", e);
          return null;
       }
    }
@@ -172,7 +172,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          int rows = query.executeUpdate();
          return rows;
       } catch (Exception e) {
-         log.error("No se pudo borrar el registro. (reversarNovedades)" + e.getMessage());
+         log.error("No se pudo borrar el registro. (reversarNovedades) ", e);
          return 0;
       }
    }
@@ -188,7 +188,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedades.novedadesEmpleado" + e.getMessage());
+         log.error("Error PersistenciaNovedades.novedadesEmpleado ", e);
          return null;
       }
    }
@@ -231,7 +231,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          }
          return listaNovedades;
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
+         log.error("Error PersistenciaNovedades.novedadesConcepto ", e);
          return null;
       }
    }
@@ -280,7 +280,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          }
          return listaNovedades;
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
+         log.error("Error PersistenciaNovedades.novedadesConcepto ", e);
          return null;
       }
    }

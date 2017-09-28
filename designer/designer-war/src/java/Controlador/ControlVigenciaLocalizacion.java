@@ -264,7 +264,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
          administrarVigenciaLocalizacion.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -3521,7 +3521,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
       try {
          this.filtradoVL = filtrarVL;
       } catch (Exception e) {
-         log.info("Se estallo: " + e);
+         log.info("Se estallo:  ", e);
       }
    }
 

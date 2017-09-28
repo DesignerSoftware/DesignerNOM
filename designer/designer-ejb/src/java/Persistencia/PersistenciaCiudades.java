@@ -40,7 +40,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          em.merge(ciudades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCiudades.crear: " + e);
+         log.error("Error PersistenciaCiudades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          em.merge(ciudades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCiudades.editar: " + e);
+         log.error("Error PersistenciaCiudades.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaCiudades.borrar: " + e);
+            log.error("Error PersistenciaCiudades.borrar:  ", e);
          }
          return false;
       }
@@ -96,7 +96,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          }
          return ciudades;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaCiudades.consultarCiudades() e: " + e);
+         log.error("PersistenciaCiudades.consultarCiudades() e:  ", e);
          return new ArrayList<Ciudades>();
       }
    }
@@ -110,7 +110,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          List<Ciudades> ciudades = query.getResultList();
          return ciudades;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaCiudades.lovCiudades() e: " + e);
+         log.error("PersistenciaCiudades.lovCiudades() e:  ", e);
          return null;
       }
    }
@@ -125,7 +125,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          List<Ciudades> ciudades = query.getResultList();
          return ciudades;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaCiudades.consultarCiudadesPorDepto()" + e.getMessage());
+         log.error("PersistenciaCiudades.consultarCiudadesPorDepto():  ", e);
          return null;
       }
    }

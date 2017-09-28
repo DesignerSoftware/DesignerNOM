@@ -27,7 +27,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          em.persist(tEFormulasConceptos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTEFormulasConceptos.crear: " + e.getMessage());
+         log.error("Error PersistenciaTEFormulasConceptos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +43,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          em.merge(tEFormulasConceptos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTEFormulasConceptos.editar: " + e.getMessage());
+         log.error("Error PersistenciaTEFormulasConceptos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          em.remove(em.merge(tEFormulasConceptos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTEFormulasConceptos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTEFormulasConceptos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          List<TEFormulasConceptos> tEFormulasConceptos = (List<TEFormulasConceptos>) query.getResultList();
          return tEFormulasConceptos;
       } catch (Exception e) {
-         log.error("Error buscarTEFormulasConceptos PersistenciaTEFormulasConceptos : " + e.toString());
+         log.error("Error buscarTEFormulasConceptos PersistenciaTEFormulasConceptos :  ", e);
          return null;
       }
    }
@@ -90,7 +90,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          TEFormulasConceptos tEFormulasConceptos = (TEFormulasConceptos) query.getSingleResult();
          return tEFormulasConceptos;
       } catch (Exception e) {
-         log.error("Error buscarTEFormulaConceptoSecuencia PersistenciaTEFormulasConceptos : " + e.toString());
+         log.error("Error buscarTEFormulaConceptoSecuencia PersistenciaTEFormulasConceptos :  ", e);
          return null;
       }
    }
@@ -110,7 +110,7 @@ public class PersistenciaTEFormulasConceptos implements PersistenciaTEFormulasCo
          }
          return tEFormulasConceptos;
       } catch (Exception e) {
-         log.error("Error buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad PersistenciaTEFormulasConceptos : " + e.toString());
+         log.error("Error buscarTEFormulasConceptosPorSecuenciaTSGrupoTipoEntidad PersistenciaTEFormulasConceptos :  ", e);
          return null;
       }
    }

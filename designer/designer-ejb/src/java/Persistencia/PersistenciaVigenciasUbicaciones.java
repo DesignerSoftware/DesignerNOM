@@ -46,7 +46,7 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
             tx.commit();
             return true;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasUbicaciones.crear()" + e.getMessage());
+            log.error("PersistenciaVigenciasUbicaciones.crear():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +63,7 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
             em.merge(vigenciaUbicacion);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasUbicaciones.editar()" + e.getMessage());
+            log.error("PersistenciaVigenciasUbicaciones.editar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
             em.remove(em.merge(vigenciaUbicacion));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasUbicaciones.borrar()" + e.getMessage());
+            log.error("PersistenciaVigenciasUbicaciones.borrar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -92,7 +92,7 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
             em.clear();
             return em.find(VigenciasUbicaciones.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasUbicaciones.buscarVigenciaUbicacion()" + e.getMessage());
+            log.error("PersistenciaVigenciasUbicaciones.buscarVigenciaUbicacion():  ", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
             cq.select(cq.from(VigenciasUbicaciones.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasUbicaciones.buscarVigenciasUbicaciones()" + e.getMessage());
+            log.error("PersistenciaVigenciasUbicaciones.buscarVigenciasUbicaciones():  ", e);
             return null;
         }
     }
@@ -120,7 +120,7 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
             List<VigenciasUbicaciones> vigenciasUbicaciones = query.getResultList();
             return vigenciasUbicaciones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasUbicaciones.buscarVigenciaUbicacionesEmpleado()" + e.getMessage());
+            log.error("PersistenciaVigenciasUbicaciones.buscarVigenciaUbicacionesEmpleado():  ", e);
             return null;
         }
     }

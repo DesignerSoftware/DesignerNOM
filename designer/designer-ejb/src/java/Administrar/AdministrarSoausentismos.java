@@ -203,7 +203,7 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
    @Override
    public List<Empleados> lovEmpleados() {
       try {
-         log.warn("Administrar.AdministrarSoausentismos.lovEmpleados()");
+         log.warn("AdministrarSoausentismos.lovEmpleados()");
          return persistenciaEmpleados.buscarEmpleadosActivos(getEm());
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".lovEmpleados() ERROR: " + e);

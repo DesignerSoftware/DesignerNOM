@@ -39,7 +39,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.merge(motivosPrestamos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosPrestamos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosPrestamos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.merge(motivosPrestamos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosPrestamos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosPrestamos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.remove(em.merge(motivosPrestamos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosPrestamos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosPrestamos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -97,7 +97,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             List<MotivosPrestamos> listaMotivosPrestamos = query.getResultList();
             return listaMotivosPrestamos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosPrestamos.buscarMotivosPrestamos()" + e.getMessage());
+            log.error("PersistenciaMotivosPrestamos.buscarMotivosPrestamos():  ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

@@ -267,7 +267,7 @@ public class ControlParametroAutoliq implements Serializable {
             administrarRastros.obtenerConexion(ses.getId());
 
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -2798,7 +2798,7 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void actualizarAporteEntidad() {
-        System.out.println("Controlador.ControlParametroAutoliq.actualizarAporteEntidad()");
+        System.out.println("ControlParametroAutoliq.actualizarAporteEntidad()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (banderaAporte == 1) {
             desactivarFiltradoAporteEntidad();

@@ -192,7 +192,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             administrarNovedadAutoLiquidaciones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct ControlNovedadAutoLiquidacion: " + e);
+            log.error("Error postconstruct ControlNovedadAutoLiquidacion:  ", e);
             log.error("Causa: " + e.getCause());
         }
     }

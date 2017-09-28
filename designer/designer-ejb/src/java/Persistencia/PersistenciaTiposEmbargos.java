@@ -27,7 +27,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEmbargos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmbargos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEmbargos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmbargos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEmbargos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmbargos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.clear();
             return em.find(TiposEmbargos.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposEmbargos.buscarTipoEmbargo()" + e.getMessage());
+            log.error("PersistenciaTiposEmbargos.buscarTipoEmbargo():  ", e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             List<TiposEmbargos> listaMotivosPrestamos = query.getResultList();
             return listaMotivosPrestamos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposEmbargos.buscarTiposEmbargos()" + e.getMessage());
+            log.error("PersistenciaTiposEmbargos.buscarTiposEmbargos():  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposEmbargos.contadorEerPrestamos()" + e.getMessage());
+            log.error("PersistenciaTiposEmbargos.contadorEerPrestamos():  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -119,7 +119,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposEmbargos.contadorFormasDtos()" + e.getMessage());
+            log.error("PersistenciaTiposEmbargos.contadorFormasDtos():  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

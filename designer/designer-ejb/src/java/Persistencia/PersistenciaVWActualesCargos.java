@@ -33,7 +33,11 @@ public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargo
          VWActualesCargos vwActualesCargos = (VWActualesCargos) query.getSingleResult();
          return vwActualesCargos;
       } catch (Exception e) {
-         log.error("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado " + e.getMessage());
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado " + e);
+         } else {
+            log.error("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado  ", e);
+         }
          return null;
       }
    }
@@ -48,7 +52,7 @@ public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargo
          BigInteger conteo = (BigInteger) query.getSingleResult();
          return conteo.longValue();
       } catch (Exception e) {
-         log.error("Error conteoCodigosEmpleados PersistenciaVWActualesCargos: " + e.getMessage());
+         log.error("Error conteoCodigosEmpleados PersistenciaVWActualesCargos:  ", e);
          return null;
       }
    }

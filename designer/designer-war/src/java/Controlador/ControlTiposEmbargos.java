@@ -103,7 +103,7 @@ public class ControlTiposEmbargos implements Serializable {
          administrarTiposEmbargos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -423,7 +423,7 @@ public class ControlTiposEmbargos implements Serializable {
             borrandoTiposEmbargos();
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
       }
    }
 

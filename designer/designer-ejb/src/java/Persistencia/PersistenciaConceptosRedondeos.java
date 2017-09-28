@@ -37,7 +37,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          return em.createNativeQuery("SELECT CR.* FROM CONCEPTOSREDONDEOS CR, CONCEPTOS C\n"
                  + "WHERE CR.CONCEPTO = C.SECUENCIA", ConceptosRedondeos.class).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarConceptosRedondeos PersistenciaConceptosRedondeos : " + e.toString());
+         log.error("Error buscarConceptosRedondeos PersistenciaConceptosRedondeos :  ", e);
          return null;
       }
    }
@@ -51,7 +51,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          em.merge(conceptosRedondeos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosRedondeos.crear: " + e);
+         log.error("Error PersistenciaConceptosRedondeos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +67,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          em.merge(conceptosRedondeos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosRedondeos.crear: " + e);
+         log.error("Error PersistenciaConceptosRedondeos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -86,7 +86,7 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaConceptosRedondeos.borrar: " + e);
+         log.error("Error PersistenciaConceptosRedondeos.borrar:  ", e);
       }
    }
 

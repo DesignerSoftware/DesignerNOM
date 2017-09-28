@@ -39,7 +39,7 @@ public class PersistenciaClasesCategorias implements PersistenciaClasesCategoria
          em.merge(clasesCategorias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesCategorias.crear: " + e);
+         log.error("Error PersistenciaClasesCategorias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaClasesCategorias implements PersistenciaClasesCategoria
          em.merge(clasesCategorias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesCategorias.editar: " + e);
+         log.error("Error PersistenciaClasesCategorias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaClasesCategorias implements PersistenciaClasesCategoria
          em.remove(em.merge(clasesCategorias));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesCategorias.borrar: " + e);
+         log.error("Error PersistenciaClasesCategorias.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -87,7 +87,7 @@ public class PersistenciaClasesCategorias implements PersistenciaClasesCategoria
          List<ClasesCategorias> clasesCategorias = query.getResultList();
          return clasesCategorias;
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposDias buscarTiposDias : " + e.toString());
+         log.error("Error PersistenciaTiposDias buscarTiposDias :  ", e);
          return null;
       }
    }
@@ -118,7 +118,7 @@ public class PersistenciaClasesCategorias implements PersistenciaClasesCategoria
          log.error("Contador PersistenciaClasesCategorias contarCategoriasClaseCategoria Retorno " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesCategorias contarCategoriasClaseCategoria ERROR : " + e);
+         log.error("Error PersistenciaClasesCategorias contarCategoriasClaseCategoria ERROR :  ", e);
          return retorno;
       }
    }

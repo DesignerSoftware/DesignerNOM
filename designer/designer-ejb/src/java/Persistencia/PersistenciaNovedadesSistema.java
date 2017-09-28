@@ -40,7 +40,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
 //    private EntityManager em;
    @Override
    public void crear(EntityManager em, NovedadesSistema novedades) {
-      log.warn("Persistencia.PersistenciaNovedadesSistema.crear()");
+      log.warn("PersistenciaNovedadesSistema.crear()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -48,7 +48,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedadesSistema.crear: " + e.getMessage());
+         log.error("Error PersistenciaNovedadesSistema.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -64,7 +64,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedadesSistema.editar: " + e.getMessage());
+         log.error("Error PersistenciaNovedadesSistema.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -80,7 +80,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          em.remove(em.merge(novedades));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaNovedadesSistema.borrar: " + e.getMessage());
+         log.error("Error PersistenciaNovedadesSistema.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -97,7 +97,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          List<NovedadesSistema> novedadesSistema = query.getResultList();
          return novedadesSistema;
       } catch (Exception e) {
-         log.error("Error: (novedadesEmpleado)" + e.getMessage());
+         log.error("Error: (novedadesEmpleado) ", e);
          return null;
       }
    }
@@ -119,7 +119,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
             return novedadesSistema;
          }
       } catch (Exception e) {
-         log.error("Error: (novedadesEmpleadoCesantias)" + e.getMessage());
+         log.error("Error: (novedadesEmpleadoCesantias) ", e);
          return null;
       }
    }
@@ -142,7 +142,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
             return novedadesSistema;
          }
       } catch (Exception e) {
-         log.error("Error: (novedadesEmpleado)" + e.getMessage());
+         log.error("Error: (novedadesEmpleado) ", e);
          return null;
       }
    }
@@ -159,7 +159,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             ultimaFechaDisfrute = (Date) query.getSingleResult();
          } catch (Exception e) {
-            log.error("Persistencia.PersistenciaNovedadesSistema.buscarEstadoVacaciones()" + e.getMessage());
+            log.error("PersistenciaNovedadesSistema.buscarEstadoVacaciones():  ", e);
             ultimaFechaDisfrute = null;
          }
          try {
@@ -172,7 +172,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
                fechaRegreso = null;
             }
          } catch (Exception e) {
-            log.error("Error: (buscarEstadoVacaciones) Fecha regreso ultimo disfrute \n" + e.getMessage());
+            log.error("Error: (buscarEstadoVacaciones) Fecha regreso ultimo disfrute \n ", e);
             fechaRegreso = null;
          }
 
@@ -184,7 +184,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
             return null;
          }
       } catch (Exception e) {
-         log.error("Error: (novedadesEmpleado)" + e.getMessage());
+         log.error("Error: (novedadesEmpleado) ", e);
          return null;
       }
    }
@@ -221,7 +221,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          query.setParameter(1, secuenciaEmpleado);
          valorcesantias = (BigDecimal) query.getSingleResult();
       } catch (Exception e) {
-         log.error("entró al catch Error: (valorCesantias)" + e.getMessage());
+         log.error("entró al catch Error: (valorCesantias) ", e);
          valorcesantias = BigDecimal.ZERO;
       }
       return valorcesantias;
@@ -258,7 +258,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          query.setParameter(1, secuenciaEmpleado);
          valorintcesantias = (BigDecimal) query.getSingleResult();
       } catch (Exception e) {
-         log.error("Error: (valorIntCesantias)" + e.getMessage());
+         log.error("Error: (valorIntCesantias) ", e);
          valorintcesantias = BigDecimal.ZERO;
       }
       return valorintcesantias;
@@ -294,7 +294,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          }
          return novedadesSistema;
       } catch (Exception e) {
-         log.error("Error: novedadsistemaPorEmpleadoYVacacion : " + e.getMessage());
+         log.error("Error: novedadsistemaPorEmpleadoYVacacion :  ", e);
          return null;
       }
    }
@@ -317,7 +317,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          log.warn("consultarValorTotalDetalleVacacion valorTotal : " + valorTotal);
          return valorTotal;
       } catch (Exception e) {
-         log.error("Error: consultarValorTotalDetalleVacacion : " + e.getMessage());
+         log.error("Error: consultarValorTotalDetalleVacacion :  ", e);
          return null;
       }
    }
@@ -358,7 +358,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          query.setParameter(11, unidadParteFraccion);
          query.execute();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".adicionaNovedadCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaNovedadCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -398,7 +398,7 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          query.setParameter(9, fechaCambioFinal);
          query.execute();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".undoAdicionaNovedadCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".undoAdicionaNovedadCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

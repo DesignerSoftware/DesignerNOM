@@ -41,7 +41,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             em.merge(escalafonesSalariales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEscalafonesSalariales.crear: " + e);
+            log.error("Error PersistenciaEscalafonesSalariales.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +57,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             em.merge(escalafonesSalariales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEscalafonesSalariales.editar: " + e);
+            log.error("Error PersistenciaEscalafonesSalariales.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaEscalafonesSalariales.borrar: " + e);
+            log.error("Error PersistenciaEscalafonesSalariales.borrar:  ", e);
         }
     }
 
@@ -98,7 +98,7 @@ public class PersistenciaEscalafonesSalariales implements PersistenciaEscalafone
             EscalafonesSalariales escalafonesSalariales = (EscalafonesSalariales) query.getSingleResult();
             return escalafonesSalariales;
         } catch (Exception e) {
-            log.error("Error buscarEscalafonSecuencia PersistenciaEscalafonesSalariales : "+e.toString());
+            log.error("Error buscarEscalafonSecuencia PersistenciaEscalafonesSalariales :  ", e);
             return null;
         }
     }

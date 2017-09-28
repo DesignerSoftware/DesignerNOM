@@ -30,7 +30,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             em.merge(interconDynamics);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.crear: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             em.merge(interconDynamics);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.editar: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             em.remove(em.merge(interconDynamics));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.borrar: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             InterconDynamics intercon = (InterconDynamics) query.getSingleResult();
             return intercon;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.buscarInterconDynamicSecuencia: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.buscarInterconDynamicSecuencia:  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             List<InterconDynamics> intercon = query.getResultList();
             return intercon;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.buscarInterconDynamicParametroContable: " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.buscarInterconDynamicParametroContable:  ", e);
             return null;
         }
     }
@@ -120,7 +120,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
                 return 0;
             }
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.contarProcesosContabilizadosInterconDynamics. " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.contarProcesosContabilizadosInterconDynamics.  ", e);
             return -1;
         }
     }
@@ -146,7 +146,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -175,7 +175,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion_PL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.cerrarProcesoContabilizacion_PL :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -199,7 +199,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -223,7 +223,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PACIFIC : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PACIFIC :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -247,7 +247,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PROLUB : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PROLUB :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -271,7 +271,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_VT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_VT :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -295,7 +295,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -319,7 +319,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_SX : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_SX :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -343,7 +343,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -367,7 +367,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_MAMUT :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -391,7 +391,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGCrearArchivoPlano_PL :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -410,7 +410,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGRecontabilizar : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGRecontabilizar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -448,7 +448,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.actualizarFlagContabilizacionDeshacerDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.actualizarFlagContabilizacionDeshacerDynamics :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -476,7 +476,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.deleteInterconDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.deleteInterconDynamics :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -515,7 +515,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.deleteInterconDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.deleteInterconDynamics :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -538,7 +538,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -561,7 +561,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS_PACIFIC : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_DYNAMICS_PACIFIC :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -584,7 +584,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -607,7 +607,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PLIN :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -630,7 +630,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_YV : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_YV :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -653,7 +653,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PROLUB : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.ejecutarPKGUbicarnuevointercon_PROLUB :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -677,7 +677,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.anularComprobantesCerrados : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.anularComprobantesCerrados :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -701,7 +701,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.anularComprobantesCerrados_PL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.anularComprobantesCerrados_PL :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -718,7 +718,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.obtenerFechaContabilizacionMaxInterconDynamics : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.obtenerFechaContabilizacionMaxInterconDynamics :  ", e);
             return null;
         }
     }
@@ -739,7 +739,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -762,7 +762,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.actionProcesarDatosDYNAMICSPL :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -782,7 +782,7 @@ public class PersistenciaInterconDynamics implements PersistenciaInterconDynamic
             tx.commit();
             return cargo;
         } catch (Exception e) {
-            log.error("Error PersistenciaInterconDynamics.obtenerCargoDYNAMICSVT : " + e.toString());
+            log.error("Error PersistenciaInterconDynamics.obtenerCargoDYNAMICSVT :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

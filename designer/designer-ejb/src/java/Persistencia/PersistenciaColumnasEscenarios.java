@@ -39,7 +39,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          List<ColumnasEscenarios> competenciascargos = query.getResultList();
          return competenciascargos;
       } catch (Exception e) {
-         log.error("Error buscarColumnasEscenarios PersistenciaColumnasEscenarios : " + e.toString());
+         log.error("Error buscarColumnasEscenarios PersistenciaColumnasEscenarios :  ", e);
          return null;
       }
    }
@@ -47,7 +47,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleado(EntityManager em, List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos) {
       try {
-         log.warn("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado()");
+         log.warn("PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado()");
          em.clear();
          List<ResultadoBusquedaAvanzada> registrosConDatos = new ArrayList<ResultadoBusquedaAvanzada>();
          for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
@@ -99,7 +99,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
                      registrosConDatos.get(j).setColumna9(valor);
                   }
                } catch (PersistenceException errorPersistence) {
-                  log.error("Error consultando Datos errorPersistence : " + errorPersistence);
+                  log.error("Error consultando Datos errorPersistence : ", errorPersistence);
                   if (j == 0) {
                      log.error("i : " + i + "   , campos.get(i) : " + campos.get(i));
                   }
@@ -107,9 +107,8 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
             }
          }
          return registrosConDatos;
-
       } catch (Exception e) {
-         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -124,7 +123,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigo(EntityManager em, List<BigInteger> listaEmpleadosResultados) {
       try {
-         log.warn("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
+         log.warn("PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
 
@@ -144,7 +143,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          return registroPrueba;
 
       } catch (Exception e) {
-         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte :  ", e);
          e.printStackTrace();
          return null;
       }
@@ -153,7 +152,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
    @Override
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(EntityManager em, List<BigInteger> listaEmpleadosResultados, List<String> campos) {
       try {
-         log.warn("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         log.warn("PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
          if (!campos.isEmpty()) {
@@ -215,7 +214,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
 
       } catch (Exception e) {
          e.printStackTrace();
-         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         log.error("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte :  ", e);
          return null;
       }
    }

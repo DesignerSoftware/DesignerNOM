@@ -33,7 +33,7 @@ public class PersistenciaVWEstadosExtras implements PersistenciaVWEstadosExtrasI
             List<VWEstadosExtras> vwEstadosExtras = query.getResultList();
             return vwEstadosExtras;
         } catch (Exception e) {
-            log.error("Error buscarVWEstadosExtras.buscarVWEstadosExtras " + e.getMessage());
+            log.error("Error buscarVWEstadosExtras.buscarVWEstadosExtras  ", e);
             return null;
         }
     }

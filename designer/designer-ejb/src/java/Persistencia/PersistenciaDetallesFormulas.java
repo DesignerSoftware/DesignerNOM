@@ -57,7 +57,7 @@ public class PersistenciaDetallesFormulas implements PersistenciaDetallesFormula
             List<DetallesFormulas> listaDetallesFormula = query.getResultList();
             return listaDetallesFormula;
         } catch (Exception e) {
-            log.error("Error PersistenciaDetallesFormulas.liquidacionesCerradas. " + e);
+            log.error("Error PersistenciaDetallesFormulas.liquidacionesCerradas.  ", e);
             return null;
         }
     }

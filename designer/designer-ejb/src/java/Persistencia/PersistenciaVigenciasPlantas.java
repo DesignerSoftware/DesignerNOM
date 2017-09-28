@@ -38,7 +38,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.merge(vigenciasPlantas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasPlantas.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.merge(vigenciasPlantas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasPlantas.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.remove(em.merge(vigenciasPlantas));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasPlantas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.clear();
             return em.find(VigenciasPlantas.class, secVigenciasPlantas);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciaPlanta()" + e.getMessage());
+            log.error("PersistenciaVigenciasPlantas.consultarVigenciaPlanta():  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
         List<VigenciasPlantas> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciasPlantas()" + e.getMessage());
+            log.error("PersistenciaVigenciasPlantas.consultarVigenciasPlantas():  ", e);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasPlantas  contarPlantasVigenciaPlanta ERROR. " + e.getMessage());
+            log.error("Error PersistenciaVigenciasPlantas  contarPlantasVigenciaPlanta ERROR.  ", e);
             return retorno;
         }
     }

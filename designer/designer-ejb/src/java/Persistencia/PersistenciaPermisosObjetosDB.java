@@ -29,7 +29,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosObjetosDB.crear: " + e.getMessage());
+            log.error("Error PersistenciaPermisosObjetosDB.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +45,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosObjetosDB.editar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosObjetosDB.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -61,7 +61,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             em.remove(em.merge(permisosp));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosObjetosDB.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosObjetosDB.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +78,7 @@ public class PersistenciaPermisosObjetosDB implements PersistenciaPermisosObjeto
             List<PermisosObjetosDB> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPermisosObjetosDB.consultarPermisosPorPerfil()" + e.getMessage());
+            log.error("PersistenciaPermisosObjetosDB.consultarPermisosPorPerfil():  ", e);
             return null;
         }
     }

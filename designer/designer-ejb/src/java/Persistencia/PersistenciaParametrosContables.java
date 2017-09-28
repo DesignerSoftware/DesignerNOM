@@ -27,7 +27,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             em.merge(parametrosContables);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosContables.crear: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             em.merge(parametrosContables);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosContables.editar: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             em.remove(em.merge(parametrosContables));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosContables.borrar: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaParametrosContables implements PersistenciaParametrosCo
             List<ParametrosContables> parametro =  query.getResultList();
             return parametro;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosContables.buscarParametroContable: " + e.toString());
+            log.error("Error PersistenciaParametrosContables.buscarParametroContable:  ", e);
             return null;
         }
     }

@@ -41,7 +41,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             em.merge(parametroEstructura);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosSueldos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +58,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             BigInteger secEmpresa = (BigInteger) query.getSingleResult();
             return secEmpresa;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
+            log.error("PersistenciaParametrosEstructuras.buscarEmpresaParametros():  ", e);
             return null;
         }
     }
@@ -73,7 +73,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             BigInteger secEmpresa = (BigInteger) query.getSingleResult();
             return secEmpresa;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
+            log.error("PersistenciaParametrosEstructuras.buscarEmpresaParametros():  ", e);
             return null;
         }
     }
@@ -96,7 +96,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
                 return null;
             }
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosEstructuras.estructurasComprobantes" + e.getMessage());
+            log.error("Error PersistenciaParametrosEstructuras.estructurasComprobantes ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("PersistenciaParametrosEstructuras.adicionarEmpleados: " + e.getMessage());
+            log.error("PersistenciaParametrosEstructuras.adicionarEmpleados:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -136,7 +136,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             Integer empeladosALiquidar = a.intValueExact();
             return empeladosALiquidar;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosEstructuras.empleadosParametrizados " + e.getMessage());
+            log.error("Error PersistenciaParametrosEstructuras.empleadosParametrizados  ", e);
             return null;
         }
     }
@@ -153,7 +153,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             Integer empeladosALiquidar = a.intValueExact();
             return empeladosALiquidar;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosEstructuras.diasDiferenciaFechas " + e.getMessage());
+            log.error("Error PersistenciaParametrosEstructuras.diasDiferenciaFechas  ", e);
             return null;
         }
     }

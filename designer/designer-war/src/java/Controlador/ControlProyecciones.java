@@ -160,7 +160,7 @@ public class ControlProyecciones implements Serializable {
          administrarProyecciones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -917,7 +917,7 @@ public class ControlProyecciones implements Serializable {
          RequestContext.getCurrentInstance().update("form:infoRegistroEmpleados");
          return listaEmpleados;
       } catch (Exception e) {
-         log.info("ERRO LISTA EMPRESAS " + e);
+         log.info("ERRO LISTA EMPRESAS  ", e);
          return null;
       }
    }

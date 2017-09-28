@@ -146,7 +146,7 @@ public class ControlNiveles implements Serializable {
             administrarNiveles.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -612,7 +612,7 @@ public class ControlNiveles implements Serializable {
 
             }
         } catch (Exception e) {
-            log.error("ERROR ControlNiveles verificarBorrado ERROR " + e);
+            log.error("ERROR ControlNiveles verificarBorrado ERROR  ", e);
         }
     }
 

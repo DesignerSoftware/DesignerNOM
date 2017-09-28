@@ -40,7 +40,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosMvrs.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosMvrs.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosMvrs.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosMvrs.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.remove(em.merge(motivosMvrs));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosMvrs.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosMvrs.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.clear();
             return em.find(Motivosmvrs.class, secuenciaMM);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
+            log.error("PersistenciaMotivosMvrs.buscarMotivosMvrs():  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
         List<Motivosmvrs> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
+            log.error("PersistenciaMotivosMvrs.buscarMotivosMvrs():  ", e);
             return null;
         }
     }

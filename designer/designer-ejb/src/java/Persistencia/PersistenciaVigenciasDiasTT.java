@@ -31,7 +31,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.persist(vigenciasDiasTT);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDiasTT.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDiasTT.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.merge(vigenciasDiasTT);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDiasTT.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDiasTT.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +63,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.remove(em.merge(vigenciasDiasTT));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasDiasTT.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasDiasTT.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             List<VigenciasDiasTT> listaVigenciasDiasTT = query.getResultList();
             return listaVigenciasDiasTT;
         } catch (Exception e) {
-            log.error("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
+            log.error("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes :  ", e);
             return null;
         }
     }

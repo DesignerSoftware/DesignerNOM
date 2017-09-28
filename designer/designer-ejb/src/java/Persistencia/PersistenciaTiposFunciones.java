@@ -31,7 +31,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          em.merge(tiposFunciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposFunciones.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposFunciones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -47,7 +47,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          em.merge(tiposFunciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposFunciones.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFunciones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -63,7 +63,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          em.remove(em.merge(tiposFunciones));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposFunciones.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFunciones.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +81,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
          List<TiposFunciones> tiposFuncionesResult = new ArrayList<TiposFunciones>(tiposFunciones);
          return tiposFuncionesResult;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposFunciones.tiposFunciones()" + e.getMessage());
+         log.error("PersistenciaTiposFunciones.tiposFunciones():  ", e);
          return null;
       }
    }

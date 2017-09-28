@@ -44,7 +44,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -63,7 +63,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          em.merge(comprobante);
          tx.commit();
       } catch (Exception e) {
-         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +81,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          em.remove(em.merge(comprobante));
          tx.commit();
       } catch (Exception e) {
-         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         log.error("El comprobante no exite o esta reservada por lo cual no puede ser modificada:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -113,7 +113,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          List<Comprobantes> listComprobantes = query.getResultList();
          return listComprobantes;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaComprobantes.comprobantesEmpleado)" + e);
+         log.error("Error: (PersistenciaComprobantes.comprobantesEmpleado) ", e);
          return null;
       }
    }
@@ -127,7 +127,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          BigInteger max = (BigInteger) query.getSingleResult();
          return max;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaComprobantes.numeroMaximoComprobante)" + e);
+         log.error("Error: (PersistenciaComprobantes.numeroMaximoComprobante) ", e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          BigDecimal valor = (BigDecimal) query.getSingleResult();
          return valor;
       } catch (Exception e) {
-         log.error("Error buscarValorNumeroMaximo PersistenciaComprobantes : " + e.toString());
+         log.error("Error buscarValorNumeroMaximo PersistenciaComprobantes :  ", e);
          return null;
       }
    }
@@ -156,7 +156,7 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          Comprobantes comprobante = (Comprobantes) query.getSingleResult();
          return comprobante;
       } catch (Exception e) {
-         log.error("Error buscarComprobanteParaPrimerRegistroEmpleado PersistenciaComprobantes : " + e.toString());
+         log.error("Error buscarComprobanteParaPrimerRegistroEmpleado PersistenciaComprobantes :  ", e);
          return null;
       }
    }

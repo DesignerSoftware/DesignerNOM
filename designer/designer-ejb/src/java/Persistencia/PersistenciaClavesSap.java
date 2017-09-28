@@ -34,7 +34,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          em.merge(clavesap);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClavesSap.crear: " + e);
+         log.error("Error PersistenciaClavesSap.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +49,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          em.merge(clavesap);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClavesSap.editar: " + e);
+         log.error("Error PersistenciaClavesSap.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +67,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaClavesSap.borrar: " + e);
+         log.error("Error PersistenciaClavesSap.borrar:  ", e);
       }
    }
 
@@ -95,7 +95,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          log.warn("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
+         log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap.  ", e);
          return retorno;
       }
    }
@@ -110,7 +110,7 @@ public class PersistenciaClavesSap implements PersistenciaClavesSapInterface {
          log.warn("Contador PersistenciaClavesSap  contarClavesContablesCreditoClaveSap  " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap. " + e);
+         log.error("Error PersistenciaClavesSap   contarClavesContablesCreditoClaveSap.  ", e);
          return retorno;
       }
    }

@@ -145,7 +145,7 @@ public class ControlMetodoPago implements Serializable {
          administrarMetodosPagos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -299,7 +299,7 @@ public class ControlMetodoPago implements Serializable {
             verificarVigenciasFormasPagos = new BigInteger("-1");
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposTallas verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposTallas verificarBorrado ERROR  ", e);
       }
    }
 

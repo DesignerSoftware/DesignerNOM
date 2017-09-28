@@ -38,7 +38,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             em.merge(sectoresEconomicos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSectoresEconomicos.crear: " + e.getMessage());
+            log.error("Error PersistenciaSectoresEconomicos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             em.merge(sectoresEconomicos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSectoresEconomicos.editar: " + e.getMessage());
+            log.error("Error PersistenciaSectoresEconomicos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             em.remove(em.merge(sectoresEconomicos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSectoresEconomicos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaSectoresEconomicos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             List<SectoresEconomicos> sectoresEconomicos = (List<SectoresEconomicos>) query.getResultList();
             return sectoresEconomicos;
         } catch (Exception e) {
-            log.error("Error buscarSectoresEconomicos PersistenciaSectoresEconomicos : "+e.toString());
+            log.error("Error buscarSectoresEconomicos PersistenciaSectoresEconomicos :  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             SectoresEconomicos sectoresEconomicos = (SectoresEconomicos) query.getSingleResult();
             return sectoresEconomicos;
         } catch (Exception e) {
-            log.error("Error buscarSectoresEconomicosSecuencia PersistenciaSectoresEconomicos : "+e.toString());
+            log.error("Error buscarSectoresEconomicosSecuencia PersistenciaSectoresEconomicos :  ", e);
             SectoresEconomicos sectoresEconomicos = null;
             return sectoresEconomicos;
         }
@@ -117,7 +117,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             List<SectoresEconomicos> sectoresEconomicos = (List<SectoresEconomicos>) query.getResultList();
             return sectoresEconomicos;
         } catch (Exception e) {
-            log.error("Error buscarSectoresEconomicosPorEmpresa PersistenciaSectoresEconomicos : "+e.toString());
+            log.error("Error buscarSectoresEconomicosPorEmpresa PersistenciaSectoresEconomicos :  ", e);
             return null;
         }
     }

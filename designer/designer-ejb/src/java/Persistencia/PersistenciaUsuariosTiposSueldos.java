@@ -32,7 +32,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosTiposSueldos.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             em.merge(usuariots);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosTiposSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             em.remove(em.merge(usuariots));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosTiposSueldos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaUsuariosTiposSueldos implements PersistenciaUsuariosTip
             List<UsuariosTiposSueldos> usuariosTS = query.getResultList();
             return usuariosTS;
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosTiposSueldos.buscarUsuariosTiposSueldos" + e.getMessage());
+            log.error("Error PersistenciaUsuariosTiposSueldos.buscarUsuariosTiposSueldos ", e);
             return null;
         }
     }

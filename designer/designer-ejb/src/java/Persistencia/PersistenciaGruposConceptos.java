@@ -40,7 +40,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          em.merge(gruposConceptos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          em.merge(gruposConceptos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar:  ", e);
       }
    }
 
@@ -88,7 +88,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          List<GruposConceptos> gruposConceptos = (List<GruposConceptos>) query.getResultList();
          return gruposConceptos;
       } catch (Exception e) {
-         log.error("error buscarGruposConceptos PersistenciaGruposConceptos " + e);
+         log.error("error buscarGruposConceptos PersistenciaGruposConceptos  ", e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class PersistenciaGruposConceptos implements PersistenciaGruposConceptosI
          return gruposConceptos;
       } catch (Exception e) {
          gruposConceptos = null;
-         log.error("Error buscarGruposConceptosSecuencia PersistenciaGruposConceptos " + e);
+         log.error("Error buscarGruposConceptosSecuencia PersistenciaGruposConceptos  ", e);
          return gruposConceptos;
       }
    }

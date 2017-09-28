@@ -34,7 +34,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             em.merge(usuarioF);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaUsuariosFiltros.crear()" + e.getMessage());
+            log.error("PersistenciaUsuariosFiltros.crear():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             em.merge(usuarioF);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaUsuariosFiltros.editar()" + e.getMessage());
+            log.error("PersistenciaUsuariosFiltros.editar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             em.remove(em.merge(usuarioF));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaUsuariosFiltros.borrar()" + e.getMessage());
+            log.error("PersistenciaUsuariosFiltros.borrar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             List<UsuariosFiltros> lista = query.getResultList();
             return lista;
         }catch(Exception e){
-            log.error("error PersistenciaUsuariosFiltros.consultarUsuariosFiltros()" + e.getMessage());
+            log.error("error PersistenciaUsuariosFiltros.consultarUsuariosFiltros():  ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             BigDecimal count = (BigDecimal) query.getSingleResult();
             return count;
         }catch(Exception e){
-            log.error("error PersistenciaUsuariosFiltros.contarUsuariosFiltros()" + e.getMessage());
+            log.error("error PersistenciaUsuariosFiltros.contarUsuariosFiltros():  ", e);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class PersistenciaUsuariosFiltros implements PersistenciaUsuariosFiltrosI
             tx.commit();
          }
       }catch(Exception e){
-          log.error("Error PersistenciaUsuariosFiltros.crearFiltroUsuario() : " + e.getMessage());
+          log.error("Error PersistenciaUsuariosFiltros.crearFiltroUsuario() :  ", e);
       }
     }
 

@@ -34,7 +34,7 @@ public class PersistenciaEersAuxilios implements PersistenciaEersAuxiliosInterfa
             List<EersAuxilios> listaAuxilios = query.getResultList();
             return listaAuxilios;
         } catch (Exception e) {
-            log.error("Exepcion en PersistenciaEersAuxilios.auxilios" + e);
+            log.error("Exepcion en PersistenciaEersAuxilios.auxilios:  ", e);
             return null;
         }
     }

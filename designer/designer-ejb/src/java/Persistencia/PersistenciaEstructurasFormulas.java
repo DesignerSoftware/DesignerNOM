@@ -53,7 +53,7 @@ public class PersistenciaEstructurasFormulas implements PersistenciaEstructurasF
             List<EstructurasFormulas> listaEstructurasFormulas = query.getResultList();
             return listaEstructurasFormulas;
         } catch (Exception e) {
-            log.error("Error PersistenciaEstructurasFormulas.estructurasFormulasParaHistoriaFormula. " + e.toString());
+            log.error("Error PersistenciaEstructurasFormulas.estructurasFormulasParaHistoriaFormula.  ", e);
             return null;
         }
     }

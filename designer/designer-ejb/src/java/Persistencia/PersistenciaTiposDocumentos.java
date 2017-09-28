@@ -41,7 +41,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             em.merge(tiposDocumentos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDocumentos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +57,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             em.merge(tiposDocumentos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDocumentos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             em.remove(em.merge(tiposDocumentos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDocumentos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -89,7 +89,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             List<TiposDocumentos> listaTiposDocumentos = query.getResultList();
             return listaTiposDocumentos;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos.ciudades " + e.getMessage());
+            log.error("Error PersistenciaTiposDocumentos.ciudades  ", e);
             return null;
         }
     }
@@ -104,7 +104,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             TiposDocumentos tiposDescansos = (TiposDocumentos) query.getSingleResult();
             return tiposDescansos;
         } catch (Exception e) {
-            log.error("Error buscarTiposDocumentosSecuencia PersistenciaTiposDocumentos" + e.getMessage());
+            log.error("Error buscarTiposDocumentosSecuencia PersistenciaTiposDocumentos ", e);
             return null;
         }
     }
@@ -120,7 +120,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento. " + e.getMessage());
+            log.error("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento.  ", e);
             return retorno;
         }
     }
@@ -136,7 +136,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento. " + e.getMessage());
+            log.error("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento.  ", e);
             return retorno;
         }
     }

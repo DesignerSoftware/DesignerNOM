@@ -33,7 +33,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             em.merge(resultados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaResultadosIndicesExternos.crear: " + e.getMessage());
+            log.error("Error PersistenciaResultadosIndicesExternos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             em.merge(resultados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaResultadosIndicesExternos.editar: " + e.getMessage());
+            log.error("Error PersistenciaResultadosIndicesExternos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaResultadosIndicesExternos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaResultadosIndicesExternos.borrar:  ", e);
         }
     }
 
@@ -82,7 +82,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             List<IndicesExternos> listIndicesExternos = query.getResultList();
             return listIndicesExternos;
         } catch (Exception e) {
-            log.error("Error buscarIndicesExternos PersistenciaResultadosIndicesExternos : " + e.toString());
+            log.error("Error buscarIndicesExternos PersistenciaResultadosIndicesExternos :  ", e);
             return null;
         }
     }
@@ -96,7 +96,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             List<ResultadosIndicesExternos> listResultadosIndicesExternos = query.getResultList();
             return listResultadosIndicesExternos;
         } catch (Exception e) {
-            log.error("Error buscarResultadosIndicesExternos PersistenciaResultadosIndicesExternos : " + e.toString());
+            log.error("Error buscarResultadosIndicesExternos PersistenciaResultadosIndicesExternos :  ", e);
             return null;
         }
     }

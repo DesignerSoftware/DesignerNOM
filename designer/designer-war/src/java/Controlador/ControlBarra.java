@@ -114,7 +114,7 @@ public class ControlBarra implements Serializable {
          administrarBarra.obtenerConexion(ses.getId());
          administarReportes.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

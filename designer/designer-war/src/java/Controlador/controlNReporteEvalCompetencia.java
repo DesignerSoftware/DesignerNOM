@@ -224,7 +224,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
          administrarNReporteEvalCompetencia.obtenerConexion(ses.getId());
          log.info(this.getClass().getName() + " fin de iniciarAdministradores()");
       } catch (Exception e) {
-         log.error("Error postconstruct controlNReporteEvalCompetencia" + e);
+         log.error("Error postconstruct controlNReporteEvalCompetencia ", e);
          log.info("Causa: " + e.getMessage());
       }
    }
@@ -805,7 +805,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void generandoReport() {
-      log.info("Controlador.controlNReporteEvalCompetencia.generandoReport()");
+      log.info("ControlNReporteEvalCompetencia.generandoReport()");
       RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
    }
 
@@ -923,7 +923,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void actualizarPlanilla() {
-      log.info("Controlador.controlNReporteEvalCompetencia.actualizarPlanilla()");
+      log.info("ControlNReporteEvalCompetencia.actualizarPlanilla()");
       permitirIndex = true;
       parametroDeReporte.setEvalplanilla(planillaSeleccionada);
       parametroModificacion = parametroDeReporte;
@@ -940,7 +940,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void cancelarCambioPlanilla() {
-      log.info("Controlador.controlNReporteEvalCompetencia.cancelarCambioPlanilla()");
+      log.info("ControlNReporteEvalCompetencia.cancelarCambioPlanilla()");
       planillaSeleccionada = null;
       aceptar = true;
       filtrarListPlanilla = null;
@@ -952,7 +952,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void actualizarConvocatoria() {
-      log.info("Controlador.controlNReporteEvalCompetencia.actualizarConvocatoria()");
+      log.info("ControlNReporteEvalCompetencia.actualizarConvocatoria()");
       permitirIndex = true;
       parametroDeReporte.setConvocatoria(convocatoriaSeleccionada);
       parametroModificacion = parametroDeReporte;
@@ -970,7 +970,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void cancelarConvocatoria() {
-      log.info("Controlador.controlNReporteEvalCompetencia.cancelarConvocatoria()");
+      log.info("ControlNReporteEvalCompetencia.cancelarConvocatoria()");
       convocatoriaSeleccionada = null;
       aceptar = true;
       filtrarListConvocatoria = null;
@@ -982,7 +982,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void actualizarEmpresa() {
-      log.info("Controlador.controlNReporteEvalCompetencia.actualizarEmpresa()");
+      log.info("ControlNReporteEvalCompetencia.actualizarEmpresa()");
       permitirIndex = true;
       parametroDeReporte.setEmpresa(empresaSeleccionada);
       parametroModificacion = parametroDeReporte;
@@ -1044,7 +1044,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void actualizarEvaluador() {
-      log.info("Controlador.controlNReporteEvalCompetencia.actualizarEvaluador()");
+      log.info("ControlNReporteEvalCompetencia.actualizarEvaluador()");
       parametroDeReporte.setEvaluador(evaluadorSeleccionado.getDescripcion());
       parametroModificacion = parametroDeReporte;
       cambiosReporte = false;
@@ -1063,7 +1063,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void cancelarEvaluador() {
-      log.info("Controlador.controlNReporteEvalCompetencia.cancelarEvaluador()");
+      log.info("ControlNReporteEvalCompetencia.cancelarEvaluador()");
       evaluadorSeleccionado = null;
       aceptar = true;
       filtrarListEvaluador = null;
@@ -1444,7 +1444,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
 
          return parametroDeReporte;
       } catch (Exception e) {
-         log.warn("Error getParametroDeInforme : " + e);
+         log.warn("Error getParametroDeInforme :  ", e);
          return null;
       }
    }
@@ -1460,7 +1460,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
          }
          return listaIR;
       } catch (Exception e) {
-         log.warn("Error getListInforeportesUsuario : " + e);
+         log.warn("Error getListInforeportesUsuario :  ", e);
          return null;
       }
    }

@@ -238,7 +238,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    // Para Cambios Masivos : 
 //   @Override
 //   public List<Parametros> consultarEmpleadosParametros() {
-//      log.warn("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
+//      log.warn("AdministrarCambiosMasivos.consultarEmpleadosParametros()");
 //      try {
 //         String usuarioBD = persistenciaActualUsuario.actualAliasBD(getEm());
 //         return persistenciaParametros.empleadosParametros(getEm(), usuarioBD);
@@ -250,7 +250,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
 //   }
    @Override
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
-      log.warn("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
+      log.warn("AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
       try {
          return new ArrayList<CambiosMasivos>();
       } catch (Exception e) {
@@ -262,7 +262,7 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
 
    @Override
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
-      log.warn("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
+      log.warn("AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
          return new ParametrosCambiosMasivos();
       } catch (Exception e) {

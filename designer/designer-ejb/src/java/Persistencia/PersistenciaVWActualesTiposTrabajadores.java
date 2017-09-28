@@ -61,7 +61,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          }
          return vwActualTT;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador()" + e.getMessage());
+         log.error("PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador():  ", e);
          return null;
       }
    }
@@ -94,7 +94,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          }
          return vwActualTT;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl() ERROR : " + e);
+         log.error("PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl() ERROR :  ", e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
             return null;
          }
       } catch (Exception e) {
-         log.error("PersistenciaVWActualesTiposTrabajadores.FiltrarTipoTrabajador() ERROR : " + e);
+         log.error("PersistenciaVWActualesTiposTrabajadores.FiltrarTipoTrabajador() ERROR :  ", e);
          return null;
       }
    }
@@ -197,7 +197,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
             return 0;
          }
       } catch (Exception e) {
-         log.error("PersistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador() ERROR: " + e);
+         log.error("PersistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador() ERROR:  ", e);
          e.printStackTrace();
          return 0;
       }
@@ -233,7 +233,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          }
          return vwAtualesTT;
       } catch (Exception e) {
-         log.error("PersistenciaVWActualesTiposTrabajadores.busquedaRapidaTrabajadores() ERROR: " + e);
+         log.error("PersistenciaVWActualesTiposTrabajadores.busquedaRapidaTrabajadores() ERROR:  ", e);
          List<VWActualesTiposTrabajadores> vwActualesTiposTrabajadores = null;
          return vwActualesTiposTrabajadores;
       }
@@ -283,7 +283,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          log.warn("PersistenciaVWActualesTiposTrabajadores.consultarFechaVigencia fecha : " + fecha);
          return fecha;
       } catch (Exception e) {
-         log.error("ERROR: PersistenciaVWActualesTiposTrabajadores.consultarFechaVigencia : " + e.getCause());
+         log.error("ERROR: PersistenciaVWActualesTiposTrabajadores.consultarFechaVigencia :  ", e);
          return null;
       }
    }
@@ -320,7 +320,7 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          }
          return vwAtualesTT;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado" + e);
+         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado ", e);
          return null;
       }
    }

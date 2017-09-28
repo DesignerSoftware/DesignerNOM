@@ -38,7 +38,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetenciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaRetenciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetenciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaRetenciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.remove(em.merge(retenciones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaRetenciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaRetenciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             List<Retenciones> setsLista = (List<Retenciones>) query.getResultList();
             return setsLista;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetenciones.buscarRetenciones()" + e.getMessage());
+            log.error("PersistenciaRetenciones.buscarRetenciones():  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             List<Retenciones> retenciones = query.getResultList();
             return retenciones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaRetenciones.buscarRetencionesVig()" + e.getMessage());
+            log.error("PersistenciaRetenciones.buscarRetencionesVig():  ", e);
             return null;
         }
     }

@@ -32,7 +32,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             em.merge(tipoantecedente);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoTiposAntecedentes.crear: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaSoAntecedentes.borrar: " + e.getMessage());
+                log.error("Error PersistenciaSoAntecedentes.borrar:  ", e);
         }
     }
 
@@ -65,7 +65,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             em.merge(tipoantecedente);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoTiposAntecedentes.editar: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             List<SoTiposAntecedentes> tiposantecedentes = query.getResultList();
             return tiposantecedentes;
         } catch (Exception e) {
-            log.error("Error PersistenciaSoTiposAntecedentes.lovTiposAntecedentes: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.lovTiposAntecedentes:  ", e);
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             List<SoTiposAntecedentes> tiposantecedentes = query.getResultList();
             return tiposantecedentes;
         } catch (Exception e) {
-            log.error("Error PersistenciaSoTiposAntecedentes.listaTiposAntecedentes: " + e.getMessage());
+            log.error("Error PersistenciaSoTiposAntecedentes.listaTiposAntecedentes:  ", e);
             return null;
         }
     }

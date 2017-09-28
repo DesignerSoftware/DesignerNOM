@@ -45,7 +45,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          em.persist(concepto);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptos.crear: " + e);
+         log.error("Error PersistenciaConceptos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -61,7 +61,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          em.merge(concepto);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptos.editar: " + e);
+         log.error("Error PersistenciaConceptos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +81,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaConceptos.borrar: " + e);
+         log.error("Error PersistenciaConceptos.borrar:  ", e);
       }
    }
 
@@ -116,7 +116,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return listaConceptos;
       } catch (Exception e) {
-         log.error("Error en buscarConceptos() : " + e.getCause());
+         log.error("Error en buscarConceptos() :  ", e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return listaConceptos;
       } catch (Exception e) {
-         log.error("Error en buscarConceptosLovNovedades() : " + e.getCause());
+         log.error("Error en buscarConceptosLovNovedades() :  ", e);
          return null;
       }
    }
@@ -173,7 +173,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          Long resultado = (Long) query.getSingleResult();
          return resultado > 0;
       } catch (Exception e) {
-         log.error("Exepcion: " + e);
+         log.error("Exepcion:  ", e);
          return false;
       }
    }
@@ -189,7 +189,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          Long resultado = (Long) query.getSingleResult();
          return resultado > 0;
       } catch (Exception e) {
-         log.error("PersistenciaConceptos.verificarConceptoManual() ERROR: " + e);
+         log.error("PersistenciaConceptos.verificarConceptoManual() ERROR:  ", e);
          return false;
       }
    }
@@ -221,7 +221,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return concepto;
       } catch (Exception e) {
-         log.error("PersistenciaConceptos.validarCodigoConcepto() ERROR: " + e);
+         log.error("PersistenciaConceptos.validarCodigoConcepto() ERROR:  ", e);
          return null;
       }
    }
@@ -262,7 +262,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return listaConceptos;
       } catch (Exception e) {
-         log.error("PersistenciaConceptos.conceptosPorEmpresa() ERROR: " + e);
+         log.error("PersistenciaConceptos.conceptosPorEmpresa() ERROR:  ", e);
          return null;
       }
    }
@@ -303,7 +303,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return listaConceptos;
       } catch (Exception e) {
-         log.error("PersistenciaConceptos.conceptosEmpresaActivos_Inactivos() ERROR: " + e);
+         log.error("PersistenciaConceptos.conceptosEmpresaActivos_Inactivos() ERROR:  ", e);
          return null;
       }
    }
@@ -343,7 +343,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return listaConceptos;
       } catch (Exception e) {
-         log.error("PersistenciaConceptos.conceptosEmpresaSinPasivos() ERROR: " + e);
+         log.error("PersistenciaConceptos.conceptosEmpresaSinPasivos() ERROR:  ", e);
          return null;
       }
    }
@@ -376,7 +376,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error en clonarConcepto: " + e);
+         log.error("Error en clonarConcepto:  ", e);
       }
    }
 
@@ -406,7 +406,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return concepto;
       } catch (Exception e) {
-         log.error("Error Persistencia conceptosPorSecuencia : " + e.toString());
+         log.error("Error Persistencia conceptosPorSecuencia :  ", e);
          return null;
       }
    }
@@ -421,7 +421,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          query.executeUpdate();
          return true;
       } catch (Exception e) {
-         log.error("Error eliminarConcepto PersistenciaConceptos : " + e.toString());
+         log.error("Error eliminarConcepto PersistenciaConceptos :  ", e);
          return false;
       }
    }
@@ -455,7 +455,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return conceptoString;
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptos.conceptoParaFormulaContrato. " + e.toString());
+         log.error("Error PersistenciaConceptos.conceptoParaFormulaContrato.  ", e);
          return null;
       }
    }
@@ -473,7 +473,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
 //         List<Conceptos> listaConceptos = query.getResultList();
 //         return listaConceptos;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaConceptos.conceptoEmpresa " + e.toString());
+//         log.error("Error PersistenciaConceptos.conceptoEmpresa  ", e);
 //         return null;
 //      }
 //   }
@@ -511,7 +511,7 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          }
          return listaConceptos;
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptos.novedadConceptos " + e.toString());
+         log.error("Error PersistenciaConceptos.novedadConceptos  ", e);
          return null;
       }
    }

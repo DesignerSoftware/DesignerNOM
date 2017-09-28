@@ -24,7 +24,7 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
          List<Tablas> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("ERROR: PersistenciaTablas.consultarTablas() Error: " + e);
+         log.error("ERROR: PersistenciaTablas.consultarTablas() Error:  ", e);
          return null;
       }
    }
@@ -44,7 +44,7 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
          List<Tablas> tablas = (List<Tablas>) query.getResultList();
          return tablas;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTablas.buscarTablas(): " + e);
+         log.error("PersistenciaTablas.buscarTablas():  ", e);
          return null;
       }
    }

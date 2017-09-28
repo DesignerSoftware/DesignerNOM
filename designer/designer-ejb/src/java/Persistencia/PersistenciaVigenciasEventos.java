@@ -34,7 +34,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
          em.persist(vigenciasEventos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasEventos.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasEventos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -50,7 +50,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
          em.merge(vigenciasEventos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasEventos.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasEventos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -66,7 +66,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
          em.remove(em.merge(vigenciasEventos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasEventos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasEventos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +89,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasEventos.eventosPersona" + e.getMessage());
+         log.error("Error PersistenciaVigenciasEventos.eventosPersona ", e);
          return null;
       }
    }
@@ -104,7 +104,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
          List<VigenciasEventos> resultado = (List<VigenciasEventos>) query.getResultList();
          return resultado;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado" + e.getMessage());
+         log.error("Error PersistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado ", e);
          return null;
       }
    }
@@ -128,9 +128,9 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
          return evento;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaVigenciasEventos.primerEvento()" + e.getMessage());
+            log.trace("PersistenciaVigenciasEventos.primerEvento(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaVigenciasEventos.primerEvento()" + e.getMessage());
+            log.error("PersistenciaVigenciasEventos.primerEvento():  ", e);
          }
          return "";
       }

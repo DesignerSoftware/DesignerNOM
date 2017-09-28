@@ -248,7 +248,7 @@ public class ControlInterfaseContableDynamicsVT implements Serializable {
          administrarInterfaseDynamicsVT.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlInterfaseContableDynamicsVT: " + e);
+         log.error("Error postconstruct ControlInterfaseContableDynamicsVT:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

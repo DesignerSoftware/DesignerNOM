@@ -65,7 +65,7 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
 
    @Override
    public List<EnvioCorreos> consultarEnvioCorreos(BigInteger reporte) {
-      log.warn("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
+      log.warn("AdministrarRegistroEnvios.consultarEnvioCorreos()");
       try {
          return persistenciaEnvioCorreos.consultarEnvios(getEm(), reporte);
       } catch (Exception e) {
@@ -76,7 +76,7 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
 
    @Override
    public Inforeportes consultarPorSecuencia(BigInteger envio) {
-      log.warn("Administrar.AdministrarRegistroEnvios.consultarPorSecuencia()");
+      log.warn("AdministrarRegistroEnvios.consultarPorSecuencia()");
       log.warn("envio: " + envio);
       try {
          return persistenciaEnvioCorreos.buscarEnvioCorreoporSecuencia(getEm(), envio);
@@ -89,7 +89,7 @@ public class AdministrarRegistroEnvios implements AdministrarRegistroEnviosInter
    @Override
    public void editarEnvioCorreos(EnvioCorreos listaEC) {
       try {
-         log.warn("Administrar.AdministrarRegistroEnvios.editarEnvioCorreos()  " + listaEC.getSecuencia());
+         log.warn("AdministrarRegistroEnvios.editarEnvioCorreos()  " + listaEC.getSecuencia());
          persistenciaEnvioCorreos.editar(getEm(), listaEC);
       } catch (Exception ex) {
          log.warn("Error Administrar.AdministrarRegistroEnvios.editarEnvioCorreos() " + ex);

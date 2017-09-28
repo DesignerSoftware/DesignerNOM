@@ -32,7 +32,11 @@ public class PersistenciaVWActualesVigenciasViajeros implements PersistenciaVWAc
          VWActualesVigenciasViajeros vWActualesVigenciasViajeros = (VWActualesVigenciasViajeros) query.getSingleResult();
          return vWActualesVigenciasViajeros;
       } catch (Exception e) {
-         log.warn("PersistenciaVWActualesVigenciasViajeros.buscarTipoViajero(): ", e);
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("PersistenciaVWActualesVigenciasViajeros.buscarTipoViajero(): " + e);
+         } else {
+            log.warn("PersistenciaVWActualesVigenciasViajeros.buscarTipoViajero():  ", e);
+         }
          return null;
       }
    }

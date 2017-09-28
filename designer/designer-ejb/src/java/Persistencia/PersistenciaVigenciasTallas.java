@@ -32,7 +32,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.merge(vigenciasTallas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasTallas.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasTallas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.merge(vigenciasTallas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasTallas.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasTallas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.remove(em.merge(vigenciasTallas));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasTallas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasTallas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             return listMotivosDemandas;
 
         } catch (Exception e) {
-            log.error("Error consultarVigenciasTallas consultarVigenciasTallasPorPersona : " + e.getMessage());
+            log.error("Error consultarVigenciasTallas consultarVigenciasTallasPorPersona :  ", e);
             return null;
         }
     }

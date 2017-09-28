@@ -199,7 +199,7 @@ public class ControlATAprobacionHE implements Serializable {
          numeroScrollCabecera = 505;
          rowsCabecera = 20;
       } catch (Exception e) {
-         log.error("Error postconstruct ControlATAprobacionHE: " + e);
+         log.error("Error postconstruct ControlATAprobacionHE:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

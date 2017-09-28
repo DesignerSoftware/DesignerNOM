@@ -544,7 +544,7 @@ public class ControlPersonaIndividual implements Serializable {
          administrarPersonaIndividual.obtenerConexion(ses.getId());
          administrarCarpetaPersonal.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
       cargarLovEmpresas();
@@ -2432,7 +2432,7 @@ public class ControlPersonaIndividual implements Serializable {
 
    public void eliminarDatosCreados() {
       boolean b = administrarPersonaIndividual.eliminarEmpleadoCompleto(nuevoEmpleado.getSecuencia(), nuevoEmpleado.getPersona());
-      log.info("Controlador.ControlPersonaIndividual.eliminarDatosCreados() ¿Se borro? : " + b);
+      log.info("ControlPersonaIndividual.eliminarDatosCreados() ¿Se borro? : " + b);
       cancelarModificaciones();
    }
 

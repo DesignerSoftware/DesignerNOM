@@ -40,7 +40,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          em.merge(gruposTiposCC);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaGruposTiposCC.crear: " + e);
+         log.error("Error PersistenciaGruposTiposCC.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          em.merge(gruposTiposCC);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaGruposTiposCC.editar: " + e);
+         log.error("Error PersistenciaGruposTiposCC.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -76,7 +76,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaGruposTiposCC.borrar: " + e);
+         log.error("Error PersistenciaGruposTiposCC.borrar:  ", e);
       }
    }
 
@@ -86,7 +86,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          em.clear();
          return em.find(GruposTiposCC.class, secuencia);
       } catch (Exception e) {
-         log.error("ERROR PersistenciaGruposTiposCC buscarGruposTiposCC ERROR " + e);
+         log.error("ERROR PersistenciaGruposTiposCC buscarGruposTiposCC ERROR  ", e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class PersistenciaGruposTiposCC implements PersistenciaGruposTiposCCInter
          cq.select(cq.from(GruposTiposCC.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("\n ERROR EN PersistenciaGruposTiposCC buscarGruposTiposCC ERROR" + e);
+         log.error("\n ERROR EN PersistenciaGruposTiposCC buscarGruposTiposCC ERROR:  ", e);
          return null;
       }
    }

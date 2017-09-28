@@ -67,7 +67,7 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
 
    @Override
    public List<FormulasNovedades> listFormulasNovedadesParaFormula(BigInteger secuencia) {
-      log.warn("Administrar.AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
+      log.warn("AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
       try {
          return persistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia(getEm(), secuencia);
       } catch (Exception e) {

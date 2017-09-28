@@ -144,7 +144,7 @@ public class ControlLugaresOcurrencias implements Serializable {
             administrarLugaresOcurrencias.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -610,7 +610,7 @@ public class ControlLugaresOcurrencias implements Serializable {
                 soAccidentes = new BigInteger("-1");
             }
         } catch (Exception e) {
-            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
         }
     }
 

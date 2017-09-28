@@ -32,7 +32,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             em.merge(vigenciasProrrateos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasProrrateos.crear: " +  e.getMessage());
+            log.error("Error PersistenciaVigenciasProrrateos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             em.merge(vigenciasProrrateos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasProrrateos.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasProrrateos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             em.remove(em.merge(vigenciasProrrateos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasProrrateos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasProrrateos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             cq.select(cq.from(VigenciasProrrateos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Error buscarVigenciasProrrateos PersistenciaVigenciasProrrateos" + e.getMessage());
+            log.error("Error buscarVigenciasProrrateos PersistenciaVigenciasProrrateos ", e);
             return null;
         }
     }
@@ -94,7 +94,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             List<VigenciasProrrateos> vigenciasProrrateos = query.getResultList();
             return vigenciasProrrateos;
         } catch (Exception e) {
-            log.error("Error en Persistencia VigenciasProrrateos " + e.getMessage());
+            log.error("Error en Persistencia VigenciasProrrateos  ", e);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             VigenciasProrrateos vigenciasProrrateos = (VigenciasProrrateos) query.getSingleResult();
             return vigenciasProrrateos;
         } catch (Exception e) {
-            log.error("Error buscarVigenciaProrrateoSecuencia PersistenciaVigenciasProrrateos" + e.getMessage());
+            log.error("Error buscarVigenciaProrrateoSecuencia PersistenciaVigenciasProrrateos ", e);
             return null;
         }
     }
@@ -123,7 +123,7 @@ public class PersistenciaVigenciasProrrateos implements PersistenciaVigenciasPro
             List<VigenciasProrrateos> vigenciasProrrateos = query.getResultList();
             return vigenciasProrrateos;
         } catch (Exception e) {
-            log.error("Error buscarVigenciasProrrateosVigenciaSecuencia PersistenciaVigenciasProrrateos" + e.getMessage());
+            log.error("Error buscarVigenciasProrrateosVigenciaSecuencia PersistenciaVigenciasProrrateos ", e);
             return null;
         }
     }

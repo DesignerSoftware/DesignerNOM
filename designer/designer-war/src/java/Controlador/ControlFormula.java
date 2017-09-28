@@ -144,7 +144,7 @@ public class ControlFormula implements Serializable {
          administrarFormula.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -219,7 +219,7 @@ public class ControlFormula implements Serializable {
    }
 
    public void verDetalle(Formulas formula) {
-      log.info("Controlador.ControlFormula.verDetalle()");
+      log.info("ControlFormula.verDetalle()");
       unaVez = true;
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;

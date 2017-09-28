@@ -39,7 +39,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.merge(parametrosInformes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosReportes.crear: " + e.getMessage());
+            log.error("Error PersistenciaParametrosReportes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
 
     @Override
     public void editar(EntityManager em, ParametrosReportes parametrosInformes) {
-        log.error("Persistencia.PersistenciaParametrosReportes.editar()");
+        log.error("PersistenciaParametrosReportes.editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -56,7 +56,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
          em.merge(parametrosInformes);
          tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosReportes.editar: " + e.getMessage());
+            log.error("Error PersistenciaParametrosReportes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.remove(em.merge(parametrosInformes));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosReportes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaParametrosReportes.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.clear();
             return em.find(ParametrosReportes.class, secuencia);
         } catch (Exception e) {
-            log.error("Error buscarParametroInforme Persistencia" + e.getMessage());
+            log.error("Error buscarParametroInforme Persistencia ", e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             cq.select(cq.from(ParametrosReportes.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Error buscarParametrosReportes" + e.getMessage());
+            log.error("Error buscarParametrosReportes ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             ParametrosReportes parametrosInformes = (ParametrosReportes) query.getSingleResult();
             return parametrosInformes;
         } catch (Exception e) {
-            log.error("Error en buscarParametroInformeUsuario " + e.getMessage());
+            log.error("Error en buscarParametroInformeUsuario  ", e);
             return null;
         }
     }   

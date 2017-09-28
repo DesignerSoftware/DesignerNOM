@@ -26,7 +26,7 @@ public class PersistenciaVWActualesMvrs implements PersistenciaVWActualesMvrsInt
             BigDecimal valorMVR = (BigDecimal) query.getSingleResult();
             return valorMVR;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVWActualesMvrs.buscarActualMVR()" + e.getMessage());
+            log.error("PersistenciaVWActualesMvrs.buscarActualMVR():  ", e);
             return null;
         }
     }

@@ -39,7 +39,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             em.merge(instituciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInstituciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaInstituciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             em.merge(instituciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaInstituciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaInstituciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaInstituciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaInstituciones.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -86,7 +86,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             BigInteger sec = new BigInteger(secuencia.toString());
             return em.find(Instituciones.class, sec);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaInstituciones.buscarInstitucion()" + e.getMessage());
+            log.error("PersistenciaInstituciones.buscarInstitucion():  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             List<Instituciones> listaInstituciones = query.getResultList();
             return listaInstituciones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaInstituciones.instituciones()" + e.getMessage());
+            log.error("PersistenciaInstituciones.instituciones():  ", e);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
             List<Instituciones> listaInstituciones = query.getResultList();
             return listaInstituciones;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaInstituciones.lovInstituciones()" + e.getMessage());
+            log.error("PersistenciaInstituciones.lovInstituciones():  ", e);
             return null;
         }
     }

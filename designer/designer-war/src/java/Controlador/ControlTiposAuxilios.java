@@ -154,7 +154,7 @@ public class ControlTiposAuxilios implements Serializable {
             infoRegistro = "Cantidad de registros : 0";
          }
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -382,7 +382,7 @@ public class ControlTiposAuxilios implements Serializable {
             borrandoTiposAuxilios();
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
       }
    }
 

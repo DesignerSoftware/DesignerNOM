@@ -37,7 +37,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          em.merge(festivos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFestivos.crear: " + e);
+         log.error("Error PersistenciaFestivos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFestivos.editar: " + e);
+         log.error("Error PersistenciaFestivos.editar:  ", e);
       }
    }
 
@@ -68,8 +68,8 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         log.error("Error PersistenciaFestivos.borrar: " + e);
-         log.error("Persistencia.PersistenciaFestivos.borrar() e: " + e);
+         log.error("Error PersistenciaFestivos.borrar:  ", e);
+         log.error("PersistenciaFestivos.borrar() e:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -85,7 +85,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          List<Festivos> listFestivos = query.getResultList();
          return listFestivos;
       } catch (Exception e) {
-         log.error("Error en PERSISTENCIAFESTIVOS CONSULTARFESTIVOSPAIS : " + e);
+         log.error("Error en PERSISTENCIAFESTIVOS CONSULTARFESTIVOSPAIS :  ", e);
          return null;
       }
    }
@@ -95,7 +95,7 @@ public class PersistenciaFestivos implements PersistenciaFestivosInterface {
          em.clear();
          return em.find(Festivos.class, secPais);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaFestivos.consultarPais() e: " + e);
+         log.error("PersistenciaFestivos.consultarPais() e:  ", e);
          return null;
       }
    }

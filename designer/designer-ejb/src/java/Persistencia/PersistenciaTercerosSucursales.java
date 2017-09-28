@@ -30,7 +30,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          em.persist(tercerosSucursales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTercerosSucursales.crear: " + e.getMessage());
+         log.error("Error PersistenciaTercerosSucursales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +46,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          em.merge(tercerosSucursales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTercerosSucursales.editar: " + e.getMessage());
+         log.error("Error PersistenciaTercerosSucursales.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          em.remove(em.merge(tercerosSucursales));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTercerosSucursales.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTercerosSucursales.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          List<TercerosSucursales> tercerosSucursales = query.getResultList();
          return tercerosSucursales;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTercerosSucursales.buscarTercerosSucursales()" + e.getMessage());
+          log.error("PersistenciaTercerosSucursales.buscarTercerosSucursales():  ", e);
          return null;
       }
    }
@@ -93,7 +93,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          TercerosSucursales tercerosSucursales = (TercerosSucursales) query.getSingleResult();
          return tercerosSucursales;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTercerosSucursales.buscarTercerosSucursalesSecuencia()" + e.getMessage());
+          log.error("PersistenciaTercerosSucursales.buscarTercerosSucursalesSecuencia():  ", e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          List<TercerosSucursales> listTercerosS = query.getResultList();
          return listTercerosS;
       } catch (Exception e) {
-         log.error("Error buscarTercerosSucursalesPorTerceroSecuencia PersistenciaTerceroSurcusal : " + e.getMessage());
+         log.error("Error buscarTercerosSucursalesPorTerceroSecuencia PersistenciaTerceroSurcusal :  ", e);
          return null;
       }
    }
@@ -123,7 +123,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          List<TercerosSucursales> listTercerosS = query.getResultList();
          return listTercerosS;
       } catch (Exception e) {
-         log.error("Error buscarTercerosSucursalesPorEmpresa PersistenciaTerceroSurcusal : " + e.getMessage());
+         log.error("Error buscarTercerosSucursalesPorEmpresa PersistenciaTerceroSurcusal :  ", e);
          return null;
       }
    }
@@ -144,7 +144,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          query.setParameter(3, fechaCambio);
          query.execute();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos()" + e.getMessage());
+          log.error("PersistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -170,7 +170,7 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
          query.setParameter(3, fechaCambio);
          query.execute();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos()" + e.getMessage());
+          log.error("PersistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

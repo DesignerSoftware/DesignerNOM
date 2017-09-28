@@ -34,7 +34,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          em.merge(hvReferencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHvReferencias.crear: " + e);
+         log.error("Error PersistenciaHvReferencias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -50,7 +50,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          em.merge(hvReferencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaHvReferencias.editar: " + e);
+         log.error("Error PersistenciaHvReferencias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +70,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaHvReferencias.borrar: " + e);
+         log.error("Error PersistenciaHvReferencias.borrar:  ", e);
       }
    }
 
@@ -101,7 +101,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
+         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona ", e);
          return null;
       }
    }
@@ -117,7 +117,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
          return hvHojasDeVIda;
       } catch (Exception e) {
-         log.error("Error en Persistencia HVREFERENCIAS buscarHvHojaDeVidaPorPersona " + e);
+         log.error("Error en Persistencia HVREFERENCIAS buscarHvHojaDeVidaPorPersona  ", e);
          return null;
       }
    }
@@ -132,7 +132,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          List<HvReferencias> listHvReferencias = query.getResultList();
          return listHvReferencias;
       } catch (Exception e) {
-         log.error("Error en Persistencia HvRefencias 1  " + e);
+         log.error("Error en Persistencia HvRefencias 1   ", e);
          return null;
       }
    }
@@ -164,7 +164,7 @@ public class PersistenciaHvReferencias1 implements PersistenciaHvReferencias1Int
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
+         log.error("Error PersistenciasHvReferencias.referenciasPersonalesPersona ", e);
          return null;
       }
    }

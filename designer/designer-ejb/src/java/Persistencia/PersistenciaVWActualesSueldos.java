@@ -31,7 +31,7 @@ public class PersistenciaVWActualesSueldos implements PersistenciaVWActualesSuel
             BigDecimal vwActualesSueldosValor = (BigDecimal) query.getSingleResult();
             return vwActualesSueldosValor;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVWActualesSueldos.buscarSueldoActivo()" + e.getMessage());
+            log.error("PersistenciaVWActualesSueldos.buscarSueldoActivo():  ", e);
             return null;
         }
     }

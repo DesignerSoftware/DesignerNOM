@@ -415,7 +415,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
       try {
          return persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl(getEm(), codEmpleado);
       } catch (Exception e) {
-         log.warn("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() ERROR: " + e);
+         log.warn("AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() ERROR: " + e);
          return null;
       }
    }

@@ -31,7 +31,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             }
             return null;
         } catch (Exception e) {
-            log.error("Error PersistenciaGenerales.obtenerRutas " + e);
+            log.error("Error PersistenciaGenerales.obtenerRutas  ", e);
             return null;
         }
     }
@@ -44,7 +44,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String variable = (String) query.getSingleResult();
             return variable;
         } catch (Exception e) {
-            log.error("Error obtenerPreValidadContabilidad PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPreValidadContabilidad PersistenciaGenerales :  ", e);
             return null;
         }
     }
@@ -57,7 +57,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String variable = (String) query.getSingleResult();
             return variable;
         } catch (Exception e) {
-            log.error("Error obtenerPreValidaBloqueAIngreso PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPreValidaBloqueAIngreso PersistenciaGenerales :  ", e);
             return null;
         }
     }
@@ -73,7 +73,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             path = path + "\\";
             return path;
         } catch (Exception e) {
-            log.error("Error obtenerPathServidorWeb PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPathServidorWeb PersistenciaGenerales :  ", e);
             return null;
         }
     }
@@ -88,7 +88,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String path = (String) query.getSingleResult();
             return path;
         } catch (Exception e) {
-            log.error("Error obtenerPathProceso PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPathProceso PersistenciaGenerales :  ", e);
             return null;
         }
     }
@@ -104,7 +104,7 @@ public class PersistenciaGenerales implements PersistenciaGeneralesInterface {
             String path = (String) query.getSingleResult();
             return path;
         } catch (Exception e) {
-            log.error("Error obtenerPathError PersistenciaGenerales : " + e.toString());
+            log.error("Error obtenerPathError PersistenciaGenerales :  ", e);
             return null;
         }
     }

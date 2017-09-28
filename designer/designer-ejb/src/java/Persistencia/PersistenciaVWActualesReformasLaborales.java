@@ -11,28 +11,32 @@ import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 import javax.persistence.Query;
 
-
 @Stateless
 public class PersistenciaVWActualesReformasLaborales implements PersistenciaVWActualesReformasLaboralesInterface {
 
    private static Logger log = Logger.getLogger(PersistenciaVWActualesReformasLaborales.class);
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos.
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
 
-    public VWActualesReformasLaborales buscarReformaLaboral(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT vw FROM VWActualesReformasLaborales vw WHERE vw.empleado.secuencia=:secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            VWActualesReformasLaborales vWActualesReformasLaborales = (VWActualesReformasLaborales) query.getSingleResult();
-            return vWActualesReformasLaborales;
-        } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVWActualesReformasLaborales.buscarReformaLaboral()" + e.getMessage());
-            return null;
-        }
-    }
+   public VWActualesReformasLaborales buscarReformaLaboral(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT vw FROM VWActualesReformasLaborales vw WHERE vw.empleado.secuencia=:secuencia");
+         query.setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         VWActualesReformasLaborales vWActualesReformasLaborales = (VWActualesReformasLaborales) query.getSingleResult();
+         return vWActualesReformasLaborales;
+      } catch (Exception e) {
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.error("PersistenciaVWActualesReformasLaborales.buscarReformaLaboral(): " + e);
+         } else {
+            log.error("PersistenciaVWActualesReformasLaborales.buscarReformaLaboral():  ", e);
+         }
+         return null;
+      }
+   }
 }

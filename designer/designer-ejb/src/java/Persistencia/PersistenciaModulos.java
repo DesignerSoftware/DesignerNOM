@@ -39,7 +39,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             em.merge(modulos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaModulos.crear: " + e.getMessage());
+            log.error("Error PersistenciaModulos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             em.merge(modulos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaModulos.editar: " + e.getMessage());
+            log.error("Error PersistenciaModulos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaModulos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaModulos.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -85,7 +85,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
         em.clear();
         return em.find(Modulos.class, secuencia);
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaModulos.buscarModulos()" + e.getMessage());
+            log.error("PersistenciaModulos.buscarModulos():  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             List<Modulos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error buscarModulos PersistenciaModulos : " + e.toString());
+            log.error("Error buscarModulos PersistenciaModulos :  ", e);
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             Modulos modu = (Modulos) query.getSingleResult();
             return modu;
         } catch (Exception e) {
-            log.error("Error buscarModulos PersistenciaModulos : " + e.toString());
+            log.error("Error buscarModulos PersistenciaModulos :  ", e);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             List<Modulos> listaModulos = (List<Modulos>) query.getResultList();
             return listaModulos;
         } catch (Exception e) {
-            log.error("Error PersistenciaModulos listaModulos : " + e.toString());
+            log.error("Error PersistenciaModulos listaModulos :  ", e);
             return null;
         }
     }

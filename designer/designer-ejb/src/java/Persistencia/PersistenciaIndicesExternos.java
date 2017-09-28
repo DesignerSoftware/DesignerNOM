@@ -32,7 +32,7 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             em.merge(indice);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIndicesExternos.crear: " + e.getMessage());
+            log.error("Error PersistenciaIndicesExternos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             em.merge(indice);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIndicesExternos.editar: " + e.getMessage());
+            log.error("Error PersistenciaIndicesExternos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaIndicesExternos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaIndicesExternos.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -81,7 +81,7 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             List<IndicesExternos> listIndicesExternos = query.getResultList();
             return listIndicesExternos;
         } catch (Exception e) {
-            log.error("Error buscarIndicesExternos PersistenciaIndicesExternos : " + e.toString());
+            log.error("Error buscarIndicesExternos PersistenciaIndicesExternos :  ", e);
             return null;
         }
     }

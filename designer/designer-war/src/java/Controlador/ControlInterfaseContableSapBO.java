@@ -277,7 +277,7 @@ public class ControlInterfaseContableSapBO implements Serializable {
          parametroContableActual = null;
          getParametroContableActual();
       } catch (Exception e) {
-         log.error("Error postconstruct ControlInterfaseContableSapBOV8: " + e);
+         log.error("Error postconstruct ControlInterfaseContableSapBOV8:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1843,7 +1843,7 @@ public class ControlInterfaseContableSapBO implements Serializable {
 
    public void exportarReporte() throws IOException {
       try {
-         log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();

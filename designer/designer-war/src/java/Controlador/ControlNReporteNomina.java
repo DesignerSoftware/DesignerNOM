@@ -301,7 +301,7 @@ public class ControlNReporteNomina implements Serializable {
          administarReportes.obtenerConexion(ses.getId());
          administrarNReportesNomina.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct controlNReporteNomina" + e);
+         log.error("Error postconstruct controlNReporteNomina ", e);
          log.info("Causa: " + e.getMessage());
       }
    }
@@ -2065,7 +2065,7 @@ public class ControlNReporteNomina implements Serializable {
 
          return parametroDeReporte;
       } catch (Exception e) {
-         log.warn("Error getParametroDeInforme : " + e);
+         log.warn("Error getParametroDeInforme :  ", e);
          return null;
       }
    }
@@ -2081,7 +2081,7 @@ public class ControlNReporteNomina implements Serializable {
          }
          return listaIR;
       } catch (Exception e) {
-         log.warn("Error getListInforeportesUsuario : " + e);
+         log.warn("Error getListInforeportesUsuario :  ", e);
          return null;
       }
    }

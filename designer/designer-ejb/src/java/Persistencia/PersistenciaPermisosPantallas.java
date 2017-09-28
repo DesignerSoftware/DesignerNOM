@@ -33,7 +33,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosPantallas.crear: " + e.getMessage());
+            log.error("Error PersistenciaPermisosPantallas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             em.merge(permisosp);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosPantallas.editar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosPantallas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             em.remove(em.merge(permisosp));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPermisosPantallas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPermisosPantallas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +84,7 @@ public class PersistenciaPermisosPantallas implements PersistenciaPermisosPantal
             List<PermisosPantallas> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPermisosPantallas.consultarPermisosPorPerfil()" + e.getMessage());
+            log.error("PersistenciaPermisosPantallas.consultarPermisosPorPerfil():  ", e);
             return null;
         }
     }

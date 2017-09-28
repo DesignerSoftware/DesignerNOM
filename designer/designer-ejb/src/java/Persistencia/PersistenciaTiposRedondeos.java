@@ -26,7 +26,7 @@ public class PersistenciaTiposRedondeos implements PersistenciaTiposRedondeosInt
          cq.select(cq.from(TiposRedondeos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarTiposRedondeos PersistenciaTiposRedondeos : " + e.getMessage());
+         log.error("Error buscarTiposRedondeos PersistenciaTiposRedondeos :  ", e);
          return null;
       }
    }

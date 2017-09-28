@@ -39,7 +39,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          em.merge(enfermedadesProfesionales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEnfermedadesProfesionales.crear: " + e);
+         log.error("Error PersistenciaEnfermedadesProfesionales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          em.merge(enfermedadesProfesionales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEnfermedadesProfesionales.editar: " + e);
+         log.error("Error PersistenciaEnfermedadesProfesionales.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEnfermedadesProfesionales.borrar: " + e);
+         log.error("Error PersistenciaEnfermedadesProfesionales.borrar:  ", e);
       }
    }
 
@@ -84,7 +84,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          em.clear();
          return em.find(EnfermeadadesProfesionales.class, secuencia);
       } catch (Exception e) {
-         log.error("Error en la persistenciaEnfermedadesProfesionales ERROR : " + e);
+         log.error("Error en la persistenciaEnfermedadesProfesionales ERROR :  ", e);
          return null;
       }
    }
@@ -99,7 +99,7 @@ public class PersistenciaEnfermedadesProfesionales implements PersistenciaEnferm
          List<EnfermeadadesProfesionales> enfermedadesProfesionales = query.getResultList();
          return enfermedadesProfesionales;
       } catch (Exception e) {
-         log.error("Error: (buscarEPPorEmpleado)" + e);
+         log.error("Error: (buscarEPPorEmpleado) ", e);
          return null;
       }
    }

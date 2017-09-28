@@ -225,7 +225,7 @@ public class ControlNReporteBienestar implements Serializable {
          administrarNReporteBienestar.obtenerConexion(ses.getId());
          administarReportes.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -601,7 +601,7 @@ public class ControlNReporteBienestar implements Serializable {
    }
 
    public void mostrarDialogoBuscarReporte() {
-      log.info("Controlador.ControlNReporteBienestar.mostrarDialogoBuscarReporte()");
+      log.info("ControlNReporteBienestar.mostrarDialogoBuscarReporte()");
       try {
          log.info("Ingrese al try");
          if (cambiosReporte == true) {
@@ -622,12 +622,12 @@ public class ControlNReporteBienestar implements Serializable {
    }
 
    public void contarRegistros() {
-      log.info("Controlador.ControlNReporteBienestar.contarRegistros()");
+      log.info("ControlNReporteBienestar.contarRegistros()");
       RequestContext.getCurrentInstance().update("form:infoRegistro");
    }
 
    public void contarRegistrosLovReportes() {
-      log.info("Controlador.ControlNReporteBienestar.contarRegistrosLovReportes()");
+      log.info("ControlNReporteBienestar.contarRegistrosLovReportes()");
       RequestContext.getCurrentInstance().update("formDialogos:infoRegistroReportes");
    }
 
@@ -1062,7 +1062,7 @@ public class ControlNReporteBienestar implements Serializable {
          }
          return parametroDeReporte;
       } catch (Exception e) {
-         log.warn("Error getParametroDeInforme : " + e);
+         log.warn("Error getParametroDeInforme :  ", e);
          return null;
       }
    }
@@ -1078,7 +1078,7 @@ public class ControlNReporteBienestar implements Serializable {
          }
          return listaIR;
       } catch (Exception e) {
-         log.warn("Error getListInforeportesUsuario : " + e);
+         log.warn("Error getListInforeportesUsuario :  ", e);
          return null;
       }
    }

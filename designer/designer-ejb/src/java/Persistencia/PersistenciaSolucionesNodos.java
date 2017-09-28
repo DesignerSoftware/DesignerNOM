@@ -33,7 +33,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          em.merge(solucionNodo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSolucionesNodos.crear: " + e.getMessage());
+         log.error("Error PersistenciaSolucionesNodos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +49,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          em.merge(solucionNodo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSolucionesNodos.editar: " + e.getMessage());
+         log.error("Error PersistenciaSolucionesNodos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +65,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          em.remove(em.merge(solucionNodo));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSolucionesNodos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSolucionesNodos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -115,7 +115,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          }
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaSolucionesNodos.buscarSolucionesNodos) : " + e.getMessage());
+         log.error("Error: (PersistenciaSolucionesNodos.buscarSolucionesNodos) :  ", e);
          return null;
       }
    }
@@ -197,7 +197,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                      }
                   }
                } catch (Exception e2) {
-                  log.error("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado() CATCH2 : ERROR CONSULTANDO TRANSIENTS " + e2);
+                  log.error("PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado() CATCH2 : ERROR CONSULTANDO TRANSIENTS ", e2);
                }
                listSNodos = listaReturn;
             }
@@ -205,7 +205,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado)" + e.getMessage());
+         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado) ", e);
          return null;
       }
    }
@@ -295,7 +295,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          }
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador) e: " + e.getMessage());
+         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador) e:  ", e);
          return null;
       }
    }
@@ -326,7 +326,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          BigDecimal llegada = (BigDecimal) query.getSingleResult();
          return llegada;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaSolucionesNodos.diasProvisionados)" + e.toString());
+         log.error("Error: (PersistenciaSolucionesNodos.diasProvisionados) ", e);
          return null;
       }
    }
@@ -357,7 +357,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          Long conteo = count.longValue();
          return conteo;
       } catch (Exception e) {
-         log.error("Error validacionTercerosVigenciaAfiliacion Persistencia : " + e.toString());
+         log.error("Error validacionTercerosVigenciaAfiliacion Persistencia :  ", e);
          return null;
       }
    }
@@ -373,7 +373,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          log.warn("Resultado : " + r);
          return r;
       } catch (Exception e) {
-         log.error("Error activos Persistencia : " + e.toString());
+         log.error("Error activos Persistencia :  ", e);
          return null;
       }
    }
@@ -428,7 +428,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          }
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleado)" + e.getMessage());
+         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleado) ", e);
          return null;
       }
    }
@@ -480,7 +480,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          }
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleador)" + e.getMessage());
+         log.error("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleador) ", e);
          return null;
       }
    }
@@ -503,7 +503,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          Integer conteoProcesosSN = conteo.intValueExact();
          return conteoProcesosSN;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaSolucionesNodos.ContarProcesosSN()" + e.getMessage());
+         log.error("PersistenciaSolucionesNodos.ContarProcesosSN():  ", e);
          return null;
       }
    }
@@ -518,7 +518,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          Long valor = (Long) query.getSingleResult();
          return (valor == 0);
       } catch (Exception e) {
-         log.error("Error solucionesNodosParaConcepto PersistenciaSolucionesNodos : " + e.toString());
+         log.error("Error solucionesNodosParaConcepto PersistenciaSolucionesNodos :  ", e);
          return false;
       }
    }
@@ -592,7 +592,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error buscarSolucionesNodosParaParametroContable PersistenciaSolucionesNodos : " + e.toString());
+         log.error("Error buscarSolucionesNodosParaParametroContable PersistenciaSolucionesNodos :  ", e);
          return null;
       }
    }
@@ -650,7 +650,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          }
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error buscarSolucionesNodosParaParametroContable_SAP PersistenciaSolucionesNodos : " + e.toString());
+         log.error("Error buscarSolucionesNodosParaParametroContable_SAP PersistenciaSolucionesNodos :  ", e);
          return null;
       }
    }
@@ -708,7 +708,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          }
          return listSNodos;
       } catch (Exception e) {
-         log.error("Error buscarSolucionesNodosParaParametroContable_Dynamics PersistenciaSolucionesNodos : " + e.toString());
+         log.error("Error buscarSolucionesNodosParaParametroContable_Dynamics PersistenciaSolucionesNodos :  ", e);
          return null;
       }
    }

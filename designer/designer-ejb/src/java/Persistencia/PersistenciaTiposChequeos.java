@@ -27,7 +27,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.merge(tiposChequeos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposChequeos.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposChequeos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.merge(tiposChequeos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposChequeos.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposChequeos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.remove(em.merge(tiposChequeos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposChequeos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposChequeos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.clear();
             return em.find(TiposChequeos.class, secuenciaTC);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposChequeos.buscarTipoChequeo()" + e.getMessage());
+            log.error("PersistenciaTiposChequeos.buscarTipoChequeo():  ", e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             List<TiposChequeos> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposChequeos.buscarTiposChequeos()" + e.getMessage());
+            log.error("PersistenciaTiposChequeos.buscarTiposChequeos():  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposChequeos.contadorChequeosMedicos()" + e.getMessage());
+            log.error("PersistenciaTiposChequeos.contadorChequeosMedicos():  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -121,7 +121,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             log.warn("PERSISTENCIAJUZGADOS CONTADORCHEQUEOSMEDICOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposChequeos.contadorTiposExamenesCargos()" + e.getMessage());
+            log.error("PersistenciaTiposChequeos.contadorTiposExamenesCargos():  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

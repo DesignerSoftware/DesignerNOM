@@ -29,7 +29,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTelefonos.crear()" + e.getMessage());
+         log.error("PersistenciaTelefonos.crear():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -47,7 +47,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          em.merge(telefonos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTelefonos.editar()" + e.getMessage());
+         log.error("PersistenciaTelefonos.editar():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -64,7 +64,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          em.remove(em.merge(telefonos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTelefonos.borrar()" + e.getMessage());
+         log.error("PersistenciaTelefonos.borrar():  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -78,7 +78,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          em.clear();
          return em.find(Telefonos.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTelefonos.buscarTelefono()" + e.getMessage());
+         log.error("PersistenciaTelefonos.buscarTelefono():  ", e);
          e.printStackTrace();
          return null;
       }
@@ -92,7 +92,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          cq.select(cq.from(Telefonos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTelefonos.buscarTelefonos()" + e.getMessage());
+         log.error("PersistenciaTelefonos.buscarTelefonos():  ", e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          List<Telefonos> listaTelefonos = query.getResultList();
          return listaTelefonos;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + "telefonosPersona()" + e.getMessage());
+         log.error(this.getClass().getName() + "telefonosPersona():  ", e);
          e.printStackTrace();
          return null;
       }
@@ -127,7 +127,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          Telefonos telefono = (Telefonos) query.getSingleResult();
          return telefono;
       } catch (Exception e) {
-         log.error("Error en direccionActualPersona : " + e.toString());
+         log.error("Error en direccionActualPersona :  ", e);
          return null;
       }
    }
@@ -148,9 +148,9 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          return telefono;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaTelefonos.consultarUltimoTelefono()" + e.getMessage());
+            log.trace("PersistenciaTelefonos.consultarUltimoTelefono(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaTelefonos.consultarUltimoTelefono()" + e.getMessage());
+            log.error("PersistenciaTelefonos.consultarUltimoTelefono():  ", e);
          }
          return "";
       }

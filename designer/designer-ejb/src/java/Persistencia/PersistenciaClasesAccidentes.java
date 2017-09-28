@@ -37,7 +37,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          em.merge(clasesAccidentes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesAccidentes.crear: " + e);
+         log.error("Error PersistenciaClasesAccidentes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -52,7 +52,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          em.merge(clasesAccidentes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesAccidentes.crear: " + e);
+         log.error("Error PersistenciaClasesAccidentes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaClasesAccidentes.borrar: " + e);
+         log.error("Error PersistenciaClasesAccidentes.borrar:  ", e);
       }
    }
 
@@ -92,7 +92,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          List<ClasesAccidentes> listClasesAccidentes = query.getResultList();
          return listClasesAccidentes;
       } catch (Exception e) {
-         log.error("ERROR PERSISTENCIACLASESACCIDENTES BUSCARCLASESACCIDENTES ERROR : " + e);
+         log.error("ERROR PERSISTENCIACLASESACCIDENTES BUSCARCLASESACCIDENTES ERROR :  ", e);
          return null;
       }
 
@@ -109,7 +109,7 @@ public class PersistenciaClasesAccidentes implements PersistenciaClasesAccidente
          log.warn("Contador PERSISTENCIACLASESACCIDENTES  contadorSoAccidentesMedicos  " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACLASESACCIDENTES   contadorSoAccidentesMedicos. " + e);
+         log.error("Error PERSISTENCIACLASESACCIDENTES   contadorSoAccidentesMedicos.  ", e);
          return retorno;
       }
    }

@@ -42,7 +42,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.merge(soausentismos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoausentismos.crear: " + e.getMessage());
+         log.error("Error PersistenciaSoausentismos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.merge(soausentismos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoausentismos.editar: " + e.getMessage());
+         log.error("Error PersistenciaSoausentismos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.remove(em.merge(soausentismos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaSoausentismos.borrar: " + e.getMessage());
+         log.error("Error PersistenciaSoausentismos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          List<Soausentismos> todosAusentismos = query.getResultList();
          return todosAusentismos;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaSoausentismos.ausentismosEmpleado()" + e.getMessage());
+          log.error("PersistenciaSoausentismos.ausentismosEmpleado():  ", e);
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          List<Soausentismos> prorrogas = query.getResultList();
          return prorrogas;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaSoausentismos.prorrogas()" + e.getMessage());
+          log.error("PersistenciaSoausentismos.prorrogas():  ", e);
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          String resultado = (String) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaSoausentismos.prorrogaMostrar()" + e.getMessage());
+          log.error("PersistenciaSoausentismos.prorrogaMostrar():  ", e);
          return null;
       }
    }
@@ -171,7 +171,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          query.setParameter(13, forma);
          query.execute();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -206,7 +206,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          query.setParameter(6, fechaFinAusen);
          query.execute();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
+         log.error(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

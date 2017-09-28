@@ -30,7 +30,7 @@ public class PersistenciaPlantillasValidaTS implements PersistenciaPlantillasVal
             em.merge(plantillats);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasValidaTS.crear: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaTS.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaPlantillasValidaTS implements PersistenciaPlantillasVal
             em.merge(plantillats);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasValidaTS.editar: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaTS.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaPlantillasValidaTS implements PersistenciaPlantillasVal
             em.remove(em.merge(plantillats));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPlantillasValidaTS.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPlantillasValidaTS.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

@@ -34,7 +34,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             em.merge(usuarioEstructura);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosEstructuras.crear: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             em.merge(usuarioEstructura);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosEstructuras.editar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             em.remove(em.merge(usuarioEstructura));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosEstructuras.borrar: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             List<UsuariosEstructuras> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosEstructuras.consultarUsuariosEstructuras: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.consultarUsuariosEstructuras:  ", e);
             return null;
         }
 
@@ -99,7 +99,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             BigDecimal count = (BigDecimal)query.getSingleResult();
             return count;
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosEstructuras.contarUsuariosEstructuras: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.contarUsuariosEstructuras:  ", e);
             return null;
         }
 
@@ -118,7 +118,7 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuariosEstructuras.crearVistaUsuarioEstructura: " + e.getMessage());
+            log.error("Error PersistenciaUsuariosEstructuras.crearVistaUsuarioEstructura:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

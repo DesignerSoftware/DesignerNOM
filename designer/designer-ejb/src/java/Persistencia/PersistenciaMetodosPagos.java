@@ -35,7 +35,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             em.merge(metodosPagos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMetodosPagos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMetodosPagos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +51,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             em.merge(metodosPagos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMetodosPagos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMetodosPagos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaMetodosPagos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMetodosPagos.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -81,7 +81,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             em.clear();
             return em.find(MetodosPagos.class, secuencia);
         } catch (Exception e) {
-            log.error("Error en la persistencia vigencias formas pagos ERROR : " + e.getMessage());
+            log.error("Error en la persistencia vigencias formas pagos ERROR :  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
         cq.select(cq.from(MetodosPagos.class));
         return em.createQuery(cq).getResultList();
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaMetodosPagos.buscarMetodosPagos()" + e.getMessage());
+            log.error("PersistenciaMetodosPagos.buscarMetodosPagos():  ", e);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error(" PersistenciaMetodosPagos contadorvigenciasformaspagos Error " + e.getMessage());
+            log.error(" PersistenciaMetodosPagos contadorvigenciasformaspagos Error  ", e);
             return retorno;
         }
     }

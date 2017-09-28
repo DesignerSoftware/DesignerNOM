@@ -40,7 +40,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          em.merge(tiposBloques);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPensionados.crear: " + e.getMessage());
+         log.error("Error PersistenciaPensionados.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          em.merge(tiposBloques);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPensionados.editar: " + e.getMessage());
+         log.error("Error PersistenciaPensionados.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          em.merge(tiposBloques);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPensionados.borrar: " + e.getMessage());
+         log.error("Error PersistenciaPensionados.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -90,7 +90,7 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
          tiposBloquesResult = query.getResultList();
          return tiposBloquesResult;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposBloques.tiposBloques()" + e.getMessage());
+         log.error("PersistenciaTiposBloques.tiposBloques():  ", e);
          return null;
       }
    }

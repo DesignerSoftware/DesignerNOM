@@ -205,7 +205,7 @@ public class ControlFormulasAseguradas implements Serializable {
          administrarFormulasAseguradas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1331,7 +1331,7 @@ public class ControlFormulasAseguradas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('formulasAseguradasDialogo').show()");
          }
       } catch (Exception e) {
-         log.error("ERROR LLAMADO DIALOGO BUSCAR CENTROS COSTOS " + e);
+         log.error("ERROR LLAMADO DIALOGO BUSCAR CENTROS COSTOS  ", e);
       }
    }
 

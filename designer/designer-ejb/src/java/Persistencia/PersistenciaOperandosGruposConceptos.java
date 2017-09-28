@@ -41,7 +41,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             em.merge(gruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosSueldos.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosSueldos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +57,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             em.merge(gruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosSueldos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             em.remove(em.merge(gruposConceptos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCambiosSueldos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             cq.select(cq.from(OperandosGruposConceptos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            log.error("Error buscarOperandosGruposConceptos PersistenciaOperandosGruposConceptos : " + e.toString());
+            log.error("Error buscarOperandosGruposConceptos PersistenciaOperandosGruposConceptos :  ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             OperandosGruposConceptos gruposConceptos = (OperandosGruposConceptos) query.getSingleResult();
             return gruposConceptos;
         } catch (Exception e) {
-            log.error("Error buscarOperandosGruposConceptosPorSecuencia (PersistenciaOperandosGruposConceptos) : " + e.toString());
+            log.error("Error buscarOperandosGruposConceptosPorSecuencia (PersistenciaOperandosGruposConceptos) :  ", e);
             return null;
         }
     }
@@ -118,7 +118,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             List<OperandosGruposConceptos> gruposConceptos = query.getResultList();
             return gruposConceptos;
         } catch (Exception e) {
-            log.error("Error buscarOperandosGruposConceptosPorProcesoSecuencia (PersistenciaOperandosGruposConceptos) : " + e.toString());
+            log.error("Error buscarOperandosGruposConceptosPorProcesoSecuencia (PersistenciaOperandosGruposConceptos) :  ", e);
             return null;
         }
     }

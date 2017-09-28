@@ -40,7 +40,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.merge(normasLaborales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaNormasLaborales.crear()" + e.getMessage());
+            log.error("PersistenciaNormasLaborales.crear():  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -56,7 +56,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.merge(normasLaborales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaNormasLaborales.editar()" + e.getMessage());
+            log.error("PersistenciaNormasLaborales.editar():  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -72,7 +72,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.remove(em.merge(normasLaborales));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaNormasLaborales.borrar()" + e.getMessage());
+            log.error("PersistenciaNormasLaborales.borrar():  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -85,7 +85,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.clear();
             return em.find(NormasLaborales.class, secuenciaNL);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaNormasLaborales.consultarNormaLaboral()" + e.getMessage());
+            log.error("PersistenciaNormasLaborales.consultarNormaLaboral():  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
         List<NormasLaborales> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaNormasLaborales.consultarNormasLaborales()" + e.getMessage());
+            log.error("PersistenciaNormasLaborales.consultarNormasLaborales():  ", e);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             log.warn("PersistenciaMotivosCambiosSueldos retorno ==" + retorno.intValue());
 
         } catch (Exception e) {
-            log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
+            log.error("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :  ", e);
         } finally {
             return retorno;
         }

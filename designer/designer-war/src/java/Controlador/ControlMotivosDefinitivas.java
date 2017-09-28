@@ -137,7 +137,7 @@ public class ControlMotivosDefinitivas implements Serializable {
             administrarMotivosDefinitivas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -179,7 +179,7 @@ public class ControlMotivosDefinitivas implements Serializable {
             }
 
         } catch (Exception e) {
-            log.warn("Error CONTROLMOTIVOSDEFINITIVAS ASIGNAR INDEX ERROR = " + e);
+            log.warn("Error CONTROLMOTIVOSDEFINITIVAS ASIGNAR INDEX ERROR =  ", e);
         }
     }
 
@@ -477,7 +477,7 @@ public class ControlMotivosDefinitivas implements Serializable {
                 borrandoMotivosDefinitivas();
             }
         } catch (Exception e) {
-            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposCertificados verificarBorrado ERROR  ", e);
         }
     }
 

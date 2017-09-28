@@ -34,7 +34,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
                 return 0;
             }
         } catch (Exception e) {
-            log.error("Exepcion: (validarNovedadesNoLiquidadas) " + e.getMessage());
+            log.error("Exepcion: (validarNovedadesNoLiquidadas)  ", e);
             return 1;
         }
     }
@@ -82,7 +82,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
 
             return lista;
         } catch (Exception e) {
-            log.error("Error listaSolucionesFormulasParaEmpleadoYNovedad PersistenciaSolucionhesFormulas : " + e.getMessage());
+            log.error("Error listaSolucionesFormulasParaEmpleadoYNovedad PersistenciaSolucionhesFormulas :  ", e);
             return null;
         }
     }
@@ -96,7 +96,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
          em.remove(em.merge(solucionf));
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaSolucionesFormulas.borrar()" + e.getMessage());
+          log.error("PersistenciaSolucionesFormulas.borrar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

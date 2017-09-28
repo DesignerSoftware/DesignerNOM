@@ -29,7 +29,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
          em.merge(tiposCotizantes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposCotizantes.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposCotizantes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -38,7 +38,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
 
    @Override
    public void editar(EntityManager em, TiposCotizantes tiposCotizantes) {
-      log.warn("Persistencia.PersistenciaTiposCotizantes.editar()");
+      log.warn("PersistenciaTiposCotizantes.editar()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -46,7 +46,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
          em.merge(tiposCotizantes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposCotizantes.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposCotizantes.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
          em.remove(em.merge(tiposCotizantes));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposCotizantes.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposCotizantes.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
          List<TiposCotizantes> listaTiposCotizantes = query.getResultList();
          return listaTiposCotizantes;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposCotizantes.lovTiposCotizantes()" + e.getMessage());
+         log.error("PersistenciaTiposCotizantes.lovTiposCotizantes():  ", e);
          return null;
       }
    }
@@ -107,7 +107,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
          tx.commit();
          return secuenciaClonado;
       } catch (Exception e) {
-         log.error("error en  persistenciaTiposCotizantes.clonarTipoCotizante " + e.getMessage());
+         log.error("error en  persistenciaTiposCotizantes.clonarTipoCotizante  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

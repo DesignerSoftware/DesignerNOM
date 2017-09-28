@@ -51,7 +51,7 @@ public class PersistenciaCursos implements PersistenciaCursosInterface {
          em.merge(curso);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCursos.crear: " + e);
+         log.error("Error PersistenciaCursos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaCursos implements PersistenciaCursosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCursos.borrar: " + e);
+         log.error("Error PersistenciaCursos.borrar:  ", e);
       }
    }
 
@@ -84,7 +84,7 @@ public class PersistenciaCursos implements PersistenciaCursosInterface {
          em.merge(curso);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCursos.editar: " + e);
+         log.error("Error PersistenciaCursos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

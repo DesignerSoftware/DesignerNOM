@@ -35,7 +35,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          tx.commit();
          return actualARP;
       } catch (Exception e) {
-         log.error("Exepcion: PersistenciaVigenciasArps.actualARPVig " + e.getMessage());
+         log.error("Exepcion: PersistenciaVigenciasArps.actualARPVig  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -57,9 +57,13 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          tx.commit();
          return actualARP;
       } catch (Exception e) {
-         log.error("Exepcion: PersistenciaVigenciasArps.actualARP " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
+         }
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.trace("Exepcion: PersistenciaVigenciasArps.actualARP " + e);
+         } else {
+            log.error("Exepcion: PersistenciaVigenciasArps.actualARP  ", e);
          }
          return null;
       }
@@ -78,7 +82,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             return 0;
          }
       } catch (Exception e) {
-         log.error("Error contarVigenciasARPsPorEstructuraYCargo PersistenciaVigenciasArps : " + e.toString());
+         log.error("Error contarVigenciasARPsPorEstructuraYCargo PersistenciaVigenciasArps :  ", e);
          return 0;
       }
    }
@@ -92,7 +96,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          em.merge(vigarp);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasArps.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasArps.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -108,7 +112,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          em.remove(em.merge(vigarp));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasArps.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasArps.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -124,7 +128,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          em.merge(vigarp);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasArps.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasArps.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -145,7 +149,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
                        + " FROM VIGENCIASARPS V, ESTRUCTURAS E, CARGOS C WHERE V.ESTRUCTURA = E.SECUENCIA AND V.CARGO = C.SECUENCIA", VigenciasArpsAux.class);
                List<VigenciasArpsAux> listaAux = q2.getResultList();
                if (listaAux != null) {
-                  log.warn("Persistencia.PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
+                  log.warn("PersistenciaVigenciasArps.consultarVigenciasArps() listaVigencias.size(): " + listaVigencias.size());
                   if (!listaAux.isEmpty()) {
                      for (int j = 0; j < listaVigencias.size(); j++) {
                         for (int i = 0; i < listaAux.size(); i++) {
@@ -163,7 +167,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
          }
          return listaVigencias;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasArps.consultarVigenciasArps: " + e);
+         log.error("Error PersistenciaVigenciasArps.consultarVigenciasArps:  ", e);
          return listaVigencias;
       }
    }

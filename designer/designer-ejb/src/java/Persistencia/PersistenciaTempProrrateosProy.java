@@ -38,7 +38,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTempProrrateosProy.crear: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateosProy.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +54,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          em.merge(tempAusentismos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTempProrrateosProy.editar: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateosProy.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +70,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          em.remove(em.merge(tempAusentismos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTempProrrateosProy.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTempProrrateosProy.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +89,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("No se pudo borrar el registro en borrarRegistrosTempProrrateosProy() : " + e.toString());
+         log.error("No se pudo borrar el registro en borrarRegistrosTempProrrateosProy() :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -133,7 +133,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          }
          return listTNovedades;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTempProrrateosProy.obtenerTempProrrateosProy()" + e.getMessage());
+         log.error("PersistenciaTempProrrateosProy.obtenerTempProrrateosProy():  ", e);
          return null;
       }
    }
@@ -149,7 +149,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-         log.error("PersistenciaTempProrrateosProy.obtenerDocumentosSoporteCargados()" + e.getMessage());
+         log.error("PersistenciaTempProrrateosProy.obtenerDocumentosSoporteCargados():  ", e);
          return null;
       }
    }
@@ -165,7 +165,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          queryProcedure.execute();
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTempProrrateosProy.cargarTempProrrateosProy()" + e.getMessage());
+         log.error("PersistenciaTempProrrateosProy.cargarTempProrrateosProy():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -202,7 +202,7 @@ public class PersistenciaTempProrrateosProy implements PersistenciaTempProrrateo
          tx.commit();
          return 1;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTempProrrateosProy.reversarTempProrrateosProy()" + e.getMessage());
+         log.error("PersistenciaTempProrrateosProy.reversarTempProrrateosProy():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

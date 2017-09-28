@@ -38,7 +38,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             em.merge(enfermedades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEnfermedades.crear: " + e);
+            log.error("Error PersistenciaEnfermedades.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             em.merge(enfermedades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEnfermedades.editar: " + e);
+            log.error("Error PersistenciaEnfermedades.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaEnfermedades.borrar: " + e);
+                log.error("Error PersistenciaEnfermedades.borrar:  ", e);
             }
         }
     }
@@ -87,7 +87,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             em.clear();
             return em.find(Enfermedades.class, secuencia);
         } catch (Exception e) {
-            log.error("Error en la persistenciaEnfermedadesERROR : " + e);
+            log.error("Error en la persistenciaEnfermedadesERROR :  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             List<Enfermedades> enfermedades = query.getResultList();
             return enfermedades;
         } catch (Exception e) {
-            log.error("Error en PersistenciaEnfermedadesProfesionales Por Empleados ERROR" + e);
+            log.error("Error en PersistenciaEnfermedadesProfesionales Por Empleados ERROR:  ", e);
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             log.warn("PERSISTENCIAENFERMEDADES contadorAusentimos = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAENFERMEDADES contadorAusentimos  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorAusentimos  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -134,7 +134,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             log.warn("PERSISTENCIAENFERMEDADES contadorDetallesLicencias = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAENFERMEDADES contadorDetallesLicencias  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorDetallesLicencias  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -151,7 +151,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             log.warn("PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorEnfermedadesPadecidas  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -168,7 +168,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             log.warn("PERSISTENCIAENFERMEDADES contadorSoausentismos = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAENFERMEDADES contadorSoausentismos  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorSoausentismos  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -185,7 +185,7 @@ public class PersistenciaEnfermedades implements PersistenciaEnfermedadesInterfa
             log.warn("PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas  ERROR = " + e);
+            log.error("ERROR PERSISTENCIAENFERMEDADES contadorSorevisionessSistemas  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

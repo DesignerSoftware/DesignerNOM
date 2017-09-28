@@ -40,7 +40,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          em.persist(contratos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaContratos.crear: " + e);
+         log.error("Error PersistenciaContratos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -56,7 +56,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          em.merge(contratos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaContratos.editar: " + e);
+         log.error("Error PersistenciaContratos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -72,7 +72,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          em.remove(em.merge(contratos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaContratos.borrar: " + e);
+         log.error("Error PersistenciaContratos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -90,7 +90,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> contratoLista = (List<Contratos>) query.getResultList();
          return contratoLista;
       } catch (Exception e) {
-         log.error("Error buscarContratos : " + e);
+         log.error("Error buscarContratos :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -108,7 +108,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          Contratos contrato = (Contratos) query.getSingleResult();
          return contrato;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaContratos.buscarContratoSecuencia() e: " + e);
+         log.error("PersistenciaContratos.buscarContratoSecuencia() e:  ", e);
          Contratos contrato = null;
          return contrato;
       }
@@ -123,7 +123,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> listaContratos = query.getResultList();
          return listaContratos;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaContratos.lovContratos() e: " + e);
+         log.error("PersistenciaContratos.lovContratos() e:  ", e);
          return null;
       }
    }
@@ -141,7 +141,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error en reproducirContrato: " + e);
+         log.error("Error en reproducirContrato:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -157,7 +157,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> lista = query.getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("Error buscarContratosPorUsuario PersistenciaContratos : " + e);
+         log.error("Error buscarContratosPorUsuario PersistenciaContratos :  ", e);
          return null;
       }
    }

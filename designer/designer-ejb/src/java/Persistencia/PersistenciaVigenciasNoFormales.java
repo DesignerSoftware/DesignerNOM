@@ -35,7 +35,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasNoFormales.crear: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasNoFormales.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +51,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasNoFormales.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasNoFormales.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +67,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.remove(em.merge(vigenciasNoFormales));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasNoFormales.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasNoFormales.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
         cq.select(cq.from(VigenciasNoFormales.class));
         return em.createQuery(cq).getResultList();
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaVigenciasNoFormales.buscarVigenciasNoFormales()" + e.getMessage());
+            log.error("PersistenciaVigenciasNoFormales.buscarVigenciasNoFormales():  ", e);
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             List<VigenciasNoFormales> listaVigenciasNoFormales = query.getResultList();
             return listaVigenciasNoFormales;
         } catch (Exception e) {
-            log.error("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
+            log.error("Error PersistenciaTelefonos.telefonoPersona ", e);
             return null;
         }
     }

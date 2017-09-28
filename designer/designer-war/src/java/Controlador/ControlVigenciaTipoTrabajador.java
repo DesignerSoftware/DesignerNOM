@@ -271,7 +271,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          administrarVigenciasTiposTrabajadores.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -569,7 +569,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 
    public void posicionTabla() {
       FacesContext context = FacesContext.getCurrentInstance();
-      log.info("Controlador.ControlVigenciaTipoTrabajador.posicionTabla()");
+      log.info("ControlVigenciaTipoTrabajador.posicionTabla()");
       Map<String, String> map = context.getExternalContext().getRequestParameterMap();
       String name = map.get("n"); // name attribute of node
       String type = map.get("t"); // type attribute of node
@@ -595,7 +595,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     * @param celda Columna de la tabla
     */
    public void cambiarIndice(VigenciasTiposTrabajadores vtt, int celda) {
-      log.info("Controlador.ControlVigenciaTipoTrabajador.cambiarIndice()");
+      log.info("ControlVigenciaTipoTrabajador.cambiarIndice()");
       if (permitirIndex) {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");

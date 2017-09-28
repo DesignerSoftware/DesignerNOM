@@ -28,7 +28,7 @@ public class PersistenciaObjetosJsf implements PersistenciaObjetosJsfInterface {
             em.merge(objetojsf);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaObjetosJsf.crear: " + e.getMessage());
+            log.error("Error PersistenciaObjetosJsf.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaObjetosJsf implements PersistenciaObjetosJsfInterface {
             em.merge(objetojsf);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaObjetosJsf.editar: " + e.getMessage());
+            log.error("Error PersistenciaObjetosJsf.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,7 +60,7 @@ public class PersistenciaObjetosJsf implements PersistenciaObjetosJsfInterface {
             em.remove(em.merge(objetojsf));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaObjetosJsf.borrar: " + e.getMessage());
+            log.error("Error PersistenciaObjetosJsf.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -112,7 +112,7 @@ public class PersistenciaObjetosJsf implements PersistenciaObjetosJsfInterface {
             }
             return enable;
         } catch (Exception e) {
-            log.error("Error en Persistencia.PersistenciaObjetosJsf.consultarEnableObjetoJsf() : " + e.getMessage());
+            log.error("Error en Persistencia.PersistenciaObjetosJsf.consultarEnableObjetoJsf() :  ", e);
             return null;
         }
     }

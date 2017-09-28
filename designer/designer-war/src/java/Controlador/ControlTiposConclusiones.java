@@ -108,7 +108,7 @@ public class ControlTiposConclusiones implements Serializable {
          administrarTiposConclusiones.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -599,7 +599,7 @@ public class ControlTiposConclusiones implements Serializable {
 
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposConclusiones verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposConclusiones verificarBorrado ERROR  ", e);
       }
    }
 

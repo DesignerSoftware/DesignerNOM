@@ -38,7 +38,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.merge(pryClientes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryClientes.crear: " + e.getMessage());
+            log.error("Error PersistenciaPryClientes.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.merge(pryClientes);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryClientes.editar: " + e.getMessage());
+            log.error("Error PersistenciaPryClientes.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.remove(em.merge(pryClientes));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPryClientes.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPryClientes.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             em.clear();
             return em.find(PryClientes.class, secuenciaPC);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPryClientes.buscarPryCliente()" + e.getMessage()); 
+            log.error("PersistenciaPryClientes.buscarPryCliente():  ", e); 
             return null;
         }
     }
@@ -94,7 +94,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             List<PryClientes> pryclientes = query.getResultList();
             return pryclientes;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPryClientes.buscarPryClientes()" + e.getMessage());
+            log.error("PersistenciaPryClientes.buscarPryClientes():  ", e);
             return null;
         }
     }
@@ -110,7 +110,7 @@ public class PersistenciaPryClientes implements PersistenciaPryClientesInterface
             log.warn("persistenciapryclientes contadorProyectos Contador " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error  persistenciapryclientes contadorProyectos. " + e);
+            log.error("Error  persistenciapryclientes contadorProyectos.  ", e);
             return retorno;
         }
     }

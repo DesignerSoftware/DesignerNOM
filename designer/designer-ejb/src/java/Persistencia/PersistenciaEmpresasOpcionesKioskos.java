@@ -32,7 +32,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             em.merge(empresaok);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
+            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -48,7 +48,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             em.merge(empresaok);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
+            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,7 +64,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             em.remove(em.merge(empresaok));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear: " + e.getMessage());
+            log.error("Error PersistenciaEmpresasOpcionesKioskos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaEmpresasOpcionesKioskos implements PersistenciaEmpresas
             List< EmpresasOpcionesKioskos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos : " + e.getMessage());
+            log.error("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos :  ", e);
             return null;
         }
     }

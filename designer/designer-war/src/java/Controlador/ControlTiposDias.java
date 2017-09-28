@@ -146,7 +146,7 @@ public class ControlTiposDias implements Serializable {
          administrarTiposDias.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -664,7 +664,7 @@ public class ControlTiposDias implements Serializable {
             borrandoTiposDias();
          }
       } catch (Exception e) {
-         log.error("ERROR CONTROLTIPOSDIAS verificarBorrado ERROR " + e);
+         log.error("ERROR CONTROLTIPOSDIAS verificarBorrado ERROR  ", e);
       }
    }
 

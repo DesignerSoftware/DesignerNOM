@@ -171,7 +171,7 @@ public class ControlIdiomaPersona implements Serializable {
          administrarIdiomaPersona.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -418,7 +418,7 @@ public class ControlIdiomaPersona implements Serializable {
             try {
                nuevaIdiomaPersona.setPersona(administrarIdiomaPersona.obtenerPersonaPorEmpleado(empleadoActual.getSecuencia()));
             } catch (Exception e) {
-               log.error(this.getClass().getSimpleName() + ".agregarNuevaIdiomaPersona() Error : " + e);
+               log.error(this.getClass().getSimpleName() + ".agregarNuevaIdiomaPersona() Error :  ", e);
             }
             listIdiomaPersonaCrear.add(nuevaIdiomaPersona);
             if (listIdiomasPersonas == null) {
@@ -509,7 +509,7 @@ public class ControlIdiomaPersona implements Serializable {
             try {
                duplicarIdiomaPersona.setPersona(administrarIdiomaPersona.obtenerPersonaPorEmpleado(empleadoActual.getSecuencia()));
             } catch (Exception e) {
-               log.error(this.getClass().getSimpleName() + ".agregarNuevaIdiomaPersona() Error : " + e);
+               log.error(this.getClass().getSimpleName() + ".agregarNuevaIdiomaPersona() Error :  ", e);
             }
             listIdiomasPersonas.add(duplicarIdiomaPersona);
             listIdiomaPersonaCrear.add(duplicarIdiomaPersona);

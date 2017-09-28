@@ -252,7 +252,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          externalContext = x.getExternalContext();
          userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -920,7 +920,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          out.close();
          administrarEmpleadoIndividual.actualizarFotoPersona(persona);
       } catch (IOException e) {
-         log.warn("Error: ControlEmpleadoIndividual.transformarArchivo: " + e);
+         log.warn("Error: ControlEmpleadoIndividual.transformarArchivo:  ", e);
       }
    }
 
@@ -1049,7 +1049,7 @@ public class ControlEmpleadoIndividual implements Serializable {
 
    public void exportarReporte() throws IOException {
       try {
-         log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1450,7 +1450,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             fotoEmpleado = new DefaultStreamedContent(fis, "image/jpg");
          } catch (FileNotFoundException e) {
             fotoEmpleado = null;
-            log.info("Foto del empleado no encontrada. \n" + e);
+            log.info("Foto del empleado no encontrada. \n ", e);
          }
       } else {
          log.info("la ruta de la foto del empleado es nula");

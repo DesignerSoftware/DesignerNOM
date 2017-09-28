@@ -42,7 +42,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          log.warn("permisoLiquidar() resultado : " + resultado);
          return (resultado > 0);
       } catch (Exception e) {
-         log.error("Exepcion: permisoLiquidar : " + e);
+         log.error("Exepcion: permisoLiquidar :  ", e);
          return false;
       }
    }
@@ -61,7 +61,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          log.warn("i : " + i);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCandados.liquidar. " + e);
+         log.error("Error PersistenciaCandados.liquidar.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          String estadoLiquidacion = (String) query.getSingleResult();
          return estadoLiquidacion;
       } catch (Exception e) {
-         log.error("Exepcion: estadoLiquidacion " + e);
+         log.error("Exepcion: estadoLiquidacion  ", e);
          return null;
       }
    }
@@ -95,7 +95,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          Integer porcentajeProgreso = progreso.intValueExact();
          return porcentajeProgreso;
       } catch (Exception e) {
-         log.error("Error progresoLiquidacion. " + e);
+         log.error("Error progresoLiquidacion.  ", e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Exepcion: PersistenciaCandados.cancelarLiquidacion " + e);
+         log.error("Exepcion: PersistenciaCandados.cancelarLiquidacion  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -129,7 +129,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCandados.cerrarLiquidacionAutomatico. " + e);
+         log.error("Error PersistenciaCandados.cerrarLiquidacionAutomatico.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -147,7 +147,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCandados.cerrarLiquidacionNoAutomatico. " + e);
+         log.error("Error PersistenciaCandados.cerrarLiquidacionNoAutomatico.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -166,7 +166,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          log.warn("resultado del borrado: " + resultado);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error cerrarLiquidacion. " + e);
+         log.error("Error cerrarLiquidacion.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -184,7 +184,7 @@ public class PersistenciaCandados implements PersistenciaCandadosInterface {
          int resultado = query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("Error cerrarLiquidacion. " + e);
+         log.error("Error cerrarLiquidacion.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

@@ -29,7 +29,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasContratos.crear() " + e.getMessage());
+         log.error("PersistenciaVigenciasContratos.crear()  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +46,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
          em.merge(vigenciasContratos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasContratos.editar()" + e.getMessage());
+         log.error("PersistenciaVigenciasContratos.editar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
          em.remove(em.merge(vigenciasContratos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasContratos.borrar()" + e.getMessage());
+         log.error("PersistenciaVigenciasContratos.borrar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +77,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
          cq.select(cq.from(VigenciasContratos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciasContratos()" + e.getMessage());
+         log.error("PersistenciaVigenciasContratos.buscarVigenciasContratos():  ", e);
          return null;
       }
    }
@@ -92,7 +92,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
          List<VigenciasContratos> vigenciasC = query.getResultList();
          return vigenciasC;
       } catch (Exception e) {
-         log.error("Error en Persistencia Vigencias Contratos " + e.getMessage());
+         log.error("Error en Persistencia Vigencias Contratos  ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaVigenciasContratos implements PersistenciaVigenciasCont
          VigenciasContratos vigenciaC = (VigenciasContratos) query.getSingleResult();
          return vigenciaC;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasContratos.buscarVigenciaContratoSecuencia()" + e.getMessage());
+         log.error("PersistenciaVigenciasContratos.buscarVigenciaContratoSecuencia():  ", e);
          return null;
       }
    }

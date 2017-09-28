@@ -31,7 +31,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.persist(parametrosConjuntos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosConjuntos.crearParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.crearParametros :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.merge(parametrosConjuntos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosConjuntos.editarParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.editarParametros :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,7 +63,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             em.remove(em.merge(parametrosConjuntos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosConjuntos.borrarParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.borrarParametros :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
             log.warn("PersistenciaParametrosConjuntos.consultarParametros pc : " + pc);
             return pc;
         } catch (Exception e) {
-            log.error("Error PersistenciaParametrosConjuntos.consultarParametros : " + e.toString());
+            log.error("Error PersistenciaParametrosConjuntos.consultarParametros :  ", e);
             return null;
         }
     }

@@ -64,7 +64,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -127,7 +127,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             out.flush();
             out.close();
         } catch (Exception e) {
-            log.info("Pailander: " + e);
+            log.info("Pailander:  ", e);
         }
     }
 
@@ -208,7 +208,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             }*/
             return true;
         } catch (Exception e) {
-            log.warn("Error enviarCorreo: " + e);
+            log.warn("Error enviarCorreo:  ", e);
             return false;
         }
     }

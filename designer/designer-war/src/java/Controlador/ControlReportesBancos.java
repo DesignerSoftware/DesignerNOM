@@ -213,7 +213,7 @@ public class ControlReportesBancos implements Serializable {
          administrarReportesBancos.obtenerConexion(ses.getId());
          administarReportes.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1210,7 +1210,7 @@ public class ControlReportesBancos implements Serializable {
    }
 
    public void validarDescargaReporte() {
-      log.info("Controlador.ControlReportesBancos.validarDescargaReporte()");
+      log.info("ControlReportesBancos.validarDescargaReporte()");
       try {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
@@ -1557,7 +1557,7 @@ public class ControlReportesBancos implements Serializable {
 
          return parametroDeReporte;
       } catch (Exception e) {
-         log.warn("Error getParametroDeInforme : " + e);
+         log.warn("Error getParametroDeInforme :  ", e);
          return null;
       }
    }

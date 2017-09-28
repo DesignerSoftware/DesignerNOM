@@ -32,7 +32,7 @@ public class PersistenciaOpcionesKioskos implements PersistenciaOpcionesKioskosI
             return lista;
 
         } catch (Exception e) {
-            log.error("Error consultarOpcionesKioskos PersistenciaOpcionesKioskos : " + e.getMessage());
+            log.error("Error consultarOpcionesKioskos PersistenciaOpcionesKioskos :  ", e);
             return null;
         }
     }

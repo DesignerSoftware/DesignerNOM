@@ -39,7 +39,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          em.merge(demandas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDemandas.crear: " + e);
+         log.error("Error PersistenciaDemandas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          em.merge(demandas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDemandas.crear: " + e);
+         log.error("Error PersistenciaDemandas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDemandas.borrar: " + e);
+         log.error("Error PersistenciaDemandas.borrar:  ", e);
       }
    }
 
@@ -89,7 +89,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          return listaDemandas;
 //            }
       } catch (Exception e) {
-         log.error("Error PersistenciaDemandas.demandasPersona" + e);
+         log.error("Error PersistenciaDemandas.demandasPersona ", e);
          return null;
       }
    }
@@ -112,9 +112,9 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
          }
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
+            log.trace("Error Persistencia.PersistenciaDemandas.primeraDemanda(): " + e);
          } else {
-            log.error("Error Persistencia.PersistenciaDemandas.primeraDemanda()" + e.getMessage());
+            log.error("Error Persistencia.PersistenciaDemandas.primeraDemanda():  ", e);
          }
       }
       return "";

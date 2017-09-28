@@ -35,7 +35,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados :  ", e);
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados :  ", e);
             return null;
         }
     }
@@ -69,7 +69,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             tx.commit();
             return dato;
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados.EjecutarPKG_CONTARNOVEDADESLIQ : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.EjecutarPKG_CONTARNOVEDADESLIQ :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -91,7 +91,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados.EjecutarPKG_ELIMINARLIQUIDACION : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.EjecutarPKG_ELIMINARLIQUIDACION :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -107,7 +107,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             em.persist(turnosEmpleados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados.crear: " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -123,7 +123,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             em.merge(turnosEmpleados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados.editar: " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -143,7 +143,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             if (tx.isActive()) {
                 tx.rollback();
             }
-            log.error("Error PersistenciaTurnosEmpleados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados.borrar:  ", e);
         }
     }
 
@@ -157,7 +157,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             List<TurnosEmpleados> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error PersistenciaTurnosEmpleados PersistenciaEmpleados : " + e.getMessage());
+            log.error("Error PersistenciaTurnosEmpleados PersistenciaEmpleados :  ", e);
             return null;
         }
     }

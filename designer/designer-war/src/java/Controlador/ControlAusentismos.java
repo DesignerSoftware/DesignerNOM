@@ -322,7 +322,7 @@ public class ControlAusentismos implements Serializable {
          }
 
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -2928,7 +2928,7 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void autocompletarFechas(Date fechaInicial, BigInteger dias, int tipo) {
-      log.info("Controlador.ControlAusentismos.autocompletarFechas()");
+      log.info("ControlAusentismos.autocompletarFechas()");
       log.info("fecha Inicial : " + fechaInicial);
       log.info("dias : " + dias);
       Calendar cd = Calendar.getInstance();
@@ -2950,7 +2950,7 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void autocompletarFechapago(Date fechaInicioPago, BigInteger dias, int tipo) {
-      log.info("Controlador.ControlAusentismos.autocompletarFechapago()");
+      log.info("ControlAusentismos.autocompletarFechapago()");
       Calendar aux = Calendar.getInstance();
       aux.setTime(fechaInicioPago);
       aux.add(Calendar.DAY_OF_MONTH, (dias.subtract(BigInteger.ONE).intValue()));

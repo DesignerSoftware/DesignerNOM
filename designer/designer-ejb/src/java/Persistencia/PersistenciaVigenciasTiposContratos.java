@@ -38,7 +38,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasTiposContratos.crear()" + e.getMessage());
+         log.error("PersistenciaVigenciasTiposContratos.crear():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          em.merge(vigenciasTiposContratos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasTiposContratos.editar()" + e.getMessage());
+         log.error("PersistenciaVigenciasTiposContratos.editar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          em.remove(em.merge(vigenciasTiposContratos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasTiposContratos.borrar()" + e.getMessage());
+         log.error("PersistenciaVigenciasTiposContratos.borrar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -84,7 +84,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          em.clear();
          return em.find(VigenciasTiposContratos.class, secuencia);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContrato()" + e.getMessage());
+         log.error("PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContrato():  ", e);
          return null;
       }
    }
@@ -97,7 +97,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          cq.select(cq.from(VigenciasTiposContratos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciasTiposContratos()" + e.getMessage());
+         log.error("PersistenciaVigenciasTiposContratos.buscarVigenciasTiposContratos():  ", e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          List<VigenciasTiposContratos> vigenciasTiposContratos = (List<VigenciasTiposContratos>) query.getResultList();
          return vigenciasTiposContratos;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContratoEmpleado()" + e.getMessage());
+         log.error("PersistenciaVigenciasTiposContratos.buscarVigenciaTipoContratoEmpleado():  ", e);
          return null;
       }
    }
@@ -128,7 +128,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          fechaContratacion = (Date) query.getSingleResult();
          return fechaContratacion;
       } catch (Exception e) {
-         log.error("Error fechaMaxContratacion PersistenciaTiposContratos : " + e.getMessage());
+         log.error("Error fechaMaxContratacion PersistenciaTiposContratos :  ", e);
          return null;
       }
    }
@@ -144,7 +144,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          fecha = (Date) query2.getSingleResult();
          return fecha;
       } catch (Exception e) {
-         log.error("Error fechaFinalContratacionVacaciones PersistenciaTiposContratos : " + e.getMessage());
+         log.error("Error fechaFinalContratacionVacaciones PersistenciaTiposContratos :  ", e);
          return null;
       }
    }
@@ -160,7 +160,7 @@ public class PersistenciaVigenciasTiposContratos implements PersistenciaVigencia
          fechaContratacion = (Date) query.getSingleResult();
          return fechaContratacion;
       } catch (Exception e) {
-         log.error("Error fechaMaxContrato PersistenciaTiposContratos : " + e.getMessage());
+         log.error("Error fechaMaxContrato PersistenciaTiposContratos :  ", e);
          return null;
       }
     }

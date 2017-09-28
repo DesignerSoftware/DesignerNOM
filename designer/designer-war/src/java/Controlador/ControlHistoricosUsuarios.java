@@ -125,7 +125,7 @@ public class ControlHistoricosUsuarios implements Serializable {
          externalContext = x.getExternalContext();
          userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1006,7 +1006,7 @@ public class ControlHistoricosUsuarios implements Serializable {
 
    public void exportarReporte() throws IOException {
       try {
-         log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+         log.info("ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
          if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();

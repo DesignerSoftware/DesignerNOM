@@ -244,7 +244,7 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
          administrarInterfaseContableSapBOHP.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlInterfaseContableSapBOVCA: " + e);
+         log.error("Error postconstruct ControlInterfaseContableSapBOVCA:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

@@ -29,7 +29,7 @@ public class PersistenciaCambiosMasivos implements PersistenciaCambiosMasivosInt
 //         em.persist(cambioMasivo);
 //         tx.commit();
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.crear: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.crear:  ", e);
 //         if (tx.isActive()) {
 //            tx.rollback();
 //         }
@@ -45,7 +45,7 @@ public class PersistenciaCambiosMasivos implements PersistenciaCambiosMasivosInt
 //         em.merge(cambioMasivo);
 //         tx.commit();
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.editar: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.editar:  ", e);
 //         if (tx.isActive()) {
 //            tx.rollback();
 //         }
@@ -64,7 +64,7 @@ public class PersistenciaCambiosMasivos implements PersistenciaCambiosMasivosInt
 //         if (tx.isActive()) {
 //            tx.rollback();
 //         }
-//         log.error("Error PersistenciaCambiosMasivos.borrar: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.borrar:  ", e);
 //      }
 //   }
 //
@@ -74,7 +74,7 @@ public class PersistenciaCambiosMasivos implements PersistenciaCambiosMasivosInt
 //         em.clear();
 //         return em.find(CambiosMasivos.class, secuencia);
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia(): " + e);
+//         log.error("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia():  ", e);
 //         return null;
 //      }
 //   }
@@ -88,7 +88,7 @@ public class PersistenciaCambiosMasivos implements PersistenciaCambiosMasivosInt
 //         List<CambiosMasivos> lista = query.getResultList();
 //         return lista;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarCambiosMasivos:  ", e);
 //         return null;
 //      }
 //   }
@@ -100,7 +100,7 @@ public class PersistenciaCambiosMasivos implements PersistenciaCambiosMasivosInt
 //         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
 //         return parametro;
 //      } catch (Exception e) {
-//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+//         log.error("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos:  ", e);
 //         return null;
 //      }
 //   }

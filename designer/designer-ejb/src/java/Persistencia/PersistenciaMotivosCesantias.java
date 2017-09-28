@@ -39,7 +39,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.merge(motivosCesantias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCesantias.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCesantias.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.merge(motivosCesantias);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosCesantias.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosCesantias.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,7 +77,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaMotivosCesantias.borrar: " + e.getMessage());
+                log.error("Error PersistenciaMotivosCesantias.borrar:  ", e);
             }
         }
     }
@@ -88,7 +88,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.clear();
             return em.find(MotivosCesantias.class, secuenciaME);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaMotivosCesantias.buscarMotivoCensantia()" + e.getMessage());
+            log.error("PersistenciaMotivosCesantias.buscarMotivoCensantia():  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
         List<MotivosCesantias> listaMotivosEmbargos = query.getResultList();
         return listaMotivosEmbargos;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaMotivosCesantias.buscarMotivosCesantias()" + e.getMessage());
+            log.error("PersistenciaMotivosCesantias.buscarMotivosCesantias():  ", e);
             return null;
         }
     }
@@ -118,7 +118,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA  ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

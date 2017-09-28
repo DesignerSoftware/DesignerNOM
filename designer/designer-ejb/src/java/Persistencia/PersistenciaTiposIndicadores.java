@@ -27,7 +27,7 @@ public class PersistenciaTiposIndicadores implements PersistenciaTiposIndicadore
             em.merge(tiposIndicadores);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndicadores.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposIndicadores.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposIndicadores implements PersistenciaTiposIndicadore
             em.merge(tiposIndicadores);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndicadores.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposIndicadores.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposIndicadores implements PersistenciaTiposIndicadore
             em.remove(em.merge(tiposIndicadores));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndicadores.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposIndicadores.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaTiposIndicadores implements PersistenciaTiposIndicadore
             List< TiposIndicadores> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Error buscarTiposIndicadores PersistenciaTiposIndicadores : " + e.getMessage());
+            log.error("Error buscarTiposIndicadores PersistenciaTiposIndicadores :  ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaTiposIndicadores implements PersistenciaTiposIndicadore
             TiposIndicadores tiposIndicadores = (TiposIndicadores) query.getSingleResult();
             return tiposIndicadores;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposIndicadores buscarTiposIndicadoresSecuencia : " + e.getMessage());
+            log.error("Error PersistenciaTiposIndicadores buscarTiposIndicadoresSecuencia :  ", e);
             return null;
         }
     }
@@ -106,7 +106,7 @@ public class PersistenciaTiposIndicadores implements PersistenciaTiposIndicadore
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposIndicadores.contadorVigenciasIndicadores()" + e.getMessage());
+            log.error("PersistenciaTiposIndicadores.contadorVigenciasIndicadores():  ", e);
             return retorno;
         }
     }

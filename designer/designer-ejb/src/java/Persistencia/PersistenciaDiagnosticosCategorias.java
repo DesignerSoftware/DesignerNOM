@@ -44,7 +44,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCategorias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiagnosticosCategorias.crear: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -60,7 +60,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCategorias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiagnosticosCategorias.editar: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -80,7 +80,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaDiagnosticosCategorias.borrar: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.borrar:  ", e);
       }
    }
 
@@ -93,7 +93,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticoscategorias> diagnosticosCategorias = query.getResultList();
          return diagnosticosCategorias;
       } catch (Exception e) {
-         log.error("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " , e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticoscategorias> diagnosticosCategorias = query.getResultList();
          return diagnosticosCategorias;
       } catch (Exception e) {
-         log.error("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarDiagnosticos ERROR : " , e);
          return null;
       }
    }
@@ -122,7 +122,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticoscapitulos> diagnosticosCapitulos = query.getResultList();
          return diagnosticosCapitulos;
       } catch (Exception e) {
-         log.error("Error en PersistenciaDiagnosticosCategorias buscarCapitulo ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarCapitulo ERROR : " , e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCapitulo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiagnosticosCategorias.crearCapitulo: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.crearCapitulo:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -152,7 +152,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosCapitulo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiagnosticosCategorias.editarCapitulo: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.editarCapitulo:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -174,7 +174,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaDiagnosticosCategorias.borrarCapitulo: " + e);
+            log.error("Error PersistenciaDiagnosticosCategorias.borrarCapitulo:  ", e);
          }
       }
    }
@@ -189,7 +189,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          List<Diagnosticossecciones> diagnosticosSecciones = query.getResultList();
          return diagnosticosSecciones;
       } catch (Exception e) {
-         log.error("Error en PersistenciaDiagnosticosCategorias buscarSección ERROR : " + e.getMessage().toString());
+         log.error("Error en PersistenciaDiagnosticosCategorias buscarSección ERROR : " , e);
          return null;
       }
    }
@@ -203,7 +203,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosSeccion);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiagnosticosCategorias.crearSección: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.crearSección:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -219,7 +219,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
          em.merge(diagnosticosSeccion);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaDiagnosticosCategorias.editarSección: " + e);
+         log.error("Error PersistenciaDiagnosticosCategorias.editarSección:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -241,7 +241,7 @@ public class PersistenciaDiagnosticosCategorias implements PersistenciaDiagnosti
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaDiagnosticosCategorias.borrarSección: " + e);
+            log.error("Error PersistenciaDiagnosticosCategorias.borrarSección:  ", e);
          }
       }
    }

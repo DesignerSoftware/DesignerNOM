@@ -37,7 +37,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             em.merge(aportesEntidades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidades.crear : " + e.toString());
+            log.error("Error PersistenciaAportesEntidades.crear :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             em.merge(aportesEntidades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidades.editar : " + e.toString());
+            log.error("Error PersistenciaAportesEntidades.editar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             em.remove(em.merge(aportesEntidades));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidades.borrar : " + e.toString());
+            log.error("Error PersistenciaAportesEntidades.borrar :  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             List<AportesEntidades> aportesEntidades = query.getResultList();
             return aportesEntidades;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidades.consultarParametrosAutoliq : " + e.toString());
+            log.error("Error PersistenciaAportesEntidades.consultarParametrosAutoliq :  ", e);
             return null;
         }
     }
@@ -132,7 +132,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             }
             return aportesEntidades;
         } catch (Exception e) {
-            log.error("Error PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAño : " + e.toString());
+            log.error("Error PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAño :  ", e);
             return null;
         }
     }
@@ -152,7 +152,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesEntidades.borrarAportesEntidadesProcesoAutomatico: " + e.toString());
+            log.error("Error en PersistenciaAportesEntidades.borrarAportesEntidadesProcesoAutomatico:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -166,7 +166,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
 
     @Override
     public String ejecutarPKGInsertar(EntityManager em, Date fechaIni, Date fechaFin, BigInteger tipoTrabajador, BigInteger secEmpresa) {
-        log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGInsertar()");
+        log.error("PersistenciaAportesEntidades.ejecutarPKGInsertar()");
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaIncicial = formatoFecha.format(fechaIni);
         String fechaFinal = formatoFecha.format(fechaFin);
@@ -185,7 +185,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar: " + e.toString());
+            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -212,7 +212,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGActualizarNovedades: " + e.toString());
+            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGActualizarNovedades:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -239,7 +239,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesEntidades.ejecutarAcumularDiferencia: " + e.toString());
+            log.error("Error en PersistenciaAportesEntidades.ejecutarAcumularDiferencia:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -308,14 +308,14 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             }
             return listAportesEmpleado;
         } catch (Exception e) {
-            log.error("error en consultarAportesPorEmpleado" + e.toString());
+            log.error("error en consultarAportesPorEmpleado ", e);
             return null;
         }
     }
 
     @Override
     public String ejecutarPKGEliminarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa) {
-        log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGEliminarAportesEntidadesXDia()");
+        log.error("PersistenciaAportesEntidades.ejecutarPKGEliminarAportesEntidadesXDia()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -329,7 +329,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar: " + e.toString());
+            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -343,7 +343,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
 
     @Override
     public String ejecutarPKGProcesarAportesEntidadesXDia(EntityManager em, short ano, short mes, BigInteger secEmpresa) {
-        log.error("Persistencia.PersistenciaAportesEntidades.ejecutarPKGProcesasAportesEntidadesXDia()");
+        log.error("PersistenciaAportesEntidades.ejecutarPKGProcesasAportesEntidadesXDia()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -357,7 +357,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             tx.commit();
             return "PROCESO_EXITOSO";
         } catch (Exception e) {
-            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar: " + e.toString());
+            log.error("Error en PersistenciaAportesEntidades.ejecutarPKGInsertar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }

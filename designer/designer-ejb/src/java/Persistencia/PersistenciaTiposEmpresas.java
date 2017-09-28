@@ -38,7 +38,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.merge(tiposEmpresas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEmpresas.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmpresas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.merge(tiposEmpresas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEmpresas.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmpresas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.remove(em.merge(tiposEmpresas));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposEmpresas.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposEmpresas.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +80,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             em.clear();
             return em.find(TiposEmpresas.class, secuenciaTE);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposEmpresas.buscarTipoEmpresa()" + e.getMessage());
+            log.error("PersistenciaTiposEmpresas.buscarTipoEmpresa():  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
         List<TiposEmpresas> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaTiposEmpresas.buscarTiposEmpresas()" + e.getMessage());
+            log.error("PersistenciaTiposEmpresas.buscarTiposEmpresas():  ", e);
             return null;
         }
     }
@@ -110,7 +110,7 @@ public class PersistenciaTiposEmpresas implements PersistenciaTiposEmpresasInter
             log.warn("Contador TiposEmpresas contadorIdiomasPersonas persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaTiposEmpresas.contadorSueldosMercados()" + e.getMessage());
+            log.error("PersistenciaTiposEmpresas.contadorSueldosMercados():  ", e);
             return retorno;
         }
     }

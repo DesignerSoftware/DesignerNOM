@@ -61,7 +61,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          em.merge(estructura);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEstructuras.crear: " + e);
+         log.error("Error PersistenciaEstructuras.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          em.merge(estructura);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEstructuras.editar: " + e);
+         log.error("Error PersistenciaEstructuras.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -126,7 +126,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEstructuras.borrar: " + e);
+         log.error("Error PersistenciaEstructuras.borrar:  ", e);
       }
    }
 
@@ -148,7 +148,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return estructura;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEstructuras.buscarEstructura() e: " + e);
+         log.error("PersistenciaEstructuras.buscarEstructura() e:  ", e);
          return null;
       }
    }
@@ -175,7 +175,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEstructuras.estructuras() e: " + e);
+         log.error("PersistenciaEstructuras.estructuras() e:  ", e);
          return null;
       }
    }
@@ -203,7 +203,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras " + e);
+         log.error("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras  ", e);
          e.printStackTrace();
          return null;
       }
@@ -232,7 +232,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructurasPorOrganigrama PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPorOrganigrama PersistenciaEstructuras :  ", e);
          return null;
       }
    }
@@ -269,7 +269,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          return listaEstructuras;
       } catch (Exception ex) {
          log.error("PersistenciaEstructuras: Fallo el nativeQuery, fecha parametro entrante: " + fechaVigencia);
-         log.error("PersistenciaEstructuras: Fallo el nativeQuery, EM: " + em);
+         log.error("PersistenciaEstructuras: Fallo el nativeQuery: ", ex);
          listaEstructuras = null;
          return listaEstructuras;
       }
@@ -298,7 +298,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructuraPadre" + e);
+         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructuraPadre:  ", e);
          return null;
       }
    }
@@ -327,7 +327,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructurasHijas" + e);
+         log.error("Exepcion en PersistenciaVWActualesTiposTrabajadores.estructurasHijas:  ", e);
          return null;
       }
    }
@@ -354,7 +354,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructuras PersistenciaEstructuras");
+         log.error("Error buscarEstructuras PersistenciaEstructuras:  ", e);
          return null;
       }
    }
@@ -381,7 +381,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return estructura;
       } catch (Exception e) {
-         log.error("Error buscarEstructuraSecuencia PersistenciaEstructuras");
+         log.error("Error buscarEstructuraSecuencia PersistenciaEstructuras:  ", e);
          estructura = null;
       }
       return estructura;
@@ -411,7 +411,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructurasPadres PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPadres PersistenciaEstructuras :  ", e);
          return null;
       }
    }
@@ -441,7 +441,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructurasPorEmpresaFechaIngreso PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPorEmpresaFechaIngreso PersistenciaEstructuras :  ", e);
          listaEstructuras = null;
       }
       return listaEstructuras;
@@ -471,7 +471,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error buscarEstructurasPorEmpresa PersistenciaEstructuras : " + e.toString());
+         log.error("Error buscarEstructurasPorEmpresa PersistenciaEstructuras :  ", e);
          listaEstructuras = null;
       }
       return listaEstructuras;
@@ -499,7 +499,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error consultarEstructurasReingreso PersistenciaEstructuras: " + e.toString());
+         log.error("Error consultarEstructurasReingreso PersistenciaEstructuras:  ", e);
          return null;
       }
    }
@@ -540,7 +540,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error consultarEstructurasTurnoEmpleado PersistenciaEstructuras: " + e.toString());
+         log.error("Error consultarEstructurasTurnoEmpleado PersistenciaEstructuras:  ", e);
          return null;
       }
    }
@@ -584,14 +584,14 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          }
          return listaEstructuras;
       } catch (Exception e) {
-         log.error("Error consultarEstructurasEersCabeceras PersistenciaEstructuras: " + e.toString());
+         log.error("Error consultarEstructurasEersCabeceras PersistenciaEstructuras:  ", e);
          return null;
       }
    }
 
    @Override
    public void adicionaEstructuraCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio) {
-      log.warn("Persistencia.PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
+      log.warn("PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -605,7 +605,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.execute();
          log.warn(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -630,7 +630,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          query.execute();
          log.warn(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".undoAdicionaEstructuraCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -656,7 +656,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          log.warn(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() Ya ejecuto");
          tx.commit();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".adicionaEstructuraCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -680,7 +680,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          log.warn(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() Ya ejecuto");
          tx.commit();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() ERROR: " + e);
+         log.error(this.getClass().getName() + ".undoAdicionaLocalizacionCambiosMasivos() ERROR:  ", e);
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

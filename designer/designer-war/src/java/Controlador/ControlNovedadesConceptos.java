@@ -203,7 +203,7 @@ public class ControlNovedadesConceptos implements Serializable {
          administrarRastros.obtenerConexion(ses.getId());
          administrarFormulaConcepto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1660,7 +1660,7 @@ public class ControlNovedadesConceptos implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosConceptos");
          log.warn("CancelarModificacion() 12");
       } catch (Exception e) {
-         log.warn(this.getClass().getSimpleName() + ".cancelarModificacion().ERROR: " + e);
+         log.warn(this.getClass().getSimpleName() + ".cancelarModificacion().ERROR:  ", e);
       }
    }
 

@@ -134,7 +134,7 @@ public class ControladorColumnasDinamicas implements Serializable {
 //            columns.get(12).setWidthColumn(calcularAncho(primerResultado.getColumna8().length()));
 //            columns.get(13).setWidthColumn(calcularAncho(primerResultado.getColumna9().length()));
          } catch (Exception e) {
-            log.info("Entro al catch() e : " + e);
+            log.info("Entro al catch() e : " , e);
          }
       }
    }

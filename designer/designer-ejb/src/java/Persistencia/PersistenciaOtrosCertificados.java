@@ -39,7 +39,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             em.merge(certificados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaOtrosCertificados.crear: " + e.getMessage());
+            log.error("Error PersistenciaOtrosCertificados.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             em.merge(certificados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaOtrosCertificados.editar: " + e.getMessage());
+            log.error("Error PersistenciaOtrosCertificados.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             em.remove(em.merge(certificados));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaOtrosCertificados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaOtrosCertificados.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             List<OtrosCertificados> certificados = (List<OtrosCertificados>) query.getResultList();
             return certificados;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaOtrosCertificados.buscarOtrosCertificados()" + e.getMessage());
+            log.error("PersistenciaOtrosCertificados.buscarOtrosCertificados():  ", e);
             return null;
         }
     }
@@ -102,7 +102,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             OtrosCertificados certificados = (OtrosCertificados) query.getResultList();
             return certificados;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaOtrosCertificados.buscarOtroCertificadoSecuencia()" + e.getMessage());
+            log.error("PersistenciaOtrosCertificados.buscarOtroCertificadoSecuencia():  ", e);
             OtrosCertificados certificados = null;
             return certificados;
         }
@@ -118,7 +118,7 @@ public class PersistenciaOtrosCertificados implements PersistenciaOtrosCertifica
             List<OtrosCertificados> certificados = (List<OtrosCertificados>) query.getResultList();
             return certificados;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaOtrosCertificados.buscarOtrosCertificadosEmpleado()" + e.getMessage());
+            log.error("PersistenciaOtrosCertificados.buscarOtrosCertificadosEmpleado():  ", e);
             List<OtrosCertificados> certificados = null;
             return certificados;
         }

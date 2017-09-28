@@ -32,7 +32,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          em.merge(claseRiesgo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesRiesgos.crear: " + e);
+         log.error("Error PersistenciaClasesRiesgos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -49,7 +49,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          em.merge(claseRiesgo);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesRiesgos.editar: " + e);
+         log.error("Error PersistenciaClasesRiesgos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +65,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          em.remove(em.merge(claseRiesgo));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesRiesgos.borrar: " + e);
+         log.error("Error PersistenciaClasesRiesgos.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +81,7 @@ public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInter
          List<ClasesRiesgos> listClasesRiesgos = (List<ClasesRiesgos>) query.getResultList();
          return listClasesRiesgos;
       } catch (Exception e) {
-         log.error("Error PersistenciaClasesRiesgos.consultarClasesRiesgos : " + e.toString());
+         log.error("Error PersistenciaClasesRiesgos.consultarClasesRiesgos :  ", e);
          return null;
       }
    }

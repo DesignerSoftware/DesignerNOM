@@ -131,7 +131,7 @@ public class ControlComprobantes implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarComprobantes.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

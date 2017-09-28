@@ -27,7 +27,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          em.persist(vigenciasIndicadores);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasIndicadores.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasIndicadores.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -43,7 +43,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          em.merge(vigenciasIndicadores);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasIndicadores.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasIndicadores.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          em.remove(em.merge(vigenciasIndicadores));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasIndicadores.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasIndicadores.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          List<VigenciasIndicadores> vigenciasIndicadores = query.getResultList();
          return vigenciasIndicadores;
       } catch (Exception e) {
-         log.error("Error buscarVigenciasIndicadores PersistenciaVigenciasIndicadores : " + e.getMessage());
+         log.error("Error buscarVigenciasIndicadores PersistenciaVigenciasIndicadores :  ", e);
          return null;
       }
    }
@@ -90,7 +90,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          VigenciasIndicadores vigenciasIndicadores = (VigenciasIndicadores) query.getSingleResult();
          return vigenciasIndicadores;
       } catch (Exception e) {
-         log.error("Error buscarVigenciaIndicadorSecuencia PersistenciaVigenciasIndicadores : " + e.getMessage());
+         log.error("Error buscarVigenciaIndicadorSecuencia PersistenciaVigenciasIndicadores :  ", e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasIndicadores.indicadoresPersona" + e.getMessage());
+         log.error("Error PersistenciaVigenciasIndicadores.indicadoresPersona ", e);
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          List<VigenciasIndicadores> listaVigenciasIndicadores = queryFinal.getResultList();
          return listaVigenciasIndicadores;
       } catch (Exception e) {
-         log.error("Error indicadoresTotalesEmpleadoSecuencia : " + e.getMessage());
+         log.error("Error indicadoresTotalesEmpleadoSecuencia :  ", e);
          return null;
       }
    }
@@ -150,9 +150,9 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
          return indicador;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaVigenciasIndicadores.primeraVigenciaIndicador()" + e.getMessage());
+            log.trace("PersistenciaVigenciasIndicadores.primeraVigenciaIndicador(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaVigenciasIndicadores.primeraVigenciaIndicador()" + e.getMessage());
+            log.error("PersistenciaVigenciasIndicadores.primeraVigenciaIndicador():  ", e);
          }
          return "";
       }

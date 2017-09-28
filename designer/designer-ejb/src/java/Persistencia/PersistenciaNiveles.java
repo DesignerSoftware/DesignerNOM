@@ -37,7 +37,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.merge(niveles);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNiveles.crear: " + e.getMessage());
+            log.error("Error PersistenciaNiveles.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.merge(niveles);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNiveles.editar: " + e.getMessage());
+            log.error("Error PersistenciaNiveles.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +67,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.remove(em.merge(niveles));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaNiveles.borrar: " + e.getMessage());
+            log.error("Error PersistenciaNiveles.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -79,7 +79,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.clear();
             return em.find(Niveles.class, secNiveles);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaNiveles.consultarNivel()" + e.getMessage());
+            log.error("PersistenciaNiveles.consultarNivel():  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
         List<Niveles> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaNiveles.consultarNiveles()" + e.getMessage());
+            log.error("PersistenciaNiveles.consultarNiveles():  ", e);
             return null;
         }
     }
@@ -109,7 +109,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             log.warn("Contador PersistenciaNiveles contarEvalConvocatoriasNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaNiveles  contarEvalConvocatoriasNivel ERROR. " + e.getMessage());
+            log.error("Error PersistenciaNiveles  contarEvalConvocatoriasNivel ERROR.  ", e);
             return retorno;
         }
     }
@@ -125,7 +125,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             log.warn("Contador PersistenciaNiveles contarPlantasNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaNiveles  contarPlantasNivel ERROR. " + e.getMessage());
+            log.error("Error PersistenciaNiveles  contarPlantasNivel ERROR.  ", e);
             return retorno;
         }
     }
@@ -141,7 +141,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             log.warn("Contador PersistenciaNiveles contarPlantasPersonalesNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaNiveles  contarPlantasPersonalesNivel ERROR. " + e.getMessage());
+            log.error("Error PersistenciaNiveles  contarPlantasPersonalesNivel ERROR.  ", e);
             return retorno;
         }
     }

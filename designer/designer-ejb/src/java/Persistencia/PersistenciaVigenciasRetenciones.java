@@ -38,7 +38,7 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasRetenciones.crear: " + e);
+            log.error("Error PersistenciaVigenciasRetenciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasRetenciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasRetenciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
             em.remove(em.merge(vretenciones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasRetenciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaVigenciasRetenciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
         List<VigenciasRetenciones> setsLista = (List<VigenciasRetenciones>) query.getResultList();
         return setsLista;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaVigenciasRetenciones.buscarVigenciasRetenciones()" + e.getMessage());
+            log.error("PersistenciaVigenciasRetenciones.buscarVigenciasRetenciones():  ", e);
             return null;
         }
     }

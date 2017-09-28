@@ -178,7 +178,7 @@ public class ControlGrupoConcepto implements Serializable {
          administrarGruposConceptos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1822,7 +1822,7 @@ public class ControlGrupoConcepto implements Serializable {
             tamano = "" + 133;
          }
       } catch (Exception e) {
-         log.warn("ERROR ControlgrupoConcepto.getTamano: " + e);
+         log.warn("ERROR ControlgrupoConcepto.getTamano:  ", e);
       }
       return tamano;
    }

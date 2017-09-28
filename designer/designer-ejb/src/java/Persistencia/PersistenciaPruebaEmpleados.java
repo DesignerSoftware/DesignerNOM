@@ -72,14 +72,14 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          }
          return pruebaEmpleado;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPruebaEmpleados.empleadosAsignacion()" + e.getMessage());
+         log.error("PersistenciaPruebaEmpleados.empleadosAsignacion():  ", e);
          e.printStackTrace();
          return null;
       }
    }
 
    public List<PruebaEmpleados> empleadosNovedadesEmpl(EntityManager em) {
-      log.warn("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmpl()");
+      log.warn("PersistenciaPruebaEmpleados.empleadosNovedadesEmpl()");
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWA.valor) VALOR, tt.tipo TIPO\n"
@@ -102,15 +102,15 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          List<PruebaEmpleados> pruebasEmpleados = query.getResultList();
          return pruebasEmpleados;
       } catch (Exception e) {
-         log.error("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
-         log.error("e.getCause() : " + e.getCause());
+         log.error("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl.  ", e);
+         log.error("e.getCause() :  ", e);
          e.printStackTrace();
          return null;
       }
    }
 
    public List<PruebaEmpleados> empleadosNovedadesEmple(EntityManager em) {
-      log.warn("Persistencia.PersistenciaPruebaEmpleados.empleadosNovedadesEmple()");
+      log.warn("PersistenciaPruebaEmpleados.empleadosNovedadesEmple()");
       try {
          em.clear();
          Query query = em.createNativeQuery("SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWA.valor) VALOR, tt.tipo TIPO\n"
@@ -124,7 +124,7 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          List<PruebaEmpleados> pruebasEmpleados = query.getResultList();
          return pruebasEmpleados;
       } catch (Exception e) {
-         log.error("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
+         log.error("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl.  ", e);
          return null;
       }
    }

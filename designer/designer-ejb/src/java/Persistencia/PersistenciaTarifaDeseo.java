@@ -43,7 +43,7 @@ public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface
             return resultado;
 
         } catch (Exception e) {
-            log.error("Error: ( Persistencia Tarifa Deseo)" + e.getMessage());
+            log.error("Error: ( Persistencia Tarifa Deseo) ", e);
             return null;
         }
     }

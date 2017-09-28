@@ -32,7 +32,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          em.merge(conceptosSoportes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosSoportes.crear: " + e);
+         log.error("Error PersistenciaConceptosSoportes.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -47,7 +47,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          em.merge(conceptosSoportes);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosSoportes.editar: " + e);
+         log.error("Error PersistenciaConceptosSoportes.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +65,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaConceptosSoportes.borrar: " + e);
+         log.error("Error PersistenciaConceptosSoportes.borrar:  ", e);
       }
    }
 
@@ -77,7 +77,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          List<ConceptosSoportes> conceptosSoportes = query.getResultList();
          return conceptosSoportes;
       } catch (Exception e) {
-         log.error("Error consultarConceptosSoportes" + e);
+         log.error("Error consultarConceptosSoportes ", e);
          return null;
       }
    }
@@ -91,7 +91,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          ConceptosSoportes conceptosSoportes = (ConceptosSoportes) query.getSingleResult();
          return conceptosSoportes;
       } catch (Exception e) {
-         log.error("Error consultarConceptosSoportes " + e);
+         log.error("Error consultarConceptosSoportes  ", e);
          ConceptosSoportes conceptosSoportes = null;
          return conceptosSoportes;
       }
@@ -107,7 +107,7 @@ public class PersistenciaConceptosSoportes implements PersistenciaConceptosSopor
          BigInteger conceptosSoportes = new BigInteger(query.getSingleResult().toString());
          return conceptosSoportes;
       } catch (Exception e) {
-         log.error("Error consultarConceptosSoportes " + e);
+         log.error("Error consultarConceptosSoportes  ", e);
          return null;
       }
    }

@@ -40,7 +40,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.merge(idiomas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIdiomas.crear: " + e.getMessage());
+            log.error("Error PersistenciaIdiomas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.merge(idiomas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIdiomas.editar: " + e.getMessage());
+            log.error("Error PersistenciaIdiomas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             tx.commit();
 
         } catch (Exception e) {
-        log.error("Error PersistenciaIdiomas.borrar: " + e.getMessage());
+        log.error("Error PersistenciaIdiomas.borrar:  ", e);
                 if (tx.isActive()) {
                     tx.rollback();
                 }
@@ -85,7 +85,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.clear();
             return em.find(Idiomas.class, secuenciaI);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaIdiomas.buscarIdioma()" + e.getMessage());
+            log.error("PersistenciaIdiomas.buscarIdioma():  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             List<Idiomas> idioma = (List<Idiomas>) query.getResultList();
             return idioma;
         } catch (Exception e) {
-            log.error("Error buscarIdiomas PersistenciaIdiomas : " + e.toString());
+            log.error("Error buscarIdiomas PersistenciaIdiomas :  ", e);
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PersistenciaIdiomas contadorIdiomasPersonas. " + e);
+            log.error("Error PersistenciaIdiomas contadorIdiomasPersonas.  ", e);
             return retorno;
         }
     }

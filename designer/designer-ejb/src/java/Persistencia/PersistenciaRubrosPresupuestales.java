@@ -39,7 +39,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
          em.merge(rubrospresupuestales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaRubrosPresupuestales.crear: " + e.getMessage());
+         log.error("Error PersistenciaRubrosPresupuestales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
          em.merge(rubrospresupuestales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaRubrosPresupuestales.editar: " + e.getMessage());
+         log.error("Error PersistenciaRubrosPresupuestales.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -71,7 +71,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
          em.merge(rubrospresupuestales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaRubrosPresupuestales.borrar: " + e.getMessage());
+         log.error("Error PersistenciaRubrosPresupuestales.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -87,7 +87,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
          List<Rubrospresupuestales> rubrospresupuestales = (List<Rubrospresupuestales>) query.getResultList();
          return rubrospresupuestales;
       } catch (Exception e) {
-         log.error("Error buscarCuentas PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentas PersistenciaCuentas :  ", e);
          return null;
       }
    }
@@ -102,7 +102,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
          Rubrospresupuestales cuentas = (Rubrospresupuestales) query.getSingleResult();
          return cuentas;
       } catch (Exception e) {
-         log.error("Error buscarCuentasSecuencia PersistenciaCuentas : " + e.toString());
+         log.error("Error buscarCuentasSecuencia PersistenciaCuentas :  ", e);
          Rubrospresupuestales cuentas = null;
          return cuentas;
       }

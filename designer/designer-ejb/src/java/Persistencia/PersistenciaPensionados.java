@@ -40,7 +40,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.merge(pensionados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPensionados.crear: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.merge(pensionados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPensionados.editar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.remove(em.merge(pensionados));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPensionados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPensionados.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             BigInteger in = (BigInteger) secuencia;
             return em.find(Pensionados.class, in);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPensionados.buscarPensionado()" + e.getMessage());
+            log.error("PersistenciaPensionados.buscarPensionado():  ", e);
             return null;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             List<Pensionados> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPensionados.buscarPensionados()" + e.getMessage());
+            log.error("PersistenciaPensionados.buscarPensionados():  ", e);
             return null;
         }
     }
@@ -115,7 +115,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             List<Pensionados> pensionados = query.getResultList();
             return pensionados;
         } catch (Exception e) {
-            log.error("Error en Persistencia Pensionados (buscarPensionadosEmpleado) " + e.toString());
+            log.error("Error en Persistencia Pensionados (buscarPensionadosEmpleado)  ", e);
             return null;
         }
     }
@@ -131,7 +131,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             Pensionados pensionVigencia = (Pensionados) query.getSingleResult();
             return pensionVigencia;
         } catch (Exception e) {
-            log.error("buscarPensionVigenciaSecuencia Error (PersistenciaPensionados): " + e.toString());
+            log.error("buscarPensionVigenciaSecuencia Error (PersistenciaPensionados):  ", e);
             return new Pensionados();
         }
     }

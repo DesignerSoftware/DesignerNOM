@@ -161,7 +161,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarArchivoPlanoProyecto.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Error postconstruct CargarArchivoPlano:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -479,7 +479,7 @@ public class ControlArchivoPlanoProyecto implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         log.warn("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt)  ", e);
       }
    }
 

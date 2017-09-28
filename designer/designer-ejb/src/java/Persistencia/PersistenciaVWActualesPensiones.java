@@ -33,7 +33,7 @@ public class PersistenciaVWActualesPensiones implements  PersistenciaVWActualesP
             VWActualesPensiones vWActualesPensiones = (VWActualesPensiones) query.getSingleResult();          
             return vWActualesPensiones.getValor();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVWActualesPensiones.buscarSueldoPensionado()" + e.getMessage());
+            log.error("PersistenciaVWActualesPensiones.buscarSueldoPensionado():  ", e);
             return null;
         }
     }

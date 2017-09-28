@@ -32,7 +32,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          em.merge(contadorProyecciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosProyecciones.crear: " + e);
+         log.error("Error PersistenciaConceptosProyecciones.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -47,7 +47,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          em.merge(contadorProyecciones);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosProyecciones.editar: " + e);
+         log.error("Error PersistenciaConceptosProyecciones.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -66,7 +66,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaConceptosProyecciones.borrar: " + e);
+         log.error("Error PersistenciaConceptosProyecciones.borrar:  ", e);
       }
    }
 
@@ -75,7 +75,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          em.clear();
          return em.find(ConceptosProyecciones.class, secuencia);
       } catch (Exception e) {
-         log.error("Error buscarDeporte PersistenciaConceptosProyecciones : " + e.toString());
+         log.error("Error buscarDeporte PersistenciaConceptosProyecciones :  ", e);
          return null;
       }
    }
@@ -87,7 +87,7 @@ public class PersistenciaConceptosProyecciones implements PersistenciaConceptosP
          cq.select(cq.from(ConceptosProyecciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarConceptosProyecciones PersistenciaConceptosProyecciones Error : " + e);
+         log.error("Error buscarConceptosProyecciones PersistenciaConceptosProyecciones Error :  ", e);
          return null;
       }
    }

@@ -39,7 +39,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             em.merge(periodicidades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPeriodicidades.crear: " + e.getMessage());
+            log.error("Error PersistenciaPeriodicidades.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             em.merge(periodicidades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPeriodicidades.editar: " + e.getMessage());
+            log.error("Error PersistenciaPeriodicidades.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             em.remove(em.merge(periodicidades));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPeriodicidades.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPeriodicidades.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            log.error("Exepcion: " + e.getMessage());
+            log.error("Exepcion:  ", e);
             return false;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             em.clear();
             return em.find(Periodicidades.class, secuencia);
         } catch (Exception e) {
-            log.error("Error en la persistencia vigencias formas pagos ERROR : " + e.getMessage());
+            log.error("Error en la persistencia vigencias formas pagos ERROR :  ", e);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
         List<Periodicidades> lista = query.getResultList();
         return lista;
         }catch(Exception e){
-            log.error("Persistencia.PersistenciaPeriodicidades.consultarPeriodicidades()" + e.getMessage());
+            log.error("PersistenciaPeriodicidades.consultarPeriodicidades():  ", e);
             return null;
         }
     }
@@ -129,7 +129,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarCPCompromisosPeriodicidad. " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarCPCompromisosPeriodicidad.  ", e);
             return retorno;
         }
     }
@@ -145,7 +145,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarDetallesPeriodicidadesPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarDetallesPeriodicidadesPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -161,7 +161,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarEersPrestamosDtosPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarEersPrestamosDtosPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -177,7 +177,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarEmpresasPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarEmpresasPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -193,7 +193,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarFormulasAseguradasPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarFormulasAseguradasPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -209,7 +209,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarFormulasContratosPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarFormulasContratosPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -225,7 +225,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarGruposProvisionesPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarGruposProvisionesPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -241,7 +241,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarNovedadesPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarNovedadesPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -257,7 +257,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarParametrosCambiosMasivosPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarParametrosCambiosMasivosPeriodicidad  ", e);
             return retorno;
         }
     }
@@ -273,7 +273,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAPERIODICIDADES  contarVigenciasFormasPagosPeriodicidad " + e.getMessage());
+            log.error("Error PERSISTENCIAPERIODICIDADES  contarVigenciasFormasPagosPeriodicidad  ", e);
             return retorno;
         }
     }

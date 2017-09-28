@@ -35,7 +35,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             em.merge(antecedenteM);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoAntecedentesMedicos.crear: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +57,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                log.error("Error PersistenciaSoAntecedentesMedicos.borrar: " + e.getMessage());
+                log.error("Error PersistenciaSoAntecedentesMedicos.borrar:  ", e);
             }
         }
     }
@@ -71,7 +71,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             em.merge(antecedenteM);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaSoAntecedentesMedicos.editar: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             List<SoAntecedentes> antecedentes = query.getResultList();
             return antecedentes;
         } catch (Exception e) {
-            log.error("Error PersistenciaSoAntecedentesMedicos.lovAntecedentes: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.lovAntecedentes:  ", e);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             List<SoAntecedentesMedicos> antecedentesM = query.getResultList();
             return antecedentesM;
         } catch (Exception e) {
-            log.error("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e.getMessage());
+            log.error("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos:  ", e);
             return null;
         }
     }

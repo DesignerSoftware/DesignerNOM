@@ -40,7 +40,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             em.persist(autoliquidaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIbcsAutoliquidaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaIbcsAutoliquidaciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             em.merge(autoliquidaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaIbcsAutoliquidaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaIbcsAutoliquidaciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +73,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaIbcsAutoliquidaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaIbcsAutoliquidaciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -89,7 +89,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             List<IbcsAutoliquidaciones> autoliquidaciones = (List<IbcsAutoliquidaciones>) query.getResultList();
             return autoliquidaciones;
         } catch (Exception e) {
-            log.error("Error buscarIbcsAutoliquidaciones PersistenciaIbcsAutoliquidaciones : " + e.toString());
+            log.error("Error buscarIbcsAutoliquidaciones PersistenciaIbcsAutoliquidaciones :  ", e);
             return null;
         }
     }
@@ -104,7 +104,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             IbcsAutoliquidaciones autoliquidaciones = (IbcsAutoliquidaciones) query.getSingleResult();
             return autoliquidaciones;
         } catch (Exception e) {
-            log.error("Error buscarIbcAutoliquidacionSecuencia PersistenciaIbcsAutoliquidaciones : " + e.toString());
+            log.error("Error buscarIbcAutoliquidacionSecuencia PersistenciaIbcsAutoliquidaciones :  ", e);
             IbcsAutoliquidaciones autoliquidaciones = null;
             return autoliquidaciones;
         }
@@ -121,7 +121,7 @@ public class PersistenciaIbcsAutoliquidaciones implements PersistenciaIbcsAutoli
             List<IbcsAutoliquidaciones> autoliquidaciones = (List<IbcsAutoliquidaciones>) query.getResultList();
             return autoliquidaciones;
         } catch (Exception e) {
-            log.error("Error buscarIbcsAutoliquidacionesTipoEntidadEmpleado PersistenciaIbcsAutoliquidaciones : " + e.toString());
+            log.error("Error buscarIbcsAutoliquidacionesTipoEntidadEmpleado PersistenciaIbcsAutoliquidaciones :  ", e);
             return null;
         }
     }

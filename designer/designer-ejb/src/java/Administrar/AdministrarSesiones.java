@@ -29,7 +29,7 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
       try {
          sessionesActivas = new ArrayList<SessionEntityManager>();
       } catch (Exception e) {
-         log.fatal("Administrar.AdministrarSesiones.<init>() ERROR: " + e);
+         log.fatal("AdministrarSesiones.<init>() ERROR: " + e);
       }
    }
 

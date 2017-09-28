@@ -33,7 +33,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             em.merge(pregunta);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPreguntasKioscos.crear: " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             em.merge(pregunta);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPreguntasKioscos.editar: " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             em.remove(em.merge(pregunta));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaPreguntasKioscos.borrar: " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             return lista;
 
         } catch (Exception e) {
-            log.error("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos : " + e.getMessage());
+            log.error("Error consultarPreguntasKioskos PersistenciaPreguntasKioscos :  ", e);
             return null;
         }
     }
@@ -96,7 +96,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             PreguntasKioskos preguntaK = (PreguntasKioskos) query.getSingleResult();
             return preguntaK;
         } catch (Exception e) {
-            log.error("Error PersistenciaPreguntasKioscos consultarPreguntaKiosko : " + e.getMessage());
+            log.error("Error PersistenciaPreguntasKioscos consultarPreguntaKiosko :  ", e);
             PreguntasKioskos preguntaK = null;
             return preguntaK;
         }
@@ -115,7 +115,7 @@ public class PersistenciaPreguntasKioscos implements PersistenciaPreguntasKiosco
             log.warn("Contador PreguntasKioskos  persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaPreguntasKioscos.contarPreguntasKioskos()" + e.getMessage());
+            log.error("PersistenciaPreguntasKioscos.contarPreguntasKioskos():  ", e);
             return retorno;
         }
     }

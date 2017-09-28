@@ -42,7 +42,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          em.merge(personas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPersonas.crear: " + e.getMessage());
+         log.error("Error PersistenciaPersonas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          em.merge(personas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPersonas.editar: " + e.getMessage());
+         log.error("Error PersistenciaPersonas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          em.remove(em.merge(personas));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaPersonas.borrar: " + e.getMessage());
+         log.error("Error PersistenciaPersonas.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -106,7 +106,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return persona;
       } catch (Exception e) {
-         log.error("PersistenciaPersonas.buscarPersona()" + e.getMessage());
+         log.error("PersistenciaPersonas.buscarPersona():  ", e);
          return null;
       }
    }
@@ -143,7 +143,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return listaPersonas;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPersonas.consultarPersonas()" + e.getMessage());
+         log.error("PersistenciaPersonas.consultarPersonas():  ", e);
          return null;
       }
    }
@@ -158,7 +158,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          query.executeUpdate();
          em.getTransaction().commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPersonas.actualizarFotoPersona()" + e.getMessage());
+         log.error("PersistenciaPersonas.actualizarFotoPersona():  ", e);
       }
    }
 
@@ -190,7 +190,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return persona;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPersonas.buscarFotoPersona()" + e.getMessage());
+         log.error("PersistenciaPersonas.buscarFotoPersona():  ", e);
          Personas personas = null;
          return personas;
       }
@@ -226,7 +226,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return persona;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPersonas.buscarPersonaSecuencia()" + e.getMessage());
+         log.error("PersistenciaPersonas.buscarPersonaSecuencia():  ", e);
          persona = null;
       }
       return persona;
@@ -262,7 +262,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return persona;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaPersonas.buscarPersonaPorEmpleado()" + e.getMessage());
+         log.error("PersistenciaPersonas.buscarPersonaPorEmpleado():  ", e);
          persona = null;
       }
       return persona;
@@ -296,7 +296,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return persona;
       } catch (Exception e) {
-         log.error("Error buscarPersonaPorNumeroDocumento PersistenciaPersonas : " + e.toString());
+         log.error("Error buscarPersonaPorNumeroDocumento PersistenciaPersonas :  ", e);
          return null;
       }
    }
@@ -330,7 +330,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
          }
          return persona;
       } catch (Exception e) {
-         log.error("Error obtenerUltimaPersonaAlmacenada PersistenciaPersonas : " + e.toString());
+         log.error("Error obtenerUltimaPersonaAlmacenada PersistenciaPersonas :  ", e);
          return null;
       }
    }

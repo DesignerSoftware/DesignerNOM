@@ -32,7 +32,7 @@ public class PersistenciaConceptosRetroactivos implements PersistenciaConceptosR
          em.merge(conceptosRetroactivos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosRetroactivos.crear: " + e);
+         log.error("Error PersistenciaConceptosRetroactivos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -47,7 +47,7 @@ public class PersistenciaConceptosRetroactivos implements PersistenciaConceptosR
          em.merge(conceptosRetroactivos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaConceptosRetroactivos.editar: " + e);
+         log.error("Error PersistenciaConceptosRetroactivos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +65,7 @@ public class PersistenciaConceptosRetroactivos implements PersistenciaConceptosR
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaConceptosRetroactivos.borrar: " + e);
+         log.error("Error PersistenciaConceptosRetroactivos.borrar:  ", e);
       }
    }
 
@@ -74,7 +74,7 @@ public class PersistenciaConceptosRetroactivos implements PersistenciaConceptosR
          em.clear();
          return em.find(ConceptosRetroactivos.class, secuencia);
       } catch (Exception e) {
-         log.error("Error buscarDeporte PersistenciaConceptosRetroactivos : " + e.toString());
+         log.error("Error buscarDeporte PersistenciaConceptosRetroactivos :  ", e);
          return null;
       }
    }
@@ -86,7 +86,7 @@ public class PersistenciaConceptosRetroactivos implements PersistenciaConceptosR
          cq.select(cq.from(ConceptosRetroactivos.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         log.error("Error buscarConceptosRetroactivos PersistenciaConceptosRetroactivos Error : " + e);
+         log.error("Error buscarConceptosRetroactivos PersistenciaConceptosRetroactivos Error :  ", e);
          return null;
       }
    }

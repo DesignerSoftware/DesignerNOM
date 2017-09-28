@@ -287,7 +287,7 @@ public class ControlEmplComprobantes implements Serializable {
          administrarComprobantes.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1896,7 +1896,7 @@ public class ControlEmplComprobantes implements Serializable {
 
    //MOSTRAR DATOS CELDA
    public void editarCelda() {
-      log.info("Controlador.ControlEmplComprobantes.editarCelda() tablaActiva : " + tablaActiva);
+      log.info("ControlEmplComprobantes.editarCelda() tablaActiva : " + tablaActiva);
       if (tablaActiva == 0) {
          if (comprobanteSeleccionado != null) {
             editarComprobante = comprobanteSeleccionado;

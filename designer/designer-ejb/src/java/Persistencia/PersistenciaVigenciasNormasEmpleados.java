@@ -36,7 +36,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasNormasEmpleados.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasNormasEmpleados.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +53,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.merge(vigenciasNormasEmpleados);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasNormasEmpleados.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasNormasEmpleados.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +69,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.remove(em.merge(vigenciasNormasEmpleados));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasNormasEmpleados.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasNormasEmpleados.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -83,7 +83,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.clear();
          return em.find(VigenciasNormasEmpleados.class, secuencia);
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleado()" + e.getMessage());
+          log.error("PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleado():  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          List<VigenciasNormasEmpleados> vigenciasNormasEmpleados = query.getResultList();
          return vigenciasNormasEmpleados;
       } catch (Exception e) {
-         log.error("Error en Persistencia Vigencias Normas Empleados " + e.getMessage());
+         log.error("Error en Persistencia Vigencias Normas Empleados  ", e);
          return null;
       }
    }
@@ -111,7 +111,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
       cq.select(cq.from(VigenciasNormasEmpleados.class));
       return em.createQuery(cq).getResultList();
       }catch(Exception e){
-          log.error("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleados()" + e.getMessage());
+          log.error("PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleados():  ", e);
           return null;
       }
    }

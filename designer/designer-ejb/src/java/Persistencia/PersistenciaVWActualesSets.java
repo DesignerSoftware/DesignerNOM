@@ -23,7 +23,11 @@ public class PersistenciaVWActualesSets implements PersistenciaVWActualesSetsInt
          VWActualesSets actualSet = (VWActualesSets) query.getSingleResult();
          return actualSet;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaVWActualesSets.buscarSetEmpleado)" + e.getMessage());
+         if (e.getMessage().contains("did not retrieve any entities")) {
+            log.error("Error: (PersistenciaVWActualesSets.buscarSetEmpleado)" + e);
+         } else {
+            log.error("Error: (PersistenciaVWActualesSets.buscarSetEmpleado) ", e);
+         }
          return null;
       }
    }

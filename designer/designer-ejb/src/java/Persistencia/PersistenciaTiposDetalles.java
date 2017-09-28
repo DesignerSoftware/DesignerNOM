@@ -27,7 +27,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             em.persist(tiposDetalles);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDetalles.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposDetalles.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -43,7 +43,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             em.merge(tiposDetalles);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDetalles.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDetalles.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             em.remove(em.merge(tiposDetalles));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposDetalles.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposDetalles.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             List<TiposDetalles> tiposDetalles = query.getResultList();
             return tiposDetalles;
         } catch (Exception e) {
-            log.error("Error buscarTiposDetalles PersistenciaTiposDetalles : " + e.getMessage());
+            log.error("Error buscarTiposDetalles PersistenciaTiposDetalles :  ", e);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class PersistenciaTiposDetalles implements PersistenciaTiposDetallesInter
             TiposDetalles tiposDetalles = (TiposDetalles) query.getSingleResult();
             return tiposDetalles;
         } catch (Exception e) {
-            log.error("Error buscarTiposDetallesSecuencia PersistenciaTiposDetalles : " + e.getMessage());
+            log.error("Error buscarTiposDetallesSecuencia PersistenciaTiposDetalles :  ", e);
             TiposDetalles tiposDetalles = null;
             return tiposDetalles;
         }

@@ -186,7 +186,7 @@ public class CargarArchivoPlano implements Serializable {
             cargue = true;
          }
       } catch (Exception e) {
-         log.error("Error postconstruct CargarArchivoPlano: " + e);
+         log.error("Error postconstruct CargarArchivoPlano: " , e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -676,7 +676,7 @@ public class CargarArchivoPlano implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         log.warn("Excepcion: (leerTxt) " + e);
+         log.warn("Excepcion: (leerTxt) " , e);
       }
    }
 

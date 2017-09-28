@@ -209,7 +209,7 @@ public class ControlInterfaseContableHistorico implements Serializable {
          administrarContabilidadResumida.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct ControlInterfaseContableHistorico: " + e);
+         log.error("Error postconstruct ControlInterfaseContableHistorico:  ", e);
          log.error("Causa: " + e.getCause());
       }
    }

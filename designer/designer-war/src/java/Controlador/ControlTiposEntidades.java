@@ -123,7 +123,7 @@ public class ControlTiposEntidades implements Serializable {
          administrarTipoEntidad.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -673,7 +673,7 @@ public class ControlTiposEntidades implements Serializable {
             //tipoEntidadSeleccionada = null;
          }
       } catch (Exception e) {
-         log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+         log.error("ERROR ControlTiposEntidades verificarBorrado ERROR  ", e);
       }
    }
 

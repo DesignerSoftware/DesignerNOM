@@ -40,7 +40,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             em.merge(historiasformulas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoriasformulas.crear: " + e);
+            log.error("Error PersistenciaHistoriasformulas.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             em.merge(historiasformulas);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoriasformulas.editar: " + e);
+            log.error("Error PersistenciaHistoriasformulas.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-                log.error("Error PersistenciaHistoriasformulas.borrar: " + e);
+                log.error("Error PersistenciaHistoriasformulas.borrar:  ", e);
         }
     }
 
@@ -86,7 +86,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             em.clear();
             return em.find(Historiasformulas.class, secuencia);
         } catch (Exception e) {
-            log.error("Error en la PersistenciaHistoriasformulas  buscarHistoriaformula : " + e.toString());
+            log.error("Error en la PersistenciaHistoriasformulas  buscarHistoriaformula :  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             List<Historiasformulas> historiasformulas = queryFinal.getResultList();
             return historiasformulas;
         } catch (Exception e) {
-            log.error("Error historiasFormulasParaFormulaSecuencia.formulasContratosParaFormulaSecuencia : " + e.toString());
+            log.error("Error historiasFormulasParaFormulaSecuencia.formulasContratosParaFormulaSecuencia :  ", e);
             return null;
         }
     }
@@ -126,7 +126,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             BigInteger secHistoriaFormula = secuencia.toBigIntegerExact();
             return secHistoriaFormula;
         } catch (Exception e) {
-            log.error("Error PersistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula" + e);
+            log.error("Error PersistenciaHistoriasformulas.obtenerSecuenciaHistoriaFormula ", e);
             return null;
         }
     }

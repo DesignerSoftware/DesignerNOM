@@ -25,7 +25,7 @@ public class PersistenciaVWActualesFechas implements PersistenciaVWActualesFecha
             Date actualFechaHasta = (Date) query.getSingleResult();
             return actualFechaHasta;
         } catch (Exception e) {
-            log.error("Exepcion: PersistenciaVWActualesFechas.actualFechaHasta: " + e.getMessage());
+            log.error("Exepcion: PersistenciaVWActualesFechas.actualFechaHasta:  ", e);
             return null;
         }
     }
@@ -39,7 +39,7 @@ public class PersistenciaVWActualesFechas implements PersistenciaVWActualesFecha
             Date actualFechaHasta = (Date) query.getSingleResult();
             return actualFechaHasta;
         } catch (Exception e) {
-            log.error("Error actualFechaDesde PersistenciaVWActualesFechas : " + e.getMessage());
+            log.error("Error actualFechaDesde PersistenciaVWActualesFechas :  ", e);
             return null;
         }
     }

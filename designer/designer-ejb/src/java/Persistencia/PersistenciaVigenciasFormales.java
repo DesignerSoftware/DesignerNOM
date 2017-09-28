@@ -44,7 +44,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
          em.merge(vigenciasFormales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasFormales.crear: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasFormales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -61,7 +61,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
          em.merge(vigenciasFormales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasFormales.editar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasFormales.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -78,7 +78,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
          em.remove(em.merge(vigenciasFormales));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasFormales.borrar: " + e.getMessage());
+         log.error("Error PersistenciaVigenciasFormales.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -110,7 +110,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
          resultado = (Long) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaVigenciasFormales.contarEducacionPersona()" + e.getMessage());
+         log.error("PersistenciaVigenciasFormales.contarEducacionPersona():  ", e);
          e.printStackTrace();
          return resultado;
       }
@@ -126,7 +126,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             List<VigenciasFormales> listaVigenciasFormales = queryFinal.getResultList();
             return listaVigenciasFormales;
          } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasFormales.educacionPersona" + e.getMessage());
+            log.error("Error PersistenciaVigenciasFormales.educacionPersona ", e);
             return null;
          }
       } else {
@@ -145,7 +145,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
          List<VigenciasFormales> listaVigenciasFormales = query.getResultList();
          return listaVigenciasFormales;
       } catch (Exception e) {
-         log.error("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
+         log.error("Error PersistenciaTelefonos.telefonoPersona ", e);
          return null;
       }
    }
@@ -170,9 +170,9 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
          return educacion;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaVigenciasFormales.primeraVigenciaFormal()" + e.getMessage());
+            log.trace("PersistenciaVigenciasFormales.primeraVigenciaFormal(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaVigenciasFormales.primeraVigenciaFormal()" + e.getMessage());
+            log.error("PersistenciaVigenciasFormales.primeraVigenciaFormal():  ", e);
          }
          return "";
       }

@@ -26,7 +26,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          em.merge(tempNovedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTempNovedades.crear: " + e.getMessage());
+         log.error("Error PersistenciaTempNovedades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -42,7 +42,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          em.merge(tempNovedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTempNovedades.editar: " + e.getMessage());
+         log.error("Error PersistenciaTempNovedades.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          tx.commit();
 
       } catch (Exception e) {
-        log.error("Error PersistenciaTempNovedades.borrar: " + e.getMessage());
+        log.error("Error PersistenciaTempNovedades.borrar:  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
@@ -78,7 +78,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         log.error("No se pudo borrar el registro (borrarRegistrosTempNovedades) : " + e.toString());
+         log.error("No se pudo borrar el registro (borrarRegistrosTempNovedades) :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -96,7 +96,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<TempNovedades> listTNovedades = query.getResultList();
          return listTNovedades;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTempNovedades.obtenerTempNovedades()" + e.getMessage());
+          log.error("PersistenciaTempNovedades.obtenerTempNovedades():  ", e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTempNovedades.obtenerDocumentosSoporteCargados()" + e.getMessage());
+          log.error("PersistenciaTempNovedades.obtenerDocumentosSoporteCargados():  ", e);
          return null;
       }
    }
@@ -131,7 +131,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTempNovedades.cargarTempNovedades() : ", e);
+          log.error("PersistenciaTempNovedades.cargarTempNovedades() :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -153,7 +153,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTempNovedades.reversarTempNovedades()" + e.getMessage());
+          log.error("PersistenciaTempNovedades.reversarTempNovedades():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

@@ -51,7 +51,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
          }
          return null;
       } catch (Exception e) {
-         log.error("Error PersistenciaFamiliares.familiaresPersona " + e);
+         log.error("Error PersistenciaFamiliares.familiaresPersona  ", e);
          return null;
       }
    }
@@ -65,7 +65,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
          em.merge(familiar);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFamiliares.crear: " + e);
+         log.error("Error PersistenciaFamiliares.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +81,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
          em.merge(familiar);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFamiliares.editar: " + e);
+         log.error("Error PersistenciaFamiliares.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -97,7 +97,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
          em.remove(em.merge(familiar));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFamiliares.borrar: " + e);
+         log.error("Error PersistenciaFamiliares.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -118,7 +118,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
          Query query = em.createNativeQuery(consulta);
          resultado = (String) query.getSingleResult();
       } catch (Exception e) {
-         log.error(this.getClass().getName() + ".consultaFamiliar() error: " + e.getMessage());
+         log.error(this.getClass().getName() + ".consultaFamiliar() error:  ", e);
       }
       return resultado;
    }
@@ -140,9 +140,9 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
          return familiar;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaFamiliares.consultarPrimerFamiliar() e: " + e);
+            log.trace("PersistenciaFamiliares.consultarPrimerFamiliar() e: " + e);
          } else {
-            log.error("Persistencia.PersistenciaFamiliares.consultarPrimerFamiliar() e: " + e);
+            log.error("PersistenciaFamiliares.consultarPrimerFamiliar() e:  ", e);
          }
          familiar = "";
          return familiar;

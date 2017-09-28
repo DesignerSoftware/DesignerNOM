@@ -42,7 +42,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          em.persist(empresas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEmpresas.crear: " + e);
+         log.error("Error PersistenciaEmpresas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          em.merge(empresas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEmpresas.editar: " + e);
+         log.error("Error PersistenciaEmpresas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -77,7 +77,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEmpresas.borrar: " + e);
+         log.error("Error PersistenciaEmpresas.borrar:  ", e);
       }
    }
 
@@ -90,7 +90,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          List<Empresas> empresas = query.getResultList();
          return empresas;
       } catch (Exception e) {
-         log.error("Error PersistenciaEmpresas.buscarEmpresas : " + e.toString());
+         log.error("Error PersistenciaEmpresas.buscarEmpresas :  ", e);
          return null;
       }
    }
@@ -108,7 +108,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          List<Empresas> empresas = query.getResultList();
          return empresas;
       } catch (Exception e) {
-         log.error("Error PersistenciaEmpresas.buscarEmpresasLista : " + e.toString());
+         log.error("Error PersistenciaEmpresas.buscarEmpresasLista :  ", e);
          return null;
       }
    }
@@ -169,7 +169,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
             return "SIN REGISTRAR";
          }
       } catch (Exception e) {
-         log.fatal("Exepcion en PersistenciaEmpresas.nombreEmpresa" + e.toString());
+         log.fatal("Exepcion en PersistenciaEmpresas.nombreEmpresa ", e);
          throw e;
       }
    }
@@ -190,7 +190,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          }
          return codigoEmpresa;
       } catch (Exception e) {
-         log.error("Exepcion en PersistenciaEmpleados.codigoEmpresa" + e);
+         log.error("Exepcion en PersistenciaEmpleados.codigoEmpresa ", e);
          return null;
       }
    }
@@ -204,7 +204,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          List<Empresas> empresas = query.getResultList();
          return empresas;
       } catch (Exception e) {
-         log.error("Error buscarEmpresas PersistenciaEmpresas : " + e.toString());
+         log.error("Error buscarEmpresas PersistenciaEmpresas :  ", e);
          return null;
       }
    }
@@ -232,9 +232,9 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          return retorno;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Error consultarPrimeraEmpresa PersistenciaEmpresas : " + e.toString());
+            log.trace("Error consultarPrimeraEmpresa PersistenciaEmpresas : " + e);
          } else {
-            log.error("Error consultarPrimeraEmpresa PersistenciaEmpresas : " + e.toString());
+            log.error("Error consultarPrimeraEmpresa PersistenciaEmpresas :  ", e);
          }
          return null;
       }
@@ -249,9 +249,9 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          return empresa;
       } catch (Exception e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas : " + e.toString());
+            log.trace("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas :  ", e);
          } else {
-            log.error("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas : " + e.toString());
+            log.error("Error consultarPrimeraEmpresaSinPaquete PersistenciaEmpresas :  ", e);
          }
          return null;
       }
@@ -286,7 +286,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          }
          return contador;
       } catch (Exception e) {
-         log.error("Error calcularControlEmpleadosEmpresa PersistenciaEmpresas : " + e.toString());
+         log.error("Error calcularControlEmpleadosEmpresa PersistenciaEmpresas :  ", e);
          return null;
       }
    }
@@ -303,7 +303,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          contador = empresa.getControlempleados();
          return contador;
       } catch (Exception e) {
-         log.error("Error obtenerMaximoEmpleadosEmpresa PersistenciaEmpresas : " + e.toString());
+         log.error("Error obtenerMaximoEmpleadosEmpresa PersistenciaEmpresas :  ", e);
          return null;
       }
    }
@@ -318,7 +318,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          Empresas empresa = (Empresas) query.getSingleResult();
          return empresa;
       } catch (Exception e) {
-         log.error("Error consultarEmpresaPorCodigo PersistenciaEmpresas : " + e.toString());
+         log.error("Error consultarEmpresaPorCodigo PersistenciaEmpresas :  ", e);
          return null;
       }
    }
@@ -332,7 +332,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          String retorno = (String) query.getSingleResult();
          return retorno;
       } catch (Exception e) {
-         log.error("Error obtenerEnvioInterfaseContabilidadEmpresa PersistenciaEmpresas : " + e.toString());
+         log.error("Error obtenerEnvioInterfaseContabilidadEmpresa PersistenciaEmpresas :  ", e);
          return null;
       }
    }
@@ -347,7 +347,7 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          BigDecimal secEmpresa = (BigDecimal) query.getSingleResult();
          return secEmpresa;
       } catch (Exception e) {
-         log.error("Error en consultarEmpresaPorEmpleado : " + e.toString());
+         log.error("Error en consultarEmpresaPorEmpleado :  ", e);
          return null;
       }
    }
@@ -383,14 +383,14 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
          query.setParameter(6, codOrigen);
          query.setParameter(7, codDestino);
          BigInteger num = (BigInteger) query.getSingleResult();
-         log.warn("Persistencia.PersistenciaEmpresas.clonarEmpresa() Confirmo Conteo : " + num.intValue());
+         log.warn("PersistenciaEmpresas.clonarEmpresa() Confirmo Conteo : " + num.intValue());
          if (num.intValue() > 0) {
             return "NO";
          } else {
             return "SI";
          }
       } catch (Exception e) {
-         log.error("PersistenciaEmpresas.clonarEmpresa() ERROR : " + e);
+         log.error("PersistenciaEmpresas.clonarEmpresa() ERROR :  ", e);
          return e.toString();
       }
    }

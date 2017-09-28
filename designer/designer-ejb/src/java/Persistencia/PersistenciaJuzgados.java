@@ -41,7 +41,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             em.merge(juzgados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaJuzgados.crear: " + e.getMessage());
+            log.error("Error PersistenciaJuzgados.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +57,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             em.merge(juzgados);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaJuzgados.editar: " + e.getMessage());
+            log.error("Error PersistenciaJuzgados.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +74,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             tx.commit();
 
         } catch (Exception e) {
-            log.error("Error PersistenciaJuzgados.borrar: " + e.getMessage());
+            log.error("Error PersistenciaJuzgados.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             em.clear();
             return em.find(Juzgados.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaJuzgados.buscarJuzgado()" + e.getMessage());
+            log.error("PersistenciaJuzgados.buscarJuzgado():  ", e);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             List<Juzgados> listaMotivosPrestamos = query.getResultList();
             return listaMotivosPrestamos;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaJuzgados.buscarJuzgados()" + e.getMessage());
+            log.error("PersistenciaJuzgados.buscarJuzgados():  ", e);
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             List<Juzgados> listaJuzgadosPorCiudad = query.getResultList();
             return listaJuzgadosPorCiudad;
         } catch (Exception e) {
-            log.error("Error en Persistencia PersistenciaCentrosCostos BuscarCentrosCostosEmpr " + e.getMessage());
+            log.error("Error en Persistencia PersistenciaCentrosCostos BuscarCentrosCostosEmpr  ", e);
             return null;
         }
     }
@@ -134,7 +134,7 @@ public class PersistenciaJuzgados implements PersistenciaJuzgadosInterface {
             log.warn("PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("ERROR PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS ERROR = " + e.getMessage());
+            log.error("ERROR PERSISTENCIAJUZGADOS CONTADOREERPRESTAMOS ERROR =  ", e);
             retorno = new BigInteger("-1");
             return retorno;
         }

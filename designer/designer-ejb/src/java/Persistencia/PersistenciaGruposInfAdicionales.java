@@ -39,7 +39,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          em.merge(gruposInfAdicionales);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaGruposInfAdicionales.crear: " + e);
+         log.error("Error PersistenciaGruposInfAdicionales.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaGruposInfAdicionales.editar: " + e);
+         log.error("Error PersistenciaGruposInfAdicionales.editar:  ", e);
       }
    }
 
@@ -74,7 +74,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaGruposInfAdicionales.borrar: " + e);
+         log.error("Error PersistenciaGruposInfAdicionales.borrar:  ", e);
       }
    }
 
@@ -84,7 +84,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          em.clear();
          return em.find(GruposInfAdicionales.class, secuencia);
       } catch (Exception e) {
-         log.error("Error buscarGrupoInfAdicional PersistenciaGruposInfAdicionales : " + e.toString());
+         log.error("Error buscarGrupoInfAdicional PersistenciaGruposInfAdicionales :  ", e);
          return null;
       }
    }
@@ -98,7 +98,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          List<GruposInfAdicionales> listaGruposInfAdicionales = query.getResultList();
          return listaGruposInfAdicionales;
       } catch (Exception e) {
-         log.error("Error buscarGruposInfAdicionales PersistenciaGruposInfAdicionales ERORR " + e);
+         log.error("Error buscarGruposInfAdicionales PersistenciaGruposInfAdicionales ERORR  ", e);
          return null;
       }
    }
@@ -114,7 +114,7 @@ public class PersistenciaGruposInfAdicionales implements PersistenciaGruposInfAd
          log.warn("PersistenciaGruposInfAdicionales contadorInformacionesAdicionales : " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PersistenciaGruposInfAdicionales contadorInformacionesAdicionales ERROR " + e);
+         log.error("Error PersistenciaGruposInfAdicionales contadorInformacionesAdicionales ERROR  ", e);
          return retorno;
       }
    }

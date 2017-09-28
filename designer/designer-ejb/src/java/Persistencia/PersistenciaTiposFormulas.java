@@ -30,7 +30,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          em.merge(tiposFormulas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposFormulas.crear: " + e.getMessage());
+         log.error("Error PersistenciaTiposFormulas.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -46,7 +46,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          em.merge(tiposFormulas);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposFormulas.editar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFormulas.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -62,7 +62,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          em.remove(em.merge(tiposFormulas));
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaTiposFormulas.borrar: " + e.getMessage());
+         log.error("Error PersistenciaTiposFormulas.borrar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -82,7 +82,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
          log.warn(this.getClass().getName() + ".tiposFormulas() tiposFormulasResult: " + tiposFormulasResult);
          return tiposFormulasResult;
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaTiposFormulas.tiposFormulas()" + e.getMessage());
+         log.error("PersistenciaTiposFormulas.tiposFormulas():  ", e);
          return null;
       }
    }

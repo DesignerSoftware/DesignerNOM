@@ -46,13 +46,13 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
             em.merge(centrosCostos);
             tx.commit();
          } catch (Exception e) {
-            log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+            log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
             if (tx.isActive()) {
                tx.rollback();
             }
          }
       } catch (Exception e) {
-         log.error("Error crear PersistenciaCentrosCostos E " + e);
+         log.error("Error crear PersistenciaCentrosCostos E  ", e);
       }
    }
 
@@ -65,7 +65,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          em.merge(centrosCostos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCentrosCostos.editar: " + e);
+         log.error("Error PersistenciaCentrosCostos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -87,7 +87,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
                tx.rollback();
             }
          } catch (Exception ex) {
-            log.error("Error PersistenciaCentrosCostos.borrar: " + e);
+            log.error("Error PersistenciaCentrosCostos.borrar:  ", e);
          }
       }
    }
@@ -101,7 +101,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          List<CentrosCostos> centrosCostos = query.getResultList();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error buscarCentrosCostos PersistenciaCentrosCostos " + e);
+         log.error("Error buscarCentrosCostos PersistenciaCentrosCostos  ", e);
          return null;
       }
    }
@@ -116,7 +116,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          CentrosCostos centrosCostos = (CentrosCostos) query.getSingleResult();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error buscarCentroCostoSecuencia PersistenciaCentrosCostos " + e);
+         log.error("Error buscarCentroCostoSecuencia PersistenciaCentrosCostos  ", e);
          CentrosCostos centrosCostos = null;
          return centrosCostos;
       }
@@ -132,7 +132,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          List<CentrosCostos> centrosCostos = query.getResultList();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error en Persistencia PersistenciaCentrosCostos BuscarCentrosCostosEmpr " + e);
+         log.error("Error en Persistencia PersistenciaCentrosCostos BuscarCentrosCostosEmpr  ", e);
          return null;
       }
    }
@@ -147,7 +147,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          List<CentrosCostos> centrosCostos = query.getResultList();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error en Persistencia PersistenciaCentrosCostos buscarCentrosCostosCM " + e);
+         log.error("Error en Persistencia PersistenciaCentrosCostos buscarCentrosCostosCM  ", e);
          return null;
       }
    }
@@ -163,7 +163,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          return new BigInteger(query.getSingleResult().toString());
 
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorHvReferencias. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorHvReferencias.  ", e);
          return null;
       }
    }
@@ -179,7 +179,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorDetallesCCConsolidador. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorDetallesCCConsolidador.  ", e);
          return retorno;
       }
    }
@@ -195,7 +195,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorDetallesCCDetalle. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorDetallesCCDetalle.  ", e);
          return retorno;
       }
    }
@@ -210,7 +210,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorEmpresas. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorEmpresas.  ", e);
          return retorno;
       }
    }
@@ -226,7 +226,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorEstructuras. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorEstructuras.  ", e);
          return retorno;
       }
    }
@@ -241,7 +241,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconCondor. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconCondor.  ", e);
          return retorno;
       }
    }
@@ -257,7 +257,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconDynamics. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconDynamics.  ", e);
          return retorno;
       }
    }
@@ -273,7 +273,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconGeneral. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconGeneral.  ", e);
          return retorno;
       }
    }
@@ -289,7 +289,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconHelisa. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconHelisa.  ", e);
          return retorno;
       }
    }
@@ -305,7 +305,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconSapbo. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconSapbo.  ", e);
          return retorno;
       }
    }
@@ -321,7 +321,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconSiigo. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconSiigo.  ", e);
          return retorno;
       }
    }
@@ -337,7 +337,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconTotal. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorInterconTotal.  ", e);
          return retorno;
       }
    }
@@ -353,7 +353,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorNovedadesC. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorNovedadesC.  ", e);
          return retorno;
       }
    }
@@ -369,7 +369,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorNovedadesD. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorNovedadesD.  ", e);
          return retorno;
       }
    }
@@ -385,7 +385,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorProcesosProductivos. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorProcesosProductivos.  ", e);
          return retorno;
       }
    }
@@ -401,7 +401,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorProyecciones. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorProyecciones.  ", e);
          return retorno;
       }
    }
@@ -417,7 +417,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorSolucionesNodosC. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorSolucionesNodosC.  ", e);
          return retorno;
       }
    }
@@ -433,7 +433,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorSolucionesNodosD. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorSolucionesNodosD.  ", e);
          return retorno;
       }
    }
@@ -449,7 +449,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorSoPanoramas. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorSoPanoramas.  ", e);
          return retorno;
       }
    }
@@ -465,7 +465,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorTerceros. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorTerceros.  ", e);
          return retorno;
       }
    }
@@ -481,7 +481,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorUnidadesRegistradas. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorUnidadesRegistradas.  ", e);
          return retorno;
       }
    }
@@ -497,7 +497,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorVigenciasCuentasC. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorVigenciasCuentasC.  ", e);
          return retorno;
       }
    }
@@ -513,7 +513,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorVigenciasCuentasD. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorVigenciasCuentasD.  ", e);
          return retorno;
       }
    }
@@ -529,7 +529,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorVigenciasProrrateos. " + e);
+         log.error("Error PERSISTENCIACENTROSCOSTOS  contadorVigenciasProrrateos.  ", e);
          return retorno;
       }
    }
@@ -544,7 +544,7 @@ public class PersistenciaCentrosCostos implements PersistenciaCentrosCostosInter
          List<CentrosCostos> centrosCostos = query.getResultList();
          return centrosCostos;
       } catch (Exception e) {
-         log.error("Error buscarCentroCostoSecuencia PersistenciaCentrosCostos : " + e.toString());
+         log.error("Error buscarCentroCostoSecuencia PersistenciaCentrosCostos :  ", e);
          List<CentrosCostos> centrosCostos = null;
          return centrosCostos;
       }

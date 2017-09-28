@@ -39,7 +39,7 @@ public class PersistenciaEvalEvaluadores implements PersistenciaEvalEvaluadoresI
          em.merge(evalEvaluadores);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalEvaluadores.crear: " + e);
+         log.error("Error PersistenciaEvalEvaluadores.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaEvalEvaluadores implements PersistenciaEvalEvaluadoresI
          em.merge(evalEvaluadores);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalEvaluadores.crear: " + e);
+         log.error("Error PersistenciaEvalEvaluadores.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaEvalEvaluadores implements PersistenciaEvalEvaluadoresI
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEvalEvaluadores.borrar: " + e);
+         log.error("Error PersistenciaEvalEvaluadores.borrar:  ", e);
       }
    }
 
@@ -85,7 +85,7 @@ public class PersistenciaEvalEvaluadores implements PersistenciaEvalEvaluadoresI
          em.clear();
          return em.find(EvalEvaluadores.class, secuenciaEvalEvaluadores);
       } catch (Exception e) {
-         log.error("ERROR PersistenciaMotivosContratos buscarEvalEvaluadores ERROR " + e);
+         log.error("ERROR PersistenciaMotivosContratos buscarEvalEvaluadores ERROR  ", e);
          return null;
       }
    }
@@ -99,25 +99,22 @@ public class PersistenciaEvalEvaluadores implements PersistenciaEvalEvaluadoresI
          List<EvalEvaluadores> evalEvaluadores = query.getResultList();
          return evalEvaluadores;
       } catch (Exception e) {
-         log.error("\n ERROR EN PersistenciaEvalEvaluadoress buscarEvalEvaluadores ERROR" + e);
+         log.error("PersistenciaEvalEvaluadoress buscarEvalEvaluadores ERROR:  ", e);
          return null;
       }
    }
 
    @Override
    public BigInteger verificarBorradoEvalPruebas(EntityManager em, BigInteger secuencia) {
-      BigInteger retorno = new BigInteger("-1");
       try {
          em.clear();
-         String sqql = "SELECT COUNT (*) FROM  evalpruebas  WHERE evalevaluador = ?";
+         String sqql = "SELECT COUNT(*) FROM  evalpruebas  WHERE evalevaluador = ?";
          Query query = em.createNativeQuery(sqql);
          query.setParameter(1, secuencia);
-         retorno = new BigInteger(query.getSingleResult().toString());
-         log.warn("PersistenciaEvalEvaluadores retorno ==" + retorno.intValue());
+         return new BigInteger(query.getSingleResult().toString());
       } catch (Exception e) {
-         log.error("ERROR EN PersistenciaEvalEvaluadores verificarBorrado ERROR :" + e);
-      } finally {
-         return retorno;
+         log.error("PersistenciaEvalEvaluadores verificarBorrado ERROR:  ", e);
+         return new BigInteger("-1");
       }
    }
 }

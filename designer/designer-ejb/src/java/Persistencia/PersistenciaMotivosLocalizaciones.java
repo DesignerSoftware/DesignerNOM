@@ -40,7 +40,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             em.merge(motivosLocalizaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosLocalizaciones.crear: " + e.getMessage());
+            log.error("Error PersistenciaMotivosLocalizaciones.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             em.merge(motivosLocalizaciones);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosLocalizaciones.editar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosLocalizaciones.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             em.remove(em.merge(motivosLocalizaciones));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaMotivosLocalizaciones.borrar: " + e.getMessage());
+            log.error("Error PersistenciaMotivosLocalizaciones.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             List<MotivosLocalizaciones> motivosL = (List<MotivosLocalizaciones>) query.getResultList();
             return motivosL;
         } catch (Exception e) {
-            log.error("Error buscarMotivosLocalizaciones PersistenciaMotivosLovalizaciones" + e.getMessage());
+            log.error("Error buscarMotivosLocalizaciones PersistenciaMotivosLovalizaciones ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             MotivosLocalizaciones motivoL = (MotivosLocalizaciones) query.getSingleResult();
             return motivoL;
         } catch (Exception e) {
-            log.error("Error buscarMotivoLocalizacionSecuencia PersistenciaMotivosLocalizaciones" + e.getMessage());
+            log.error("Error buscarMotivoLocalizacionSecuencia PersistenciaMotivosLocalizaciones ", e);
             MotivosLocalizaciones motivoL = null;
             return motivoL;
         }
@@ -119,7 +119,7 @@ public class PersistenciaMotivosLocalizaciones implements PersistenciaMotivosLoc
             retorno = new BigInteger(query.getSingleResult().toString());
             return retorno;
         } catch (Exception e) {
-            log.error("Error PERSISTENCIAMOTIVOSLOCALIZACIONES  contarVigenciasLocalizacionesMotivoLocalizacion. " + e.getMessage());
+            log.error("Error PERSISTENCIAMOTIVOSLOCALIZACIONES  contarVigenciasLocalizacionesMotivoLocalizacion.  ", e);
             return retorno;
         }
     }

@@ -39,7 +39,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          em.merge(dependenciasOperandos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.crear: " + e);
+         log.error("Error PersistenciaVigenciasCargos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          em.merge(dependenciasOperandos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaVigenciasCargos.editar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +75,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaVigenciasCargos.borrar: " + e);
+         log.error("Error PersistenciaVigenciasCargos.borrar:  ", e);
       }
    }
 
@@ -90,7 +90,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          dependenciasOperandosResult = query.getResultList();
          return dependenciasOperandosResult;
       } catch (Exception e) {
-         log.error("Error: (dependenciasOperandos)" + e);
+         log.error("Error: (dependenciasOperandos) ", e);
          return null;
       }
    }
@@ -106,7 +106,7 @@ public class PersistenciaDependenciasOperandos implements PersistenciaDependenci
          nombre = (String) query.getSingleResult();
          return nombre;
       } catch (Exception e) {
-         log.error("Error: (nombreOperandos)" + e);
+         log.error("Error: (nombreOperandos) ", e);
          return null;
       }
    }

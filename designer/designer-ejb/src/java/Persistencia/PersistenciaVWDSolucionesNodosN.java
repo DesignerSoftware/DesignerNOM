@@ -55,7 +55,7 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
          }
          return listaSN;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + " consultarDSolucionesNodosN() catch() ERROR : " + e.getMessage());
+         log.error(this.getClass().getName() + " consultarDSolucionesNodosN() catch() ERROR :  ", e);
          return null;
       }
    }
@@ -86,7 +86,7 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
          }
          return listaSNLB;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + " consultarDSolucionesNodosNLB() catch() ERROR : " + e.getMessage());
+         log.error(this.getClass().getName() + " consultarDSolucionesNodosNLB() catch() ERROR :  ", e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
          List<VWDSolucionesNodosNDetalle> listaSNDetalle = query.getResultList();
          return listaSNDetalle;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + " consultarDetalleN() catch() ERROR : " + e.getMessage());
+         log.error(this.getClass().getName() + " consultarDetalleN() catch() ERROR :  ", e);
          return null;
       }
    }
@@ -124,7 +124,7 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
          List<VWDSolucionesNodosNDetalle> listaSNLBDetalle = query.getResultList();
          return listaSNLBDetalle;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + " consultarDetalleNLB() catch() ERROR : " + e.getMessage());
+         log.error(this.getClass().getName() + " consultarDetalleNLB() catch() ERROR :  ", e);
          return null;
       }
    }

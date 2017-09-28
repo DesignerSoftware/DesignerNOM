@@ -51,7 +51,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          List<Operandos> lista = em.createQuery(cq).getResultList();
          return lista;
       } catch (Exception e) {
-         log.error("Error buscarOperandos PersistenciaOperandos : " + e.toString());
+         log.error("Error buscarOperandos PersistenciaOperandos :  ", e);
          return null;
       }
    }
@@ -76,7 +76,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          List<Operandos> operandos = query.getResultList();
          return operandos;
       } catch (Exception e) {
-         log.error("Error Persistencia PersistenciaOperandos operandoPorConceptoSoporte : " + e.toString());
+         log.error("Error Persistencia PersistenciaOperandos operandoPorConceptoSoporte :  ", e);
          return null;
       }
    }
@@ -90,7 +90,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaOperandos.crear()" + e.getMessage());
+         log.error("PersistenciaOperandos.crear():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -106,7 +106,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaOperandos.editar()" + e.getMessage());
+         log.error("PersistenciaOperandos.editar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -122,7 +122,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.remove(em.merge(operandos));
          tx.commit();
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaOperandos.borrar()" + e.getMessage());
+         log.error("PersistenciaOperandos.borrar():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -139,7 +139,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          valor = (String) query.getSingleResult();
          return valor;
       } catch (Exception e) {
-//          log.error("Persistencia.PersistenciaOperandos.valores()" + e.getMessage());
+//          log.error("PersistenciaOperandos.valores():  ", e);
          return null;
       }
    }
@@ -154,7 +154,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          Operandos operandos = (Operandos) query.getSingleResult();
          return operandos;
       } catch (Exception e) {
-         log.error("Error Persistencia operandosPorSecuencia : " + e.toString());
+         log.error("Error Persistencia operandosPorSecuencia :  ", e);
          return null;
       }
    }

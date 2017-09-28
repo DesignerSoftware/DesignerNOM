@@ -38,7 +38,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.merge(vigenciaViajero);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasViajeros.crear()" + e.getMessage());
+            log.error("PersistenciaVigenciasViajeros.crear():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.merge(vigenciaViajero);
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasViajeros.editar()" + e.getMessage());
+            log.error("PersistenciaVigenciasViajeros.editar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.remove(em.merge(vigenciaViajero));
             tx.commit();
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasViajeros.borrar()" + e.getMessage());
+            log.error("PersistenciaVigenciasViajeros.borrar():  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.clear();
             return em.find(VigenciasViajeros.class, secuencia);
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasViajeros.consultarTipoExamen()" + e.getMessage());
+            log.error("PersistenciaVigenciasViajeros.consultarTipoExamen():  ", e);
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             }
             return vigenciasViajeros;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado()" + e.getMessage());
+            log.error("PersistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado():  ", e);
             return null;
         }
     }
@@ -112,7 +112,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             List<VigenciasViajeros> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajeros()" + e.getMessage());
+            log.error("PersistenciaVigenciasViajeros.consultarVigenciasViajeros():  ", e);
             return null;
         }
     }

@@ -201,7 +201,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
          List<Direcciones> direccion = query.getResultList();
          return direccion;
       } catch (Exception e) {
-         log.error("Error en direccionActualPersona : " + e.toString());
+         log.error("Error en direccionActualPersona :  ", e);
          return null;
       }
    }
@@ -225,9 +225,9 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
          return direccion;
       } catch (NoResultException e) {
          if (e.getMessage().contains("did not retrieve any entities")) {
-            log.trace("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()" + e.getMessage());
+            log.trace("PersistenciaDirecciones.consultarPrimeraDireccion(): " + e);
          } else {
-            log.error("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()" + e.getMessage());
+            log.error("PersistenciaDirecciones.consultarPrimeraDireccion():  ", e);
          }
          return " ";
       }
@@ -243,7 +243,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
          List<Direcciones> direccion = query.getResultList();
          return direccion;
       } catch (Exception e) {
-         log.error("Error en direccionesBanco : " + e.toString());
+         log.error("Error en direccionesBanco :  ", e);
          return null;
       }
    }

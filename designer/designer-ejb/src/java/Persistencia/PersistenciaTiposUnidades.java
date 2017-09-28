@@ -30,7 +30,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.merge(tiposUnidades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposUnidades.crear: " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.merge(tiposUnidades);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposUnidades.editar: " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.remove(em.merge(tiposUnidades));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposUnidades.borrar: " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +78,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             List< TiposUnidades> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            log.error("Error consultarTiposUnidades PersistenciaTiposUnidades : " + e.getMessage());
+            log.error("Error consultarTiposUnidades PersistenciaTiposUnidades :  ", e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             TiposUnidades tiposUnidades = (TiposUnidades) query.getSingleResult();
             return tiposUnidades;
         } catch (Exception e) {
-            log.error("Error PersistenciaTiposUnidades consultarTipoUnidad : " + e.getMessage());
+            log.error("Error PersistenciaTiposUnidades consultarTipoUnidad :  ", e);
             TiposUnidades tiposEntidades = null;
             return tiposEntidades;
         }
@@ -111,7 +111,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             log.warn("Contador TiposUnidades contadorVigenciasIndicadores persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            log.error("Error TiposUnidades contadorVigenciasIndicadores. " + e.getMessage());
+            log.error("Error TiposUnidades contadorVigenciasIndicadores.  ", e);
             return retorno;
         }
     }

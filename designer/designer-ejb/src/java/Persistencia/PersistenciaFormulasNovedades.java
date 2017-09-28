@@ -40,7 +40,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          em.merge(formulasNovedades);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulasNovedades.crear: " + e);
+         log.error("Error PersistenciaFormulasNovedades.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +59,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaFormulasNovedades.editar: " + e);
+         log.error("Error PersistenciaFormulasNovedades.editar:  ", e);
       }
    }
 
@@ -76,13 +76,13 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
             if (tx.isActive()) {
                tx.rollback();
             }
-            log.error("Error PersistenciaFormulasNovedades.borrar: " + e);
+            log.error("Error PersistenciaFormulasNovedades.borrar:  ", e);
       }
    }
 
    @Override
    public List<FormulasNovedades> formulasNovedadesParaFormulaSecuencia(EntityManager em, BigInteger secuencia) {
-      log.warn("Persistencia.PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia() secuencia : " + secuencia);
+      log.warn("PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia() secuencia : " + secuencia);
       String st = "";
       if (secuencia == null) {
          st = "SELECT fn FROM FormulasNovedades fn";
@@ -97,7 +97,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          formulasNovedades = query.getResultList();
          return formulasNovedades;
       } catch (Exception e) {
-         log.error("Error PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia : " + e.toString());
+         log.error("Error PersistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia :  ", e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class PersistenciaFormulasNovedades implements PersistenciaFormulasNoveda
          Long resultado = (Long) query.getSingleResult();
          return resultado > 0;
       } catch (Exception e) {
-         log.error("Exepcion: " + e);
+         log.error("Exepcion:  ", e);
          return false;
       }
    }

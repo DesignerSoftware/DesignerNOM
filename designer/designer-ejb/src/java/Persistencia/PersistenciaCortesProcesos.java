@@ -48,7 +48,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error("Error PersistenciaCortesProcesos.crear: " + e);
+         log.error("Error PersistenciaCortesProcesos.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +65,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          em.merge(corteProceso);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaCortesProcesos.editar: " + e);
+         log.error("Error PersistenciaCortesProcesos.editar:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -85,7 +85,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaCortesProcesos.borrar: " + e);
+         log.error("Error PersistenciaCortesProcesos.borrar:  ", e);
       }
    }
 
@@ -113,7 +113,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          List<CortesProcesos> listCortesProcesos = query.getResultList();
          return listCortesProcesos;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaCortesProcesos.cortesProcesosComprobante)" + e);
+         log.error("Error: (PersistenciaCortesProcesos.cortesProcesosComprobante) ", e);
          return null;
       }
    }
@@ -136,7 +136,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          Integer conteoLiquidacionCerradas = conteo.intValueExact();
          return conteoLiquidacionCerradas;
       } catch (Exception e) {
-         log.error("Error contarLiquidacionesCerradas. " + e);
+         log.error("Error contarLiquidacionesCerradas.  ", e);
          return null;
       }
    }
@@ -156,7 +156,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          tx.commit();
          return "BIEN";
       } catch (Exception e) {
-         log.error("Error cerrarLiquidacion. " + e.toString());
+         log.error("Error cerrarLiquidacion.  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -191,7 +191,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          tx.commit();
          return true;
       } catch (Exception e) {
-         log.error(this.getClass().getName() + " Error eliminarCPconUndoCierre() : " + e);
+         log.error(this.getClass().getName() + " Error eliminarCPconUndoCierre() :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -215,7 +215,7 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
          CortesProcesos actualComprobante = (CortesProcesos) query.getSingleResult();
          return actualComprobante;
       } catch (Exception e) {
-         log.error("Error: (PersistenciaCortesProcesos.buscarComprobante)" + e);
+         log.error("Error: (PersistenciaCortesProcesos.buscarComprobante) ", e);
          return null;
       }
    }

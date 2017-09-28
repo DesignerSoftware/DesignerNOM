@@ -152,7 +152,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             administrarMotivosCambiosCargos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+            log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -429,7 +429,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             }
 
         } catch (Exception e) {
-            log.error("ERROR ControlTiposEntidades verificarBorrado ERROR " + e);
+            log.error("ERROR ControlTiposEntidades verificarBorrado ERROR  ", e);
         }
     }
 

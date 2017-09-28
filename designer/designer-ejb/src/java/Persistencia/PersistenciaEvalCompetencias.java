@@ -37,7 +37,7 @@ public class PersistenciaEvalCompetencias implements PersistenciaEvalCompetencia
          em.merge(evalCompetencias);
          tx.commit();
       } catch (Exception e) {
-         log.error("Error PersistenciaEvalCompetencias.crear: " + e);
+         log.error("Error PersistenciaEvalCompetencias.crear:  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -55,7 +55,7 @@ public class PersistenciaEvalCompetencias implements PersistenciaEvalCompetencia
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEvalCompetencias.editar: " + e);
+         log.error("Error PersistenciaEvalCompetencias.editar:  ", e);
       }
    }
 
@@ -71,7 +71,7 @@ public class PersistenciaEvalCompetencias implements PersistenciaEvalCompetencia
          if (tx.isActive()) {
             tx.rollback();
          }
-         log.error("Error PersistenciaEvalCompetencias.borrar: " + e);
+         log.error("Error PersistenciaEvalCompetencias.borrar:  ", e);
       }
    }
 
@@ -80,7 +80,7 @@ public class PersistenciaEvalCompetencias implements PersistenciaEvalCompetencia
          em.clear();
          return em.find(EvalCompetencias.class, secuenciaTE);
       } catch (Exception e) {
-         log.error("Persistencia.PersistenciaEvalCompetencias.buscarEvalCompetencia() e: " + e);
+         log.error("PersistenciaEvalCompetencias.buscarEvalCompetencia() e:  ", e);
          return null;
       }
    }
@@ -105,7 +105,7 @@ public class PersistenciaEvalCompetencias implements PersistenciaEvalCompetencia
          log.warn("Contador PERSISTENCIAEVALCOMPETENCIAS ContadorCompetenciasCargos Retorno : " + retorno);
          return retorno;
       } catch (Exception e) {
-         log.error("Error PERSISTENCIAEVALCOMPETENCIAS ContadorCompetenciasCargos. " + e);
+         log.error("Error PERSISTENCIAEVALCOMPETENCIAS ContadorCompetenciasCargos.  ", e);
          return retorno;
       }
    }

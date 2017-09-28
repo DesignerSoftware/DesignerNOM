@@ -160,7 +160,7 @@ public class ControlClavesSap implements Serializable {
          administrarClavesSap.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
       } catch (Exception e) {
-         log.error("Error postconstruct " + this.getClass().getName() + ": " + e);
+         log.error("Error postconstruct " + this.getClass().getName() + ":  ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -1021,7 +1021,7 @@ public class ControlClavesSap implements Serializable {
 
          }
       } catch (Exception e) {
-         log.error("ERROR ControlClavesSap verificarBorrado ERROR " + e);
+         log.error("ERROR ControlClavesSap verificarBorrado ERROR  ", e);
       }
 
    }

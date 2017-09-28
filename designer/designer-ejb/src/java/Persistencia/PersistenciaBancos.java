@@ -40,7 +40,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             em.merge(bancos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaBancos.crear: " + e);
+            log.error("Error PersistenciaBancos.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +56,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             em.merge(bancos);
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaBancos.editar: " + e);
+            log.error("Error PersistenciaBancos.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +72,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             em.remove(em.merge(bancos));
             tx.commit();
         } catch (Exception e) {
-            log.error("Error PersistenciaBancos.borrar: " + e);
+            log.error("Error PersistenciaBancos.borrar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             List<Bancos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            log.error("Error buscarBancos persistencia bancos : " + e.toString());
+            log.error("Error buscarBancos persistencia bancos :  ", e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             Bancos banco = (Bancos) query.getSingleResult();
             return banco;
         }catch(Exception e){
-            log.error("error en BuscarBancosPorSecuencia persistencia bancos : " + e.toString());
+            log.error("error en BuscarBancosPorSecuencia persistencia bancos :  ", e);
             return null;
         }
     }
