@@ -53,9 +53,9 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             parametros.put("RutaReportes", rutaReporte);
             if (parametrosemp != null && !parametrosemp.isEmpty()) {
 //                if (parametrosemp.containsKey("envioMasivo")) {
-                    System.out.println("Buenas Ingrese a parametros.put");
-                    parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
-                    parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
+                System.out.println("Buenas Ingrese a parametros.put");
+                parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
+                parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
 //                }
             }
             System.out.println("parametros antes de generar: " + parametros);
@@ -80,22 +80,46 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     break;
                 case "XLSX":
                     exporter = new JRXlsxExporter();
+//                    JRXlsxExporter xlsxExporter = new JRXlsxExporter();
+//                    xlsxExporter.setExporterInput(new SimpleExporterInput(imprimir));
+//                    xlsxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(outFileName)));
+//                    SimpleXlsxExporterConfiguration conxlsx = new SimpleXlsxExporterConfiguration();
+//                    conxlsx.isKeepWorkbookTemplateSheets();                  
+//                    SimpleXlsxReportConfiguration cnxlsx = new SimpleXlsxReportConfiguration();
+//                    cnxlsx.setDetectCellType(Boolean.TRUE);
+//                    cnxlsx.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
+//                    cnxlsx.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
+////                   cn.setCollapseRowSpan(Boolean.TRUE);
+//                    cnxlsx.setFontSizeFixEnabled(Boolean.TRUE);
+//                    cnxlsx.setIgnoreGraphics(Boolean.TRUE);
+//                    cnxlsx.getFormatPatternsMap();
+//                    cnxlsx.setImageBorderFixEnabled(Boolean.FALSE);
+//                    xlsxExporter.setConfiguration(cnxlsx);
+//                    xlsxExporter.setConfiguration(conxlsx);
+//                    xlsxExporter.exportReport();
                     break;
                 case "XLS":
                     exporter = new JExcelApiMetadataExporter();
                     exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
                     exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
                     exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
-//                   JRXlsExporter xlsExporter = new JRXlsExporter();
-//                   xlsExporter.setExporterInput(new SimpleExporterInput(imprimir));
-//                   xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(outFileName)));
-//                   SimpleXlsReportConfiguration con = new SimpleXlsReportConfiguration();
-////                   con.setFontSizeFixEnabled(Boolean.TRUE);
-////                   con.setWhitePageBackground(Boolean.FALSE);
-////                   con.setIgnoreCellBackground(Boolean.TRUE);
-//                   con.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
-//                   xlsExporter.setConfiguration(con);
-//                   xlsExporter.exportReport();
+//                    JRXlsExporter xlsExporter = new JRXlsExporter();
+//                    xlsExporter.setExporterInput(new SimpleExporterInput(imprimir));
+//                    xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(outFileName)));
+//                    SimpleXlsExporterConfiguration con = new SimpleXlsExporterConfiguration();
+//                    con.isKeepWorkbookTemplateSheets();
+//                    SimpleXlsMetadataReportConfiguration cn = new SimpleXlsMetadataReportConfiguration();
+//                    cn.setDetectCellType(Boolean.TRUE);
+//                    cn.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
+//                    cn.setRemoveEmptySpaceBetweenColumns(Boolean.TRUE);
+//                    cn.setCollapseRowSpan(Boolean.FALSE);
+//                    cn.setFontSizeFixEnabled(Boolean.TRUE);
+//                    cn.setIgnoreGraphics(Boolean.TRUE);
+//                    cn.getFormatPatternsMap();
+//                    cn.setImageBorderFixEnabled(Boolean.FALSE);
+//                    xlsExporter.setConfiguration(cn);
+//                    xlsExporter.setConfiguration(con);
+//                    xlsExporter.exportReport();
                     break;
                 case "CSV":
 //                    exporter = new JRCsvMetadataExporter();
@@ -123,15 +147,16 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     JRTextExporter txtexporter = new JRTextExporter();
                     txtexporter.setExporterInput(new SimpleExporterInput(imprimir));
                     txtexporter.setExporterOutput(new SimpleWriterExporterOutput(new File(outFileName)));
+                    SimpleTextReportConfiguration conf = new SimpleTextReportConfiguration();
+                    conf.setCharHeight(new Integer(12).floatValue());
+                    conf.setCharWidth(new Integer(1).floatValue());
+                    conf.getPageHeightInChars();
                     SimpleTextExporterConfiguration c = new SimpleTextExporterConfiguration();
                     c.setTrimLineRight(Boolean.TRUE);
                     c.setLineSeparator("\r\n");
-                    c.isOverrideHints();
-                    txtexporter.setConfiguration(c);
-                    SimpleTextReportConfiguration conf = new SimpleTextReportConfiguration();
-                    conf.getCharHeight();
-                    conf.getCharWidth();
+                    c.setPageSeparator("");
                     txtexporter.setConfiguration(conf);
+                    txtexporter.setConfiguration(c);
                     txtexporter.exportReport();
                     break;
                 case "TXT":
@@ -144,7 +169,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     c = new SimpleTextExporterConfiguration();
                     c.setTrimLineRight(Boolean.TRUE);
                     c.setLineSeparator("\r\n");
-                    txtexporter.setConfiguration(c);                    
+                    txtexporter.setConfiguration(c);
                     txtexporter.exportReport();
                     break;
                 default:
@@ -513,7 +538,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReportePlanta1(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-          
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -546,7 +571,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteSegUsuarios(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-            
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -580,7 +605,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteHistoricosUsuarios(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
         try {
-            
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
@@ -650,7 +675,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public String ejecutarReporteObjetos(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
         try {
-           
+
             File archivo = new File(rutaReporte + nombreReporte + ".jasper");
             JasperReport masterReport;
             masterReport = (JasperReport) JRLoader.loadObject(archivo);
