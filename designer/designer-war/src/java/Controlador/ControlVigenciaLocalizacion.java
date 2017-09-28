@@ -1422,8 +1422,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
    }
 
    public void cancelarYSalir() {
-      guardado = true;
-      cancelarModificacion();
+//      guardado = true;
+//      cancelarModificacion();
       salir();
    }
 

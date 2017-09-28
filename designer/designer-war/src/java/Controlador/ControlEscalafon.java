@@ -460,7 +460,7 @@ public class ControlEscalafon implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

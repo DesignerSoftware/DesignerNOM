@@ -333,7 +333,7 @@ public class ControlTipoBloque implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

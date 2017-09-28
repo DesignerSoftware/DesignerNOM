@@ -652,7 +652,7 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

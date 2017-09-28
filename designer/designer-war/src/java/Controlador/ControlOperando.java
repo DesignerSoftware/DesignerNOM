@@ -545,7 +545,7 @@ public class ControlOperando implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

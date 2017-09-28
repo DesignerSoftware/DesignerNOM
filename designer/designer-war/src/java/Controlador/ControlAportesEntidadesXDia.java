@@ -300,7 +300,7 @@ public class ControlAportesEntidadesXDia implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

@@ -920,7 +920,7 @@ public class ControlTipoSueldo implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 

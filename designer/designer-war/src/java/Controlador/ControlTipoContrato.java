@@ -442,7 +442,7 @@ public class ControlTipoContrato implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 

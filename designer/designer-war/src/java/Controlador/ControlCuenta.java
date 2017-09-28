@@ -695,7 +695,6 @@ public class ControlCuenta implements Serializable {
             nuevoCuentas = new Cuentas();
             nuevoCuentas.setRubropresupuestal(new Rubrospresupuestales());
             nuevoCuentas.setContracuentatesoreria(new Cuentas());
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosCuenta");
             if (guardado == true) {
                 guardado = false;

@@ -2704,7 +2704,7 @@ public class ControlAusentismos implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

@@ -435,7 +435,7 @@ public class ControlDeclarantes implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

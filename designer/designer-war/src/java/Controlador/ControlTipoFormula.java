@@ -410,7 +410,7 @@ public class ControlTipoFormula implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

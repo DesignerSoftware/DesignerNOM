@@ -1522,7 +1522,7 @@ public class ControlPersonaIndividual implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       navegar("atras");
    }
 

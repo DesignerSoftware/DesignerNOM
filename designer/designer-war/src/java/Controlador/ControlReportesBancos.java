@@ -1077,7 +1077,7 @@ public class ControlReportesBancos implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

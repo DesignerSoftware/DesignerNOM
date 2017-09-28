@@ -588,7 +588,7 @@ public class ControlVigenciasContratos implements Serializable {
     * Cancela las modificaciones realizas en la pagina
     */
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

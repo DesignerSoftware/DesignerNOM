@@ -1195,7 +1195,7 @@ public class ControlCausasAusentismos implements Serializable {
 
    //REFRESCAR LA PAGINA, CANCELAR MODIFICACION SI NO SE A GUARDADO
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

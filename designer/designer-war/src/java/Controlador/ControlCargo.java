@@ -1077,7 +1077,7 @@ public class ControlCargo implements Serializable {
     *
     */
    public void cancelarYSalir() {
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 

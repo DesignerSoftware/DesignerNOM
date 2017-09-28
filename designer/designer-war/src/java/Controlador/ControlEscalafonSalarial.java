@@ -595,7 +595,7 @@ public class ControlEscalafonSalarial implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 

@@ -2711,7 +2711,7 @@ public class ControlDetalleConcepto implements Serializable {
          listVigenciasCuentasConcepto = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
          k = 0;
-         vigenciaCuentaSeleccionada = null;
+//         vigenciaCuentaSeleccionada = null;
          cambiosVigenciaCuenta = false;
          FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron de Cuentas y Tipos CC con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2744,7 +2744,7 @@ public class ControlDetalleConcepto implements Serializable {
          listVigenciasCuentasConcepto = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoConcepto");
          k = 0;
-         vigenciaGrupoCoSeleccionada = null;
+//         vigenciaGrupoCoSeleccionada = null;
          cambiosVigenciaGrupoConcepto = false;
          FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron de Grupos C/N/G con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2777,7 +2777,7 @@ public class ControlDetalleConcepto implements Serializable {
          listVigenciasConceptosTTConcepto = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTT");
          k = 0;
-         vigenciaConceptoTTSeleccionada = null;
+//         vigenciaConceptoTTSeleccionada = null;
          cambiosVigenciaConceptoTT = false;
          FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron de Tipo Trabajador con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2810,7 +2810,7 @@ public class ControlDetalleConcepto implements Serializable {
          listVigenciasConceptosTCConcepto = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTC");
          k = 0;
-         vigenciaConceptoTCSeleccionada = null;
+//         vigenciaConceptoTCSeleccionada = null;
          cambiosVigenciaConceptoTC = false;
          FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron de Tipo Contrato con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2843,7 +2843,7 @@ public class ControlDetalleConcepto implements Serializable {
          listVigenciasConceptosRLConcepto = null;
          RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoRL");
          k = 0;
-         vigenciaConceptoRLSeleccionada = null;
+//         vigenciaConceptoRLSeleccionada = null;
          cambiosVigenciaConceptoRL = false;
          FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron de Tipo Salario con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2876,7 +2876,7 @@ public class ControlDetalleConcepto implements Serializable {
          listFormulasConceptos = null;
          RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
          k = 0;
-         vigFormulaConceptoSeleccionada = null;
+//         vigFormulaConceptoSeleccionada = null;
          cambiosFormulasConceptos = false;
          FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron de Formula con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -2893,7 +2893,7 @@ public class ControlDetalleConcepto implements Serializable {
    //CANCELAR MODIFICACIONES
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 
@@ -3713,7 +3713,7 @@ public class ControlDetalleConcepto implements Serializable {
       log.info("ControlDetalleConcepto.modificarACrear() valor: " + valor);
       vc.setAcrear(valor);
    }
-
+ 
    public void modificarACrear(VigenciasCuentas vc) {
       log.info("ControlDetalleConcepto.modificarACrear()");
       if (vc.getAcrear()) {

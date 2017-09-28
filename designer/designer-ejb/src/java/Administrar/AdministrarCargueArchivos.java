@@ -208,15 +208,17 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
    PersistenciaGeneralesInterface persistenciaGenerales;
 
    private EntityManagerFactory emf;
-   private EntityManager em; private String idSesionBck;
+   private EntityManager em;
+   private String idSesionBck;
 
    private EntityManager getEm() {
       try {
-         if (this.emf != null) { if (this.em != null) {
-            if (this.em.isOpen()) {
-               this.em.close();
+         if (this.emf != null) {
+            if (this.em != null) {
+               if (this.em.isOpen()) {
+                  this.em.close();
+               }
             }
-         }
          } else {
             this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
          }
@@ -228,7 +230,8 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
    }
 
    @Override
-   public void obtenerConexion(String idSesion) { idSesionBck = idSesion;
+   public void obtenerConexion(String idSesion) {
+      idSesionBck = idSesion;
       try {
          emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
       } catch (Exception e) {
@@ -518,6 +521,7 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
       try {
          SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
          String fechaR = formatoFecha.format(fechaReporte);
+         System.out.println("AdministrarCargueArchivos.cargarTempNovedades() fechaR: " + fechaR + ", nombreCorto: " + nombreCorto + " y usarFormula: " + usarFormula);
          persistenciaTempNovedades.cargarTempNovedades(getEm(), fechaR, nombreCorto, usarFormula);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".cargarTempNovedades() ERROR: " + e);

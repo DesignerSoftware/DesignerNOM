@@ -83,7 +83,7 @@ public class CargarArchivoPlano implements Serializable {
    private boolean aceptar;
    private UploadedFile file;
    //USAR FORMULA CONCEPTO
-   private String usarFormulaConcepto;
+   private String usarFormulaConcepto, errorNovedad;
    private String nombreCorto;
    //INPUT NOMBRE ARCHIVO
    private String nombreArchivoPlano;
@@ -127,6 +127,7 @@ public class CargarArchivoPlano implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public CargarArchivoPlano() {
+      errorNovedad = "Sin novedad";
       tempNovedadSeleccionada = null;
       cualCelda = -1;
       editarNovedad = new TempNovedades();
@@ -142,7 +143,6 @@ public class CargarArchivoPlano implements Serializable {
       usarFormulaConcepto = "S";
       subTotal = new BigDecimal(0);
       botones = false;
-      cargue = true;
       guardado = true;
       documentosSoporteCargados = null;
       //PICKLIST
@@ -175,6 +175,16 @@ public class CargarArchivoPlano implements Serializable {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCargueArchivos.obtenerConexion(ses.getId());
+         getListTempNovedades();
+         if (listTempNovedades != null) {
+            if (!listTempNovedades.isEmpty()) {
+               cargue = false;
+            } else {
+               cargue = true;
+            }
+         } else {
+            cargue = true;
+         }
       } catch (Exception e) {
          log.error("Error postconstruct CargarArchivoPlano: " + e);
          log.error("Causa: " + e.getCause());
@@ -1315,39 +1325,48 @@ public class CargarArchivoPlano implements Serializable {
    //CARGUE NOVEDADES
 
    public void cargarNovedades() {
+      log.info("Cargue.CargarArchivoPlano.cargarNovedades()");
       RequestContext context = RequestContext.getCurrentInstance();
-      if (!listTempNovedades.isEmpty() || listTempNovedades != null) {
-         int pasa = 0;
-         for (int i = 0; i < listErrores.size(); i++) {
-            if (listErrores.get(i).getNumeroErrores() != 0) {
-               pasa++;
+      if (listTempNovedades != null) {
+         if (!listTempNovedades.isEmpty()) {
+            int pasa = 0;
+            validarNovedades();
+            for (int i = 0; i < listErrores.size(); i++) {
+               if (listErrores.get(i).getNumeroErrores() != 0) {
+                  log.info("listErrores.get(i).getMensajeError() : " + listErrores.get(i).getMensajeError());
+                  errorNovedad = listErrores.get(i).getMensajeError().toString();
+                  pasa++;
+               }
             }
-         }
-         if (pasa == 0) {
-            administrarCargueArchivos.cargarTempNovedades(listTempNovedades.get(0).getFechareporte(), formulaUsada.getNombrecorto(), usarFormulaConcepto);
-            int registrosNAntes = listTempNovedades.size();
-            listTempNovedades = administrarCargueArchivos.consultarTempNovedades(UsuarioBD.getAlias());
-            int registrosNDespues = listTempNovedades.size();
-            diferenciaRegistrosN = registrosNAntes - registrosNDespues;
-            context.update("form:tempNovedades");
-            if (diferenciaRegistrosN == registrosNAntes) {
-               context.update("form:novedadesCargadas");
-               context.execute("PF('novedadesCargadas').show()");
+            if (pasa == 0) {
+               administrarCargueArchivos.cargarTempNovedades(listTempNovedades.get(0).getFechareporte(), formulaUsada.getNombrecorto(), usarFormulaConcepto);
+               int registrosNAntes = listTempNovedades.size();
+               listTempNovedades = administrarCargueArchivos.consultarTempNovedades(UsuarioBD.getAlias());
+               int registrosNDespues = listTempNovedades.size();
+               diferenciaRegistrosN = registrosNAntes - registrosNDespues;
+               context.update("form:tempNovedades");
+               if (diferenciaRegistrosN == registrosNAntes) {
+                  context.update("form:novedadesCargadas");
+                  context.execute("PF('novedadesCargadas').show()");
+               }
+               subTotal = new BigDecimal(0);
+               context.update("form:subtotal");
+               listErrores.clear();
+               erroresNovedad = null;
+               cargue = true;
+               nombreArchivoPlano = null;
+               documentosSoportes = null;
+               context.update("form:pickListDocumentosSoporte");
+               botones = false;
+               context.update("form:FileUp");
+               context.update("form:nombreArchivo");
+               context.update("form:formula");
+               context.update("form:usoFormulaC");
+               context.update("form:cargar");
+            } else {
+               context.update("form:errorArchivo2");
+               context.execute("PF('errorArchivo2').show()");
             }
-            subTotal = new BigDecimal(0);
-            context.update("form:subtotal");
-            listErrores.clear();
-            erroresNovedad = null;
-            cargue = true;
-            nombreArchivoPlano = null;
-            documentosSoportes = null;
-            context.update("form:pickListDocumentosSoporte");
-            botones = false;
-            context.update("form:FileUp");
-            context.update("form:nombreArchivo");
-            context.update("form:formula");
-            context.update("form:usoFormulaC");
-            context.update("form:cargar");
          }
       }
    }
@@ -1779,6 +1798,14 @@ public class CargarArchivoPlano implements Serializable {
 
    public void setNuevaTempNovedades(TempNovedades nuevaTempNovedades) {
       this.nuevaTempNovedades = nuevaTempNovedades;
+   }
+
+   public String getErrorNovedad() {
+      return errorNovedad;
+   }
+
+   public void setErrorNovedad(String errorNovedad) {
+      this.errorNovedad = errorNovedad;
    }
 
 }

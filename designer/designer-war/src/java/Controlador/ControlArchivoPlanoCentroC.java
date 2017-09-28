@@ -216,7 +216,7 @@ public class ControlArchivoPlanoCentroC implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

@@ -583,7 +583,7 @@ public class ControlNReporteLaboral implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

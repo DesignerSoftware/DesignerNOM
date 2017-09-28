@@ -645,7 +645,7 @@ public class ControlNReporteNomina implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

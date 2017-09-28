@@ -347,7 +347,7 @@ public class ControlNovedadOperando implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

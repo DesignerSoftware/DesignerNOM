@@ -993,7 +993,7 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void cancelarYSalir() {
-        cancelarModificacion();
+//        cancelarModificacion();
         salir();
     }
 

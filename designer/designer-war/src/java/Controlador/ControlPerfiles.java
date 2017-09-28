@@ -627,7 +627,7 @@ public class ControlPerfiles implements Serializable {
     }
 
     public void cancelarYSalir() {
-        cancelarModificacion();
+//        cancelarModificacion();
         salir();
     }
 

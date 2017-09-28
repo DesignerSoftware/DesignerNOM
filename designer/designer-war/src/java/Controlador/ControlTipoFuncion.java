@@ -281,7 +281,7 @@ public class ControlTipoFuncion implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

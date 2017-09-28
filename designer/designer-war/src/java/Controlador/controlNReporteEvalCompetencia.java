@@ -515,8 +515,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
    }
 
    public void cancelarYSalir() {
-      log.info(this.getClass().getName() + ".cancelarYSalir()");
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

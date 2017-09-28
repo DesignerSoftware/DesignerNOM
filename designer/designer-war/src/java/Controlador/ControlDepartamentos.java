@@ -209,7 +209,7 @@ public class ControlDepartamentos implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

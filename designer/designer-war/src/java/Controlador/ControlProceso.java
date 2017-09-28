@@ -637,7 +637,7 @@ public class ControlProceso implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 

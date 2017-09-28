@@ -1876,7 +1876,7 @@ public class ControlNReportePersonal implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

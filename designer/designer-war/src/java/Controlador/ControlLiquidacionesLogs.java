@@ -262,7 +262,7 @@ public class ControlLiquidacionesLogs implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

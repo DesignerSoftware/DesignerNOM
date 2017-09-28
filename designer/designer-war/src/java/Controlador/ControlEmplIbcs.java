@@ -159,7 +159,7 @@ public class ControlEmplIbcs implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       navegar("atras");
    }
 

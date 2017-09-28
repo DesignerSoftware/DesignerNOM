@@ -422,7 +422,7 @@ public class ControlMonedas implements Serializable {
     }
 
     public void cancelarYSalir() {
-        cancelarModificacion();
+//        cancelarModificacion();
         salir();
     }
 

@@ -461,8 +461,8 @@ public class ControlRegistroEnvios implements Serializable {
     }
 
     public void cancelarYSalir() {
-        log.info(this.getClass().getName() + ".cancelarYSalir()");
-        cancelarModificaciones();
+//        log.info(this.getClass().getName() + ".cancelarYSalir()");
+//        cancelarModificaciones();
         salir();
     }
 

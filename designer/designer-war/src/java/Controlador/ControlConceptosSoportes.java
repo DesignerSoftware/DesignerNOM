@@ -291,7 +291,7 @@ public class ControlConceptosSoportes implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

@@ -775,7 +775,7 @@ public class ControlEmpresa implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 

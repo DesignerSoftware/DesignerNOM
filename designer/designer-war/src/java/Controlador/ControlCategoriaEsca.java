@@ -609,7 +609,7 @@ public class ControlCategoriaEsca implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificacion();
+//      cancelarModificacion();
       salir();
    }
 

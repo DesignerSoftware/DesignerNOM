@@ -496,7 +496,7 @@ public class ControlNReporteContabilidad implements Serializable {
    }
 
    public void cancelarYSalir() {
-      cancelarModificaciones();
+//      cancelarModificaciones();
       salir();
    }
 

@@ -105,7 +105,7 @@
                      <center><h:outputText value="#{msg['cap']}" style="color: #009; font-weight: bold;"/></center>
                      <br></br>
                      <p:inputText autocomplete="off" id="nombreArchivo" value="#{cargarArchivoPlano.nombreArchivoPlano}" readonly="true"
-                                   style="position: absolute; top: 30px; left: 8px; width: 158px; z-index: 1; height: 12px;"/>
+                                  style="position: absolute; top: 30px; left: 8px; width: 158px; z-index: 1; height: 12px;"/>
                      <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}"/>
 
                      <p:fileUpload id="FileUp" mode="advanced" disabled="#{cargarArchivoPlano.botones}" label="#{msg['examinar']}" auto="true" skinSimple="true"
@@ -441,7 +441,7 @@
                      <!--<div style="">-->
                      <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: relative; top: 2px; left: 370px"/>
                      <p:inputText autocomplete="off" id="subtotal" value="$ #{cargarArchivoPlano.subTotal} " readonly="true" onclick="select();"
-                                   style="position: relative; top: 2px; left: 390px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 14px !important; padding: 1px;">
+                                  style="position: relative; top: 2px; left: 390px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 14px !important; padding: 1px;">
                         <f:convertNumber currencyCode="COP"/>
                      </p:inputText> 
                      <!--</div>-->
@@ -462,6 +462,13 @@
                   <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                      <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;"/></strong>
+                  </p:dialog>
+
+                  <p:dialog id="errorArchivo2" header="#{msg['error']}" widgetVar="errorArchivo2" resizable="false" draggable="true" modal="true" height="94" width="380">  
+                     <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                     <strong><h:outputText value="#{msg['errorArchivo2']}" style="position: absolute; left: 60px; top: 4px; width: 310px; text-align: center;"/></strong>
+                     <strong><h:inputTextarea value="#{cargarArchivoPlano.errorNovedad}"
+                                              style="position: absolute; left: 70px; top: 26px; width: 290px; text-align: center; height: 60px;"/></strong>
                   </p:dialog>
 
                   <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="true" modal="true" height="90" width="295px;">  
@@ -562,13 +569,13 @@
 
                      <strong><h:outputText value="#{msg['concepto']}:" style=" position: absolute; top: 75px; left: 40px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoConcepto" widgetVar="nuevoConcepto" value="#{cargarArchivoPlano.nuevaTempNovedades.concepto}"
-                                   style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:keyFilter for="duplicaConcepto" mask="9999999999"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['empleado']}:" style=" position: absolute; top: 105px; left: 40px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevaEmpleado" value="#{cargarArchivoPlano.nuevaTempNovedades.empleado}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:keyFilter for="nuevaEmpleado" mask="9999999999"/>
                      </p:inputText>
 
@@ -608,11 +615,11 @@
 
                      <strong><h:outputText value="#{msg['unidadentera']}:" style=" position: absolute; top: 195px; left: 410px"/></strong>
                      <p:inputNumber autocomplete="off" id="nuevoHoras" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
-                                     style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase;"/>
+                                    style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['unidadfraccion']}:" style=" position: absolute; top: 225px; left: 410px;"/></strong>
                      <p:inputNumber autocomplete="off" id="nuevoMinutos" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
-                                     style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase;"/>
+                                    style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase;"/>
 
                      <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
                                       actionListener="#{cargarArchivoPlano.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
@@ -630,13 +637,13 @@
 
                      <strong><h:outputText value="#{msg['concepto']}:" style=" position: absolute; top: 75px; left: 40px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicaConcepto" widgetVar="duplicaConcepto" value="#{cargarArchivoPlano.duplicarTempNovedades.concepto}"
-                                   style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase;">
                         <p:keyFilter for="duplicaConcepto" mask="9999999999"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['empleado']}:" style=" position: absolute; top: 105px; left: 40px;"/></strong>
                      <p:inputText autocomplete="off" id="duplicaEmpleado" value="#{cargarArchivoPlano.duplicarTempNovedades.empleado}" 
-                                   style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
+                                  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
                         <p:keyFilter for="duplicaEmpleado" mask="9999999999"/>
                      </p:inputText>
 
@@ -676,11 +683,11 @@
 
                      <strong><h:outputText value="#{msg['unidadentera']}:" style=" position: absolute; top: 195px; left: 410px"/></strong>
                      <p:inputNumber autocomplete="off" id="duplicaHoras" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
-                                     style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase;"/>
+                                    style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase;"/>
 
                      <strong><h:outputText value="#{msg['unidadfraccion']}:" style=" position: absolute; top: 225px; left: 410px;"/></strong>
                      <p:inputNumber autocomplete="off" id="duplicaMinutos" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
-                                     style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase;"/>
+                                    style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase;"/>
 
                      <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
                                       actionListener="#{cargarArchivoPlano.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>

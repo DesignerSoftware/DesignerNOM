@@ -131,7 +131,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          log.error("Persistencia.PersistenciaTempNovedades.cargarTempNovedades()" + e.getMessage());
+          log.error("Persistencia.PersistenciaTempNovedades.cargarTempNovedades() : ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

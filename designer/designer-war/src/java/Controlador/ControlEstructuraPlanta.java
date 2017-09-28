@@ -717,8 +717,7 @@ public class ControlEstructuraPlanta implements Serializable {
    }
 
    public void cancelarYSalir() {
-
-      cancelarModificacionGeneral();
+//      cancelarModificacionGeneral();
       salir();
    }
 
