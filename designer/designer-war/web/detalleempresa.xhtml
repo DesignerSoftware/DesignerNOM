@@ -734,6 +734,22 @@
                               <h:outputText value=""/>
                            </f:facet>
                         </p:column>
+                         <p:column headerText="Entidad ARL" sortBy="#{info.nombreEntidadArl}" filterBy="#{info.nombreEntidadArl}" width="160"
+                                  filterMatchMode="contains" id="detalleEntidadARL" filterStyle="display: none; visibility: hidden;">
+                          <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.nombreEntidadArl}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" value="#{info.nombreEntidadArl}"  maxlength="20" id="editarArl"> 
+                                    <p:ajax event="select" process="@this"
+                                            onstart="PF('datosDetalleEmpresa').unselectAllRows();PF('datosDetalleEmpresa').selectRow(#{indiceDE});"/> 
+                                     <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(info, 8, 0)}" process="@this" update="editarArl"/>                                   
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
 
                         <p:column headerText="R" sortBy="#{info.reformaexoneraicbfsenasalud}" filterBy="#{infoC.reformaexoneraicbfsenasalud}" filterMatchMode="contains" 
                                   id="detalleReformaExonera" width="20" filterStyle="display: none; visibility: hidden">                                  
@@ -946,11 +962,11 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovGerente').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{gerente.numeroDocumento}" sortBy="#{gerente.numeroDocumento}" filterMatchMode="contains" width="90" filterStyle="width: 75% !important;">
+                        <p:column filterBy="#{gerente.numeroDocumentoPersona}" sortBy="#{gerente.numeroDocumentoPersona}" filterMatchMode="contains" width="90" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['numerodocumento']}"/>
                            </f:facet>
-                           <h:outputText value="#{gerente.numeroDocumento}"/>
+                           <h:outputText value="#{gerente.numeroDocumentoPersona}"/>
                         </p:column>
                         <p:column filterBy="#{gerente.nombreCompleto}" sortBy="#{gerente.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
@@ -1051,11 +1067,11 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSubGerente').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{subGerente.numeroDocumento}" sortBy="#{subGerente.numeroDocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                        <p:column filterBy="#{subGerente.numeroDocumentoPersona}" sortBy="#{subGerente.numeroDocumentoPersona}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['numerodocumento']}"/>
                            </f:facet>
-                           <h:outputText value="#{subGerente.numeroDocumento}"/>
+                           <h:outputText value="#{subGerente.numeroDocumentoPersona}"/>
                         </p:column>
                         <p:column filterBy="#{subGerente.nombreCompleto}" sortBy="#{subGerente.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
@@ -1086,11 +1102,11 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovRepresentante').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{representante.numeroDocumento}" sortBy="#{representante.numeroDocumento}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
+                        <p:column filterBy="#{representante.numeroDocumentoPersona}" sortBy="#{representante.numeroDocumentoPersona}" width="90" filterMatchMode="contains" filterStyle="width: 75% !important;">
                            <f:facet name="header">
                               <h:outputText value="#{msg['numerodocumento']}"/>
                            </f:facet>
-                           <h:outputText value="#{representante.numeroDocumento}"/>
+                           <h:outputText value="#{representante.numeroDocumentoPersona}"/>
                         </p:column>
                         <p:column filterBy="#{representante.nombreCompleto}" sortBy="#{representante.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                            <f:facet name="header">
@@ -1106,7 +1122,46 @@
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasR" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioRepresentante()}" process="@this"/>
                      </div>
                   </p:dialog>
+                  
+                  <p:dialog header="Terceros" widgetVar="TercerosSucursalesDialogo" draggable="true" resizable="false" closable="false" id="TercerosSucursalesDialogo"  
+                            showEffect="fade" hideEffect="fade" width="440" modal="true">
+                      <p:dataTable id="lovTercerosSucursal" var="ts" value="#{controlDetalleEmpresa.lovTercerosSucursales}" rowKey="#{ts.secuencia}"
+                                   selection="#{controlDetalleEmpresa.terceroSucursalLov}" selectionMode="single" widgetVar="lovTercerosSucursal" scrollable="true" scrollWidth="414" scrollHeight="250"
+                                   filteredValue="#{controlDetalleEmpresa.filtrarlovTercerosSucursales}" emptyMessage="#{msg['lovvacio']}">              
+
+                        <p:ajax event="rowSelect" listener="#{controlDetalleEmpresa.activarAceptar()}" update=":form:aceptarG"/>
+                        <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarTerceroSucursal()}"  process="@this"/>
+                        <p:ajax event="filter" listener="#{controlDetalleEmpresa.contarRegistrosTercerosSucursales()}"  process="@this"/>
+
+                        <f:facet name="header">  
+                           <h:outputText value="Buscar Tercero"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTercerosSucursal').filter();" class="cssFiltroLOV"/>  
+                        </f:facet>
+
+                        <p:column filterBy="#{ts.tercero.nit}" sortBy="#{ts.ntercero.nit}" filterMatchMode="contains" width="90" filterStyle="width: 75% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="Nit"/>
+                           </f:facet>
+                           <h:outputText value="#{ts.tercero.nit}"/>
+                        </p:column>
+                        <p:column filterBy="#{ts.descripcion}" sortBy="#{ts.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                           <f:facet name="header">
+                              <h:outputText value="Nombre"/>
+                           </f:facet>
+                           <h:outputText value="#{ts.descripcion}"/>
+                        </p:column>
+                     </p:dataTable>
+
+                     <div class="cssBotonesLOV">
+                         <h:outputText id="infoRegistroTercerosSucursales" value="#{msg['infoRegistro']} #{controlDetalleEmpresa.infoRegistroTercerosSucursales}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarTS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlDetalleEmpresa.aceptar}" actionListener="#{controlDetalleEmpresa.actualizarTerceroSucursal()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTS" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlDetalleEmpresa.cancelarCambioTerceroSucursal()}" process="@this"/>
+                     </div>
+                  </p:dialog>
+                  
                </p:panel>
+               
+               
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 10px;"/>

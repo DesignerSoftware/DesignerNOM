@@ -151,6 +151,8 @@ public class DetallesEmpresas implements Serializable {
    private BigInteger ref_ciudaddocrepresentante;
    @Column(name = "CARGOFIRMACONSTANCIA")
    private BigInteger ref_cargofirmaconstancia;
+   @Column(name = "ENTIDADSUCURSALARL")
+   private BigInteger entidadsucursalarl;
 
    @Transient
    private String nombre_personafirmaconstancia;
@@ -209,6 +211,8 @@ public class DetallesEmpresas implements Serializable {
    private BigInteger controlempleados;
    @Transient
    private BigInteger nit_Empresa;
+   @Transient
+   private String nombreEntidadArl;
 
    public DetallesEmpresas() {
    }
@@ -1057,6 +1061,22 @@ public class DetallesEmpresas implements Serializable {
    public void setNit_Empresa(BigInteger nit_Empresa) {
       this.nit_Empresa = nit_Empresa;
    }
+   
+     public BigInteger getEntidadsucursalarl() {
+        return entidadsucursalarl;
+    }
+
+    public void setEntidadsucursalarl(BigInteger entidadsucursalarl) {
+        this.entidadsucursalarl = entidadsucursalarl;
+    }
+
+    public String getNombreEntidadArl() {
+        return nombreEntidadArl;
+    }
+
+    public void setNombreEntidadArl(String nombreEntidadArl) {
+        this.nombreEntidadArl = nombreEntidadArl;
+    }
    
    @Override
    public int hashCode() {

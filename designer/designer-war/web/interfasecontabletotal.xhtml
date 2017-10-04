@@ -84,7 +84,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.salir()}" action="#{controlInterfaseContableTotal.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border: none; " actionListener="#{controlInterfaseContableTotal.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -494,7 +494,7 @@
                         <p:tooltip  for="CERRAR" value="#{msg['cerrarPeriodo']}"/>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();"  process="@this" disabled="#{controlInterfaseContableTotal.guardado}"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  actionListener="#{controlInterfaseContableTotal.salir()}" action="nominaf" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  actionListener="#{controlInterfaseContableTotal.salir()}" process="@this"/>
 
                         <p:dialog header="#{msg['procesoM']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
                                   showEffect="fade" hideEffect="fade" width="475" modal="true">

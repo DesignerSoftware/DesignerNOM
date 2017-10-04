@@ -51,8 +51,9 @@ public class DetallesEmpresasAux implements Serializable {
    private BigInteger controlempleados;
    @Column(name = "NIT")
    private BigInteger nit_Empresa;
+   @Column(name = "NOMBREENTIDADARL")
+   private String nombreEntidadArl;
 
-   ;
 
    public BigInteger getSecuencia() {
       return secuencia;
@@ -150,6 +151,14 @@ public class DetallesEmpresasAux implements Serializable {
       this.nit_Empresa = nit_Empresa;
    }
 
+    public String getNombreEntidadArl() {
+        return nombreEntidadArl;
+    }
+
+    public void setNombreEntidadArl(String nombreEntidadArl) {
+        this.nombreEntidadArl = nombreEntidadArl;
+    }
+   
    @Override
    public int hashCode() {
       int hash = 0;

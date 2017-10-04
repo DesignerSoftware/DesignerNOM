@@ -9,6 +9,7 @@ import Entidades.DetallesEmpresas;
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.Personas;
+import Entidades.TercerosSucursales;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -104,4 +105,5 @@ public interface AdministrarDetallesEmpresasInterface {
     * @param idSesion Identificador se la sesion.
     */
    public void obtenerConexion(String idSesion);
+   public List<TercerosSucursales> lovTercerosSucursales();
 }
