@@ -965,6 +965,10 @@ public class ControlNovedadesConceptos implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Tipo\n";
          pasa++;
       }
+      if (nuevaNovedad.getPeriodicidad()== null || nuevaNovedad.getPeriodicidad().getCodigo() == 0) {
+         mensajeValidacion = mensajeValidacion + " * Periodicidad\n";
+         pasa++;
+      }
       if (nuevaNovedad.getEmpleado() != null && pasa == 0) {
          fechaContratacionE = administrarNovedadesConceptos.obtenerFechaContratacionEmpleado(nuevaNovedad.getEmpleado().getSecuencia());
          if (fechaContratacionE == null) {
@@ -1074,6 +1078,10 @@ public class ControlNovedadesConceptos implements Serializable {
       }
       if (duplicarNovedad.getTipo() == null) {
          mensajeValidacion = mensajeValidacion + " * Tipo\n";
+         pasa++;
+      }
+      if (duplicarNovedad.getPeriodicidad()== null || duplicarNovedad.getPeriodicidad().getCodigo() == 0) {
+         mensajeValidacion = mensajeValidacion + " * Periodicidad\n";
          pasa++;
       }
       log.info("duplicarNovedad.getFechainicial() : " + duplicarNovedad.getFechainicial());

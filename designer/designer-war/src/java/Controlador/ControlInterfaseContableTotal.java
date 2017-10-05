@@ -277,7 +277,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             parametroContableActual = null;
             getParametroContableActual();
         } catch (Exception e) {
-            log.error("Error postconstruct ControlInterfaseContableTotal:  ", e);
+            log.error("Error postconstruct ControlInterfaseContableTotal: " + e);
             log.error("Causa: " + e.getCause());
         }
     }
@@ -1191,6 +1191,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         totalDInter = BigDecimal.ZERO;
         totalCInter = BigDecimal.ZERO;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void asignarIndex(ParametrosContables paramc, int numeroDialogo, int tipoNuevo) {
@@ -1877,7 +1878,7 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public void exportarReporte() throws IOException {
         try {
-            log.info("ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
+            log.info("Controlador.ControlInterfaseContableTotal.exportarReporte()   path generado : " + pathReporteGenerado);
             if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
                 File reporteF = new File(pathReporteGenerado);
                 FacesContext ctx = FacesContext.getCurrentInstance();
