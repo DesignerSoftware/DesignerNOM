@@ -769,7 +769,7 @@
                                     <div style="position: absolute; left: 240px; width: 50%;">
                                         <div style="display: block;">
                                             <h:outputText value="#{msg['grupo']}:" style="top: 30px; position: relative; left: -240px"/>
-                                            <p:inputText autocomplete="off" id="grupoParametro" value="#{controlNReporteNomina.parametroDeInforme.grupo.descripcion}"  
+                                            <p:inputText autocomplete="off" id="grupoParametro" value="#{controlNReporteNomina.grupoP}"  
                                                          style="position: absolute; width: 100px; top: 30px; left: -130px" onclick="select();" class="cssParametrosReportes">
                                                 <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(4)}" process="@this"/> 
                                                 <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('GRUPO', controlNReporteNomina.parametroDeInforme.grupo.descripcion)}" 

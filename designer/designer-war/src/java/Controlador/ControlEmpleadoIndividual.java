@@ -261,8 +261,8 @@ public class ControlEmpleadoIndividual implements Serializable {
       try {
          secuencia = sec;
          empleado = null;
-         persona = administrarEmpleadoIndividual.obtenerPersonaPorEmpleado(sec);
          getEmpleado();
+//         persona = administrarEmpleadoIndividual.obtenerPersonaPorEmpleado(sec);
          datosEmpleado();
          getFotoEmpleado();
          lovTiposDocumentos = null;
