@@ -558,7 +558,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                 nuevaNovedad.setEmpleado(emp); //Envia empleado
                 log.info("Empleado enviado: " + emp.getNombreCompleto());
                 listaNovedadesCrear.add(nuevaNovedad);
-                listaNovedades.add(nuevaNovedad);
+                listaNovedades.add(0,nuevaNovedad);
                 contarRegistros();
                 novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(nuevaNovedad));
                 nuevaNovedad = new Novedades();
@@ -665,7 +665,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                 duplicarNovedad.setEmpleado(emp); //Envia empleado
                 log.info("Empleado enviado: " + emp.getNombreCompleto());
                 listaNovedadesCrear.add(duplicarNovedad);
-                listaNovedades.add(duplicarNovedad);
+                listaNovedades.add(0,duplicarNovedad);
                 contarRegistros();
                 novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
                 duplicarNovedad = new Novedades();

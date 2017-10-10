@@ -1006,6 +1006,8 @@ public class ControlConcepto implements Serializable {
     public void lovConcepto(int quien) {
         if (quien == 0) {
             if (guardado) {
+                lovConceptosEmpresa = null;
+                lovConceptosEmpresa = administrarConceptos.consultarConceptosEmpresa(empresaActual.getSecuencia());
                 contarRegistrosLovConceptos();
                 habilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:ConceptosDialogo");
@@ -1658,22 +1660,22 @@ public class ControlConcepto implements Serializable {
 
     //EXPORTAR
     public void exportPDF() throws IOException {
-            DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosConceptosExportar");
-            FacesContext context = FacesContext.getCurrentInstance();
-            Exporter exporter = new ExportarPDFTablasAnchas();
-            exporter.export(context, tablaE, "ConceptosPDF", false, false, "UTF-8", null, null);
-            context.responseComplete();
-            activoDetalle = true;
+        DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosConceptosExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarPDFTablasAnchas();
+        exporter.export(context, tablaE, "ConceptosPDF", false, false, "UTF-8", null, null);
+        context.responseComplete();
+        activoDetalle = true;
 //        RequestContext.getCurrentInstance().update("form:DETALLES");
     }
 
     public void exportXLS() throws IOException {
-            DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosConceptosExportar");
-            FacesContext context = FacesContext.getCurrentInstance();
-            Exporter exporter = new ExportarXLS();
-            exporter.export(context, tablaE, "ConceptosXLS", false, false, "UTF-8", null, null);
-            context.responseComplete();
-            activoDetalle = true;
+        DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosConceptosExportar");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Exporter exporter = new ExportarXLS();
+        exporter.export(context, tablaE, "ConceptosXLS", false, false, "UTF-8", null, null);
+        context.responseComplete();
+        activoDetalle = true;
 //        RequestContext.getCurrentInstance().update("form:DETALLES");
     }
 
@@ -1697,6 +1699,8 @@ public class ControlConcepto implements Serializable {
                 FacesMessage msg = new FacesMessage("Información", "Concepto clonado con exito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistros();
+                lovConceptosEmpresa = null;
                 RequestContext.getCurrentInstance().update("form:codigoConceptoClon");
                 RequestContext.getCurrentInstance().update("form:descripcioConceptoClon");
                 RequestContext.getCurrentInstance().update("form:descripcionClon");

@@ -2422,7 +2422,7 @@ public class ControlAusentismos implements Serializable {
             nuevoAusentismo.setSecuencia(l);
             nuevoAusentismo.setEmpleado(seleccionMostrar);
             listaAusentismosCrear.add(nuevoAusentismo);
-            listaAusentismos.add(nuevoAusentismo);
+            listaAusentismos.add(0,nuevoAusentismo);
             ausentismoSeleccionado = nuevoAusentismo;
             contarRegistroAusentismos();
             nuevoAusentismo = new Soausentismos();
@@ -2487,7 +2487,7 @@ public class ControlAusentismos implements Serializable {
         l = BigInteger.valueOf(k);
         duplicarAusentismo.setSecuencia(l);
         listaAusentismosCrear.add(duplicarAusentismo);
-        listaAusentismos.add(duplicarAusentismo);
+        listaAusentismos.add(0,duplicarAusentismo);
         ausentismoSeleccionado = duplicarAusentismo;
         contarRegistroAusentismos();
         RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");

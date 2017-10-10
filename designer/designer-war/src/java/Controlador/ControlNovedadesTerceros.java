@@ -591,7 +591,7 @@ public class ControlNovedadesTerceros implements Serializable {
          nuevaNovedad.setTerminal(localMachine.getHostName());
          nuevaNovedad.setUsuarioreporta(usuarioBD);
          listaNovedadesCrear.add(nuevaNovedad);
-         listaNovedades.add(nuevaNovedad);
+         listaNovedades.add(0,nuevaNovedad);
          log.info(listaNovedadesCrear.size());
          log.info(listaNovedadesCrear.get(0).getTipo());
          log.info(nuevaNovedad.getTipo());
@@ -962,7 +962,7 @@ public class ControlNovedadesTerceros implements Serializable {
       }
 
       if (pasa2 == 0) {
-         listaNovedades.add(duplicarNovedad);
+         listaNovedades.add(0,duplicarNovedad);
          listaNovedadesCrear.add(duplicarNovedad);
          novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
          RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");

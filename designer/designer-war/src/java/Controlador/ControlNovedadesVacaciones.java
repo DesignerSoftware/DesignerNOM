@@ -355,7 +355,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             if (listaNovedades == null) {
                 listaNovedades = new ArrayList<NovedadesSistema>();
             }
-            listaNovedades.add(nuevaNovedad);
+            listaNovedades.add(0,nuevaNovedad);
             novedadSeleccionada = nuevaNovedad;
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -435,7 +435,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
         }
         if (pasa == 0) {
-            listaNovedades.add(duplicarNovedad);
+            listaNovedades.add(0,duplicarNovedad);
             listaNovedadesCrear.add(duplicarNovedad);
             novedadSeleccionada = duplicarNovedad;
             if (guardado == true) {
