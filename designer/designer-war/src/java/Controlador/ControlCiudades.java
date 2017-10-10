@@ -140,7 +140,6 @@ public class ControlCiudades implements Serializable {
          administrarCiudades.obtenerConexion(ses.getId());
          administrarDepartamentos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
-
       } catch (Exception e) {
          log.error("Error postconstruct " + this.getClass().getName() + ": ", e);
          log.error("Causa: " + e.getCause());
@@ -214,7 +213,6 @@ public class ControlCiudades implements Serializable {
 
    //DUPLICAR CIUDAD
    public void duplicarC() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (ciudadSeleccionada != null) {
          duplicarCiudad = new Ciudades();
 
@@ -234,7 +232,6 @@ public class ControlCiudades implements Serializable {
       k++;
       l = BigInteger.valueOf(k);
       duplicarCiudad.setSecuencia(l);
-      RequestContext context = RequestContext.getCurrentInstance();
       int pasa = 0;
       anularBotonLOV();
       for (int i = 0; i < listaCiudades.size(); i++) {
@@ -245,7 +242,6 @@ public class ControlCiudades implements Serializable {
             pasa++;
          }
       }
-
       if (pasa == 0) {
          listaCiudades.add(duplicarCiudad);
          listaCiudadesCrear.add(duplicarCiudad);
@@ -263,7 +259,6 @@ public class ControlCiudades implements Serializable {
             restablecerTabla();
          }
          duplicarCiudad = new Ciudades();
-
       }
       RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
       RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCiudad').hide()");
@@ -292,8 +287,6 @@ public class ControlCiudades implements Serializable {
    //AUTOCOMPLETAR
    public void modificarCiudades(Ciudades ciudad, String confirmarCambio, String valorConfirmar) {
       ciudadSeleccionada = ciudad;
-      RequestContext context = RequestContext.getCurrentInstance();
-
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (ciudadSeleccionada.getNombre().isEmpty()) {
@@ -301,11 +294,9 @@ public class ControlCiudades implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaCiudad').show()");
          ciudadSeleccionada.setNombre(nombreCiudad);
          RequestContext.getCurrentInstance().update("form:datosCiudades");
-
       }
       if (confirmarCambio.equalsIgnoreCase("N")) {
          if (!listaCiudadesCrear.contains(ciudadSeleccionada)) {
-
             if (listaCiudadesModificar.isEmpty()) {
                listaCiudadesModificar.add(ciudadSeleccionada);
             } else if (!listaCiudadesModificar.contains(ciudadSeleccionada)) {

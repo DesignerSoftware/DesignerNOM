@@ -186,7 +186,7 @@ public class CargarArchivoPlano implements Serializable {
             cargue = true;
          }
       } catch (Exception e) {
-         log.error("Error postconstruct CargarArchivoPlano: " , e);
+         log.error("Error postconstruct CargarArchivoPlano: ", e);
          log.error("Causa: " + e.getCause());
       }
    }
@@ -676,7 +676,7 @@ public class CargarArchivoPlano implements Serializable {
             elementosActualizar.clear();
          }
       } catch (Exception e) {
-         log.warn("Excepcion: (leerTxt) " , e);
+         log.warn("Excepcion: (leerTxt) ", e);
       }
    }
 
@@ -805,10 +805,14 @@ public class CargarArchivoPlano implements Serializable {
             }
             //VALIDAR TERCERO
             if (listTempNovedades.get(i).getTercero() != null) {
-               validacion = administrarCargueArchivos.verificarTercero(listTempNovedades.get(i).getTercero());
-               if (validacion == false) {
-                  errores++;
-                  erroresN.add("El codigo del tercero:" + listTempNovedades.get(i).getTercero() + ", no existe.");
+               if (listTempNovedades.get(i).getTercero().intValue() != 0) {
+                  validacion = administrarCargueArchivos.verificarTercero(listTempNovedades.get(i).getTercero());
+                  if (!validacion) {
+                     errores++;
+                     erroresN.add("El codigo del tercero:" + listTempNovedades.get(i).getTercero() + ", no existe.");
+                  }
+               } else {
+                  listTempNovedades.get(i).setTercero(null);
                }
             }
             //VALIDAR SALDO (DEBE SER MAYOR A CERO)
@@ -831,7 +835,7 @@ public class CargarArchivoPlano implements Serializable {
                if (concepto != null) {
                   if (concepto.getActivo().equalsIgnoreCase("S")) {
                      String tipoConcepto = administrarCargueArchivos.determinarTipoConcepto(concepto.getSecuencia());
-
+                     log.info("validarNovedades().tipoConcepto: " + tipoConcepto);
                      if (tipoConcepto.equalsIgnoreCase("MANUAL") || tipoConcepto.equalsIgnoreCase("SEMI-AUTOMATICO")) {
                         if (listTempNovedades.get(i).getValortotal() != null) {
                            subTotal = subTotal.add(listTempNovedades.get(i).getValortotal());
@@ -1396,6 +1400,7 @@ public class CargarArchivoPlano implements Serializable {
    public void reversar() {
       RequestContext context = RequestContext.getCurrentInstance();
       resultado = administrarCargueArchivos.reversarNovedades(UsuarioBD, documentoSoporteReversar);
+      log.warn("reversar() resultado: " + resultado);
       documentoSoporteReversar = null;
       context.update("form:documentoR");
       context.execute("PF('reversarDialogo').hide()");
@@ -1629,6 +1634,9 @@ public class CargarArchivoPlano implements Serializable {
    public List<String> getDocumentosSoporteCargados() {
       //if (documentosSoporteCargados == null) {
       documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
+      if (documentosSoporteCargados != null) {
+         log.warn("getDocumentosSoporteCargados() documentosSoporteCargados: " + documentosSoporteCargados);
+      }
       hs.addAll(documentosSoporteCargados);
       documentosSoporteCargados.clear();
       documentosSoporteCargados.addAll(hs);

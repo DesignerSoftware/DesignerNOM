@@ -492,6 +492,7 @@ public class ControlRemoto implements Serializable {
          }
          lovBuscarEmplTipo.clear();
          actualizarInformacionTipoTrabajador();
+//         mostrarT2 = true;
          RequestContext.getCurrentInstance().update("form:tabmenu");
          RequestContext.getCurrentInstance().update("form:tabmenu:activos");
          RequestContext.getCurrentInstance().update("form:tabmenu:pensionados");

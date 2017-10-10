@@ -59,10 +59,10 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          tx.commit();
 
       } catch (Exception e) {
-        log.error("Error PersistenciaTempNovedades.borrar:  ", e);
-            if (tx.isActive()) {
-               tx.rollback();
-            }
+         log.error("Error PersistenciaTempNovedades.borrar:  ", e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
       }
    }
 
@@ -96,7 +96,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<TempNovedades> listTNovedades = query.getResultList();
          return listTNovedades;
       } catch (Exception e) {
-          log.error("PersistenciaTempNovedades.obtenerTempNovedades():  ", e);
+         log.error("PersistenciaTempNovedades.obtenerTempNovedades():  ", e);
          return null;
       }
    }
@@ -112,7 +112,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-          log.error("PersistenciaTempNovedades.obtenerDocumentosSoporteCargados():  ", e);
+         log.error("PersistenciaTempNovedades.obtenerDocumentosSoporteCargados():  ", e);
          return null;
       }
    }
@@ -131,7 +131,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          log.error("PersistenciaTempNovedades.cargarTempNovedades() :  ", e);
+         log.error("PersistenciaTempNovedades.cargarTempNovedades() :  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -144,16 +144,16 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
-         Query query = em.createQuery("DELETE FROM TempNovedades t WHERE t.usuariobd = :usuarioBD "
+         Query query = em.createNativeQuery("DELETE FROM TempNovedades t WHERE t.usuariobd = ? "
                  + "AND t.estado = 'C' "
-                 + "AND t.documentosoporte = :documentoSoporte");
-         query.setParameter("usuarioBD", usuarioBD);
-         query.setParameter("documentoSoporte", documentoSoporte);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+                 + "AND t.documentosoporte = ?");
+         query.setParameter(1, usuarioBD);
+         query.setParameter(2, documentoSoporte);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-          log.error("PersistenciaTempNovedades.reversarTempNovedades():  ", e);
+         log.error("PersistenciaTempNovedades.reversarTempNovedades():  ", e);
          if (tx.isActive()) {
             tx.rollback();
          }

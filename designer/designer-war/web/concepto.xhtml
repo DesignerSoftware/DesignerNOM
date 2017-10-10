@@ -25,9 +25,10 @@
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
                   <p:toolbar styleClass="cssToolbar">
                      <p:toolbarGroup align="left">
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
-                                         id="guardarRapido" value="" actionListener="#{controlConcepto.guardarCambios()}" process="@this"/>
-                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="guardarRapido" widgetVar="guardarRapido" style="background-image: url(Imagenes/Iconos/guardar.png);" 
+                                         value="" actionListener="#{controlConcepto.guardarCambios()}" process="@this"/>
+                        <!--<p:tooltip  for="guardarRapido" value="#/{msg['guardar']}"/>-->
                         <p:commandButton style="background-image: url(Imagenes/Iconos/editar.png);" 
                                          id="editar" value="" actionListener="#{controlConcepto.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
@@ -119,7 +120,7 @@
                         <!--<f:event type="preRenderView" listener="#/{controlConcepto.recordarSeleccion()}"/>-->
                         <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrar()}"/>
 
-                        <p:column id="columnaDetalleConcepto" width="19" style="padding: 0px !important; width: 20px; alignment-adjust: central;">                                                              
+                        <p:column id="columnaDetalleConcepto" width="19" style="padding: 0px !important; width: 20px;">                                                              
                            <f:facet name="header">
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Concepto"/>
@@ -1028,78 +1029,80 @@
             <h:form id="formExportar">
                <p:dataTable id="datosConceptosExportar" var="infoExp" style="visibility: hidden; display: none;"                           
                             value="#{controlConcepto.listaConceptosEmpresa}">
-                  <p:column headerText="#{msg['codigoX']}">  
+                  <p:column headerText="codigo">  
+                     <!--<p:column headerText="#/{msg['codigoX']}">-->  
                      <f:facet name="header">
-                        <h:outputText value="#{msg['codigoX']}"/>
+                        <!--<h:outputText value="#/{msg['codigoX']}"/>-->
+                        <h:outputText value="codigo"/>
                      </f:facet>
                      <h:outputText value="#{infoExp.codigo}"/>
                   </p:column>
 
-                  <p:column headerText="#{msg['descripcionX']}">                                  
-                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                     <h:outputText value="#{infoExp.descripcion}"/>
-                  </p:column>  
-
-                  <p:column headerText="#{msg['naturalezaX']}">      
-                     <f:facet name="header"><h:outputText value="#{msg['naturalezaX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.naturalezaConcepto}"/>
-                  </p:column>
-
-                  <p:column headerText="#{msg['codigounidadX']}">                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['codigounidadE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.codigoUnidad}"/>
-                  </p:column>  
-
-                  <p:column headerText="#{msg['codigounidadX']}">                                                                                              
-                     <f:facet name="header"><h:outputText value="#{msg['codigounidadE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.nombreUnidad}"/>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['codigodesprendibleX']}">                                                              
-                     <f:facet name="header"><h:outputText value="#{msg['codigodesprendibleE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.codigodesprendible}"/>
-                  </p:column>
-
-                  <p:column headerText="#{msg['descripciondesprendibleX']}">                                                              
-                     <f:facet name="header"><h:outputText value="#{msg['descripciondesprendibleE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.descripciondesprendible}"/>
-                  </p:column>
-
-                  <p:column headerText="#{msg['independienteX']}">                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['independienteE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.independienteConcepto}"/>
-                  </p:column> 
-
-                  <p:column>                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['conjuntoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.conjunto}"/>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['fechaacumulacionX']}">                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['fechaacumulacionE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.contenidofechahasta}"/>
-                  </p:column> 
-
-                  <p:column>                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['nombreterceroX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.nombreTercero}"/>
-                  </p:column> 
-
-                  <p:column>                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['estadoX']}"/></f:facet>
-                     <h:outputText value="#{infoExp.estadoConcepto}"/>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['enviaraX']}">                                                              
-                     <f:facet name="header"> <h:outputText value="#{msg['enviaraE']}"/></f:facet>
-                     <h:outputText value="#{infoExp.enviarConcepto}"/>
-                  </p:column> 
-
-                  <p:column headerText="#{msg['codigoalternativoX']}">                                                 
-                     <f:facet name="header"> <h:outputText value="#{msg['codigoalternativoE']}"/>
-                     </f:facet>
-                     <h:outputText value="#{infoExp.codigoalternativo}"/>
-                  </p:column>
+                  <!--                  <p:column headerText="#/{msg['descripcionX']}">                                  
+                                       <f:facet name="header"><h:outputText value="#/{msg['descripcionX']}"/> </f:facet> 
+                                       <h:outputText value="#/{infoExp.descripcion}"/>
+                                    </p:column>  
+                  
+                                    <p:column headerText="#/{msg['naturalezaX']}">      
+                                       <f:facet name="header"><h:outputText value="#/{msg['naturalezaX']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.naturalezaConcepto}"/>
+                                    </p:column>
+                  
+                                    <p:column headerText="#/{msg['codigounidadX']}">                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['codigounidadE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.codigoUnidad}"/>
+                                    </p:column>  
+                  
+                                    <p:column headerText="#/{msg['codigounidadX']}">                                                                                              
+                                       <f:facet name="header"><h:outputText value="#/{msg['codigounidadE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.nombreUnidad}"/>
+                                    </p:column> 
+                  
+                                    <p:column headerText="#/{msg['codigodesprendibleX']}">                                                              
+                                       <f:facet name="header"><h:outputText value="#/{msg['codigodesprendibleE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.codigodesprendible}"/>
+                                    </p:column>
+                  
+                                    <p:column headerText="#/{msg['descripciondesprendibleX']}">                                                              
+                                       <f:facet name="header"><h:outputText value="#/{msg['descripciondesprendibleE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.descripciondesprendible}"/>
+                                    </p:column>
+                  
+                                    <p:column headerText="#/{msg['independienteX']}">                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['independienteE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.independienteConcepto}"/>
+                                    </p:column> 
+                  
+                                    <p:column>                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['conjuntoX']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.conjunto}"/>
+                                    </p:column> 
+                  
+                                    <p:column headerText="#/{msg['fechaacumulacionX']}">                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['fechaacumulacionE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.contenidofechahasta}"/>
+                                    </p:column> 
+                  
+                                    <p:column>                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['nombreterceroX']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.nombreTercero}"/>
+                                    </p:column> 
+                  
+                                    <p:column>                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['estadoX']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.estadoConcepto}"/>
+                                    </p:column> 
+                  
+                                    <p:column headerText="#/{msg['enviaraX']}">                                                              
+                                       <f:facet name="header"> <h:outputText value="#/{msg['enviaraE']}"/></f:facet>
+                                       <h:outputText value="#/{infoExp.enviarConcepto}"/>
+                                    </p:column> 
+                  
+                                    <p:column headerText="#/{msg['codigoalternativoX']}">                                                 
+                                       <f:facet name="header"> <h:outputText value="#/{msg['codigoalternativoE']}"/>
+                                       </f:facet>
+                                       <h:outputText value="#/{infoExp.codigoalternativo}"/>
+                                    </p:column>-->
                </p:dataTable>
             </h:form>
          </ui:define>

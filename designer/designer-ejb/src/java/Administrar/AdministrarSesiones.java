@@ -62,6 +62,7 @@ public class AdministrarSesiones implements AdministrarSesionesInterface, Serial
    @Override
    public EntityManagerFactory obtenerConexionSesionEMF(String idSesion) {
       try {
+         log.warn("AdministrarSesiones.obtenerConexionSesion() sessionesActivas: " + sessionesActivas);
          if (!sessionesActivas.isEmpty()) {
             for (SessionEntityManager sem : sessionesActivas) {
                if (sem.getIdSession().equals(idSesion)) {

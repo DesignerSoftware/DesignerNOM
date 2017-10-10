@@ -136,8 +136,9 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
       log.warn("buenas verificarExistenciaConceptoFormulasConcepto");
       try {
          em.clear();
-         String txtQuery = "SELECT COUNT(fc) FROM FormulasConceptos fc WHERE fc.concepto = ?";
-         Query query = em.createNamedQuery(txtQuery);
+         String txtQuery = "SELECT COUNT(*) FROM FormulasConceptos fc WHERE fc.concepto = ? ";
+         Query query = em.createNativeQuery(txtQuery);
+//         Query query = em.createQuery(txtQuery);
          query.setParameter(1, secuencia);
          BigDecimal resultado = (BigDecimal) query.getSingleResult();
          return resultado.compareTo(BigDecimal.ZERO) > 0;

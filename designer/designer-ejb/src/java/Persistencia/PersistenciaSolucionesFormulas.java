@@ -29,8 +29,10 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             Long resultado = (Long) query.getSingleResult();
             if (resultado > 0) {
+               log.warn("validarNovedadesNoLiquidadas() retorna 1");
                 return 1;
             } else {
+               log.warn("validarNovedadesNoLiquidadas() retorna 0");
                 return 0;
             }
         } catch (Exception e) {

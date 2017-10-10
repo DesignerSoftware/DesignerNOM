@@ -441,11 +441,13 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
    @Override
    public boolean verificarZonaT(BigInteger secConcepto, BigInteger secRL, BigInteger secTC, BigInteger secTT) {
       try {
-         boolean validarZonaT;
-         validarZonaT = persistenciaVigenciasConceptosRL.verificacionZonaTipoReformasLaborales(getEm(), secConcepto, secRL);
-         if (validarZonaT == true) {
+         boolean validarZonaT = persistenciaVigenciasConceptosRL.verificacionZonaTipoReformasLaborales(getEm(), secConcepto, secRL);
+         System.out.println("AdministrarCargueArchivos.verificarZonaT() 1");
+         if (validarZonaT) {
+            System.out.println("AdministrarCargueArchivos.verificarZonaT() 2");
             validarZonaT = persistenciaVigenciasConceptosTC.verificacionZonaTipoContrato(getEm(), secConcepto, secTC);
-            if (validarZonaT == true) {
+            if (validarZonaT) {
+               System.out.println("AdministrarCargueArchivos.verificarZonaT() 3");
                validarZonaT = persistenciaVigenciasConceptosTT.verificacionZonaTipoTrabajador(getEm(), secConcepto, secTT);
             }
          }
@@ -531,7 +533,13 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
    @Override
    public int reversarNovedades(ActualUsuario usuarioBD, String documentoSoporte) {
       try {
+         log.warn("AdministrarCargueArchivos.reversarNovedades() documentoSoporte: " + documentoSoporte + ", usuarioBD: " + usuarioBD);
          List<Novedades> listNovedades = persistenciaNovedades.novedadesParaReversar(getEm(), usuarioBD.getSecuencia(), documentoSoporte);
+         if (listNovedades != null) {
+            log.warn("reversarNovedades() listNovedades.size(): " + listNovedades.size());
+         } else {
+            log.warn("reversarNovedades() listNovedades.size(): null");
+         }
          int validarNoLiquidadas = 0;
          for (int i = 0; i < listNovedades.size(); i++) {
             if (persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(getEm(), listNovedades.get(i).getSecuencia()) > 0) {
@@ -539,12 +547,12 @@ public class AdministrarCargueArchivos implements AdministrarCargueArchivosInter
             }
          }
          listNovedades.clear();
-         if (validarNoLiquidadas == 0) {
-            persistenciaTempNovedades.reversarTempNovedades(getEm(), usuarioBD.getAlias(), documentoSoporte);
-            return persistenciaNovedades.reversarNovedades(getEm(), usuarioBD.getSecuencia(), documentoSoporte);
-         } else {
-            return 0;
-         }
+//         if (validarNoLiquidadas == 0) {
+         persistenciaTempNovedades.reversarTempNovedades(getEm(), usuarioBD.getAlias(), documentoSoporte);
+         return persistenciaNovedades.reversarNovedades(getEm(), usuarioBD.getSecuencia(), documentoSoporte);
+//         } else {
+//            return 0;
+//         }
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".reversarNovedades() ERROR: " + e);
          return 0;

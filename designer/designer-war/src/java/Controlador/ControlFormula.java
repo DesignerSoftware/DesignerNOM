@@ -874,8 +874,6 @@ public class ControlFormula implements Serializable {
       exporter.export(context, tablaE, "FormulasPDF", false, false, "UTF-8", null, null);
       context.responseComplete();
       activoDetalleFormula = true;
-      RequestContext contxt = RequestContext.getCurrentInstance();
-      contxt.update("form:detalleFormula");
    }
 
    public void exportXLS() throws IOException {
@@ -888,8 +886,6 @@ public class ControlFormula implements Serializable {
       exporter.export(context, tablaE, "FormulasXLS", false, false, "UTF-8", null, null);
       context.responseComplete();
       activoDetalleFormula = true;
-      RequestContext contxt = RequestContext.getCurrentInstance();
-      contxt.update("form:detalleFormula");
    }
 
    //EVENTO FILTRAR

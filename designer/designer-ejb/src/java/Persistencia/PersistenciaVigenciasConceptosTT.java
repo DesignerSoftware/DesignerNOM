@@ -81,7 +81,7 @@ public class PersistenciaVigenciasConceptosTT implements PersistenciaVigenciasCo
     public boolean verificacionZonaTipoTrabajador(EntityManager em, BigInteger secuenciaConcepto, BigInteger secuenciaTT) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT vcTT FROM VigenciasConceptosTT vcTT WHERE vcTT.concepto.secuencia = :secuenciaConcepto AND vcTT.tipotrabajador.secuencia = :secuenciaTT");
+            Query query = em.createQuery("SELECT COUNT(vcTT) FROM VigenciasConceptosTT vcTT WHERE vcTT.concepto.secuencia = :secuenciaConcepto AND vcTT.tipotrabajador.secuencia = :secuenciaTT");
             query.setParameter("secuenciaConcepto", secuenciaConcepto);
             query.setParameter("secuenciaTT", secuenciaTT);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");

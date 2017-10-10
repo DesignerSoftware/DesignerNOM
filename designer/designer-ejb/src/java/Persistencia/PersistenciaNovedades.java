@@ -163,15 +163,26 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
 
    @Override
    public int reversarNovedades(EntityManager em, BigInteger usuarioBD, String documentoSoporte) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
       try {
-         em.clear();
-         Query query = em.createQuery("DELETE FROM Novedades n WHERE n.usuarioreporta.secuencia = :usuarioBD AND n.documentosoporte = :documentoSoporte");
-         query.setParameter("usuarioBD", usuarioBD);
-         query.setParameter("documentoSoporte", documentoSoporte);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         tx.begin();
+
+//         Query query = em.createQuery("DELETE FROM Novedades n WHERE n.usuarioreporta.secuencia = :usuarioBD AND n.documentosoporte = :documentoSoporte");
+         Query query = em.createNativeQuery("DELETE Novedades n WHERE\n"
+                 + " n.usuarioreporta = ?\n"
+                 + " AND n.documentosoporte = ?\n"
+                 + " AND NOT EXISTS (SELECT 1 FROM SolucionesFormulas sf WHERE sf.novedad = n.SECUENCIA)");
+         query.setParameter(1, usuarioBD);
+         query.setParameter(2, documentoSoporte);
          int rows = query.executeUpdate();
+         log.warn("PersistenciaNovedades.reversarNovedades() rows: " + rows);
+         tx.commit();
          return rows;
       } catch (Exception e) {
+         if (tx.isActive()) {
+            tx.rollback();
+         }
          log.error("No se pudo borrar el registro. (reversarNovedades) ", e);
          return 0;
       }
