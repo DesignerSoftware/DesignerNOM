@@ -157,10 +157,10 @@ public class ControlLegislacion implements Serializable {
             //mas Parametros
             //         if (pag.equals("rastrotabla")) {
             //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Contrato", pagActual);
             //      } else if (pag.equals("rastrotablaH")) {
             //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //     controlRastro.historicosTabla("Contrato", pagActual);
             //   pag = "rastrotabla";
             //}
         }
@@ -453,15 +453,15 @@ public class ControlLegislacion implements Serializable {
         try {
             if (guardado == false) {
                 if (!listaContratosBorrar.isEmpty()) {
-                    administrarContratos.borrarConceptos(listaContratosBorrar);
+                    administrarContratos.borrarContrato(listaContratosBorrar);
                     listaContratosBorrar.clear();
                 }
                 if (!listaContratosCrear.isEmpty()) {
-                    administrarContratos.crearConceptos(listaContratosCrear);
+                    administrarContratos.crearContrato(listaContratosCrear);
                     listaContratosCrear.clear();
                 }
                 if (!listaContratosModificar.isEmpty()) {
-                    administrarContratos.modificarConceptos(listaContratosModificar);
+                    administrarContratos.modificarContrato(listaContratosModificar);
                     listaContratosModificar.clear();
                 }
                 listaContratos = null;

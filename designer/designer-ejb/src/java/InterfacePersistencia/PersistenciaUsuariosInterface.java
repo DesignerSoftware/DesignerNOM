@@ -19,9 +19,9 @@ public interface PersistenciaUsuariosInterface {
      * @return Retorna el Usuario identificado con el alias dado por parámetro.
      */
     public Usuarios buscarUsuario(EntityManager em, String alias);
-    public void crear(EntityManager em, Usuarios usuarios);
-    public void editar(EntityManager em, Usuarios usuarios);
-    public void borrar(EntityManager em, Usuarios usuarios);
+    public String crear(EntityManager em, Usuarios usuarios);
+    public String editar(EntityManager em, Usuarios usuarios);
+    public String borrar(EntityManager em, Usuarios usuarios);
     public List<Usuarios> buscarUsuarios(EntityManager em);
     public String crearUsuario(EntityManager em, String alias);
     public String crearUsuarioPerfil(EntityManager em, String alias, String perfil);

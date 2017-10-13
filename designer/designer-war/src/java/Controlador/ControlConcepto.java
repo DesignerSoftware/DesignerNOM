@@ -113,6 +113,7 @@ public class ControlConcepto implements Serializable {
     private boolean unaVez;
 //   private List<String> listaNavegacion;
     private ListasRecurrentes listasRecurrentes;
+    private String msgError;
 
     public ControlConcepto() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -1144,53 +1145,65 @@ public class ControlConcepto implements Serializable {
         try {
             if (guardado == false) {
                 if (!listaConceptosBorrar.isEmpty()) {
-                    administrarConceptos.borrarConceptos(listaConceptosBorrar);
+                    msgError = administrarConceptos.borrarConceptos(listaConceptosBorrar);
                     listaConceptosBorrar.clear();
                 }
                 if (!listaConceptosEmpresaCrear.isEmpty()) {
-                    administrarConceptos.crearConceptos(listaConceptosEmpresaCrear);
+                    msgError = administrarConceptos.crearConceptos(listaConceptosEmpresaCrear);
                     listaConceptosEmpresaCrear.clear();
                 }
                 if (!listaConceptosEmpresaModificar.isEmpty()) {
-                    administrarConceptos.modificarConceptos(listaConceptosEmpresaModificar);
+                    msgError = administrarConceptos.modificarConceptos(listaConceptosEmpresaModificar);
                     listaConceptosEmpresaModificar.clear();
                 }
-                listaConceptosEmpresa = null;
-                getListaConceptosEmpresa();
-                contarRegistros();
-                deshabilitarBotonLov();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosConceptos");
-                guardado = true;
-                permitirIndex = true;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                paraNuevoConcepto = 0;
-                conceptoSeleccionado = null;
-                activoDetalle = true;
-                unaVez = true;
+
+                if (msgError.equals("EXITO")) {
+                    listaConceptosEmpresa = null;
+                    getListaConceptosEmpresa();
+                    contarRegistros();
+                    deshabilitarBotonLov();
+                    RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                    RequestContext.getCurrentInstance().update("form:datosConceptos");
+                    guardado = true;
+                    permitirIndex = true;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    paraNuevoConcepto = 0;
+                    conceptoSeleccionado = null;
+                    activoDetalle = true;
+                    unaVez = true;
 //                RequestContext.getCurrentInstance().update("form:DETALLES");
-                if (verCambioEmpresa) {
-                    cambiarEmpresa();
+                    if (verCambioEmpresa) {
+                        cambiarEmpresa();
+                    }
+                    if (verCambioEstado) {
+                        cambiarEstado();
+                    }
+                    if (verSeleccionConcepto) {
+                        lovConcepto(0);
+                    }
+                    if (verMostrarTodos) {
+                        mostrarTodosConceptos();
+                    }
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    listasRecurrentes.getLovConceptos().clear();
+                
+                } 
+                else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
                 }
-                if (verCambioEstado) {
-                    cambiarEstado();
-                }
-                if (verSeleccionConcepto) {
-                    lovConcepto(0);
-                }
-                if (verMostrarTodos) {
-                    mostrarTodosConceptos();
-                }
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                listasRecurrentes.getLovConceptos().clear();
             }
         } catch (Exception e) {
-            log.warn("Error guardarCambios : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Se presento un error en el guardado, intente nuevamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            msgError = "";
+            msgError = e.getMessage();
+            RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+            RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
+//            log.warn("Error guardarCambios : " + e.toString());
+//            FacesMessage msg = new FacesMessage("Información", "Se presentó un error en el guardado, intente nuevamente.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -2122,6 +2135,14 @@ public class ControlConcepto implements Serializable {
 
     public void setActivarLov(boolean activarLov) {
         this.activarLov = activarLov;
+    }
+
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
     }
 
 }

@@ -109,7 +109,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
    }
 
    @Override
-   public void modificarConceptos(List<Contratos> listContratosModificados) {
+   public void modificarContrato(List<Contratos> listContratosModificados) {
       try {
          for (int i = 0; i < listContratosModificados.size(); i++) {
             if (listContratosModificados.get(i).getTipocotizante().getSecuencia() == null) {
@@ -118,12 +118,12 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             persistenciaContratos.editar(getEm(), listContratosModificados.get(i));
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarConceptos() ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".modificarContrato() ERROR: " + e);
       }
    }
 
    @Override
-   public void borrarConceptos(List<Contratos> listaContratos) {
+   public void borrarContrato(List<Contratos> listaContratos) {
       try {
          for (int i = 0; i < listaContratos.size(); i++) {
             if (listaContratos.get(i).getTipocotizante().getSecuencia() == null) {
@@ -134,12 +134,12 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarConceptos() ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".borrarContrato() ERROR: " + e);
       }
    }
 
    @Override
-   public void crearConceptos(List<Contratos> listaContratos) {
+   public void crearContrato(List<Contratos> listaContratos) {
       try {
          for (int i = 0; i < listaContratos.size(); i++) {
             if (listaContratos.get(i).getTipocotizante().getSecuencia() == null) {
@@ -150,7 +150,7 @@ public class AdministrarContratos implements AdministrarContratosInterface {
             }
          }
       } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearConceptos() ERROR: " + e);
+         log.error(this.getClass().getSimpleName() + ".crearContrato() ERROR: " + e);
       }
    }
 

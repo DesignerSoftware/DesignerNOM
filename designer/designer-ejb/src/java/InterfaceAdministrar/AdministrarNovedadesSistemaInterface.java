@@ -27,11 +27,11 @@ public interface AdministrarNovedadesSistemaInterface {
     public void obtenerConexion(String idSesion);
     public List<NovedadesSistema> novedadesEmpleado(BigInteger secuenciaEmpleado);
 
-    public void borrarNovedades(NovedadesSistema novedades);
+    public String borrarNovedades(NovedadesSistema novedades);
 
-    public void crearNovedades(NovedadesSistema novedades);
+    public String crearNovedades(NovedadesSistema novedades);
 
-    public void modificarNovedades(NovedadesSistema novedades);
+    public String modificarNovedades(NovedadesSistema novedades);
 
     public List<Empleados> buscarEmpleados();
     

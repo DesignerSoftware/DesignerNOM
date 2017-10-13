@@ -32,21 +32,21 @@ public interface AdministrarConceptosInterface {
      *
      * @param listaConceptos Lista de los Conceptos que se van a crear.
      */
-    public void crearConceptos(List<Conceptos> listaConceptos);
+    public String crearConceptos(List<Conceptos> listaConceptos);
 
     /**
      * Método encargado de editar Conceptos.
      *
      * @param listaConceptos Lista de los Conceptos que se van a modificar.
      */
-    public void modificarConceptos(List<Conceptos> listaConceptos);
+    public String modificarConceptos(List<Conceptos> listaConceptos);
 
     /**
      * Método encargado de borrar Conceptos.
      *
      * @param listaConceptos Lista de los Conceptos que se van a eliminar.
      */
-    public void borrarConceptos(List<Conceptos> listaConceptos);
+    public String borrarConceptos(List<Conceptos> listaConceptos);
 
     /**
      * Método encargado de recuperar las unidades necesarias para la lista de

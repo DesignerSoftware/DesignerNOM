@@ -1350,7 +1350,7 @@ public class ControlEmplVacaPendiente implements Serializable {
          return diasProvisionados;
       } catch (Exception e) {
          log.warn("Error getDiasProvisionados : " + e.toString());
-         return null;
+         return BigDecimal.ZERO;
       }
    }
 

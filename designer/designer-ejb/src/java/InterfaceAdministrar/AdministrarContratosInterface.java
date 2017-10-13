@@ -43,21 +43,21 @@ public interface AdministrarContratosInterface {
      *
      * @param listaContratos Lista de los Contratos que se van a crear.
      */
-    public void crearConceptos(List<Contratos> listaContratos);
+    public void crearContrato(List<Contratos> listaContratos);
 
     /**
      * Método encargado de editar Contratos.
      *
      * @param listaContratos Lista de los Contratos que se van a modificar.
      */
-    public void modificarConceptos(List<Contratos> listaContratos);
+    public void modificarContrato(List<Contratos> listaContratos);
 
     /**
      * Método encargado de borrar Contratos.
      *
      * @param listaContratos Lista de los Contratos que se van a eliminar.
      */
-    public void borrarConceptos(List<Contratos> listaContratos);
+    public void borrarContrato(List<Contratos> listaContratos);
 
     /**
      * Método encagado de copiar la configuración de un contrato a otro.

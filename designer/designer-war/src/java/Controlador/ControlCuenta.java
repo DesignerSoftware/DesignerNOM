@@ -105,6 +105,7 @@ public class ControlCuenta implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private boolean activarLov;
     private ListasRecurrentes listasRecurrentes;
+    private String msgError;
 
     public ControlCuenta() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -334,7 +335,7 @@ public class ControlCuenta implements Serializable {
     }
 
     public void modificarCuenta(Cuentas cuenta) {
-      cuentaTablaSeleccionada = cuenta;
+        cuentaTablaSeleccionada = cuenta;
         if (validarDatosNull(0) == true) {
             if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
                 if (listCuentasModificar.isEmpty()) {
@@ -440,7 +441,7 @@ public class ControlCuenta implements Serializable {
     }
 
     public void cambiarIndice(Cuentas cuenta, int celda) {
-      cuentaTablaSeleccionada = cuenta;
+        cuentaTablaSeleccionada = cuenta;
         if (permitirIndex == true) {
             cualCelda = celda;
             cuentaTablaSeleccionada = cuenta;
@@ -480,40 +481,46 @@ public class ControlCuenta implements Serializable {
         try {
             if (guardado == false) {
                 if (!listCuentasBorrar.isEmpty()) {
-                    log.info("entró al administrar de borrar");
-                    administrarCuentas.borrarCuentas(listCuentasBorrar);
+                    msgError = administrarCuentas.borrarCuentas(listCuentasBorrar);
                     listCuentasBorrar.clear();
                 }
                 if (!listCuentasCrear.isEmpty()) {
-                    administrarCuentas.crearCuentas(listCuentasCrear);
+                    msgError = administrarCuentas.crearCuentas(listCuentasCrear);
                     listCuentasCrear.clear();
                 }
                 if (!listCuentasModificar.isEmpty()) {
-                    log.info("entró a guardarCambiosCuenta.listCuentaModificar : " + listCuentasModificar.size());
-                    administrarCuentas.modificarCuentas(listCuentasModificar);
+                    msgError = administrarCuentas.modificarCuentas(listCuentasModificar);
                     listCuentasModificar.clear();
                 }
-                listCuentas = null;
-                getListCuentas();
-                contarRegistro();
-                RequestContext.getCurrentInstance().update("form:datosCuenta");
-                k = 0;
-                cuentaTablaSeleccionada = null;
-                cambiosCuentas = false;
-                activoDetalle = true;
-                guardado = true;
-                cambiosCuentas = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                listasRecurrentes.getLovCuentas().clear();
+                if (msgError.equals("EXITO")) {
+
+                    listCuentas = null;
+                    getListCuentas();
+                    contarRegistro();
+                    RequestContext.getCurrentInstance().update("form:datosCuenta");
+                    k = 0;
+                    cuentaTablaSeleccionada = null;
+                    cambiosCuentas = false;
+                    activoDetalle = true;
+                    guardado = true;
+                    cambiosCuentas = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    listasRecurrentes.getLovCuentas().clear();
+                }
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+                RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
             }
         } catch (Exception e) {
             log.warn("Error guardarCambiosCuenta Controlador : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
+//            RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+//                RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
         }
     }
 
@@ -1772,4 +1779,11 @@ public class ControlCuenta implements Serializable {
         this.activarLov = activarLov;
     }
 
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
 }

@@ -34,257 +34,219 @@ import org.apache.log4j.Logger;
 @Stateful
 public class AdministrarUsuarios implements AdministrarUsuariosInterface {
 
-   private static Logger log = Logger.getLogger(AdministrarUsuarios.class);
+    private static Logger log = Logger.getLogger(AdministrarUsuarios.class);
 
-   @EJB
-   PersistenciaUsuariosInterface persistenciaUsuarios;
-   @EJB
-   PersistenciaPersonasInterface persistenciaPersonas;
-   @EJB
-   PersistenciaPerfilesInterface persistenciaPerfiles;
-   @EJB
-   PersistenciaPantallasInterface persistenciaPantallas;
-   @EJB
-   AdministrarSesionesInterface administrarSesiones;
-   @EJB
-   PersistenciaCiudadesInterface persistenciaCiudades;
-   @EJB
-   PersistenciaTiposDocumentosInterface persistenciaTipoDocumento;
+    @EJB
+    PersistenciaUsuariosInterface persistenciaUsuarios;
+    @EJB
+    PersistenciaPersonasInterface persistenciaPersonas;
+    @EJB
+    PersistenciaPerfilesInterface persistenciaPerfiles;
+    @EJB
+    PersistenciaPantallasInterface persistenciaPantallas;
+    @EJB
+    AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaCiudadesInterface persistenciaCiudades;
+    @EJB
+    PersistenciaTiposDocumentosInterface persistenciaTipoDocumento;
 
-   private EntityManagerFactory emf;
-   private EntityManager em;
-   private String idSesionBck;
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private String idSesionBck;
 
-   private EntityManager getEm() {
-      try {
-         if (this.emf != null) {
-            if (this.em != null) {
-               if (this.em.isOpen()) {
-                  this.em.close();
-               }
-            }
-         } else {
-            this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
-         }
-         this.em = emf.createEntityManager();
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
-      }
-      return this.em;
-   }
-
-   // Metodos
-   @Override
-   public void obtenerConexion(String idSesion) {
-      idSesionBck = idSesion;
-      try {
-         emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
-      } catch (Exception e) {
-         log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
-      }
-   }
-
-   public List<Usuarios> consultarUsuarios() {
-      try {
-         return persistenciaUsuarios.buscarUsuarios(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarUsuarios() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String crearUsuariosBD(String alias) {
-      try {
-         return persistenciaUsuarios.crearUsuario(getEm(), alias);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearUsuariosBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String CrearUsuarioPerfilBD(String alias, String perfil) {
-      try {
-         return persistenciaUsuarios.crearUsuarioPerfil(getEm(), alias, perfil);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".CrearUsuarioPerfilBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String eliminarUsuariosBD(String alias) {
-      try {
-         return persistenciaUsuarios.borrarUsuario(getEm(), alias);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".eliminarUsuariosBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String eliminarUsuarioTotalBD(String alias) {
-      try {
-         return persistenciaUsuarios.borrarUsuarioTotal(getEm(), alias);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".eliminarUsuarioTotalBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {
-      try {
-         return persistenciaUsuarios.clonarUsuario(getEm(), usuarioOrigen, usuarioDestino);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".clonarUsuariosBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String desbloquearUsuariosBD(String alias) {
-      try {
-         return persistenciaUsuarios.desbloquearUsuario(getEm(), alias);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".desbloquearUsuariosBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public String restaurarUsuariosBD(String alias, String fecha) {
-      try {
-         return persistenciaUsuarios.restaurarUsuario(getEm(), alias, fecha);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".restaurarUsuariosBD() ERROR: " + e);
-         return null;
-      }
-   }
-
-   public List<Personas> consultarPersonas() {
-      try {
-         return persistenciaPersonas.consultarPersonas(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarPersonas() ERROR: " + e);
-         return null;
-      }
-   }
-
-   public List<Perfiles> consultarPerfiles() {
-      try {
-         return persistenciaPerfiles.consultarPerfiles(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarPerfiles() ERROR: " + e);
-         return null;
-      }
-   }
-
-   public List<Pantallas> consultarPantallas() {
-      try {
-         return persistenciaPantallas.buscarPantallas(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarPantallas() ERROR: " + e);
-         return null;
-      }
-   }
-
-   @Override
-   public void modificarUsuarios(List<Usuarios> listaUsuarios) {
-      try {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (listaUsuarios.get(i).getAlias().equals(null)) {
-               listaUsuarios.get(i).setAlias(null);
-               persistenciaUsuarios.editar(getEm(), listaUsuarios.get(i));
-            } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
-               listaUsuarios.get(i).setPersona(null);
-            } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
-               listaUsuarios.get(i).setPerfil(null);
-            } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
-               listaUsuarios.get(i).setPantallainicio(null);
+    private EntityManager getEm() {
+        try {
+            if (this.emf != null) {
+                if (this.em != null) {
+                    if (this.em.isOpen()) {
+                        this.em.close();
+                    }
+                }
             } else {
-               persistenciaUsuarios.editar(getEm(), listaUsuarios.get(i));
+                this.emf = administrarSesiones.obtenerConexionSesionEMF(idSesionBck);
             }
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".modificarUsuarios() ERROR: " + e);
-      }
-   }
+            this.em = emf.createEntityManager();
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " getEm() ERROR : " + e);
+        }
+        return this.em;
+    }
 
-   @Override
-   public void borrarUsuarios(List<Usuarios> listaUsuarios) {
-      try {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
-            log.warn("Borrando..Usuarios.");
-            if (listaUsuarios.get(i).getAlias().equals(null)) {
-               listaUsuarios.get(i).setAlias(null);
-               persistenciaUsuarios.borrar(getEm(), listaUsuarios.get(i));
-            } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
-               listaUsuarios.get(i).setPersona(null);
-            } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
-               listaUsuarios.get(i).setPerfil(null);
-            } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
-               listaUsuarios.get(i).setPantallainicio(null);
-            } else {
-               persistenciaUsuarios.borrar(getEm(), listaUsuarios.get(i));
-            }
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".borrarUsuarios() ERROR: " + e);
-      }
-   }
+    // Metodos
+    @Override
+    public void obtenerConexion(String idSesion) {
+        idSesionBck = idSesion;
+        try {
+            emf = administrarSesiones.obtenerConexionSesionEMF(idSesion);
+        } catch (Exception e) {
+            log.fatal(this.getClass().getSimpleName() + " obtenerConexion ERROR: " + e);
+        }
+    }
 
-   @Override
-   public void crearUsuarios(List<Usuarios> listaUsuarios) {
-      try {
-         for (int i = 0; i < listaUsuarios.size(); i++) {
-            log.warn("Creando. Usuarios..");
-            if (listaUsuarios.get(i).getAlias().equals(null)) {
-               listaUsuarios.get(i).setAlias(null);
-               persistenciaUsuarios.crear(getEm(), listaUsuarios.get(i));
-            } else if (listaUsuarios.get(i).getPersona().getSecuencia() == null) {
-               listaUsuarios.get(i).setPersona(null);
-            } else if (listaUsuarios.get(i).getPerfil().getSecuencia() == null) {
-               listaUsuarios.get(i).setPerfil(null);
-            } else if (listaUsuarios.get(i).getPantallainicio().getSecuencia() == null) {
-               listaUsuarios.get(i).setPantallainicio(null);
-            } else {
-               persistenciaUsuarios.crear(getEm(), listaUsuarios.get(i));
-            }
-         }
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearUsuarios() ERROR: " + e);
-      }
-   }
+    public List<Usuarios> consultarUsuarios() {
+        try {
+            return persistenciaUsuarios.buscarUsuarios(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarUsuarios() ERROR: " + e);
+            return null;
+        }
+    }
 
-   @Override
-   public List<Ciudades> lovCiudades() {
-      try {
-         return persistenciaCiudades.lovCiudades(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".lovCiudades() ERROR: " + e);
-         return null;
-      }
-   }
+    @Override
+    public String crearUsuariosBD(String alias) {
+        try {
+            return persistenciaUsuarios.crearUsuario(getEm(), alias);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearUsuariosBD() ERROR: " + e);
+            return null;
+        }
+    }
 
-   @Override
-   public List<TiposDocumentos> consultarTiposDocumentos() {
-      try {
-         return persistenciaTipoDocumento.consultarTiposDocumentos(getEm());
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".consultarTiposDocumentos() ERROR: " + e);
-         return null;
-      }
-   }
+    @Override
+    public String CrearUsuarioPerfilBD(String alias, String perfil) {
+        try {
+            return persistenciaUsuarios.crearUsuarioPerfil(getEm(), alias, perfil);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".CrearUsuarioPerfilBD() ERROR: " + e);
+            return null;
+        }
+    }
 
-   @Override
-   public void crearPersona(Personas persona) {
-      try {
-         persistenciaPersonas.crear(getEm(), persona);
-      } catch (Exception e) {
-         log.error(this.getClass().getSimpleName() + ".crearPersona() ERROR: " + e);
-      }
-   }
+    @Override
+    public String eliminarUsuariosBD(String alias) {
+        try {
+            return persistenciaUsuarios.borrarUsuario(getEm(), alias);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".eliminarUsuariosBD() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public String eliminarUsuarioTotalBD(String alias) {
+        try {
+            return persistenciaUsuarios.borrarUsuarioTotal(getEm(), alias);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".eliminarUsuarioTotalBD() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public String clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {
+        try {
+            return persistenciaUsuarios.clonarUsuario(getEm(), usuarioOrigen, usuarioDestino);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".clonarUsuariosBD() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public String desbloquearUsuariosBD(String alias) {
+        try {
+            return persistenciaUsuarios.desbloquearUsuario(getEm(), alias);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".desbloquearUsuariosBD() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public String restaurarUsuariosBD(String alias, String fecha) {
+        try {
+            return persistenciaUsuarios.restaurarUsuario(getEm(), alias, fecha);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".restaurarUsuariosBD() ERROR: " + e);
+            return null;
+        }
+    }
+
+    public List<Personas> consultarPersonas() {
+        try {
+            return persistenciaPersonas.consultarPersonas(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarPersonas() ERROR: " + e);
+            return null;
+        }
+    }
+
+    public List<Perfiles> consultarPerfiles() {
+        try {
+            return persistenciaPerfiles.consultarPerfiles(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarPerfiles() ERROR: " + e);
+            return null;
+        }
+    }
+
+    public List<Pantallas> consultarPantallas() {
+        try {
+            return persistenciaPantallas.buscarPantallas(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarPantallas() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public String modificarUsuarios(Usuarios Usuario) {
+        try {
+            return persistenciaUsuarios.editar(getEm(), Usuario);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".modificarUsuarios() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public String borrarUsuarios(Usuarios Usuario) {
+        try {
+            return persistenciaUsuarios.borrar(getEm(), Usuario);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".borrarUsuarios() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public String crearUsuarios(Usuarios Usuario) {
+        try {
+            return persistenciaUsuarios.crear(getEm(), Usuario);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearUsuarios() ERROR: " + e);
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public List<Ciudades> lovCiudades() {
+        try {
+            return persistenciaCiudades.lovCiudades(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".lovCiudades() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<TiposDocumentos> consultarTiposDocumentos() {
+        try {
+            return persistenciaTipoDocumento.consultarTiposDocumentos(getEm());
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".consultarTiposDocumentos() ERROR: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public void crearPersona(Personas persona) {
+        try {
+            persistenciaPersonas.crear(getEm(), persona);
+        } catch (Exception e) {
+            log.error(this.getClass().getSimpleName() + ".crearPersona() ERROR: " + e);
+        }
+    }
 
 }

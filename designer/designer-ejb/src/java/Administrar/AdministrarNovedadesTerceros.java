@@ -197,45 +197,33 @@ public class AdministrarNovedadesTerceros implements AdministrarNovedadesTercero
    }
 
    @Override
-   public void borrarNovedades(Novedades novedades) {
+   public String borrarNovedades(Novedades novedades) {
       try {
-         persistenciaNovedades.borrar(getEm(), novedades);
+       return  persistenciaNovedades.borrar(getEm(), novedades);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".borrarNovedades() ERROR: " + e);
+         return e.getMessage();
       }
    }
 
    @Override
-   public void crearNovedades(Novedades novedades) {
+   public String crearNovedades(Novedades novedades) {
       try {
-         persistenciaNovedades.crear(getEm(), novedades);
+       return  persistenciaNovedades.crear(getEm(), novedades);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".crearNovedades() ERROR: " + e);
+         return e.getMessage();
       }
    }
 
    @Override
-   public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
+   public String modificarNovedades(Novedades novedades) {
       try {
-         for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-            log.warn("Modificando...");
-
-            if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
-               listaNovedadesModificar.get(i).setPeriodicidad(null);
-            }
-            if (listaNovedadesModificar.get(i).getSaldo() == null) {
-               listaNovedadesModificar.get(i).setSaldo(null);
-            }
-            if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
-               listaNovedadesModificar.get(i).setUnidadesparteentera(null);
-            }
-            if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
-               listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
-            }
-            persistenciaNovedades.editar(getEm(), listaNovedadesModificar.get(i));
-         }
+         
+           return persistenciaNovedades.editar(getEm(),novedades);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".modificarNovedades() ERROR: " + e);
+         return e.getMessage();
       }
    }
 

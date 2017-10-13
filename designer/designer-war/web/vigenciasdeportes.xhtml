@@ -371,10 +371,10 @@
                         <h:outputText value="#{msg['errorDuplicarVigenciaD']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;text-align: center;"/>
                     </p:dialog>
 
-                    <p:dialog id="errorGuardado" header="#{msg['error']}" widgetVar="errorGuardado"  resizable="false" draggable="true" modal="true" height="190" width="450"  closable="false">  
+                    <p:dialog id="errorGuardado" header="#{msg['error']}" widgetVar="errorGuardado"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="#{controlVigenciaDeporte.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGuardado').hide();" style="position: absolute; top: 170px; left: 330px;" process="@this"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlVigenciaDeporte.msgError}"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorGuardado').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

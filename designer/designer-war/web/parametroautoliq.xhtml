@@ -133,8 +133,9 @@
                                         <f:facet name="output"><h:outputText value="#{infoPA.strMes}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold; text-transform: uppercase;" onblur="PF('operacionEnProceso').show();PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});
-                                                posicionParametro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" 
-                                                             onfocus=" PF('operacionEnProceso').show();PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});posicionParametro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">  
+                                                    posicionParametro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" 
+                                                             onfocus=" PF('operacionEnProceso').show();PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});
+                                                                     posicionParametro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">  
                                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1"/>  
                                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2"/>  
                                                 <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3"/>  
@@ -181,7 +182,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoPA.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText autocomplete="off"  value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;" 
-                                                         onselect="PF('operacionEnProceso').show(); posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);">
+                                                         onselect="PF('operacionEnProceso').show();
+                                                                 posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);">
                                                 <p:ajax event="select"  onstart="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});"  process="@this"/>   
                                             </p:inputText>    
                                         </f:facet>  
@@ -1407,11 +1409,11 @@
                             </p:dataTable>
                             <!--</p:scrollPanel>-->
                             <p:commandButton id="buscar" style="position: relative; left: 655px; top: 221px;" class="cssBotonBuscar"
-                                         actionListener="#{controlParametroAutoliq.dispararDialogoBuscar()}" onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
-                        <p:tooltip value="#{msg['btn1']}" for="buscar"/>
+                                             actionListener="#{controlParametroAutoliq.dispararDialogoBuscar()}" onclick="PF('operacionEnProceso').show()"  value="" process="@this"/>
+                            <p:tooltip value="#{msg['btn1']}" for="buscar"/>
 
-                        <p:commandButton id="mostrarTodos" style="position: relative; left: 655px; top: 221px;" class="cssBotonMostrarTodos"
-                                         onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this"/>
+                            <p:commandButton id="mostrarTodos" style="position: relative; left: 655px; top: 221px;" class="cssBotonMostrarTodos"
+                                             onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this"/>
 
                         </fieldset>
                         <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: absolute; left: 25px; top: 445px; font-weight: bold;"/>
@@ -1808,25 +1810,25 @@
                         <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight: bold;text-align: justify"/>
                     </p:dialog>
 
-                    <p:dialog id="errorProceso" header="#{msg['error']}" widgetVar="errorProceso"  resizable="false" draggable="true" modal="true" height="190" width="450"  closable="false">  
+                    <p:dialog id="errorProceso" header="#{msg['error']}" widgetVar="errorProceso"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="#{controlParametroAutoliq.msgError}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorProceso').hide();" style="position: absolute; top: 170px; left: 330px;" process="@this"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlParametroAutoliq.msgError}"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorProceso').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorProcesoPila" header="#{msg['error']}" widgetVar="errorProcesoPila"  resizable="false" draggable="true" modal="true" height="150" width="450"  closable="false">  
+                    <p:dialog id="errorProcesoPila" header="#{msg['error']}" widgetVar="errorProcesoPila"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
-                        <h:outputText value="#{controlParametroAutoliq.msgError} #{controlParametroAutoliq.msgErrorAux}" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorProcesoPila').hide();" style="position: absolute; top: 130px; left: 330px;" process="@this"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlParametroAutoliq.msgError} #{controlParametroAutoliq.msgErrorAux}"/>
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorProcesoPila').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="procesoPilaOK" header="#{msg['informacion']}" widgetVar="procesoPilaOK"  resizable="false" draggable="true" modal="true" height="90" width="450"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="60" height="60" style="position: absolute; left: 15px; top: 10px;"/>
                         <h:outputText value="El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente" style="position: absolute; left:90px; top: 10px; width: 330px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('procesoPilaOK').hide();" style="position: absolute; top: 50px; left: 330px;" process="@this"/>
                     </p:dialog>
-                    
-                    
+
+
                     <p:dialog id="errorBorrar" header="#{msg['error']}" widgetVar="errorBorrar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="No hay información para borrar" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: justify"/>

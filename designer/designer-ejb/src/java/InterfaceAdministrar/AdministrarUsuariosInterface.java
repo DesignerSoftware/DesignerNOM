@@ -34,11 +34,11 @@ public interface AdministrarUsuariosInterface {
 
     public List<Pantallas> consultarPantallas();
 
-    public void modificarUsuarios(List<Usuarios> listaUsuarios);
+    public String modificarUsuarios(Usuarios Usuario);
 
-    public void borrarUsuarios(List<Usuarios> listaUsuarios);
+    public String borrarUsuarios(Usuarios Usuario);
 
-    public void crearUsuarios(List<Usuarios> listaUsuarios);
+    public String crearUsuarios(Usuarios Usuario);
 
     public String eliminarUsuariosBD(String alias);
 

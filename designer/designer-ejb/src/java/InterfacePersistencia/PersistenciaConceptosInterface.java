@@ -22,7 +22,7 @@ public interface PersistenciaConceptosInterface {
     *
     * @param concepto Concepto que se quiere crear.
     */
-   public void crear(EntityManager em, Conceptos concepto);
+   public String crear(EntityManager em, Conceptos concepto);
 
    /**
     * Método encargado de modificar un Concepto de la base de datos. Este método
@@ -31,7 +31,7 @@ public interface PersistenciaConceptosInterface {
     *
     * @param concepto Concepto con los cambios que se van a realizar.
     */
-   public void editar(EntityManager em, Conceptos concepto);
+   public String editar(EntityManager em, Conceptos concepto);
 
    /**
     * Método encargado de eliminar de la base de datos el Concepto que entra por
@@ -39,7 +39,7 @@ public interface PersistenciaConceptosInterface {
     *
     * @param concepto Concepto que se quiere eliminar.
     */
-   public void borrar(EntityManager em, Conceptos concepto);
+   public String borrar(EntityManager em, Conceptos concepto);
 
    /**
     * Método encargado de buscar todos los Conceptos existentes en la base de

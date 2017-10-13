@@ -121,6 +121,7 @@ public class ControlNovedadesVacaciones implements Serializable {
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private ListasRecurrentes listasRecurrentes;
+    private String msgError;
 
     public ControlNovedadesVacaciones() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -355,7 +356,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             if (listaNovedades == null) {
                 listaNovedades = new ArrayList<NovedadesSistema>();
             }
-            listaNovedades.add(0,nuevaNovedad);
+            listaNovedades.add(0, nuevaNovedad);
             novedadSeleccionada = nuevaNovedad;
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -435,7 +436,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaNovedadEmpleado').show()");
         }
         if (pasa == 0) {
-            listaNovedades.add(0,duplicarNovedad);
+            listaNovedades.add(0, duplicarNovedad);
             listaNovedadesCrear.add(duplicarNovedad);
             novedadSeleccionada = duplicarNovedad;
             if (guardado == true) {
@@ -689,6 +690,7 @@ public class ControlNovedadesVacaciones implements Serializable {
     //GUARDAR
     public void guardarCambiosNovedades() {
         Empleados emp = new Empleados();
+        msgError = "";
         if (guardado == false) {
 
             if (!listaNovedadesBorrar.isEmpty()) {
@@ -706,7 +708,7 @@ public class ControlNovedadesVacaciones implements Serializable {
                     if (listaNovedadesBorrar.get(i).getAdelantapagohasta() == null) {
                         listaNovedadesBorrar.get(i).setAdelantapagohasta(null);
                     }
-                    administrarNovedadesSistema.borrarNovedades(listaNovedadesBorrar.get(i));
+                    msgError = administrarNovedadesSistema.borrarNovedades(listaNovedadesBorrar.get(i));
                 }
                 listaNovedadesBorrar.clear();
             }
@@ -726,24 +728,29 @@ public class ControlNovedadesVacaciones implements Serializable {
                     if (listaNovedadesCrear.get(i).getAdelantapagohasta() == null) {
                         listaNovedadesCrear.get(i).setAdelantapagohasta(null);
                     }
-                    administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
+                    msgError = administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
                 }
                 listaNovedadesCrear.clear();
             }
-            limpiarNuevaNovedad();
-            limpiarduplicarNovedades();
-            listaNovedades = null;
-            getListaNovedades();
-            contarRegistrosNovedades();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            //  k = 0;
+
+            if (msgError.equals("EXITO")) {
+
+                listaNovedades = null;
+                getListaNovedades();
+                contarRegistrosNovedades();
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+                guardado = true;
+                permitirIndex = true;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                //  k = 0;
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardadoBD");
+                RequestContext.getCurrentInstance().execute("PF('errorGuardadoBD').show()");
+            }
         }
     }
 
@@ -1584,6 +1591,14 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void setAltoTablaAux(String altoTablaAux) {
         this.altoTablaAux = altoTablaAux;
+    }
+
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
     }
 
 }

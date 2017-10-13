@@ -89,29 +89,32 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
    }
 
    @Override
-   public void borrarNovedades(NovedadesSistema novedades) {
+   public String borrarNovedades(NovedadesSistema novedades) {
       try {
-         persistenciaNovedades.borrar(getEm(), novedades);
+        return persistenciaNovedades.borrar(getEm(), novedades);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".borrarNovedades() ERROR: " + e);
+         return e.getMessage();
       }
    }
 
    @Override
-   public void crearNovedades(NovedadesSistema novedades) {
+   public String crearNovedades(NovedadesSistema novedades) {
       try {
-         persistenciaNovedades.crear(getEm(), novedades);
+        return persistenciaNovedades.crear(getEm(), novedades);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".crearNovedades() ERROR: " + e);
+         return e.getMessage();
       }
    }
 
    @Override
-   public void modificarNovedades(NovedadesSistema novedades) {
+   public String modificarNovedades(NovedadesSistema novedades) {
       try {
-         persistenciaNovedades.editar(getEm(), novedades);
+        return persistenciaNovedades.editar(getEm(), novedades);
       } catch (Exception e) {
          log.error(this.getClass().getSimpleName() + ".modificarNovedades() ERROR: " + e);
+         return e.getMessage();
       }
    }
 

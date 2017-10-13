@@ -17,19 +17,19 @@ public interface PersistenciaNovedadesInterface {
      * Método encargado de insertar una Novedad en la base de datos.
      * @param novedades Novedad que se quiere crear.
      */
-    public void crear(EntityManager em, Novedades novedades);
+    public String crear(EntityManager em, Novedades novedades);
     /**
      * Método encargado de modificar una Novedad de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 
      * información de la base de datos.
      * @param novedades Novedad con los cambios que se van a realizar.
      */
-    public void editar(EntityManager em, Novedades novedades);
+    public String editar(EntityManager em, Novedades novedades);
     /**
      * Método encargado de eliminar de la base de datos la Novedad que entra por parámetro.
      * @param novedades Novedad que se quiere eliminar.
      */
-    public void borrar(EntityManager em, Novedades novedades);    
+    public String borrar(EntityManager em, Novedades novedades);    
     /**
      * Método encargado de buscar todas las novedades de un Empleado especifico.
      * @param secuenciaEmpleado Secuencia del Empleado al que se le quieren buscar las novedades.

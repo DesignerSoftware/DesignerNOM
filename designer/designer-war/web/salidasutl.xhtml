@@ -98,9 +98,10 @@
                         </fieldset>
                         <p:commandButton class="cssBotonCancelar" id="ATRAS"  actionListener="#{controlSalidasUTL.salir()}"  value=""/>
                     </p:panel>  
-                    <p:dialog id="errorDescargarArchivo" header="#{msg['error']}" widgetVar="errorDescargarArchivo"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                    <p:dialog id="errorDescargarArchivo" header="#{msg['error']}" widgetVar="errorDescargarArchivo"  resizable="false" draggable="true" modal="true" height="170" width="450"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                        <h:outputText value="#{controlSalidasUTL.msgError}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold; text-align: justify"/>
+                        <h:inputTextarea style="position: absolute; left: 90px; width: 340px; height: 120px; top: 10px;" value="#{controlSalidasUTL.msgError}"/>
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorDescargarArchivo').hide();" style="position: absolute; top: 150px; left: 330px;" process="@this"/>
                     </p:dialog>
 
                 </h:form> 

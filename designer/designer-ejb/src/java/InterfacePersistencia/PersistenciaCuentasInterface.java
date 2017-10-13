@@ -23,7 +23,7 @@ public interface PersistenciaCuentasInterface {
     *
     * @param cuentas Cuenta que se quiere crear.
     */
-   public void crear(EntityManager em, Cuentas cuentas);
+   public String crear(EntityManager em, Cuentas cuentas);
 
    /**
     * Método encargado de modificar una Cuenta de la base de datos. Este método
@@ -32,7 +32,7 @@ public interface PersistenciaCuentasInterface {
     *
     * @param cuentas Cuenta con los cambios que se van a realizar.
     */
-   public void editar(EntityManager em, Cuentas cuentas);
+   public String editar(EntityManager em, Cuentas cuentas);
 
    /**
     * Método encargado de eliminar de la base de datos la cuenta que entra por
@@ -40,7 +40,7 @@ public interface PersistenciaCuentasInterface {
     *
     * @param cuentas Cuenta que se quiere eliminar.
     */
-   public void borrar(EntityManager em, Cuentas cuentas);
+   public String borrar(EntityManager em, Cuentas cuentas);
 
    /**
     * Método encargado de buscar todas las cuentas existentes en la base de

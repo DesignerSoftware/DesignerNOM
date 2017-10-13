@@ -39,11 +39,11 @@ public interface AdministrarNovedadesTercerosInterface {
     
     public List<Conceptos> lovConceptos();
 
-    public void borrarNovedades(Novedades novedades);
+    public String borrarNovedades(Novedades novedades);
 
-    public void crearNovedades(Novedades novedades);
+    public String crearNovedades(Novedades novedades);
 
-    public void modificarNovedades(List<Novedades> listaNovedadesModificar);
+    public String modificarNovedades(Novedades novedades);
 
     public String alias();
 

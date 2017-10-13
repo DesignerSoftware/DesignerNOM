@@ -24,7 +24,7 @@ public interface PersistenciaNovedadesSistemaInterface {
     * @param em
     * @param novedades NovedadSistema que se quiere crear.
     */
-   public void crear(EntityManager em, NovedadesSistema novedades);
+   public String crear(EntityManager em, NovedadesSistema novedades);
 
    /**
     * Método encargado de modificar una NovedadSistema de la base de datos. Este
@@ -34,7 +34,7 @@ public interface PersistenciaNovedadesSistemaInterface {
     * @param em
     * @param novedades NovedadSistema con los cambios que se van a realizar.
     */
-   public void editar(EntityManager em, NovedadesSistema novedades);
+   public String editar(EntityManager em, NovedadesSistema novedades);
 
    /**
     * Método encargado de eliminar de la base de datos la NovedadSistema que
@@ -43,7 +43,7 @@ public interface PersistenciaNovedadesSistemaInterface {
     * @param em
     * @param novedades NovedadSistema que se quiere eliminar.
     */
-   public void borrar(EntityManager em, NovedadesSistema novedades);
+   public String borrar(EntityManager em, NovedadesSistema novedades);
 
    /**
     * Método encargado de buscar las NovedadesSistema ordenadas por

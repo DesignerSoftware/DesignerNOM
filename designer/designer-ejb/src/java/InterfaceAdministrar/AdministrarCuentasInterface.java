@@ -22,21 +22,21 @@ public interface AdministrarCuentasInterface {
      *
      * @param listaCuentas Lista de las Cuentas que se van a crear.
      */
-    public void crearCuentas(List<Cuentas> listaCuentas);
+    public String crearCuentas(List<Cuentas> listaCuentas);
 
     /**
      * Método encargado de editar Cuentas.
      *
      * @param listaCuentas Lista de las Cuentas que se van a modificar.
      */
-    public void modificarCuentas(List<Cuentas> listaCuentas);
+    public String modificarCuentas(List<Cuentas> listaCuentas);
 
     /**
      * Método encargado de borrar Cuentas.
      *
      * @param listaCuentas Lista de las Cuentas que se van a eliminar.
      */
-    public void borrarCuentas(List<Cuentas> listaCuentas);
+    public String borrarCuentas(List<Cuentas> listaCuentas);
 
     /**
      * Método encargado de recuperar las cuentas de una empresa.

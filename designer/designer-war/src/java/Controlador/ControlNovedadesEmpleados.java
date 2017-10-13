@@ -149,6 +149,7 @@ public class ControlNovedadesEmpleados implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     private ListasRecurrentes listasRecurrentes;
+    private String msgError = "";
 
     public ControlNovedadesEmpleados() {
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -398,10 +399,8 @@ public class ControlNovedadesEmpleados implements Serializable {
     public void guardarCambiosNovedades() {
 //        Empleados emp = new Empleados();
         if (guardado == false) {
-            log.info("Realizando Operaciones Novedades");
-
+            msgError = "";
             getResultado();
-            log.info("Resultado: " + resultado);
             if (resultado > 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDialogos:solucionesFormulas");
@@ -411,8 +410,6 @@ public class ControlNovedadesEmpleados implements Serializable {
 
             if (!listaNovedadesBorrar.isEmpty()) {
                 for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
-                    log.info("Borrando..." + listaNovedadesBorrar.size());
-
                     if (listaNovedadesBorrar.get(i).getPeriodicidad().getSecuencia() == null) {
                         listaNovedadesBorrar.get(i).setPeriodicidad(null);
                     }
@@ -428,16 +425,13 @@ public class ControlNovedadesEmpleados implements Serializable {
                     if (listaNovedadesBorrar.get(i).getUnidadespartefraccion() == null) {
                         listaNovedadesBorrar.get(i).setUnidadespartefraccion(null);
                     }
-                    administrarNovedadesEmpleados.borrarNovedades(listaNovedadesBorrar.get(i));
+                    msgError = administrarNovedadesEmpleados.borrarNovedades(listaNovedadesBorrar.get(i));
                 }
-                log.info("Entra");
                 listaNovedadesBorrar.clear();
             }
 
             if (!listaNovedadesCrear.isEmpty()) {
                 for (int i = 0; i < listaNovedadesCrear.size(); i++) {
-                    log.info("Creando...");
-
                     if (listaNovedadesCrear.get(i).getTercero().getSecuencia() == null) {
                         listaNovedadesCrear.get(i).setTercero(null);
                     }
@@ -457,31 +451,51 @@ public class ControlNovedadesEmpleados implements Serializable {
                     if (listaNovedadesCrear.get(i).getValortotal() == null) {
                         listaNovedadesCrear.get(i).setValortotal(new BigDecimal(0));
                     }
-                    log.info(listaNovedadesCrear.get(i).getTipo());
-                    administrarNovedadesEmpleados.crearNovedades(listaNovedadesCrear.get(i));
+                    msgError = administrarNovedadesEmpleados.crearNovedades(listaNovedadesCrear.get(i));
                 }
-                log.info("LimpiaLista");
                 listaNovedadesCrear.clear();
             }
             if (!listaNovedadesModificar.isEmpty()) {
-                administrarNovedadesEmpleados.modificarNovedades(listaNovedadesModificar);
+                for (int i = 0; i < listaNovedadesModificar.size(); i++) {
+                    if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
+                        listaNovedadesModificar.get(i).setTercero(null);
+                    }
+                    if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
+                        listaNovedadesModificar.get(i).setPeriodicidad(null);
+                    }
+                    if (listaNovedadesModificar.get(i).getSaldo() == null) {
+                        listaNovedadesModificar.get(i).setSaldo(null);
+                    }
+                    if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
+                        listaNovedadesModificar.get(i).setUnidadesparteentera(null);
+                    }
+                    if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
+                        listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
+                    }
+                    msgError = administrarNovedadesEmpleados.modificarNovedades(listaNovedadesModificar.get(i));
+                }
+
                 listaNovedadesModificar.clear();
             }
 
-            log.info("Se guardaron los datos con exito");
-            listaNovedades = null;
-            getListaNovedades();
-            novedadSeleccionada = null;
-            RequestContext context = RequestContext.getCurrentInstance();
-            activoBtnAcumulado = true;
-            RequestContext.getCurrentInstance().update("form:ACUMULADOS");
-            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            if (msgError.equals("EXITO")) {
+                listaNovedades = null;
+                getListaNovedades();
+                novedadSeleccionada = null;
+                RequestContext context = RequestContext.getCurrentInstance();
+                activoBtnAcumulado = true;
+                RequestContext.getCurrentInstance().update("form:ACUMULADOS");
+                RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+                guardado = true;
+                permitirIndex = true;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardadoBD");
+                RequestContext.getCurrentInstance().execute("PF('errorGuardadoBD').show()");
+            }
         }
     }
 
@@ -558,7 +572,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                 nuevaNovedad.setEmpleado(emp); //Envia empleado
                 log.info("Empleado enviado: " + emp.getNombreCompleto());
                 listaNovedadesCrear.add(nuevaNovedad);
-                listaNovedades.add(0,nuevaNovedad);
+                listaNovedades.add(0, nuevaNovedad);
                 contarRegistros();
                 novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(nuevaNovedad));
                 nuevaNovedad = new Novedades();
@@ -665,7 +679,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                 duplicarNovedad.setEmpleado(emp); //Envia empleado
                 log.info("Empleado enviado: " + emp.getNombreCompleto());
                 listaNovedadesCrear.add(duplicarNovedad);
-                listaNovedades.add(0,duplicarNovedad);
+                listaNovedades.add(0, duplicarNovedad);
                 contarRegistros();
                 novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
                 duplicarNovedad = new Novedades();
@@ -2428,4 +2442,11 @@ public class ControlNovedadesEmpleados implements Serializable {
         this.activarLOV = activarLOV;
     }
 
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
 }

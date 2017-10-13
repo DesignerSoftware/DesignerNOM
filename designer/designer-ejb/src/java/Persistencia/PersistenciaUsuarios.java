@@ -7,6 +7,7 @@ import Entidades.Usuarios;
 import InterfacePersistencia.PersistenciaUsuariosInterface;
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -15,6 +16,7 @@ import org.apache.log4j.Logger;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 @Stateless
 public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
@@ -51,17 +53,23 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
     }
 
     @Override
-    public void crear(EntityManager em, Usuarios usuarios) {
+    public String crear(EntityManager em, Usuarios usuarios) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(usuarios);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.crear:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaUsuarios.crear:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar la novedad ";
             }
         }
     }
@@ -116,37 +124,45 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
     }
 
     @Override
-    public void editar(EntityManager em, Usuarios usuarios) {
+    public String editar(EntityManager em, Usuarios usuarios) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(usuarios);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("Error PersistenciaUsuarios.editar:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("Error PersistenciaUsuarios.editar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar la novedad ";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, Usuarios usuarios) {
+    public String borrar(EntityManager em, Usuarios usuarios) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(usuarios));
             tx.commit();
-
+            return "EXITO";
         } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
                 log.error("Error PersistenciaUsuarios.borrar:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar la novedad ";
             }
         }
     }

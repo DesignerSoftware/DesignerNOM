@@ -367,6 +367,7 @@ public class ControlVigenciaDeporte implements Serializable {
                     listVigenciaDeporteBorrar.clear();
                 }
                 if (!listVigenciaDeporteCrear.isEmpty()) {
+                    msgError = "";
                     for (int i = 0; i < listVigenciaDeporteCrear.size(); i++) {
                         if (listVigenciaDeporteCrear.get(i).getDeporte().getSecuencia() == null) {
                             listVigenciaDeporteCrear.get(i).setDeporte(null);
@@ -376,6 +377,7 @@ public class ControlVigenciaDeporte implements Serializable {
                     listVigenciaDeporteCrear.clear();
                 }
                 if (!listVigenciaDeporteModificar.isEmpty()) {
+                    msgError = "";
                     for (int i = 0; i < listVigenciaDeporteModificar.size(); i++) {
                         if (listVigenciaDeporteModificar.get(i).getDeporte().getSecuencia() == null) {
                             listVigenciaDeporteModificar.get(i).setDeporte(null);
