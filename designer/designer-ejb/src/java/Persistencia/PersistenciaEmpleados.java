@@ -18,9 +18,12 @@ import Entidades.NovedadesSistema;
 import Entidades.Personas;
 import Entidades.PersonasAux;
 import java.math.BigDecimal;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceException;
 import javax.persistence.StoredProcedureQuery;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 @Stateless
 public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
@@ -29,17 +32,23 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
     private static Logger log = Logger.getLogger(PersistenciaEmpleados.class);
 
     @Override
-    public void crear(EntityManager em, Empleados empleados) {
+    public String crear(EntityManager em, Empleados empleados) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(empleados);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error("PersistenciaEmpleados.crear() e:  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error("PersistenciaEmpleados.crear() e:  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Crear el Empleado";
             }
         }
     }
@@ -87,33 +96,45 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
     }
 
     @Override
-    public void editar(EntityManager em, Empleados empleados) {
+    public String editar(EntityManager em, Empleados empleados) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.merge(empleados);
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error(this.getClass().getName() + ".editar() error  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error(this.getClass().getName() + ".editar() error  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Editar el empleado";
             }
         }
     }
 
     @Override
-    public void borrar(EntityManager em, Empleados empleados) {
+    public String borrar(EntityManager em, Empleados empleados) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.remove(em.merge(empleados));
             tx.commit();
+            return "EXITO";
         } catch (Exception e) {
-            log.error(this.getClass().getName() + ".borrar() error  ", e);
             if (tx.isActive()) {
                 tx.rollback();
+            }
+            if (e instanceof PersistenceException || e instanceof SQLIntegrityConstraintViolationException || e instanceof DatabaseException) {
+                log.error(this.getClass().getName() + ".borrar() error  ", e);
+                return e.toString();
+            } else {
+                return "Ha ocurrido un error al Eliminar el empleado";
             }
         }
     }

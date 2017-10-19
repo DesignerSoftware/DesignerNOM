@@ -74,13 +74,12 @@ public class AdministrarEmpleados implements AdministrarEmpleadosInterface {
     }
 
     @Override
-    public void editarEmpleado(List<Empleados> listaE) {
+    public String editarEmpleado(Empleados empleado) {
         try {
-            for (int i = 0; i < listaE.size(); i++) {
-                persitenciaEmpleados.editar(getEm(), listaE.get(i));
-            }
+            return persitenciaEmpleados.editar(getEm(), empleado);
         } catch (Exception e) {
             log.warn("erroe en AdministrarEmpleados.editarEmpleado : " + e);
+            return e.getMessage();
         }
     }
 

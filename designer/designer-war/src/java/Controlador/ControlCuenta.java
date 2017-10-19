@@ -509,10 +509,10 @@ public class ControlCuenta implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
                     listasRecurrentes.getLovCuentas().clear();
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
                 }
-            } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
-                RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
             }
         } catch (Exception e) {
             log.warn("Error guardarCambiosCuenta Controlador : " + e.toString());

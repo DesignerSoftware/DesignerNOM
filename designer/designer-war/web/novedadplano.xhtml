@@ -511,6 +511,7 @@
                            <p:ajax event="dblclick" listener="#{cargarArchivoPlano.llamarDialogoDocumentoSoporte()}"/>
                            <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarDocumentoSoporte}" update="@this"/>
                         </p:inputText>
+                        <p:commandButton  value="" icon="" style="position: absolute; top: 28px; left: 250px;" class="cssBotonLovDialogos" actionListener="#{cargarArchivoPlano.llamarDialogoDocumentoSoporte()}"/>
                         <p:commandButton id="aceptarR" value="#{msg['reversar']}" icon="ui-icon-check" style="position: absolute; top: 60px; left: 70px;" actionListener="#{cargarArchivoPlano.confirmarReversar()}"/>
                         <p:commandButton id="atrasR" value="#{msg['atras']}" icon="ui-icon-close" style="position: absolute; top: 60px; left: 180px;" actionListener="#{cargarArchivoPlano.cancelarReversar()}"/>
                      </fieldset>

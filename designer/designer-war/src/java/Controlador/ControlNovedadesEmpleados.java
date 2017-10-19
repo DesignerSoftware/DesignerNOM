@@ -1846,13 +1846,11 @@ public class ControlNovedadesEmpleados implements Serializable {
             if (tipoListaNov == 1) {
                 filtrarListaNovedades.remove(novedadSeleccionada);
             }
-            contarRegistrosLovEmpleados();
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             novedadSeleccionada = null;
-            if (guardado) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }

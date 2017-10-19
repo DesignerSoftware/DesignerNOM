@@ -20,7 +20,7 @@ public interface PersistenciaEmpleadoInterface {
      * @param em
      * @param empleados Empleado que se quiere crear.
      */
-    public void crear(EntityManager em, Empleados empleados);
+    public String crear(EntityManager em, Empleados empleados);
 
     public BigInteger crearConVCargo(EntityManager em, BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa,
             BigInteger secCargo, BigInteger secEstructura, Date fechaIngreso, BigInteger motivoCargo);
@@ -33,7 +33,7 @@ public interface PersistenciaEmpleadoInterface {
      * @param em
      * @param empleados Empleado con los cambios que se van a realizar.
      */
-    public void editar(EntityManager em, Empleados empleados);
+    public String editar(EntityManager em, Empleados empleados);
 
     /**
      * Método encargado de eliminar de la base de datos el empleado que entra
@@ -41,7 +41,7 @@ public interface PersistenciaEmpleadoInterface {
      *
      * @param empleados Empleado que se quiere eliminar.
      */
-    public void borrar(EntityManager em, Empleados empleados);
+    public String borrar(EntityManager em, Empleados empleados);
 
     /**
      * Método encargado de buscar el Empleado con la secuencia dada por

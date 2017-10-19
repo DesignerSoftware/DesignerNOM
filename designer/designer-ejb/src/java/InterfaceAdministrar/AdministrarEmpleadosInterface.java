@@ -19,7 +19,7 @@ public interface AdministrarEmpleadosInterface {
 
     public List<Empleados> listaEmpleados();
 
-    public void editarEmpleado(List<Empleados> listaE);
+    public String editarEmpleado(Empleados empleado);
 
     public void cambiarCodEmpl(BigDecimal codactual, BigDecimal codnuevo);
 

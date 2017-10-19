@@ -501,11 +501,9 @@ public class ControlNovedadesTerceros implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
             novedadSeleccionada = null;
-
-            if (guardado) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            contarRegistrosNove();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
@@ -532,7 +530,6 @@ public class ControlNovedadesTerceros implements Serializable {
             }
         }
 
-        log.info("getEmpleado " + nuevaNovedad.getEmpleado());
         if (nuevaNovedad.getEmpleado().getSecuencia() == null) {
             RequestContext.getCurrentInstance().update("formularioDialogos:inconsistencia");
             RequestContext.getCurrentInstance().execute("PF('inconsistencia').show()");
@@ -726,14 +723,14 @@ public class ControlNovedadesTerceros implements Serializable {
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-
-        if (novedadSeleccionada.getFechafinal().compareTo(novedadSeleccionada.getFechainicial()) < 0) {
-            log.info("La fecha Final es Menor que la Inicial");
-            RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-            RequestContext.getCurrentInstance().execute("PF('fechas').show()");
+        if (novedadSeleccionada.getFechafinal() != null) {
+            if (novedadSeleccionada.getFechafinal().compareTo(novedadSeleccionada.getFechainicial()) < 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
+                RequestContext.getCurrentInstance().execute("PF('fechas').show()");
 //            novedadSeleccionada.setFechainicial(novedadBackup.getFechainicial());
 //            novedadSeleccionada.setFechafinal(novedadBackup.getFechafinal());
-            RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
+                RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
+            }
         }
 
         if (confirmarCambio.equalsIgnoreCase("N")) {
@@ -923,10 +920,12 @@ public class ControlNovedadesTerceros implements Serializable {
             mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
             pasa++;
         }
-        if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getFechafinal()) > 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-            RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-            pasa2++;
+        if (duplicarNovedad.getFechafinal() != null) {
+            if (duplicarNovedad.getFechainicial().compareTo(duplicarNovedad.getFechafinal()) > 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
+                RequestContext.getCurrentInstance().execute("PF('fechas').show()");
+                pasa2++;
+            }
         }
         if (duplicarNovedad.getEmpleado().getNombreCompleto().equals(" ")) {
             log.info("Entro a Empleado");

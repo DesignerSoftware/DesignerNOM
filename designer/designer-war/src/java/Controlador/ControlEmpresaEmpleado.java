@@ -71,6 +71,7 @@ public class ControlEmpresaEmpleado implements Serializable {
     private DataTable tablaC;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String msgError;
 
     public ControlEmpresaEmpleado() {
         listaEmpleados = null;
@@ -317,22 +318,32 @@ public class ControlEmpresaEmpleado implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (guardado == false) {
+
+                msgError = "";
                 if (!listaEmpleadosModificar.isEmpty()) {
-                    administarEmpleados.editarEmpleado(listaEmpleadosModificar);
+                    for (int i = 0; i < listaEmpleadosModificar.size(); i++) {
+                        msgError = administarEmpleados.editarEmpleado(listaEmpleadosModificar.get(i));
+                    }
                     listaEmpleadosModificar.clear();
                 }
-                listaEmpleados = null;
-                getListaEmpleados();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                contarRegistros();
-                empleadoSeleccionado = null;
+                if (msgError.equals("EXITO")) {
+
+                    listaEmpleados = null;
+                    getListaEmpleados();
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                    contarRegistros();
+                    empleadoSeleccionado = null;
+                    guardado = true;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:datosEmpresaEmpleado");
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:errorGuardado");
+                    RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
+                }
             }
-            guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosEmpresaEmpleado");
         } catch (Exception e) {
             log.warn("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
@@ -455,8 +466,8 @@ public class ControlEmpresaEmpleado implements Serializable {
     public void habilitarBotonLov() {
         activarLov = false;
     }
-    
-     public void posicionOtro() {
+
+    public void posicionOtro() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String name = map.get("n"); // name attribute of node
@@ -697,7 +708,7 @@ public class ControlEmpresaEmpleado implements Serializable {
     }
 
     public List<Empresas> getLovEmpresas() {
-        if(lovEmpresas == null){
+        if (lovEmpresas == null) {
             lovEmpresas = administrarEmpresas.listaEmpresas();
         }
         return lovEmpresas;
@@ -761,4 +772,11 @@ public class ControlEmpresaEmpleado implements Serializable {
         this.infoRegistroEmpresas = infoRegistroEmpresas;
     }
 
+    public String getMsgError() {
+        return msgError;
+    }
+
+    public void setMsgError(String msgError) {
+        this.msgError = msgError;
+    }
 }
